@@ -1,0 +1,11 @@
+(function() {
+    if ($('.comment__content.edit_comment_<%= @comment.id %>').length > 0) {
+        // edit for registered_author & unregistered_author full edition
+        $('.comment__content.edit_comment_<%= @comment.id %>')
+          .replaceWith("<%= escape_javascript(render 'decidim/comments_extended/comments/full_comment_form', comment: @comment, form_object: @form, close_modal: close_modal) %>");
+    } else {
+        // edit - second step for unregistered_author
+        $('.update-comment')
+          .replaceWith("<%= escape_javascript(render 'decidim/comments_extended/comments/update_comments_form', comment: @comment, form_object: @form, close_modal: close_modal) %>");
+    }
+}());

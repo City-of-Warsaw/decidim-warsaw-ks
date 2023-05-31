@@ -1,0 +1,7 @@
+<div id="<%= dom_id(model, :follow) %>">
+  <% if current_user %>
+    <%= follow_for_registered_user %>
+  <% else %>
+    <%= follow_for_unregistered_user %>
+  <% end %>
+</div>

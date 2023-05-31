@@ -1,0 +1,8 @@
+<% url = attached_to.is_a?(Decidim::ConsultationRequests::ConsultationRequest) ? url_for([:admin, @attachment.attached_to, @attachment]) : url_for([@attachment.attached_to, @attachment]) %>
+<%= decidim_form_for(@form, url: url, html: { class: "form edit_attachment" }) do |f| %>
+  <%= render partial: "decidim/admin/attachments/form", object: f, locals: { title: t(".title") } %>
+
+  <div class="button--double form-general-submit">
+    <%= f.submit t(".update") %>
+  </div>
+<% end %>

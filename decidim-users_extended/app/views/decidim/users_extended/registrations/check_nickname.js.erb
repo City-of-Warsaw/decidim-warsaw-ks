@@ -1,0 +1,24 @@
+(function() {
+    // let info_container = $('.user-nickname-msg')
+    let info_prefix = $('.user-nickname .prefix');
+    let info_container = $('.user-nickname-usage-msg');
+
+    <% if @user_found %>
+//      info_prefix.removeClass('success').addClass('alert').text('Zajęte');
+      info_prefix.removeClass('success').addClass('alert');
+      info_prefix.attr('title', 'Zajęte');
+      info_container.removeClass('success').addClass('alert');
+      info_container.text('Ta nazwa jest już zajęta');
+    <% elsif @banned_word_message %>
+      info_prefix.removeClass('success').addClass('alert');
+      info_prefix.attr('title', 'Zajęte');
+      info_container.removeClass('success').addClass('alert');
+      info_container.text('Nazwa użytkownika może składać się tylko z liter, cyfr i znaków podkreślenia. Nie używaj znaków specjalnych i spacji.');
+    <% else %>
+//      info_prefix.removeClass('alert').addClass('success').text('Dostępne');
+      info_prefix.removeClass('alert').addClass('success');
+      info_prefix.attr('title', 'Dostępne');
+      info_container.removeClass('alert').addClass('success');
+      info_container.text('Nazwa jest dostępna');
+    <% end %>
+}())

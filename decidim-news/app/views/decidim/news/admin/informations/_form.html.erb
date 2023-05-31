@@ -1,0 +1,23 @@
+<div class="row column">
+  <%= form.text_field :title %>
+</div>
+
+<div class="row column">
+  <%= form.editor :body %>
+</div>
+
+<div class="row column">
+  <%= form.collection_select :gallery_id,
+                             Decidim::Repository::Gallery.alphabetical, :id, :name,
+                             include_blank: true,
+                             label: t("models.components.gallery_id", scope: "decidim.forms.admin") %>
+</div>
+
+<div class="row column">
+  <%= form.select :users_action_allowed_for_unregister_users,
+                  options_for_select(
+                    [[ 'Wszyscy', true ],
+                     [ 'Tylko zalogowani', false ]],
+                    selected: @form.users_action_allowed_for_unregister_users)
+  %>
+</div>

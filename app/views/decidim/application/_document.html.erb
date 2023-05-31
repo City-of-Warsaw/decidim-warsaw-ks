@@ -1,0 +1,22 @@
+<div class="card--list__item">
+  <div class="card--list__text">
+    <div>
+      <a href="<%= document.url %>" class="card__link" target="_blank">
+        <h4 class="card--list__heading heading6">
+          <%= attachment_title(document) %>
+          <span class="show-for-sr"> otwiera się w nowej karcie</span>
+        </h4>
+      </a><br />
+
+      <small>
+        <%= document.file_type.upcase %>, 
+        <%= '%.2f' % ((document.file_size.to_f / 1024000.0).ceil(2)) %> MB
+      </small>
+    </div>
+  </div>
+  <div class="card--list__data">
+    <%= link_to document.url, target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t(".download") do %>
+      <%= image_tag 'download-icon.png' %>
+    <% end %>
+  </div>
+</div>

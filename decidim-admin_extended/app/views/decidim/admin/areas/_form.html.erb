@@ -1,0 +1,15 @@
+<div class="row column">
+  <%= form.translated :text_field, :name %>
+</div>
+
+<div class="row">
+  <div class="columns large-6">
+    <%= form.color_field :color, value: area&.color.presence || current_organization.colors["primary"] %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns large-6">
+    <%= form.color_field :text_color, value: area&.text_color.presence ||'#ffffff', help_text: t('.text_color').html_safe %>
+  </div>
+</div>

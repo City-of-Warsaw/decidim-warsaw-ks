@@ -1,0 +1,26 @@
+<div class="">
+  <h3 class="click-on-map"><%= t('.click_on_map').html_safe %></h3>
+
+  <div id="map" class="map"></div>
+
+  <div class="field mt-s locations locations-list">
+    <%= form.hidden_field :locations_json, id: 'all_locations' %>
+  </div>
+  <div class="auto-search-wrapper">
+    <input type="text"
+           autocomplete="off"
+           id="search"
+           class="full-width <%= @form.errors[:locations_json].present? ? 'is-invalid-input' : nil %>"
+           placeholder="Wpisz adres (min. 5 znaków)"
+           aria-describedby="location-with-toggle">
+  </div>
+
+  <% if @form.errors[:locations_json].present? %>
+    <span class="form-error is-visible">
+      <%= @form.errors[:locations_json][0] %>
+    </span>
+  <% end %>
+  <%= javascript_include_tag "locations-map/locations-map" %>
+</div>
+
+

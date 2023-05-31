@@ -1,0 +1,17 @@
+<% add_decidim_page_title(t("devise.sessions.new.sign_in")) %>
+
+<h2 class="text-center pt-s mb-m"><%= t("decidim.users_extended.admin.sessions.new.sign_in") %></h2>
+
+<%= decidim_form_for(@form, namespace: "session", url: login_path, html: { class: "register-form new_user" }) do |f| %>
+  <div>
+    <div class="field">
+      <%= f.text_field :nickname, label: t('nickname', scope: "decidim.users_extended.admin.sessions.new") %>
+    </div>
+    <div class="field">
+      <%= f.password_field :password, autocomplete: "off", label: t('password', scope: "decidim.users_extended.admin.sessions.new") %>
+    </div>
+    <div class="field text-center">
+      <%= f.submit t('submit', scope: "decidim.users_extended.admin.sessions.new") %>
+    </div>
+  </div>
+<% end %>

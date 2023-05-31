@@ -1,0 +1,20 @@
+<%= content_tag :div, id: node_id, data: { decidim_comments: comments_data } do %>
+  <div class="columns large-12 comments-container" id="comments-<%= node_id %>">
+    <div class="comments">
+      <div class="comment-threads">
+        <% comments.each do |comment| %>
+          <%= cell("decidim/comments/comment_thread", comment, order: order) %>
+        <% end %>
+      </div>
+
+      <% if !model.component.users_action_disallowed? || (current_user && current_user.has_ad_role?) %>
+        <%= add_comment %>
+      <% end %>
+    </div>
+    <div class="callout primary loading-comments hide">
+      <p><%= t("decidim.components.comments.loading") %></p>
+    </div>
+  </div>
+<% end %>
+<%# TODO: to generuje przy kazdym proposalu na liscie proposali skrypty do komentarzy!%>
+<%= javascript_include_tag("decidim/comments/comments") %>

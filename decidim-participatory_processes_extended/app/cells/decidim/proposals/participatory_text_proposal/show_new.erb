@@ -1,0 +1,16 @@
+<div class="row mt-s">
+  <div class="columns mediumlarge-9 small-12">
+    <%= title %>
+  </div>
+</div>
+<div id="<%= node_id %>" data-toggler=".hide" class="hide">
+  <div class="row">
+    <div class="columns mediumlarge-9 small-12">
+      <div class="ql-editor participatory-text-content">
+        <%= quill_sanitize body %>
+      </div>
+    </div>
+  </div>
+  <%= render :participatory_space %>
+</div>
+

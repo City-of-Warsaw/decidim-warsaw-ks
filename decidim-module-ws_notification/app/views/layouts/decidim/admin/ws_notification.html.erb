@@ -1,0 +1,15 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= t "decidim.admin.titles.ws_messages" %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("ws_messages.new.title", scope: "decidim.ws_notification.admin"), [:new, :admin, :ws_message], class: "button expanded small new" %>
+      <%= link_to t("ws_messages.index.title", scope: "decidim.ws_notification.admin"), [:admin, :ws_messages], class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

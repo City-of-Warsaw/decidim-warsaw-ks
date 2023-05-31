@@ -1,0 +1,35 @@
+wb =  xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  sheet.add_row [
+                  'Lp.',
+                  t("models.user_question.fields.author_name", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.body", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.email", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.age", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.gender", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.district", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.status", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.created_at", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.answered_at", scope: "decidim.expert_questions"),
+                  t("models.expert.fields.name", scope: "decidim.expert_questions"),
+                  t("models.user_question.fields.expert_answer", scope: "decidim.expert_questions"),
+                  'Odpowiedź opublikowano?'
+                ]
+  user_questions.each_with_index do |user_question, index|
+    sheet.add_row [
+                    index + 1,
+                    user_question.author.is_a?(Decidim::User) ? user_question.author.name : t("decidim.comments_extended.models.comment.fields.unregistered_author"),
+                    user_question.body,
+                    user_question.email,
+                    user_question.age.present? ? I18n.t("age.#{user_question.age}", scope: "decidim.comments") : nil,
+                    user_question.gender.present? ? I18n.t("gender.#{user_question.gender}", scope: "decidim.users") : nil,
+                    translated_attribute(user_question.district&.name),
+                    t("models.user_question.fields.statuses.#{user_question.status}", scope: "decidim.expert_questions"),
+                    l(user_question.created_at, format: :short),
+                    user_question.expert_answer ? l(user_question.expert_answer.created_at, format: :short) : nil,
+                    user_question.expert.name,
+                    user_question.expert_answer&.body,
+                    user_question.expert_answer&.published? ? 'Tak' : 'Nie'
+                  ]
+  end
+end

@@ -1,0 +1,84 @@
+<%= javascript_include_tag "decidim/repository/admin/video.min" %>
+<%= javascript_include_tag "decidim/repository/admin/video-js-pl.js" %>
+<%= stylesheet_link_tag "decidim/repository/admin/video-js.css" %>
+
+
+<div class="card" id="consultation_requests">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t "decidim.admin.titles.files" %> / <%= @file.name %>
+      <%= link_to t("actions.edit", scope: "decidim.admin"), decidim_repository.edit_admin_file_path(@file), class: "button tiny button--title new" %>
+    </h2>
+  </div>
+  <div class="card-section">
+
+    <% if @file.image? %>
+      <%= image_tag(decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment")) %>
+    <% elsif @file.media? %>
+      <video
+        id="my-video"
+        class="video-js"
+        controls
+        preload="auto"
+        width="640"
+        height="264"
+        data-setup="{}"
+      >
+        <source src="<%= decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment") %>" type="<%= @file.file.content_type %>" />
+      </video>
+    <% end %>
+
+    <div class="row column">
+      <p>
+        <strong>Link do pliku:</strong> <%= link_to @file.file.filename, decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment"), target: '_blank' %>
+      </p>
+      <p>
+        <% if @file.audio_description.attached? %>
+          <strong>Plik audiodeskrypcji:</strong> <%= link_to @file.audio_description.filename, decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.audio_description, disposition: "attachment"), target: '_blank' %>
+          <br>
+        <% end %>
+        <% if @file.subtitles.attached? %>
+          <strong>Plik z napisami:</strong> <%= link_to @file.subtitles.filename, decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.subtitles, disposition: "attachment"), target: '_blank' %>
+          <br>
+        <% end %>
+        <% if @file.subtitles_for_readers.attached? %>
+          <strong>Plik z napisami dla czytników:</strong> <%= link_to @file.subtitles_for_readers.filename, decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.subtitles_for_readers, disposition: "attachment"), target: '_blank' %>
+        <% end %>
+      </p>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.name", scope: "decidim.admin") %>:</strong> <%= @file.name %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.filename", scope: "decidim.admin") %>:</strong> <%= @file.file.filename %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.content_type", scope: "decidim.admin") %>:</strong> <%= @file.file.content_type %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.size", scope: "decidim.admin") %>:</strong> <%= number_to_human_size @file.file.byte_size %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.author", scope: "decidim.admin") %>:</strong> <%= @file.author %>
+    </div>
+    <div class="row column">
+      <strong><%= t("activemodel.attributes.file.alt") %>:</strong> <%= @file.alt %>
+    </div>
+    <div class="row column">
+      <strong><%= t("activemodel.attributes.file.copyright") %>:</strong> <%= @file.copyright %>
+    </div>
+    <div class="row column">
+      <strong><%= t("activemodel.attributes.file.folder_id") %>:</strong> <%= @file.folder&.name %>
+    </div>
+    <div class="row column">
+      <strong><%= t("activemodel.attributes.file.creator") %>:</strong> <%= @file.creator&.name %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.created_at", scope: "decidim.admin") %>:</strong> <%= l @file.created_at, format: :decidim_short %>
+    </div>
+    <div class="row column">
+      <strong><%= t("models.file.fields.updated_at", scope: "decidim.admin") %>:</strong> <%= l @file.updated_at, format: :decidim_short %>
+    </div>
+
+  </div>
+</div>

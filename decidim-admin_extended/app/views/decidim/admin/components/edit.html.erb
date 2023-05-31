@@ -1,0 +1,16 @@
+<%= decidim_form_for([current_participatory_space, @form], url: component_path(current_participatory_space, @component), method: "put", html: { class: "form edit_component" }) do |form| %>
+  <%= render partial: "form", object: form, locals: { component: @component, title: t(".title", name: t("#{@component.manifest.name}.name", scope: "decidim.components")) } %>
+
+  <div class="button--double form-general-submit">
+    <%= form.submit t(".update") %>
+
+    <% if allowed_to? :publish, :component, component: @component %>
+      <% if @component.published? %>
+        <%= link_to t("actions.unpublish", scope: "decidim.admin"), url_for(action: :unpublish, id: @component, controller: "components"), method: :put, class: "button muted" %>
+      <% else %>
+        <%= link_to t("actions.publish", scope: "decidim.admin"), url_for(action: :publish, id: @component, controller: "components"), method: :put, class: "button hollow" %>
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>

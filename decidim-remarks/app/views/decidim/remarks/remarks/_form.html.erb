@@ -1,0 +1,32 @@
+<div class="field remark-field--body">
+  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'show-for-sr' %>
+  <%= form.text_area(
+        :body,
+        id: 'add+remark',
+        rows: 4,
+        maxlength: form_object.max_characters,
+        required: true,
+        placeholder: t('activemodel.attributes.remark.body') + "*",
+        label: false,
+        data: { remaining_characters: "#ask_question-remaining-characters" },
+        aria: { describedby: "ask_question-remaining-characters" }
+      ) %>
+  <span id="ask_question-remaining-characters" class="remaining-character-count keep-low"></span>
+</div>
+<div class="field file-field remark-field--files position-relative">
+  <%= form.file_field :files,
+        label: false, 
+        class: 'multifile hidden',
+        accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+        multiple: true
+  %> 
+
+  <button type="button" class="remark-file-button attachment-button-js" data-target="#remark_files">Dodaj załącznik</button>
+</div>
+ 
+<% unless current_user %>
+  <div class="field remark-field--signature">
+    <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+    <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
+  </div>
+<% end %>

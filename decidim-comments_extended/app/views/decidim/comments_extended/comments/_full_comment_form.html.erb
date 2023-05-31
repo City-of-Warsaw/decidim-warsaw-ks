@@ -1,0 +1,89 @@
+<% edit_comment_id = "edit_comment_#{comment.id}" %>
+<div class="comment__content <%= edit_comment_id %> edit-comment">
+  <button class="close-button close-second-step-comment-<%= comment.id %>-button-js" data-close aria-label="<%= t("update.close_second_step", scope: "decidim.comments.comments") %>" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <% url = current_user ? decidim_comments_extended.full_update_comment_path(comment) : decidim_comments_extended.full_update_comment_path(comment, comment_token: session[:comment_token]) %>
+  <%= form_for(form_object, url: url, method: :patch, remote: true, html: { id: "#{edit_comment_id}-form" }) do |form| %>
+    <div>
+      <div class="comment-field--body">
+        <label class="show-for-sr" for="<%= "#{edit_comment_id}-body" %>">
+          <%= t("decidim.components.add_comment_form.form.body.label") %>
+        </label>
+        <%= form.text_area(
+              :body,
+              id: "#{edit_comment_id}-body",
+              rows: 4,
+              maxlength: comments_max_length,
+              required: true,
+              placeholder: t("decidim.components.add_comment_form.form.body.placeholder"),
+              label: false,
+              data: { remaining_characters: "##{edit_comment_id}-remaining-characters" },
+              aria: { describedby: "#{edit_comment_id}-remaining-characters" }
+            ) %>
+        <span id="<%= edit_comment_id %>-remaining-characters" class="remaining-character-count for-unregistered-user"></span>
+      </div>
+
+      <div class="field file-field comment-field--files position-relative">
+        <%= form.file_field :files,
+              label: false,  
+              class: 'multifile hidden',
+              id: "comment_files_" + edit_comment_id,
+              accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+              multiple: true
+        %> 
+
+        <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= edit_comment_id %>">Dodaj załącznik</button>
+      </div> 
+
+      <% unless current_user %>
+        <div class="field comment-field--signature">
+          <label class="show-for-sr" for="<%= edit_comment_id %>-comment_signature">
+            <%= t("decidim.components.add_comment_form.form.signature.label") %>
+          </label>
+          <%= form.text_field :signature,
+                              required: true,
+                              id: "#{edit_comment_id}-comment_signature",
+                              placeholder: t("decidim.components.add_comment_form.form.signature.placeholder"),
+                              label: false
+          %>
+        </div> 
+      
+        <%# <fieldset class="mt-sm">
+          <legend>
+            <%= t("decidim.components.add_comment_form.form.email.label")  
+          </legend>
+          
+          <div class="field comment-field--email">
+            <%= form.email_field :email, placeholder: t("decidim.components.add_comment_form.form.email.placeholder"), label: false  
+          </div>
+        </fieldset>
+
+        <fieldset class="mt-sm">
+          <legend><%= t("decidim.components.add_comment_form.form.statistics_info")  </legend>
+          <div class="comment-field--selects"> 
+            <%= form.select :age,
+                            form_object.user_age_for_select,
+                            { include_blank: t("decidim.components.add_comment_form.form.select_age"), label: false },
+                            { multiple: false }  
+            <%= form.select :gender,
+                            form_object.user_gender_for_select,
+                            { class: 'select-column', include_blank: t("decidim.components.add_comment_form.form.select_gender"), label: false },
+                            { multiple: false }  
+            <%= form.select :district_id,
+                            form_object.user_districts_for_select,
+                            { include_blank: t("decidim.components.add_comment_form.form.select_a_district"), label: false },
+                            { multiple: false } 
+          </div>
+        </fieldset> %>
+      <% end %>
+
+      <div class="row actions">
+        <div class='pull-right'>
+          <%= form.submit t("decidim.components.add_comment_form.form.clear"), type: 'reset', class: "clear-link" %>
+          <%= form.submit t("decidim.components.add_comment_form.form.save"), class: "button", data: { disable: true } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,8 @@
+<% unless cookies_accepted? %>
+  <div class="cookie-warning">
+    <p class="inline-block mb-none"><%= t('.description_html', link: link_to(t('.link_label').html_safe, decidim.page_path('terms-and-conditions'), target: "_blank")) %></p>
+    <div class="cookie-warning__action">
+      <%= button_to t('.ok'), decidim.accept_cookies_path, method: :get, remote: true, class: "button tiny cookie-bar__button" %> <span class="show-for-sr"> na ciasteczka</span>
+    </div>
+  </div>
+<% end %>

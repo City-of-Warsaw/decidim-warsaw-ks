@@ -1,0 +1,114 @@
+<% add_decidim_meta_tags({
+                           image_url: current_participatory_space.hero_image.url,
+                           description: translated_attribute(current_participatory_space.short_description),
+                           url: participatory_process_url(current_participatory_space),
+                           twitter_handler: current_organization.twitter_handler
+                         }) %>
+
+<%
+  edit_link(
+    resource_locator(current_participatory_space).edit,
+    :update,
+    :process,
+    process: current_participatory_space
+  )
+%>
+
+<%= participatory_space_floating_help %>
+
+<% if current_participatory_space.private_space? %>
+  <%= render partial: "decidim/shared/private_participatory_space",
+             locals: { text: t("private_space", scope: "decidim.participatory_processes.show") } %>
+<% end %>
+
+<%= cell("decidim/announcement", current_participatory_space.announcement, callout_class: "ql-editor secondary") %>
+
+<div class="row column">
+  <div class="row process-row">
+      <div class="section ql-editor fix-swipebox process-description-mobile <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>">
+        <%= render 'reports', process: current_participatory_space %>
+        
+        <% if participatory_process_group.present? %>
+          <%= render partial: "participatory_process_group" %>
+        <% end %>
+        <div class="lead">
+          <%= quill_sanitize translated_attribute(current_participatory_space.short_description) %>
+        </div>
+        <%= quill_sanitize translated_attribute(current_participatory_space.description) %>
+      </div>
+
+    <div class="columns medium-7 mediumlarge-8"> 
+      <%= render 'reports', process: current_participatory_space %>
+      
+      <div class="section ql-editor fix-swipebox process-description-desktop <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>">
+        <% if participatory_process_group.present? %>
+          <%= render partial: "participatory_process_group" %>
+        <% end %>
+        <div class="lead">
+          <%= quill_sanitize translated_attribute(current_participatory_space.short_description) %>
+        </div>
+        <%= quill_sanitize translated_attribute(current_participatory_space.description) %>
+      </div>
+
+      <% if map_remarks.any? %>
+        <%= render 'decidim/consultation_map/remarks/widget', collection: map_remarks, current_component: map_component %>
+      <% end %>
+
+      <%= render 'decidim/shared/gallery_attachments', model: current_participatory_space %>
+      <%= attachments_for current_participatory_space %>
+
+      <%#= render_hook(:participatory_space_highlighted_elements) %>
+
+      <% if related_processes.any? %>
+        <div class="section row collapse related_processes">
+          <h4 class="section-heading"><%= t "related_processes", scope: "decidim.participatory_processes.show" %></h4>
+          <ul class="collapsible-list row small-up-1 medium-up-1 large-up-2 card-grid" role="list">
+            <% related_processes.each do |related_process| %>
+              <%= card_for(related_process) %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if linked_assemblies.any? %>
+        <div class="section">
+          <h4 class="section-heading"><%= t("participatory_process.show.related_assemblies", scope: "decidim") %></h4>
+          <div class="row small-up-1 medium-up-2 card-grid">
+            <% linked_assemblies.each do |linked_assembly| %>
+              <%= card_for(linked_assembly) %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="section columns medium-5 mediumlarge-4 large-3 process-small-column">
+      <div class="card extra follow-box">
+        <div class="card__content">
+          <%= render partial: "decidim/shared/follow_button",
+                     locals: { followable: current_participatory_space, large: false } %>
+        </div>
+      </div>
+      <div class="card extra share-box">
+        <div class="card__content">
+          <%= render "decidim/shared/share_modal" %>
+        </div>
+      </div> 
+
+      <% if current_participatory_space.steps.any? %>
+        <ul class="card timeline-box">
+          <%= render partial: "timeline", locals: { model: current_participatory_space } %>
+        </ul>
+      <% end %>
+
+      <% if current_participatory_space.steps.count > 3 %>
+        <button class="button button-primary timeline-visibility-button timeline-visibility-toggle-js" data-show="<%= t('.show_all_timeline') %>" data-hide="<%= t('.hide_timeline') %>">
+          <%= t('.show_all_timeline') %>
+        </button>
+      <% end %>
+
+      <%= render "right_column", model: current_participatory_space %>
+    </div>
+  </div>
+
+</div>

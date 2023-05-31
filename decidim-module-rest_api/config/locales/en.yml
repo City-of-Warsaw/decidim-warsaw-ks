@@ -1,0 +1,6 @@
+---
+en:
+  decidim:
+    components:
+      rest_api:
+        name: RestApi

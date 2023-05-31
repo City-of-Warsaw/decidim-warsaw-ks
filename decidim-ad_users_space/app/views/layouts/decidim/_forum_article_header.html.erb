@@ -1,0 +1,21 @@
+<section class="extended hero home-section">
+  <div class="hero__bg-image">
+    <%= image_tag(main_background_image) %>
+  </div>
+  
+  <div class="hero__container lower">
+    <div class="row">
+      <div class="columns small-centered large-10">
+        <h1 class="text-highlight heading1 hero-heading">
+          <%= t("decidim.forum_article.hero.header") %>
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-centered small-12 medium-12 mediumlarge-12">
+        <h2 class="hero-second-heading white-text"><%= t("decidim.forum_article.hero.sub_header") %></h2>
+      </div>
+    </div>
+  </div>
+  <%= cell('decidim/content_blocks/hero', current_organization).consultation_decor.html_safe %>
+</section>

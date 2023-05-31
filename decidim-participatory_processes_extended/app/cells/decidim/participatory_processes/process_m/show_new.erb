@@ -1,0 +1,16 @@
+<li class="column li-reset <%= area_class %>" id="<%= dom_id(model) %>">
+  <%= link_to resource_path, class: 'card card--process' do %>
+    <%= render :image if has_image? %>
+    <div class="card__content">
+      <%= render :header if has_header? %>
+
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <p><%= description %></p>
+        </div>
+      </div>
+    </div>
+
+    <%= render :footer_new %>
+  <% end %>
+</li>

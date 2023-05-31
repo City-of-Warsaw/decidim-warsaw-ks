@@ -1,0 +1,40 @@
+<%= filter_form_for filter do |form| %>
+  <a class="skip" href="#remarks"></a>
+  <div class="filters__section">
+    <div class="filters__search">
+      <div class="input-group">
+        <%= form.search_field :search_text, label: false, class: "input-group-field", placeholder: t(".search"), title: t(".search"), data: { disable_dynamic_change: true } %>
+        <div class="input-group-button">
+          <button type="submit" class="button" aria-controls="user_questions">
+            <%= icon "magnifying-glass", aria_label: t(".search"), role: "img" %>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="auto-search-wrapper map">
+      <label for="search" class="show-for-sr"><%= t('.search_map_for_address') %></label>
+      <input type="text"
+             autocomplete="off"
+             id="search"
+             class="input-group-field"
+             aria-label="<%= t('.search_map_for_address') %>"
+             placeholder="<%= t('.search_map_for_address') %>">
+    </div>
+
+    <% if current_participatory_space.categories.any? %>
+      <div class="auto-search-wrapper pull-right">
+        <label for="search" class="show-for-sr"><%= t('.select_category') %></label>
+          <%= form.select :decidim_category_id,
+                          current_participatory_space.categories.map{ |cat| [translated_attribute(cat.name), cat.id]},
+                          { label: false, include_blank: t(".select_category") },
+                          { multiple: false } %>
+      </div>
+    <% end %>
+
+    <div class="clearfix"></div>
+    <div class="share-map">
+      <%= render "decidim/shared/share_modal" %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+<% end %>

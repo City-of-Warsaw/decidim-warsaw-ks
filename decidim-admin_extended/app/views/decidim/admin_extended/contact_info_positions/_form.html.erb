@@ -1,0 +1,29 @@
+<div class="row column">
+  <%= f.text_field :name, autofocus: true %>
+</div>
+
+<div class="row column">
+  <%= f.text_field :position %>
+</div>
+
+<div class="row column">
+  <%= f.text_field :phone %>
+</div>
+
+<div class="row column">
+  <%= f.text_field :email %>
+</div>
+
+<div class="row">
+  <%= f.label :published %>
+  <%= f.radio_button :published, false, label: t(".published_no") %>
+  <%= f.radio_button :published, true, label: t(".published_yes") %>
+</div>
+
+<div class="row column">
+  <%= f.collection_select :contact_info_group_id, contact_info_groups, :id, :name, include_blank: t(".none") %>
+</div>
+
+<div class="row column">
+  <%= f.number_field :weight %>
+</div>

@@ -1,0 +1,34 @@
+<div class="column <%= "admin-remark" if author_is_admin? %>" id="<%= dom_id(model) %>">
+  <div class="card <%= card_classes %>">
+    <div class="card__content">
+      <%= render :header_in_search if has_header? %>
+
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <p>
+            <%= description %>
+          </p>
+          <% if model.edited %>
+            <span class="remark-was-edited"><%= t('.edited').html_safe %></span>
+          <% end %>
+        </div>
+      </div>
+
+      <% model.files.each do |file| %>
+        <% if file.variable? %>
+          <br>
+          <%= image_tag Rails.application.routes.url_helpers.rails_representation_url(file.variant(resize: "150x150").processed, only_path: true) %>
+          <br>
+        <% else %>
+          <%= "Dodano plik" %>:
+          <%= file.filename %>
+          <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: "Pobierz plik" do %>
+            <%= image_tag 'download-icon.png' %>
+          <% end %>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
+    <%= render :footer %>
+  </div>
+</div>

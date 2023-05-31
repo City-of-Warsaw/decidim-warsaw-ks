@@ -1,0 +1,11 @@
+<tr data-id="<%= department.id %>">
+  <td>
+    <%= department.name %>
+  </td>
+  <td class="table-list__actions">
+    <% if allowed_to? :update, :organization, organization: current_organization %>
+      <%= icon_link_to "pencil", edit_department_path(department), t("actions.edit", scope: "decidim.admin_extended.departments"), class: "action-icon--edit" %>
+      <%= icon_link_to "circle-x", department, t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+    <% end %>
+  </td>
+</tr>

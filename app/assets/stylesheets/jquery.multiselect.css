@@ -1,0 +1,189 @@
+.ms-options-wrap {
+  position: relative;
+}
+
+.ms-options-wrap,
+.ms-options-wrap * {
+  box-sizing: border-box;
+}
+
+.ms-options-wrap>button:not(.auto-clear):focus-visible,
+.ms-options-wrap>button:not(.auto-clear) {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #8c8c8c;
+  background-color: #fff;
+  font-size: 1rem;
+  color: black;
+  outline-offset: 0px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.ms-options-wrap>button.ms-active:focus-visible,
+.ms-options-wrap>button.ms-active {
+  outline: unset !important;
+}
+
+.ms-options-wrap>button::before {
+  content: attr(data-label);
+  position: absolute;
+  font-size: 12px;
+  top: -7.5px;
+  background: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: -4px;
+}
+
+.ms-options-wrap>button>span {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 3px;
+  line-height: 20px;
+}
+
+.ms-options-wrap>button[disabled] {
+  background-color: #e5e9ed;
+  color: #808080;
+  opacity: 0.6;
+}
+
+.ms-options-wrap>button:after {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 0;
+  border: 6px solid rgba(0, 0, 0, 0);
+  border-top-color: #999;
+  margin-top: -3px;
+}
+
+.ms-options-wrap.ms-active>button {
+  border-bottom: 0px !important;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.ms-options-wrap.ms-has-selections>button {
+  color: #333;
+}
+
+.ms-options-wrap>.ms-options {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: white;
+  z-index: 2000;
+  border-left: 1px solid #8c8c8c;
+  border-right: 1px solid #8c8c8c;
+  border-bottom: 1px solid #8c8c8c;
+  overflow: auto;
+  visibility: hidden;
+}
+
+.ms-options-wrap.ms-active>.ms-options {
+  visibility: visible;
+}
+
+.ms-options-wrap>.ms-options>.ms-search input {
+  width: 100%;
+  padding: 4px 5px;
+  border: none;
+  border-bottom: 1px groove;
+  outline: none;
+}
+
+.ms-options-wrap>.ms-options .ms-selectall,
+.ms-options-wrap>.ms-options .ms-submitform {
+  display: inline-block;
+  font-size: 0.9em;
+  text-transform: lowercase;
+  text-decoration: none;
+}
+
+.ms-options-wrap>.ms-options .ms-selectall:hover,
+.ms-options-wrap>.ms-options .ms-submitform:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.ms-options-wrap>.ms-options>.ms-selectall.global,
+.ms-options-wrap>.ms-options>.ms-submitform.global {
+  margin: 4px 5px;
+}
+
+.ms-options-wrap>.ms-options>ul,
+.ms-options-wrap>.ms-options>ul>li.optgroup ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ms-options-wrap>.ms-options>ul li.ms-hidden {
+  display: none;
+}
+
+.ms-options-wrap>.ms-options>ul>li.optgroup {
+  padding: 5px;
+}
+
+.ms-options-wrap>.ms-options>ul>li.optgroup+li.optgroup {
+  border-top: 1px solid #aaa;
+}
+
+.ms-options-wrap>.ms-options>ul>li.optgroup .label {
+  display: block;
+  padding: 5px 0 0 0;
+}
+
+.ms-options-wrap>.ms-options>ul label {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  /* padding: 4px 4px 4px 20px; */
+  padding: 4px 4px 4px 23px;
+  margin: 1px 0;
+  border: 1px dotted transparent;
+}
+
+.ms-options-wrap>.ms-options.checkbox-autofit>ul label,
+.ms-options-wrap>.ms-options.hide-checkbox>ul label {
+  padding: 4px;
+}
+
+.ms-options-wrap>.ms-options>ul label.focused,
+.ms-options-wrap>.ms-options>ul label:hover {
+  background-color: #efefef;
+  border-color: #999;
+}
+
+.ms-options-wrap>.ms-options>ul li.selected label {
+  background-color: #efefef;
+  border-color: transparent;
+}
+
+.ms-options-wrap>.ms-options>ul input[type="checkbox"] {
+  margin: 0 5px 0 0;
+  position: absolute;
+  left: 4px;
+  top: 10px;
+}
+
+.ms-options-wrap>.ms-options.hide-checkbox>ul input[type="checkbox"] {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}

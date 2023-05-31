@@ -1,0 +1,62 @@
+<div class="table-scroll">
+  <table class="table-list" style="font-size: 14px;">
+    <thead>
+    <tr>
+      <th>Obrazek</th>
+      <th><%= t("models.file.fields.name", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.filename", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.content_type", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.size", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.creator", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.created_at", scope: "decidim.admin") %></th>
+      <th><%= t("models.file.fields.updated_at", scope: "decidim.admin") %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody id="sortable">
+    <% @files.each do |file| %>
+      <tr data-id="<%= file.id %>">
+        <td style="max-width: 100px; position: relative;">
+          <div class="sort-icon" style="display: none; position:absolute; left: 0px; top: 38px">
+            <%= icon('menu', aria_label: '', role: "img") %>
+          </div>
+          <%= link_to image_tag(main_app.rails_representation_path(file.thumbnail_200)), admin_file_path(file) if file.image? %>
+        </td>
+        <td>
+          <%= link_to file.name, admin_file_path(file) %>
+        </td>
+        <td style="max-width: 200px; word-wrap: anywhere;">
+          <%= file.file.filename %>
+        </td>
+        <td style="max-width: 200px; word-wrap: anywhere;">
+          <%= file.file.content_type %>
+        </td>
+        <td>
+          <%= number_to_human_size file.file.byte_size %>
+        </td>
+        <td>
+          <%= file.creator.name %>
+        </td>
+        <td>
+          <%= l file.created_at, format: :decidim_short %>
+        </td>
+        <td>
+          <%= l file.updated_at, format: :decidim_short %>
+        </td>
+        <td class="table-list__actions">
+          <% if allowed_to? :update, :repository, file: file %>
+            <%#= icon_link_to "paperclip", admin_consultation_request_attachments_path(consultation_request), t("actions.attachments", scope: "decidim.consultation_requests"), class: "action-icon--attachments" %>
+            <%= icon_link_to "pencil", [:edit, :admin, file], t("actions.edit", scope: "decidim.admin"), class: "action-icon--edit", method: :get, data: {} %>
+            <% if @gallery %>
+              <%= icon_link_to "circle-x", admin_gallery_file_path(@gallery, file), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+            <% else %>
+              <%= icon_link_to "circle-x", admin_file_path(file), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+            <% end %>
+            <%# end %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

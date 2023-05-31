@@ -1,0 +1,76 @@
+---
+pl:
+  activemodel:
+    attributes:
+      ws_message:
+        body: Treść
+        category_id: Kategoria
+        district_ids: Dzielnice
+        sms_body: Treść SMS
+        valid_date_from: Data ważności od
+        valid_date_to: Data ważności do
+        urgent: Czy pilny?
+        mza_skm: Mza SKM?
+        sms: SMS?
+        mobile: Mobile?
+        title: Tytuł
+        comment: Komentarz
+    activerecord:
+      models:
+        decidim/ws_notification/ws_message:
+          one: Powiadomienie
+          few: Powiadomienia
+          many: Powiadomień
+          other: Powiadomień
+  decidim:
+    admin:
+      models:
+        ws_message:
+          fields:
+            body: Treść
+            sms_body: Treść SMS
+            valid_date_from: Data ważności od
+            valid_date_to: Data ważności do
+            urgent: Czy pilny?
+            mza_skm: Mza SKM?
+            sms: SMS?
+            mobile: Mobile?
+            title: Tytuł
+            comment: Komentarz
+            author: Autor
+            created_at: Data dodania
+            published_at: Data publikacji
+            active_channels: Kanały
+      menu:
+        ws_messages: Powiadomienia WS
+      titles:
+        ws_messages: Powiadomienia WS
+      ws_messages:
+        create:
+          success: Dodano powiadomienie
+          error: Popraw błędy w formularzu
+        destroy:
+          success: Usunięto powiadomienie
+        update:
+          success: Zaktualizowano powiadomienie
+          error: Popraw błędy w formularzu
+        new:
+          create: Nowe powiadomienie
+        no_ws_messages: Nie ma żadnych powiadomień
+    components:
+      ws_notification:
+        name: WsNotification
+    ws_notification:
+      admin:
+        ws_messages:
+          form:
+            select_category: Wybierz kategorię
+            select_district_ids: Wybierz dzielnice
+          new:
+            create: Zapisz
+            title: Nowe powiadomienie
+          edit:
+            title: Edycja powiadomienia
+            update: Aktualizuj
+          index:
+            title: Wszystkie powiadomienia

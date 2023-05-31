@@ -1,0 +1,257 @@
+<h2 class="section-heading section-heading--search-results-section">
+  <%# passed count 2 to get a proper translation %>
+  <%= searchable_resource_human_name(class_name.constantize, count: 2) %>:&nbsp;
+  <span class="muted"><%= t("decidim.searches.results.results", count: results_count) %></span>
+</h2> 
+ 
+<hr class="full-width"> 
+
+<div class="row">
+  <% results.each do |result| %> 
+    <div class="columns">
+      <% if class_name === "Decidim::ParticipatoryProcess" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.slug)}" %>" class="result result--process">
+          <div class="result__content"> 
+            <h3><%= result.title["pl"] %></h3> 
+
+            <div class="result__description">
+              <%= strip_tags(result.short_description["pl"]) %>
+            </div>
+ 
+
+            <div class="result__details">
+              <strong>
+                <%= (result.area ? content_tag(:span, "#{translated_attribute(result.area.name)}", class: "text-color-area-color-#{result.area.id}") : '').html_safe +
+                ((result.area && result.scope) ? " / " : '') +
+                (result.scope ? content_tag(:span, "#{translated_attribute(result.scope.name)}") : '').html_safe %> 
+              </strong>
+
+              <% unless result.recipients.blank? %>
+                <span class="recipients"><%= t(result.recipients, scope: "activemodel.attributes.participatory_process.recipients_type") %></span>
+              <% end %>
+
+              <%= t("decidim.participatory_processes.process_m.till", ending_date: l(result.end_date.to_date, format: :decidim_short)) if result.end_date %>
+            </div>
+          </div>
+
+          <% if result.hero_image.url.present? %>
+            <div class="result__image <%= result.decidim_area_id ? "area-color-#{result.decidim_area_id}" : '' %>">    
+              <%= image_tag result.hero_image.url, class: "", alt: '' %>
+ 
+              <div class="colored-box--alternative"></div> 
+            </div>
+          <% end %> 
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::Pages::Page" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.decidim_component_id}/pages/#{result.id}" %>" class="result result--page">
+          <object>
+            <div class="result__content"> 
+              <h3><%= result.title["pl"] %></h3>
+
+              <div class="result__description">
+                <%= strip_tags(result.body["pl"]) %>
+              </div>
+
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::Meetings::Meeting" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.decidim_component_id}/meetings/#{result.id}#subsubcontent" %>" class="result result--meeting">
+          <object>
+            <div class="result__content"> 
+              <h3><%= result.title["pl"] %></h3> 
+
+              <div class="result__description">
+                <%= strip_tags(result.description["pl"]) %>
+              </div>
+
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::Proposals::Proposal" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.decidim_component_id}/#proposal-#{result.id}" %>" class="result result--proposal">
+          <object>
+            <div class="result__content"> 
+              <h3><%= result.title["pl"] %></h3>
+
+              <div class="result__description">
+                <%= strip_tags(result.body["pl"]) %>
+              </div>
+
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::ConsultationMap::Remark" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.decidim_component_id}?remarkId=#{result.id}#subcontent" %>" class="result result--map-remark">
+          <object>
+            <div class="result__content">
+              <div class="result__description">
+                <%= strip_tags(result.body) %>
+              </div>
+
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::ExpertQuestions::UserQuestion" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.component.id}#subcontent" %>" class="result result--user-question">
+          <object>
+            <div class="result__content">  
+              <div class="result__description">
+                <%= strip_tags(result.body) %>
+              </div>
+              
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::Remarks::Remark" %>
+        <a href="<%= "/processes/#{Rails.application.routes.url_helpers.url_for(result.participatory_space.slug)}/f/#{result.decidim_component_id}" + "?highlighted=#{result.id}#subcontent" %>" class="result result--remark">
+          <object>
+            <div class="result__content">
+              <div class="result__description">
+                <%= strip_tags(result.body) %>
+              </div>
+
+              <div class="result__details">
+                <span class="muted">
+                  Konsultacje społeczne:
+                </span>
+
+                <strong>  
+                  <%= result.participatory_space.title["pl"] %>
+                </strong> 
+              </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::Comments::Comment" %>
+        <a href="<%= resource_locator(result.root_commentable).path.gsub(/\/remarks\/[0-9]*/, "").gsub(/\/proposals\/[0-9]*/, "") + "?highlighted=#{result.id}#subcontent" %>" class="result result--comment">
+          <object>
+            <div class="result__content"> 
+                <div class="result__description">
+                  <%= strip_tags(result.body["pl"]) %>
+                </div>   
+
+                <div class="result__details">
+                  <span class="muted">
+                    <%= searchable_resource_human_name(result.root_commentable.class, count: 1) %>:
+                  </span>
+
+                  <strong>  
+                    <%= translated_attribute(result.root_commentable.title) %>
+                  </strong> 
+                </div>
+            </div> 
+          </object>
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::News::Information" %>
+        <a href="<%= "/informations/#{result.id}" %>" class="result result--information">
+          <div class="result__content"> 
+            <h3><%= result.title %></h3> 
+
+            <div class="result__description">
+              <%= strip_tags(result.body) %>
+            </div>
+          </div> 
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::ConsultationRequests::ConsultationRequest" %>
+        <a href="<%= "/consultation_requests/#{result.id}" %>" class="result result--consultation-request">
+          <div class="result__content"> 
+            <h3><%= result.title %></h3> 
+
+            <div class="result__description">
+              <%= strip_tags(result.body) %>
+            </div>
+          </div> 
+        </a>
+      <% end %>
+
+      <% if class_name === "Decidim::StaticPage" %>
+        <a href="<%= "/pages/#{result.slug}" %>" class="result result--pages">
+          <div class="result__content">
+            <h3><%= result.title["pl"] %></h3>
+
+            <div class="result__description">
+              <%= strip_tags(result.content["pl"]) %>
+            </div>
+          </div>
+        </a>
+      <% end %>
+    </div> 
+  <% end %>
+</div>
+<% if results_count > Decidim::Search::HIGHLIGHTED_RESULTS_COUNT + 1 && !paginated? %>
+  <%= link_to(
+        t("decidim.searches.results.view_all", count: results_count) + " " + searchable_resource_human_name(class_name.constantize, count: 2).downcase,
+        search_path_by_resource_type(class_name),
+        class: "button button--show-all-results"
+      ) %>
+<% end %>
+
+<% if paginated? %>
+  <%= decidim_paginate results %>
+<% end %>
+
+<hr class="reset">

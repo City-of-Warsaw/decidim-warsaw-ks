@@ -1,0 +1,5 @@
+<button type="button" class="link-alt flag" data-open="<%= "flagModalUserQuestion#{model.id}" %>" title="<%= t("decidim.components.comment.report.title") %>" aria-controls="<%= current_user.present? ? "flagModalUserQuestion#{model.id}" : "loginModal" %>" aria-haspopup="dialog" tabindex="0">
+  <%= t("decidim.components.comment.report.title_short") %><span class='show-for-sr'> niewłaściwą treść do pytania do: <%= title %></span>
+</button>
+
+<%= cell("decidim/flag_modal", model, modal_id: "flagModalUserQuestion#{model.id}") %>

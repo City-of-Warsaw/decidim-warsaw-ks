@@ -1,0 +1,14 @@
+//var $remarks = $('#remarks');
+var $remarks = $('.remarks-main-box');
+var $remarksCount = $('#remarks-count');
+// var $orderFilterInput = $('.order_filter');
+
+// Tego nie przeladowujemy niech sobie siedzi
+//$remarks.html('<%#== escape_javascript(render "decidim/consultation_map/remarks/remarks", remarks: remarks, all_locations: @all_locations) %>');
+$remarksCount.text("Liczba uwag na mapie <%= remarks.count %>");
+// var $dropdownMenu = $('.dropdown.menu', $remarks);
+// $dropdownMenu.foundation();
+// TODO: dodac przeladowanie mapy
+
+var newMarkers = "<%= all_locations %>".replaceAll("&quot;", '\"');
+$('#markersMap').val(newMarkers).trigger('change');

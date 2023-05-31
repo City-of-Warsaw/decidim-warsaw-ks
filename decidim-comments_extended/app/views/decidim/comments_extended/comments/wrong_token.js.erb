@@ -1,0 +1,9 @@
+(function() {
+    // message for invalid token for comment left by unregistered user
+    if ($('.comment__content.edit_comment_<%= @comment.id %>').length > 0) {
+        $('.comment__content.edit_comment_<%= @comment.id %>').replaceWith("<%= escape_javascript(render 'decidim/comments_extended/comments/thank_you', message: wrong_token_error) %>");
+    } else {
+        $('.update-comment')
+          .replaceWith("<%= escape_javascript(render 'decidim/comments_extended/comments/thank_you', message: wrong_token_error) %>");
+    }
+}());

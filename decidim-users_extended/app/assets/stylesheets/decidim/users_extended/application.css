@@ -1,0 +1,74 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* .password-rule-success {
+    color: #008000;
+    font-weight: bold;
+} */
+
+.passwordConfirmationMsg {
+  display: block;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #008000;
+}
+
+.password-rules {
+  font-size: 14px;
+}
+
+.user-nickname-msg {
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.user-nickname-msg.alert {
+  color: #cc3333;
+}
+
+.user-nickname-msg.success {
+  color: #008000;
+}
+
+.user-nickname-usage-msg {
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 0rem;
+  padding-right: 160px;
+}
+
+.user-nickname-usage-msg.success {
+  display: block !important;
+}
+
+.user-nickname-usage-msg.alert {
+  display: block !important;
+}
+
+.user-nickname-usage-msg:empty {
+  content: "Niepoprawny format";
+}
+
+.register-form .user-nickname .help-text {
+  display: block;
+  font-size: 0.7rem;
+  color: #1a181d;
+  margin: 5px 0 10px 0;
+  font-style: normal;
+}

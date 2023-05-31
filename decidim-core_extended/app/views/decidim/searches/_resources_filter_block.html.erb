@@ -1,0 +1,34 @@
+<% resources = @sections.select { |type, results| types.include?(type) } %>
+<div class="card card--secondary">
+  <div class="filters">
+      <% resources.slice(
+        "Decidim::ParticipatoryProcess",
+        "Decidim::Remarks::Remark",
+        "Decidim::Comments::Comment",
+        "Decidim::ConsultationMap::Remark",
+        "Decidim::Meetings::Meeting",
+        "Decidim::Proposals::Proposal",
+        "Decidim::Pages::Page",
+        "Decidim::ConsultationRequests::ConsultationRequest",
+        "Decidim::News::Information",
+        "Decidim::ExpertQuestions::UserQuestion",
+        "Decidim::StaticPage"
+      ).each do |type, results| %>
+      <div class="filters__section--general<%= " no-results" if results[:count].zero? %>">
+        <% if results[:count].positive? %>
+          <%= link_to search_path_by_resource_type(type), class: "flex--sbc" do %>
+            <%# passed count 2 to get a proper translation %>
+            <strong class="section-title"><%= searchable_resource_human_name(type, count: 2).slice(0,1).capitalize + searchable_resource_human_name(type, count: 2).slice(1..-1) %></strong>
+            <span class="muted">&nbsp;<%= results[:count] %></span>
+          <% end %>
+        <% else %>
+          <div class="flex--sbc">
+            <%# passed count 2 to get a proper translation %>
+            <strong class="section-title"><%= searchable_resource_human_name(type, count: 2).slice(0,1).capitalize + searchable_resource_human_name(type, count: 2).slice(1..-1) %></strong>
+            <span class="muted">&nbsp;<%= results[:count] %></span>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

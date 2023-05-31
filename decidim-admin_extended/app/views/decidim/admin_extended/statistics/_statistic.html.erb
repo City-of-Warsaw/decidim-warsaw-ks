@@ -1,0 +1,26 @@
+<tr data-id="<%= statistic.id %>">
+  <td>
+    <%= statistic.name %>
+  </td>
+  <td>
+    <%= t("sys_name.#{statistic.sys_name}", scope: "decidim.admin_extended.statistics") %>
+  </td>
+  <td>
+    <span class="success">
+      <%= statistic.visibility ?
+            icon('circle-check', class: 'action-icon highlighted' )
+            : icon('circle-x', class: 'action-icon action-icon--remove') %>
+    </span>
+  </td>
+  <td>
+    <%= statistic.count %>
+  </td>
+  <td>
+    <%= statistic.weight %>
+  </td>
+  <td class="table-list__actions">
+    <% if allowed_to? :update, :organization, organization: current_organization %>
+      <%= icon_link_to "pencil", edit_statistic_path(statistic), t("actions.edit", scope: "decidim.admin_extended.statistics"), class: "action-icon--edit" %>
+    <% end %>
+  </td>
+</tr>

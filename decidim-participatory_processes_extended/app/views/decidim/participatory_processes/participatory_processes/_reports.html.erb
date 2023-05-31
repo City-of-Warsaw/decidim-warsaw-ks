@@ -1,0 +1,39 @@
+<% if process.report_files.any? %>
+  <div class="section mt-xs">
+    <%= content_tag :div, class: "callout announcement announcement--reports mb-sm" do %>
+      <div class="announcement__title">
+        <h4>Raport z konsultacji</h4>
+
+        <% if process.report_publication_date.present? %>
+          <span><%= l(process.report_publication_date, format: :decidim_short) %></span>
+        <% end %>
+      </div>
+
+      <% if process.report_description.present? %>
+        <%= decidim_sanitize(process.report_description) %>
+      <% end %>
+
+      <ul class="card card--list ul-reset" role="list">
+        <% process.report_files.each do |file| %>
+          <li class="card--list__item">
+            <div class="card--list__text">
+              <div>
+                <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" class="card__link" target="_blank">
+                  <h4 class="card--list__heading heading6">
+                    <%= file.blob.filename %><span class="show-for-sr"> otwiera się w nowej karcie</span>
+                  </h4>
+                </a>
+              </div>
+            </div>
+            <div class="card--list__data">
+              <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("download", scope: 'decidim.application.document') do %>
+                <%= image_tag 'download-icon.png' %>
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+
+    <% end %>
+  </div>
+<% end %>

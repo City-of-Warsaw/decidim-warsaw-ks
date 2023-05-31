@@ -1,0 +1,75 @@
+/******************  Participatory text  ******************/
+
+.participatory-text-index {
+  .callout.secondary {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .collapsable-header {
+    background-color: #f8f8f8;
+    padding: 20px 50px 20px 20px;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+
+    background-image: asset_url('caret-primary-mini.png');
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: calc(100% - 20px) center;
+
+    &[aria-expanded="false"] {
+      background-color: transparent;
+      background-image: asset_url('caret-primary-mini-up.png');
+      border-left: 1px solid #DBDBDB;
+      border-top: 1px solid #DBDBDB;
+      border-right: 1px solid #DBDBDB;
+    }
+  }
+
+  .participatory-text-content {
+    padding: 0 20px 20px 20px;
+    border-left: 1px solid #DBDBDB;
+    border-bottom: 1px solid #DBDBDB;
+    border-right: 1px solid #DBDBDB;
+  }
+
+  .participatory-space {
+    background-color: #f8f8f8;
+    margin-left: -4rem;
+    margin-right: -4rem;
+    margin-bottom: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: 4rem;
+
+    .follow-box {
+      border-top: 13px solid #E4E4E4;
+      border-bottom: 1px solid #DBDBDB;
+      text-align: center;
+      padding: 35px 10px;
+      margin-bottom: 15px;
+
+      &>div {
+        display: inline-block;
+        margin-right: 15px;
+        height: 40px;
+      }
+    }
+
+    .button_to button {
+      width: 277px;
+    }
+
+    // commenting
+    .comments-container {
+      padding: 0;
+    }
+
+    .add-comment.not-response {
+      border: 1px solid #EAEAEA;
+      border-radius: 4px;
+    }
+  }
+}

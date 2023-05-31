@@ -1,0 +1,20 @@
+<div class="row column">
+  <%= form.text_field :title %>
+</div>
+
+<div class="row column">
+  <%= form.editor :body %>
+</div>
+
+<div class="row column">
+  <%= form.select :article_category_id,
+                  @form.categories_select,
+                  { include_blank: t(".select_category") },
+                  { multiple: false } %>
+</div>
+<div class="row column">
+  <%= form.collection_select :gallery_id,
+                             Decidim::Repository::Gallery.alphabetical, :id, :name,
+                             include_blank: true,
+                             label: t("models.components.gallery_id", scope: "decidim.forms.admin") %>
+</div>

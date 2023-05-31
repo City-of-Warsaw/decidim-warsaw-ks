@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Decidim::ExpertQuestions::CreateUserQuestion
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::ExpertQuestions::CreateUserQuestion";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span>
+     &raquo; 
+    <span class="title">CreateUserQuestion</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Decidim::ExpertQuestions::CreateUserQuestion
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Rectify::Command</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Rectify::Command</li>
+          
+            <li class="next">Decidim::ExpertQuestions::CreateUserQuestion</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This class holds logic for creating User Questions Attributes updated by unregistered user:</p>
+<ul><li>
+<p>signature</p>
+</li><li>
+<p>email</p>
+</li><li>
+<p>district_id</p>
+</li><li>
+<p>age</p>
+</li><li>
+<p>gender</p>
+</li></ul>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates user question if valid.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#create_user_question-instance_method" title="#create_user_question (instance method)">#<strong>create_user_question</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#expert-instance_method" title="#expert (instance method)">#<strong>expert</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>def create_event(user_question)   Decidim::EventsManager.publish(     event: “decidim.events.user_questions.user_question_created_event”,     event_class: Decidim::ExpertQuestions::UserQuestionCreatedEvent,     resource: user_question,     followers: user_question.participatory_space.followers   ) end.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#generate_token-instance_method" title="#generate_token (instance method)">#<strong>generate_token</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(form, author, organization)  &#x21d2; CreateUserQuestion </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Initializes a CreateUserQuestion Command.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#send_notifications-instance_method" title="#send_notifications (instance method)">#<strong>send_notifications</strong>(mentioned_users, mentioned_groups)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>def notify_expert!(user_question)   Decidim::NewUserQuestionJob.perform_later(user_question) end.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#unregistered_author-instance_method" title="#unregistered_author (instance method)">#<strong>unregistered_author</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#user_question_attributes-instance_method" title="#user_question_attributes (instance method)">#<strong>user_question_attributes</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(form, author, organization)  &#x21d2; <tt><span class='object_link'><a href="" title="Decidim::ExpertQuestions::CreateUserQuestion (class)">CreateUserQuestion</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Initializes a CreateUserQuestion Command.</p>
+
+<p>form - The form from which to get the data. current_user - The current instance of the user_question to be updated.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_author'>author</span><span class='comma'>,</span> <span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span>
+  <span class='ivar'>@current_organization</span> <span class='op'>=</span> <span class='id identifier rubyid_organization'>organization</span>
+  <span class='ivar'>@author</span> <span class='op'>=</span> <span class='id identifier rubyid_author'>author</span> <span class='op'>||</span> <span class='id identifier rubyid_unregistered_author'>unregistered_author</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="call-instance_method">
+  
+    #<strong>call</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Creates user question if valid.</p>
+
+<p>Broadcasts :ok if successful, :invalid otherwise.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
+
+  <span class='id identifier rubyid_create_user_question'>create_user_question</span>
+  <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_user_question-instance_method">
+  
+    #<strong>create_user_question</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_user_question'>create_user_question</span>
+  <span class='ivar'>@user_question</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span>
+    <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='comma'>,</span>
+    <span class='ivar'>@author</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_user_question_attributes'>user_question_attributes</span><span class='comma'>,</span>
+    <span class='label'>visibility:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>public-only</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='comment'># notify_expert!(@user_question)
+</span>  <span class='comment'># notify_users!(@user_question)
+</span>  <span class='comment'># create_event(@user_question)
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expert-instance_method">
+  
+    #<strong>expert</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>def create_event(user_question)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>EventsManager</span><span class='period'>.</span><span class='id identifier rubyid_publish'>publish</span><span class='lparen'>(</span>
+  <span class='label'>event:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.events.user_questions.user_question_created_event</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='label'>event_class:</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="UserQuestionCreatedEvent.html" title="Decidim::ExpertQuestions::UserQuestionCreatedEvent (class)">UserQuestionCreatedEvent</a></span></span><span class='comma'>,</span>
+  <span class='label'>resource:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span>
+  <span class='label'>followers:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
+<span class='rparen'>)</span>
+</code></pre>
+
+<p>end</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81
+82
+83</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expert'>expert</span>
+  <span class='ivar'>@expert</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_expert_id'>expert_id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate_token-instance_method">
+  
+    #<strong>generate_token</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 89</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_token'>generate_token</span>
+  <span class='ivar'>@author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended.html" title="Decidim::CommentsExtended (module)">CommentsExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended/UnregisteredAuthor.html" title="Decidim::CommentsExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span> <span class='op'>?</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_hex'>hex</span><span class='lparen'>(</span><span class='id identifier rubyid_rand'>rand</span><span class='lparen'>(</span><span class='int'>59</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_notifications-instance_method">
+  
+    #<strong>send_notifications</strong>(mentioned_users, mentioned_groups)  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>def notify_expert!(user_question)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>NewUserQuestionJob</span><span class='period'>.</span><span class='id identifier rubyid_perform_later'>perform_later</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>end</p>
+
+<p>def notify_users!(user_question)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>NewUserQuestionJob</span><span class='period'>.</span><span class='id identifier rubyid_perform_later'>perform_later</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='rparen'>)</span>
+</code></pre>
+
+<p>end</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69
+70</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 67</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_notifications'>send_notifications</span><span class='lparen'>(</span><span class='id identifier rubyid_mentioned_users'>mentioned_users</span><span class='comma'>,</span> <span class='id identifier rubyid_mentioned_groups'>mentioned_groups</span><span class='rparen'>)</span>
+  <span class='comment'># todo: dokończyć tak jak w komentarzach
+</span>  <span class='comment'># NewCommentNotificationCreator.new(comment, mentioned_users, mentioned_groups).create
+</span><span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="unregistered_author-instance_method">
+  
+    #<strong>unregistered_author</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+85
+86
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 85</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unregistered_author'>unregistered_author</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended.html" title="Decidim::CommentsExtended (module)">CommentsExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended/UnregisteredAuthor.html" title="Decidim::CommentsExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>organization:</span> <span class='ivar'>@current_organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="user_question_attributes-instance_method">
+  
+    #<strong>user_question_attributes</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user_question_attributes'>user_question_attributes</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>body:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
+    <span class='label'>author:</span> <span class='ivar'>@author</span><span class='comma'>,</span>
+    <span class='label'>expert:</span> <span class='id identifier rubyid_expert'>expert</span><span class='comma'>,</span>
+    <span class='comment'># custom 
+</span>    <span class='label'>files:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='comma'>,</span>
+    <span class='label'>signature:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_signature'>signature</span><span class='comma'>,</span>
+    <span class='label'>token:</span> <span class='id identifier rubyid_generate_token'>generate_token</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:18 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<div class="reveal confirm-reveal"
+     id="warning-modal"
+     aria-hidden="true"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="warning-modal-title"
+     aria-describedby="warning-modal-content"
+     data-reveal
+     data-multiple-opened="true"
+     tabindex="-1"
+>
+  <div class="reveal__header">
+    <h1 class="show-for-sr reveal__title" id="warning-modal-title"><%== t('.title') %></h1>
+    <button class="close-button" data-close aria-label="<%= t(".close_modal") %>"
+            type="button" tabindex="0">
+      <span aria-hidden="true">&times;<span class="show-for-sr"><%= t(".close_modal") %></span></span>
+    </button>
+  </div>
+  <div class="confirm-content">
+    <div class="" id="warning-modal-content" role="document" tabindex="0">
+      <%== t('.marker_is_outisde_of_polygon') %>
+    </div>
+  </div>
+</div>

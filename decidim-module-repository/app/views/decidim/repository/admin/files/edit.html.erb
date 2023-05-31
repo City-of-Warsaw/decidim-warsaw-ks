@@ -1,0 +1,64 @@
+<%= decidim_form_for(@form, url: admin_file_path(@file), html: { id: 'edit_file_form', autocomplete: 'off' }) do |f| %>
+  <%= hidden_field_tag :submit_for_action, 'update' %>
+  <div id="root"></div>
+  <div class="card">
+    <div class="card-divider">
+      <h2 class="card-title"><%= t ".title" %></h2>
+    </div>
+    <div class="card-section">
+      <%= render partial: "form", object: f %>
+    </div>
+  </div>
+  <div class="button--double form-general-submit">
+    <%= link_to 'anuluj', admin_files_path, class: 'button hollow' %>
+    <%= f.submit t(".update"), name: 'update', value: 'update' %>
+    <%= f.submit 'Zapisz jako kopię', name: 'save_as_copy', value: 'save_as_copy' %>
+  </div>
+<% end %>
+
+<% if @file.image? %>
+  <%= javascript_include_tag "decidim/repository/admin/image-editor.1.2.1" %>
+
+  <%= nonced_javascript_tag do %>
+    async function dataUrlToFile(dataUrl, fileName) {
+      const res = await fetch(dataUrl);
+      const blob = await res.blob();
+      return new File([blob], fileName, { type: "image/png" });
+    }
+
+    let imageEditorApi;
+
+    window.renderImageEditor(document.getElementById("root"), {
+      width: 1000,
+      height: 1000,
+      imageUrl: "<%= only_image_path(@file) %>",
+      onInit: (canvasApi) => (imageEditorApi = canvasApi),
+    });
+
+    $('#edit_file_form').one('submit', function(e) {
+      // ustawiamy akcje 'update' lub 'save_as_copy'
+      let btn = $('#edit_file_form').find("button[type=submit]:focus");
+      $('#submit_for_action').val(btn.val());
+
+      if (document.getElementById("file_file_input").files.length === 0) {
+        e.preventDefault();
+        $(this).unbind();
+
+        // TODO: aktualizowac tylko jesli byla zmiana
+        const hasChanged = imageEditorApi.hasChanged();
+
+        const file = imageEditorApi.export("<%= @file.file.filename %>");
+        let container = new DataTransfer();
+        container.items.add(file);
+        document.getElementById("file_file_input").files = container.files;
+
+        $(this).submit();
+      }
+    });
+
+    // FIX: foundation submit with button value problem
+    $(document).ready(() => {
+      $("form").find('[type="submit"]').off('click.zf.abide keydown.zf.abide')
+    })
+  <% end %>
+<% end %>

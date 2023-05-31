@@ -1,0 +1,100 @@
+pl:
+  decidim:
+    components:
+      pages:
+        settings:
+          global:
+            help_section: Tekst pomocniczy
+    admin:
+      pages:
+        index:
+          published: Opublikowanana
+          not_published: Nieopublikowanana
+    admin_log:
+      page:
+        create: "%{user_name} utworzył(a) stronę informacyjną %{resource_name} w %{space_name}"
+        delete: "%{user_name} usunął/usunęła stronę informacyjną %{resource_name} w %{space_name}"
+        publish: "%{user_name} opublikował(a) stronę informacyjną %{resource_name} w %{space_name}"
+        unpublish: "%{user_name} ukrył(a) stronę informacyjną %{resource_name} w %{space_name}"
+        #update: "%{user_name} zaktualizował(a) stronę informacyjną %{resource_name} w %{space_name}"
+    pages_extended:
+      actions:
+        edit: Edytuj
+        preview: Podgląd
+        title: Działania
+      admin:
+        pages:
+          edit:
+            save: Zapisz
+            title: Edytuj stronę
+          index:
+            title: Strony informacyjne
+            published: Opublikowanana
+            not_published: Nieopublikowanana
+          new:
+            save: Utwórz
+            title: Nowa strona informacyjna
+          models:
+            page:
+              fields:
+                title: Tytuł
+                body: Treść
+      models:
+        page:
+          fields:
+            published: Opublikowana
+            title: Tytuł
+      page:
+        show:
+          view: Zobacz
+    pages:
+      hero:
+        sub_header: Podtytuł ogólny Konsultacji Społecznych
+        header: Baza wiedzy
+      actions:
+        confirm_destroy: "Jesteś pewny?"
+        destroy: Usuń
+        edit: Edytuj
+        new: Nowa strona informacyjna
+        preview: Podgląd
+        title: Działania
+      admin:
+        pages:
+          create:
+            success: Dodano stronę
+            error: Nie udało się dodać
+          update:
+            success: Zaktualizowano stronę
+            error: Nie udało się zaktualizować strony
+          destroy:
+            success: Usuniętgo stronę
+            error: Nie udało się usunąć strony
+          index:
+            title: Strony informacyjne
+            published: Opublikowanana
+            non_published: Nieopublikowanana
+          publish:
+            succes: Opublikowano stonę
+            error: Nie udało się opublikować strony
+        models:
+          page:
+            name: Nowa strona informacyjna
+          pages:
+            body: Treść
+            title: Tytuł
+      home:
+        statistics:
+          all_pages_count: Strony
+
+      models:
+        page:
+          fields:
+            published: Opublikowana
+            title: Tytuł
+
+    assemblies:
+      statistics:
+        all_pages_count: Liczba stron
+    participatory_processes:
+      statistics:
+        all_pages_count: Liczba stron

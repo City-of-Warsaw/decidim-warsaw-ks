@@ -1,0 +1,51 @@
+<%
+  edit_link(
+    decidim_ad_users_space.admin_info_articles_path,
+    :update,
+    :organization,
+    organization: current_organization
+  )
+%>
+
+<div class="wrapper" id="subcontent">
+  <div class="row column">
+    <div class="article-title-wrapper">
+      <h2 class="section-heading">
+        <%= title %>
+        <br>
+        <small><%= description %></small>
+      </h2>
+    </div>
+
+    <div class="main-container tabbed-container">
+      <div class="row collapse main-container--side-panel">
+        <div class="columns medium-4 large-3">
+          <div class="side-panel">
+            <ul class="tabs vertical side-panel__tabs">
+              <% articles.each do |sibling| %>
+                <li class="tabs-title <%= article == sibling ? "is-active" : nil %>">
+                  <%= link_to sibling.title, info_article_path(sibling) %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="columns medium-8 large-9">
+          <div class="main-container__content">
+            <div class="tabs-content vertical">
+              <div class="static__content ql-editor">
+                <h2>
+                  <%= article.title %>
+                </h2>
+                <%= decidim_sanitize article.body %>
+
+                <%= render 'decidim/shared/gallery_attachments', model: article %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

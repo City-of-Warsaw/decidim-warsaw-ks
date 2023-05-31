@@ -1,0 +1,26 @@
+<div class="column <%= "admin-remark" if author_is_admin? %>" id="<%= dom_id(model) %>">
+  <div class="card <%= card_classes %>">
+    <div class="card__content">
+      <%= render :header_new if has_header? %>
+
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <%= description %>
+        </div>
+      </div>
+
+      <% model.images.each do |img| %>
+        <% if img.variable? %>
+          <div class="single-image">
+            <%= link_to Rails.application.routes.url_helpers.rails_representation_path(img.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox' do %>
+              <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(img.variant(resize: "200x200^").processed, only_path: true), alt: model.alt, class: 'thumbnail') %>
+              <%= image_tag("zoom-icon.svg", alt: 'Powiększ', class: 'zoom-icon') %>
+            <% end %> 
+          </div> 
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= show_comments %>
+  </div>
+</div>

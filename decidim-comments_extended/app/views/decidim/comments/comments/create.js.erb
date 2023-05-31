@@ -1,0 +1,55 @@
+(function() {
+  var rootCommentableId = <%== "comments-for-#{@comment.root_commentable.commentable_type.demodulize}-#{@comment.root_commentable.id}#{@for_reader}".to_json %>;
+  var commentHtml = '<%== j(render @comment).strip %>';
+  var inReplyTo = <%== (reply?(@comment) ? @commentable.id : nil).to_json %>;
+
+  var $comments = $("#" + rootCommentableId);
+  var component = $comments.data("comments");
+  if (inReplyTo) {
+    // we show newly added comment
+    component.addReply(inReplyTo, `<div class="comment-thread"><div>${commentHtml}</div></div>`);
+    // we add thank you message
+    $('#comment<%== @commentable.id %>-reply').before("<%== escape_javascript(render 'decidim/comments_extended/comments/thank_you',
+                      message: t("update.thank_you_message_mini", scope: "decidim.comments.comments"),
+                      close_modal: t("update.close_modal", scope: "decidim.comments.comments")) %>");
+    // we clear & hide textarea
+    $('#comment<%== @commentable.id %>-reply textarea').val('');
+    $('[data-toggle="comment<%== @commentable.id %>-reply"]').click();
+
+    // add closing function for newly rendered close button
+    $('.close-button').click( function() {
+        $(this).parent().remove();        
+    });
+  } else {
+    component.addThread(commentHtml);
+
+    $('.add-comment textarea').removeClass('is-invalid-input');
+    $('.add-comment small.form-error').removeClass('is-visible');
+    $("input[type=file].multifile.MultiFile-applied").MultiFile("reset");
+  }
+
+  if (rootCommentableId.includes('Remark')) {
+      let button = inReplyTo ? $('button[aria-controls="comment'+inReplyTo+'-reply"]') : $('button[aria-controls="'+rootCommentableId+'-response"]')
+      // hide form
+      button.click();
+      // add thank you message
+      button.parent().after("<%= escape_javascript(render 'decidim/comments_extended/comments/thank_you', message: t("update.thank_you_message_mini", scope: "decidim.comments.comments"), close_modal: t("update.close_modal", scope: "decidim.comments.comments")) %>");
+      // add close button even
+      button.parent().siblings('.update-comment').find('.close-button').click(function() {
+         $(this).parent().remove();
+      });
+  }
+  // TODO: only temporary, remove after fix comments structure for ForumArticle#show
+  if (rootCommentableId.includes('ForumArticle')) {
+    let $add = $(".add-comment");
+    let $text = $("textarea", $add);
+    let characterCounter = $text.data("remaining-characters-counter");
+    $text.val("");
+    if (!$add.parent().is(".comments")) {
+      $add.addClass("hide");
+    }
+  }
+
+  // Update the comments count
+  $(".comments-count", $comments).text(<%== t("decidim.components.comments.title", count: @comments_count).to_json %>);
+}());

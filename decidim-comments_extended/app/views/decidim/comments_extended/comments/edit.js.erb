@@ -1,0 +1,123 @@
+(function() {
+    // pick element to replace
+    let commentToEdit = $('#comment_' + <%== @comment.id %>);
+    let contentToReplace = commentToEdit.find('.comment__content').first();
+    let editButton = $("[data-id='" + <%== @comment.id %> + "']");
+
+    // original create
+    let rootCommentableId = <%== "comments-for-#{@comment.root_commentable.commentable_type.demodulize}-#{@comment.root_commentable.id}".to_json %>;
+    let commentHtml = '<%== j(render @comment).strip %>';
+    let inReplyTo = <%== (reply?(@comment) ? commentable.id : nil).to_json %>;
+
+    contentToReplace.replaceWith("<%== escape_javascript(render 'decidim/comments_extended/comments/full_comment_form', form_object: @form_object, comment: @comment) %>");
+    editButton.hide();
+
+    // add function for close form button
+    $('.close-second-step-comment-<%== @comment.id %>-button-js').click( function() { 
+        if (!!commentToEdit.closest(".comment__replies").length) {
+          commentToEdit.replaceWith(commentHtml);
+        } else {
+          commentToEdit.parent().parent().replaceWith(commentHtml);
+        }
+
+        editButton.show();
+    });
+
+    let $comments = $("#" + rootCommentableId);
+    let component = $comments.data("comments");
+    if (inReplyTo) {
+      component.addReply(inReplyTo, `<div class="comment-thread"><div>${commentHtml}</div></div>`);
+    } else {
+      component.addThread(commentHtml);
+    }
+
+    // Update the comments count
+    $(".comments-count", $comments).text(<%== t("decidim.components.comments.title", count: @comments_count).to_json %>);
+
+
+
+    // switch form for second step
+    if (inReplyTo) {
+        $comments.find('#comment<%== commentable.id %>-reply').not(".phantom").replaceWith("<%== escape_javascript(render 'decidim/comments_extended/comments/update_comments_form', form_object: update_form_object(@comment), comment: @comment) %>");
+    } else {
+        $comments.find('.add-comment.not-response').not(".phantom").replaceWith("<%== escape_javascript(render 'decidim/comments_extended/comments/update_comments_form', form_object: update_form_object(@comment), comment: @comment) %>");
+    }
+    
+    $comments.find("select:not([multiple=multiple])").select2({
+      minimumResultsForSearch: Infinity,
+    });
+
+    // remove button for first step form
+    let button = inReplyTo ? $('button[aria-controls="comment'+inReplyTo+'-reply"]') : $('button[aria-controls="'+rootCommentableId+'-response"]');
+    //button.parent().remove();
+
+    // add token to form
+//    let newAction = $('#update-comment-<%== @comment.id %>').attr('action').split('?')[0] + '?comment_token=<%== @comment.token %>';
+//    $('#update-comment-<%== @comment.id %>').attr('action', newAction);
+
+    // add functionon for close form button
+    $('.close-second-step-comment-<%== @comment.id %>-button-js').click( function() {
+
+      let parent = inReplyTo ? $(this).parent().parent() : $(this).parents('.comments');
+      
+        $(this).parent()
+          .replaceWith("<%= escape_javascript(
+                        render 'decidim/comments_extended/comments/thank_you',
+                        message: t("update.thank_you_message_mini", scope: "decidim.comments.comments"),
+                        close_modal: t("update.close_modal", scope: "decidim.comments.comments")) %>"
+          );
+ 
+
+        let wrapper = inReplyTo ? parent : parent.find('.update-comment');
+
+        console.log(parent, wrapper)
+
+        // add closing function for newly rendered close button
+        wrapper.find('.close-button').click( function() {          
+          const phantom = $(this).closest(".comment").find(".phantom").first(); 
+          
+          if (phantom.length) {
+            const oldId = phantom.attr("id");
+            const newId = oldId?.replace("__phantom", "");
+            phantom.removeClass("phantom");
+            phantom.attr("id", newId); 
+
+            $(this).parent().remove();
+
+            $('.comment-field--body textarea').each(function () {
+              $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+            }); 
+          } else {
+            $(this).parent().replaceWith(`<%= raw cell('decidim/comments/comments', commentable).add_comment %>`); 
+            console.log(parent)
+
+            parent.find('> .add-comment .comment-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter(parent.find('> .add-comment .comment-field--body textarea'))); 
+  
+            parent.find(".add-comment input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+                max: 5,
+                STRING: {
+                  remove: 'usuń',
+                  denied: 'Ten format pliku $ext jest niedozwolony.',
+                  file: '$file',
+                  selected: 'Wybrany plik: $file',
+                  duplicate: 'Ten plik już został wybrany:\n$file',
+                  toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+                  toomany: 'Niedozwolona liczba plików (maks: $max)',
+                  toobig: '$file ma za duży rozmiar (maks: $size)'
+                }, 
+              });
+
+              parent.find(".add-comment .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+                e.preventDefault();
+                
+                $(this).addClass("AttachmentButton-applied");
+
+                var target_id = $(this).data("target");
+                $(this).closest("form").find(target_id + " > input")
+                    .last()
+                    .click();
+            });
+          }
+        });
+    });
+}());

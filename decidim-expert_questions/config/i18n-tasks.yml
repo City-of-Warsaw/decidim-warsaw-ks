@@ -1,0 +1,10 @@
+---
+
+base_locale: pl
+locales: [pl]
+
+ignore_unused:
+  - "decidim.components.expert_questions.name"
+
+ignore_missing:
+  - decidim.participatory_processes.scopes.global

@@ -1,0 +1,14 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= "#{t('decidim.admin.titles.consultation_requests')}:<br> #{consultation_request.title}".html_safe %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("ws_messages.back_to_index", scope: "decidim.admin"), decidim_ws_notification.admin_ws_messages_path, class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

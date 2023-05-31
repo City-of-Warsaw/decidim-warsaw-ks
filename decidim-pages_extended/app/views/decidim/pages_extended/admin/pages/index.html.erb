@@ -1,0 +1,71 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t(".title") %>
+      <div class="button--title">
+        <%= link_to t("actions.new", scope: "decidim.pages", name: t("models.page.name", scope: "decidim.pages.admin")), new_pages_extended_url(current_component), class: "button tiny button--simple" if allowed_to? :create, :page %>
+        <%= export_dropdown %>
+      </div>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <div class="table-scroll">
+      <table class="table-list">
+        <thead>
+          <tr>
+            <th><%= t("models.page.fields.title", scope: "decidim.pages") %></th>
+            <th><%= t('models.page.fields.published', scope: "decidim.pages") %></th>
+            <th class="actions"><%= t("actions.title", scope: "decidim.pages") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% pages.each do |page| %>
+            <tr data-id="<%= page.id %>">
+              <td>
+                <%= page.title[current_locale] %><br>
+              </td>
+              <td>
+                <% if page.published? %>
+                  <strong class="text-success"><%= t("pages.index.published", scope: "decidim.admin") %></strong>
+                <% else %>
+                  <strong class="text-alert"><%= t("pages.index.not_published", scope: "decidim.admin") %></strong>
+                <% end %>
+              </td>
+              <td class="table-list__actions">
+                <%= icon_link_to "eye", resource_locator(page).path, t("actions.preview", scope: "decidim.pages"), class: "action-icon--preview", target: :blank %>
+
+                <% if allowed_to? :update, :page, page: page %>
+                  <%= edit_pages_extended_link(page, current_component) %>
+                <% else %>
+                  <span class="action-space icon"></span>
+                <% end %>
+
+                <% if allowed_to?(:publish, :page, page: page) %>
+                  <% if page.published? %>
+                    <%= icon_link_to "x", publish_pages_extended_url(page, current_component), t("actions.unpublish", scope: "decidim.admin"), class: "action-icon--unpublish", method: :post %>
+                  <% else %>
+                    <%= icon_link_to "check", publish_pages_extended_url(page, current_component), t("actions.publish", scope: "decidim.admin"), class: "action-icon--publish", method: :post %>
+                  <% end %>
+                <% else %>
+                  <span class="action-space icon"></span>
+                <% end %>
+
+                <%#= resource_permissions_link(page) %>
+
+                <% if allowed_to? :destroy, :page, page: page %>
+                  <%= destroy_pages_extended_link(page, current_component) %>
+                <% else %>
+                  <span class="action-space icon"></span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate pages, theme: "decidim" %>
+    </div>
+  </div>
+</div>
+
+<%= javascript_include_tag "decidim/pages_extended/admin/destroy_page_alert" %>

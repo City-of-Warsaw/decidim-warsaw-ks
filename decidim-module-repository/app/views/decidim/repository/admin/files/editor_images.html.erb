@@ -1,0 +1,12 @@
+<div class="card" id="consultation_requests">
+  <div class="card-section">
+    <% if @files.any? %>
+      <%= render 'decidim/repository/admin/files/tiles', show_select_buttons: true %>
+      <%= paginate @files, theme: "decidim" %>
+    <% else %>
+      <p><%= t("decidim.admin.repository.no_files") %></p>
+    <% end %>
+  </div>
+</div>
+<%= stylesheet_link_tag    "decidim/admin/application", media: "all" %>
+

@@ -1,0 +1,7 @@
+<% if resource_image_path.present? %>
+  <div class='card__image--wrapper'>
+    <%= image_tag resource_image_path, class: "card__image", alt: model.hero_image_alt %>
+
+    <%= cell('decidim/content_blocks/hero', current_organization).consultation_decor %>
+  </div>
+<% end %>

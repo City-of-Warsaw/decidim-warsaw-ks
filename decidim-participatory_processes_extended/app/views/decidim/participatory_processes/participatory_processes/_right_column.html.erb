@@ -1,0 +1,64 @@
+<div class="card extra definition-data">
+  <% if model.start_date.present? %>
+    <div class="definition-data__item start-date">
+      <span class="definition-data__title"><%= t("start_date", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%== l(model.start_date, format: :decidim_with_month_name) %></strong>
+    </div>
+  <% end %>
+
+  <% if model.end_date.present? %>
+    <div class="definition-data__item end-date">
+      <span class="definition-data__title"><%= t("end_date", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%== l(model.end_date, format: :decidim_with_month_name) %></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.local_area).present? %>
+    <div class="definition-data__item local_area">
+      <span class="definition-data__title"><%= t("local_area", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.local_area) %></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.meta_scope).present? %>
+    <div class="definition-data__item scope">
+      <span class="definition-data__title"><%= t("meta_scope", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.meta_scope) %></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.participatory_structure).present? %>
+    <div class="definition-data__item participatory_structure">
+      <span class="definition-data__title"><%= t("participatory_structure", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.participatory_structure) %></strong>
+    </div>
+  <% end %>
+
+  <% if model.fb_url.present? %>
+    <div class="definition-data__item participatory_scope">
+      <span class="definition-data__title"><%= t("fb_url", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= link_to t('.join_us_on_fb'), model.fb_url, class: 'fb-link', target: '_blank' %><span class="show-for-sr"> otwiera się w nowej karcie</span></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.participatory_scope).present? %>
+    <div class="definition-data__item participatory_scope">
+      <span class="definition-data__title"><%= t("participatory_scope", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.participatory_scope) %></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.target).present? %>
+    <div class="definition-data__item target">
+      <span class="definition-data__title"><%= t("target", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.target) %></strong>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(model.developer_group).present? %>
+    <div class="definition-data__item developer-group">
+      <span class="definition-data__title"><%= t("developer_group", scope: "decidim.participatory_processes.show") %></span>
+      <strong><%= translated_attribute(model.developer_group) %></strong>
+    </div>
+  <% end %>
+</div>

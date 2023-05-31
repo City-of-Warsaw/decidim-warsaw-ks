@@ -1,0 +1,8 @@
+<% url = collection_for.is_a?(Decidim::ConsultationRequests::ConsultationRequest) ? url_for([:admin, @attachment_collection.collection_for, @attachment_collection]) : url_for([@attachment_collection.collection_for, @attachment_collection]) %>
+<%= decidim_form_for(@form, url: url, html: { class: "form edit_attachment_collection" }) do |f| %>
+  <%= render partial: "decidim/admin/attachment_collections/form", object: f, locals: { title: t("attachment_collections.edit.title", scope: "decidim.admin") } %>
+
+  <div class="button--double form-general-submit">
+    <%= f.submit t("attachment_collections.edit.update", scope: "decidim.admin") %>
+  </div>
+<% end %>

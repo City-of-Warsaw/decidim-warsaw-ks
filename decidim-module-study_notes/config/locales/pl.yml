@@ -1,0 +1,112 @@
+---
+pl:
+  activemodel:
+    attributes:
+      category:
+        name: Nazwa
+        position: Kolejność
+      map_background:
+        name: Nazwa
+        file: Plik
+        file_type: Typ podkładu
+        position: Kolejność
+        x_latitude: "Szerokość geograficzna (w formacie: 52.342687)"
+        x_longitude: "Długość geograficzna (w formacie: 21.000695)"
+        y_latitude: "Szerokość geograficzna (w formacie: 52.256425)"
+        y_longitude: "Długość geograficzna (w formacie: 21.200775)"
+      study_note:
+        first_name: Imię
+        last_name: Nazwisko
+        full_name: Imię i nazwisko
+        organization_name: Nazwa jednostki organizacyjnej
+        email: Adres e-mail (na ten adres e-mail wyślemy potwierdzenie zgłoszenia)
+        location_specification: Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga
+        body: Treść uwagi
+        street: Ulica
+        street_number: Numer budynku
+        flat_number: Numer lokalu
+        zip_code: Kod pocztowy
+        city: Miejscowość
+      legend_item:
+        name: Nazwa
+        position: Kolejność
+        file: Plik
+        legend_item_img_alt: Opis alternatywny (ALT) dla pliku
+        map_background_id: Podkład mapowy
+  activerecord:
+    attributes:
+      decidim/study_notes/category:
+        name: Nazwa
+        position: Kolejność
+
+  decidim:
+    study_notes:
+      study_notes:
+        index:
+          rodo: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia uwagi oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+          acknowledged: |-
+            Zapoznałem się z zamieszczonym na górze strony opisem składania uwagi przez powyższy formularz.*
+          category: Kategoria
+          select_category: Wybierz kategorię
+          create: Wyślij
+          clear: Wyczyść
+          tos_agreement: "Twoje dane przetwarzane są zgodnie z <strong>%{link}</strong>."
+          terms: Klauzulą informacyjną o przetwarzaniu danych osobowych
+        create:
+          invalid: "Nie udało się dodać uwagi do studium"
+      admin:
+        actions:
+          preview: Podgląd
+          title: Działania
+        categories:
+          index:
+            title: Kategorie
+          new:
+            title: Dodaj kategorię
+            create: Zapisz
+          edit:
+            title: Edycja kategorii
+            update: Aktualizuj
+        map_backgrounds:
+          form:
+            file_type: Rodzaj
+          index:
+            title: Podkłady mapowe
+          new:
+            title: Dodaj podkład mapowy
+            create: Zapisz
+          edit:
+            title: Edycja podkładu mapowego
+            update: Aktualizuj
+        legend_items:
+          form:
+          index:
+            title: Pozycje legendy
+          new:
+            title: Dodaj pozycję legendy
+            create: Zapisz
+          edit:
+            title: Edycja pozycji legendy
+            update: Aktualizuj
+        custom_settings:
+          click_on_map: |-
+            <ul>
+            <li>Kliknij na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
+            <li>Po dodniu minimum 3 punktów, pierwszy punkt zmienia kolor na zielony, należy go kliknąć, by dane poligonu zostału zapisane.</li>
+            <li>Po kliknieciu w zielony punkt, poligon nadal można edytować, przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
+            </ul>
+            <strong>UWAGA! Dodanie poligonu jest wymagane</strong>
+        study_notes:
+          index:
+            title: Uwagi do studium
+          show:
+            title: Podgląd uwagi do studium
+    components:
+      study_notes:
+        name: Uwagi do studium
+        settings:
+          step:
+            announcement: Ogłoszenie
+          global:
+            block_comments: Aktywność (testowe)

@@ -1,0 +1,12 @@
+<% form.fields_for :settings, form.object.settings do |settings_fields| %>
+  <%= settings_fields.translated :text_field, :welcome_text, label: t(".welcome_text") %>
+  <%= settings_fields.translated :text_field, :addition_to_welcome_text, label: t(".addition_to_welcome_text") %>
+<% end %>
+
+<% form.fields_for :images, form.object.images do |images_fields| %>
+  <%= images_fields.upload :background_image, label: t(".background_image") %>
+<% end %>
+
+<% form.fields_for :settings, form.object.settings do |settings_fields| %>
+  <%= settings_fields.text_field :hero_image_alt, label: t(".hero_image_alt") %>
+<% end %>

@@ -1,0 +1,94 @@
+<!--separates the footer from the rest of the page,
+     creates a sticky footer-->
+<!-- Topbar -->
+<div class="title-bar">
+  <%= link_to t("skip_button", scope: "decidim.accessibility"), url_for(anchor: "content"), class: "skip" %>
+  <%= link_to "Przejdź do menu", url_for(anchor: "main-menu"), class: "skip" %>
+  <%= link_to "Przejdź do wyszukiwarki", url_for(anchor: "search-bar"), class: "skip" %>
+  <% if current_organization.official_img_header? %>
+    <%= link_to  current_organization.official_url, class: "logo-cityhall" do %>
+      <%= image_tag current_organization.official_img_header.url.to_s , alt: current_organization.name %>
+    <% end %>
+  <% end %>
+  <div class="row column topbar">
+    <div class="logo-wrapper">
+      <%= link_to decidim.root_url(host: current_organization.host) do %>
+        <%= image_tag("logo.svg", alt: 'Konsultacje społeczne w Warszawie – strona główna', class: 'header-logo') %> 
+      <% end %>
+    </div>
+
+    <div id="search-bar">
+      <%= render partial: "layouts/decidim/topbar_search" %>
+    </div>
+    <%#= render partial: "layouts/decidim/language_chooser" %>
+
+    <div class="hide-for-medium topbar__menu ml-s mr-s">
+      <button type="button" class="mb-none mobile-menu-toggle-js" data-toggle="offCanvas" aria-label="<%= t("layouts.decidim.header.navigation") %>">
+        <%= image_tag 'hamburger-icon.svg', alt: 'menu główne' %>
+        <%#= icon "menu", aria_label: t("layouts.decidim.header.navigation"), role: "img" %>
+      </button>
+    </div>
+    <% if current_user %>
+      <nav class="topbar__dropmenu topbar__user__logged">
+        <%= link_to decidim.notifications_path, class: "topbar__notifications #{current_user.notifications.any? ? "is-active" : ""}" do %>
+          <%= icon "bell", role: "img", aria_label: t("layouts.decidim.user_menu.notifications") %>
+        <% end %>
+        <ul class="dropdown menu" data-dropdown-menu
+          data-autoclose="false"
+          data-disable-hover="true"
+          data-click-open="true"
+          data-close-on-click="true">
+          <li class="is-dropdown-submenu-parent show-for-medium" tabindex="-1">
+            <%= link_to current_user.name, decidim.account_path, id: "user-menu-control", "aria-controls": "user-menu", "aria-haspopup": "true", "aria-label": t("layouts.decidim.user_menu.account", name: current_user.name) %>
+            <ul class="menu is-dropdown-submenu" id="user-menu" role="list" aria-labelledby="user-menu-control" tabindex="-1">
+              <%= render partial: "layouts/decidim/user_menu" %>
+            </ul>
+            <div data-set="nav-login-holder" class="show-for-medium">
+              <!-- Repeated due to dropdown limitations -->
+              <ul class="menu is-dropdown-submenu js-append usermenu-off-canvas">
+                <%= render partial: "layouts/decidim/user_menu" %>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    <% else %>
+      <div class="topbar__user show-for-medium" data-set="nav-login-holder">
+        <ul class="topbar__user__login js-append ul-reset ul-contents" role="list">
+          <% if current_organization.sign_up_enabled? %>
+            <li>
+              <%= link_to t("layouts.decidim.header.sign_up"), decidim.new_user_registration_path, class: "sign-up-link" %>
+            </li>
+          <% end %>
+          
+          <li>
+            <%= link_to t("layouts.decidim.header.sign_in"), decidim.new_user_session_path, class: "sign-in-link" %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= render partial: "layouts/decidim/admin_links" %>
+
+    <div class="topbar__accesibility show-for-medium">
+      <% page = Decidim::StaticPage.find_by(slug: 'dostepnosc') %>
+      <a href="<%= page ? decidim.page_path(page) + "#subcontent" : 'https://um.warszawa.pl/dostepnosc' %>" aria-label="<%= t('.accesibility-title') %>">
+        <%= image_tag 'accesibility-icon.svg', alt: "" %>
+      </a>
+    </div> 
+  </div>
+
+</div>
+<div class="show-for-medium" data-set="nav-holder">
+  <div class="navbar js-append">
+    <div class="row column" id="main-menu">
+      <%= main_menu.render %>
+    </div>
+  </div>
+</div>
+
+<%= nonced_javascript_tag do %> 
+  var focusableElementsString = "a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, *[tabindex], *[contenteditable]"; function trapTab(obj, evt){ if (evt.which == 9){ var o = obj.find('*'), focusableItems = o.filter(focusableElementsString).filter(':visible'), focusedItem = $(':focus'), numberOfFocusableItems = focusableItems.length, focusedItemIndex = focusableItems.index(focusedItem); if (evt.shiftKey){ if (focusedItemIndex == 0) { focusableItems.get(numberOfFocusableItems - 1).focus(); evt.preventDefault(); } } else { if (focusedItemIndex == numberOfFocusableItems - 1) { focusableItems.get(0).focus(); evt.preventDefault(); } } }; }
+
+  $(".off-canvas--mobile-menu").on('keydown', function(evt){ trapTab($(".off-canvas--mobile-menu"), evt); });
+<% end %>

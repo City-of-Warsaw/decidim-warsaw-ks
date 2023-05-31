@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title"><%= title %></h2>
+  </div>
+  <div class="card-section">
+
+    <div class="row column hashtags__container">
+      <%= form.text_field :position %>
+    </div>
+
+    <div class="row column hashtags__container">
+      <%= form.text_field :affiliation, hashtaggable: true %>
+    </div>
+
+    <% if action_name == 'edit' || action_name == 'update' %>
+      <div class="row column hashtags__container">
+        <%= form.upload :avatar %>
+      </div>
+    <% end %>
+
+    <div class="row column hashtags__container">
+      <%= form.text_field :description %>
+    </div>
+
+    <div class="row column">
+      <% if expert&.decidim_user_id.present? %>
+        <%= form.hidden_field :decidim_user_id %>
+      <% else %>
+        <%= form.select :decidim_user_id,
+          @form.users_select,
+          { include_blank: t(".select_a_user") },
+          { multiple: false } %>
+      <% end %>
+    </div>
+
+    <div class="row column">
+      <%= form.number_field :weight %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<li class="column">
+  <div class="card card--expert">
+    <div class="card__image--wrapper">
+      <%= expert_avatar expert %>
+    </div>
+    <div class="card__content">
+      <div class="card__header">
+        <%= expert.position_and_name %>
+        <br>
+        <%= expert.affiliation %>
+      </div>
+      <div class="card__text">
+        <%= decidim_sanitize expert.description %>
+      </div>
+    </div>
+
+    <% if !current_component.users_action_disallowed? %>
+      <div class="card__footer card__footer--spaces">
+        <%= link_to (t("decidim.expert_questions.user_questions.index.new_user_question") + "<span class='show-for-sr'> ekspertowi: " + expert.position_and_name + "</span>").html_safe, new_user_question_path(expert_id: expert.id, anchor: "subcontent"), class: "card__button button--sc light button small" %>
+      </div>
+    <% end %>
+  </div>
+</li>

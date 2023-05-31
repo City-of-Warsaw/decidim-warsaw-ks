@@ -1,0 +1,28 @@
+<%= dynamic_map_for meetings_data_for_map(geocoded_meetings) do %>
+  <template id="marker-popup">
+    <div class="map-info__content">
+      <div class="map-popup-header">
+        <% if false %>
+          <!-- TODO: do ustalenia czy przywracać ikonę -->
+          <div class="address__icon">
+            {{html icon}}
+          </div>
+        <% end %>
+        <a href="${link}" class="meeting-title">
+          <h3>${title}</h3>
+        </a>
+      </div>
+      <div id="bodyContent">
+        {{html description}}
+        <span class="scope-name">${scope_name}</span>
+        <span class="date-line">${startDate}, ${weekDay} ${startTime}</span>
+        <div>
+          <strong class="caps">${meetingTypeTr}</strong>
+          &nbsp;/&nbsp;
+          <strong>${location}</strong>
+          {{html locationDetails}}
+        </div>
+      </div>
+    </div>
+  </template>
+<% end.html_safe %>

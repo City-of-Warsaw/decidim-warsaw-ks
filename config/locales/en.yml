@@ -1,0 +1,386 @@
+en:
+  activemodel:
+    attributes:
+      report:
+        details: "Dodatkowe uwagi lub inny powód:"
+      meeting:
+        type_of_meeting: Typ spotkania
+      questionnaire_question:
+        max_characters: Limit znaków (zostaw 0, jeśli nie chcesz ustawiać limitu)
+        mandatory: Odpowiedź wymagana
+        question_type: Typ odpowiedzi
+      participatory_process_group:
+        local_area: Część Warszawy
+        meta_scope: Komórka odpowiedzialna
+        participatory_structure: Kontakt
+        participatory_process_ids: Powiązane konsultacje
+      organization:
+        highlighted_content_banner_enabled: Pokaż baner ze zdjęciem
+      participatory_process:
+        local_area: Część Warszawy
+        meta_scope: Komórka odpowiedzialna
+        participatory_structure: Kontakt
+        slug: URL (link)
+        scope: Dzielnica
+        scope_id: Dzielnica
+        promoted: Wyróżniona konsultacja
+        related_process_ids: Powiązane konsultacje
+      result:
+        decidim_scope_id: Dzielnica
+      settings:
+        scope_id: Dzielnica
+      static_page:
+        content: Treść
+        slug: URL (link)
+  activerecord:
+    models:
+      decidim/participatory_process:
+        one: Konsultacja społeczna
+        few: Konsultacje społeczne
+        many: Konsultacji społecznych
+        other: Konsultacje społeczne
+      decidim/proposals/proposal:
+        one: Dokument
+        few: Dokumenty
+        many: Dokumentów
+        other: Dokumenty
+      decidim/scopes:
+        one: Dzielnica
+        few: Dzielnice
+        many: Dzielnic
+        other: Dzielnice
+  date:
+    formats:
+      decidim_short: "%d.%m.%Y"
+  decidim:
+    follows:
+      create:
+        participatory_space: Obserwuj <span class="show-for-sr">%{resource_name}</span>
+    shared:
+      flag_modal:
+        description: "Dlaczego ta wypowiedź narusza nasz <a href='%{link}'>Regulamin</a>?"
+        spam: Jest spamem
+        does_not_belong: Wprowadza w błąd
+        offensive: Jest obraźliwa lub agresywna
+        title: Zgłoś nieodpowiednią wypowiedź
+      confirm_modal:
+        cancel: Popraw
+        ok: Wyślij
+        title: Potwierdź
+    account:
+      update:
+        error: Podczas aktualizowania konta wystąpił błąd
+        success: Zaktualizowaliśmy Twoje konto
+    reports:
+      create:
+        success: Utworzyliśmy zgłoszenie. Teraz zweryfikuje je administrator.
+    devise:
+      sessions:
+        user:
+          timed_out: Twoja sesja wygasła. Zaloguj się ponownie, aby kontynuować.
+    application:
+      collection:
+        documents:
+          one: dokument
+          few: dokumenty
+          many: dokumentów
+          other: dokumentów
+      photos:
+        related_photos: Galeria
+    statistics:
+      headline: Konsultacje w liczbach
+    participatory_spaces:
+      highlighted_meetings:
+        upcoming_meetings: Najbliższe spotkania
+    meetings:
+      type_of_meeting:
+        in_person: Na żywo
+        hybrid: Online i na żywo
+      meetings:
+        filters:
+          type_values:
+            in_person: Na żywo
+            hybrid: Online i na żywo
+    participatory_process_groups:
+      content_blocks:
+        stats:
+          name: Konsultacje w liczbach
+        metadata:
+          participatory_structure: Kontakt
+    forms:
+      step_navigation:
+        show:
+          are_you_sure: Wysłać odpowiedź?
+          submit: Wyślij
+      admin:
+        questionnaires:
+          display_condition:
+            condition_types:
+              not_equal: Nie równa się
+              equal: Równa się
+          answer_option:
+            free_text: Możliwość wpisania dowolnego tekstu
+      questionnaires:
+        show:
+          answer_questionnaire:
+            anonymous_user_message: Jeśli chcesz udzielić odpowiedzi, <a href="%{sign_in_link}">zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>!
+          questionnaire_for_private_users:
+            title: Ankieta nie jest teraz aktywna – nie możesz dodać odpowiedzi!
+          questionnaire_closed:
+            body: ""
+            title: Ankieta nie jest teraz aktywna – nie możesz dodać odpowiedzi!
+          questionnaire_answered:
+            body: ""
+            title: Dziękujemy za przesłanie odpowiedzi!
+          tos_agreement: Wypełniając ankietę, akceptujesz regulamin
+      file_help:
+        image:
+          message_1: Dodaj obraz, na którym są ludzie. Na obrazie nie może być tekstu.
+    datepicker:
+      help_text: "Format: dd.mm.rrrr"
+    participatory_processes:
+      content_blocks:
+        highlighted_processes:
+          name: Aktualne konsultacje
+      participatory_processes:
+        filters:
+          counters:
+            active:
+              one: 1 aktualna konsultacja
+              few: "%{count} aktualne konsultacje"
+              many: "%{count} aktualnych konsultacji"
+              other: "%{count} aktualnych konsultacji"
+      pages:
+        home:
+          highlighted_processes:
+            see_all_processes: Zobacz wszystkie konsultacje
+            active_processes: Aktualne konsultacje
+      show:
+        related_processes: Zobacz także
+        local_area: Część Warszawy
+        meta_scope: Komórka odpowiedzialna
+        participatory_structure: Kontakt
+        start_date: Początek konsultacji
+        end_date: Koniec konsultacji
+      admin:
+        participatory_processes:
+          form:
+            related_processes: Powiązane konsultaje
+            announcement_help: Wpisany tu tekst wyświetli się użytkownikowi nad opisem procesu
+    admin:
+      block_user:
+        new:
+          description: Zablokowanie użytkownika spowoduje, że nie będzie on mógł dłużej używać swojego konta. To działanie możesz potem cofnąć i odblokować użytkownika.
+      view_public_page: Podgląd
+      actions:
+        new_process: Nowe konsultacje
+      dashboard:
+        show:
+          welcome: Panel administracyny
+      filters:
+        results:
+          scope_id_eq:
+            label: Dzielnica
+        scope_id_eq:
+          label: Dzielnica
+      menu:
+        admins: Użytkownicy wewnętrzni
+        moderation: Moderacje
+        static_pages: Baza wiedzy
+        participatory_processes: Konsultacje
+        scopes: Dzielnice
+      models:
+        participatory_process:
+          fields:
+            created_at: Utworzony
+      moderations:
+        reports:
+          index:
+            participatory_space: "Gdzie?"
+      newsletters:
+        index:
+          no_scopes: Brak dzielnic
+        select_recipients_to_deliver:
+          scopes_help: Wysyła newsletter do użytkowników, którzy mają dowolną z wybranych dzielnic ustawioną jako aktywną w zakładce konta „Moje zainteresowania”.
+          select_scopes: Filtruj według użytkowników, którzy mają dowolną z wybranych dzielnic ustawioną jako aktywna w zakładce konta „Moje zainteresowania”.
+        resources:
+          index:
+            headers:
+              scope: Dzielnica
+      organization:
+        edit:
+          title: Podstawowe
+      organization_appearance:
+        form:
+          homepage_highlighted_content_banner_title: Baner ze zdjęciem
+      organization_homepage:
+        edit:
+          active_content_blocks: Aktywne bloki
+          inactive_content_blocks: Nieaktywne bloki
+      scopes:
+        new:
+          title: Nowa dzielnica
+        edit:
+          title: Edytuj dzielnicę
+      static_pages:
+        form:
+          none: Bez tematu
+      titles:
+        users: Użytkownicy wewnętrzni
+        participatory_processes: Konsultacje społeczne
+        scopes: Dzielnice
+    components:
+      surveys:
+        settings:
+          step:
+            allow_unregistered_help: Jeśli do wypełnienia ankiety nie będzie wymagane logowanie, ankieta będzie bardziej podatna na automatyczne ataki. Zalecamy ostrożność!
+          global:
+            ends_at_help: Jeśli pozostawisz puste, to ankieta nie zostanie zamknięta
+            ends_at: Data zamknięcia ankiety
+      add_comment_form:
+        remaining_characters: "Pozostała liczba znaków: %{count}"
+        remaining_characters_1: "Pozostał %{count} znak"
+      pages:
+        name: Strona informacyjna
+      proposals:
+        name: Uwagi do dokumentu
+    content_blocks:
+      stats:
+        name: Konsultacje w liczbach
+      highlighted_content_banner:
+        name: Baner ze zdjęciem
+    following:
+      no_followings: Jeszcze niczego nie obserwuje.
+    moderations:
+      actions:
+        not_hidden: Widoczne
+        hidden: Ukryte
+      models:
+        moderation:
+          fields:
+            visit_url: Przejdź
+            participatory_space: "Gdzie?"
+            reports: Powód
+    pages:
+      terms_and_conditions:
+        accept:
+          success: Dziękujemy za zaakceptowanie regulaminu korzystania ze strony
+        refuse:
+          modal_button: Nie zgadzam się
+        form:
+          agreement: Akceptuję
+          legend: Czy akceptujesz nowy regulamin?
+        required_review:
+          alert: ""
+          body: Poświęć chwilę, aby sprawdzić, co się zmieniło i zaakceptuj nowy regulamin.
+          title: UWAGA! Zmieniliśmy regulamin korzystania ze strony.
+      index:
+        subheading: ""
+        title: Baza wiedzy
+      home:
+        extended:
+          debates: Porozmawiaj
+          debates_explanation: …o swoich potrzebach
+          how_to_participate: Weź udział w konsultacjach
+          meetings: Przyjdź
+          meetings_explanation: …i posłuchaj, co mówią inni
+          more_info: Dowiedz się jak
+          proposals: Zaproponuj
+          proposals_explanation: …własne rozwiązania
+        footer_sub_hero:
+          footer_sub_hero_headline: Witamy na platformie partycypacyjnej.
+          footer_sub_hero_body: Dołącz do internetowej platformy partycypacji i aktywnie uczestnicz w ulepszaniu swojego miasta.
+        statistics_custom:
+          headline: Konsultacje w liczbach
+      participatory_processes:
+        filters:
+          counters:
+            active:
+              one: "<strong>1</strong> aktualna konsultacja"
+              few: "<strong>%{count}</strong> aktualne konsultacje"
+              many: "<strong>%{count}</strong> aktualnych konsultacji"
+              other: "<strong>%{count}</strong> aktualnych konsultacji"
+            all:
+              one: "<strong>1</strong> konsultacja"
+              few: "<strong>%{count}</strong> konsultacje"
+              many: "<strong>%{count}</strong> konsultacji"
+              other: "<strong>%{count}</strong> konsultacji"
+            past:
+              one: "<strong>1</strong> przeszły konsultacja"
+              few: "<strong>%{count}</strong> przeszłe konsultacje"
+              many: "<strong>%{count}</strong> przeszłych konsultacji"
+              other: "<strong>%{count}</strong> przeszłych konsultacji"
+            upcoming:
+              one: "<strong>1</strong> nadchodzący konsultacja"
+              few: "<strong>%{count}</strong> nadchodzące konsultacje"
+              many: "<strong>%{count}</strong> nadchodzących konsultacji"
+              other: "<strong>%{count}</strong> nadchodzących konsultacji"
+      show:
+        area: Kategoria
+    proposals:
+      admin:
+        proposals:
+          index:
+            title: Uwagi do dokumentu
+    scopes:
+      scopes: Dzielnice
+      prompt: Wybierz dzielnicę
+    surveys:
+      surveys:
+        answer:
+          success: Dziękujemy za wypełnienie ankiety!
+    templates:
+      admin:
+        questionnaire_templates:
+          preview:
+            tos_agreement: Wypełniając ankietę, akceptujesz regulamin
+  devise:
+    confirmations:
+      confirmed: Zweryfikowaliśmy pomyślnie Twój adres e-mail
+    failure:
+      not_found_in_database: Nieprawidłowy adres e-mail lub hasło
+      invalid: Nieprawidłowy adres e-mail lub hasło
+      unauthenticated: Żeby przejść dalej, musisz się zalogować lub zarejestrować
+    passwords:
+      new:
+        send_me_reset_password_instructions: Wyślij mi instrukcję resetowania hasła
+      send_instructions: Za kilka minut otrzymasz e-mail z instrukcjami, jak zresetować hasło
+    registrations:
+      signed_up_but_unconfirmed: Na Twój e-mail wysłaliśmy wiadomość z linkiem potwierdzającym. Kliknij link, aby aktywować konto. Pamiętaj, żeby sprawdzić też folder SPAM!
+    sessions:
+      signed_in: Udało Ci się zalogować
+      signed_out: Udało Ci się wylogować
+  errors:
+    messages:
+      cannot_be_blank: To pole nie może byc puste
+      blank: To pole nie może byc puste
+      empty: To pole nie może byc puste
+  layouts:
+    decidim:
+      process_navigation:
+        process_menu_item: Opis
+      participatory_processes:
+        index:
+          promoted_processes: Wyróżnione konsultacje
+      footer:
+        decidim_logo: Platforma Decidim
+        made_with_open_source: 'Strona internetowa powstała z użyciem <a target="_blank" href="https://github.com/decidim/decidim">otwartego oprogramowania</a>.'
+      cookie_warning:
+        link_label: Dowiedz się więcej o ciasteczkach
+        description_html: "Ta strona używa ciasteczek. Kontynuując przeglądanie witryny, zgadzasz się na korzystanie z ciasteczek. Dowiedz się więcej o tym %{link}."
+  password_validator:
+    email_included_in_password: Hasło jest zbyt podobne do Twojego adresu e-mail
+    name_included_in_password: Hasło jest zbyt podobne do Twojego imienia
+    nickname_included_in_password: Hasło jest zbyt podobne do Twojej nazwy użytkownika
+    username_included_in_password: Hasło jest zbyt podobne do Twojej nazwy użytkownika
+    not_enough_unique_characters: Hasło nie ma wystarczającej liczby unikalnych znaków
+    password_not_allowed: Hasło nie jest dozwolone
+    fallback: Hasło nie jest poprawne
+    password_too_common: Hasło jest zbyt powszechne
+    password_too_long: Hasło jest zbyt długie
+    password_too_short: Hasło jest za krótkie
+  time:
+    formats:
+      decidim_short_no_time: "%d.%m.%Y"
+      decidim_short: "%d.%m.%Y %H:%M"
+      decidim_day_of_year: "%d.%m.%Y"

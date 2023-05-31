@@ -1,0 +1,43 @@
+<div class="row column">
+  <%= form.text_field :title %>
+</div>
+
+<div class="row column">
+  <%= form.editor :body %>
+</div>
+<div class="row column">
+  <%= form.editor :sms_body %>
+</div>
+
+<div class="row column">
+  <%= form.datetime_field :valid_date_from %>
+</div>
+<div class="row column">
+  <%= form.datetime_field :valid_date_to %>
+</div>
+
+<div class="row column">
+  <%= form.select :category_id,
+                  @categories,
+                  { include_blank: t(".select_category") },
+                  { multiple: false } %>
+</div>
+<div class="row column">
+  <%= form.select :district_ids,
+                  @districts,
+                  { as: :checkbox, include_blank: t(".select_district_ids") },
+                  { multiple: true } %>
+</div>
+
+<div class="row column">
+  <%= form.check_box :urgent %>
+</div>
+<div class="row column">
+  <%= form.check_box :mza_skm %>
+</div>
+<div class="row column">
+  <%= form.check_box :sms %>
+</div>
+<div class="row column">
+  <%= form.check_box :mobile %>
+</div>

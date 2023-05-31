@@ -1,0 +1,148 @@
+---
+pl:
+  activemodel:
+    attributes:
+      article_category:
+        description: Opis
+        name: Nazwa
+      info_article:
+        body: Treść
+        title: Tytuł
+        article_category_id: Kategoria
+      forum_article:
+        body: Treść
+        title: Tytuł
+  decidim:
+    forum_article:
+      hero:
+        header: Forum Użytkowników Wewnętrznych
+        sub_header: Opis forum
+    forum_articles:
+      create:
+        error: Nie udało sie dodać wątku do forum
+        success: Dodano nowy wątek do forum
+      index:
+        description: Opis forum
+        title: Forum Użytkowników Wewnętrznych
+    admin_log:
+      article_category:
+        create: "%{user_name} utworzył(a) kategorię Bazy Wiedzy %{resource_name}"
+        delete: "%{user_name} usunął/ęła Kategorie Bazy Wiedzy %{resource_name}"
+        update: "%{user_name} zaktualizował(a) kategorię Bazy Wiedzy %{resource_name}"
+      info_article:
+        create: "%{user_name} utworzył(a) wpis w Bazie Wiedzy %{resource_name}"
+        delete: "%{user_name} usunął/ęła wpis z Bazy Wiedzy %{resource_name}"
+        update: "%{user_name} zaktualizował(a) wpis w Bazie Wiedzy %{resource_name}"
+    info_articles:
+      index:
+        description: Baza wiedzy
+        title: Baza wiedzy
+    info_article:
+      hero:
+        sub_header: Materiały dla koordynatorów konsultacji społecznych
+        header: Strefa koordynatora
+    ad_users_space:
+      forum_article_m:
+        official_author: Administrator
+        no_comments: Brak komentarzy
+      forum_articles:
+        show:
+          add_comment: Dodaj odpowiedź
+          no_comments: Nikt jest nie odpowiedział w tym wątku
+          back_to_forum: "Forum / %{current}"
+        new:
+          title: Załóż nowy wątek na forum
+          body_placeholder: Treść
+          submit: Dodaj Wątek
+          title_placeholder: Temat
+        search:
+          back_to_forum: "Forum / %{current}"
+          title: Wyszukiwanie
+          info_text: Nie znalazłeś tego czego szukałeś? Spróbuj ponownie.
+          submit: Szukaj
+          search_text_placeholder: Szukaj
+          search_text: Wyszukiwana fraza
+        index:
+          join_extended: Posty są widoczne tylko dla użytkowników wewnętrznych
+          join: Dołącz do dyskusji
+          new: Dodaj nowy temat
+      info_article_m:
+        official_author: Redakcja
+      info_articles:
+        index:
+          read_more: Pokaż całość
+          topics: Kategorie
+          standalone_articles: Pojedyncze wpisy
+          subheading: Podtytuł
+        show:
+          back: Powrót
+      admin:
+        article_categories:
+          edit:
+            update: Aktualizuj
+            title: Edycja kategorii
+          new:
+            create: Utwórz
+            title: Nowa kategoria
+        info_articles:
+          form:
+            select_category: Wybierz kategorię
+          edit:
+            update: Aktualizuj
+            title: Edytuj wpis z Bazy Wiedzy
+          new:
+            create: Utwórz
+            title: Nowy wpis do Bazy Wiedzy
+        forum_articles:
+          new:
+            create: Utwórz
+            title: Nowy wpis na Forum
+    admin:
+      article_categories:
+        create:
+          error: Nie udało się utworzyć kategorii
+          success: Utworzono kategorię Bazy Wiedzy
+        destroy:
+          error: Nie udało się usunąć kategorii
+          success: Kategoria została usunięta
+        no_article_categories: Brak zdefiniowanych kategorii
+        index: Wszystkie kategorie
+        new:
+          create: Nowa kategoria
+        update:
+          error: Nie udało się zaktualizować kategorii
+          success: Zaktualizowano kategorię Bazy Wiedzy
+      models:
+        article_category:
+          fields:
+            articles_count: Liczba wpisów
+            description: Opis
+            name: Nazwa
+        info_article:
+          fields:
+            category: Kategoria
+            body: Treść
+            title: Tytuł
+      info_articles:
+        index: Wszystkie wpisy
+        destroy:
+          success: Wpis został usunięty
+        update:
+          error: Nie udało się zaktualizować wpisu
+          success: Zaktualizowano wpis z Bazy Wiedzy
+        create:
+          error: Nie udało się utworzyć wpisu
+          success: Utworzono nowy wpis w Bazie Wiedzy
+        new:
+          create: Nowy wpis
+        no_info_articles: Brak wpisów do wyświetlenia
+      titles:
+        article_categories: Kategorie Bazy Wiedzy
+        info_articles: Baza wiedzy
+      menu:
+        forum: Forum użytkowników wewnętrznych
+        info: Strefa koordynatora konsultacji
+    menu:
+      ad_users_space: Strefa koordynatora konsultacji
+      forum: Forum koordynatora konsultacji
+      info: Strefa koordynatora konsultacji

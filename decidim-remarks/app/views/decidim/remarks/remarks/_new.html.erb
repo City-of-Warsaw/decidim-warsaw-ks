@@ -1,0 +1,45 @@
+<div class="row" id="new-remark-box">
+  <div class="columns mediumlarge-12 large-12">
+    <div class="column">
+      <div class="card card--remark_form add-comment">
+        <div class="card__header">
+          <h2 id="new-remark-header" class="section-heading"><%= t(".title") %></h2>
+        </div>
+
+        <% if !current_participatory_space.users_action_allowed_for_unregister_users && !current_user %>
+          <div class="card__content">
+            <p class="mb-xs">
+              <%= t(".anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
+            </p>
+          </div>
+        <% else %> 
+          <div class="card__content">
+            <%= form_for(form_object, remote: true) do |form| %>
+              <%= render "form", form: form, form_object: form_object %>
+              <div class="row actions">
+                <% unless current_user %>
+                  <ul class='pull-left ul-reset ul-contents' role="list">
+                    <li>
+                      <%= link_to "Zaloguj się", decidim.new_user_session_path, class: 'link'%>
+                      <span> / </span>
+                    </li>
+                  
+                    <li><%= link_to "Zarejestruj się", decidim.new_user_registration_path, class: 'link'%></li>
+                  </ul>
+                <% end %>
+                <div class='pull-right'>
+                  <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+                  <%= form.submit t(".create"), class: "button", data: { disable: true } %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="tos-footer tos-footer--out">
+            <%= t(".tos_agreement", link: link_to(t(".terms"), decidim.page_path("terms-and-conditions"))).html_safe %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

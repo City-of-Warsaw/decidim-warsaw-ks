@@ -1,0 +1,184 @@
+/**
+ * Map Location
+ */
+
+var osmUrl = "https://osm.cdsh.dev/hot/{z}/{x}/{y}.png";
+var nominatimUrl = "https://nominatim.cdsh.dev";
+
+var loadingAddressText = "Wczytywanie adresu...";
+
+var locations = {};
+var markers = {}; 
+
+// set map
+var map = L.map("map", {
+  minZoom: 10,
+  maxZoom: 15,
+  gestureHandling: true
+}).setView([52.22977, 21.01178], 11);
+
+$('#map').removeAttr('tabIndex');
+
+L.tileLayer(osmUrl, {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+
+map.on("click", revertMarkers);
+
+// Offline meeting icon
+var OfflineIcon = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("meetings-map/images/marker-offline.svg")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("meetings-map/images/marker-offline.svg")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+
+var ActiveOfflineIcon = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("meetings-map/images/marker-offline-active.svg")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("meetings-map/images/marker-offline-active.svg")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [35, 60],
+    iconAnchor:  [15, 55],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+
+// Online meeting icon
+var OnlineIcon = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("meetings-map/images/marker-online.svg")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("meetings-map/images/marker-online.svg")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+
+var ActiveOnlineIcon = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("meetings-map/images/marker-online-active.svg")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("meetings-map/images/marker-online-active.svg")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [35, 60],
+    iconAnchor:  [15, 55],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+
+var offlineIcon = new OfflineIcon();
+var activeOfflineIcon = new ActiveOfflineIcon();
+
+var onlineIcon = new OnlineIcon();
+var activeOnlineIcon = new ActiveOnlineIcon();
+
+var meetings_locations = $('#map').data("markers-data");
+
+// clusters
+var clusters = L.markerClusterGroup({ chunkedLoading: true, showCoverageOnHover: false, maxClusterRadius: 20 });
+
+if (!$.isEmptyObject(meetings_locations)) {
+  var bounds = [];
+  $.each(meetings_locations, function(k, v) {  
+    addMarker({
+      latlng: {
+        lat: v.latitude,
+        lng: v.longitude
+      },
+      title: v.title,
+      address: v.address,
+      ...v
+    }, k);
+    bounds.push([v.latitude, v.longitude]);
+  });
+
+  map.addLayer(clusters);
+  map.fitBounds(bounds, { animate: false });
+} 
+
+ 
+function clickZoom(e) { 
+  map.panTo([e.target.getLatLng().lat, e.target.getLatLng().lng], 14);
+}
+
+function revertMarkers() { 
+  $.each(markers, function(itemK, itemV) { 
+    markers[itemK].setIcon(locations[itemK].meetingType === "Online" ? onlineIcon : offlineIcon);
+  }); 
+}
+
+
+
+// add marker
+function addMarker(e, id = Date.now()) { 
+  locations[id] = {
+    lat: e.latitude,
+    lng: e.longitude,
+    title: e.title || null,
+    address: e.address || null,
+    ...e
+  };
+
+  var content = `<div class="map-info__content">
+                  <div class="map-popup-header">
+                    <a href="${e.link}" class="meeting-title">
+                      <h3>${e.title}</h3>
+                    </a>
+                  </div>
+                  <div id="bodyContent">
+                    ${e.description}
+                    <span class="scope-name">${e.scope_name}</span>
+                    <span class="date-line">${e.startDate}, ${e.weekDay} ${e.startTime}</span>
+                    <div>
+                      <strong class="caps">${e.meetingTypeTr}</strong>
+                      &nbsp;/&nbsp;
+                      <strong>${e.location}</strong>
+                      ${e.locationDetails}
+                    </div>
+                  </div>
+                </div>`;
+
+  markers[id] = new L.marker(e.latlng, { 
+    icon: e.meetingType === "Online" ? onlineIcon : offlineIcon,
+    alt: e.title
+  })
+    .addTo(clusters)
+    .bindPopup(content)
+    .on('click', function(e_) { 
+      revertMarkers();
+      
+      markers[id].setIcon(e.meetingType === "Online" ? activeOnlineIcon : activeOfflineIcon);
+      clickZoom(e_);
+    });
+
+
+  markers[id].getPopup().on('remove', revertMarkers);
+}
+ 

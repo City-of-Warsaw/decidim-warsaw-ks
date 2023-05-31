@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Decidim::AdUsersSpace
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::AdUsersSpace";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span>
+     &raquo; 
+    <span class="title">AdUsersSpace</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Decidim::AdUsersSpace
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-ad_users_space/lib/decidim/ad_users_space.rb<span class="defines">,<br />
+  decidim-ad_users_space/lib/decidim/ad_users_space/engine.rb,<br /> decidim-ad_users_space/lib/decidim/ad_users_space/version.rb,<br /> decidim-ad_users_space/app/models/decidim/ad_users_space/info_article.rb,<br /> decidim-ad_users_space/app/models/decidim/ad_users_space/forum_article.rb,<br /> decidim-ad_users_space/app/models/decidim/ad_users_space/article_category.rb,<br /> decidim-ad_users_space/app/cells/decidim/ad_users_space/forum_article_cell.rb,<br /> decidim-ad_users_space/app/forms/decidim/ad_users_space/forum_article_form.rb,<br /> decidim-ad_users_space/app/models/decidim/ad_users_space/application_record.rb,<br /> decidim-ad_users_space/app/cells/decidim/ad_users_space/forum_article_m_cell.rb,<br /> decidim-ad_users_space/app/cells/decidim/ad_users_space/forum_article_s_cell.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/application_helper.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/info_articles_helper.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/create_forum_article.rb,<br /> decidim-ad_users_space/app/forms/decidim/ad_users_space/admin/info_article_form.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/forum_articles_helper.rb,<br /> decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb,<br /> decidim-ad_users_space/app/cells/decidim/ad_users_space/forum_article_search_cell.rb,<br /> decidim-ad_users_space/app/forms/decidim/ad_users_space/admin/article_category_form.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/create_info_article.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/application_controller.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/admin/info_articles_helper.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/admin/forum_articles_helper.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/forum_articles_controller.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/create_article_category.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_article_category.rb,<br /> decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_article_category.rb,<br /> decidim-ad_users_space/app/helpers/decidim/ad_users_space/admin/article_categories_helper.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/application_controller.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/info_articles_controller.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/forum_articles_controller.rb,<br /> decidim-ad_users_space/app/presenters/decidim/ad_users_space/admin_log/info_article_presenter.rb,<br /> decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/article_categories_controller.rb,<br /> decidim-ad_users_space/app/presenters/decidim/ad_users_space/admin_log/article_category_presenter.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This namespace holds the logic of the `AdUsersSpace` component. This component allows users to create ad_users_space in a participatory space.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="AdUsersSpace/Admin.html" title="Decidim::AdUsersSpace::Admin (module)">Admin</a></span>, <span class='object_link'><a href="AdUsersSpace/AdminLog.html" title="Decidim::AdUsersSpace::AdminLog (module)">AdminLog</a></span>, <span class='object_link'><a href="AdUsersSpace/ApplicationHelper.html" title="Decidim::AdUsersSpace::ApplicationHelper (module)">ApplicationHelper</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticlesHelper.html" title="Decidim::AdUsersSpace::ForumArticlesHelper (module)">ForumArticlesHelper</a></span>, <span class='object_link'><a href="AdUsersSpace/InfoArticlesHelper.html" title="Decidim::AdUsersSpace::InfoArticlesHelper (module)">InfoArticlesHelper</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="AdUsersSpace/ApplicationController.html" title="Decidim::AdUsersSpace::ApplicationController (class)">ApplicationController</a></span>, <span class='object_link'><a href="AdUsersSpace/ApplicationRecord.html" title="Decidim::AdUsersSpace::ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="AdUsersSpace/ArticleCategory.html" title="Decidim::AdUsersSpace::ArticleCategory (class)">ArticleCategory</a></span>, <span class='object_link'><a href="AdUsersSpace/CreateForumArticle.html" title="Decidim::AdUsersSpace::CreateForumArticle (class)">CreateForumArticle</a></span>, <span class='object_link'><a href="AdUsersSpace/Engine.html" title="Decidim::AdUsersSpace::Engine (class)">Engine</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticle.html" title="Decidim::AdUsersSpace::ForumArticle (class)">ForumArticle</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleCell.html" title="Decidim::AdUsersSpace::ForumArticleCell (class)">ForumArticleCell</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleForm.html" title="Decidim::AdUsersSpace::ForumArticleForm (class)">ForumArticleForm</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleMCell.html" title="Decidim::AdUsersSpace::ForumArticleMCell (class)">ForumArticleMCell</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleSCell.html" title="Decidim::AdUsersSpace::ForumArticleSCell (class)">ForumArticleSCell</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleSearch.html" title="Decidim::AdUsersSpace::ForumArticleSearch (class)">ForumArticleSearch</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticleSearchCell.html" title="Decidim::AdUsersSpace::ForumArticleSearchCell (class)">ForumArticleSearchCell</a></span>, <span class='object_link'><a href="AdUsersSpace/ForumArticlesController.html" title="Decidim::AdUsersSpace::ForumArticlesController (class)">ForumArticlesController</a></span>, <span class='object_link'><a href="AdUsersSpace/InfoArticle.html" title="Decidim::AdUsersSpace::InfoArticle (class)">InfoArticle</a></span>, <span class='object_link'><a href="AdUsersSpace/InfoArticlesController.html" title="Decidim::AdUsersSpace::InfoArticlesController (class)">InfoArticlesController</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version-class_method" title="version (class method)">.<strong>version</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>This holds the gem version.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="version-class_method">
+  
+    .<strong>version</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This holds the gem version. # This holds the decidim-ad_users_space version.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/lib/decidim/ad_users_space/version.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:16 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<div class="row column">
+  <%= form.text_field :name %>
+</div>
+
+<div class="row column">
+  <%= form.number_field :position %>
+</div>
+
+<div class="row column">
+  <%= form.file_field :file %>
+</div>
+
+<div class="row column">
+  <label>Typ podkładu *</label>
+  <%= form.collection_radio_buttons :file_type, [[:raster, 'Rastrowy'], [:vector, 'Wektorowy']], :first, :last, { legend_title: t(".file_type") }, "aria-controls": "user_questions" %>
+</div>
+
+<strong>Współrzędne lewego górnego narożnika mapy:</strong><br />
+<div class="row column">
+  <%= form.number_field :x_latitude %>
+</div>
+<div class="row column">
+  <%= form.number_field :x_longitude %>
+</div>
+
+<strong>Współrzędne prawego dolnego narożnika mapy:</strong><br />
+<div class="row column">
+  <%= form.number_field :y_latitude %>
+</div>
+<div class="row column">
+  <%= form.number_field :y_longitude %>
+</div>

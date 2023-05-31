@@ -1,0 +1,46 @@
+<% if current_component.users_action_disallowed? %>
+  <div class="row">
+    <div class="column large-12"> 
+      <div class="callout warning-important">
+        <%= current_component.end_date_message %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if questions_help_section.present? %>
+  <div class="help-section">
+    <div class="row column"> 
+      <div class="ql-editor">
+      <%= quill_sanitize translated_attribute(questions_help_section) %> 
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "experts" %>
+<%= render partial: "decidim/shared/component_announcement" %>
+
+<div class="row">
+  <div class="row medium-up-2 pl-s pr-s mb-s">
+    <div class="column">
+      <h3 aria-atomic="true" aria-live="polite" id="user_questions-count" class="title-action__title section-heading user_questions">
+        <%= t(".user_questions_count", count: search.results.count).html_safe %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns mediumlarge-4 large-3">
+    <div class="card card--secondary">
+      <%= render partial: "filters" %>
+    </div>
+  </div>
+  <div id="user-questions" class="columns mediumlarge-8 large-9">
+    <%= render partial: "user_questions" %>
+  </div>
+</div>
+
+<%= javascript_include_tag("decidim/comments/comments") %>
+<%= javascript_include_tag("decidim/filters") %>

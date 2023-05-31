@@ -1,0 +1,48 @@
+<% provide(:title, t("decidim.forum_articles.index.title")) %>
+
+<% add_decidim_meta_tags({
+                           title: t("decidim.forum_articles.index.title"),
+                           description: t("decidim.forum_articles.index.description"),
+                           url: decidim_ad_users_space.forum_articles_url
+                         }) %>
+
+
+<div class="row columns">
+  <div class="columns">
+    <div class="columns m-bottom">
+      <%= link_to forum_articles_path, class: "small hollow" do %>
+        <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+        <%= t(".back_to_forum", current: t('.title')) %>
+      <% end %>
+      <hr class="forum-line">
+      <h3 class="heading2 forum-search-heading">
+        <%= t('.title') %>
+        <small>
+          Wyniki dla:
+          <strong><%= @searched_phrase %></strong>
+        </small>
+      </h3>
+    </div>
+  </div>
+</div>
+<div class="row columns mb-s">
+  <div class="columns">
+    <div class="forum-wide-search-row">
+      <%= render 'decidim/ad_users_space/forum_articles/search', form: @search_form, info_text: t('.info_text') %>
+    </div>
+  </div>
+</div>
+<div class="row columns">
+  <div class="columns forum-with-pagination">
+    <%= decidim_paginate @forum_articles %>
+  </div>
+  <div id="forum_articles" class="columns mediumlarge-12 card-grid">
+    <% if @forum_articles.any? %>
+      <% @forum_articles.each do |forum_article| %>
+        <%= cell "decidim/ad_users_space/forum_article", forum_article, size: :search %>
+      <% end %>
+    <% else %>
+      Brak znalezionych wątków i komentarzy
+    <% end %>
+  </div>
+</div>

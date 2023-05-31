@@ -1,0 +1,14 @@
+<%= decidim_form_for(@form) do |f| %>
+  <div class="card">
+    <div class="card-divider">
+      <h2 class="card-title"><%= t("actions.add_contact_info_position", scope: "decidim.admin_extended.contact_info_positions") %></h2>
+    </div>
+    <div class="card-section">
+      <%= render 'form', f: f %>
+    </div>
+  </div>
+  <div class="button--double form-general-submit">
+    <%= link_to t("actions.cancel", scope: "decidim.admin_extended.contact_info_positions"), contact_info_positions_path, class: "button hollow" %>
+    <%= f.submit t("actions.save", scope: "decidim.admin_extended.contact_info_positions") %>
+  </div>
+<% end %>

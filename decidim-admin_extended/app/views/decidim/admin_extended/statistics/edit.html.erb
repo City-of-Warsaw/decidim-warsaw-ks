@@ -1,0 +1,30 @@
+<%= decidim_form_for(@form) do |f| %>
+  <div class="card">
+    <div class="card-divider">
+      <h2 class="card-title">
+        <%= t(".title",
+              name: t(statistic.sys_name, scope: 'decidim.admin_extended.statistics.sys_name'),
+              count: statistic.count
+              )
+        %></h2>
+    </div>
+    <div class="card-section">
+
+      <div class="row column">
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="row column">
+        <%= f.number_field :weight %>
+      </div>
+
+      <div class="row column">
+        <%= f.check_box :visibility %>
+      </div>
+
+    </div>
+  </div>
+  <div class="button--double form-general-submit">
+    <%= f.submit t(".update") %>
+  </div>
+<% end %>

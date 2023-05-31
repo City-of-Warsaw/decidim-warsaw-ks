@@ -1,0 +1,33 @@
+<div class="row column view-header">
+  <div class="m-bottom">
+    <%= link_to study_notes_path + "#subcontent", class: "small hollow" do %>
+      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <span>Powrót</span>
+    <% end %>
+  </div> 
+</div>
+<div class="row columns"> 
+  <div class="study-note-success">
+    <div class="study-note-success__popup">
+      <%# <a class="close" href=""><span aria-hidden="true">&times;</span></a> %>
+
+      <div class="inner">
+        <h3>Uwaga do studium została zgłoszona</h3>
+
+        <p><strong>Dziękujemy za zgłoszenie.</strong></p>
+
+        <% if study_note.email.present? %>
+          <p><%= "System automatycznie wysłał potwierdzenie na podany adres e-mail." %></p>
+        <% end %>
+
+        <%= link_to study_note_path(study_note, format: :pdf), class: "pdf-link", rel: "noopener", title: "Pobierz" do %>
+          Pobierz potwierdzenie PDF<%= image_tag 'download-icon.png' %>
+        <% end %>
+      </div>
+
+      <div class="foot">
+        <%= link_to "Zgłoś kolejną uwagę do studium", study_notes_path + "#subcontent" %>
+      </div>
+    </div>
+  </div>
+</div>

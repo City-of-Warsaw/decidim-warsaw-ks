@@ -1,0 +1,575 @@
+/**
+ * Map Location
+ */
+
+const osmUrl = "https://osm.cdsh.dev/hot/{z}/{x}/{y}.png";
+const nominatimUrl = "https://nominatim.cdsh.dev";
+
+const loadingAddressText = "Wczytywanie adresu...";
+
+const locations = {};
+const markers = {};
+const markersLimit = 1;
+const markersRefs = [];
+
+// polygon checking initialize elements
+
+let INF = 10000;
+
+class Point
+{
+  constructor(x,y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// set map
+const map = L.map("map", {
+  minZoom: 10,
+  maxZoom: 15,
+  gestureHandling: true,
+}).setView([52.22977, 21.01178], 11);
+
+
+$("#map").removeAttr("tabIndex");
+
+L.tileLayer(osmUrl, {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+// icons
+var BOLeafIcon = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("locations-map/images/marker-icon.png")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("locations-map/images/marker-icon-2x.png")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+var mapIcon = new BOLeafIcon();
+
+const coordinates = JSON.parse(document.querySelector("#coordinates").value);
+const polygon_coords = coordinates.map( function(x) { return new Point(x[0], x[1]) });
+
+const polygon = L.polygon(coordinates, { color: "red" }).addTo(map);
+map.fitBounds(polygon.getBounds());
+
+if ($("#map").hasClass('map-widget')) {
+  // for widget we do redirect on click
+  map.on("click", function() {
+    let href = $("#map").data('href');
+    window.location.href = href;
+  });
+} else if ($("#map").hasClass('block-commenting')) {
+    // for just browsing map - do not do anything specific
+    // class is added when component has blocked comments and current user is not an ad user
+} else {
+  map.on("click", addMarker);
+}
+ 
+// markers
+const markersInput = $('input[name="markersMap"]');
+
+function addMarkers() {
+  const markersJson = markersInput.val();
+ 
+  for(var i = 0; i < markersRefs.length; i++){
+    map.removeLayer(markersRefs[i]);
+  }
+
+  if (markersJson.length > 0) {
+    var bounds = [];
+    var markersParsed = JSON.parse(markersJson);
+
+    $.each(markersParsed, function(k, v) {
+      addMarker(
+        {
+          latlng: {
+            lat: v.lat,
+            lng: v.lng,
+          },
+          display_name: v.display_name,
+          address: v.address,
+          id: v.id
+        },
+        k
+      );
+      bounds.push([v.lat, v.lng]);
+    });
+  };
+}
+
+addMarkers();
+
+markersInput.change(addMarkers);
+
+ 
+const inputNewLocation = $("#location-input-new");
+const inputAddLocation = $("#location-input-add");
+
+inputNewLocation.on("keypress", function (e) {
+  const keycode = e.keyCode ? e.keyCode : e.which;
+  if (keycode == "13") addNewLocation();
+});
+
+// add marker
+function addMarker(e, id = Date.now()) {
+  if ((e.type === 'click') && ($('#new_remark form.new_remark').length > 0)) return;
+
+  locations[id] = {
+    lat: e.latlng.lat,
+    lng: e.latlng.lng,
+    display_name: e.display_name || null,
+    address: e.address || null,
+    id: e.id || 0
+  };
+
+  const addressText = e.display_name || loadingAddressText;
+
+  markers[id] = new L.marker(e.latlng, {
+    draggable: (e.type === 'click'),
+    id: e.id,
+    icon: mapIcon
+  })
+    .addTo(map)
+    // .bindPopup(addressText);
+
+  markersRefs.push(markers[id]);
+
+  geocodeLatLng(id, e.address == null);
+  markerEvents(id);
+
+  serializeLocations();
+
+  const added_point = new Point(markers[id].getLatLng()['lat'], markers[id].getLatLng()['lng']);
+  // const isInPolygonArea = polygon.contains(markers[id].getLatLng());
+  // const isInPolygonArea = inside(markers[id].getLatLng(), coordinates);
+  const isInPolygonArea = isInside(polygon_coords, coordinates.length, added_point);
+
+  if (e.type === 'click') {
+    handle_new_marker_in_polygon(isInPolygonArea, added_point, id)
+  }
+}
+
+function handle_new_marker_in_polygon(isInPolygonArea, added_point, id) {
+  if (!isInPolygonArea) {
+    let warning = $("#warning-modal");
+    warning.closest('.reveal-overlay').show();
+    warning.show();
+    $('.close-button').click(function (e) {
+      e.preventDefault();
+      warning.closest('.reveal-overlay').hide();
+      warning.hide();
+    });
+    removeLocation(id);
+    $('#new_remark').html('');
+  } else {
+    let href = $('#new_remark').data('href');
+    $.post(href, {
+      _method: 'get',
+      remote: true, 
+      coords: added_point 
+    },
+    function(data) {  
+      $.globalEval(data, { nonce: $('meta[name=csp-nonce]').attr("content") }); 
+
+      fileField = $("#remark_image");
+      uploadButton = $(".remark-file-button-js");
+      deleteButton = $(".remark-file-delete-js");
+      fileBox = $(".remark-file-box");
+      fileName = $(".remark-filename-js");
+    
+      uploadButton.click(function() {
+        fileField.click();
+      });
+    
+      fileField.change(function() {
+        if (fileField.val()) {
+          fileName.html(fileField.val().match(
+            /[\/\\]([\w\d\s\.\-\(\)]+)$/
+          )[1]);
+    
+          fileBox.addClass("visible");
+          uploadButton.hide();
+        }
+      });
+    
+      deleteButton.click(function() {
+        fileField.val("");
+        fileBox.removeClass("visible");
+        uploadButton.show();
+      });
+
+      $('#new_remark .close-button').click(function() {
+        $('#new_remark').html(''); 
+        removeLocation(id);
+     });
+    });
+
+    map.setActiveArea('activeArea', {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      bottom: '0px',
+      right: '445px',
+    });
+
+    map.setView([added_point.x, added_point.y],map.getZoom());
+  }
+}
+
+// set marker events
+function markerEvents(id) {
+  // click
+  markers[id].on("click", function (e) {
+    map.setActiveArea('activeArea', {
+      position: 'absolute',
+      top: '0px',
+      left: '0px',
+      bottom: '0px',
+      right: '445px',
+    });
+    map.setView(e.target.getLatLng(),map.getZoom());
+
+    let remark_id = $(this)[0].options['id'];
+    // console.log(remark_id);
+    if (remark_id === undefined) {
+      // newly added marker, so we remove it
+      removeLocation(id);
+      if ($('#new_remark .map-remark').length > 0) {
+        // if there was a form shown, remove it as well
+        $('#new_remark').html('');
+      }
+    } else {
+      if ($('#new_remark #remark_' + remark_id).length > 0) {
+        // if we click one, that we see already we hide it
+        $('#new_remark').html('');
+      } else {
+        // if we click on any other we switch them
+        $('#remark_' + remark_id + '_for_reader').remove(); // remove hidden wcag element
+        let href = $('#new_remark').data('show') + '/' + remark_id;
+        const nonce = $('meta[name=csp-nonce]').attr("content");
+ 
+        $.ajax({
+          method: 'GET', 
+          dataType: 'script',
+          remote: true,
+          url: href
+        }).then(function (data) { 
+          $.globalEval(data, { nonce });
+
+          $('#new_remark .close-button').click(function() {
+            $('#new_remark').html('');  
+          });
+        }); 
+      }
+    }
+  });
+
+  
+
+  // drag
+  markers[id].on("dragend", function (e) {
+    locations[id].lat = e.target.getLatLng().lat;
+    locations[id].lng = e.target.getLatLng().lng;
+
+    geocodeLatLng(id);
+
+    const added_point = new Point(markers[id].getLatLng()['lat'],markers[id].getLatLng()['lng']);
+    // const isInPolygonArea = polygon.contains(markers[id].getLatLng());
+    // const isInPolygonArea = inside(markers[id].getLatLng(), coordinates);
+    const isInPolygonArea = isInside(polygon_coords,coordinates.length,added_point);
+
+    handle_new_marker_in_polygon(isInPolygonArea, added_point, id);
+  });
+}
+
+// gecode LatLng
+function geocodeLatLng(id, geocode = true) {
+  if (geocode) {
+    $.getJSON(
+      `${nominatimUrl}/reverse?format=json&lat=${locations[id].lat}&lon=${locations[id].lng}&addressdetails=1`,
+      function (json) {
+        locations[id].display_name = prepareDisplayName(json);
+        locations[id].address = json.address;
+
+        serializeLocations();
+
+        locations[id] && $(`#input-location-${id}`).val(locations[id].display_name);
+      }
+    );
+  }
+}
+
+// prepare display name
+function prepareDisplayName(obj) {
+  return `${obj.address.road || ""} ${obj.address.house_number || ""}, ${
+    obj.address.postcode || ""
+  } ${obj.address.city || ""}`;
+}
+
+// change input value
+function changeInputValue(id) {
+  const input = $(`#input-location-${id}`);
+  locations[id] && input
+    .parent()
+    .find("input.change")
+    .prop("disabled", locations[id].display_name.trim() === input.val().trim());
+}
+
+// remove location
+function removeLocation(id) {
+  map.removeLayer(markers[id]);
+  delete markers[id];
+  delete locations[id];
+
+  $(`#input-location-${id}`).parent().remove();
+
+  serializeLocations();
+}
+
+function serializeLocations() {
+  $('#markersMap').val(JSON.stringify(locations));
+}
+
+new Autocomplete("search", {
+  // default selects the first item in
+  // the list of results
+  selectFirst: true,
+
+  // The number of characters entered should start searching
+  howManyCharacters: 5,
+
+  // onSearch
+  onSearch: ({ currentValue }) => {
+    // You can also use static files
+    // const api = '../static/search.json'
+    const api = `${nominatimUrl}/search?format=geojson&limit=5&addressdetails=1&countrycodes=pl&city=Warszawa&street=${encodeURI(
+        currentValue
+    )}`;
+
+    return new Promise((resolve) => {
+      fetch(api)
+          .then((response) => response.json())
+          .then((data) => {
+            resolve(data.features);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    });
+  },
+  // nominatim GeoJSON format parse this part turns json into the list of
+  // records that appears when you type.
+  onResults: ({ currentValue, matches, template }) => {
+    const regex = new RegExp(currentValue, "gi");
+
+    // if the result returns 0 we
+    // show the no results element
+    return matches === 0
+        ? template
+        : matches
+            .map((element) => {
+              // const display_name = prepareDisplayName(element.properties);
+              return `
+          <li class="loupe">
+            <p>
+              ${element.properties.display_name.replace(
+                  regex,
+                  (str) => `<b>${str}</b>`
+              )}
+            </p>
+          </li> `;
+            })
+            .join("");
+  },
+
+  // we add an action to enter or click
+  onSubmit: ({ object, element }) => {
+    const { display_name, address } = object.properties;
+    const cord = object.geometry.coordinates;
+
+    // sets the view of the map
+    map.setView([cord[1], cord[0]], 16);
+  },
+
+  // get index and data from li element after
+  // hovering over li with the mouse or using
+  // arrow keys ↓ | ↑
+  onSelectedItem: ({ index, element, object }) => {
+    // console.log("onSelectedItem:", index, element, object);
+  },
+
+  // the method presents no results element
+  noResults: ({ currentValue, template }) =>
+      template(`<li>Brak wyników dla: "${currentValue}"</li>`),
+});
+
+////////////////////////////////////////////////////
+//////// checking if point is within polygon
+// A Javascript program to check if a given point
+// lies inside a given polygon
+// Refer https://www.geeksforgeeks.org/check-if-two-given-line-segments-intersect/
+// for explanation of functions onSegment(),
+// orientation() and doIntersect()
+
+// Given three collinear points p, q, r,
+// the function checks if point q lies
+// on line segment 'pr'
+function onSegment(point,q,r)
+{
+  if (q.x <= Math.max(point.x, r.x) &&
+      q.x >= Math.min(point.x, r.x) &&
+      q.y <= Math.max(point.y, r.y) &&
+      q.y >= Math.min(point.y, r.y))
+  {
+    return true;
+  }
+  return false;
+}
+
+// To find orientation of ordered triplet (p, q, r).
+// The function returns following values
+// 0 --> p, q and r are collinear
+// 1 --> Clockwise
+// 2 --> Counterclockwise
+function orientation(p,q,r)
+{
+  let val = (q.y - p.y) * (r.x - q.x)
+      - (q.x - p.x) * (r.y - q.y);
+
+  if (val == 0)
+  {
+    return 0; // collinear
+  }
+  return (val > 0) ? 1 : 2; // clock or counterclock wise
+}
+
+// The function that returns true if
+// line segment 'p1q1' and 'p2q2' intersect.
+function  doIntersect(p1,q1,p2,q2)
+{
+  // Find the four orientations needed for
+  // general and special cases
+  let o1 = orientation(p1, q1, p2);
+  let o2 = orientation(p1, q1, q2);
+  let o3 = orientation(p2, q2, p1);
+  let o4 = orientation(p2, q2, q1);
+
+  // General case
+  if (o1 != o2 && o3 != o4)
+  {
+    return true;
+  }
+
+  // Special Cases
+  // p1, q1 and p2 are collinear and
+  // p2 lies on segment p1q1
+  if (o1 == 0 && onSegment(p1, p2, q1))
+  {
+    return true;
+  }
+
+  // p1, q1 and p2 are collinear and
+  // q2 lies on segment p1q1
+  if (o2 == 0 && onSegment(p1, q2, q1))
+  {
+    return true;
+  }
+
+  // p2, q2 and p1 are collinear and
+  // p1 lies on segment p2q2
+  if (o3 == 0 && onSegment(p2, p1, q2))
+  {
+    return true;
+  }
+
+  // p2, q2 and q1 are collinear and
+  // q1 lies on segment p2q2
+  if (o4 == 0 && onSegment(p2, q1, q2))
+  {
+    return true;
+  }
+
+  // Doesn't fall in any of the above cases
+  return false;
+}
+
+// Returns true if the point p lies
+// inside the polygon[] with n vertices
+function  isInside(polygon,n,p)
+{
+  // There must be at least 3 vertices in polygon[]
+  if (n < 3)
+  {
+    return false;
+  }
+
+  // Create a point for line segment from p to infinite
+  let extreme = new Point(INF, p.y);
+
+  // Count intersections of the above line
+  // with sides of polygon
+  let count = 0, i = 0;
+  do
+  {
+    let next = (i + 1) % n;
+
+    // Check if the line segment from 'p' to
+    // 'extreme' intersects with the line
+    // segment from 'polygon[i]' to 'polygon[next]'
+    if (doIntersect(polygon[i], polygon[next], p, extreme))
+    {
+      // If the point 'p' is collinear with line
+      // segment 'i-next', then check if it lies
+      // on segment. If it lies, return true, otherwise false
+      if (orientation(polygon[i], p, polygon[next]) == 0)
+      {
+        return onSegment(polygon[i], p,
+            polygon[next]);
+      }
+
+      count++;
+    }
+    i = next;
+  } while (i != 0);
+
+  // Return true if count is odd, false otherwise
+  return (count % 2 == 1); // Same as (count%2 == 1)
+}
+// This code is contributed by rag2127
+
+function getUrlParameter(sParam) {
+  var sPageURL = window.location.search.substring(1),
+    sURLVariables = sPageURL.split("&"),
+    sParameterName,
+    i;
+
+  for (i = 0; i < sURLVariables.length; i++) {
+    sParameterName = sURLVariables[i].split("=");
+
+    if (sParameterName[0] === sParam) {
+      return sParameterName[1] === undefined
+        ? true
+        : decodeURIComponent(sParameterName[1]);
+    }
+  }
+  return false;
+}
+
+if (getUrlParameter("remarkId")) { 
+  setTimeout(() => markersRefs.find(({ options }) => options.id == getUrlParameter("remarkId"))._icon.click(), 500);
+}
+
+
+let fileField, uploadButton, deleteButton, fileBox, fileName; 

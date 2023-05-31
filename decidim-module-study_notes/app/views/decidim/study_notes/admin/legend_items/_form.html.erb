@@ -1,0 +1,22 @@
+<div class="row column">
+  <%= form.text_field :name %>
+</div>
+
+<div class="row column">
+  <%= form.number_field :position %>
+</div>
+
+<div class="row column">
+  <%= form.file_field :file, accept: ".jpg,.png,.svg"%>
+</div>
+
+<div class="row column">
+  <%= form.text_field :legend_item_img_alt %>
+</div>
+
+<div class="row column">
+  <%= form.select :map_background_id,
+                  map_backgrounds,
+                  { label: "Podkład mapowy", include_blank: "Wybierz podkład mapowy" + '*' },
+                  { multiple: false, required: true } %>
+</div>

@@ -1,0 +1,6 @@
+--title "Dokumentacja Decidim KS"
+--exclude db/migrate --exclude test
+--protected
+--private
+--verbose
+decidim-admin_extended decidim-comments_extended decidim-core_extended decidim-pages_extended decidim-participatory_processes_extended decidim-users_extended decidim-ad_users_space decidim-consultation_map decidim-consultation_requests decidim-expert_questions decidim-news decidim-remarks decidim-module-ws_notification decidim-module-repository decidim-module-rest_api

@@ -1,0 +1,111 @@
+<%# View for STATIC PAGES (not pages component) - TYLKO strony z Bazy wiedzy %>
+
+<% add_decidim_page_title(t("decidim.pages.index.title")) %>
+<%
+edit_link(
+  decidim_admin.static_pages_path,
+  :read,
+  :static_page
+)
+%>
+
+<% if help_section.present? %>
+  <div class="help-section help-section--knowledge-base">
+    <div class="row column"> 
+      <div class="ql-editor">
+      <%= quill_sanitize translated_attribute(help_section) %> 
+      </div> 
+    </div>
+  </div> 
+<% end %>
+
+<div class="wrapper wrapper--knowledge-base">
+  <% if @topics.any? %>
+    <div class="row ">  
+      <% @topics.each do |topic| %>
+        <% if topic.pages.for_help_pages.any? %>
+          <div class="column">
+            <div class="topic">
+              <h3 class="topic__title" id="temat-<%= topic.id %>">
+                <a href="#temat-<%= topic.id %>"><%= translated_attribute topic.title %></a>
+              </h3>
+              
+              <p class="topic__description">
+                <%= translated_attribute topic.description %>
+              </p>
+              
+              <div class="topic__articles">
+                <% topic.pages.each do |article| %>
+                  <div class="card article" id="article-<%= article.id %>">
+                    <div class="card__title" data-url="<%= article.slug %>" id="<%= article.slug %>">
+                      <%= translated_attribute article.title %>
+
+                      <button class="toggle-button" aria-label="Zamknij" type="button" data-close>
+                        <span aria-hidden="true">&plus;</span>
+                      </button>
+                    </div>
+
+                    <div class="card__content">
+                      <div class="ql-editor">
+                        <%= decidim_sanitize translated_attribute article.content %>
+                      </div>
+
+                      <%= render 'decidim/shared/gallery_attachments', model: article %>
+                    </div>
+                  </div> 
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %> 
+    </div>
+  <% end %>
+
+  <% if @orphan_pages.any? %>
+    <div class="row">
+      <div class="column">
+        <div class="topic">
+          <h3 class="topic__title">
+            <%= t ".standalone_pages" %>
+          </h3> 
+          
+          <div class="topic__articles">
+            <% @orphan_pages.each do |article| %>
+              <div class="card article" id="article-<%= article.id %>">
+                <div class="card__title" data-url="<%= article.slug %>" id="<%= article.slug %>">
+                  <%= translated_attribute article.title %>
+
+                  <button class="toggle-button" aria-label="Zamknij" type="button" data-close>
+                    <span aria-hidden="true">&plus;</span>
+                  </button>
+                </div>
+
+                <div class="card__content">
+                  <div class="ql-editor">
+                    <%= decidim_sanitize translated_attribute article.content %>
+                  </div>
+
+                  <%= render 'decidim/shared/gallery_attachments', model: article %>
+                </div>
+              </div> 
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%= nonced_javascript_tag do %>
+  $(".article .card__title").click(function() { 
+    if (!$(this).parent().hasClass("article--expanded"))
+      history.pushState(null, null, `#${$(this).data("url")}`); 
+
+    $(this).parent().toggleClass("article--expanded");   
+  });
+ 
+  if (window.location.hash) {
+    $(window.location.hash).parent().toggleClass("article--expanded");   
+  } 
+<% end %>

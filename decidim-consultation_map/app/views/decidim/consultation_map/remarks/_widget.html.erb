@@ -1,0 +1,19 @@
+<div class="row map">
+  <div class="columns mediumlarge-12 large-12 mb-m">
+    <div class="section">
+      <h3 class="section-heading"><%= t('.map_title') %></h3>
+
+      <div id="remarks" class="map-remarks " aria-live="polite">
+        <div id="map" class="map map-widget" data-href="<%= main_component_path(current_component) %>#subcontent"></div>
+
+        <%= hidden_field_tag 'markersMap', map_remarks.map { |r| r.map_location }.to_json %>
+        <%= hidden_field_tag 'coordinates',
+                             current_component.custom_settings["locations"]
+        %>
+
+        <%= javascript_include_tag("polygon-map/polygon-map") %>
+      </div>
+    </div>
+  </div>
+</div>
+

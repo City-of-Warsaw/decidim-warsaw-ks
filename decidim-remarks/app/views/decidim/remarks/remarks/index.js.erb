@@ -1,0 +1,9 @@
+var $remarks = $('#remarks');
+var $remarksCount = $('#remarks-count');
+// var $orderFilterInput = $('.order_filter');
+
+$remarks.html('<%= j(render partial: "remarks").strip.html_safe %>');
+$remarksCount.html('<%= t(".remarks_count", count: remarks.count).html_safe %>');
+
+// var $dropdownMenu = $('.dropdown.menu', $remarks);
+// $dropdownMenu.foundation();

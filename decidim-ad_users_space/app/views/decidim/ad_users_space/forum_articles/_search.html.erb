@@ -1,0 +1,9 @@
+<%= decidim_form_for @search_form, url: forum_articles_path(anchor: 'forum_articles'), method: :get, as: 'search', html: { id: "forum-search", class: "forum-filter" } do |form| %>
+  <label class="show-for-sr" for="search_text"><%= t(".search_text") %></label>
+  <%= form.text_field :text, label: false, placeholder: t('.search_text_placeholder') %>
+  <%= form.submit "<span class='show-for-sr'>#{t('.submit')}</span>#{icon('magnifying-glass')}".html_safe, class: 'button button-search mini-search' %>
+  <% if info_text.present? %>
+    <span class="info-text"><%= info_text %></span>
+  <% end %>
+<% end %>
+

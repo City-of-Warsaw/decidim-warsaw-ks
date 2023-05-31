@@ -1,0 +1,17 @@
+<% if settings_name == :global && manifest.settings(:custom).attributes.any? %>
+  <%= render "decidim/#{manifest.name}/admin/custom_settings", form: form %>
+<% end %>
+
+<% manifest.settings(settings_name).attributes.each do |field_name, settings_attribute| %>
+  <%= settings_attribute_input(
+        form,
+        settings_attribute,
+        field_name,
+        "decidim.components.#{manifest.name}.settings.#{settings_name}",
+        tabs_prefix: tabs_prefix,
+        readonly: settings_attribute.readonly?(component: @component),
+        lines: 10
+      ) %>
+<% end %>
+
+

@@ -1,0 +1,5 @@
+<div class="row small-up-12 medium-up-12 card-grid hidden remarks-main-box">
+  <% paginated_remarks.each do |remark| %>
+    <%= render remark, for_reader: '_for_reader' %>
+  <% end %>
+</div>

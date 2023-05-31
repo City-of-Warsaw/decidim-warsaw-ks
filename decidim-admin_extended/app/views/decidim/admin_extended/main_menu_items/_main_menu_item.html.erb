@@ -1,0 +1,19 @@
+<tr data-id="<%= main_menu_item.id %>">
+  <td>
+    <%= main_menu_item.name %>
+  </td>
+  <td>
+    <%= main_menu_item.weight %>
+  </td>
+  <td>
+    <%= t("visible.#{main_menu_item.visible}", scope: "decidim.admin_extended.main_menu_items") %>
+  </td>
+  <td>
+    <%= main_menu_item.sys_name %>
+  </td>
+  <td class="table-list__actions">
+    <% if allowed_to? :update, :organization, organization: current_organization %>
+      <%= icon_link_to "pencil", edit_main_menu_item_path(main_menu_item), t("actions.edit", scope: "decidim.admin_extended.main_menu_items"), class: "action-icon--edit" %>
+    <% end %>
+  </td>
+</tr>

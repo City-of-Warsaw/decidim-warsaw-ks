@@ -1,0 +1,4 @@
+(function() {
+    let user_question_form = $("#editable-user_question-<%= @user_question.id %>");
+    user_question_form.replaceWith("<%= escape_javascript(render 'decidim/expert_questions/user_questions/edit_form', form_object: @form, user_question: @user_question) %>")
+}());

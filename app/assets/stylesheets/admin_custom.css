@@ -1,0 +1,193 @@
+/*
+ *= require "locations-map/autocomplete.min.css"
+ *= require "locations-map/leaflet.css"
+ *= require "locations-map/leaflet-gesture-handling.min.css"
+ *= require "locations-map/locations-map.css"
+ *= require "area-map/leaflet-area-selection.css"
+ *= require "area-map/area-map.css"
+ *= require "admin/quill.custom-classes"
+ *= require "admin/quill.repository-image-toolbar-tool"
+ *= require "select2.min"
+ *= require "admin/quill.image-toolbar-tool.css"
+ */
+
+body {
+  height: auto;
+}
+
+h3.click-on-map {
+  font-size: 16px;
+}
+
+.click-on-map strong {
+  font-weight: bold;
+}
+
+.form-error.is-visible,
+.is-visible.tab-custom-error,
+.is-visible.custom-error {
+  margin-top: -10px;
+}
+
+fieldset.bordered {
+  border: 1px solid #ccc;
+}
+
+fieldset.bordered .box {
+  padding: 40px;
+}
+
+fieldset.bordered legend {
+  width: 100%;
+}
+
+.callout.flash {
+  max-width: 1200px;
+  margin: 15px auto;
+  text-align: center;
+  border: none;
+  padding: 25px 16px;
+}
+
+.callout.flash img {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.callout.flash.notice,
+.callout.flash.success {
+  background-color: #e8f2f5;
+}
+
+.callout.flash.notice button,
+.callout.flash.success button {
+  color: #1c7c97;
+}
+
+.callout.flash.alert,
+.callout.flash.error {
+  background-color: #faecef;
+}
+
+.callout.flash.alert button,
+.callout.flash.error button {
+  color: #ce3c5a;
+}
+
+/* hiding elements */
+#basic_only_text,
+#image_text_cta {
+  display: none;
+}
+
+li[data-content-block-manifest-name="metrics"],
+li[data-content-block-manifest-name="last_activity"],
+li[data-content-block-manifest-name="highlighted_assemblies"] {
+  display: none;
+}
+
+/* creating components */
+.edit_component .scopes_enabled_container,
+.new_component .scopes_enabled_container,
+.edit_component .scope_id_container,
+.new_component .scope_id_container,
+.edit_component .default_registration_terms_container,
+.new_component .default_registration_terms_container,
+.edit_component .registration_code_enabled_container,
+.new_component .registration_code_enabled_container,
+.edit_component .resources_permissions_enabled_container,
+.new_component .resources_permissions_enabled_container,
+.edit_component .enable_pads_creation_container,
+.new_component .enable_pads_creation_container,
+.edit_component .creation_enabled_for_participants_container,
+.new_component .creation_enabled_for_participants_container {
+  display: none;
+}
+
+.help-text {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+input+span.help-text {
+  margin-top: -1.2rem;
+}
+
+/************ survey ************/
+
+.global-settings .starts_at_container {
+  display: none;
+}
+
+/* quill */
+
+.ql-editor {
+  line-height: 1.15;
+  white-space: unset;
+  font-size: 16px;
+}
+
+.ql-editor ul,
+.ql-editor ol,
+.ql-editor dl {
+  line-height: 1.6;
+}
+
+.ql-editor ul {
+  list-style-type: square;
+}
+
+.ql-editor ul>li::before {
+  content: "\25AA";
+}
+
+.ql-editor ul>li,
+.ql-editor ol>li,
+.ql-editor dl>li {
+  margin-bottom: 0.5rem;
+}
+
+.ql-editor>* {
+  margin-bottom: 1rem !important;
+}
+
+.ql-editor blockquote {
+  font-style: italic;
+}
+
+.ql-editor h4 {
+  font-size: 16px !important;
+}
+
+.ql-editor h3 {
+  font-size: 14pt !important;
+}
+
+.ql-editor h2 {
+  font-size: 16pt !important;
+}
+
+.ql-editor hr {
+  clear: both;
+  max-width: 75rem;
+  height: 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: unset;
+  margin-right: unset;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid #adadad;
+  border-left: 0;
+}
+
+.ql-editor hr.ql-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ql-editor hr.ql-align-right {
+  margin-left: auto;
+  margin-right: unset;
+}

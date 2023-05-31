@@ -1,0 +1,54 @@
+<div class="column <%= "admin-remark" if author_is_admin? %>" id="<%= dom_id(model) %>">
+  <div class="card <%= card_classes %>">
+    <div class="card__content">
+      <%= render :header_new if has_header? %>
+
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <p>
+            <%= description %>
+          </p>
+        </div>
+      </div>
+
+      <% model.files.each do |file| %>
+        <% if file.variable? %>
+          <div class="single-image">
+            <%= link_to Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox' do %>
+              <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), alt: model.alt, class: 'thumbnail') %>
+              <%= image_tag("zoom-icon.svg", alt: 'Powiększ', class: 'zoom-icon') %>
+            <% end %> 
+          </div>
+        <% else %>
+          <div class="single-file">
+            <div class="single-file__text">
+              <div>
+                <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" class="card__link" target="_blank">
+                  <h4 class="single-file__heading">
+                    <%= file.filename %>
+                    <span class="show-for-sr"> otwiera się w nowej karcie</span>
+                  </h4>
+                </a> 
+              </div>
+            </div>
+            <div class="single-file__data">
+              <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("decidim.comments_extended.comments.comment.download_file") do %>
+                <%= image_tag 'download-icon.png' %>
+              <% end %>
+            </div>
+          </div> 
+        <% end %>
+      <% end %>
+      
+      <% if model.edited %>
+        <span class="remark-was-edited"><%= t('.edited').html_safe %></span>
+      <% end %>
+    </div>
+    <div class="comment__actions"><% if can_comment? %>
+        <button class="comment__reply muted-link" aria-controls="<%= node_id %>" data-toggle="<%= node_id %>">
+          <%= image_tag "pencil-icon.svg", class: "icon mr-xs", role: "none presentation" %><%= t("decidim.components.comment.reply") %>
+        </button>
+      <% end %></div>
+    <%= show_comments %>
+  </div>
+</div>

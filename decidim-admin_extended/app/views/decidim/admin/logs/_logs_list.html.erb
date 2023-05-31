@@ -1,0 +1,53 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t "decidim.admin.titles.admin_log" %>
+    </h2>
+  </div>
+
+  <% if @form %>
+    <!-- dashboard korzysta z tego samego elementu ale nie dodaje wyszukiwarki -->
+    <div class="card-section">
+      <%= decidim_form_for(@form, url: { action: "index" }, html: { method: :get, class: "form" })  do |f| %>
+        <div class="row"  style="display: flex">
+          <div class="column"  style="width: 40%; margin-right: 10px">
+            <%= f.select :user_id, @form.users_select, { include_blank: t(".select_a_user"), label: false }, { multiple: false } %>
+          </div>
+          <div class="column"  style="width: 40%;">
+            <%= f.select :participatory_space_id, @form.processes_select, { include_blank: t(".select_a_process"), label: false }, { multiple: false } %>
+          </div>
+        </div>
+        <div class="row"  style="display: flex">
+          <div class="column"  style="width: 40%; margin-right: 10px">
+            <%= f.date_field :start_date %>
+          </div>
+          <div class="column"  style="width: 40%;">
+            <%= f.date_field :end_date %>
+          </div>
+        </div>
+        <div class="row" style="display: flex; align-items: center; justify-content: center">
+          <div class="column"  style="width: 40%;">
+            <%= f.select :sort_by, @form.sort_by_select, { include_blank: 'Sortuj domyślnie', label: false }, { multiple: false } %>
+          </div>
+        </div>
+        <div class="row" style="display: flex; align-items: center; justify-content: center">
+          <%= f.submit 'Filtruj' %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="table-scroll">
+    <% if logs.any? %>
+      <ul class="logs table">
+        <% logs.each do |log| %>
+          <%= render_log(log) %>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="logs table">
+        <p class="logs--no-logs"><%= t(".no_logs_yet") %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

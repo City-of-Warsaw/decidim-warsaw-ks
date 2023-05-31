@@ -1,0 +1,30 @@
+<% add_decidim_meta_tags(
+  title: translated_attribute(@page.title),
+  description: translated_attribute(@page.body),
+  url: page_url(@page)
+) %>
+
+<% if pages_help_section.present? && translated_attribute(pages_help_section).present? %>
+  <div class="help-section">
+    <div class="row column"> 
+      <div class="ql-editor">
+      <%= quill_sanitize translated_attribute(pages_help_section) %> 
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<% if @pages && @pages.count > 1 %>
+  <%= render partial: "decidim/pages_extended/tabbed", locals: {
+    title: translated_attribute(@page.component.name),
+    description: nil,
+    page: @page,
+    pages: @pages
+  } %>
+<% else %>
+  <%= render partial: "decidim/pages_extended/standalone", locals: {
+    title: translated_attribute(@page.title),
+    description: nil,
+    page: @page
+  } %>
+<% end %>

@@ -1,0 +1,27 @@
+<div class="card__header">
+  <div class="author-data">
+    <div class="author-data__main">
+      <%== cell("decidim/author", author_presenter).profile %>
+      <span><%= time_tag model.created_at, l(model.created_at, format: :decidim_short) %></span>
+    </div>
+    <div class="author-data__extra">
+      <%= render :flag_remark %>
+
+      <% if model.authored_by?(current_user) %>
+        <%= link_to edit_link,
+                    class: 'link-alt flag',
+                    remote: true,
+                    data: { id: model.id } do %>
+          <%= t(".edit") %>
+        <% end %>
+      <% elsif !current_user && model.authored_by?(current_organization.unregistered_author) && model.allow_edition?(remark_token) %>
+        <%= link_to edit_link,
+                    class: 'link-alt flag',
+                    remote: true,
+                    data: { id: model.id } do %>
+          <%= t(".edit") %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

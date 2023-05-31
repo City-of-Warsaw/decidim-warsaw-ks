@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t(".title") %>
+      <%= link_to 'Eksport XLS', { action: :export, format: :xlsx }, class: "button tiny button--title" %>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <div class="table-scroll">
+      <table class="table-list">
+        <thead>
+          <th><%= t("models.remark.fields.author_name", scope: "decidim.consultation_map") %></th>
+          <th><%= t("models.remark.fields.body", scope: "decidim.consultation_map") %></th>
+          <th><%= t("models.remark.fields.created_at", scope: "decidim.consultation_map") %></th>
+          <th class="actions"><%= t("actions.title", scope: "decidim.consultation_map.admin") %></th>
+        </thead>
+        <tbody>
+          <% @remarks.each do |remark| %>
+            <tr data-id="<%= remark.id %>">
+              <td>
+                <% if remark.author.is_a? Decidim::User %>
+                  <%= remark.author.name %>
+                <% else %>
+                  <%= t("decidim.comments_extended.models.comment.fields.unregistered_author") %>
+                <% end %>
+              </td>
+              <td>
+                <%= decidim_sanitize html_truncate(remark.body, max_length: 50) %>
+              </td>
+              <td>
+                <%= l remark.created_at, format: "%d/%m/%Y - %H:%M" %>
+              </td>
+              <td class="table-list__actions">
+                <%= icon_link_to "pencil", [:edit, remark], t("actions.edit", scope: "decidim.admin"), class: "action-icon--edit", method: :get, data: {} %>
+                <%= icon_link_to "eye", resource_locator(remark).path, t("actions.preview", scope: "decidim.consultation_map.admin"), class: "action-icon--preview", target: :blank %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= paginate @remarks, theme: "decidim" %>
+    </div>
+  </div>
+</div>

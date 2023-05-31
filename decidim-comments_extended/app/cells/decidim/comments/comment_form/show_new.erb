@@ -1,0 +1,43 @@
+<%= form_for(processed_form, url: decidim_comments.comments_path(order: order), method: :post, remote: true, html: { id: form_id }) do |form| %>
+  <%= form.hidden_field :commentable_gid, id: nil %>
+  <%= form.hidden_field :alignment, id: nil, class: "alignment-input" %>
+  <%= comment_as_for(form) %>
+    <div class="field comment-field--body">
+      <label class="show-for-sr" for="<%= add_comment_id %>">
+        <%= t("decidim.components.add_comment_form.form.body.label") %>
+      </label> 
+      <%= form.text_area(
+            :body,
+            id: add_comment_id,
+            rows: 4,
+            maxlength: comments_max_length,
+            required: true,
+            placeholder: t("decidim.components.add_comment_form.form.body.placeholder"),
+            label: false,
+            data: { remaining_characters: "##{add_comment_id}-remaining-characters" }
+          ) %>
+      <span id="<%= add_comment_id %>-remaining-characters" class="remaining-character-count"></span>
+      <small class="form-error">To pole nie może być puste</small>
+    </div>
+
+    <div class="field file-field comment-field--files position-relative">
+      <%= form.file_field :files,
+                          label: false,  
+                          class: 'multifile hidden',
+                          id: "comment_files_" + add_comment_id,
+                          accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+                          multiple: true %>
+
+      <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= add_comment_id %>">Dodaj załącznik</button>
+    </div>
+    <div class="row actions"> 
+      <div class='pull-right'>
+        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+        <button type="submit" class="button button--sc"><%= t("decidim.components.add_comment_form.form.submit") %></button>
+      </div>
+    </div>  
+    <div class="tos-footer tos-footer--out">
+      <%= t(".tos_agreement", link: link_to(t(".terms"), decidim.page_path("terms-and-conditions"))).html_safe %>
+    </div>
+<% end %>
+ 

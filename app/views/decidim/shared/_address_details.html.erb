@@ -1,0 +1,11 @@
+<div class="meeting-date">
+  <%= "#{l meeting.start_time, format: "%d.%m.%Y"}, #{l meeting.start_time, format: "%A"} #{meeting.start_time.strftime("%H:%M") }-#{meeting.end_time.strftime("%H:%M")}" %>
+</div>
+<% address = geolocalizable.is_a?(Decidim::Meetings::Meeting) && !geolocalizable.online_meeting? ? geolocalizable.found_address : geolocalizable.address %>
+<% if geolocalizable.respond_to? :location %>
+  <strong><%= translated_attribute geolocalizable.location %></strong> 
+<% end %>
+<span><%= address %></span><br>
+<% if geolocalizable.respond_to? :location_hints %>
+  <span><%= translated_attribute geolocalizable.location_hints %></span>
+<% end %>

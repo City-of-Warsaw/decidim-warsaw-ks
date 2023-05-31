@@ -1,0 +1,20 @@
+<li class="column" id="<%= dom_id(model) %>">
+  <div class="card <%= card_classes %>">
+    <%= render :image if has_image? %>
+    <div class="card__content">
+      <%= render :header if has_header? %>
+
+      <div class="card__text">
+        <div class="meeting-location-details"><%= meeting_date_details %></div>
+        <div class="card__text--paragraph">
+          <% if location.present? %>
+            <strong><%= location %></strong><br>
+          <% end %>
+          <p><%= location_details %></p>
+          <%= description %>
+        </div>
+      </div>
+    </div>
+    <%= render :footer_new %>
+  </div>
+</li>

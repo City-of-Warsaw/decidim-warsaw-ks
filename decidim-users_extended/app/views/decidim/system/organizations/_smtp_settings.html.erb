@@ -1,0 +1,48 @@
+<div class="fieldset">
+  <h4><%= t("decidim.system.models.organization.fields.smtp_settings") %></h4>
+  <%= f.fields_for :smtp_settings do %>
+    <fieldset class="fieldset">
+      <legend><%= t(".fieldsets.sender") %></legend>
+      <%= f.email_field :from_email, placeholder: t(".placeholder.from_email") %>
+      <%= f.text_field :from_label, placeholder: t(".placeholder.from_label") %>
+      <p class="help-text"><%= t(".instructions.from_label") %></p>
+    </fieldset>
+    <div class="field">
+      <%= f.text_field :user_name %>
+    </div>
+    <div class="field">
+      <%= f.text_field :password %>
+    </div>
+    <div class="field">
+      <%= f.text_field :address %>
+    </div>
+    <div class="field">
+      <%= f.number_field :port %>
+    </div>
+  <% end %>
+</div>
+
+<div class="fieldset">
+  <h4><%= t("decidim.system.models.organization.fields.newsletter_smtp_settings") %></h4>
+  <%= f.fields_for :newsletter_smtp_settings do %>
+    <fieldset class="fieldset">
+      <legend><%= t(".fieldsets.sender") %></legend>
+      <%= f.email_field :from_email_n, placeholder: t(".placeholder.from_email") %>
+      <%= f.text_field :from_label_n, placeholder: t(".placeholder.from_label") %>
+      <p class="help-text"><%= t(".instructions.from_label") %></p>
+    </fieldset>
+    <div class="field">
+      <%= f.text_field :user_name_n %>
+    </div>
+    <div class="field">
+      <%= f.text_field :password_n %>
+    </div>
+    <div class="field">
+      <%= f.text_field :address_n %>
+    </div>
+    <div class="field">
+      <%= f.number_field :port_n %>
+    </div>
+  <% end %>
+</div>
+

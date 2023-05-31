@@ -1,0 +1,121 @@
+---
+pl:
+  activemodel:
+    attributes:
+      gallery:
+        author: Autor
+        creator: Utworzył
+        name: Nazwa
+        created_at: Data dodania
+        images: Obrazki
+      file:
+        author: Autor
+        creator: Utworzył
+        alt: Opis alternatywny zdjęcia
+        copyright: Uwagi dot. praw autorskich
+        description: Opis
+        file_input: Plik
+        audio_description_input: Plik audiodeskrypcji
+        subtitles_input: Plik z napisami
+        subtitles_for_readers_input: Plik z napisami dla czytników
+        name: Nazwa
+        permission: Uprawnienia
+        created_at: Data dodania
+        folder_id: Kategoria
+      folder:
+        creator: Utworzył
+        name: Nazwa
+        created_at: Data dodania
+  decidim:
+    admin:
+      actions:
+        add_file: Dodaj plik
+      filters:
+        search_placeholder:
+          name_or_description_cont: Nazwa lub opis
+      menu:
+        repository: Repozytorium
+      models:
+        file:
+          fields:
+            author: Autor
+            creator: Utworzył
+            filename: Nazwa pliku
+            name: Nazwa
+            created_at: Data dodania
+            updated_at: Data aktualizacji
+            content_type: Typ pliku
+            size: Rozmiar
+        folder:
+          fields:
+            creator: Utworzył
+            name: Nazwa
+            created_at: Data dodania
+        gallery:
+          fields:
+            creator: Utworzył
+            name: Nazwa
+            created_at: Data dodania
+
+      titles:
+        files: Pliki
+        folders: Kategorie
+        galleries: Galerie
+        repository: Repozytorium plików
+      repository:
+        no_folders: Nie dodano jeszcze żadneej kategorii
+        no_galleries: Nie dodano jeszcze żadnej galerii
+        no_files: Nie dodano jeszcze żadnego pliku
+
+    repository:
+      admin:
+        folders:
+          new:
+            create: Zapisz
+            title: Nowa kategoria
+          create:
+            success: Dodano kategorię
+            error: Popraw błędy w formularzu
+          edit:
+            title: Edycja kategorii
+            update: Aktualizuj
+          update:
+            success: Zaktualizowano kategorię
+            error: Popraw błędy w formularzu
+          index:
+            title: Kategorie
+          destroy:
+            success: Usunięto kategorię
+        galleries:
+          new:
+            create: Zapisz
+            title: Nowa galeria
+          create:
+            success: Dodano galerię
+            error: Popraw błędy w formularzu
+          edit:
+            title: Edycja galerii
+            update: Aktualizuj
+          update:
+            success: Zaktualizowano galerię
+          index:
+            title: Galerie
+          destroy:
+            success: Usunięto galerię
+        files:
+          new:
+            create: Zapisz
+            title: Dodaj plik
+          create:
+            success: Dodano plik
+            error: Popraw błędy w formularzu
+          edit:
+            title: Edycja pliku
+            update: Aktualizuj
+          update:
+            success: Zaktualizowano plik
+            error: Popraw błędy w formularzu
+          index:
+            title: Pliki
+          destroy:
+            success: Usunięto plik

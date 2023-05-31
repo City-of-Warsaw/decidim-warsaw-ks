@@ -1,0 +1,18 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= t "decidim.admin.titles.info_articles" %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("info_articles.new.create", scope: "decidim.admin"), [:new, :admin, :info_article], class: "button expanded small new" %>
+      <%= link_to t("info_articles.index", scope: "decidim.admin"), [:admin, :info_articles], class: "button expanded small new" %>
+    <hr class="mt-s mb-s">
+      <%= link_to t("article_categories.new.create", scope: "decidim.admin"), [:new, :admin, :article_category], class: "button expanded small new" %>
+      <%= link_to t("article_categories.index", scope: "decidim.admin"), [:admin, :article_categories], class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

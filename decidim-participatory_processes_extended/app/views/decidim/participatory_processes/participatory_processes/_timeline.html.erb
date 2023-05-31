@@ -1,0 +1,23 @@
+<% all_steps_count = model.steps.count - 1 %>
+<% active_step_pos = model.active_step ? model.active_step.position : 0 %>
+<% model.steps.each do |step| %>
+  <% additional_classes = step_classes(step, all_steps_count, active_step_pos) %>
+
+  <li class="card--list__item <%= additional_classes %>">
+    <span class="timeline-line"></span>
+    <div class="card--list__text card--list__text--top">
+      <% if step.position < model.active_step.position %>
+        <%= image_tag 'circle-checked-icon.png', alt: '' %>
+      <% elsif step.position == model.active_step.position %>
+        <%= image_tag 'circle-active-icon.png', alt: '' %>
+      <% else %>
+        <%= image_tag 'circle-empty-icon.png', alt: '' %>
+      <% end %>
+      <div>
+        <h3 class="card--list__heading heading-small"><%= translated_attribute(step.title) %></h3>
+        <span class="text-medium muted"><%= translated_attribute(step["date"]).html_safe %></span>
+        <span class="text-medium"><%= translated_attribute(step["description"]).html_safe %></span>
+      </div>
+    </div>
+  </li>
+<% end %>

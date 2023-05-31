@@ -1,0 +1,9 @@
+var $user_questions = $('#user-questions');
+var $user_questionsCount = $('#user_questions-count');
+// var $orderFilterInput = $('.order_filter');
+
+$user_questions.html('<%= j(render partial: "user_questions").strip.html_safe %>');
+$user_questionsCount.html('<%= j(render partial: "count").strip.html_safe %>');
+
+// var $dropdownMenu = $('.dropdown.menu', $user_questions);
+// $dropdownMenu.foundation();

@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Decidim::ExpertQuestions::Admin::Permissions
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::ExpertQuestions::Admin::Permissions";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span></span>
+     &raquo; 
+    <span class="title">Permissions</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Decidim::ExpertQuestions::Admin::Permissions
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Admin::Permissions</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Admin::Permissions</li>
+          
+            <li class="next">Decidim::ExpertQuestions::Admin::Permissions</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_creating_expert_answers_action%3F-instance_method" title="#allowed_creating_expert_answers_action? (instance method)">#<strong>allowed_creating_expert_answers_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_expert_action%3F-instance_method" title="#allowed_expert_action? (instance method)">#<strong>allowed_expert_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_expert_answers_action%3F-instance_method" title="#allowed_expert_answers_action? (instance method)">#<strong>allowed_expert_answers_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_publishing_action%3F-instance_method" title="#allowed_publishing_action? (instance method)">#<strong>allowed_publishing_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_user_questions_action%3F-instance_method" title="#allowed_user_questions_action? (instance method)">#<strong>allowed_user_questions_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#expert-instance_method" title="#expert (instance method)">#<strong>expert</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#expert_answer-instance_method" title="#expert_answer (instance method)">#<strong>expert_answer</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#expert_is_allowed_to_answer%3F-instance_method" title="#expert_is_allowed_to_answer? (instance method)">#<strong>expert_is_allowed_to_answer?</strong>(question)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#is_user_space_expert%3F-instance_method" title="#is_user_space_expert? (instance method)">#<strong>is_user_space_expert?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#permissions-instance_method" title="#permissions (instance method)">#<strong>permissions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#question-instance_method" title="#question (instance method)">#<strong>question</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="allowed_creating_expert_answers_action?-instance_method">
+  
+    #<strong>allowed_creating_expert_answers_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_creating_expert_answers_action?'>allowed_creating_expert_answers_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:expert_answer</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:create</span>
+
+  <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='op'>!</span><span class='id identifier rubyid_question'>question</span><span class='op'>&amp;.</span><span class='id identifier rubyid_expert_answer'>expert_answer</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_expert_is_allowed_to_answer?'>expert_is_allowed_to_answer?</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_admin_terms_accepted?'>admin_terms_accepted?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_expert_action?-instance_method">
+  
+    #<strong>allowed_expert_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_expert_action?'>allowed_expert_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:expert</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:publish</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:read</span>
+    <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span><span class='rparen'>)</span>
+  <span class='kw'>elsif</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:destroy</span>
+    <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_expert'>expert</span><span class='op'>&amp;.</span><span class='id identifier rubyid_can_be_deleted?'>can_be_deleted?</span> <span class='op'>&amp;&amp;</span> <span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_expert_answers_action?-instance_method">
+  
+    #<strong>allowed_expert_answers_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 67</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_expert_answers_action?'>allowed_expert_answers_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:expert_answer</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:publish</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:create</span>
+
+  <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_admin_terms_accepted?'>admin_terms_accepted?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_publishing_action?-instance_method">
+  
+    #<strong>allowed_publishing_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+82
+83
+84
+85
+86</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 82</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_publishing_action?'>allowed_publishing_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:publish</span>
+
+  <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_admin_terms_accepted?'>admin_terms_accepted?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_user_questions_action?-instance_method">
+  
+    #<strong>allowed_user_questions_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_user_questions_action?'>allowed_user_questions_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:user_questions</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:read</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:publish</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_expert'>expert</span>
+    <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span>
+      <span class='lparen'>(</span>
+        <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span>
+        <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span> <span class='op'>||</span>
+        <span class='lparen'>(</span><span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_decidim_user_id'>decidim_user_id</span> <span class='op'>==</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+      <span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_admin_terms_accepted?'>admin_terms_accepted?</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_has_role_in_space?'>has_role_in_space?</span><span class='lparen'>(</span><span class='symbol'>:admin</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_admin_terms_accepted?'>admin_terms_accepted?</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expert-instance_method">
+  
+    #<strong>expert</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expert'>expert</span>
+  <span class='ivar'>@expert</span> <span class='op'>||=</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:expert</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expert_answer-instance_method">
+  
+    #<strong>expert_answer</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expert_answer'>expert_answer</span>
+  <span class='ivar'>@expert_answer</span> <span class='op'>||=</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:expert_answer</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="expert_is_allowed_to_answer?-instance_method">
+  
+    #<strong>expert_is_allowed_to_answer?</strong>(question)  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 88</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_expert_is_allowed_to_answer?'>expert_is_allowed_to_answer?</span><span class='lparen'>(</span><span class='id identifier rubyid_question'>question</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_question'>question</span>
+
+  <span class='id identifier rubyid_question'>question</span><span class='period'>.</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_decidim_user_id'>decidim_user_id</span> <span class='op'>==</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_user_space_expert?-instance_method">
+  
+    #<strong>is_user_space_expert?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_user_space_expert?'>is_user_space_expert?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_expert?'>ad_expert?</span>
+
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='symbol'>:component</span><span class='rparen'>)</span>
+                                  <span class='period'>.</span><span class='id identifier rubyid_pluck'>pluck</span><span class='lparen'>(</span><span class='symbol'>:decidim_user_id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="permissions-instance_method">
+  
+    #<strong>permissions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 7</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_permissions'>permissions</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_permission_action'>permission_action</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_permission_action'>permission_action</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_scope'>scope</span> <span class='op'>==</span> <span class='symbol'>:admin</span>
+
+  <span class='comment'># allowed_component_action?
+</span>  <span class='id identifier rubyid_allowed_expert_action?'>allowed_expert_action?</span>
+  <span class='id identifier rubyid_allowed_user_questions_action?'>allowed_user_questions_action?</span>
+  <span class='id identifier rubyid_allowed_expert_answers_action?'>allowed_expert_answers_action?</span>
+  <span class='id identifier rubyid_allowed_creating_expert_answers_action?'>allowed_creating_expert_answers_action?</span>
+
+  <span class='id identifier rubyid_allowed_publishing_action?'>allowed_publishing_action?</span>
+
+  <span class='id identifier rubyid_permission_action'>permission_action</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="question-instance_method">
+  
+    #<strong>question</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_question'>question</span>
+  <span class='ivar'>@question</span> <span class='op'>||=</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:user_question</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:18 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

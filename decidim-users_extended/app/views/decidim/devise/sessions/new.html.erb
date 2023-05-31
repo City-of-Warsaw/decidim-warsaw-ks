@@ -1,0 +1,58 @@
+<% add_decidim_page_title(t("devise.sessions.new.sign_in")) %>
+
+<div class="wrapper">
+  <div class="row collapse">
+    <div class="row collapse">
+      <div class="columns large-12 large-centered text-center page-title">
+        <h1 class="main-header"><%= t("devise.sessions.new.sign_in") %></h1>
+        <%= render 'decidim/devise/shared/speech_bubble' %>
+      </div> 
+    </div>
+
+    <% cache current_organization do %>
+      <%= render "decidim/devise/shared/omniauth_buttons" %>
+    <% end %>
+
+    <% if current_organization.sign_in_enabled? %>
+      <div class="row">
+        <div class="columns large-6 medium-10 medium-centered">
+          <div class="card no-borders">
+            <div class="card__content">
+              <%= decidim_form_for(resource, namespace: "session", as: resource_name, url: session_path(resource_name), html: { class: "register-form new_user" }) do |f| %>
+                <div>
+                  <div class="field"> 
+                    <div class="user-email__input">
+                      <div class="prefix" title=""></div>
+                      <%= f.email_field :email, autocomplete: "email" %>
+                    
+                      <span class="form-error">
+                        Niepoprawny format
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <%= f.password_field :password, autocomplete: "current-password" %>
+                    <span class="form-error">
+                      Wymagane
+                    </span>
+                  </div>
+                </div>
+                <% if devise_mapping.rememberable? %>
+                  <div class="field checkboxed">
+                    <%= f.check_box :remember_me %>
+                  </div>
+                <% end %>
+              </div>
+              <div class="card__content">
+                <div class="actions">
+                  <%= f.submit t("devise.sessions.new.sign_in"), class: "button expanded uppercase" %>
+                  <%# <%= link_to t('.peum_login'), decidim_users_extended.peum_login_path, class: 'button expanded hollow secondary devise' %> 
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

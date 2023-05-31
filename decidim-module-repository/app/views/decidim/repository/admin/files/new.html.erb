@@ -1,0 +1,41 @@
+<%= decidim_form_for(@form, url: new_file_submit_url, html: { autocomplete: 'off' }) do |f| %>
+  <div class="card">
+    <div class="card-divider">
+      <h2 class="card-title"><%= t ".title" %></h2>
+    </div>
+    <div class="card-section">
+      <%= render partial: "form", object: f %>
+    </div>
+  </div>
+  <div class="button--double form-general-submit">
+    <%= link_to 'anuluj', admin_files_path, class: 'button hollow' %>
+    <%= f.submit t(".create") %>
+  </div>
+<% end %>
+
+
+<% if @gallery %>
+  <%= decidim_form_for(@form, url: new_file_submit_url, html: { autocomplete: 'off' }) do |f| %>
+    <div class="card" style="margin-top: 3rem">
+      <div class="card-divider">
+        <h2 class="card-title"><%= t ".title" %></h2>
+      </div>
+      <div class="card-section">
+        <div class="row column">
+          <%= f.collection_select :file_id,
+                                  Decidim::Repository::File.alphabetical,
+                                  :id,
+                                  :name,
+                                  include_blank: true,
+                                  label: 'Plik z repozytorium' %>
+        </div>
+      </div>
+    </div>
+    <div class="button--double form-general-submit">
+      <%= link_to 'anuluj', admin_files_path, class: 'button hollow' %>
+      <%= f.submit t(".create") %>
+    </div>
+  <% end %>
+<% end %>
+
+

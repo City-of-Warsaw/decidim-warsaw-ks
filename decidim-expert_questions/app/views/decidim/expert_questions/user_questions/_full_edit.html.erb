@@ -1,0 +1,77 @@
+<div class="card__content update-user_question" id="editable-user_question-<%= user_question.id %>">
+  <%= decidim_form_for(form_object, method: :patch, remote: true) do |form| %>
+  <% if form_object.errors.any? %>
+  <% form_object.errors.full_messages.each do |message|%>
+     <h3><%= message %> </h3>
+  <%end%>
+<%end%> 
+    <%= form.hidden_field :expert_id, value: user_question.decidim_expert_questions_experts_id %> 
+ 
+
+    <div class="field remark-field--body">
+      <%= form.text_area(
+            :body, 
+            rows: 4,
+            maxlength: form_object.max_characters,
+            required: true,
+            placeholder: t('activemodel.attributes.remark.body'),
+            label: false,
+            data: { remaining_characters: "#ask_question-remaining-characters-" + user_question.id.to_s },
+            aria: { describedby: "ask_question-remaining-characters-" + user_question.id.to_s }
+          )  %>
+      <span id="ask_question-remaining-characters-<%= user_question.id  %>" class="remaining-character-count keep-low"></span>
+    </div>
+    
+    <div class="field file-field remark-field--files position-relative">
+      <%= form.file_field :files,
+            label: false, 
+            class: 'multifile hidden',
+            multiple: true,
+            id: "user_question_files_" + user_question.id.to_s %>
+
+
+      <button type="button" class="remark-file-button attachment-button-js" data-target="#user_question_files_<%= user_question.id %>">Dodaj załącznik</button>
+    </div> 
+      
+    <% unless current_user %>
+      <div class="field remark-field--signature">
+        <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+        <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
+      </div>
+    <% end %>
+
+    <% unless current_user %>
+      <fieldset class="mt-sm">
+        <legend id="email-legend"><%= t('.email_legend') %></legend>
+        <div class="field remark-field--email">
+          <%= form.email_field :email, placeholder: t("email_placeholder", scope: 'decidim.expert_questions.user_questions.form'), label: false %>
+        </div>
+      </fieldset>
+
+      <fieldset class="mt-sm">
+        <legend><%= t('.statistics_legend') %></legend>
+        <div class="remark-field--selects"> 
+          <%= form.select :gender,
+                          form_object.user_gender_for_select,
+                          { include_blank: t("select_gender", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                          { multiple: false } %> 
+          <%= form.select :age,
+                          form_object.user_age_for_select,
+                          { include_blank: t("select_age", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                          { multiple: false } %> 
+          <%= form.select :district_id,
+                          form_object.user_districts_for_select,
+                          { include_blank: t("select_district", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                          { multiple: false } %> 
+        </div> 
+      </fieldset>
+    <% end %>
+
+    <div class="row actions">
+      <div class='pull-right'>
+        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+        <%= form.submit t(".save"), class: "button", data: { disable: true } %>
+      </div>
+    </div>
+  <% end %>
+</div>

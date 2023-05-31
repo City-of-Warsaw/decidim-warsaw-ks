@@ -1,0 +1,48 @@
+pl:
+  activemodel:
+    attributes:
+      static_page_topic:
+        template: Szablon strony
+    models:
+      decidim/component_published_event: Nowa możliwość podzielenia się opinią
+      decidim/attachment_created_event: Nowy załącznik
+  errors:
+    messages:
+      banned_word: Prosimy o kulturalne wypowiedzi. Usuń z tekstu słowa obraźliwe.
+      banned_word_in_name: Nie można zapisać nazwy użytkownika zawierającej słowo obraźliwe.
+  carrierwave:
+    errors:
+      image_dimension_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}px)"
+      image_size_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}MB)"
+  decidim:
+    admin:
+      static_page_topics:
+        templates:
+          contact: Kontakt
+          standalone: Samodzielna strona
+    content_blocks:
+      hero_settings_form:
+        addition_to_welcome_text: Dopisek do tekstu powitalnego
+        hero_image_alt: Opis alternatywny (ALT) dla obrazu głównego
+    profile:
+      blocked: Zablokowany użytkownik
+    events:
+      components:
+        component_published:
+          notification_title: Sprawdź szczegóły w zakładce <a href="%{resource_path}">%{resource_title}</a> w konsultacjach <a href="%{resource_path}">%{participatory_space_title}</a>
+      attachments:
+        attachment_created:
+          notification_title: Dodaliśmy <a href="%{resource_path}">Nowy dokument</a> w konsultacjach <a href="%{attached_to_url}">%{resource_title}</a>
+  views:
+    pagination:
+      first: <span aria-hidden="true">&laquo;</span> Pierwsza<span class="show-for-sr"> strona</span>
+      first_title: ""
+      last: Ostatnia<span class="show-for-sr"> strona</span> <span aria-hidden="true">&raquo;</span>
+      last_title: ""
+      next: Następna<span class="show-for-sr"> strona</span> <span aria-hidden="true">&rsaquo;</span>
+      next_title: ""
+      pagination: Strony
+      previous: <span aria-hidden="true">&lsaquo;</span> Poprzednia<span class="show-for-sr"> strona</span>
+      previous_title: ""
+      title: "Numer strony: "
+      truncate: "&hellip;"

@@ -1,0 +1,41 @@
+<section class="extended hero home-section <%= help_section.present? ? "with-gray-bg" : "" %>">
+  <% if pages_hero_section.banner_img.attached? %>
+    <div class="hero__bg-image">
+      <%= image_tag(
+            Rails.application.routes.url_helpers.rails_representation_path(
+              pages_hero_section.banner_img.variant(resize: "600x600^").processed, only_path: true)
+          )
+      %>
+    </div>
+  <% else %>
+    <div class="hero__bg-image">
+      <%= image_tag(main_background_image) %>
+    </div>
+  <% end %>
+  
+  <div class="hero__container">
+    <div class="row">
+      <div class="columns small-centered large-10">
+        <h1 class="text-highlight heading1 hero-heading">
+          <%= pages_hero_section.title %>
+        </h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="columns small-centered small-12 medium-12 mediumlarge-12">
+        <% if pages_hero_section.subtitle %>
+          <h2 class="hero-second-heading white-text">
+            <%= pages_hero_section.subtitle %>
+          </h2>
+        <% else %>
+          <h2 class="hero-second-heading white-text">
+            <% t("decidim.pages.hero.sub_header") %>
+          </h2>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <%= cell('decidim/content_blocks/hero', current_organization).consultation_decor.html_safe %>
+</section>

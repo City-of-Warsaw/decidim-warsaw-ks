@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <style>
+      * { box-sizing: border-box; }
+
+      .heading2 { text-align: center; }
+      .box-centered {
+          text-align: center;
+          margin-bottom: 20px;
+      }
+
+      <% area = current_participatory_space.area %>
+     .text-color-area-color-<%= area&.id %> { color: <%= area&.color %>; }
+
+      .recipients-small {
+          display: block;
+          color: #757575;
+          font-size: 80%;
+      }
+
+      .lead {
+          font-size: 110%;
+          font-weight: bold;
+      }
+
+     .timeline { padding: 0; margin-left: 0; }
+
+     .timeline .card--list__item {
+         position: relative;
+         padding-left: 0;
+         list-style: none;
+         margin-left: 0;
+     }
+
+     .text-medium p {
+         margin: 0;
+     }
+
+     .card--list__text > div {
+         display: inline-block;
+         width: calc(100% - 25px);
+         padding-left: 10px;
+         vertical-align: top;
+     }
+
+     .card--list__text .circle {
+         position: relative;
+         display: inline-block;
+         width: 28px;
+         height: 28px;
+         background-color: #fff;
+         border: 3px solid <%= current_participatory_space.organization.colors["primary"] %>;
+         border-radius: 50%;
+         z-index: 1;
+         vertical-align: top;
+         margin-top: 15px;
+     }
+
+     .card--list__text .circle.circle-active { border-width: 5px; }
+     .card--list__text .circle.circle-empty { border-color: #ccc; }
+
+     .card--list__text .circle-checked {
+         display:inline-block;
+         -ms-transform: rotate(45deg); /* IE 9 */
+         -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+         transform: rotate(45deg);
+     }
+
+     .checkmark_stem {
+         position: absolute;
+         width:3px;
+         height:9px;
+         background-color:<%= current_participatory_space.organization.colors["primary"] %>;
+         left:11px;
+         top:6px;
+     }
+
+     .checkmark_kick {
+         position: absolute;
+         width:3px;
+         height:3px;
+         background-color:<%= current_participatory_space.organization.colors["primary"] %>;
+         left:8px;
+         top:12px;
+     }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="process-header">
+      <div class="process-header__inner">
+        <div class="line-decor <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>"></div>
+        <div class="process-header__container row collapse column">
+          <div class="columns mediumlarge-6 process-header__info">
+            <div>
+              <h1 class="heading2">
+                <%= translated_attribute(current_participatory_space.title) %>
+              </h1>
+            </div>
+            <div class="box-centered"><%= area_and_scope(current_participatory_space) %></div>
+          </div>
+<!--          <div class="columns mediumlarge-6">-->
+            <%# if current_participatory_space.hero_image.present? %>
+              <%#= image_tag current_participatory_space.hero_image.url, alt: '', class: 'process-main-image' %>
+            <%# elsif current_participatory_space.banner_image.present? %>
+              <%#= image_tag current_participatory_space.banner_image.url, alt: '', class: 'process-main-image' %>
+            <%# end %>
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="main-text">
+      <div class="lead">
+        <%= decidim_sanitize translated_attribute(current_participatory_space.short_description) %>
+      </div>
+       <%= decidim_sanitize translated_attribute(current_participatory_space.description) %>
+    </div>
+
+    <div class="timeline">
+      <ul>
+        <% current_participatory_space.steps.each do |step| %>
+          <li class="card--list__item">
+            <div class="card--list__text card--list__text--top">
+              <% if step.position < current_participatory_space.active_step.position %>
+                <span class="circle circle-checked" role="presentation">
+                  <div class="checkmark_stem"></div>
+                  <div class="checkmark_kick"></div>
+                </span>
+              <% elsif step.position == current_participatory_space.active_step.position %>
+                <span class="circle circle-active" role="presentation"></span>
+              <% else %>
+                <span class="circle circle-empty" role="presentation"></span>
+              <% end %>
+              <div>
+                <h3 class="card--list__heading heading-small"><%= translated_attribute(step.title) %></h3>
+                <span class=""><%= translated_attribute(step["description"]).html_safe %></span>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </main>
+</body>
+</html>
+
+

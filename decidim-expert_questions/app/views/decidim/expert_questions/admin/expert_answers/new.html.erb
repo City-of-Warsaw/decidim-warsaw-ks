@@ -1,0 +1,11 @@
+<%= decidim_form_for(@form, url: user_question_expert_answers_path(user_question), html: { class: "form experts_form new_expert_answer" }) do |f| %>
+  <%= render partial: "form", object: f, locals: { title: t(".title") } %>
+
+  <div class="button--double form-general-submit">
+    <%= f.submit t(".create") %>
+
+    <% if allowed_to? :publish, :expert_answer %>
+      <%#= link_to t("actions.unpublish", scope: "decidim.admin"), experts_path(expert, publish: 'true'), class: "button muted" %>
+    <% end %>
+  </div>
+<% end %>

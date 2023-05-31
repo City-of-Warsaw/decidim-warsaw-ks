@@ -1,0 +1,16 @@
+<section class="extended subhero home-section">
+  <div class="row">
+    <div class="columns small-centered large-10">
+      <h2 class="heading2">
+        <%= decidim_sanitize translated_attribute current_organization.description %>
+      </h2>
+      <% if current_organization.sign_up_enabled? && !current_user %>
+        <div class="row">
+          <div class="column text-center">
+            <%= link_to t("decidim.pages.home.sub_hero.register"), decidim.new_user_registration_path, class: "button hollow button--sc subhero-cta" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

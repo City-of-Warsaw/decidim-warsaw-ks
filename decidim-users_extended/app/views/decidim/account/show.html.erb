@@ -1,0 +1,139 @@
+<% add_decidim_page_title(t("profile", scope: "layouts.decidim.user_menu")) %>
+<% content_for(:subtitle) { t("profile", scope: "layouts.decidim.user_menu") } %>
+
+<%= decidim_form_for(@account, url: account_path, method: :put, html: { autocomplete: "off" }) do |f| %>
+  <div class="row">
+    <div class="columns large-10"> 
+      <div class="custom-user-avatar">
+        <%= f.custom_upload :avatar,
+              label: false, 
+              class: "hidden"
+        %>
+
+        <div class="avatar-file-controls"> 
+          <span class="avatar-filename avatar-filename-js"></span>
+          <button type="button" class="avatar-file-button avatar-file-button-js">Dodaj nowe zdjęcie</button>
+
+          <div class="field checkboxed">
+            <%= f.check_box :remove_avatar  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns large-10"> 
+      <input autocomplete="off" name="hidden" type="password" class="hidden">
+
+      <div class="user-nickname">
+        <label class="styled-label" for="user_name">  
+          Nazwa użytkownika
+
+          <span class="label-required">
+            <span aria-hidden="true">*</span><span class="show-for-sr">Wymagane</span>
+          </span>
+        </label>
+
+        <div class="user-nickname__input">
+          <div class="prefix" title=""></div>
+          <%=  f.text_field :name, 
+                            required: true,
+                            maxlength: 40,
+                            value: @account.name,
+                            id: "user_name",
+                            autocomplete: "nickname",
+                            "aria-required": true,
+                            label: false
+                %>  
+          <span class="form-error">To pole jest wymagane</span>
+        </div>
+        
+      </div>
+
+      <%= f.email_field :email, autocomplete: "email", "aria-required": "true" %>
+      <span class="form-error">To pole jest wymagane</span>
+      <%#= f.url_field :personal_url %>
+      <%= f.select :gender,
+                      @account.user_gender_for_select,
+                      { include_blank: t(".select_gender") },
+                      { multiple: false } %>
+
+
+      <div class="equal-columns">
+        <div>
+          <%= f.number_field :birth_year, autocomplete: "bday-year" %>
+        </div>
+      
+        <div>
+          <%= f.text_field :zip_code, placeholder: "__-___", autocomplete: "postal-code" %>
+        </div>
+      </div>
+
+      <%= f.select :district_id,
+                  @account.user_districts_for_select,
+                  { include_blank: t(".select_district") },
+                  { multiple: false }
+      %>
+      <%#= f.text_area :about, rows: 5 %> 
+      <div class="account-password">
+        <% if @account.errors[:password].any? || @account.errors[:password_confirmation].any? %>
+          <%= render partial: "password_fields", locals: { form: f } %>
+        <% else %>
+          <% if current_organization.sign_in_enabled? %>
+            <p>
+              <a data-toggle="passwordChange" class="change-password" tabindex="0"><%= t ".change_password" %></a>
+            </p>
+            <div id="passwordChange" class="toggle-show" data-toggler=".is-expanded">
+              <%= render partial: "password_fields", locals: { form: f } %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= f.button t(".update_account"), class:"button uppercase" %>
+    </div>
+  </div>
+<% end %>
+
+<%= nonced_javascript_tag do %>
+  $('#user_zip_code').mask('00-000');
+
+  fileField = $("#user_avatar");
+  uploadButton = $(".avatar-file-button-js"); 
+  fileName = $(".avatar-filename-js");
+  currentAvatar = $(".custom-user-avatar > button.wrapping-image");
+  currentAvatarImg = $(".custom-user-avatar > button.wrapping-image > img");
+
+  uploadButton.click(function() {
+    fileField.click();
+  });
+
+  currentAvatar.click(function(e) {
+    e.preventDefault();
+    fileField.click();
+  });
+
+  fileField.change(function(event) {
+    if (fileField.val()) {
+      fileName.html(fileField.val().match(
+        /[^\\]+$/
+      )[1]);
+    }
+
+    const file = event.target.files[0]; 
+
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = function (){ 
+      currentAvatarImg.attr('src', fileReader.result); 
+    }
+  });
+ 
+  $('.change-password[tabindex=0]').on("keydown", function(event) {
+    if (event.which == 32) {
+      event.preventDefault();
+      $(`#${$(this).data("toggle")}`).foundation('toggle');
+    }
+  }); 
+<% end %>

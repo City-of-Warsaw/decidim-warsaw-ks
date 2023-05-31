@@ -1,0 +1,17 @@
+<section class="wrapper-home latest-informations home-section">
+  <div class="row">
+    <h2 class="section-heading"><%= t("decidim.news.content_blocks.latest_informations.name") %></h2>
+    <div class="row collapse">
+      <div class="row small-up-1 smallmedium-up-2 mediumlarge-up-3 large-up-3 card-grid">
+        <% latest_informations.each do |information| %>
+          <%= card_for information, size: :m %>
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column text-center">
+        <%= link_to t("decidim.news.content_blocks.latest_informations.view_all_informations").html_safe, all_news_path, class: "button hollow button--sc" %>
+      </div>
+    </div>
+  </div>
+</section>

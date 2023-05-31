@@ -1,0 +1,151 @@
+.auto-search-wrapper {
+  display: inline-block !important;
+  width: 49% !important;
+  margin-top: 16px;
+}
+
+#remarks.map-remarks {
+  position: relative;
+
+  .comments {
+    padding-top: 0;
+
+    .comment-thread {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.new-map-remark-box {
+  position: absolute;
+  width: auto;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  overflow-y: scroll;
+  max-width: 100%;
+
+
+  .card--remark {
+    margin-right: 5px;
+  }
+
+  #new-remark-box {
+    height: 100%;
+
+    .card {
+      min-height: 100%;
+      margin-top: 0px;
+      margin-right: 5px;
+
+      display: flex;
+      flex-direction: column;
+
+      .card__content {
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .remark-field--selects>* {
+          flex-basis: 30%;
+        }
+      }
+    }
+  }
+
+  .update-remark {
+    .remark-field--selects>* {
+      flex-basis: 30%;
+    }
+  }
+
+  &>.column {
+    width: 500px;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .card {
+    margin-bottom: 0;
+  }
+
+  .author-data--small {
+    padding-left: 30px;
+  }
+
+  .card__header strong {
+    margin-top: 5px;
+    display: block;
+  }
+
+  .card--remark {
+    margin-bottom: 0;
+    min-height: 600px;
+
+    .author__name {
+      color: var(--primary);
+    }
+  }
+
+  .card__content:not(:only-child) {
+    padding-right: 0.9375rem;
+    padding-left: 0.9375rem;
+  }
+
+  //comments
+  .comments {
+    padding-top: 2rem;
+  }
+
+  .section-heading.order-by__text,
+  h2 {
+    margin-bottom: 0px;
+  }
+
+  .not-response {
+    padding-left: 0;
+    padding-right: 0;
+    overflow: unset;
+  }
+}
+
+.add-comment.map-remark {
+  padding: 15px;
+  height: auto;
+  width: 500px;
+  min-height: calc(100% - 64px);
+  max-width: 100%;
+
+  .card__content {
+    padding: 0;
+  }
+
+  .comment-thread {
+    margin-bottom: 20px;
+  }
+}
+
+.auto-search-wrapper.map {
+  display: inline-block;
+  margin-top: 16px;
+}
+
+.share-map {
+  display: inline-block;
+  margin-top: 16px;
+  float: right;
+
+  .text-center {
+    text-align: right;
+  }
+
+  .share-link {
+    background-color: var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    height: 48px;
+  }
+}

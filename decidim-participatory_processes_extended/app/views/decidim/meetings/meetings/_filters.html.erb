@@ -1,0 +1,32 @@
+<%= filter_form_for filter, html: { class: "projects-filters" } do |form| %>
+  <div class="select-row no-border meetings-filter">
+    <%= form.select :date, filter_date_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_date')).html_safe, include_blank: false, legend_title: t(".status") }, { multiple: true, "data-placeholder": t(".status"), "aria-controls": "processes" } %>
+
+    <%#= form.select :scope_id, filter_scopes_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_scope')).html_safe, include_blank: false, legend_title: t(".scope") }, { multiple: true, "data-placeholder": t(".scope"), "aria-controls": "processes" } %>
+
+    <%= form.select :type, filter_type_values, { label:t(".wcag_hidden_label", pick_info: t('.pick_type')).html_safe, include_blank: false, legend_title: t(".type") }, { multiple: true, "data-placeholder": t(".type"), "aria-controls": "processes" } %>
+
+    <%= form.submit t('.submit'), class: 'button button-search' %>
+  </div>
+<% end %> 
+
+<%= nonced_javascript_tag do %>
+  $(document).ready(function() {
+
+    $("select[multiple]").multiselect({
+      columns: 1,
+      search: false,
+      selectAll: false,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: 'Wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      }
+    });
+
+  });
+<% end %>

@@ -1,0 +1,126 @@
+pl:
+  activemodel:
+    attributes:
+      display_condition:
+        answer_option: Opcja odpowiedzi
+        condition_question: Pytanie
+        question: Pytanie
+      address:
+        full_address: Pełny adres
+      assembly:
+        document: Plik
+        import_categories: Zaimportuj kategorie wewnętrzne
+        import_attachments: Zaimportuj załączniki
+        import_components: Zaimportuj komponenty
+      assembly_member:
+        position_other: Inna funkcja
+        weight: Kolejność na stronie
+      attachment:
+        weight: Kolejność na stronie
+      attachment_collection:
+        weight: Kolejność na stronie
+      area:
+        area_type_id: Typ kategorii
+      close_meeting:
+        proposals: Propozycje
+      debate:
+        scope_id: Dzielnica
+      help_section:
+        content: Treść
+      import_participatory_text:
+        title: Tytuł
+        description: Opis
+      invite:
+        nickname: Pseudonim
+      meeting:
+        registration_type: Typ rejestracji
+        reserved_slots: Zarezerowane miejsca
+      meeting_registration_invite:
+        name: Imię
+        email: E-mail
+        user_id: Użytkownik
+      participatory_process:
+        private_space: Przestrzeń prywatna
+        document: Plik
+        import_steps: Zaimportuj etapy
+        import_categories: Zaimportuj kategorie wewnętrzne
+        import_attachments: Zaimportuj załączniki
+        import_components: Zaimportuj komponenty
+      participatory_space_private_user:
+        name: Imię
+        email: Adres e-mail
+      questionnaire:
+        title: Nazwa
+      revocations_before_date:
+        before_date: Sprzed daty
+        impersonated_only: Tylko konflikty weryfikacji
+      static_page:
+        topic_id: Temat
+      user:
+        avatar: Awatar
+      validate_registration_code:
+        code: Kod
+
+    models:
+      decidim/amendment_created_event: Dodano poprawkę
+      decidim/meetings/meeting_registration_notification_event: Rejestraca na spotkanie
+      decidim/user_group_created_event: Utworzono grupę
+      decidim/welcome_notification_event: Powitanie
+
+  activerecord:
+    models:
+      comment: Komentarz
+      decidim/comments/comment:
+        one: komentarz
+        few: komentarze
+        many: komentarzy
+        other: komentarzy
+      decidim/expert_questions/user_question:
+        one: pytanie do eksperta
+        few: pytania do eksperta
+        many: pytań do eksperta
+        other: pytań do eksperta
+      decidim/consultation_requests/consultation_request:
+        one: wniosek o konsultacje
+        few: wnioski o konsultacje
+        many: wniosków o konsultacje
+        other: wniosków o konsultacje
+      decidim/forms/admin/display_condition_form:
+        condition_question: teraz?
+      decidim/moderation:
+        one: wpis
+        few: wpisy
+        many: wpisów
+        other: wpisy
+      decidim/static_page:
+        one: baza wiedzy
+        few: bazy wiedzy
+        many: baz wiedzy
+        other: baz wiedzy
+  decidim:
+    searches:
+      results: 
+        view_all: Pokaż wszystkie
+        results: 
+          one: "1 wynik"
+          few: "%{count} wyniki"
+          many: "%{count} wyników"
+          other: "%{count} wyników"
+          
+    admin_log:
+      moderation:
+        unhide: "%{user_name} przywrócił(a) widocznosć zgłoszonego zasobu typu %{resource_type} w przestrzeni %{space_name}"
+    admin:
+      filters:
+        moderations:
+          reportable_type_string_eq:
+            values:
+              Decidim::Comments::Comment: Komentarze
+              Decidim::Comments::Proposal: Propozycje
+        state_eq:
+          label: Status
+  forms:
+    length_validator:
+      minimum:
+        other: Co najmniej %{count} znaków
+

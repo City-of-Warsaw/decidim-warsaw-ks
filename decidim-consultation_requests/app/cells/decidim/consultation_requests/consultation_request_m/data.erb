@@ -1,0 +1,19 @@
+<div class="card__status">
+  <ul class="card-data">
+    <% if model.date_of_request.present? %>
+      <li class="card-data__item">
+        <strong><%= t('.date_of_request') %></strong>
+        <br>
+        <%= l model.date_of_request, format: :decidim_short %>
+      </li>
+    <% end %>
+
+    <% if model.applicant.present? %>
+      <li class="card-data__item">
+        <strong><%= t('.applicant') %></strong>
+        <br>
+        <%= model.applicant %>
+      </li>
+    <% end %>
+  </ul>
+</div>

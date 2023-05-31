@@ -1,0 +1,6 @@
+---
+en:
+  decidim:
+    components:
+      ad_users_space:
+        name: AdUsersSpace

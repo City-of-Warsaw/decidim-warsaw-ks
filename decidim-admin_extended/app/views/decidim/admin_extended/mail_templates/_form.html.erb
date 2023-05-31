@@ -1,0 +1,38 @@
+<fieldset>
+  <div class="row column">
+    <%= form.text_field :name %>
+  </div>
+  <div class="row column">
+    <%= form.text_field :system_name, disabled: true, value: mail_template.system_name %>
+  </div>
+  <div class="row column">
+    <%= form.text_field :subject %>
+  </div>
+  <div class="row column">
+    <%= form.editor :body, rows: 3 %>
+  </div>
+  <div class="row column">
+    <%= form.check_box :active, label: 'Aktywny' %>
+    <p class="help-text">Nie ma wpływu na wysyłanie powiadomień systemowych np. przypomnienia hasła</p>
+  </div>
+  <div class="row column">
+    <legend style="background-color: #eeeeee; padding: 4px;">
+      <b>Dostępne zmienne używane w temacie i treści wiadomości:</b>
+      <ul>
+        <li>%{user_name} - Publiczna nazwa użytkownika (w mianowniku)</li>
+        <li>%{expert_name} - Imię i nazwisko eksperta (w mianowniku)</li>
+        <li>%{resource_title} - Element, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)</li>
+        <li>%{resource_link} - Link do elementu, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)</li>
+        <li>%{consultation_title} - Konsultacje, do których należy element (jeśli dotyczy - Jeśli elementem powiadomienia są konsultacje, to można uzywać obydwu zmiennych: 'resource' i 'consultation')</li>
+        <li>%{consultation_link} - Link do konsultacji, do których należy element (jeśli dotyczy)</li>
+        <li>%{step_name} - Nazwę etapu (jeśli dotyczy)</li>
+
+        <li>%{activation_link} - Link aktywacyjny dla nowego konta</li>
+        <li>%{password_reset_link} - Link do stworzenia nowego hasła</li>
+      </ul>
+      <p>
+        <i>Uwaga! Nie wszystkie zmienne są używane w każdym szablonie!</i>
+      </p>
+    </legend>
+  </div>
+</fieldset>

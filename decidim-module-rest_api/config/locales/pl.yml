@@ -1,0 +1,7 @@
+pl:
+  apipie:
+    error_code: Kod błędu
+    error_description: Opis błędu
+    error_metadata: Metadane
+    code: Kod
+    returns: Odpowiedź

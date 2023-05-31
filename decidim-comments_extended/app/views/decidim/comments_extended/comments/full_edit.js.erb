@@ -1,0 +1,53 @@
+(function() {
+    // pick element to replace
+    let commentToEdit = $('#comment_' + <%== @comment.id %>);
+    let contentToReplace = commentToEdit.find('.comment__content').first();
+    let editButton = $("[data-id='" + <%== @comment.id %> + "']");
+
+    contentToReplace.replaceWith("<%== escape_javascript(render 'decidim/comments_extended/comments/full_comment_form', form_object: @form_object, comment: @comment) %>");
+    editButton.hide();
+
+    // add function for close form button
+    $('.close-second-step-comment-<%== @comment.id %>-button-js').click( function() {
+        let commentHtml = '<%== j(render @comment).strip %>';
+ 
+        if (!!commentToEdit.closest(".comment__replies").length) {
+            commentToEdit.replaceWith(commentHtml);
+        } else {
+            commentToEdit.parent().parent().replaceWith(commentHtml);
+        }
+
+        editButton.show();
+    });
+
+    $('#comment_' + <%== @comment.id %> + ' .comment__content .comment-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('#comment_' + <%== @comment.id %> + ' .comment__content .comment-field--body textarea'))); 
+
+    $('#comment_' + <%== @comment.id %> + " select:not([multiple=multiple])").select2({
+        minimumResultsForSearch: Infinity,
+    });
+
+    $('#comment_' + <%== @comment.id %> + " input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+        max: 5,
+        STRING: {
+          remove: 'usuń',
+          denied: 'Ten format pliku $ext jest niedozwolony.',
+          file: '$file',
+          selected: 'Wybrany plik: $file',
+          duplicate: 'Ten plik już został wybrany:\n$file',
+          toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+          toomany: 'Niedozwolona liczba plików (maks: $max)',
+          toobig: '$file ma za duży rozmiar (maks: $size)'
+        }, 
+      });
+
+    $('#comment_' + <%== @comment.id %> + " .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+        e.preventDefault();
+        
+        $(this).addClass("AttachmentButton-applied");
+
+        var target_id = $(this).data("target");
+        $(this).closest("form").find(target_id + " > input")
+            .last()
+            .click();
+    });
+}());

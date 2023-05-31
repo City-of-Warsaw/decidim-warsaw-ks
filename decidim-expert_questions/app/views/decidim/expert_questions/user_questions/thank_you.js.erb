@@ -1,0 +1,9 @@
+(function() {
+    let user_question_form_box = $("#new-user_question-box");
+    
+    user_question_form_box.replaceWith("<%== escape_javascript(render 'decidim/expert_questions/user_questions/thank_you_message') %>");
+
+    $('#new-user_question-box .close-button').click(function() {
+        window.location.href = $('.back-link').attr("href");
+    });
+}());

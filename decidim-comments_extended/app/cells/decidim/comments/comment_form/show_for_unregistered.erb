@@ -1,0 +1,66 @@
+<%= form_for(processed_form, url: decidim_comments.comments_path(order: order), method: :post, remote: true, html: { id: form_id }) do |form| %>
+  <%= form.hidden_field :commentable_gid, id: nil %>
+  <%= form.hidden_field :alignment, id: nil, class: "alignment-input" %>
+    <div class="field comment-field--body">
+      <label class="show-for-sr" for="<%= add_comment_id %>">
+        <%= t("decidim.components.add_comment_form.form.body.label") %>
+      </label>
+      <%= form.text_area(
+        :body,
+        id: add_comment_id,
+        rows: 4,
+        maxlength: comments_max_length,
+        required: true,
+        placeholder: t("decidim.components.add_comment_form.form.body.placeholder"),
+        label: false,
+        data: { remaining_characters: "##{add_comment_id}-remaining-characters" },
+        aria: { describedby: "#{add_comment_id}-remaining-characters" }
+      ) %>
+      <span id="<%= add_comment_id %>-remaining-characters" class="remaining-character-count for-unregistered-user"></span>
+    </div>
+
+    <div class="field file-field comment-field--files position-relative">
+      <%= form.file_field :files,
+            label: false,  
+            class: 'multifile hidden',
+            id: "comment_files_" + add_comment_id,
+            accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+            multiple: true
+      %> 
+
+      <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= add_comment_id %>">Dodaj załącznik</button>
+    </div>
+
+    <div class="field comment-field--signature">
+      <label class="show-for-sr" for="<%= add_comment_id %>-comment_signature<%= for_reader %>">
+        <%= t("decidim.components.add_comment_form.form.signature.label") %>
+      </label>
+      <%= form.text_field :signature,
+                          required: true,
+                          id: "#{add_comment_id}-comment_signature#{for_reader}",
+                          placeholder: t("decidim.components.add_comment_form.form.signature.placeholder"),
+                          label: false,
+                          autocomplete: "given-name"
+      %>
+    </div>
+    
+    <div class="row actions"> 
+      <ul class='pull-left ul-reset ul-contents' role="list">
+        <li>
+          <%= link_to t(".log_in"), decidim.new_user_session_path, class: 'link'%>
+          <span> / </span>
+        </li>
+      
+        <li><%= link_to t(".register"), decidim.new_user_registration_path, class: 'link'%></li>
+      </ul>
+
+      <div class='pull-right'>
+        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+        <%= form.submit t(".create"), class: "button", data: { disable: true } %>
+      </div>
+    </div> 
+
+  <div class="tos-footer tos-footer--out">
+    <%= t(".tos_agreement", link: link_to(t(".terms"), decidim.page_path("terms-and-conditions"))).html_safe %>
+  </div>
+<% end %>

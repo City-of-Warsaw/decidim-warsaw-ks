@@ -1,0 +1,46 @@
+<!-- decor styles -->
+<style>
+  <% Decidim::Area.all.each do |area| %>
+    <% col = area.color.presence || area.organization.colors["primary"] %>
+    <% text_col = area.text_color.presence || "white" %>
+    <% class_name = "area-color-#{area.id}" %>
+    <%= ".#{class_name}" %> .colored-box--alternative { background-color: <%= col %>; }
+    <%= ".#{class_name}" %> > .card--process .consultation-decor .colored-box, <%= ".#{class_name}" %>.card--process .consultation-decor .colored-box { background-color: <%= col %>; }
+    <%= ".#{class_name}" %> > .card--process .consultation-decor .colored-box:before, <%= ".#{class_name}" %>.card--process .consultation-decor .colored-box:before {
+        border-left-color: <%= col %>;
+        -webkit-box-shadow: -1px 0px 0px 0px <%= col %>;
+        -moz-box-shadow: -1px 0px 0px 0px <%= col %>;
+        box-shadow: -1px 0px 0px 0px <%= col %>;
+    }
+
+    <%= ".#{class_name}" %> .custom-area-color-headline { background-color: <%= col %>; color: <%= text_col %> }
+
+    <%= ".#{class_name}" %> > .card--process { outline-color: <%= col %> !important; }
+    <%= ".line-decor.#{class_name}" %> { background-color: <%= col %>; }
+    /* universal styles */
+    <%= ".text-color-#{class_name}" %> { color: <%= col %>; }
+    <%= ".bg-color-#{class_name}" %> { background-color: <%= col %>; }
+  <% end %>
+</style>
+
+<meta name="csp-nonce" content="<%= _content_security_policy_nonce(:script) %>">
+
+<% if Rails.env.production? || Rails.env.staging? %>
+  <%# bo-mtm.um.warszawa.pl %>
+  <%# ks-mtm.testum.warszawa.pl %>
+<!-- Matomo -->
+<%= nonced_javascript_tag do %>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//<%=ENV['MATOMO_HOST']%>/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+<% end %>
+<!-- End Matomo Code -->
+<% end %>

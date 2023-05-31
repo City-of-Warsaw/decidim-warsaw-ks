@@ -1,0 +1,87 @@
+<% should_be_hidden = model.is_a?(Decidim::Remarks::Remark) || model.is_a?(Decidim::ExpertQuestions::UserQuestion) %>
+<div id="<%= should_be_hidden ? "#{node_id}-response" : '' %>" class="add-comment not-response comment_form <%= should_be_hidden ? 'hide' : '' %>" data-toggler="<%= should_be_hidden ? '.hide' : 'h' %>">
+  <h4 class="section-heading"><%= should_be_hidden && !(!model.participatory_space.users_action_allowed_for_unregister_users && !current_user) ? '' : t("decidim.components.add_comment_form.title") %></h4>
+
+  <% if alignment_enabled? %>
+    <div class="opinion-toggle button-group">
+      <button class="button tiny button--muted opinion-toggle--ok">
+        <%= icon "thumb-up", role: "none presentation" %>
+      </button>
+      <button class="button tiny button--muted opinion-toggle--meh is-active">
+        <%= t("decidim.components.add_comment_form.opinion.neutral") %>
+      </button>
+      <button class="button tiny button--muted opinion-toggle--ko">
+        <%= icon "thumb-down", role: "none presentation" %>
+      </button>
+    </div>
+  <% end %>
+  
+  <% if !model.participatory_space.users_action_allowed_for_unregister_users && !current_user %>
+    <p class="mb-xs">
+      <%= t("decidim.components.add_comment_form.anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
+    </p>
+  <% else %>
+    <%== cell("decidim/comments/comment_form", model, root_depth: root_depth, for_reader: for_reader) %>
+  <% end %>
+</div>
+
+<% if model.is_a?(Decidim::Remarks::Remark) %>
+  <div id="<%= should_be_hidden ? "#{node_id}-response__phantom" : '' %>" class="add-comment not-response phantom comment_form <%= should_be_hidden ? 'hide' : '' %>" data-toggler="<%= should_be_hidden ? '.hide' : 'h' %>">
+    <h4 class="section-heading"><%= t("decidim.components.add_comment_form.title") %></h4>
+
+    <% if alignment_enabled? %>
+      <div class="opinion-toggle button-group">
+        <button class="button tiny button--muted opinion-toggle--ok">
+          <%= icon "thumb-up", role: "none presentation" %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--meh is-active">
+          <%= t("decidim.components.add_comment_form.opinion.neutral") %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--ko">
+          <%= icon "thumb-down", role: "none presentation" %>
+        </button>
+      </div>
+    <% end %>
+    <%== cell("decidim/comments/comment_form", model, root_depth: root_depth, for_reader: for_reader) %>
+  </div>
+
+
+  <div id="<%= should_be_hidden ? "#{node_id}-response__phantom" : '' %>" class="add-comment not-response phantom comment_form <%= should_be_hidden ? 'hide' : '' %>" data-toggler="<%= should_be_hidden ? '.hide' : 'h' %>">
+    <h4 class="section-heading"><%= t("decidim.components.add_comment_form.title") %></h4>
+
+    <% if alignment_enabled? %>
+      <div class="opinion-toggle button-group">
+        <button class="button tiny button--muted opinion-toggle--ok">
+          <%= icon "thumb-up", role: "none presentation" %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--meh is-active">
+          <%= t("decidim.components.add_comment_form.opinion.neutral") %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--ko">
+          <%= icon "thumb-down", role: "none presentation" %>
+        </button>
+      </div>
+    <% end %>
+    <%== cell("decidim/comments/comment_form", model, root_depth: root_depth, for_reader: for_reader) %>
+  </div>
+
+
+  <div id="<%= should_be_hidden ? "#{node_id}-response__phantom" : '' %>" class="add-comment not-response phantom comment_form <%= should_be_hidden ? 'hide' : '' %>" data-toggler="<%= should_be_hidden ? '.hide' : 'h' %>">
+    <h4 class="section-heading"><%= t("decidim.components.add_comment_form.title") %></h4>
+
+    <% if alignment_enabled? %>
+      <div class="opinion-toggle button-group">
+        <button class="button tiny button--muted opinion-toggle--ok">
+          <%= icon "thumb-up", role: "none presentation" %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--meh is-active">
+          <%= t("decidim.components.add_comment_form.opinion.neutral") %>
+        </button>
+        <button class="button tiny button--muted opinion-toggle--ko">
+          <%= icon "thumb-down", role: "none presentation" %>
+        </button>
+      </div>
+    <% end %>
+    <%== cell("decidim/comments/comment_form", model, root_depth: root_depth, for_reader: for_reader) %>
+  </div>
+<% end %>

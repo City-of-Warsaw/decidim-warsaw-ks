@@ -1,0 +1,36 @@
+<% if can_be_reported? %>
+  <button type="button"
+          class="link-alt flag"
+          title="<%= t("decidim.components.comment.report.title") %>"
+          data-open="<%= "flagModalComment#{model.id}" %>"
+          aria-controls="<%= "flagModalComment#{model.id}" %>"
+          aria-haspopup="true"
+          tabindex="0">
+    <%= t("decidim.components.comment.report.title_short") %><span class="show-for-sr"> komentarz <%= time_tag created_at, l(created_at, format: :decidim_short) %></span>
+  </button>
+<% end %>
+
+<% if model.authored_by?(current_user) %>
+  <%= link_to decidim_comments_extended.edit_comment_path(model),
+              class: 'link-alt flag',
+              remote: true,
+              role: "button",
+              data: { id: model.id } do %>
+    <%= t("decidim.components.comment.edit") %><span class="show-for-sr"> komentarz <%= time_tag created_at, l(created_at, format: :decidim_short) %></span>
+  <% end %>
+<% elsif authored_by_unregistered?(session[:comment_token]) %>
+  <%= link_to decidim_comments_extended.edit_comment_path(model),
+              class: 'link-alt flag',
+              remote: true,
+              role: "button",
+              data: {
+                id: model.id,
+                href: decidim_comments_extended.comment_id_via_token_comments_path
+              } do %>
+    <%= t("decidim.components.comment.edit") %><span class="show-for-sr"> komentarz <%= time_tag created_at, l(created_at, format: :decidim_short) %></span>
+  <% end %>
+<% end %>
+
+<% if can_be_reported? %>
+  <%= cell("decidim/flag_modal", model, modal_id: "flagModalComment#{model.id}") %>
+<% end %>

@@ -1,0 +1,38 @@
+<% if current_component.users_action_disallowed? %>
+  <div class="row">
+    <div class="column large-12"> 
+      <div class="callout warning-important">
+        <%= current_component.end_date_message %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if proposals_help_section.present? %>
+  <div class="help-section">
+    <div class="row column">
+      <div class="ql-editor">
+        <%= quill_sanitize translated_attribute(proposals_help_section) %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="participatory-text-index">
+  <%= render partial: "decidim/shared/component_announcement" %>
+
+  <div id="proposals">
+    <% @proposals.each do |proposal| %>
+      <%= cell("decidim/proposals/participatory_text_proposal", proposal, context: { current_user: current_user }) %>
+    <% end %>
+  </div>
+</div>
+
+<%= nonced_javascript_tag do %>
+  $('.collapsable-header[tabindex=0]').on("keydown", function(event) {
+    if (event.which == 32) {
+      event.preventDefault();
+      $(`#${$(this).data("toggle")}`).foundation('toggle');
+    }
+  });
+<% end %>

@@ -1,0 +1,8 @@
+en:
+  obscenity:
+    errors:
+      banned_word: 'Prosimy o kulturalne wypowiedzi. Usuń z tekstu słowa obraźliwe.'
+  carrierwave:
+    errors:
+      image_dimension_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}px)"
+      image_size_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}MB)"

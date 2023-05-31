@@ -1,0 +1,236 @@
+---
+pl:
+  activemodel:
+    attributes:
+      expert_answer:
+        body: Treść odpowiedzi
+      expert:
+        affiliation: Afiliacja
+        created_at: Dodano
+        description: Krótki opis
+        name: Imię i nazwisko
+        position: Stanowisko
+        user: Użytkownik
+        decidim_user_id: Użytkownik
+        weight: Kolejność na stronie
+        avatar: Awatar
+      user_question:
+        title: Pytanie użytkownika
+        body: Treść pytania
+        email: Twój e-mail
+        signature: Podpis*
+        district: Dzielnica
+        gender: Płeć
+        age: Wiek
+        status: Status
+
+  decidim:
+    admin:
+      actions:
+        answers: Odpowiedzi
+        questions: Pytania
+      filters:
+        moderations:
+          reportable_type_string_eq:
+            values:
+              Decidim::ExpertQuestions::UserQuestion: Pytania do eksperta
+    admin_log:
+      expert:
+        create: "%{user_name} dodał(a) Eksperta do %{space_name}"
+        delete: "%{user_name} usunął/usunęła Eksperta z %{space_name}"
+        update: "%{user_name} zaktualizował(a) Eksperta %{resource_name}"
+        publish: "%{user_name} upublicznił(a) Experta %{resource_name}"
+        unpublish: "%{user_name} anulował(a) publikację Eksperta %{resource_name}"
+    events:
+      experts:
+        expert_published:
+          email_intro: "Ekspert %{resource_title} odpowiada na pytania w konsultacji: %{participatory_space_title}. Możesz zadać swoje pytanie na tej stronie:"
+          email_outro: "Otrzymałeś to powiadomienie, ponieważ obserwujesz %{participatory_space_title}. Możesz przestać otrzymywać powiadomienia po kliknięciu w poprzedni link."
+          email_subject: "Aktualizacja w %{participatory_space_title}"
+          notification_title: "Ekspert %{resource_title} odpowiada na Wasze pytania w konsultacjach <a href='%{participatory_space_url}'>%{participatory_space_title}</a>"
+      expert_answers:
+        expert_answer_published:
+          email_intro: "Ekspert %{resource_title} odpowiedział na Twoje pytanie. Możesz zobaczyć odpowiedź na tej stronie:"
+          email_outro: "Otrzymałeś to powiadomienie, ponieważ zadałeś pytanie naszemu ekspertowi"
+          email_subject: "Odpowiedź na pytanie w %{participatory_space_title}"
+          notification_title: "Ekspert <a href='%{resource_path}'>%{resource_title}</a> odpowiedział na Twoje pytanie w konsultacjach <a href='%{participatory_space_url}'>%{participatory_space_title}</a>"
+      user_questions:
+        user_question_created:
+          email_intro: "Pojawiło się nowe pytanie w konsultacji: %{participatory_space_title}. Możesz zobaczyć odpowiedź na tej stronie:"
+          email_outro: "Otrzymałeś to powiadomienie, ponieważ obserwujesz %{participatory_space_title}. Możesz przestać otrzymywać powiadomienia po kliknięciu w poprzedni link."
+          email_subject: "Nowe pytanie w %{participatory_space_title}"
+          notification_title: "Nowe pytanie do eksperta w konsultacji: <a href='%{resource_path}'>pytanie</a>"
+    expert_questions:
+      admin:
+        actions:
+          confirm_destroy: Czy na pewno chcesz usunąć Eksperta z tego komponentu?
+          destroy: Usuń
+          edit: Edytuj
+          new: Nowy
+          title: Działania
+          answer: Odpowiedz
+        expert_answers:
+          form:
+            user_question: Treść pytania użytkownika
+          new:
+            title: Odpowiedź na pytanie użytkownika
+            create: Dodaj
+          create:
+            invalid: Wystąpił błąd podczas dodawania odpowiedzi Eksperta
+            success: Dodano odpowiedź Eksperta
+          update:
+            invalid: Wystąpił błąd podczas aktualizowania odpowiedzi Eksperta
+            success: Zaktualizowano Odpowiedź Eksperta
+          edit:
+            title: Edytuj Odpowiedź Eksperta
+            update: Zapisz
+          publish:
+            invalid: Wystąpił błąd podczas publikowania odpowiedzi Eksperta
+            success: Opublikowano odpowiedź Eksperta
+          unpublish:
+            invalid: Wystąpił błąd podczas cofania publikacji odpowiedzi Eksperta
+            success: COfnieto publikację odpowiedź Eksperta
+        experts:
+          destroy:
+            success: Usunięto Eksperta
+          form:
+            select_a_user: Wybierz użytkownika
+          create:
+            invalid: Wystąpił błąd podczas dodawania Eksperta
+            success: Dodano Eksperta
+          update:
+            invalid: Wystąpił błąd podczas aktualizowania Eksperta
+            success: Zaktualizowano Eksperta
+          index:
+            title: Pytania do eksperta
+          new:
+            title: Nowy Ekspert
+            create: Dodaj
+          edit:
+            title: Edytuj Eksperta
+            update: Zapisz
+          publish:
+            invalid: Wystąpił błąd podczas publikowania Eksperta
+            success: Opublikowano Eksperta
+          unpublish:
+            invalid: Wystąpił błąd podczas cofania publikacji Eksperta
+            success: Cofnieto publikację Eksperta
+        user_questions:
+          index:
+            no_answer: Brak odpowiedzi do opublikowania
+            title: Pytania do eksperta
+      models:
+        expert:
+          fields:
+            affiliation: Afiliacja
+            created_at: Dodano
+            description: Opis
+            name: Imię i nazwisko
+            position: Stanowisko
+          name: Ekspert
+        user_question:
+          fields:
+            author_name: Autor
+            body: Treść
+            status: Status
+            created_at: Zadano
+            answered_at: Odpowiedziano
+            statuses:
+              new: Nowe pytanie
+              answered: Odpowiedziano
+            needs_publication: (Czeka na publikację)
+            expert_answer: Odpowiedź eksperta
+            age: Wiek
+            email: "E-mail"
+            district: Dzielnica
+            gender: Płeć
+      user_question_m:
+        edited: (Edytowany)
+        edit: Edytuj
+      user_questions:
+        filters:
+          activity: Moja aktywność
+          all: Wszystkie
+          answered: Tylko z odpowiedzią
+          created_at: Od najnowszych
+          expert: Ekspert
+          search: Szukaj
+          state: Status
+          sort: Sortowanie wyników
+          my_user_questions: Moje pytania
+          latest_first: Od najnowszych
+          default: Od najstarszych
+          all_experts: Wszyscy
+        filters_small_view:
+          close_modal: Zamknij okno
+          filter: Filtr
+          filter_by: Filtruj według
+          unfold: Rozwiń
+        index:
+          new_user_question: Zadaj pytanie
+          user_questions_count:
+            one: "%{count} pytanie"
+            few: "%{count} pytania"
+            many: "%{count} pytań"
+            other: "%{count} pytania"
+        count:
+          user_questions_count:
+            one: "%{count} pytanie"
+            few: "%{count} pytania"
+            many: "%{count} pytań"
+            other: "%{count} pytania"
+        new:
+          title: "Zadaj pytanie: %{expert_name}"
+          back: Powrót
+          create: Wyślij
+          clear: Wyczyść
+          expert_not_found: Przykro nam, nie znaleziono Eksperta
+          terms: regulamin
+          tos_agreement: "Publikując treść, akceptujesz <strong>%{link}</strong>."
+          anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby zadać pytanie
+        create:
+          invalid: Wystąpił błąd podczas zadawania pytania
+          success: Dziękujemy za przesłanie pytania
+          header: Dziękujemy
+        edit_form:
+          clear: Wyczyść
+          email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
+          header: Dziękujemy za dodanie uwagi
+          save: Zapisz
+          statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
+          rodo: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
+            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
+            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+        full_edit:
+          clear: Wyczyść
+          email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
+          header: Dziękujemy za pytanie
+          save: Zapisz
+          statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
+          rodo: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
+            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
+            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+        form:
+          email_aria_label: Podaj swój email jeżeli chcesz być powiadomiony o odpowiedziach
+          statistics_aria_label: Opcjonalnie do celów statystycznych wypełnij poniższe pola
+          email_placeholder: Twój e-mail
+          select_gender: Płeć
+          select_age: Wiek
+          select_district: Dzielnica
+          rodo: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+      presenters:
+        user_questions:
+          name: "Pytanie do: <span class='expert-mini-header'>%{expert_name}</span>"
+    components:
+      expert_questions:
+        name: Pytania do eksperta
+        settings:
+          global:
+            help_section: Tekst pomocniczy
+            announcement: Ogłoszenie
+          step:
+            announcement: Ogłoszenie
+            asking_enabled_for_participants: Użytkownicy mogą zadawać pytania

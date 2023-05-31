@@ -1,0 +1,26 @@
+<div class="card" id="consultation_requests">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t "decidim.admin.titles.files" %>
+      <% if params[:view_type] && params[:view_type] == 'tiles' %>
+        <%= link_to 'lista', { view_type: nil }, class: "tiny button--title new" %>
+      <% else %>
+        <%= link_to 'kafelki', { view_type: 'tiles' }, class: " tiny button--title new" %>
+      <% end %>
+        <%= link_to t("actions.add_file", scope: "decidim.admin"), decidim_repository.new_admin_file_path, class: "button tiny button--title new" %>
+    </h2>
+  </div>
+  <%= render partial: "decidim/repository/admin/files/filters", locals: { i18n_ctx: nil } %>
+  <div class="card-section">
+    <% if @files.any? %>
+      <% if params[:view_type] && params[:view_type] == 'tiles' %>
+        <%= render 'decidim/repository/admin/files/tiles' %>
+      <% else %>
+        <%= render 'decidim/repository/admin/files/list' %>
+      <% end %>
+      <%= paginate @files, theme: "decidim" %>
+    <% else %>
+      <p><%= t("decidim.admin.repository.no_files") %></p>
+    <% end %>
+  </div>
+</div>

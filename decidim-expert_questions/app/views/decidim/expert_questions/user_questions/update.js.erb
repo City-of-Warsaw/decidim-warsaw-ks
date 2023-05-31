@@ -1,0 +1,28 @@
+(function() {
+    let user_question = $('#user_question_' + <%= @user_question.id %>);
+    user_question.replaceWith("<%= escape_javascript(render 'decidim/expert_questions/user_questions/user_question', user_question: @user_question) %>")
+}());
+
+$('#new_user_question' + ' .comment-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('new_user_question' + ' .comment-field--body textarea')));
+
+$('#new_user_question' + " .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+    e.preventDefault();
+
+    $(this).addClass("AttachmentButton-applied");
+
+    var target_id = $(this).data("target");
+    $(this).closest("div").find(target_id + " > input")
+      .last()
+      .click();
+});
+
+$('#new_user_question' + " [data-decidim-comments]").each(function (_i, el) {
+    var $el = $(el);
+    var comments = new Decidim.CommentsComponent($el, $el.data("decidim-comments"));
+    comments.mountComponent();
+    $(el).data("comments", comments);
+});
+
+$('#new_user_question .close-button').click(function() {
+    $('#new_user_question').html('');
+});

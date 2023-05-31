@@ -1,0 +1,136 @@
+<%= decidim_form_for filter, url: participatory_processes_path, method: :get, as: 'filter', html: { class: "projects-filters with-select-row" } do |form| %>
+  <div class="select-row processes">
+    <%= form.select :date, filter_date_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_date')).html_safe, include_blank: false, legend_title: t(".status") }, { class: 'multiple-only-one ', multiple: true, "data-placeholder": t(".status"), "data-class": 'first-in-row pretty-multiselect', "data-style": "--prompt: 'Wybierz jeden ze statusów:'; --columns: 1; --width: 100%" } %>
+
+    <%= form.select :scope_id, filter_scopes_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_scope')).html_safe, include_blank: false, legend_title: t(".scope") }, { class: 'multiple', multiple: true, "data-placeholder": t(".scope"), "data-class": "pretty-multiselect", "data-style": "--prompt: 'Wybierz jedną lub kilka dzielnic:'" } %>
+
+    <%= form.select :tags, filter_tags_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_tags')).html_safe, include_blank: false, legend_title: t(".tags") }, { class: 'multiple', multiple: true, "data-placeholder": t(".tags"), "data-class": "pretty-multiselect", "data-style": "--prompt: 'Wybierz jeden lub kilka tematów:'" } %>
+
+    <%= form.select :recipients, filter_recipients_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_recipients')).html_safe, include_blank: false, legend_title: t(".recipients") }, { class: 'multiple-only-one', multiple: true, "data-placeholder": t(".recipients"), "data-class": 'hideable hide last-in-row pretty-multiselect', "data-style": "--prompt: 'Wybierz jedną z opcji:'; --columns: 1; --width: 100%" } %>
+
+    <%= form.select :department_id, filter_departments_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_department')).html_safe, include_blank: false, legend_title: t(".department") }, { class: 'multiple', multiple: true, "data-placeholder": t(".department"), "data-class": 'hideable hide pretty-multiselect', "data-style": "--prompt: 'Wybierz jedną lub kilka jednostek:'"  } %>
+
+    <%= form.select :year, filter_years_values, { label: t(".wcag_hidden_label", pick_info: t('.pick_year')).html_safe, include_blank: false, legend_title: t(".pick_year") }, { class: 'multiple', multiple: true, "data-placeholder": t(".pick_year"), "data-class": 'hideable hide narrow-select pretty-multiselect', "data-style": "--prompt: 'Wybierz rok lub kilka lat:'" } %>
+
+    <div class="ms-options-wrap hideable hide address-field" data-class="hideable hide">
+      <div class="address-field__search">
+        <%= form.text_field :address, label: t(".wcag_hidden_label", pick_info: t('.address')).html_safe, placeholder: t('.address').html_safe, id: "filter_address" %>
+        <%= form.hidden_field :address_lat %>
+        <%= form.hidden_field :address_lng %>
+      </div>
+
+      <div class="form-tooltip">
+        <div class="form-tooltip__content">
+          <strong>Wpisz adres</strong> (np. plac Bankowy 3/5), żeby zobaczyć wszystkie trwające i zakończone konsultacje w odległości 2 km od tego miejsca
+        </div>
+
+        <div class="form-tooltip__hint">?</div>
+      </div>
+    </div>
+
+    <%= form.submit t('.submit'), class: 'button button-search last-in-row' %>
+  </div>
+
+  <div class="form-tooltip-mobile-wrapper">
+    <div class="form-tooltip-mobile">
+      <div class="form-tooltip__backdrop"></div>
+
+      <div class="form-tooltip__content">
+        <img class="form-tooltip__close" src="<%= asset_path("close-icon-blue.svg") %>" alt="Zamknij okno" />
+        <strong>Wpisz adres</strong> (np. plac Bankowy 3/5), żeby zobaczyć wszystkie trwające i zakończone konsultacje w odległości 2 km od tego miejsca
+      </div>
+    </div>
+  </div>
+
+  <button class="link filters-visibility-toggler-js" data-show="<%= t('.show_all') %>" data-hide="<%= t('.hide_all') %>" aria-expanded="false"><%= t('.show_all') %></button>
+<% end %>
+
+
+<%= nonced_javascript_tag do %>
+$('.form-tooltip__hint').click(function(e) {
+  $('.form-tooltip-mobile-wrapper').show();
+});
+
+$('.form-tooltip__backdrop').click(function(e) {
+  $('.form-tooltip-mobile-wrapper').hide();
+});
+
+$('.form-tooltip__close').click(function(e) {
+  $('.form-tooltip-mobile-wrapper').hide();
+});
+
+const nominatimUrl = "https://nominatim.cdsh.dev";
+new Autocomplete("filter_address", {
+  // default selects the first item in
+  // the list of results
+  selectFirst: true,
+
+  // The number of characters entered should start searching
+  howManyCharacters: 5,
+
+  // onSearch
+  onSearch: ({ currentValue }) => {
+    // You can also use static files
+    // const api = '../static/search.json'
+    const api = `${nominatimUrl}/search?format=geojson&limit=5&addressdetails=1&countrycodes=pl&city=Warszawa&street=${encodeURI(
+      currentValue
+    )}`;
+
+    return new Promise((resolve) => {
+      fetch(api)
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data.features);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  },
+  // nominatim GeoJSON format parse this part turns json into the list of
+  // records that appears when you type.
+  onResults: ({ currentValue, matches, template }) => {
+    const regex = new RegExp(currentValue, "gi");
+
+    // if the result returns 0 we
+    // show the no results element
+    return matches === 0
+      ? template
+      : matches
+          .map((element) => {
+            // const display_name = prepareDisplayName(element.properties);
+            return `
+          <li class="loupe">
+            <p>
+              ${element.properties.display_name.replace(
+                regex,
+                (str) => `<b>${str}</b>`
+              )}
+            </p>
+          </li> `;
+          })
+          .join("");
+  },
+
+  // we add an action to enter or click
+  onSubmit: ({ object, element }) => {
+    const { display_name, address } = object.properties;
+    const cord = object.geometry.coordinates;
+
+    $("#filter_address_lat").val(cord[1]);
+    $("#filter_address_lng").val(cord[0]);
+  },
+
+  // get index and data from li element after
+  // hovering over li with the mouse or using
+  // arrow keys ↓ | ↑
+  onSelectedItem: ({ index, element, object }) => {
+    // console.log("onSelectedItem:", index, element, object);
+  },
+
+  // the method presents no results element
+  noResults: ({ currentValue, template }) =>
+    template(`<li>Brak wyników dla: "${currentValue}"</li>`),
+});
+
+<% end %>

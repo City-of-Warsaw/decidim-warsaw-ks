@@ -1,0 +1,15 @@
+<% @chosen_stats.each_slice(4) do |set| %>
+  <div class="home-pam__highlight">
+    <% set.each do |stat| %>
+      <div class="space-stats__data">      
+        <h3 class="space-stats__title">
+          <%= stat.name %>
+        </h3>
+
+        <span class="space-stats__number">
+          <%= stat.count %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<div class="update-comment">
+  <h4 class="section-heading"><%= t("decidim.components.update_comment_form.title") %></h4>
+  <button class="close-button close-second-step-comment-<%= comment.id %>-button-js" data-close aria-label="<%= t("update.close_second_step", scope: "decidim.comments.comments") %>" type="button">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <%= form_for(form_object, url: decidim_comments_extended.comment_path(comment, order: order, comment_token: session[:comment_token]), method: :patch, remote: true, html: { id: "update-comment-#{comment.id}" }) do |form| %>
+    <fieldset>
+      <legend>
+        <%= t("decidim.components.add_comment_form.form.email.label")   %>
+      </legend>
+      <div class="field comment-field--email">
+        <%= form.email_field :email, autocomplete: "email", placeholder: t("decidim.components.add_comment_form.form.email.placeholder"), label: t('decidim.components.add_comment_form.form.wcag_label', label: t("decidim.components.add_comment_form.form.email.label")) %>
+      </div>
+    </fieldset>
+    <fieldset class="mt-sm">
+      <legend><%= t("decidim.components.add_comment_form.form.statistics_info") %></legend>
+      <div class="comment-field--selects">
+          <%= form.select :age,
+                          form_object.user_age_for_select,
+                          { include_blank: t("decidim.components.add_comment_form.form.select_age"), label: false },
+                          { multiple: false } %>
+          <%= form.select :gender,
+                          form_object.user_gender_for_select,
+                          { class: 'select-column', include_blank: t("decidim.components.add_comment_form.form.select_gender"), label: false },
+                          { multiple: false } %>
+          <%= form.select :district_id,
+                          form_object.user_districts_for_select,
+                          { include_blank: t("decidim.components.add_comment_form.form.select_a_district"), label: false },
+                          { multiple: false } %>
+      </div>
+    </fieldset>
+    <div class="field checkboxed comment-field--rodo rodo-field">
+      <% rodo = Decidim::StaticPage.find_by(slug: 'rodo') ? page_path("rodo") : nil %>
+      <%= form.check_box :rodo,
+                         label: t(".rodo.label", link: link_to(rodo ? t(".rodo.rodo") : t('.rodo.no_rodo_page'), rodo)) %>
+    </div>
+    <div class="row actions">
+      <div class='pull-right'>
+        <%= form.submit t("decidim.components.add_comment_form.form.clear"), type: 'reset', class: "clear-link" %>
+        <%= form.submit t("decidim.components.add_comment_form.form.submit"), class: "button", data: { disable: true } %>
+      </div>
+    </div>
+  <% end %>
+</div>

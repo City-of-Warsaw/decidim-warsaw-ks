@@ -1,0 +1,32 @@
+<%# View for STATIC PAGES (not pages component) %>
+
+<% add_decidim_meta_tags(
+     title: translated_attribute(@page.title),
+     description: translated_attribute(@page.content),
+     url: page_url(@page)
+   ) %>
+
+<%
+  edit_link(
+    decidim_admin.edit_static_page_path(@page),
+    :update,
+    :static_page,
+    static_page: @page
+  )
+%>
+
+<% if @topic %>
+  <%# Pokazuje strony podpiete pod temat (static_page_topic) %>
+  <%= render page_template(@page),
+             title: translated_attribute(@topic.title),
+             description: translated_attribute(@topic.description),
+             page: @page,
+             pages: @pages
+  %>
+<% else %>
+  <%= render page_template(@page),
+             title: translated_attribute(@page.title),
+             description: nil,
+             page: @page
+  %>
+<% end %>

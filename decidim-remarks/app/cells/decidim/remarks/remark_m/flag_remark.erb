@@ -1,0 +1,5 @@
+<button type="button" class="link-alt flag" data-open="<%= "flagModalRemark#{model.id}" %>" title="<%= t("decidim.components.comment.report.title") %>" aria-controls="<%= current_user.present? ? "flagModalRemark#{model.id}" : "loginModal" %>" aria-haspopup="true" tabindex="0">
+  <%= t("decidim.components.comment.report.title_short") %>
+</button>
+
+<%= cell("decidim/flag_modal", model, modal_id: "flagModalRemark#{model.id}") %>

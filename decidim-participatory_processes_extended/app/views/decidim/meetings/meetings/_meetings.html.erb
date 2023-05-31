@@ -1,0 +1,16 @@
+<% if @forced_past_meetings %>
+  <div class="callout warning">
+    <%= t ".upcoming_meetings_warning" %>
+  </div>
+<% elsif meetings.length == 0 %>
+  <div class="callout warning">
+    <%= t ".no_meetings_warning" %>
+  </div>
+<% end %>
+
+<ul class="row small-up-1 medium-up-3 card-grid ul-reset" role="list">
+  <% meetings.each do |meeting| %>
+    <%= card_for meeting %>
+  <% end %>
+</ul>
+<%= decidim_paginate meetings, order_start_time: params[:order_start_time], scope_id: params[:scope_id] %>

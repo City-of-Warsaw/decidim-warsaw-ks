@@ -1,0 +1,37 @@
+<% provide(:title, consultation_request.title) %>
+
+<% add_decidim_meta_tags({
+  title: consultation_request.title,
+  description: consultation_request.body,
+  url: decidim_consultation_requests.edit_admin_consultation_request_url(consultation_request)
+}) %>
+
+<%
+  edit_link(
+    decidim_consultation_requests.edit_admin_consultation_request_path(consultation_request),
+    :update,
+    :organization,
+    organization: current_organization
+  )
+%>
+
+<div class="row column view-header">
+  <div class="m-bottom">
+    <%= link_to consultation_requests_path, class: "small hollow" do %>
+      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <span><%= t(".back") %></span>
+    <% end %>
+  </div>
+  <h2 class="heading2"><%= consultation_request.title %></h2>
+  <%= cell("decidim/consultation_requests/consultation_request_m", consultation_request).author.html_safe %>
+</div>
+<div class="row">
+  <div class="columns mediumlarge-12">
+    <div class="section">
+      <%= decidim_sanitize consultation_request.body %>
+    </div>
+  </div>
+</div>
+<%= render 'decidim/shared/gallery_attachments', model: consultation_request %>
+<%= attachments_for consultation_request %>
+<%#= comments_for consultation_request %>

@@ -1,0 +1,51 @@
+<div class="mini-footer">
+  <div class="row">
+    <div class="medium-4 large-5 column halfed">
+      <address class="address-field">
+        <strong>Urząd m.st. Warszawy</strong><br>
+        pl. Bankowy 3/5<br>
+        00-950 Warszawa
+      </address>
+
+    </div>
+    <div class="medium-4 large-2 column text-center halfed">
+      <% if current_organization.official_img_footer.blank? %>
+        <%= image_tag("warszawa-znak-pionowy.svg", alt: 'Logo Warszawy', class: 'footer-logo') %>
+      <% else %>
+        <%= image_tag current_organization.official_img_footer.url.to_s, alt: current_organization.name, class: 'footer-logo' %>
+      <% end %>
+    </div>
+    <div class="medium-4 large-5 column">
+      <div class="address-field text-right">
+        <ul class="warsaw-urls ul-reset ul-contents" role="list">
+          <li><%= link_to "m st. Warszawa", 'https://um.warszawa.pl', target: '_blank', rel: 'nofollow' %> /</li>
+          <li><%= link_to "BIP", 'https://bip.um.warszawa.pl', target: '_blank', rel: 'nofollow' %> /</li>
+          <li><%= link_to "Warszawa 19115", 'https://warszawa19115.pl', target: '_blank', rel: 'nofollow' %></li>
+        </ul>
+        Urząd m.st. Warszawy
+      </div>
+    </div>
+    <%= render partial: "layouts/decidim/social_media_links" %>
+  </div>
+
+  <div class="row">
+    <div class="medium-6 large-6 column halfed-univen one">
+      <a rel="license noopener" class="cc-badge"
+         href="http://creativecommons.org/licenses/by-sa/4.0/"
+         target="_blank">
+        <%= image_tag("decidim/cc-badge.png", alt: t("layouts.decidim.footer.cc_by_license"), title: "Strona otworzy się w nowej karcie przeglądarki") %>
+      </a>
+      <%= t("layouts.decidim.footer.made_with_open_source").html_safe %>
+    </div>
+
+    <div class="medium-6 large-6 column halfed-univen two">
+      <div class="decidim-logo">
+        <a rel="decidim noopener"
+           href="https://decidim.org/"
+           target="_blank">
+          <%= image_tag("decidim/core_extended/decidim-logo-black.png", alt: t("layouts.decidim.footer.decidim_logo"), title: "Strona otworzy się w nowej karcie przeglądarki") %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

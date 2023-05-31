@@ -1,0 +1,234 @@
+pl:
+  activemodel:
+    errors:
+      models:
+        participatory_process:
+          attributes:
+            report_notification_send:
+              no_report_data_for_notification: Żeby wysłać powiadomienia należy dodać treść i datę publikacji raportu
+            report_change_status:
+              no_report_data_for_status_change: Żeby zmienić status należy dodać treść i datę publikacji raportu
+    attributes:
+      main_page_process:
+        process_id: Konsultacje
+        weight: Kolejność
+      participatory_process:
+        department: Jednostka odpowiedzialna za konsultacje
+        department_id: Jednostka odpowiedzialna za konsultacje
+        address: Adres wyświetlany
+        fb_url: Link do wydarzenia na Facebooku
+        hero_image_alt: Opis alternatywny (ALT) dla obrazu głównego
+        consultation_status: Status konsultacji
+        recipients: Odbiorcy
+        recipients_type:
+          citizens: Dla Mieszkańców
+          mix: Dla Mieszkańców i NGO
+          ngo: Dla NGO
+        report_description: Opis
+        report_publication_date: Data publikacji raportu
+        report_notification_send: Wyślij powiadomienie do mieszkańców obserwujących ten proces
+        report_change_status: Zmień status konsultacji na "Opublikowany raport"
+        report_files_input: Raport
+        report_files: Pliki raportu
+        tags: Posiadane tagi
+        tag_ids: Tagi
+        users_action_allowed_for_unregister_users: Kto może przesyłać uwagi i pytania w ramach tych konsultacji?
+      scope:
+        address: Adres wyświetlany
+      participatory_process_step:
+        date: Data
+    models:
+      decidim/meetings/create_meeting_event: Nowe spotkanie
+      decidim/meetings/update_meeting_event: Aktualizacja spotkania
+      decidim/expert_questions/expert_published_event: Zadaj pytanie ekspertowi!
+      decidim/expert_questions/expert_answer_published_event: Pytanie do eksperta
+      decidim/participatory_processes_extended/participatory_process_published_event: Nowe konsultacje!
+      decidim/participatory_process_step_changed_event: Aktualizacja etapu konsultacji
+      decidim/participatory_process_step_activated_event: Nowy etap konsultacji
+      decidim/participatory_processes_extended/participatory_process_report_published_event: Raport z konsultacji
+      decidim/participatory_processes_extended/two_days_till_participatory_process_finish_event: Konsultacje
+      decidim/participatory_processes_extended/two_days_till_meeting_event: Spotkanie
+      decidim/resource_hidden_event: Komentarz
+  decidim:
+    components:
+      meetings:
+        settings:
+          global:
+            help_section: Tekst pomocniczy
+      proposals:
+        settings:
+          global:
+            help_section: Tekst pomocniczy
+    admin_log:
+      participatory_process:
+        add_report_files_to_process: "%{user_name} zmienił pliki raportu w %{resource_name} <br> z plików: %{process_was_files} <br> na pliki: %{process_current_files}"
+        add_tags_to_process: "%{user_name} zmienił tagi w %{resource_name} <br> z tagów: %{process_was_tags} <br> na tagi: %{process_current_tags}"
+      main_page_process:
+        add_process_to_main_page: "%{user_name} dodał(a) konsultacje  %{resource_name} do strony głównej"
+        destroy_main_page_process: "%{user_name} usunął/usunęła konsultacje  %{resource_name} ze strony głownej"
+        update_main_page_process: "%{user_name} zaktualizował(a) pozycję konsultacji  %{resource_name} na stronie głównej"
+    events:
+      participatory_process:
+        step_activated:
+          notification_title: Konsultacje <a href="%{resource_path}">%{participatory_space_title}</a> są teraz na etapie <a href="%{resource_path}">%{resource_title}</a>
+        published:
+          notification_title: "Zapraszamy do nowych konsultacji społecznych: <a href='%{resource_path}'>%{participatory_space_title}</a>"
+        report_published:
+          notification_title: Gotowy jest już raport z konsultacji <a href="%{resource_path}">%{participatory_space_title}</a>
+        two_days_till_consultations_end:
+          notification_title: Za dwa dni kończą się konsultacje <a href="%{resource_path}">%{participatory_space_title}</a>
+        step_changed:
+          notification_title: Zmieniliśmy daty etapu <a href="%{resource_path}">%{resource_title}</a> w konsultacjach <a href="%{participatory_space_url}">%{participatory_space_title}</a>
+        meeting_in_two_days:
+          notification_title: Za dwa odbędzie się spotkanie w procesie <a href="%{resource_path}">%{participatory_space_title}</a>
+      meetings:
+        meeting_created:
+          notification_title: Zapraszamy na <a href="%{resource_path}">%{resource_title}</a> w ramach konsultacji <a href="%{resource_path}">%{participatory_space_title}</a>
+        meeting_updated:
+          notification_title: Zaktualizowaliśmy <a href="%{resource_path}">%{resource_title}</a> w ramach konsultacji <a href="%{resource_path}">%{participatory_space_title}</a>
+    participatory_processes_extended:
+      main_page_processes:
+        create:
+          error: Nie udało się dodać konsultacji do strony głównej
+          success: Dodano konsultacje do strony głównej
+        destroy:
+          error: Nie udało się usunąć konsultacji ze strony głównej
+          success: Usunięto konsultacje ze strony głównej
+        update:
+          error: Nie udało się zaktualizować pozycji konsultacji na stronie głównej
+          success: Zaktualizowano pozycję konsultacji na stronie głównej
+      admin:
+        main_page_processes:
+          edit:
+            title: Edytuj pozycję konsultacji na stronie głównej
+            update: Aktualizuj
+          new:
+            create: Utwórz
+            title: Nowa konsultacja do wyświetlenia na stronie głównej
+          index:
+            weight: Kolejność
+            new: Nowa pozycja
+    proposals:
+      participatory_text_proposal:
+        follow_document: Obserwuj zmiany wprowadzane w tym dokumencie
+    devise:
+      sessions:
+        new:
+          peum_login: Logowanie - mojaWARSZAWA
+    meetings:
+      meetings:
+        index:
+          meetings_count:
+            one: "<strong>%{count}</strong> spotkanie"
+            few: "<strong>%{count}</strong> spotkania"
+            many: "<strong>%{count}</strong> spotkań"
+            other: "<strong>%{count}</strong> spotkań"
+        show:
+          meeting_type:
+            in_person: Spotkanie na żywo
+            online: Spotkanie online
+            hybrid: Spotkanie jednocześnie online i na żywo
+        filters:
+          pick_type: Wybierz typ spotkania
+          pick_date: Wybierz status
+          pick_scope: Wybierz dzielnicę lub poziom ogólnomiejski
+          scope: Dzielnica
+          status: Status
+          submit: Szukaj
+          wcag_hidden_label: "<span class='show-for-sr'>%{pick_info}</span>"
+      meeting_m:
+        add_to_calendar: Dodaj <span class='show-for-sr'>spotkanie</span> do kalendarza
+      content_blocks:
+        upcoming_events:
+          name: Najbliższe spotkania
+          upcoming_events: Najbliższe spotkania
+          upcoming_events_explanation: "Liczba nadchodzących spotkań w całym mieście to: %{count}"
+      admin:
+        meetings:
+          form:
+            required_for_in_person: Pola wymagane dla spotkań lokalnych i hybrydowych
+            required_for_online: Pola wymagane dla spotkań online i hybrydowych
+    admin:
+      sidebar_menu_nav:
+        consultations_on_main_page: Konsultacje na stronie głównej
+      titles:
+        main_page_process: Konsultacje na stronie głównej
+      map_handling_data:
+        click_on_map: |-
+          Kliknij na mapie, żeby postawić pinezkę. Lokalizację możesz też wyszukać, wpisując adres w polu pod mapą.<br>
+          Aby edytować pozycję pinezki, chwyć ją i przeciągnij.
+      scopes:
+        form:
+          address_help: Adres używany jest do wyświetlenia znacznika na mapie dla spotkań online, jeśli Konsultacja nie ma własnego adresu
+    participatory_processes:
+      consultation_statuses:
+        active: Trwające konsultacje
+        past: Zakończone konsultacje
+        report: Opublikowano raport
+        effects: Efekty konsultacji
+      admin:
+        participatory_processes:
+          form:
+            process_tags: Tagi do przypisania do wybranej konsultacji
+            status_set_report: "Status konsultacji: Opublikowano raport"
+            status_set_effects: "Status konsultacji: Efekty konsultacji"
+            report_sent: "Wiadomosć o dołączeniu raportu została juz wysłana: %{date}"
+            report: Raport
+            select_a_scope: Wybierz dzielnicę
+            select_consultation_status: Zmień status
+            select_department: Wybierz Jednostkę
+            address_help: Adres używany jest do wyświetlenia znacznika na mapie dla spotkań online
+            select_recipients_type: "Wybierz odbiorców"
+            short_description_help: Krótki opis nie może zawierać linków, ponieważ wpływa to na sposób wyświetlania miniatur w serwisie.
+            fb_url_help: "Pełen adres URL do wydarzenia np. 'https://www.facebook.com/events/..'"
+            process_tags_help: Żeby zaznaczyć kilka tagów, przytrzymaj CTRL
+      process_m:
+        till: "do %{ending_date} "
+      process_s:
+        till: "do %{ending_date} "
+      participatory_processes:
+        show:
+          show_all_timeline: Pokaż wszystko
+          hide_timeline: Ukryj ponownie
+        index:
+          no_processes_found: Nie znaleźliśmy konsultacji, które spełniają Twoje kryteria
+        filters:
+          counters:
+            found:
+              one: "Znaleźliśmy <strong>1</strong> konsultacje"
+              few: "Znaleźliśmy <strong>%{count}</strong> konsultacje"
+              many: "Znaleźliśmy <strong>%{count}</strong> konsultacji"
+              other: "Znaleźliśmy <strong>%{count}</strong> konsultacji"
+          category: Temat
+          department: Jednostka
+          pick_area: Wybierz kategorię
+          pick_date: Wybierz status
+          pick_department: Wybierz jednostkę
+          pick_recipients: Wybierz odbiorców konsultacji
+          pick_scope: Wybierz dzielnicę lub poziom ogólnomiejski
+          pick_tags: Wybierz tagi konsultacji
+          pick_year: Rok
+          recipient_citizen: Dla mieszkańców
+          recipient_ngo: Dla NGO
+          recipients: Dla kogo
+          scope: Dzielnica
+          status: Status
+          submit: Szukaj
+          tags: Temat
+          wcag_hidden_label: "<span class='show-for-sr'>%{pick_info}</span>"
+          wcag_names:
+            active: "Trwające<span class='show-for-sr'> konsultacje</span>"
+            past: "Zakończone<span class='show-for-sr'> konsultacje</span>"
+            upcoming: "Nadchodzące<span class='show-for-sr'> konsultacje</span>"
+            report: "Opublikowany raport<span class='show-for-sr'> - konsultacje z raportem</span>"
+            effects: "Efekty konsultacji<span class='show-for-sr'> - konsultacje z efektami</span>"
+          zip_code: Kod pocztowy
+          address: Adres
+        right_column:
+          join_us_on_fb: Dołącz do wydarzenia!
+      recipients_type:
+        citizens: dla Mieszkańców
+        mix: dla Mieszkańców i NGO
+        ngo: dla NGO
+      show:
+        fb_url: Facebook

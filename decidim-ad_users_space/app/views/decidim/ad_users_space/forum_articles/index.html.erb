@@ -1,0 +1,27 @@
+<% provide(:title, t("decidim.forum_articles.index.title")) %>
+
+<% add_decidim_meta_tags({
+                           title: t("decidim.forum_articles.index.title"),
+                           description: t("decidim.forum_articles.index.description"),
+                           url: decidim_ad_users_space.forum_articles_url
+                         }) %>
+
+<div class="row columns">
+  <div id="forum_articles" class="columns mediumlarge-8 large-9 card-grid forum-with-pagination small">
+    <%= decidim_paginate @forum_articles %>
+    <% if @forum_articles.any? %>
+      <% @forum_articles.each do |forum_article| %>
+        <%= cell "decidim/ad_users_space/forum_article", forum_article %>
+      <% end %>
+    <% else %>
+      Brak znalezionych wątków i komentarzy
+    <% end %>
+  </div>
+  <div class="columns section view-side mediumlarge-4 large-3">
+    <%= link_to t(".new"), [:new, :forum_article], class: "button expanded button-primary small new-forum-article" %>
+    <strong class="join-forum"><%= t('.join') %></strong>
+    <span class="join-forum"><%= t('.join_extended').html_safe %></span>
+    <hr class="forum-line">
+    <%= render 'decidim/ad_users_space/forum_articles/search', form: @search_form, info_text: nil %>
+  </div>
+</div>

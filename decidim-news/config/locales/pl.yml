@@ -1,0 +1,75 @@
+pl:
+  activemodel:
+    attributes:
+      information:
+        body: Treść
+        title: Tytuł
+        users_action_allowed_for_unregister_users: Kto może przesyłać komentarze w ramach tej aktualności?
+  activerecord:
+    models:
+      decidim/news/information:
+        one: Aktualność
+        few: Aktualności
+        many: Aktualności
+        other: Aktualności
+  decidim:
+    admin:
+      informations:
+        destroy:
+          error: NIe udało się usunać wpisu
+          success: Usunięto wpis
+        back_to_index: Powrót
+        create:
+          error: Wystąpił błąd podczas dodawani wpisu
+          success: Wpis został dodany
+        new:
+          create: Nowa Aktualność
+        update:
+          error: Wystąpił błąd podczas aktualizowania wpisu
+          success: Wpis został zaktualizowany
+        no_informations: Brak aktualności
+      menu:
+        news: Aktualności
+      models:
+        information:
+          fields:
+            title: Tytuł
+            body: Treść
+      titles:
+        informations: Aktualności
+    admin_log:
+      information:
+        create: "%{user_name} utworzył(a) Aktualność %{resource_name}"
+        delete: "%{user_name} usunął/ęła Aktualność %{resource_name}"
+        update: "%{user_name} zaktualizował(a) Aktualność %{resource_name}"
+    informations:
+      actions:
+        attachment_collections: Foldery
+        attachments: Pliki
+      index:
+        title: Aktualności
+        description: Strona z aktualnosciami dotyczącymi Konsultacji społecznych w Warszawie
+    menu:
+      news: Aktualności
+    news:
+      admin:
+        informations:
+          new:
+            create: Dodaj
+            title: Nowa Aktualność
+          edit:
+            title: Edytuj
+            update: Zaktualizuj
+      content_blocks:
+        latest_informations:
+          name: Może Cię zainteresować
+          view_all_informations: Zobacz więcej<span class="show-for-sr"> aktualności</span>
+      hero:
+        header: Aktualności
+        sub_header: Podtytuł ogólny Konsultacji Społecznych
+      informations:
+        show:
+          view: Czytaj całość
+          back: Powrót do listy
+        index:
+          read_more: Pokaż więcej

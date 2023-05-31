@@ -1,0 +1,104 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t ".title" %>
+      <%= link_to "Pobierz PDF", study_note_path(study_note, format: :pdf), class: "button tiny button--title new" %>
+    </h2>
+  </div>
+  <div class="card-section">
+
+    <div class="row column">
+      <p>
+        <strong>ID zgłoszenia: </strong><%= study_note.id %>
+      </p>
+
+      <p>
+        <strong>Data zgłoszenia: </strong><%= l study_note.created_at, format: "%d/%m/%Y - %H:%M" %>
+      </p>
+
+      <p>
+        <strong>Oznaczenia na mapie:</strong><br />
+        <div id="map"></div>
+
+        <input type="hidden" name="locations" value="<%= study_note.locations %>" />
+
+        <%= javascript_include_tag("geojson-map/geojson-map.admin") %>
+      </p>
+
+      <% if study_note.organization_name.present? %>
+        <p>
+          <strong>Typ: </strong>Jednostka organizacyjna
+        </p>
+
+        <p>
+          <strong><%= t("study_note.organization_name", scope: "activemodel.attributes") %>: </strong><%= study_note.organization_name %>
+        </p>
+      <% else %>
+        <p>
+          <strong>Typ: </strong>Osoba fizyczna
+        </p>
+
+        <p>
+          <strong><%= t("study_note.full_name", scope: "activemodel.attributes") %>: </strong><%= study_note.first_name %> <%= study_note.last_name %>
+        </p> 
+      <% end %>
+
+      <p>
+        <strong>
+          <%= study_note.organization_name.present? ? "Adres siedziby:" : "Adres zamieszkania:" %></strong><br /><%= study_note.address %>
+      </p>
+
+      <% if study_note.email.present? %>
+        <p>
+          <strong>E-mail: </strong><a href="mailto:<%= study_note.email %>" target="_blank"><%= study_note.email %></a>
+        </p>
+      <% end %>
+
+      <p>
+        <strong>Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga: </strong><br /><%= decidim_sanitize study_note.location_specification %>
+      </p>
+
+      <p>
+        <strong>Treść uwagi: </strong>
+        <br>
+        <%= decidim_sanitize study_note.body %>
+      </p>
+
+      <p>
+        <strong>Kategoria: </strong><%= study_note.category&.name %>
+      </p>
+
+
+      <% if study_note.map_background %>
+        <p>
+          <strong>Podkład mapowy: </strong><%= study_note.map_background.name %>
+        </p>
+      <% end %>
+
+        <strong>Załączniki: </strong>
+        <% unless study_note.files.any? %>
+          brak
+        <% end %>
+      </p>
+      <% if study_note.files.any? %>
+        <ol>
+          <% study_note.files.each do |file| %>
+            <li class="heading6">
+              <a href="<%= main_app.url_for(file) %>" class="card__link" target="_blank">
+                <%= file.blob.filename %>
+              </a>
+            </li>
+          <% end %>
+        </ol>
+      <% end %>
+    </div>
+
+
+<!--    <dl>-->
+      <%#= display_for study_note, :first_name, :last_name, :body %>
+<!--    </dl>-->
+
+  </div>
+</div>
+
+

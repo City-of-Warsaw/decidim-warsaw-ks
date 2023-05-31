@@ -1,0 +1,28 @@
+<%= filter_form_for filter do |form| %>
+  <fieldset class="no-padding">
+    <legend class="show-for-sr">
+      <%= render partial: "decidim/shared/filter_form_help", locals: { skip_to_id: "user-questions" } %>
+    </legend>
+    <div class="filters__section">
+      <div class="filters__search">
+        <div class="input-group">
+          <%= form.search_field :search_text, label: false, class: "input-group-field", placeholder: t(".search"), title: t(".search"), data: { disable_dynamic_change: true } %>
+          <div class="input-group-button">
+            <button type="submit" class="button" aria-controls="user_questions">
+              <%= icon "magnifying-glass", aria_label: t(".search"), role: "img" %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= form.collection_radio_buttons :state, filter_user_questions_state_values, :first, :last, { legend_title: t(".state") }, "aria-controls": "user_questions" %>
+
+    <%= form.check_boxes_tree :expert, filter_expert_values, legend_title: t(".expert"), "aria-controls": "user_questions" %>
+
+    <% if current_user %>
+      <%= form.collection_radio_buttons :activity, activity_filter_values, :first, :last, { legend_title: t(".activity") }, "aria-controls": "user_questions" %>
+    <% end %>
+
+    <%= form.collection_radio_buttons :sort, sort_filter_values, :first, :last, { legend_title: t(".sort") }, "aria-controls": "user_questions" %>
+  </fieldset>
+<% end %>

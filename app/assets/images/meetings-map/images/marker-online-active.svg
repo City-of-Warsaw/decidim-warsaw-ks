@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="30.366" height="41.924" viewBox="0 0 30.366 41.924">
+  <g id="Group_381" data-name="Group 381" transform="translate(-1007 -1308.809)">
+    <g id="Component_88" data-name="Component 88" transform="translate(1007 1308.809)">
+      <path id="Subtraction_18" data-name="Subtraction 18" d="M15.183,0A15.2,15.2,0,0,0,0,15.183c0,10.39,13.587,25.643,14.166,26.288a1.368,1.368,0,0,0,2.034,0c.579-.644,14.166-15.9,14.166-26.288A15.2,15.2,0,0,0,15.183,0Z" transform="translate(0 0)" fill="#2f81b7" fill-rule="evenodd"/>
+    </g>
+    <g id="Group_291" data-name="Group 291" transform="translate(-336 388)">
+      <g id="Rectangle_312" data-name="Rectangle 312" transform="translate(1350 929)" fill="none" stroke="#03395b" stroke-width="1">
+        <rect width="17" height="11" rx="3" stroke="none"/>
+        <rect x="0.5" y="0.5" width="16" height="10" rx="2.5" fill="none"/>
+      </g>
+      <g id="Rectangle_313" data-name="Rectangle 313" transform="translate(1356 939)" fill="#03395b" stroke="#03395b" stroke-width="1">
+        <rect width="5" height="4" stroke="none"/>
+        <rect x="0.5" y="0.5" width="4" height="3" fill="none"/>
+      </g>
+      <line id="Line_110" data-name="Line 110" x2="13" transform="translate(1352 942.5)" fill="none" stroke="#03395b" stroke-linecap="round" stroke-width="1"/>
+      <path id="Rectangle_314" data-name="Rectangle 314" d="M0,0H17a0,0,0,0,1,0,0V0a3,3,0,0,1-3,3H3A3,3,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(1350 937)" fill="#03395b"/>
+    </g>
+  </g>
+</svg>

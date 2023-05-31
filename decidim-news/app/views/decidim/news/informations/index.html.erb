@@ -1,0 +1,22 @@
+<% provide(:title, t("decidim.informations.index.title")) %>
+
+<% add_decidim_meta_tags({
+  title: t("decidim.informations.index.title"),
+  description: t("decidim.informations.index.description"),
+  url: decidim_news.informations_url
+}) %>
+
+<%
+  edit_link(
+    decidim_news.informations_path,
+    :update,
+    :organization,
+    organization: current_organization
+  )
+%>
+
+<div class="row column">
+  <div id="news" class="columns medium-12 mediumlarge-12 card-grid">
+    <%= render partial: "informations" %>
+  </div>
+</div>

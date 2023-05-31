@@ -1,0 +1,98 @@
+pl:
+  activemodel:
+    models:
+      decidim/comments/comment_created_event: Nowy komentarz
+  decidim:
+    comments:
+      comment:
+        edited: '<span class="remark-was-edited">(Edytowany)</span>'
+      age:
+        under_20: "< 20"
+        between_21_30: "21 - 30"
+        between_31_40: "31 - 40"
+        between_41_50: "41 - 50"
+        over_50: "> 50"
+      comment_form:
+        select_a_district: Dzielnica
+        select_gender: Płeć
+        select_age: Wiek
+      comments:
+        update:
+          close_second_step: zamknij formularz z dodatkowymi danymi
+          thank_you_message_mini: <strong>Dziękujemy za dodanie komentarza!</strong>
+          thank_you_message: |-
+            <strong>Dziękujemy za dodanie komentarza!</strong>
+          wrong_token_error: Niestety sesja wygasła i nie możemy potwierdzić, że to Twój komentarz. Spróbuj ponownie.
+          error: Upewnij się, czy Twoje dane są prawidłowe. Jeśli podajesz adres e-mail, klauzula RODO jest obowiązkowa.
+          comment_error: nie udało się zapisać danych
+          close_modal: zamknij komunikat z podziękowaniem
+      gender:
+        female: Kobieta
+        male: Mężczyzna
+        other: Inna
+
+    comments_extended:
+      comments:
+        comment:
+          added_file: Dodano plik
+          download_file: Pobierz plik
+        update_comments_form:
+          rodo:
+            no_rodo_page: BRAK STRONY Z RODO
+            rodo: RODO
+            label: |-
+              Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
+              użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. 
+              Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, 
+              który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+      models:
+        comment:
+          fields:
+            ad_user: Konsultacje społeczne Warszawa
+            ad_user_remark: Konsultacje społeczne Warszawa
+            ad_user_question: Konsultacje społeczne Warszawa
+            unregistered_author: Użytkownik niezarejestrowany
+            unregistered_author_mail: od niezarejestrowanego użytkownika
+      thread_signatures:
+        unregistered: Niezarejestrowanym użytkownikiem
+        official: Redakcją
+        blocked_user: Zablokowany użytkownik
+
+    components:
+      add_comment_form:
+        anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby dodać komentarz
+        form:
+          clear: Wyczyść
+          submit: Wyślij
+          save: Zapisz
+          statistics_info: Prosimy, powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
+          age:
+            label: Wiek
+          gender:
+            label: Płeć
+          wcag_label: "<span class='show-for-sr'>%{label}</span>"
+          district:
+            label: Dzielnica
+            placeholder: Dzielnica
+          email:
+            label: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
+            placeholder: Twój e-mail
+          files:
+            label: Dodaj pliki
+          signature:
+            label: Podpis*
+            placeholder: Podpis*
+          select_a_district: Dzielnica
+          select_gender: Płeć
+          select_age: Wiek
+      comment:
+        edit: Edytuj
+        report:
+          title_short: Zgłoś
+        blocked_user: Zablokowany użytkownik
+      update_comment_form:
+        title: Dziękujemy za dodanie komentarza
+    events:
+      comments:
+        comment_created:
+          notification_title: <a href="%{participatory_space_url}">%{participatory_space_title}</a> Zobacz nowy komentarz od <a href="%{author_path}">%{author_name}</a> do <a href="%{resource_path}">%{resource_title}</a>

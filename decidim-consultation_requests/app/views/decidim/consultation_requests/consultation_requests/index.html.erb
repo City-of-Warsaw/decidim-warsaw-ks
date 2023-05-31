@@ -1,0 +1,39 @@
+<% provide(:title, t("decidim.consultation_requests.index.title")) %>
+
+<% add_decidim_meta_tags({
+  title: t("decidim.consultation_requests.index.title"),
+  description: t("decidim.consultation_requests.index.description"),
+  url: decidim_consultation_requests.consultation_requests_url
+}) %>
+
+<%
+  edit_link(
+    decidim_consultation_requests.admin_consultation_requests_path,
+    :update,
+    :organization,
+    organization: current_organization
+  )
+%>
+
+<% if help_section.present? %>
+  <div class="help-section help-section--knowledge-base">
+    <div class="row column"> 
+      <div class="ql-editor">
+        <%= quill_sanitize translated_attribute(help_section) %> 
+      </div> 
+    </div>
+  </div>  
+<% end %>
+
+<div class="wrapper">
+  <div class="row column">
+  <!--  <div class="columns medium-8 mediumlarge-8"></div>-->
+    <ul id="consultation_requests" class="columns medium-12 mediumlarge-12 card-grid ul-reset" role="list">
+      <% @consultation_requests.each do |consultation_request| %>
+        <%= cell "decidim/consultation_requests/consultation_request", consultation_request %>
+      <% end %>
+  
+      <%= decidim_paginate @consultation_requests %> 
+    </ul>
+  </div>
+</div>

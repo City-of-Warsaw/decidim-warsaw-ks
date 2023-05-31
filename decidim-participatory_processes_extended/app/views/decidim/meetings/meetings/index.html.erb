@@ -1,0 +1,41 @@
+<%= render partial: "decidim/shared/component_announcement" %>
+
+<% if meetings_help_section.present? %> 
+  <div class="help-section help-section--meetings-map">
+    <div class="row column"> 
+      <div class="ql-editor">
+        <%= quill_sanitize translated_attribute(meetings_help_section) %> 
+      </div> 
+    </div>
+  </div> 
+<% end %>
+
+<%= cell "decidim/meetings/meetings_map", search.results %>
+
+<% if allowed_to?(:create, :meeting) %>
+  <div class="row columns hr-bordered">
+    <div class="title-action">
+        <%= action_authorized_link_to :create, new_meeting_path, class: "title-action__action button small", data: { "redirect_url" => new_meeting_path } do %>
+          <%= t("new_meeting", scope: "decidim.meetings.meetings.index") %>
+          <%= icon "plus", role: "img" %>
+        <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="row mt-sm">
+  <div class="row medium-up-2 pl-s pr-s mb-s">
+    <div class="column">
+      <h3 id="meetings-count" class="title-action__title section-heading ">
+        <%= t(".meetings_count", count: search.results.count).html_safe %>
+      </h3>
+    </div>
+  </div>
+
+  <div id="meetings" class="columns mediumlarge-12 large-12" aria-live="polite">
+    <%= render partial: "meetings" %>
+  </div>
+</div>
+
+<%= javascript_include_tag("decidim/filters") %>
+<%= javascript_include_tag("locations-map/meetings-map") %>

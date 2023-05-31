@@ -1,0 +1,12 @@
+pl:
+  errors:
+    messages:
+      gallery_not_found: Nie znaleziono galerii
+    rodo:
+      accept_with_email: Podanie adresu e-mail wymaga zaakceptowania RODO
+  decidim:
+    participatory_processes:
+      participatory_processes:
+        filters:
+          show_all: Rozwiń filtrowanie
+          hide_all: Zwiń filtrowanie

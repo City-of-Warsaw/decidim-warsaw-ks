@@ -1,0 +1,136 @@
+// Place all the styles related to the UserQuestions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.expert-grid-container {
+  justify-content: center;
+}
+
+.card.card--expert {
+  font-size: 14px;
+
+  .card__image--wrapper {
+    width: 99px;
+    height: 99px;
+    border-radius: 50%;
+    margin: 15px auto;
+    overflow: hidden;
+  }
+
+  .card__image {
+    min-height: 100px;
+  }
+
+  .card__header {
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .card__content {
+    padding-top: 0.75rem;
+  }
+
+  .card__footer {
+    text-align: center;
+  }
+}
+
+.card.card--user_question {
+
+  .card__top {
+    background-color: #fff;
+
+    .card__content .header-with-expert {
+      display: block;
+      width: 100%;
+      padding-top: 6px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #DBDBDB;
+    }
+
+    .expert-mini-header {
+      font-weight: bold;
+      color: var(--primary);
+    }
+  }
+
+  .card__content {
+    padding-bottom: 0px;
+  }
+
+  .card-header {
+    font-size: 12px;
+  }
+
+  .add-comment,
+  .update-comment {
+    margin-top: 0px;
+    margin-bottom: 20px;
+  }
+
+  .comments-container {
+    padding: 20px 20px 0px;
+    margin-bottom: 0px;
+
+    .comments {
+      padding-top: 0px;
+
+      .comment-threads {
+
+        .comment-thread {
+          margin-bottom: 20px;
+        }
+      }
+
+    }
+
+    .comment {
+      .comment__header {
+        padding: 25px 1rem 0.75rem 1.5rem;
+      }
+
+      .comment__content {
+        padding: 0px 1rem 0px 1.5rem;
+      }
+
+      .admin-response::before {
+        width: 8px;
+      }
+    }
+  }
+}
+
+.card.card--user_question_form {}
+
+.card .card__footer.answers_and_comments {
+  padding-bottom: 15px;
+  margin: 0px 20px 20px;
+  border: 1px solid #EAEAEA;
+  background-color: #f5f6f7;
+
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.expert-answer {
+  &:before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 8px;
+    left: 0;
+    top: 0px;
+    background-color: #8d48ab;
+  }
+}
+
+.expert_answer_body {
+  margin-top: 10px;
+  font-size: 16px;
+
+  p {
+    margin-bottom: 15px;
+  }
+}
+
+.new_user_question .form-input-extra-before {}

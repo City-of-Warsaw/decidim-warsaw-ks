@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Decidim::ExpertQuestions
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::ExpertQuestions";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span>
+     &raquo; 
+    <span class="title">ExpertQuestions</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Decidim::ExpertQuestions
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-expert_questions/lib/decidim/expert_questions.rb<span class="defines">,<br />
+  decidim-expert_questions/spec/models/expert_spec.rb,<br /> decidim-expert_questions/spec/models/expert_answer_spec.rb,<br /> decidim-expert_questions/spec/models/user_question_spec.rb,<br /> decidim-expert_questions/lib/decidim/expert_questions/admin.rb,<br /> decidim-expert_questions/spec/forms/user_question_form_spec.rb,<br /> decidim-expert_questions/lib/decidim/expert_questions/engine.rb,<br /> decidim-expert_questions/lib/decidim/expert_questions/version.rb,<br /> decidim-expert_questions/spec/commands/admin/create_expert_spec.rb,<br /> decidim-expert_questions/spec/commands/admin/update_expert_spec.rb,<br /> decidim-expert_questions/spec/commands/admin/publish_expert_spec.rb,<br /> decidim-expert_questions/spec/commands/create_user_question_spec.rb,<br /> decidim-expert_questions/lib/decidim/expert_questions/admin_engine.rb,<br /> decidim-expert_questions/spec/commands/admin/unpublish_expert_spec.rb,<br /> decidim-expert_questions/app/models/decidim/expert_questions/expert.rb,<br /> decidim-expert_questions/spec/commands/admin/create_expert_answer_spec.rb,<br /> decidim-expert_questions/spec/commands/admin/update_expert_answer_spec.rb,<br /> decidim-expert_questions/spec/commands/admin/publish_expert_answer_spec.rb,<br /> decidim-expert_questions/spec/controlleres/admin/experts_controller_spec.rb,<br /> decidim-expert_questions/app/mailers/decidim/expert_questions/user_mailer.rb,<br /> decidim-expert_questions/spec/commands/admin/unpublish_expert_answer_spec.rb,<br /> decidim-expert_questions/spec/controlleres/user_questions_controller_spec.rb,<br /> decidim-expert_questions/app/helpers/decidim/expert_questions/admin_helper.rb,<br /> decidim-expert_questions/app/models/decidim/expert_questions/expert_answer.rb,<br /> decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb,<br /> decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_form.rb,<br /> decidim-expert_questions/app/permissions/decidim/expert_questions/permissions.rb,<br /> decidim-expert_questions/app/cells/decidim/expert_questions/expert_author_cell.rb,<br /> decidim-expert_questions/app/cells/decidim/expert_questions/user_question_cell.rb,<br /> decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb,<br /> decidim-expert_questions/app/models/decidim/expert_questions/application_record.rb,<br /> decidim-expert_questions/app/cells/decidim/expert_questions/user_question_m_cell.rb,<br /> decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb,<br /> decidim-expert_questions/app/cells/decidim/expert_questions/reported_content_cell.rb,<br /> decidim-expert_questions/app/presenters/decidim/expert_questions/expert_presenter.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/create_expert.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/publish_expert.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/create_user_question.rb,<br /> decidim-expert_questions/app/events/decidim/expert_questions/expert_published_event.rb,<br /> decidim-expert_questions/app/permissions/decidim/expert_questions/admin/permissions.rb,<br /> decidim-expert_questions/app/services/decidim/expert_questions/user_question_search.rb,<br /> decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/unpublish_expert.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/application_controller.rb,<br /> decidim-expert_questions/app/events/decidim/expert_questions/user_question_created_event.rb,<br /> decidim-expert_questions/app/presenters/decidim/expert_questions/user_question_presenter.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/create_expert_answer.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert_answer.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/publish_expert_answer.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/admin/experts_controller.rb,<br /> decidim-expert_questions/app/events/decidim/expert_questions/expert_answer_published_event.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/user_questions_controller.rb,<br /> decidim-expert_questions/app/presenters/decidim/expert_questions/admin_log/expert_presenter.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/admin/unpublish_expert_answer.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/admin/application_controller.rb,<br /> decidim-expert_questions/app/commands/decidim/expert_questions/second_step_user_question_update.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb,<br /> decidim-expert_questions/app/controllers/decidim/expert_questions/admin/user_questions_controller.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This namespace holds the logic of the `ExpertQuestions` component. This component allows users to create expert_questions in a participatory space.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="ExpertQuestions/Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span>, <span class='object_link'><a href="ExpertQuestions/AdminHelper.html" title="Decidim::ExpertQuestions::AdminHelper (module)">AdminHelper</a></span>, <span class='object_link'><a href="ExpertQuestions/AdminLog.html" title="Decidim::ExpertQuestions::AdminLog (module)">AdminLog</a></span>, <span class='object_link'><a href="ExpertQuestions/ApplicationHelper.html" title="Decidim::ExpertQuestions::ApplicationHelper (module)">ApplicationHelper</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="ExpertQuestions/AdminEngine.html" title="Decidim::ExpertQuestions::AdminEngine (class)">AdminEngine</a></span>, <span class='object_link'><a href="ExpertQuestions/ApplicationController.html" title="Decidim::ExpertQuestions::ApplicationController (class)">ApplicationController</a></span>, <span class='object_link'><a href="ExpertQuestions/ApplicationRecord.html" title="Decidim::ExpertQuestions::ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="ExpertQuestions/CreateUserQuestion.html" title="Decidim::ExpertQuestions::CreateUserQuestion (class)">CreateUserQuestion</a></span>, <span class='object_link'><a href="ExpertQuestions/Engine.html" title="Decidim::ExpertQuestions::Engine (class)">Engine</a></span>, <span class='object_link'><a href="ExpertQuestions/Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span>, <span class='object_link'><a href="ExpertQuestions/ExpertAnswer.html" title="Decidim::ExpertQuestions::ExpertAnswer (class)">ExpertAnswer</a></span>, <span class='object_link'><a href="ExpertQuestions/ExpertAnswerPublishedEvent.html" title="Decidim::ExpertQuestions::ExpertAnswerPublishedEvent (class)">ExpertAnswerPublishedEvent</a></span>, <span class='object_link'><a href="ExpertQuestions/ExpertAuthorCell.html" title="Decidim::ExpertQuestions::ExpertAuthorCell (class)">ExpertAuthorCell</a></span>, <span class='object_link'><a href="ExpertQuestions/ExpertPresenter.html" title="Decidim::ExpertQuestions::ExpertPresenter (class)">ExpertPresenter</a></span>, <span class='object_link'><a href="ExpertQuestions/ExpertPublishedEvent.html" title="Decidim::ExpertQuestions::ExpertPublishedEvent (class)">ExpertPublishedEvent</a></span>, <span class='object_link'><a href="ExpertQuestions/Permissions.html" title="Decidim::ExpertQuestions::Permissions (class)">Permissions</a></span>, <span class='object_link'><a href="ExpertQuestions/ReportedContentCell.html" title="Decidim::ExpertQuestions::ReportedContentCell (class)">ReportedContentCell</a></span>, <span class='object_link'><a href="ExpertQuestions/SecondStepUserQuestionUpdate.html" title="Decidim::ExpertQuestions::SecondStepUserQuestionUpdate (class)">SecondStepUserQuestionUpdate</a></span>, <span class='object_link'><a href="ExpertQuestions/UserMailer.html" title="Decidim::ExpertQuestions::UserMailer (class)">UserMailer</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionCell.html" title="Decidim::ExpertQuestions::UserQuestionCell (class)">UserQuestionCell</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionCreatedEvent.html" title="Decidim::ExpertQuestions::UserQuestionCreatedEvent (class)">UserQuestionCreatedEvent</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionForm.html" title="Decidim::ExpertQuestions::UserQuestionForm (class)">UserQuestionForm</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionMCell.html" title="Decidim::ExpertQuestions::UserQuestionMCell (class)">UserQuestionMCell</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionPresenter.html" title="Decidim::ExpertQuestions::UserQuestionPresenter (class)">UserQuestionPresenter</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionSearch.html" title="Decidim::ExpertQuestions::UserQuestionSearch (class)">UserQuestionSearch</a></span>, <span class='object_link'><a href="ExpertQuestions/UserQuestionsController.html" title="Decidim::ExpertQuestions::UserQuestionsController (class)">UserQuestionsController</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version-class_method" title="version (class method)">.<strong>version</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>This holds the decidim-expert_questions version.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="version-class_method">
+  
+    .<strong>version</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This holds the decidim-expert_questions version.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/lib/decidim/expert_questions/version.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:16 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

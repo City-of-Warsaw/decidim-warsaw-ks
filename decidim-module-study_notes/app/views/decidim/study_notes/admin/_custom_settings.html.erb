@@ -1,0 +1,35 @@
+<fieldset class="">
+  <legend class="click-on-map">
+    <%= t('.click_on_map').html_safe %>
+  </legend>
+
+  <div id="map" class="map"></div>
+  <div class="field mt-s locations locations-list">
+    <%#= form.hidden_field :locations_json, id: 'all_locations' %>
+    <input type="hidden" value="<%= @form.custom_settings["locations"] %>" name="component[custom_settings][locations]" id="coordinates">
+    <div class="inputs-wrapper"></div>
+  </div>
+
+  <% if @form.errors[:custom_settings].present? %>
+    <span class="form-error is-visible">
+      <%= @form.errors[:custom_settings][0] %>
+    </span>
+  <% end %>
+
+  <div class="auto-search-wrapper">
+    <input type="text"
+           autocomplete="off"
+           id="search"
+           class="full-width <%= @form.errors[:locations_json].present? ? 'is-invalid-input' : nil %>"
+           placeholder="Wpisz adres (min. 5 znaków)"
+           aria-describedby="location-with-toggle">
+  </div>
+
+  <% if @form.errors[:locations_json].present? %>
+    <span class="form-error is-visible">
+      <%= @form.errors[:locations_json][0] %>
+    </span>
+  <% end %>
+
+  <%= javascript_include_tag "area-map/area-map" %>
+</fieldset>

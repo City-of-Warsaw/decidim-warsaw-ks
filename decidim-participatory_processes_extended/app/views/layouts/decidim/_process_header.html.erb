@@ -1,0 +1,25 @@
+<div class="process-header">
+  <div class="process-header__inner">
+    <div class="line-decor <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>"></div>
+    <div class="process-header__container row collapse column">
+      <div class="columns mediumlarge-6 process-header__info">
+        <div>
+          <h1 class="heading2">
+            <%= translated_attribute(current_participatory_space.title) %>
+          </h1>
+        </div>
+        <div><%= area_and_scope(current_participatory_space) %></div>
+      </div>
+      <div class="columns mediumlarge-6">
+        <div class="process-img-wrapper">
+          <% if current_participatory_space.hero_image.present? %>
+            <%= image_tag current_participatory_space.hero_image.url, alt: current_participatory_space.hero_image_alt, class: 'process-main-image' %>
+          <% elsif current_participatory_space.banner_image.present? %>
+            <%= image_tag current_participatory_space.banner_image.url, alt: '', class: 'process-main-image' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: "layouts/decidim/process_navigation", locals: { participatory_space: current_participatory_space } %>
+</div>

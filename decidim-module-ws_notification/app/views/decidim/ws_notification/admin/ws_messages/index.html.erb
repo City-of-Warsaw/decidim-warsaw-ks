@@ -1,0 +1,65 @@
+<div class="card" id="consultation_requests">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t "decidim.admin.titles.ws_messages" %>
+      <% if allowed_to? :create, :ws_message %>
+        <%= link_to t("actions.add", scope: "decidim.admin"), new_admin_ws_message_path, class: "button tiny button--title new" %>
+      <% end %>
+    </h2>
+  </div>
+  <div class="card-section">
+    <% if @ws_messages.any? %>
+      <div class="table-scroll">
+        <table class="table-list">
+          <thead>
+          <tr>
+            <th><%= t("models.ws_message.fields.title", scope: "decidim.admin") %></th>
+            <th><%= t("models.ws_message.fields.body", scope: "decidim.admin") %></th>
+            <th><%= t("models.ws_message.fields.active_channels", scope: "decidim.admin") %></th>
+            <th><%= t("models.ws_message.fields.created_at", scope: "decidim.admin") %></th>
+            <th><%= t("models.ws_message.fields.author", scope: "decidim.admin") %></th>
+            <th><%= t("models.ws_message.fields.published_at", scope: "decidim.admin") %></th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @ws_messages.each do |ws_message| %>
+            <tr>
+              <td>
+                <%= link_to ws_message.title, edit_admin_ws_message_path(ws_message) %>
+              </td>
+              <td>
+                <%= decidim_sanitize html_truncate(ws_message.body, length: 50, separator: "...") %>
+              </td>
+              <td>
+                <%= active_notification_channels(ws_message) %>
+              </td>
+              <td>
+                <%= l ws_message.created_at, format: :decidim_short %>
+              </td>
+              <td>
+                <%= ws_message.user.name %>
+              </td>
+              <td>
+                <%= l ws_message.published_at, format: :decidim_short if ws_message.published_at %>
+              </td>
+              <td class="table-list__actions">
+                <% if allowed_to? :update, :organization, organization: current_organization %>
+                  <%#= icon_link_to "paperclip", admin_consultation_request_attachments_path(consultation_request), t("actions.attachments", scope: "decidim.consultation_requests"), class: "action-icon--attachments" %>
+                  <%= icon_link_to "pencil", [:edit, :admin, ws_message], t("actions.edit", scope: "decidim.admin"), class: "action-icon--edit", method: :get, data: {} %>
+                  <% unless ws_message.published? %>
+                    <%= icon_link_to "envelope-closed", publish_admin_ws_message_path(ws_message), t("actions.publish", scope: "decidim.admin"), class: "action-icon--preview", method: :post %>
+                    <%= icon_link_to "circle-x", admin_ws_message_path(ws_message), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% else %>
+      <p><%= t("decidim.admin.ws_messages.no_ws_messages") %></p>
+    <% end %>
+  </div>
+</div>

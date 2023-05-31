@@ -1,0 +1,138 @@
+pl:
+  errors:
+    attributes:
+      nickname:
+        invalid: Nazwa użytkownika może składać się tylko z liter, cyfr i znaków podkreślenia. Nie używaj znaków specjalnych i spacji.
+      email:
+        invalid: Niepoprawny format
+        taken: Ten adres e-mail jest już zajęty
+      password_confirmation:
+        blank: Hasła w obu polach muszą być identyczne
+      tos_agreement:
+        accepted: Jeżeli chcesz założyć konto, musisz zaakceptować klauzulę RODO
+  activemodel:
+    attributes:
+      organization:
+        address_n: Nazwa hosta SMTP
+        from_email_n: Adresy e-mail
+        from_label_n: Etykieta
+        password_n: Hasło
+        port_n: Port
+        user_name_n: Nazwa użytkownika
+      user:
+        nickname: Nazwa użytkownika
+        email: Twój e-mail
+        birth_year: Rok urodzenia
+        district: Dzielnica
+        district_id: Dzielnica
+        gender: Płeć
+        first_name: Imię
+        last_name: Nazwisko
+        acceptance: Akceptacja
+        follow_ngo: Interesują mnie też procesy dla NGO
+        zip_code: Kod pocztowy
+
+  decidim:
+    notifications_settings:
+      show:
+        administrators: Administratorzy
+        allow_public_contact: Każdy może wysłać mi prywatną wiadomość, nawet jeśli go nie obserwuję
+        direct_messages: Przyjmuj prywatne wiadomości od każdego
+        email_on_moderations: Chcę otrzymywać e-mail za każdym razem, gdy coś jest zgłaszane do moderacji
+        email_on_notification: Chcę dostawać e-mail za każdym razem, gdy otrzymuję powyższe powiadomienia
+        everything_followed: Dotyczące konsultacji i innych wpisów, które obserwuję
+        newsletter_notifications: Chcę otrzymywać newsletter
+        newsletters: Newslettery
+        own_activity: Dotyczące moich działań na stronie, np. kiedy ktoś skomentuje moją uwagę lub oznaczy mnie w komentarzu
+        receive_notifications_about: Powiadomienia w systemie
+        send_notifications_by_email: Powiadomienia wysyłane pocztą e-mail
+        update_notifications_settings: Zapisz zmiany
+        follow_ngo: Chcę otrzymywać e-maile również o konsultacjach dla NGO
+        update_my_interests: Zapisz zmiany
+    user_interests:
+      show:
+        my_scopes: Moje dzielnice
+        my_tags: Moje kategorie
+    ad_access:
+      admin_session:
+        create:
+          error: Nieprawidłowe dane logowania
+          success: Zalogowano pomyślnie
+    account:
+      show:
+        change_password: Zmień aktualne hasło
+        select_district: Wybierz
+        select_gender: Wybierz
+    admin_log:
+      user:
+        # custom - city user
+        user_logout: "Użytkownik %{user_name} wylogował(a) się z systemu"
+        user_login: "Użytkownik %{user_name} zalogował(a) się do systemu"
+        # custom - ad users
+        login: "Użytkownik %{user_name} zalogował się z pomocą AD"
+        assign_role: "Użytkownikowi %{user_name} zmieniono rolę na podstawie danych z AD"
+        update_user: "Użytkownik %{user_name} zaktualizował(a) dane użytkownika zewnętrznęgo %{resource_name}"
+    devise:
+      registrations:
+        new:
+          nickname_help_new: Nawa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis
+          already_have_an_account?: Masz już konto? %{link} nim.
+          no_rodo_page: NALEŻY DODAĆ STRONĘ Z RODO
+          forgotten_password?: Zapomniałeś hasła? %{link}
+          remind_password: Przypomnij hasło
+          rodo: RODO
+          rodo_text: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
+            użytkownika oraz adresu e-mail. Udzielam zgody w celu założenia konta na platformie konsultacji społecznych 
+            m.st. Warszawy. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy 
+            przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+          select_gender: Wybierz płeć
+          select_district: Wybierz dzielnicę
+          sign_up: Zarejestruj nowe konto
+          terms: regulamin
+          tos_agreement: "Rejestrując się, akceptujesz <strong>%{link}</strong>."
+      sessions:
+        new:
+          remind_password: Zapomniałeś hasła? %{link}
+      shared:
+        speech_bubble:
+          already_have_an_account?: Masz już konto? %{link}
+          no_account?: Nie masz jeszcze konta? %{link}
+          sign_up: Zarejestruj się
+          forgotten_password?: Nie pamiętasz hasła? %{link}
+          remind_password: Przypomnij hasło
+          sign_in: Zaloguj się
+    system:
+      models:
+        organization:
+          fields:
+            newsletter_smtp_settings: Ustawienia SMTP dla maili Newslettera
+    users:
+      gender:
+        female: Kobieta
+        male: Mężczyzna
+        other: Inna
+    users_extended:
+      admin:
+        sessions:
+          new:
+            sign_in: Zaloguj się do panelu administracyjnego
+            nickname: Twój login do konta AD
+            password: Hasło
+            submit: Zaloguj się
+  devise:
+    shared:
+      links:
+        forgot_your_password: Przypomnij hasło
+  layouts:
+    decidim:
+      wrapper:
+        account: Konto
+        delete_my_account: Usuwanie konta
+        my_data: Moje dane
+        my_interests: Moje zainteresowania
+        notifications_settings: Powiadomienia
+        title: Ustawienia użytkownika
+        user_groups: Grupy
+      header:
+        accesibility-title: Deklaracja dostępności

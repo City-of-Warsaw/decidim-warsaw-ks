@@ -1,0 +1,383 @@
+// INDEX //
+.section-heading.remarks {
+  text-transform: none;
+  margin-bottom: 25px;
+  font-size: 16px;
+
+  strong {
+    color: var(--primary);
+  }
+}
+
+.admin-remark .card--remark>.card__content {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: calc(100% + (2 * 30px));
+    top: 0;
+    left: 0;
+    background-color: var(--primary);
+  }
+}
+
+#remarks {
+  .card-grid .columns {
+    padding: 0;
+    margin-bottom: 0;
+  }
+
+  .comment-thread {
+    .comment {
+      &.admin-response {
+        position: relative;
+        margin: 0;
+
+        &:before {
+          display: block;
+          content: "";
+          position: absolute;
+          width: 5px;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          background-color: var(--primary);
+          border-bottom-left-radius: 4px;
+          border-top-left-radius: 4px;
+        }
+      }
+    }
+  }
+
+  .comment__footer .comment__actions {
+    padding-left: 0px;
+    padding-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .comment__actions {
+    padding-left: 1.5rem;
+
+    &:empty {
+      margin-bottom: -25px;
+    }
+  }
+
+  .comments {
+    position: relative;
+    z-index: 1;
+    padding-top: 1.5rem;
+  }
+}
+
+.card--remark {
+  .author__name {
+    color: var(--primary);
+  }
+
+  .author-data__extra {
+    &::before {
+      content: unset;
+    }
+  }
+
+  .author-data__extra>button,
+  .author-data__extra>span,
+  .author-data__extra>a {
+    margin-right: 0.5rem;
+  }
+
+  .author-data__main {
+    time {
+      color: #000;
+      margin-left: 0px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.file-field {
+  margin-bottom: 1rem;
+}
+
+.remark-was-edited {
+  display: block;
+  font-size: 12px;
+  color: #767676;
+}
+
+.remark-file-button {
+  color: var(--primary);
+  background-color: unset;
+  background-image: asset_url("attachment-icon.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  padding-left: 25px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.remark-file-delete {
+  color: var(--primary);
+  background-color: white;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remark-file-box {
+  display: none;
+  background-color: #ececec;
+  color: black;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+
+  &.visible {
+    display: flex;
+  }
+}
+
+#new_remark {
+  .close-button {
+    top: 1rem;
+  }
+
+  .row.actions {
+    margin-top: 1rem;
+
+    .link {
+      margin-top: 18px;
+      text-decoration: none;
+    }
+  }
+
+  .remark__photos {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 16px;
+
+    a {
+      max-height: 120px;
+      max-width: 120px;
+
+      img.thumbnail {
+        max-height: 100%;
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+.tos-footer {
+  background-color: #f8f8f8;
+  padding: 20px 15px;
+  color: black;
+  font-size: 16px;
+
+  &--out {
+    margin-top: 16px;
+    margin-left: -16px;
+    margin-bottom: -16px !important;
+    margin-right: -20px;
+  }
+}
+
+.card.card--remark_form,
+.card.card--user_question_form {
+  border-color: #eaeaea !important;
+
+  .card__content {
+    padding: 0;
+
+    .form-error {
+      margin-top: 0.25rem;
+    }
+
+
+  }
+}
+
+.card.card--remark_form,
+.card.card--remark_edit,
+.card.card--user_question_form {
+  .actions {
+    button[type=submit] {
+      min-width: 150px;
+    }
+  }
+}
+
+.remark-field--body {
+  textarea {
+    padding: 0;
+    outline-offset: 2px !important;
+    margin-bottom: 0px;
+    border-bottom: 1px solid #545454 !important;
+    font-weight: 400 !important;
+
+    &::placeholder {
+      color: #545454 !important;
+    }
+  }
+
+  .remaining-character-count {
+    width: 100%;
+    text-align: right;
+    font-size: 16px;
+    color: #545454;
+    padding: 6px 0px;
+    margin-top: 5px;
+    margin-bottom: -24px;
+    display: block;
+    padding-top: 0 !important;
+  }
+}
+
+.remark-field--files {
+  margin-top: 0px;
+  margin-bottom: 30px;
+
+  .MultiFile-list:not(:empty) {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background-color: #ececec;
+  }
+
+  .remark-file-button {
+    color: var(--primary);
+    background-color: unset;
+    background-image: asset_url("attachment-icon.svg");
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 25px;
+    height: 18px;
+    margin-top: 3px;
+    cursor: pointer;
+  }
+
+  .MultiFile-remove {
+    order: 2;
+    color: var(--primary);
+    background-color: white;
+    padding: 4px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  div.MultiFile-label {
+    display: flex;
+    background-color: #ececec;
+    color: black;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 15px;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #dbdbdb;
+    }
+
+    >span {
+      order: 1;
+      word-break: break-word;
+      margin-right: 20px;
+    }
+  }
+}
+
+.remark-field--signature {
+  max-width: 342px;
+
+  input {
+    padding: 0;
+    outline-offset: 2px !important;
+    border-bottom: 1px solid #545454 !important;
+    margin-bottom: 0px;
+    font-weight: 400 !important;
+
+    &::placeholder {
+      color: #545454 !important;
+    }
+  }
+
+  .form-input-extra-before {
+    display: none;
+  }
+}
+
+.remark-field--email {
+  margin-top: 6px;
+
+  input {
+    padding: 0;
+    outline-offset: 2px !important;
+    margin-bottom: 0px;
+    font-weight: 400 !important;
+    width: 100% !important;
+    border-bottom: 1px solid #545454 !important;
+    max-width: unset !important;
+
+    &::placeholder {
+      color: #545454 !important;
+    }
+  }
+
+  .form-input-extra-before {
+    display: none;
+  }
+}
+
+.remark-field--selects {
+  margin-top: 12px;
+  display: flex;
+
+  >* {
+    flex-basis: 20%;
+    min-width: 0;
+
+    margin-right: 12px !important;
+  }
+}
+
+.remark-field--rodo {
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
+
+  label {
+    display: inline-block !important;
+  }
+}
+
+.actions {
+  margin-top: 20px;
+}
+
+.remark-success {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px 20px 20px;
+}
+
+.remark__comments {
+  padding: 0 20px 20px !important;
+
+  .comments {
+    padding-top: 10px !important;
+
+    .comment-threads {
+      >div {
+        margin-top: 20px;
+      }
+    }
+  }
+}

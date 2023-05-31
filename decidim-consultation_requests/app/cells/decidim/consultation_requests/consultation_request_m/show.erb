@@ -1,0 +1,18 @@
+<li class="column large-4" id="<%= dom_id(model) %>">
+  <div class="card">
+    <%= render :image if has_image? %>
+    <div class="card__content">
+      <%= render :header if has_header? %>
+      <%#= render :author %>
+
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <%= description %>
+        </div>
+      </div>
+
+    </div>
+    <%= render :data %>
+    <%= render :footer %>
+  </div>
+</li>

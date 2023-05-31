@@ -1,0 +1,13 @@
+<div class="author-data__main">
+  <div class="author author--inline">
+    <span class="author__avatar author__avatar--small">
+      <%= image_tag avatar_url, alt: "author-avatar" %>
+    </span>
+
+    <span class="author__name">
+      <%= author_name %>
+    </span>
+
+    <%= l(model.created_at, format: :decidim_short) %>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<%= render partial: "decidim/shared/component_announcement" %>
+
+<% if current_component.users_action_disallowed? %>
+  <div class="row">
+    <div class="column large-12"> 
+      <div class="callout warning-important">
+        <%= current_component.end_date_message %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if remarks_help_section.present? %> 
+  <div class="help-section">
+    <div class="row column"> 
+      <div class="ql-editor">
+      <%= quill_sanitize translated_attribute(remarks_help_section) %> 
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <% if !current_component.users_action_disallowed? %>
+    <%= render "new", form_object: @form %>
+  <% end %>
+
+  <div class="columns mediumlarge-12 large-12">
+    <div class="card card--secondary">
+      <%= render partial: "filters" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="row medium-up-2 pl-s pr-s">
+    <div class="column">
+      <h3 id="remarks-count" class="title-action__title section-heading remarks" aria-live="polite" aria-atomic="true">
+        <%= t(".remarks_count", count: search.results.count).html_safe %>
+      </h3>
+    </div>
+  </div>
+
+  <div id="remarks" class="columns mediumlarge-12 large-12">
+    <%= render "remarks" %>
+  </div>
+</div>
+
+<%= javascript_include_tag("decidim/filters") %>

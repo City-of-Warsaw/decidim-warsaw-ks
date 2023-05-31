@@ -1,0 +1,49 @@
+<section class="extended home-section home-bullet home-section--how-to-participate">
+  <div class="wrapper-home">
+    <div class="row column text-center">
+      <h2 class="section-heading"><%= t("decidim.pages.home.extended.how_to_participate") %></h2>
+    </div>
+    <div class="row small-up-1 medium-up-3 home-bullets">
+      <div class="column">
+        <div class="home-bullet">
+          <div class="home-bullet__icon">
+            <%= image_tag 'decidim/core_extended/meetings-icon.png' %>
+          </div>
+          <div class="home-bullet__desc">
+            <h3 class="heading4"><%= t("decidim.pages.home.extended.meetings") %></h3>
+            <p><%= t("decidim.pages.home.extended.meetings_explanation") %></p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="home-bullet">
+          <div class="home-bullet__icon">
+            <%= image_tag 'decidim/core_extended/debates-icon.png' %>
+          </div>
+          <div class="home-bullet__desc">
+            <h3 class="heading4"><%= t("decidim.pages.home.extended.debates") %></h3>
+            <p><%= t("decidim.pages.home.extended.debates_explanation") %></p>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="home-bullet">
+          <div class="home-bullet__icon">
+            <%= image_tag 'decidim/core_extended/proposals-icon.png' %>
+          </div>
+          <div class="home-bullet__desc">
+            <h3 class="heading4"><%= t("decidim.pages.home.extended.proposals") %></h3>
+            <p><%= t("decidim.pages.home.extended.proposals_explanation") %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-centered small-12
+                smallmedium-12 medium-6 large-6">
+        <% url = Decidim::StaticPage.find_by(slug: "faq") ? decidim.page_path("faq") : decidim.pages_path %>
+        <%= link_to t("decidim.pages.home.extended.more_info", resource_name: ''), url, class: "button expanded hollow button--sc" %>
+      </div>
+    </div>
+  </div>
+</section>

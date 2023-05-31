@@ -1,0 +1,11 @@
+(function() {
+    // we determine if comment is a response or first comment in tree
+  var inReplyTo = <%== (commentable.is_a?(Decidim::Comments::Comment) ? commentable.id : nil).to_json %>;
+    // we look for proper form on thje view
+  var comment_form = inReplyTo ? $('#comment<%== commentable.id %>-reply') : $("#update-comment-<%== "#{@comment.id}" %>");
+    // we replace used form with error form
+
+  comment_form.replaceWith("<%== escape_javascript(render "decidim/comments_extended/comments/update_comments_form", comment: @comment, form_object: @form_object, close_modal: close_modal) %>")
+ 
+  // TODO: seweryn - jeszcze brakuje jakichś JSów po wczytaniu błędu po raz pierwszy...
+}());

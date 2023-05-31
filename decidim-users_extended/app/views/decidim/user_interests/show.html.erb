@@ -1,0 +1,80 @@
+<% add_decidim_page_title(t("my_interests", scope: "layouts.decidim.user_profile")) %>
+<% content_for(:subtitle) { t("my_interests", scope: "layouts.decidim.user_profile") } %>
+
+<%= form_for(@user_interests, url: user_interests_path, method: :put, class: "user-form") do |f| %>
+  <div class="interests-form">
+    <h4>Powiedz nam coś o swoich zainteresowaniach</h4>
+    <h5>Powiadomimy Cię, kiedy rozpoczną się związane z nimi konsultacje</h5>
+
+    <%= f.select :scopes_ids, @user_interests.available_scopes, { label: "Które dzielnice Cię interesują?", include_blank: false, legend_title: "Wybierz dzielnice" }, { class: 'multiple scopes-ids-select-js', multiple: true, "data-placeholder": "Wybierz dzielnice", "aria-controls": "processes", "data-class": "pretty-multiselect", "data-style": "--prompt: 'Wybierz jedną lub kilka dzielnic:'" } %>
+
+    <%= f.select :tags_ids, @user_interests.available_tags, { label: "Które tematy Cię interesują?", include_blank: false, legend_title: "Wybierz tematy" }, { class: 'multiple tags-ids-select-js', multiple: true, "data-placeholder": "Wybierz tematy", "aria-controls": "processes", "data-class": "pretty-multiselect", "data-style": "--prompt: 'Wybierz jeden lub kilka tematów:'" } %>
+
+    <div class="field zip-code-field">
+      <%= f.text_field :zip_code, label: "Która okolica Cię interesuje?", placeholder: "__-___" %>
+      <div class="form-tooltip" tabindex="0">
+        <div class="form-tooltip__content" id="tooltip-1">
+          <strong>Wpisz warszawski kod pocztowy,</strong> żeby otrzymywać powiadomienia o konsultacjach w odległości 2 km od tego miejsca.
+        </div>
+
+        <div class="form-tooltip__hint" aria-describedby="tooltip-1">
+          <span aria-hidden="true">?</span>
+          <span class="show-for-sr">podpowiedź</span>
+        </div>
+      </div>
+    </div>
+
+    <label>Mamy wysyłać e-maile?</label>
+    <div class="field checkboxed">
+      <%= f.check_box :notifications_from_neighbourhood, label: "Chcę otrzymywać e-maile, kiedy rozpoczną się konsultacje z obszaru moich zainteresowań" %>
+    </div>
+    <div class="field checkboxed">
+      <%= f.check_box :follow_ngo, label: t('follow_ngo', scope: 'decidim.notifications_settings.show') %>
+    </div>
+  </div>
+
+  <%= f.submit "Zapisz zmiany", class: "button mt-sm" %>
+<% end %>
+
+
+<%= nonced_javascript_tag do %>
+  $(function () {
+    $('#user_zip_code').mask('00-000'); 
+
+    $(".scopes-ids-select-js").multiselect({
+      columns: window.innerWidth > 500 ? 3 : 1,
+      search: false,
+      selectAll: true,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: ' wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      },
+      // onControlClose: function (el) {
+      //   $(el).parents('form').submit();
+      // },
+    });
+
+    $(".tags-ids-select-js").multiselect({
+      columns: 1,
+      search: false,
+      selectAll: true,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: ' wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      },
+      // onControlClose: function (el) {
+      //   $(el).parents('form').submit();
+      // },
+    });
+  });
+<% end %>

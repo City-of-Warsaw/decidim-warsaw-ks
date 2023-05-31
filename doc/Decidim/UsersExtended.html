@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Decidim::UsersExtended
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::UsersExtended";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (U)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span>
+     &raquo; 
+    <span class="title">UsersExtended</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Decidim::UsersExtended
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-users_extended/lib/decidim/users_extended.rb<span class="defines">,<br />
+  decidim-users_extended/lib/decidim/users_extended/engine.rb,<br /> decidim-users_extended/lib/decidim/users_extended/version.rb,<br /> decidim-users_extended/app/services/decidim/users_extended/ad_user.rb,<br /> decidim-users_extended/app/services/decidim/users_extended/ad_service.rb,<br /> decidim-users_extended/app/jobs/decidim/users_extended/application_job.rb,<br /> decidim-users_extended/app/services/decidim/users_extended/peum_service.rb,<br /> decidim-users_extended/app/forms/decidim/users_extended/admin_session_form.rb,<br /> decidim-users_extended/app/models/decidim/users_extended/application_record.rb,<br /> decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb,<br /> decidim-users_extended/app/mailers/decidim/users_extended/application_mailer.rb,<br /> decidim-users_extended/app/forms/decidim/users_extended/user_interest_tag_form.rb,<br /> decidim-users_extended/app/commands/decidim/users_extended/create_admin_session.rb,<br /> decidim-users_extended/app/controllers/decidim/users_extended/sessions_controller.rb,<br /> decidim-users_extended/app/services/decidim/users_extended/ad_authorization_service.rb,<br /> decidim-users_extended/app/controllers/decidim/users_extended/application_controller.rb,<br /> decidim-users_extended/app/controllers/decidim/users_extended/registrations_controller.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This namespace holds the logic that extends `Decidim::Core` component. It change user registration, adds login for AD users</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="UsersExtended/ApplicationHelper.html" title="Decidim::UsersExtended::ApplicationHelper (module)">ApplicationHelper</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="UsersExtended/AdAuthorizationService.html" title="Decidim::UsersExtended::AdAuthorizationService (class)">AdAuthorizationService</a></span>, <span class='object_link'><a href="UsersExtended/AdService.html" title="Decidim::UsersExtended::AdService (class)">AdService</a></span>, <span class='object_link'><a href="UsersExtended/AdUser.html" title="Decidim::UsersExtended::AdUser (class)">AdUser</a></span>, <span class='object_link'><a href="UsersExtended/AdminSessionForm.html" title="Decidim::UsersExtended::AdminSessionForm (class)">AdminSessionForm</a></span>, <span class='object_link'><a href="UsersExtended/ApplicationController.html" title="Decidim::UsersExtended::ApplicationController (class)">ApplicationController</a></span>, <span class='object_link'><a href="UsersExtended/ApplicationJob.html" title="Decidim::UsersExtended::ApplicationJob (class)">ApplicationJob</a></span>, <span class='object_link'><a href="UsersExtended/ApplicationMailer.html" title="Decidim::UsersExtended::ApplicationMailer (class)">ApplicationMailer</a></span>, <span class='object_link'><a href="UsersExtended/ApplicationRecord.html" title="Decidim::UsersExtended::ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="UsersExtended/CreateAdminSession.html" title="Decidim::UsersExtended::CreateAdminSession (class)">CreateAdminSession</a></span>, <span class='object_link'><a href="UsersExtended/Engine.html" title="Decidim::UsersExtended::Engine (class)">Engine</a></span>, <span class='object_link'><a href="UsersExtended/PeumService.html" title="Decidim::UsersExtended::PeumService (class)">PeumService</a></span>, <span class='object_link'><a href="UsersExtended/RegistrationsController.html" title="Decidim::UsersExtended::RegistrationsController (class)">RegistrationsController</a></span>, <span class='object_link'><a href="UsersExtended/SessionsController.html" title="Decidim::UsersExtended::SessionsController (class)">SessionsController</a></span>, <span class='object_link'><a href="UsersExtended/UserInterestTagForm.html" title="Decidim::UsersExtended::UserInterestTagForm (class)">UserInterestTagForm</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#version-class_method" title="version (class method)">.<strong>version</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>This holds the decidim-users_extended version.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="version-class_method">
+  
+    .<strong>version</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>This holds the decidim-users_extended version.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/lib/decidim/users_extended/version.rb', line 6</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_version'>version</span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0.1.0</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:16 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<% provide(:title, information.title) %>
+
+<% add_decidim_meta_tags({
+  title: information.title,
+  description: information.body,
+  url: decidim_news.edit_information_url(information)
+}) %>
+
+<%
+  edit_link(
+    decidim_news.edit_information_path(information),
+    :update,
+    :organization,
+    organization: current_organization
+  )
+%>
+
+<div class="row column view-header">
+  <div class="m-bottom">
+    <%= link_to :news_index, class: "small hollow" do %>
+      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <span><%= t(".back") %></span>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="columns section view-side mediumlarge-4 mediumlarge-push-8 large-3 large-push-9">
+    <%= follow_button_for(information) %>
+    <div class="share-box">
+      <%= render "decidim/shared/share_modal" %>
+    </div> 
+  </div>
+  <div class="columns mediumlarge-8 mediumlarge-pull-4">
+    <div class="section ql-editor fix-swipebox">
+      <%= quill_sanitize information.body %>
+    </div>
+    <%= render 'decidim/shared/gallery_attachments', model: information %>
+    <%= attachments_for information %>
+  </div>
+</div>
+<%= sorted_comments_for information %>

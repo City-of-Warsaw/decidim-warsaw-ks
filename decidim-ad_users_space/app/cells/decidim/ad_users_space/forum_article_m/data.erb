@@ -1,0 +1,11 @@
+<div class="card__status">
+  <% if comments_present? %>
+    <span class="comment-scrap"><%= comment_text %></span>
+    <br>
+    <%= comment_author %>
+    <br>
+    <%= comment_date %>
+  <% else %>
+    <span class="comment-scrap"><%= t('.no_comments') %></span>
+  <% end %>
+</div>

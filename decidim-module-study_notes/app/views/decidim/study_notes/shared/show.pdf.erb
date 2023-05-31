@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+      body {
+        margin: 0;
+        padding: 0;
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+
+      .page {
+        /* page-break-after: always !important; */
+      }
+
+      h1 {
+        padding-top: 12px;
+        font-size: 25px;
+        text-align: center;
+      }
+
+      h2 {
+        margin: 0;
+        padding: 4px 0;
+        font-size: 22px;
+      }
+
+      h3 {
+        margin: 0;
+        padding: 4px 0;
+        font-size: 16px;
+      }
+
+      h3 span {
+        font-weight: normal;
+      }
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+
+      .caption {
+        font-size: 120%;
+      }
+
+      .center {
+        text-align: center;
+      }
+      .text-right {
+        text-align: right;
+      }
+
+      .version {
+        padding: 24px 0;
+        text-align: right;
+      }
+
+      .section {
+        padding-top: 16px;
+      }
+
+      .fill {
+        position: relative;
+        padding: 8px;
+        min-height: 21px;
+        border: 1px solid;
+        font-size: 130%;
+      }
+
+      .additional-info {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 8px;
+        border-top: 1px solid #000;
+        border-left: 1px solid #000;
+      }
+
+      div.fill {
+        margin: 4px 0;
+      }
+
+      .fill.price {
+        margin-top: 8px;
+        padding: 16px 0;
+        text-align: center;
+        font-size: 400%;
+        line-height: 1;
+      }
+
+      .mh50 {
+        min-height: 50px;
+      }
+      .mh100 {
+        min-height: 100px;
+      }
+      .mh200 {
+        min-height: 200px;
+      }
+      .mw20 {
+        min-width: 20%;
+      }
+      .mw40 {
+        min-width: 40%;
+      }
+      .w5 {
+        width: 5%;
+      }
+      .w10 {
+        width: 10%;
+      }
+      .w15 {
+        width: 15%;
+      }
+      .w125 {
+        width: 12.5%;
+      }
+      .w20 {
+        width: 20%;
+      }
+      .w25 {
+        width: 25%;
+      }
+      .w30 {
+        width: 30%;
+      }
+      .w40 {
+        width: 40%;
+      }
+      .w50 {
+        width: 50%;
+      }
+      .w60 {
+        width: 60%;
+      }
+      .w70 {
+        width: 70%;
+      }
+      .w75 {
+        width: 75%;
+      }
+      .w90 {
+        width: 90%;
+      }
+      .w95 {
+        width: 95%;
+      }
+      .w100 {
+        width: 100%;
+      }
+
+      .msg-info {
+        text-align: center;
+        color: #ff0000;
+        font-size: 110%;
+      }
+
+      .msg-info.large {
+        font-size: 130%;
+      }
+
+      table td {
+        padding: 0;
+      }
+      table.collapse td {
+        padding: 4px 0;
+      }
+      table td:first-child {
+        padding-right: 8px;
+      }
+      table.collapse td.w125 {
+        padding-left: 10px;
+      }
+      table.pt12 {
+        padding-top: 12px;
+      }
+      table.pb12 {
+        padding-bottom: 12px;
+      }
+
+      table.agreements {
+        font-size: 120%;
+      }
+      table.agreements td {
+        padding: 8px 0;
+      }
+
+      .checkbox {
+      }
+
+      .checkbox.large {
+        font-size: 140%;
+        line-height: 100%;
+      }
+
+      .checkbox::before {
+        margin-right: 8px;
+        display: inline-block;
+        content: "";
+        width: 16px;
+        height: 16px;
+        border: #000 1px solid;
+        vertical-align: middle;
+      }
+
+      .checkbox.large::before {
+        width: 20px;
+        height: 20px;
+      }
+
+      .checkbox.checked::before {
+        background: #000;
+      }
+
+      .signature {
+        padding-top: 96px;
+        text-align: right;
+        font-size: 100%;
+      }
+
+      .signature span {
+        color: #ff0000;
+      }
+
+      .postcode {
+      }
+
+      .postcode * {
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      .postcode span {
+        padding: 8px;
+        min-width: 12px;
+        min-height: 21px;
+        border: 1px solid;
+        font-size: 130%;
+      }
+
+      .postcode strong {
+        padding-left: 24px;
+        font-size: 20px;
+        line-height: 1;
+      }
+      
+      #map {
+        width: 900px;
+        height: 400px; 
+      }
+
+      .leaflet-marker-icon { 
+        background-image: <%= "url(#{wicked_pdf_asset_path("geojson-map/images/marker-icon.png")})" %>;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .leaflet-marker-shadow { 
+        background-image: <%= "url(#{wicked_pdf_asset_path("geojson-map/images/marker-shadow.png")})" %>;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    </style>
+
+    <%= wicked_pdf_stylesheet_link_tag "leaflet" %> 
+    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/leaflet-src.1.8.0.modCS" %>
+    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/leaflet.draw.modCS" %> 
+  </head>
+  <body>
+    <!--
+      -------------------
+      STRONA 1
+      -------------------
+    -->
+    <div class="page">
+      <p class="version"> ID zgłoszenia: <%= study_note.id %>
+        <br>
+        <%= l study_note.created_at, format: "%d.%m.%Y" %>
+      </p>
+      <p class="center">
+        <!-- <img src="logo.svg" width="376" height="108" alt="Logo" /> -->
+        <img src="<%= wicked_pdf_asset_path('warsaw_logo.png') %>" width="137" height="80" alt="Logo" />
+
+      </p>
+      <h1>
+        Potwierdzenie zgłoszenia uwagi do studium
+      </h1>
+
+      <!-- Nazwa projektu -->
+      <h2>Tytuł konsultacji</h2>
+      <div class="section">
+        <div class="fill">
+          <p><%= translated_attribute study_note.component.participatory_space.title %></p>
+        </div>
+      </div>
+
+      <!-- Dane projektodawców -->
+      <div class="section">
+        <h2>Dane zgłoszenia</h2>
+        <table class="w100 collapse pt12 pb12">
+          <tbody>
+          <tr>
+            <td class="w30">
+              <p class="checkbox large <% if study_note.organization_name.blank? %>checked<% end %>">Osoba fizyczna</p>
+            </td>
+            <td class="w70">
+              <p class="checkbox large <% if study_note.organization_name.present? %>checked<% end %>">Jednostka organizacyjna</p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <table class="w100 collapse">
+          <tbody>
+          <% if study_note.organization_name.present? %>
+            <!-- Pokazujemy tylko gdy ktos wybral jednostke organizycjna -->
+            <tr>
+              <td class="w25">
+                <p>Nazwa organizacji</p>
+              </td>
+              <td class="w75" colspan="3">
+                <p class="fill"><%= study_note.organization_name %></p>
+              </td>
+            </tr>
+          <% else %>
+            <!-- Pokazujemy tylko gdy ktos wybral osobe fizyczna -->
+            <tr>
+              <td class="w25">
+                <p>Imię i nazwisko</p>
+              </td>
+              <td class="w75" colspan="3">
+                <p class="fill"><%= study_note.full_name %></p>
+              </td>
+            </tr>
+          <% end %>
+          <tr>
+            <td class="w25">
+              <p><%= study_note.organization_name.present? ? "Adres siedziby" : "Adres zamieszkania" %></p>
+            </td>
+            <td class="w75" colspan="3">
+              <p class="fill"><%= study_note.address %></p>
+            </td>
+          </tr>
+          <tr>
+            <td class="w25">
+              <p>Adres e-mail</p>
+            </td>
+            <td class="w75" colspan="3">
+              <p class="fill"><%= study_note.email %></p>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga</h3>
+        <div class="fill mh100">
+          <p><%= study_note.location_specification %></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Treść uwagi</h3>
+        <div class="fill mh200">
+          <p><%= decidim_sanitize study_note.body %></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Kategoria</h3>
+        <div class="fill">
+          <p><%= study_note.category&.name %></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Załączniki:</h3>
+        <% unless study_note.files.any? %>
+          <div class="fill"></div>
+        <% end %>
+        <% study_note.files.each_with_index do |file, index| %>
+          <div class="fill"><%= index + 1 %>. <%= file.blob.filename %></div>
+        <% end %>
+      </div>
+
+      <div class="section">
+        <h3>Oznaczenia na mapie</h3>
+        
+        <input type="hidden" name="locations" value="<%= study_note.locations %>" />
+        <div id="map"></div>
+      </div>
+    </div>
+    
+    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/geojson-map.js.erb" %>
+  </body>
+</html>

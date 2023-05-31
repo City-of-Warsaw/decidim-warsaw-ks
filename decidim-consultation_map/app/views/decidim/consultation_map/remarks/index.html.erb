@@ -1,0 +1,54 @@
+<%# add_decidim_meta_tags({
+                           title: translated_attribute(current_participatory_space.title),
+                           url: remarks_url
+                         }) %>
+
+<%= render partial: "decidim/shared/component_announcement" %>
+
+<div class="row">
+  <% if current_component.users_action_disallowed? %>
+    <div class="column large-12"> 
+      <div class="callout warning-important">
+        <%= current_component.end_date_message %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="columns mediumlarge-12 large-12">
+    <div class="card card--secondary card--filters">
+      <%= render partial: "filters" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="row medium-up-2 pl-s pr-s">
+    <div class="column">
+      <h3 id="remarks-count" class="title-action__title section-heading remarks">
+        <%= t(".remarks_count", count: search.results.count).html_safe %>
+      </h3>
+    </div>
+  </div>
+  
+  <% if remarks_help_section.present? %>
+    <div class="help-section columns help-section--remarks-map">
+      <div class="row column"> 
+        <div class="ql-editor">
+        <%= quill_sanitize translated_attribute(remarks_help_section) %> 
+        </div> 
+      </div>
+    </div>
+  <% end %>
+
+  <div id="remarks" class="map-remarks columns mediumlarge-12 large-12" aria-live="polite">
+    <div id="map" class="map <%= 'block-commenting' if (current_component.settings[:block_comments] && !current_user&.has_ad_role?) || (current_component.users_action_disallowed? && !(current_user && current_user.has_ad_role?)) %>"></div>
+    <div id="new_remark" class="new-map-remark-box" aria-live="polite" data-href="<%= new_remark_path %>" data-show="<%= remarks_path %>"></div>
+    <%= hidden_field_tag 'markersMap', all_locations %>
+    <%= hidden_field_tag 'coordinates', current_component.custom_settings["locations"] %>
+    <%= render "remarks" %>
+  </div>
+</div>
+
+<%= javascript_include_tag("decidim/comments/comments") %>
+<%= javascript_include_tag("decidim/filters") %>
+<%= javascript_include_tag("polygon-map/polygon-map") %>

@@ -1,0 +1,43 @@
+<div class="hidden">
+  <%= invisible_captcha %>
+  <%= form.hidden_field :locations %>
+</div>
+<% if @form.categories_select.any? %>
+  <div class="field">
+    <%= form.select :decidim_category_id,
+                    @form.categories_select,
+                    { label: t('.wcag_category_label'), include_blank: t(".select_category"), required: true },
+                    { multiple: false } %>
+  </div>
+<% end %>
+<div class="field remark-field--body">
+  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'show-for-sr' %>
+  <%= form.text_area(
+        :body,
+        id: 'add-remark',
+        rows: 4,
+        maxlength: form_object.max_characters,
+        required: true,
+        placeholder: t('activemodel.attributes.remark.body'),
+        label: false,
+        data: { remaining_characters: "#ask_question-remaining-characters" },
+        aria: { describedby: "ask_question-remaining-characters" }
+      ) %>
+  <span id="ask_question-remaining-characters" class="remaining-character-count"></span>
+</div>
+<div class="field file-field remark-field--files">
+  <%= form.file_field :images, 
+        label: false,
+        class: 'multifile hidden',
+        multiple: true,
+        accept: ".jpg,.jpeg,.gif,.png,.bmp"
+  %>
+
+  <button type="button" class="remark-file-button attachment-button-js" data-target="#remark_images">Dodaj załącznik</button>
+</div>
+<% unless current_user %>
+  <div class="field remark-field--signature">
+    <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+    <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
+  </div>
+<% end %>

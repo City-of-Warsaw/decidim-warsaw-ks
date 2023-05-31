@@ -1,0 +1,287 @@
+<% add_decidim_page_title(t("layouts.decidim.header.sign_up") ) %>
+
+<div class="wrapper sign-up-page">
+  <div class="row collapse">
+    <div class="row collapse">
+      <div class="columns large-12 large-centered text-center page-title">
+        <h1 class="main-header" tabindex="-1">
+          <%= t(".sign_up").html_safe %><br />
+          <small class="step-1">Krok 1/2 - <strong>Dane logowania</strong></small>  
+          <small class="step-2">Krok 2/2 - <strong>Ustawienia powiadomień i dane statystyczne</strong></small>
+        </h1>
+
+        <div class="step-1">
+          <%= render 'decidim/devise/shared/speech_bubble' %>
+        </div>
+      </div>
+    </div>
+
+    <% cache current_organization do %>
+      <%= render "decidim/devise/shared/omniauth_buttons" %>
+    <% end %>
+
+    <div class="row">
+      <div class="columns large-6 medium-10 medium-centered">
+        <%= decidim_form_for(@form, namespace: "registration", as: resource_name, url: registration_path(resource_name), html: { class: "register-form new_user", id: "register-form" }) do |f| %>
+          <%= invisible_captcha %>
+          <div class="card mb-0 step-1">
+            <div class="card__content pb-0">
+              <%= form_required_explanation %>
+
+              <div class="user-nickname">
+                <label class="styled-label" for="registration_user_name">  
+                  Nazwa użytkownika<span class="label-required"><span aria-hidden="true">*</span><span class="show-for-sr">Wymagane</span>
+                  </span>
+                </label>
+
+                <span class="help-text" id="aria-nickname">Nazwa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis</span>
+
+                <div class="user-nickname__input">
+                  <div class="prefix" title=""></div>
+                  <%= f.text_field :name,
+                                   label: false,
+                                   required: "required",
+                                   "aria-required": true,
+                                   maxlength: 40,
+                                   hint: "Nazwa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis",
+                                   'aria-describedby': "aria-name",
+                                   size: 40,
+                                   type: "text",
+                                   name: "user[name]",
+                                   id: "user_name",
+                                   format: false
+                  %>
+                </div>
+                <span class="form-error">To pole jest wymagane</span>
+                <div class="user-nickname-usage-msg"></div> 
+              </div> 
+
+              <div class="field">
+                <%= f.email_field :email, autocomplete: 'email', "aria-required": true %>
+
+                <span class="form-error">
+                  Niepoprawny format
+                </span>
+              </div>
+
+              <%= render 'password_fields', f: f %>
+            </div>
+          </div>
+
+          <div class="card step-1">
+            <div class="card__content">
+              <span class="tos-agreement-disclaimer">
+                <%= t(".tos_agreement", link: link_to((t(".terms") + '<span class="show-for-sr"> otwiera się w nowej karcie</span>').html_safe, page_path("terms-and-conditions"), target: "_blank")).html_safe %>
+              </span>
+            </div>
+            <div class="card__content">
+              <div class="field checkbox gray checkboxed">
+                <% rodo = Decidim::StaticPage.find_by(slug: 'rodo') ? page_path("rodo") : nil %>
+                <%= f.check_box :tos_agreement, required: 'required', "aria-required": true, label: t(".rodo_text", link: link_to(rodo ? t(".rodo") : t('.no_rodo_page'), rodo, target: "_blank"))  %>
+              </div>
+            </div>
+          </div>
+
+          <div class="card step-1">
+            <div class="card__content">
+              <div class="actions">
+                <%= link_to "Anuluj", new_user_session_path, class: "link uppercase" %>
+                <%= f.button "Dalej", class: "button button-next-step-js uppercase", type: "button" %>
+              </div>
+            </div>
+          </div>
+ 
+          <div class="card step-2 mb-0">
+            <div class="card__content pb-0">
+              <h4>Powiedz nam coś o swoich zainteresowaniach</h4>
+              <h5>Powiadomimy Cię, kiedy rozpoczną się związane z nimi konsultacje</h5>
+
+              <%= f.select :scopes_ids, @form.available_scopes, { label: "Które dzielnice Cię interesują?", include_blank: false, legend_title: "Wybierz dzielnice" }, { class: 'multiple scopes-ids-select-js', multiple: true, "data-placeholder": "Dzielnice", "aria-controls": "processes", "data-class": "caret-primary pretty-multiselect", "data-style": "--prompt: 'Wybierz jedną lub kilka dzielnic:'" } %>
+
+              <%= f.select :tags_ids, @form.available_tags, { label: "Które tematy Cię interesują?", include_blank: false, legend_title: "Wybierz tematy" }, { class: 'multiple tags-ids-select-js', multiple: true, "data-placeholder": "Tematy", "aria-controls": "processes", "data-class": "caret-primary pretty-multiselect", "data-style": "--prompt: 'Wybierz jeden lub kilka tematów:'" } %>
+
+              
+              <div class="field zip-code-field">
+                <%= f.text_field :zip_code, label: "Która okolica Cię interesuje?", placeholder: "__-___" %>
+                <div class="form-tooltip" tabindex="0">
+                  <div class="form-tooltip__content" id="tooltip-1">
+                    <strong>Wpisz warszawski kod pocztowy,</strong> żeby otrzymywać powiadomienia o konsultacjach w odległości 2 km od tego miejsca.
+                  </div>
+
+                  <div class="form-tooltip__hint" aria-describedby="tooltip-1">
+                    <span aria-hidden="true">?</span>
+                    <span class="show-for-sr">podpowiedź</span>
+                  </div>
+                </div>
+              </div>
+
+              <label>Mamy wysyłać e-maile?</label>
+              <div class="field checkboxed">
+                <%= f.check_box :notifications_from_neighbourhood, label: "Chcę otrzymywać e-maile, kiedy rozpoczną się konsultacje z obszaru moich zainteresowań" %>
+              </div>
+              <div class="field checkboxed">
+                <%= f.check_box :follow_ngo, label: t('follow_ngo', scope: 'decidim.notifications_settings.show') %>
+              </div>
+              <div class="field checkboxed">
+                <%= f.check_box :newsletter_notifications, label: t('newsletter_notifications', scope: 'decidim.notifications_settings.show') %>
+              </div>
+            </div>
+
+            <hr class="full-width">
+
+            <div class="card__content pb-0">
+              <h4>Powiedz nam więcej o sobie</h4>
+              <h5>Wypełnienie tych pól nie jest obowiązkowe, zbieramy te dane do celów statystycznych</h5>
+
+              <div class="row">
+                <div class="columns large-6">
+                  <div class="field select">
+                    <%= f.select :gender,
+                                 @form.user_gender_for_select,
+                                 { include_blank: t(".select_gender") },
+                                 { multiple: false }
+                    %>
+                  </div>
+                </div>
+                <div class="columns large-6">
+                  <div class="field">
+                    <%= f.number_field :birth_year, autocomplete: 'bday-year', placeholder: 'rrrr', "data-validator": "greater_and_lower_than", "data-greater-than": "1899", "data-lower-than": Date.today.year %> 
+                    
+                    <span class="form-error">
+                      Rok urodzenia musi być większy niż 1899 oraz mniejszy lub równy <%= Date.today.year %>
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="columns large-6">
+                  <div class="field select">
+                    <%= f.select :district_id,
+                                @form.user_districts_for_select,
+                                { include_blank: t(".select_district") },
+                                { multiple: false }
+                    %>
+                  </div>
+                </div>
+                
+                <div class="columns large-6">
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <div class="card step-2">
+            <div class="card__content">
+              <div class="actions">
+                <%= f.button "Wróć", class: "link button-previous-step-js mr-auto uppercase", type: "button" %> 
+              
+                <%= link_to "Anuluj", new_user_session_path, class: "link uppercase" %>
+                <%= f.submit "Zarejestruj", class: "button uppercase" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= nonced_javascript_tag do %>
+  function greaterAndLowerThan(
+    $el,      
+    required,  
+    parent     
+  ) { 
+    if (!$el.val()) return true;
+
+    var from = $el.attr('data-greater-than'),
+        to = $el.attr('data-lower-than'),
+        val = $el.val();
+    return (parseInt(val) > parseInt(from) && parseInt(val) <= parseInt(to));
+  };
+ 
+  Foundation.Abide.defaults.validators['greater_and_lower_than'] = greaterAndLowerThan;
+
+  $('#registration_user_name').focusout( function(e) {
+    let value = $(this).val();
+    let href = $(this).data('href');
+    let info_prefix = $('.user-nickname .prefix');
+    let info_container = $('.user-nickname-usage-msg');
+
+    if (value != '') {
+      $.post(href, {_method: 'get', remote: true, nickname: value}, function(data) {  
+        $.globalEval(data, { nonce: $('meta[name=csp-nonce]').attr("content") }); 
+      }, "text");
+    } else {
+      info_prefix.removeClass('success').removeClass('alert');
+      info_prefix.attr('title', '');
+      info_container.removeClass('success').removeClass('alert');
+      info_container.text('');
+    }
+  });
+
+  $(function () {
+    $('#registration_user_zip_code').mask('00-000');
+    $('#registration_user_birth_year').mask('0000');
+
+    $(".scopes-ids-select-js").multiselect({
+      columns: window.innerWidth < 400 ? 1 : 3,
+      search: false,
+      selectAll: true,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: ' wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      },
+      // onControlClose: function (el) {
+      //   $(el).parents('form').submit();
+      // },
+    });
+
+    $(".tags-ids-select-js").multiselect({
+      columns: 1,
+      search: false,
+      selectAll: true,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: ' wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      },
+      // onControlClose: function (el) {
+      //   $(el).parents('form').submit();
+      // },
+    });
+  });
+
+  $('.button-next-step-js').click(function() {
+    $("#register-form").on("formvalid.zf.abide", function(ev,frm) {
+      $('.step-1').hide();
+      $('.step-2').show();
+
+      $(".main-header")[0].scrollIntoView({
+        behavior: "smooth",  
+        block: "start" 
+      });
+    })
+    
+    $("#register-form").foundation('validateForm');
+  });
+
+  $('.button-previous-step-js').click(function() {
+    $('.step-1').show();
+    $('.step-2').hide();
+
+    $(".main-header")[0].scrollIntoView({
+      behavior: "smooth",  
+      block: "start" 
+    });
+  });
+<% end %>

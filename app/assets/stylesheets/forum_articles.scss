@@ -1,0 +1,12 @@
+// remove comments styles to save layout as before adding article comment into thread
+.card.forum-article.show {
+  padding: 35px 100px;
+
+  .comments {
+    padding-top: unset;
+  }
+  .comment-thread {
+    border: 0;
+    margin-bottom: 1rem;
+  }
+}

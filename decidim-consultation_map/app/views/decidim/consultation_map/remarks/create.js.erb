@@ -1,0 +1,10 @@
+// view used only for unregistered users
+(function() { 
+    var newMarkers = "<%= all_locations %>".replaceAll("&quot;", '\"');
+    $('#markersMap').val(newMarkers).trigger('change');
+    let remark_form = $('#new_remark_');
+    let new_remark_header = $('#new-remark-header');
+    new_remark_header.text("<%== t('decidim.consultation_map.remarks.full_edit.header')%>");
+    remark_form.replaceWith("<%== escape_javascript(render 'decidim/consultation_map/remarks/edit_form', form_object: @form, remark: created_remark) %>")
+    
+}());

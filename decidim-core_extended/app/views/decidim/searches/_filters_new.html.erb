@@ -1,0 +1,57 @@
+<label class="text-medium mb-s"><%= t("jump_to", scope: "decidim.searches.filters") %></label>
+<% if params.dig(:filter, :resource_type).present? %>
+  <p class="text-secondary">
+    <%= link_to main_search_path do %>
+      <%= icon "caret-left", class: "icon--small", role: "img", "aria-hidden": true %>&nbsp;<%= t("back", scope: "decidim.searches.filters") %>
+    <% end %>
+  </p>
+<% end %>
+
+<%#= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_participant } %>
+<%= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_participatory_space } %>
+<%= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_remark_comment_remark_map } %>
+<%= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_remark_request_news } %>
+<%= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_question } %>
+<%= render partial: "resources_filter_block", locals: { sections: @sections, types: Decidim::Searchable.searchable_resources_of_type_static_page } %>
+
+<%
+ def filter_scopes_values
+    Decidim::Scope.all.map do |el|
+      [translated_attribute(el.name), el.id]
+    end
+ end
+%>
+
+<hr class="full-width">
+
+<div class="search-scope">
+  <h6>Filtrowanie wyników:</h6>
+
+  <%= filter_form_for filter do |form| %>
+    <%= form.select :decidim_scope_id, filter_scopes_values, { label: false, include_blank: false, legend_title: "Dzielnica" }, { class: 'multiple', multiple: true, "data-placeholder": "Dzielnica", "aria-controls": "processes" } %>
+    <%= form.hidden_field :term %>
+  <% end %>
+</div>
+
+<%= nonced_javascript_tag do %>
+<%#= javascript_tag do %>
+  $(function () {
+    $("select[multiple]").multiselect({
+      columns: 2,
+      search: false,
+      selectAll: true,
+      placeholder: 'Wybierz',
+      showCheckbox: false,
+      texts: {
+        search         : 'Szukaj',
+        selectedOptions: ' wybrano',
+        selectAll      : 'Zaznacz wszystkie',
+        unselectAll    : 'Odznacz wszystkie',
+        noneSelected   : 'Nie zaznaczono'
+      },
+      // onControlClose: function (el) {
+      //   $(el).parents('form').submit();
+      // },
+    });
+  });
+<% end %>

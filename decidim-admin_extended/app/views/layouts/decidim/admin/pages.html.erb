@@ -1,0 +1,16 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= t "decidim.admin.titles.static_pages" %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("static_page_topics.new.create", scope: "decidim.admin"), decidim_admin.new_static_page_topic_path, class: "button expanded small new" %>
+      <%= link_to t("static_pages.new.create", scope: "decidim.admin"), decidim_admin.new_static_page_path, class: "button expanded small new" %>
+      <%= link_to t("contacts.title", scope: "decidim.admin"), decidim_admin_extended.contact_info_positions_path, class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

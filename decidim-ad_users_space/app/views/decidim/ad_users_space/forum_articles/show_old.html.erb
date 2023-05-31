@@ -1,0 +1,52 @@
+<% provide(:title, forum_article.title) %>
+
+<% add_decidim_meta_tags({
+  title: forum_article.title,
+  description: forum_article.body,
+  url: decidim_ad_users_space.edit_admin_forum_article_url(forum_article)
+}) %>
+
+<div class="row column view-header">
+  <div class="m-bottom">
+    <%= link_to forum_articles_path, class: "small hollow" do %>
+      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <span><%= t(".back_to_forum", current: forum_article.title) %></span>
+    <% end %>
+  </div>
+  <hr class="forum-line">
+  <h2 class="heading2"><%= forum_article.title %></h2>
+</div>
+<div class="row">
+  <%= cell("decidim/ad_users_space/forum_article_s", forum_article) %>
+  <div class="column large-12">
+    <div class="card forum-article show">
+      <% if forum_article.comments.any? %>
+        <% forum_article.comments.latest_first.each do |comment| %>
+          <%= cell("decidim/comments/comment", comment) %>
+        <% end %>
+      <% else %>
+        <%= t('.no_comments') %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% content_for :expanded do %>
+  <div class="wrapper wrapper--inner forum-comment-wrapper">
+    <div class="row">
+      <div class="add-comment not-response">
+        <h4 class="section-heading"><%= t('.add_comment') %></h4>
+        <%== cell("decidim/comments/comment_form", forum_article) %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<%= nonced_javascript_tag do %>
+  $(document).ready(function() {
+    $('.new_comment textarea').keyup(function() {
+      $('.button--sc').attr('disabled', false);
+    });
+  });
+<% end %>

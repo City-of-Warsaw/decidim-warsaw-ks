@@ -1,0 +1,14 @@
+<div class="off-canvas-wrapper <%= controller_name == 'projects_lists' ? 'overflow-visible' : nil %>">
+  <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+
+    <div class="off-canvas-content" data-off-canvas-content>
+      <div class="footer-separator">
+        <div id="content">
+          <%= display_flash_messages %>
+          <%= yield %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<%# View for STATIC PAGES (not pages component) - Baza wiedzy %>
+
+<div class="wrapper">
+  <div class="row column">
+    <div class="callout announcement announcement--reports mb-xl">
+       <%= decidim_sanitize translated_attribute page.content %>
+    </div>
+
+    <% contact_info_groups.each do |contact_info_group| %>
+      <div class="page-title-wrapper mt-sm">
+        <h2 class="section-heading mb-sm">
+          <%= contact_info_group.name %>
+          <% if contact_info_group.subtitle.present? %>
+            <span><%= contact_info_group.subtitle %></span>
+          <% end %>
+        </h2>
+      </div>
+
+      <div class="row">
+        <div class="columns small-12">
+          <% contact_info_group.contact_info_positions.published.sorted_by_weight.each do |contact_info_position| %>
+            <div class="card contact-item">
+              <div class="contact-item__fullname">
+                <%= contact_info_position.name %>
+              </div>
+
+              <div class="contact-item__position">
+                <%= contact_info_position.position %>
+              </div>
+              
+              <div class="contact-item__phone">
+                <%= contact_info_position.phone %>
+              </div>
+
+              <div class="contact-item__email">
+                <a href="mailto:<%= contact_info_position.email %>"><%= contact_info_position.email %></a>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div> 
+    <% end %>   
+  </div>
+</div>

@@ -1,0 +1,55 @@
+// view used only for unregistered users
+(function() {
+    let user_question_form = $('#new_user_question_');
+    let new_user_question_header = $('#new-user_question-header');
+    new_user_question_header.text("<%== t('decidim.expert_questions.user_questions.full_edit.header') %>");
+    
+    var closeButton = "<button class='close-button' aria-label='Zamknij' type='button' data-close> <span aria-hidden='true'>&times;</span></button>";
+    user_question_form.replaceWith(closeButton + "<%== escape_javascript(render 'decidim/expert_questions/user_questions/edit_form', form_object: @form, user_question: created_user_question) %>")
+
+    $('#new-user_question-box .close-button').click(function() {
+        window.location.href = $('.back-link').attr("href");
+    });
+
+    $("[data-decidim-comments]").each(function (_i, el) {
+        var $el = $(el);
+        var comments = new Decidim.CommentsComponent($el, $el.data("decidim-comments"));
+        comments.mountComponent();
+        $(el).data("comments", comments);
+    });
+
+    $('#user_questions .comment-field--body textarea').each(function () {
+        $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+    });
+
+    $("#user_questions select:not([multiple=multiple])").select2({
+        minimumResultsForSearch: Infinity,
+    });
+
+    $("#user_questions input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+        max: 5,
+        STRING: {
+            remove: 'usuń',
+            denied: 'Ten format pliku $ext jest niedozwolony.',
+            file: '$file',
+            selected: 'Wybrany plik: $file',
+            duplicate: 'Ten plik już został wybrany:\n$file',
+            toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+            toomany: 'Niedozwolona liczba plików (maks: $max)',
+            toobig: '$file ma za duży rozmiar (maks: $size)'
+        },
+    });
+
+    $("#user_questions .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+        e.preventDefault();
+
+        $(this).addClass("AttachmentButton-applied");
+
+        var target_id = $(this).data("target");
+        $(this).closest("form").find(target_id + " > input")
+          .last()
+          .click();
+    });
+
+    $user_questions.foundation();
+}());

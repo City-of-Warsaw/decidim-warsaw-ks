@@ -1,0 +1,320 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require decidim
+ *= require decidim/comments_extended/application.css
+ *= require decidim/news/application.css
+ *= require decidim/expert_questions/user_questions.scss
+ *= require decidim/remarks/remarks.scss
+ *= require decidim/consultation_map/remarks.scss
+ *= require decidim/users_extended/application.css
+ *= require jquery.multiselect
+ *= require locations-map/leaflet.css
+ *= require polygon-map/polygon-map.css
+ *= require locations-map/autocomplete.min.css
+ *= require locations-map/leaflet-gesture-handling.min.css
+ *= require MarkerCluster
+ *= require forum_articles
+ *= require study_notes
+ *= require search_results
+ *= require knowledge_base
+ *= require authors
+ *= require comments
+ *= require elements
+ *= require forms
+ *= require forum
+ *= require main_page
+ *= require meetings
+ *= require participatory_texts
+ *= require processes
+ *= require swipebox
+ *= require wcag
+ *= require account
+ *= require_self
+ *= require rwd
+ *= require "admin/quill.custom-classes"
+ *= require video-js
+ *= require leaflet.draw
+ *= require "select2.modCS"
+ */
+
+body,
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: Arial, sans-serif !important;
+}
+
+/*header { overflow: hidden; }*/
+.main-header {
+  /* h1 on login and sigh-up pages */
+  font-size: 32px;
+  font-weight: bold;
+  border-bottom: 5px solid #ecf0f1;
+  padding-bottom: 55px;
+  margin-bottom: 85px;
+}
+
+.topbar__notifications,
+.topbar__conversations {
+  text-decoration: none;
+}
+
+#map {
+  width: 100%;
+  height: 600px;
+  border-radius: 5px;
+  border: 1px solid #dbdbdb;
+}
+
+#map .activeArea {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 445px;
+}
+
+.off-canvas-wrapper {
+  background-color: #fff;
+}
+
+/*links */
+a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.external-link-container {
+  display: inline-block;
+}
+
+a.button {
+  text-decoration: none;
+}
+
+.wrapper .wrapper {
+  padding: 0;
+}
+
+/* colors */
+.bg-white {
+  background-color: #ffffff;
+}
+
+.gray {
+  background-color: #ececec;
+  color: #707070;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.white-text {
+  color: #fff;
+}
+
+.alert {
+  color: #e72430;
+}
+
+.success {
+  color: #008000;
+}
+
+.slim {
+  font-weight: lighter;
+}
+
+.strong {
+  font-weight: bold;
+}
+
+.caps {
+  text-transform: uppercase;
+}
+
+.no-borders {
+  border: none;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.card--list__item.border {
+  border: 1px solid var(--primary);
+  margin-bottom: -1px;
+  border-radius: 2px;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+#forum_articles .mb-0 {
+  margin-bottom: -1px !important;
+}
+
+.hidden {
+  display: none;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+/* hr */
+hr.columns.large-6.medium-centered {
+  max-width: 537px;
+  width: 100%;
+  margin-top: 4rem;
+  margin-bottom: 1.5rem;
+  border-color: #dbdbdb;
+}
+
+#statistics .home-pam {
+  margin: 0;
+}
+
+#statistics #participatory_process-statistics .columns.large-8 {
+  width: 100%;
+  margin: auto;
+}
+
+#statistics #participatory_process-statistics h3 {
+  display: none;
+}
+
+.floating-helper-container {
+  display: none;
+}
+
+.floating-helper__trigger {
+  z-index: 3;
+}
+
+.space-stats__data::after {
+  border-left: 4px solid var(--primary);
+  height: 24px;
+  top: calc(50% - 12px);
+}
+
+.space-stats__number {
+  font-size: 40px;
+}
+
+.space-stats__title {
+  font-weight: normal;
+  color: #000;
+}
+
+/***************************/
+
+#consultation_requests nav {
+  width: 100%;
+}
+
+#consultation_requests li.card-data__item {
+  flex-basis: 50%;
+}
+
+/**************************/
+.repository-single-file {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.repository-gallery-box {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -1rem;
+}
+
+.repository-gallery-box a {
+  flex-basis: calc(33.3333% - 1rem);
+  width: calc(33.3333% - 1rem);
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.repository-gallery-box a img.thumbnail {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 0px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.repository-gallery-box a img.zoom-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+/********* ELEMENTS VISIBLE IN RWD ***********/
+.process-nav__trigger[data-toggle] {
+  height: 41px;
+  margin-bottom: 0px;
+  padding: 0.25rem 0;
+}
+
+.process-nav__trigger__icon {
+  top: 0.45rem;
+}
+
+/********* Decidim overwritten, video in public site *********/
+.ql-video {
+  max-width: 1024px;
+}
+
+.button.muted {
+  color: white;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.picker-scrollable-content>ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: calc(90vh - 256px);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus-visible,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

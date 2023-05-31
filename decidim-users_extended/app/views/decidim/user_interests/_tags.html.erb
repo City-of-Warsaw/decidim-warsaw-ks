@@ -1,0 +1,16 @@
+<ul class="no-bullet-indented">
+  <% tags.each do |tag| %>
+    <li>
+      <div class="switch tiny switch-with-label">
+        <%= f.fields_for "tags[]", tag do |form| %>
+          <%= form.label "checked" do %>
+            <%= form.check_box "checked", label: false, class: "switch-input" %>
+            <span class="switch-paddle"></span>
+            <span class="switch-label"><%= tag.name %></span>
+          <% end %>
+          <%= form.hidden_field "id", value: tag.id %>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

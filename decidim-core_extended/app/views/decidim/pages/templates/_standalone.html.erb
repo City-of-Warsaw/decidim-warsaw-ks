@@ -1,0 +1,41 @@
+<%# View for STATIC PAGES (not pages component) - Baza wiedzy %>
+
+<div class="wrapper" id="subcontent">
+  <div class="row column">
+    <div class="page-title-wrapper">
+      <h1 class="heading1 page-title">
+        <%= title %>
+      </h1>
+    </div>
+
+    <% if controller_name == 'pages' && page.show_on_help_page? %>
+      <div class="columns small-12 view-header mb-none">
+        <div class="m-bottom">
+          <%= link_to :pages, class: "small hollow" do %>
+            <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+            <span>Powrót do Bazy Wiedzy</span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <main>
+      <div class="columns small-12">
+        <%= cell "decidim/tos_page", :announcement %>
+
+        <div class="card">
+          <div class="card__content">
+            <div class="ql-editor">
+              <%= decidim_sanitize translated_attribute page.content %>
+            </div>
+            <div class="mt-s">
+              <%= render 'decidim/shared/gallery_attachments', model: page %>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <%= cell "decidim/tos_page", :form %> 
+    </main>
+  </div>
+</div>

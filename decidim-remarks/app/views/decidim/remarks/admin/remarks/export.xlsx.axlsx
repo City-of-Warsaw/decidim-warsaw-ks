@@ -1,0 +1,29 @@
+wb =  xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  sheet.add_row [
+                  'Lp.',
+                  'Autor',
+                  'Treść',
+                  'Liczba komentarzy',
+                  'Podpis',
+                  'E-mail',
+                  'Dzielnica',
+                  'Wiek',
+                  'Płeć',
+                  'Data utworzenia'
+                ]
+  @remarks.each_with_index do |remark, index|
+    sheet.add_row [
+                    index + 1,
+                    remark.author.name,
+                    remark.body,
+                    remark.comments_count,
+                    remark.author_signature,
+                    remark.author_email,
+                    translated_attribute(remark.author_district),
+                    remark.author_age,
+                    remark.author_gender,
+                    l(remark.created_at, format: :short)
+                  ]
+  end
+end

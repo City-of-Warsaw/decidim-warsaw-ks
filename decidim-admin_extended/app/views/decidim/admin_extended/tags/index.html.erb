@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t("tags.title", scope: "decidim.admin") %>
+      <% if allowed_to? :update, :organization %>
+        <%= link_to t("actions.add", scope: "decidim.admin"), new_tag_path, class: "button tiny button--title new" %>
+      <% end %>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <div class="table-scroll">
+      <table class="table-list">
+        <thead>
+          <th><%= t(".headers.name") %></th>
+          <th><%= t(".headers.actions") %></th>
+        </thead>
+
+        <tbody>
+          <%= render partial: "tag", collection: @items.order('name ASC') %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

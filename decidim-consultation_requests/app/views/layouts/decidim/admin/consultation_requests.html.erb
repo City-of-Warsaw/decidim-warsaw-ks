@@ -1,0 +1,14 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= t "decidim.admin.titles.consultation_requests" %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("consultation_requests.new.create", scope: "decidim.admin"), [:new, :admin, :consultation_request], class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

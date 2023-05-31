@@ -1,0 +1,36 @@
+<div class="card__content update-remark" id="editable-remark-<%= remark.id %>">
+  <%= decidim_form_for(form_object, url: decidim_participatory_process_consultation_map.second_step_update_remark_path(remark), method: :patch, remote: true) do |form| %>
+    <div>
+      <p id="email-legend" class="mb-none"><%= t('.email_legend') %></p>
+      <div class="field remark-field--email">
+        <%= form.email_field :email, label: false, placeholder: t("email_placeholder", scope: 'decidim.consultation_map.remarks.form') %>
+      </div>
+    </div>
+    <fieldset>
+      <legend><%= t('.statistics_legend') %></legend>
+      <div class="field remark-field--selects"> 
+        <%= form.select :gender,
+                        form_object.user_gender_for_select,
+                        { include_blank: t("select_gender", scope: 'decidim.consultation_map.remarks.form'), label: false },
+                        { multiple: false } %>  
+        <%= form.select :age,
+                        form_object.user_age_for_select,
+                        { include_blank: t("select_age", scope: 'decidim.consultation_map.remarks.form'), label: false },
+                        { multiple: false } %>   
+        <%= form.select :district_id,
+                        form_object.user_districts_for_select,
+                        { include_blank: t("select_district", scope: 'decidim.consultation_map.remarks.form'), label: false },
+                        { multiple: false } %>
+      </div>
+      <div class="field checkboxed remark-field--rodo rodo-field">
+        <%= form.check_box :rodo, label: t(".rodo"), aria: { describedby: 'email-legend' } %>
+      </div>
+    </fieldset>
+    <div class="row actions">
+      <div class='pull-right'>
+        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+        <%= form.submit t(".save"), class: "button", data: { disable: true } %>
+      </div>
+    </div>
+  <% end %>
+</div>

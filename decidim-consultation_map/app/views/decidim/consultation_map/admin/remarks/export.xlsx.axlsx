@@ -1,0 +1,30 @@
+wb =  xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  sheet.add_row [
+                  'Lp.',
+                  'Autor',
+                  'Treść',
+                  'Liczba komentarzy',
+                  'Podpis',
+                  'E-mail',
+                  'Dzielnica',
+                  'Wiek',
+                  'Płeć',
+                  'Data utworzenia'
+                ]
+  @remarks.each_with_index do |user, index|
+    sheet.add_row [
+                    index + 1,
+                    user.author.name,
+                    user.body,
+                    user.comments_count,
+                    user.signature,
+                    user.email,
+                    translated_attribute(user.district&.name),
+                    # TODO: dodawac rozroznienie: author.is_a?(Decidim::User) ?
+                    user.age.present? ? I18n.t("age.#{user.age}", scope: "decidim.comments") : nil,
+                    user.gender.present? ? I18n.t("gender.#{user.gender}", scope: "decidim.users") : nil,
+                    l(user.created_at, format: :short)
+                  ]
+  end
+end

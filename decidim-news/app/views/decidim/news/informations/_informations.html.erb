@@ -1,0 +1,8 @@
+<% @informations.each_with_index do |information, index| %>
+  <% if (0..2).include?(index) && (params[:page].blank? || params[:page] ==  '1') %>
+    <%= cell "decidim/news/information", information, length: 750, column_size_classes: 'large-12' %>
+  <% else %>
+    <%= cell "decidim/news/information", information, column_size_classes: 'large-4 medium-12' %>
+  <% end %>
+<% end %>
+<%= decidim_paginate @informations %>

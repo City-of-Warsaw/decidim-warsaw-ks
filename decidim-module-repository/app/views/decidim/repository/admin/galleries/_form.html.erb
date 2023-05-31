@@ -1,0 +1,85 @@
+<div class="row column">
+  <%= form.text_field :name %>
+</div>
+<% if @gallery && !@gallery.new_record? %>
+  <div class="row column">
+    <%= form.file_field :images, multiple: true, class: 'multifile' %>
+  </div>
+
+
+  <%#= form.fields_for :gallery_images, @gallery.gallery_images do |gi_form| %>
+    <%#= gi_form.text_field :name %>
+  <%# end %>
+  <h3>Zdjęcia:</h3>
+    <% @gallery.gallery_images.each_with_index do |gi, i| %>
+      <div class="row column">
+        <%= form.fields_for "gallery_images[#{gi.id}]", gi do |gi_form| %>
+          <%= image_tag(decidim_repository.blob_path(gi.file.file.signed_id, filename: gi.file.file.filename, disposition: "attachment", style: 'max-width: 150px')) %>
+          <%= gi_form.hidden_field :id %>
+          <%= gi_form.text_field :name, label: 'Nazwa' %>
+          <%= gi_form.text_field :description, label: 'Opis' %>
+          <%= gi_form.text_field :alt, label: 'Alt' %>
+          <%= gi_form.check_box :_destroy, label: 'Usuń' %>
+          <hr style="margin: 10px 0; width: 100%">
+        <% end %>
+      </div>
+    <% end %>
+
+
+
+
+<!--  <div class="field hashtags__container">-->
+    <!--    <strong>Dokumenty wewnętrzne:</strong>-->
+    <%#= f.file_field :add_files,
+                        multiple: true,
+                        # label: t("add_more_documents", scope: "decidim.projects.projects.edit"),
+                        label: false,
+                        class: 'multifile', style: 'display: block'
+    %>
+    <%# if project && project.internal_documents.any? %>
+    <!--      <div class="row column">-->
+    <!--        <div id="photos" class="gallery row">-->
+    <%# project.internal_documents.each do |photo| %>
+    <%#= link_to photo.url, target: "_blank", rel: "noopener" do %>
+    <%#= strip_tags(translated_attribute(photo.title)) %>
+    <%# end %>
+    <!--            (<label style="display: inline">-->
+    <!--          <%#= check_box_tag 'project[remove_internal_documents][]', photo.id, false %> usuń-->
+    <!--        </label>)-->
+    <!--            <br>-->
+    <%# end %>
+    <!--        </div>-->
+    <!--      </div>-->
+    <%# end %>
+<!--  </div>-->
+
+<% end %>
+
+
+<%= javascript_include_tag "decidim/repository/admin/jquery.MultiFile" %>
+
+<%# TODO: sprawdzic nonce: true i CSP railsowe %>
+<%#= javascript_tag nonce: true do -%>
+<%= nonced_javascript_tag do %>
+  $(function(){
+    $("input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+      STRING: {
+        remove: '(x)',
+        denied: 'Ten format pliku $ext jest niedozwolony.',
+        file: '$file',
+        selected: 'Wybrany plik: $file',
+        duplicate: 'Ten plik już został wybrany:\n$file',
+        toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+        toomany: 'Niedozwolona liczba plików (maks: $max)',
+        toobig: '$file ma za duży rozmiar (maks: $size)'
+      }
+    });
+
+    $('input#search').keydown(function(event){
+      if(event.keyCode == 13) {
+        event.preventDefault();
+        return false;
+      }
+    });
+  });
+<% end %>

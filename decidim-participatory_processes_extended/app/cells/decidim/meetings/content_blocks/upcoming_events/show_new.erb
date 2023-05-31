@@ -1,0 +1,21 @@
+<% if show_content_block? %>
+  <section class="wrapper-home upcoming-events home-section">
+    <div class="row">
+      <h2 class="section-heading">
+        <%= t("decidim.meetings.content_blocks.upcoming_events.upcoming_events") %>
+        <small class="show-for-sr">
+          <%= t("decidim.meetings.content_blocks.upcoming_events.upcoming_events_explanation", count: upcoming_events.size) %>
+        </small>
+      </h2>
+      <div class="row">
+        <div class="columns medium-12">
+          <% if geolocation_enabled? %>
+            <%= cell "decidim/meetings/meetings_map", upcoming_events %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
+<%= javascript_include_tag("locations-map/meetings-map") %>

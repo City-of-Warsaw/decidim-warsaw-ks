@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'><h1 id="decidim-ks">Decidim KS</h1>
+
+<p>Free Open-Source participatory democracy, citizen participation and open government for cities and organizations</p>
+
+<p>This is the open-source repository for decidim_warszawa_ks, based on <a href="https://github.com/decidim/decidim">Decidim</a>.</p>
+
+<h2 id="setting-up-the-application">Setting up the application</h2>
+
+<p>You will need to do some steps before having the app working properly once you&#39;ve deployed it:</p>
+
+<ol>
+<li>Open a Rails console in the server: <code>bundle exec rails console</code></li>
+<li>Create a System Admin user:
+<code>ruby
+user = Decidim::System::Admin.new(email: &lt;email&gt;, password: &lt;password&gt;, password_confirmation: &lt;password&gt;)
+user.save!
+</code></li>
+<li>Visit <code>&lt;your app url&gt;/system</code> and login with your system admin credentials</li>
+<li>Create a new organization. Check the locales you want to use for that organization, and select a default locale.</li>
+<li>Set the correct default host for the organization, otherwise the app will not work properly. Note that you need to include any subdomain you might be using.</li>
+<li>Fill the rest of the form and submit it.</li>
+</ol>
+
+<p>You&#39;re good to go!</p>
+
+<h2 id="dokumentacja-kodu-r-d-owego">Dokumentacja kodu źródłowego</h2>
+
+<p>Kod źródłowy oprogramowania został udokumentowany w formie komentarzy do klas, funkcji i innych składowych systemu. Bazowym językiem stosowanym w komentarzach jest język angielski, ponieważ framework Ruby On Rails oraz rozwiązanie Decidim jest napisane w języku angielskim a ponadto wynika to też z dobrych praktyk programistycznych.</p>
+
+<p>Dokumentacją został objęty kod wytworzony na potrzebę tego projektu w szczególności te obszary, w których zawarta jest logika biznesowa systemu np. gem projects, gem processes.</p>
+
+<p>Środowiskiem programistycznym wykorzystanym przy implementacji systemu jest Ruby On Rails. Istotną wartością tego frameworku jest samodokumentujący się kod źródłowy wynikający z tego w jaki sposób są nazywane funkcje, jak intuicyjna i przejrzysta jest składnia oraz jak naturalnie pisany jest kod by był zrozumiały dla ludzi. W związku z tym została przyjęta zasada, że dokumentacji nie podlegają oczywiste i zrozumiałe linie kodu (np. metoda ujęta w jednej linii). Również z tego powodu by nie robić nadmiarowych tekstów utrudniając programiście pracę nad rozwojem oprogramowania.</p>
+
+<p>Biblioteki zależnie takie jak np. Decidim posiadają własną dokumentację. Dokumentacja tych bibliotek nie wchodzi w zakres dokumentacji projektowej. Aby zapoznać się z dokumentacją oprogramowania stron trzecich należy odwiedzić ich oficjalne strony internetowe.</p>
+
+<p>Wygenerowana dokumentacja znajduje się w katalogu <code>/doc</code> projektu. Aby móc się z nią zapoznać należy uruchomić plik <code>doc/index.html</code> w dowolnej przeglądarce internetowej. Używanie dokumentacji nie wymaga dostępu do Internetu.</p>
+
+<p>Dokumentacja została wygenerowana za pomocą narzędzia <a href="https://yardoc.org">YARD</a>.\
+W celu ponownego wygenerowania lub aktualizacji dokumentacji należy zainstalować narzędzie poleceniem:\
+<code>$ gem install yard</code>\
+a następnie w katalogu głównym aplikacji wywołać komendę do generowania dokumentacji:\
+<code>$ yardoc</code></p>
+</div></div>
+
+      <div id="footer">
+  Generated on Mon Feb 27 19:18:15 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-2.7.5).
+</div>
+
+    </div>
+  </body>
+</html>

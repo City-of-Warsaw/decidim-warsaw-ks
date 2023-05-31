@@ -1,0 +1,22 @@
+<div class="card--list__item">
+  <div class="card--list__text">
+    <div>
+      <a href="<%= decidim_repository.blob_path(file.file.signed_id, filename: file.file.filename, disposition: "attachment") %>" class="card__link" target="_blank">
+        <h4 class="card--list__heading heading6">
+          <%= file.name %>
+          <span class="show-for-sr"> otwiera się w nowej karcie</span>
+        </h4>
+      </a><br />
+
+      <small>
+        <%= file.file.filename.extension_without_delimiter.upcase %>, 
+        <%= '%.2f' % ((file.file.byte_size / 1024000.0).ceil(2)) %> MB
+      </small>
+    </div>
+  </div>
+  <div class="card--list__data">
+    <%= link_to decidim_repository.blob_path(file.file.signed_id, filename: file.file.filename, disposition: "attachment"), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("download", scope: 'decidim.application.document') do %>
+      <%= image_tag 'download-icon.png' %>
+    <% end %>
+  </div>
+</div>

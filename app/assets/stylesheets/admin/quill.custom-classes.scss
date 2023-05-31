@@ -1,0 +1,28 @@
+// Custom styles for Quill editor
+// name of classes have to begins with "custom-"
+// after add or remove css class, remember to update class list
+// in app/assets/javascripts/decidim/editor.js.es6: const styles
+
+.custom-area-color-headline {
+  background-color: #1b7c97;
+  color: white;
+  width: fit-content;
+  display: block;
+
+  &.ql-align-right {
+    margin-left: auto !important;
+  }
+
+  &.ql-align-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  &.ql-align-justify {
+    width: 100% !important;
+  }
+}
+
+.custom-legal-basis {
+  font-size: 12px;
+}

@@ -1,0 +1,18 @@
+var $meetings = $('#meetings');
+var $meetingsCount = $('#meetings-count');
+
+$meetings.html('<%= j(render partial: "meetings").strip.html_safe %>');
+$meetingsCount.html('<%= t(".meetings_count", count: meetings.count).html_safe %>');
+
+var $dropdownMenu = $('.dropdown.menu', $meetings);
+$dropdownMenu.foundation();
+
+var markerData = JSON.parse('<%= escape_javascript meetings_data_for_map(search.results.select(&:geocoded_and_valid?)).to_json.html_safe %>');
+
+var $map = $("#map");
+var controller = $map.data("map-controller");
+if (controller) {
+  controller.clearMarkers();
+  controller.addMarkers(markerData);
+  $('input[name=markersMap]').trigger("change");
+}

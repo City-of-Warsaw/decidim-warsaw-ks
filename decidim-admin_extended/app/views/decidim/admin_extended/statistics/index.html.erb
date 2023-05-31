@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= t("statistics.title", scope: "decidim.admin") %>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <% if statistics.any? %>
+      <div class="table-scroll">
+        <table class="table-list">
+          <thead>
+            <th><%= t(".headers.name") %></th>
+            <th><%= t(".headers.explanation") %></th>
+            <th><%= t(".headers.visible") %></th>
+            <th><%= t(".headers.count") %></th>
+            <th><%= t(".headers.weight") %></th>
+            <th><%= t(".headers.actions") %></th>
+          </thead>
+
+          <tbody>
+            <% statistics.each do |s| %>
+              <%= render "statistic", statistic: s %>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>

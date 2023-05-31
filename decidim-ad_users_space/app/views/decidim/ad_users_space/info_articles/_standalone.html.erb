@@ -1,0 +1,24 @@
+<div class="wrapper" id="subcontent">
+  <div class="row column">
+    <div class="page-title-wrapper">
+      <h1 class="heading1 page-title">
+        <%= title %>
+      </h1>
+    </div>
+
+    <main>
+      <div class="columns small-12">
+        <div class="card">
+          <div class="card__content">
+            <div class="ql-editor">
+              <%= decidim_sanitize article.body %>
+            </div>
+          </div>
+          <div class="card__content">
+            <%= render 'decidim/shared/gallery_attachments', model: article %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

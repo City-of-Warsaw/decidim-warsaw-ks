@@ -1,0 +1,112 @@
+# frozen_string_literal: true
+
+Decidim::MapHelper.class_eval do
+
+  # OVERWRITTEM public decidim method to fetch proper meeting address
+  def static_map_link(resource, options = {}, map_html_options = {}, &block)
+    return unless resource.geocoded_and_valid?
+    return unless map_utility_static || map_utility_dynamic
+
+    # CHANGED LINE:
+    address_text = resource.is_a?(Decidim::Meetings::Meeting) ? resource.try(:found_address) : resource.try(:address)
+    address_text ||= t("latlng_text", latitude: latitude, longitude: longitude, scope: "decidim.map.static")
+    map_service_brand = t("map_service_brand", scope: "decidim.map.static")
+
+    lat = resource.is_a?(Decidim::Meetings::Meeting) ? resource.lat : resource.latitude
+    lng = resource.is_a?(Decidim::Meetings::Meeting) ? resource.lng : resource.longitude
+
+    if map_utility_static
+      map_url = map_utility_static.link(
+        latitude: lat,
+        longitude: lng,
+        options: options
+      )
+
+      # Check that the static map utility actually returns a URL before
+      # creating the static map utility. If it does not, the image would be
+      # otherwise blank.
+      if map_utility_static.url(latitude: lat, longitude: lng)
+        # CHANGED LINE: added bracketS to link_to
+        return link_to(map_url, target: "_blank", rel: "noopener") do
+          image_tag decidim.static_map_path(sgid: resource.to_sgid.to_s), alt: "#{map_service_brand} - #{address_text}"
+        end
+      end
+    end
+
+    # Fall back to the dynamic map utility in case static maps are not
+    # provided.
+    builder = map_utility_dynamic.create_builder(self, {
+      type: :static,
+      latitude: lat,
+      longitude: lng,
+      zoom: 15,
+      title: "#{map_service_brand} - #{address_text}",
+      link: map_url
+    }.merge(options))
+
+    unless snippets.any?(:map)
+      snippets.add(:map, builder.stylesheet_snippets)
+      snippets.add(:map, builder.javascript_snippets)
+
+      # This will display the snippets in the <head> part of the page.
+      snippets.add(:head, snippets.for(:map))
+    end
+
+    builder.map_element(
+      { class: "static-map", tabindex: "0" }.merge(map_html_options),
+      &block
+    )
+  end
+
+  def dynamic_map_for(options_or_markers = {}, html_options = {}, &block)
+    return unless map_utility_dynamic
+
+    options = {
+      popup_template_id: "marker-popup"
+    }
+    if options_or_markers.is_a?(Array)
+      options[:markers] = options_or_markers
+    else
+      options = options.merge(options_or_markers)
+    end
+
+    builder = map_utility_dynamic.create_builder(self, options)
+
+    # The map snippets are stored to the snippets utility in order to ensure
+    # that they are only loaded once during each page load. In case they were
+    # loaded multiple times, the maps would break. We store the map assets to
+    # a special "map" snippets category in order to avoid displaying them
+    # multiple times. Then we inject them to the "head" category during the
+    # first load which will actually display them in the <head> section of the
+    # view.
+    #
+    # Ideally we would use Rails' native content_for here (which is exactly
+    # for this purpose) but unfortunately it does not work in the cells which
+    # also need to display maps.
+    unless snippets.any?(:map_styles) || snippets.any?(:map_scripts)
+      snippets.add(:map_styles, builder.stylesheet_snippets)
+      snippets.add(:map_scripts, builder.javascript_snippets)
+
+      # This will display the snippets in the <head> part of the page.
+      snippets.add(:head, snippets.for(:map_styles))
+      # This will display the snippets in the bottom part of the page.
+      snippets.add(:foot, snippets.for(:map_scripts))
+    end
+
+    map_html_options = { id: "map" }.merge(html_options)
+    bottom_id = "#{map_html_options[:id]}_bottom"
+
+    help = content_tag(:div, class: "map__help") do
+      sr_content = content_tag(:p, t("screen_reader_explanation", scope: "decidim.map.dynamic"), class: "show-for-sr")
+      link = link_to(t("skip_button", scope: "decidim.map.dynamic"), "##{bottom_id}", class: "skip")
+
+      sr_content + link
+    end
+    content_tag :div, class: "row column" do
+      map = builder.map_element(map_html_options, &block)
+      bottom = content_tag(:div, "", id: bottom_id)
+
+      help + map + bottom
+    end
+  end
+end

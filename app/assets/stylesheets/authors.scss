@@ -1,0 +1,38 @@
+.author-data .author__name {
+  color: var(--primary);
+}
+
+#user-questions .author-data,
+.author-data.author-data--small {
+  font-size: 12px;
+
+
+  .author-data__main {
+    time {
+      color: #000;
+      margin-left: 0px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .author-data__extra {
+    color: #000;
+
+    &::before {
+      content: unset;
+    }
+  }
+
+  button.link-alt {
+    background-color: #f8f8f8;
+    padding: 5px 6.5px;
+
+    &:hover {
+      text-decoration: none;
+      filter: brightness(95%);
+    }
+  }
+}

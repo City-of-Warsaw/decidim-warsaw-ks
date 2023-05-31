@@ -1,0 +1,19 @@
+<% add_decidim_meta_tags(
+     title: translated_attribute(info_article.title),
+     description: translated_attribute(info_article.body)
+   ) %>
+
+<% if @info_articles %>
+  <%= render partial: "decidim/ad_users_space/info_articles/tabbed", locals: {
+    title: @info_article.article_category.name,
+    description: @info_article.article_category.description,
+    article: @info_article,
+    articles: @info_articles
+  } %>
+<% else %>
+  <%= render partial: "decidim/ad_users_space/info_articles/standalone", locals: {
+    title: @info_article.title,
+    description: nil,
+    article: @info_article
+  } %>
+<% end %>

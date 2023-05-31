@@ -1,0 +1,267 @@
+/**
+ * Map Location
+ */
+
+var osmUrl = "https://osm.cdsh.dev/hot/{z}/{x}/{y}.png";
+const nominatimUrl = "https://nominatim.cdsh.dev";
+
+// set map
+var map = L.map("study-note-map__map", {
+  minZoom: 10,
+  maxZoom: 15,
+  gestureHandling: true,
+}).setView([52.22977, 21.01178], 11);
+
+var CustomMarker = L.Icon.extend({
+  options: {
+    iconUrl:       <%= "'#{asset_path("locations-map/images/marker-icon.png")}'" %>,
+    iconRetinaUrl: <%= "'#{asset_path("locations-map/images/marker-icon-2x.png")}'" %>,
+    shadowUrl:     <%= "'#{asset_path("locations-map/images/marker-shadow.png")}'" %>,
+    iconSize:    [25, 41],
+    iconAnchor:  [12, 41],
+    popupAnchor: [1, -34],
+    tooltipAnchor: [16, -28],
+    shadowSize:  [41, 41]
+  },
+  _getIconUrl: function (name) {
+    return L.Icon.prototype._getIconUrl.call(this, name);
+  }
+});
+var mapIcon = new CustomMarker();
+
+var featureGroup = new L.FeatureGroup();
+map.addLayer(featureGroup);
+
+var drawControl = new L.Control.Draw({
+  draw: {
+    rectangle: false,
+    circle: false,
+    circlemarker: false,
+    marker: {
+      icon: mapIcon,
+    },
+  },
+  edit: {
+    featureGroup: featureGroup,
+  },
+});
+
+map.addControl(drawControl);
+
+const COLORS = {
+  A: "rgb(179,174,152)",
+  B: "rgb(170,102,205)",
+  C: "rgb(223,233,203)",
+  D: "rgb(232,63,63)",
+  E: "rgb(141,179,66)",
+  F: "rgb(178,178,178)",
+  G: "rgb(128,120,107)",
+};
+
+const TOOLTIP_ZOOM_THRESHOLD = 15;
+
+$("#study-note-map__map").removeAttr("tabIndex");
+
+L.tileLayer(osmUrl, {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+map.attributionControl.setPosition('bottomleft');
+
+function serializeLocations() {
+  $("#study_note_locations").val(JSON.stringify(featureGroup.toGeoJSON()));
+}
+
+map.on(L.Draw.Event.CREATED, function (e) {
+  var layer = e.layer;
+
+  featureGroup.addLayer(layer);
+  serializeLocations();
+});
+
+map.on(L.Draw.Event.EDITED, serializeLocations);
+map.on(L.Draw.Event.DELETED, serializeLocations);
+
+var rasterLayerGroup = L.layerGroup().addTo(map);
+var vectorLayerGroup = L.layerGroup().addTo(map);
+
+var positionMarkerGroup = L.layerGroup().addTo(map);
+
+var loadedRasters = [];
+
+$("#study-note-map__map").on("DOMNodeInserted", function(e) {
+  const image = $(e.target);
+ 
+  if (image.prop("tagName") !== "IMG") return false;
+  if (loadedRasters.includes(image.prop('src'))) return false;
+  
+  $(".raster-select").addClass("auto-is-loading"); 
+
+  image.hide();
+  image.on("load", function() {
+    image.show();
+    $(".raster-select").removeClass("auto-is-loading");
+    loadedRasters.push(image.prop('src'));
+  });
+});
+
+
+$("select[name=raster]").on("change", function () {
+  rasterLayerGroup.clearLayers();
+
+  if (this.value > 0) {
+    rasters[this.value].addTo(rasterLayerGroup);
+  }
+
+  $("#study_note_map_background_id").val(this.value > 0 ? this.value : null);
+  
+  $(`.study-note-map__legend`).removeClass("study-note-map__legend--active");
+  if (this.value) $(`.study-note-map__legend[data-map-background-id=${this.value}]`).addClass("study-note-map__legend--active");
+});
+
+$("select[name=geojson]").on("change", async function () {
+  vectorLayerGroup.clearLayers();
+
+  if (this.value) {
+    const url = vectors[this.value];
+
+    $(".geojson-select").addClass("auto-is-loading");
+
+    if (url.length) {
+      await fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          $(".geojson-select").removeClass("auto-is-loading");
+
+          const layer = L.geoJSON(data, {
+            style: function () {
+              return {
+                fill: true,
+                fillOpacity: 0,
+                color: "#000",
+                weight: 2,
+                interactive: true,
+              };
+            },
+            onEachFeature: function (feature, layer) {
+              layer.bindTooltip(
+                feature.properties.POPUP,
+                {
+                  permanent: false,
+                  direction: "center",
+                  className: "leaflet-custom-tooltip large",
+                  opacity: 1,
+                  interactive: false,
+                }
+              );
+              layer.on({
+                click: function (e) {
+                  e.originalEvent.preventDefault();
+                  e.originalEvent.stopPropagation();
+                  e.originalEvent.target.blur();
+                },
+              });
+            },
+          });
+
+          layer.addTo(vectorLayerGroup);
+        });
+    }
+  }
+  
+  $(`.study-note-map__legend`).removeClass("study-note-map__legend--active");
+  if (this.value) $(`.study-note-map__legend[data-map-background-id=${this.value}]`).addClass("study-note-map__legend--active");
+});
+
+new Autocomplete("search", {
+  // default selects the first item in
+  // the list of results
+  selectFirst: true,
+
+  // The number of characters entered should start searching
+  howManyCharacters: 5, 
+
+  // onSearch
+  onSearch: ({ currentValue }) => {
+    // You can also use static files
+    // const api = '../static/search.json'
+    const api = `${nominatimUrl}/search?format=geojson&limit=5&addressdetails=1&countrycodes=pl&city=Warszawa&street=${encodeURI(
+      currentValue
+    )}`;
+
+    return new Promise((resolve) => {
+      fetch(api)
+        .then((response) => response.json())
+        .then((data) => {
+          resolve(data.features);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
+  },
+  // nominatim GeoJSON format parse this part turns json into the list of
+  // records that appears when you type.
+  onResults: ({ currentValue, matches, template }) => {
+    const regex = new RegExp(currentValue, "gi");
+
+    // if the result returns 0 we
+    // show the no results element
+    return matches === 0
+      ? template
+      : matches
+          .map((element) => {
+            // const display_name = prepareDisplayName(element.properties);
+            return `
+          <li class="loupe">
+            <p>
+              ${element.properties.display_name.replace(
+                regex,
+                (str) => `<b>${str}</b>`
+              )}
+            </p>
+          </li> `;
+          })
+          .join("");
+  },
+
+  // we add an action to enter or click
+  onSubmit: ({ object, element }) => {
+    const { display_name, address } = object.properties;
+    const cord = object.geometry.coordinates;
+
+    positionMarkerGroup.clearLayers();
+
+    // sets the view of the map
+    map.setView([cord[1], cord[0]], 15);
+
+    L.circle([cord[1], cord[0]], 40.0, {
+      color: '#0251fa',
+      fillColor: '#0251fa',
+      opacity: 0.2,
+      fillOpacity: 0.2,
+    }).addTo(positionMarkerGroup);  
+
+    L.circle([cord[1], cord[0]], 15.0, {
+      color: '#0251fa',
+      fillColor: '#0251fa',
+      fillOpacity: 1,
+    }).addTo(positionMarkerGroup);  
+  },
+
+  // get index and data from li element after
+  // hovering over li with the mouse or using
+  // arrow keys ↓ | ↑
+  onSelectedItem: ({ index, element, object }) => {
+    // console.log("onSelectedItem:", index, element, object);
+  },
+
+  // the method presents no results element
+  noResults: ({ currentValue, template }) =>
+    template(`<li>Brak wyników dla: "${currentValue}"</li>`),
+});
+
+$("button.auto-clear").click( function(e) {  
+  positionMarkerGroup.clearLayers();
+})

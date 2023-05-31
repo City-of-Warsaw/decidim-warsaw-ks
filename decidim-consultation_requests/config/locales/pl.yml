@@ -1,0 +1,82 @@
+---
+pl:
+  activemodel:
+    attributes:
+      consultation_request:
+        applicant: Wnioskodawca
+        body: Treść
+        comments_allowed: Włącz komentarze
+        date_of_request: Data złożenia wniosku
+        title: Tytuł
+    activerecord:
+      models:
+        decidim/consultation_requests/consultation_request:
+          one: Wniosek o konsultację
+          few: Wnioski o konsultację
+          many: Wniosków o konsultację
+          other: Wnioski o konsultację
+  decidim:
+    admin:
+      models:
+        consultation_request:
+          fields:
+            applicant: Wnioskodawca
+            title: Tytuł
+            body: Treść
+            comments_allowed: Komentarze
+            date_of_request: Data żłożenia wniosku
+      consultation_requests:
+        create:
+          error: Nie udało się utowrzyć wniosku
+          success: Dodano wniosek
+        update:
+          error: Nie udało się zaktualizować wniosku
+          success: Zaktualizowano wniosek
+        destroy:
+          error: Nie udało się usunąć wniosku
+          success: Usunięto wniosek
+        new:
+          create: Nowy wniosek
+        no_consultation_requests: Brak wniosków o konsultacje
+      titles:
+        consultation_requests: Wnioski o konsultacje
+      menu:
+        consultation_requests: Wnioski o konsultacje
+    admin_log:
+      consultation_request:
+        create: "%{user_name} utworzył(a) Wniosek %{resource_name}"
+        delete: "%{user_name} usunął/ęła Wniosek %{resource_name}"
+        update: "%{user_name} zaktualizował(a) Wniosek %{resource_name}"
+    consultation_requests:
+      actions:
+        attachment_collections: Folder załączników
+        attachments: Załączniki
+      consultation_requests:
+        show:
+          back: Powrót
+          view: Czytaj całość
+      consultation_request_m:
+        applicant: Wnioskodawca
+        date_of_request: Data złożenia
+        official_author: Redakcja serwisu
+      admin:
+        consultation_requests:
+          index:
+            comments_count: "L. komentarzy: %{count}"
+          edit:
+            update: Aktualizuj
+            title: Edytuj wniosek
+          new:
+            create: Utwórz
+            title: Nowy wniosek o konsultację
+      index:
+        description: Lista złożonych wniosków o kinsultacje społeczne
+        title: Wnioski o konsultacje
+      hero:
+        header: Wnioski o konsultacje
+        sub_header: Podtytuł ogólny Konsultacji Społecznych
+    components:
+      consultation_requests:
+        name: Wniski o konsultacje
+    menu:
+      consultation_requests: Wnioski o konsultacje

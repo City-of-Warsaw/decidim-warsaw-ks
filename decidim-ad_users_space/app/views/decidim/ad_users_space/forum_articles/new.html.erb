@@ -1,0 +1,29 @@
+<% provide(:title, t("decidim.forum_articles.index.title")) %>
+
+<% add_decidim_meta_tags({
+                           title: t("decidim.forum_articles.index.title"),
+                           description: t("decidim.forum_articles.index.description"),
+                           url: decidim_ad_users_space.forum_articles_url
+                         }) %>
+
+<div class="row">
+  <h2 class="section-heading"><%= t ".title" %></h2>
+  <%= decidim_form_for(@form, url: forum_articles_path) do |form| %>
+    <div class="field">
+      <div class="hashtags__container relative">
+        <%= form.text_field :title,
+                            placeholder: t(".title_placeholder")
+        %>
+      </div>
+      <div class="hashtags__container relative">
+        <%= form.text_area(
+              :body,
+              rows: 6,
+              required: true,
+              placeholder: t(".body_placeholder")
+            ) %>
+      </div>
+      <button type="submit" class="button button--sc"><%= t(".submit") %></button>
+    </div>
+  <% end %>
+</div>

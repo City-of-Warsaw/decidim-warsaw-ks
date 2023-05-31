@@ -1,0 +1,53 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Lista') do |sheet|
+  sheet.add_row [
+    'Lp.',
+    'ID zgłoszenia',
+    'Typ',
+    'Zgłaszający',
+    'Email',
+    'Ulica',
+    'Numer budynku',
+    'Numer lokalu',
+    'Kod pocztowy',
+    'Miejscowość',
+    'Kategoria',
+    'Podkład mapowy',
+    'Data zgłoszenia',
+    'Oznaczenie nieruchomośći lub obszaru',
+    'Treść uwagi',
+    'Załączniki'
+
+  ]
+
+  @notes.each_with_index do |note, index|
+    if note.files.any?
+      files_list = []
+      note.files.each do |file|
+        files_list << main_app.url_for(file)
+      end
+      note_files = files_list.join(', ')
+    end
+
+    sheet.add_row [
+      index + 1,
+      note.id,
+      note.organization_name.present? ? 'Jednostka organizacyjna' : 'Osoba fizyczna',
+      note.name,
+      note.email,
+      note.street,
+      note.street_number,
+      note.flat_number,
+      note.zip_code,
+      note.city,
+      note.category&.name,
+      note.map_background&.name,
+      l(note.created_at, format: '%d/%m/%Y - %H:%M'),
+      decidim_sanitize(note.location_specification),
+      decidim_sanitize(note.body),
+      note_files
+    ]
+  end
+end

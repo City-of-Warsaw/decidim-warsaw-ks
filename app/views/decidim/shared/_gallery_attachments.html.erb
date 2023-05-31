@@ -1,0 +1,43 @@
+<!-- Images -->
+<% if model.respond_to?(:gallery) && model.gallery && model.gallery.images.any? %>
+  <div class="row gallery">
+    <div class="columns mediumlarge-12 large-12">
+      <div class="section">
+        <h3 class="section-heading">Galeria</h3>
+
+        <div class="repository-gallery-box swipebox">
+          <% model.gallery.images.each do |image| %>
+            <% next unless image.thumbnail_400 %>
+
+            <%= link_to main_app.rails_representation_path(image.thumbnail_900), name: "link", class: 'swipebox' do %>
+              <%= image_tag(main_app.rails_representation_path(image.thumbnail_400), class: 'thumbnail') %>
+              <%= image_tag("zoom-icon.svg", alt: 'Powiększ', class: 'zoom-icon') %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Files -->
+<% if model.respond_to?(:gallery) && model.gallery && model.gallery.files.not_images.any? %>
+  <div class="row gallery">
+    <div class="columns mediumlarge-12 large-12">
+      <div class="section">
+        <h3 class="section-heading">Materiały</h3>
+        <div class="card card--list photos-list">
+          <% model.gallery.files.not_images.each do |file| %>
+            <%= render 'decidim/application/storage_document', file: file %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if model.respond_to?(:file) && model.file %>
+  <div class="repository-single-file fix-swipebox">
+    <%= image_tag decidim_repository.blob_path(model.file.signed_id, filename: model.file.filename, disposition: "attachment", class: 'thumbnail') %>
+  </div>
+<% end %>

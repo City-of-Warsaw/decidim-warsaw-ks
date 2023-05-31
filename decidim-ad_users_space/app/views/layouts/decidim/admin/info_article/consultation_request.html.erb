@@ -1,0 +1,14 @@
+<% content_for :secondary_nav do %>
+  <div class="secondary-nav">
+    <div class="secondary-nav__title">
+      <%= "#{t('decidim.admin.titles.info_articles')}:<br> #{info_article.title}".html_safe %>
+    </div>
+    <div class="secondary-nav__actions">
+      <%= link_to t("info_articles.back_to_index", scope: "decidim.admin"), decidim_info_articles.info_articles_path, class: "button expanded small new" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render "layouts/decidim/admin/application" do %>
+  <%= yield %>
+<% end %>

@@ -1,0 +1,58 @@
+<% add_decidim_meta_tags(title: t("participatory_processes.index.title", scope: "decidim")) %>
+
+<%
+edit_link(
+  decidim_admin_participatory_processes.participatory_processes_path,
+  :read,
+  :process_list
+)
+%>
+
+<%= participatory_space_wrapper do %>
+  <% if promoted_collection.any? && params[:page].blank? && params[:filter].blank? %>
+    <section id="highlighted-processes" class="row section">
+      <h1 class="show-for-sr"><%= t("participatory_processes.index.processes", scope: "layouts.decidim") %></h1>
+      <h2 class="section-heading"><%= t("participatory_processes.index.promoted_processes", scope: "layouts.decidim") %></h2>
+      <% promoted_collection.each do |promoted_item| %>
+        <%= render_highlighted_partial_for promoted_item %>
+      <% end %>
+    </section>
+  <% end %>
+
+  <section id="processes-grid" class="section row collapse">
+    <h2 class="show-for-sr"><%= t("participatory_processes.index.filters", scope: "layouts.decidim") %></h2>
+
+    <%= render "decidim/participatory_processes/participatory_processes/filters" %>
+   
+    <% if collection.any? %>
+      <div class="processes-grid-order-by">
+      </div>
+
+      <h2 class="show-for-sr"><%= t("participatory_processes.index.filtered_processes", scope: "layouts.decidim") %></h2>
+
+      <div class="row collapse order-by">
+        <p class="order-by__text section-heading">
+          <%= t(
+                'found',
+                scope: "decidim.participatory_processes.participatory_processes.filters.counters",
+                count: collection.size
+              ).html_safe %>
+        </p>
+      </div>
+      <p class="loading"><%= t(".loading") %></p>
+      <ul class="row ul-reset small-up-1 medium-up-2 large-up-3 card-grid" role="list">
+        <%= render(filtered_collection) %>
+      </ul>
+      <%= paginate filtered_collection, theme: "decidim" %>
+
+    <% else %>
+      <div class="row column">
+        <div class="callout warning mb-sm">
+          <p><%= t(".no_processes_found") %></p>
+        </div>
+      </div>
+    <% end %>
+  </section>
+<% end %>
+<%= javascript_include_tag "decidim/participatory_processes/filters" %>
+<%= javascript_include_tag "decidim/filters" %>

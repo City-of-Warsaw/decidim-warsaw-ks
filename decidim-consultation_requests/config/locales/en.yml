@@ -1,0 +1,6 @@
+---
+en:
+  decidim:
+    components:
+      consultation_requests:
+        name: Consultation Requests

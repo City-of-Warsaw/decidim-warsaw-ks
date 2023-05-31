@@ -1,0 +1,41 @@
+<% subtitle = content_for(:subtitle) %>
+
+<%= render "layouts/decidim/application" do %>
+  <div class="wrapper">
+    <div class="row collapse">
+      <div class="columns">
+        <h1 class="heading1 show-for-sr">
+          <%= t("title", scope: "layouts.decidim.user_profile") %>
+          <%= " - #{subtitle}" unless subtitle.blank? %>
+        </h1>
+      </div>
+    </div>
+    <div class="row collapse">
+      <div class="main-container">
+        <div class="row collapse main-container--side-panel">
+          <div class="columns medium-4 large-3">
+            <div class="side-panel">
+              <ul class="tabs vertical side-panel__tabs" id="user-settings-tabs">
+                <li class="tabs-title <%= is_active_link?("/account") ? "is-active" : "" %>" <%= is_active_link?("/account") ? "aria-current=true" : "" %> ><a href="/account"><%= t(".account") %></a></li>
+
+                <li class="tabs-title <%= is_active_link?("/user_interests") ? "is-active" : "" %>" <%= is_active_link?("/user_interests") ? "aria-current=true" : "" %> ><a href="/user_interests"><%= t(".my_interests") %></a></li>
+
+                <li class="tabs-title <%= is_active_link?("/notifications_settings") ? "is-active" : "" %>" <%= is_active_link?("/notifications_settings") ? "aria-current=true" : "" %> ><a href="/notifications_settings"><%= t(".notifications_settings") %></a></li>
+                <li class="tabs-title <%= is_active_link?("/data_portability") ? "is-active" : "" %>" <%= is_active_link?("/data_portability") ? "aria-current=true" : "" %> ><a href="/data_portability"><%= t(".my_data") %></a></li>
+                
+                <li class="tabs-title <%= is_active_link?("/account/delete") ? "is-active" : "" %>" <%= is_active_link?("/account/delete") ? "aria-current=true" : "" %> ><a href="/account/delete"><%= t(".delete_my_account") %></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="columns medium-8 large-9">
+            <div class="main-container__content">
+              <div class="tabs-content vertical" aria-hidden="false">
+                <%= yield %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

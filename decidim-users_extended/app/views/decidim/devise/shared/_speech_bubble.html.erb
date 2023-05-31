@@ -1,0 +1,11 @@
+<ul class="speech-bubble blue-light <%= controller_name == 'registrations' ? 'reverted' : '' %>">
+  <% unless controller_name == 'sessions' %>
+    <li><%= t(".already_have_an_account?", link: link_to(t(".sign_in"), new_user_session_path)).html_safe %></li>
+  <% end %>
+  <% unless controller_name == 'registrations' %>
+    <li><%= t(".no_account?", link: link_to(t(".sign_up"), new_user_registration_path)).html_safe %></li>
+  <% end %>
+  <% if controller_name == 'sessions' %>
+    <li><%= t(".forgotten_password?", link: link_to(t(".remind_password"), new_password_path(resource_name))).html_safe %></li>
+  <% end %>
+</ul>

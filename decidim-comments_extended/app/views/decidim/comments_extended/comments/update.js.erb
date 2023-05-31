@@ -1,0 +1,73 @@
+(function() {
+    if ($('.comment__content.edit_comment_<%= @comment.id %>').length > 0) {
+        // edit for registered _author & unregistered_author full edition
+        
+        let signature = '<%== escape_javascript(@comment.signature) %>'
+        
+        if (signature.length > 0)
+            $('.comment__content.edit_comment_<%= @comment.id %>').siblings(".comment__header").find(".author__name").html(signature);
+
+            
+        let commentToEdit = $('#comment_' + <%== @comment.id %>);
+        let commentHtml = '<%== j(render @comment).strip %>';
+        
+        if (!!commentToEdit.closest(".comment__replies").length) {
+            commentToEdit.replaceWith(commentHtml);
+        } else {
+            commentToEdit.parent().parent().replaceWith(commentHtml);
+        }
+        
+    } else {
+    // edit - second step for unregistered_author
+        $('.update-comment')
+          .replaceWith("<%= escape_javascript(render 'decidim/comments_extended/comments/thank_you', message: thank_you_message, close_modal: close_modal) %>");
+    }
+    let editButton = $("[data-id='" + <%== @comment.id %> + "']");
+    editButton.show();
+
+    $('.update-comment.text-center .close-button').click( function(e) {
+        const phantom = $(this).closest(".comment").find(".phantom").first(); 
+
+        if (phantom.length) {
+            const oldId = phantom.attr("id");
+            const newId = oldId?.replace("__phantom", "");
+            phantom.removeClass("phantom");
+            phantom.attr("id", newId); 
+
+            $(this).parent().remove();
+
+            $('.comment-field--body textarea').each(function () {
+              $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+            }); 
+        } else {
+            $(this).parent().replaceWith(`<%= raw cell('decidim/comments/comments', commentable).add_comment %>`); 
+
+            $('.comments > .add-comment .comment-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('.comments > .add-comment .comment-field--body textarea'))); 
+  
+            $(".comments > .add-comment input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+                max: 5,
+                STRING: {
+                  remove: 'usuń',
+                  denied: 'Ten format pliku $ext jest niedozwolony.',
+                  file: '$file',
+                  selected: 'Wybrany plik: $file',
+                  duplicate: 'Ten plik już został wybrany:\n$file',
+                  toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+                  toomany: 'Niedozwolona liczba plików (maks: $max)',
+                  toobig: '$file ma za duży rozmiar (maks: $size)'
+                }, 
+              });
+
+            $(".comments > .add-comment .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+                e.preventDefault();
+                
+                $(this).addClass("AttachmentButton-applied");
+
+                var target_id = $(this).data("target");
+                $(this).closest("form").find(target_id + " > input")
+                    .last()
+                    .click();
+            });
+        }
+    });
+}());

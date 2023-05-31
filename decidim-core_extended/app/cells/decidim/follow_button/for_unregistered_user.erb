@@ -1,0 +1,14 @@
+<%= action_authorized_button_to(
+      :follow,
+      decidim.follow_path,
+      resource: model,
+      class: button_classes,
+      params: { follow: { followable_gid: model.to_sgid.to_s, inline: inline? } }, 
+      :'aria-haspopup' => true,
+      remote: true) do %>
+  <span>
+    <%= image_tag 'bell-white-icon.png', alt: '' %>
+    <%= t("follows.create.button", scope: "decidim") %>
+    <%= render_screen_reader_title_for(model) %>
+  </span>
+<% end %>

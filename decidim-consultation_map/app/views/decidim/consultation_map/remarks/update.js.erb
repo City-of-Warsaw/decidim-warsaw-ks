@@ -1,0 +1,44 @@
+var $newRemarkBox = $('#new_remark');
+var closeButton = "<button class='close-button' aria-label='Zamknij' type='button' data-close> <span aria-hidden='true'>&times;</span></button>";
+
+$newRemarkBox.html(closeButton + "<%= escape_javascript(render 'decidim/consultation_map/remarks/remark', remark: @remark, for_reader: '') %>");
+
+$newRemarkBox.foundation();
+
+$('#new_remark' + " input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+  max: 5,
+  STRING: {
+    remove: 'usuń',
+    denied: 'Ten format pliku $ext jest niedozwolony.',
+    file: '$file',
+    selected: 'Wybrany plik: $file',
+    duplicate: 'Ten plik już został wybrany:\n$file',
+    toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+    toomany: 'Niedozwolona liczba plików (maks: $max)',
+    toobig: '$file ma za duży rozmiar (maks: $size)'
+  }, 
+});
+
+$('#new_remark' + ' .comment-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('#new_remark' + ' .comment-field--body textarea'))); 
+
+$('#new_remark' + " .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+  e.preventDefault(); 
+  
+  $(this).addClass("AttachmentButton-applied");
+
+  var target_id = $(this).data("target"); 
+  $(this).closest("div").find(target_id + " > input")
+      .last()
+      .click();
+});
+
+$('#new_remark' + " [data-decidim-comments]").each(function (_i, el) {
+  var $el = $(el);
+  var comments = new Decidim.CommentsComponent($el, $el.data("decidim-comments"));
+  comments.mountComponent();
+  $(el).data("comments", comments);
+});
+
+$('#new_remark .close-button').click(function() {
+    $('#new_remark').html('');  
+ });

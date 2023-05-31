@@ -1,0 +1,18 @@
+<div class="row column">
+  <% if form.persisted? %>
+    <%= f.select :process_id, form.participatory_processes_for_select.<<([form.process.title['pl'], form.process_id]), {}, { disabled: true } %>
+  <% else %>
+    <%= f.select :process_id, form.participatory_processes_for_select %>
+  <% end %>
+</div>
+
+<div class="row column">
+  <%= f.number_field :weight %>
+</div>
+
+
+<%= nonced_javascript_tag do %>
+  $(document).ready(function() {
+      $('select').select2();
+  });
+<% end %>

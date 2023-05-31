@@ -1,0 +1,373 @@
+<% if current_component.description.present? %>
+  <div class="help-section">
+    <div class="row column"> 
+      <div class="ql-editor">
+      <%= quill_sanitize translated_attribute(current_component.description) %> 
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<div class="study-note-wrapper"> 
+  <div class="row columns"> 
+    <div class="settings">
+      <div class="auto-search-wrapper">
+        <input type="text"
+              autocomplete="off"
+              id="search"
+              class="full-width"
+              placeholder="Wpisz adres, żeby przybliżyć mapę"
+              aria-label="wpisz adres, żeby przybliżyć mapę, po wpisaniu 5 znaków wybierz z opcji poniżej">
+      </div>
+
+      <% if backgrounds.raster_file_type.present? %>
+        <div class="raster-select">
+          <%= collection_select 'type', 'raster', backgrounds.raster_file_type, :id, :name, { prompt: 'Wybierz jedną z map Studium' }, name: 'raster', aria: { label: "Mapa rastrowa" } %>
+        </div>
+      <% end %>
+
+      <% if backgrounds.vector_file_type.present? %>
+        <div class="geojson-select">
+          <%= collection_select 'type', 'geojson', backgrounds.vector_file_type, :id, :name, { prompt: 'Wybierz jedną z map Studium' }, name: 'geojson', aria: { label: "Mapa wektorowa" } %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= nonced_javascript_tag do %>
+  let rasters = [];
+  let vectors = [];
+
+  <% backgrounds.each do |map_bg| %>
+    <% if map_bg.raster_file_type? %>
+      rasters[<%= map_bg.id %>] = L.imageOverlay("<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>", [
+            [<%= map_bg.x_latitude || 0 %>, <%= map_bg.x_longitude || 0 %>],
+            [<%= map_bg.y_latitude || 0  %>, <%= map_bg.y_longitude || 0 %>],
+          ]);
+    <% end %>
+
+    <% if map_bg.vector_file_type? %>
+        vectors[<%= map_bg.id %>] = "<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>";
+    <% end %>
+  <% end %>
+<% end %>
+ 
+<div class="study-note-map">
+  <div id="study-note-map__map"></div>
+
+  <% if legends.present? %>
+    <div class="study-note-map__legends study-note-map__legends--desktop">
+      <% legends.each do |id, items| %>
+        <div class="study-note-map__legend" data-map-background-id="<%= id %>">
+          <% items.each do |item| %>
+            <div class="study-note-map__legend-item">
+              <div class="study-note-map__legend-header">
+                <h5><%= item.name %>:</h5>
+              </div>
+
+              <div class="study-note-map__legend-image">
+                <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
+              </div>
+            </div>
+          <% end %> 
+        </div>
+      <% end %>
+
+      <div class="study-note-map__heading">Legenda</div>
+    </div>
+
+    <div class="study-note-map__legends study-note-map__legends--mobile">
+      <% legends.each do |id, items| %>
+        <div class="study-note-map__legend" data-map-background-id="<%= id %>">
+          <% items.each do |item| %>
+            <div class="study-note-map__legend-item">
+              <div class="study-note-map__legend-header">
+                <h5><%= item.name %>:</h5>
+              </div>
+
+              <div class="study-note-map__legend-image">
+                <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
+              </div>
+            </div>
+          <% end %> 
+        </div>
+      <% end %>
+
+      <div class="study-note-map__heading">Legenda:</div>
+    </div>
+  <% end %>
+</div>
+
+<%= javascript_include_tag("geojson-map/leaflet.draw.modCS") %>
+<%= javascript_include_tag("geojson-map/geojson-map") %>
+
+
+<div class="study-note-wrapper"> 
+  <div class="row columns"> 
+    <%= decidim_form_for(@form) do |form| %>
+      <%#= invisible_captcha %>
+
+      <% if @form.map_backgrounds_raster %>
+        <%= form.hidden_field :map_background_id, multiple: false %> 
+      <% end %>
+
+      <div class="form-head">
+        <h2>Uwaga do studium</h2>
+
+        <div>
+          Data zgłoszenia:
+          <strong><%= Time.now.strftime("%d.%m.%Y") %></strong>
+        </div>
+      </div>
+
+      <div class="author-type-radio">
+        <div>
+          <input type="radio" id="author_type_person" name="study_note[author_type]" value="person" checked>
+          <label for="author_type_person">Osoba fizyczna</label>
+        </div>
+
+        <div>
+          <input type="radio" id="author_type_organization" name="study_note[author_type]" value="organization">
+          <label for="author_type_organization">Jednostka organizacyjna</label>
+        </div>
+      </div>
+
+      <%= form.hidden_field :locations %>
+
+      <h3 class="person-form">Twoje dane</h3>
+      <h3 class="organization-form hidden">Dane jednostki</h3>
+
+      <div class="author-type-form narrow-part person-form">
+        <div class="narrow-part__fields">
+          <div class="field">
+            <%= form.text_field :first_name, label: t('activemodel.attributes.study_note.first_name') + "*",  required: true, autocomplete: "given-name"  %>
+            <span class="form-error">To pole jest wymagane</span>
+          </div>
+
+          <div class="field">
+            <%= form.text_field :last_name, label: t('activemodel.attributes.study_note.last_name') + "*",  required: true, autocomplete: "family-name" %>
+            <span class="form-error">To pole jest wymagane</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="author-type-form narrow-part organization-form hidden">
+        <%= form.text_field :organization_name, label: t('activemodel.attributes.study_note.organization_name') + "*", autocomplete: "organization" %>
+        <span class="form-error">To pole jest wymagane</span>
+      </div>
+
+      <div class="narrow-part">
+        <%= form.email_field :email, label: t('activemodel.attributes.study_note.email'), value: current_user.present? ? current_user.email : nil, autocomplete: "email" %>
+      </div>
+
+      <h3 class="person-form">Adres zamieszkania</h3>
+      <h3 class="organization-form hidden">Adres siedziby</h3>
+
+      <div class="narrow-part">
+        <%= form.text_field :street, label: t('activemodel.attributes.study_note.street'),  required: true, autocomplete: "street-address" %>
+        <span class="form-error">To pole jest wymagane</span>
+      </div>
+
+      <div class="narrow-part">
+        <div class="narrow-part__fields">
+          <div class="field">
+            <%= form.text_field :street_number, label: t('activemodel.attributes.study_note.street_number'),  required: true, autocomplete: "street-address"  %>
+            <span class="form-error">To pole jest wymagane</span>
+          </div>
+
+          <div class="field">
+            <%= form.text_field :flat_number, label: t('activemodel.attributes.study_note.flat_number')%>
+          </div>
+        </div>
+
+        <div class="narrow-part__fields">
+          <div class="field">
+            <%= form.text_field :zip_code, label: t('activemodel.attributes.study_note.zip_code'), required: true, maxlength: 12, data: { "disable-character-counter": true }, autocomplete: "postal-code"  %>
+            <span class="form-error">To pole jest wymagane</span>
+          </div>
+
+          <div class="field">
+            <%= form.text_field :city, label: t('activemodel.attributes.study_note.city'),  required: true, autocomplete: "address-level2" %>
+            <span class="form-error">To pole jest wymagane</span>
+          </div>
+        </div>
+      </div>
+
+      <h3>Czego dotyczy uwaga?</h3>
+
+      <label class="styled-label position-relative" for="study_note_location_specification">
+        <%= t('activemodel.attributes.study_note.location_specification') %>*
+        <div class="study-note-tooltip" tabindex="0">
+          <div class="study-note-tooltip__content" id="tooltip-1">
+            <strong>Oznaczenie nieruchomości możesz określić w jeden z trzech sposobów:</strong>
+            <p>
+              1. podając numery działki ewidencyjnej i obrębu geodezyjnego (np. „działka 1/1, obręb 5-03-02”)<br />
+              2. wpisując adres (np. „pl. Bankowy 3/5”)<br />
+              3. opisowo (np. „obszar między ulicami Elektoralną, Orlą, al. Solidarności i pl. Bankowym”).<br />
+              Jeśli uwaga dotyczy całego miasta, wpisz np. „Warszawa" lub „całe miasto”.
+            </p>
+          </div>
+
+          <%= image_tag("help-icon.svg", alt: 'Pomoc') %>
+        </div>
+      </label>
+      <%= form.text_field :location_specification, label: false, required: true, aria: { describedby: "tooltip-1" } %>
+      <span class="form-error">To pole jest wymagane</span>
+
+      <%= form.text_area(
+            :body,
+            id: 'study_note_body',
+            rows: 8,
+            maxlength: @form.max_characters,
+            required: true,
+            label: t('activemodel.attributes.study_note.body'),
+            data: { remaining_characters: "#add_study_note-remaining-characters" },
+            aria: { describedby: "add_study_note-remaining-characters" }
+          ) %>
+      <span class="form-error">To pole jest wymagane</span>
+
+      <div class="field file-field position-relative">
+        <%= form.file_field :files,
+                            label: false,
+                            class: 'multifile hidden multifile--study-note-form',
+                            accept: ".pdf,.jpg,.png,.doc,.docx,.odt,.rtf",
+                            multiple: true
+        %>
+
+        <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_files" aria-describedby="tooltip-2">Dodaj załączniki (maksymalnie 2)</button>
+
+        <div class="study-note-tooltip" tabindex="0">
+          <div class="study-note-tooltip__content study-note-tooltip__content--small" id="tooltip-2">
+            <strong>Ograniczenia dotyczące plików:</strong>
+            <p>
+              1. Maksymalny rozmiar pliku: 5MB<br />
+              2. Dozwolone rozszerzenia plików: pdf, jpg, png, doc, docx, odt, rtf
+            </p>
+          </div>
+
+          <%= image_tag("help-icon.svg", alt: 'Pomoc') %>
+        </div>
+      </div>
+
+      <div class="narrower-part">
+        <%= form.select :category_id,
+                      @form.categories_select,
+                      { label: false, include_blank: t(".select_category") + '*' },
+                      { multiple: false, required: true, aria: { label: "Kategoria" } } %> 
+        <span class="form-error">To pole jest wymagane</span>
+      </div>
+
+      <small class="muted">Pola oznaczone gwiazdką są obowiązkowe</small>
+
+      <div class="form-actions">
+        <div class="field rodo-field checkboxed">
+          <div>
+            <%= form.check_box :rodo, label: t(".rodo") %>
+          </div>
+          
+          <div>
+            <%= form.check_box :acknowledged, label: t(".acknowledged"), required: true %>
+          </div>
+        </div>  
+
+        <div class='buttons'>
+          <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
+          <%= form.submit t(".create"), class: "button", data: { disable: true } %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="form-disclaimer">
+      <%= t(".tos_agreement", link: link_to((t(".terms") + '<span class="show-for-sr"> otwiera się w nowej karcie</span>').html_safe, decidim.page_path("rodo-studium"), target: "_blank")).html_safe %>
+    </div>
+
+  </div>
+</div>
+
+<%= javascript_include_tag "jquery.MultiFile" %>
+
+<%= nonced_javascript_tag do %>
+  $(function(){  
+    $('input[type=radio]').change(function() { 
+      if (this.value === 'person') {
+        $(".organization-form").hide();
+        $(".person-form").show();
+
+        $(".organization-form input").removeAttr("required");
+        $(".person-form input").attr("required", "required");
+      } else if (this.value === 'organization') {
+        $(".person-form").hide();
+        $(".organization-form").show();
+
+        $(".person-form input").removeAttr("required");
+        $(".organization-form input").attr("required", "required");
+      }
+    });
+
+    $("input[type=file].multifile--study-note-form").not(".MultiFile-applied").MultiFile({
+      max: 2,
+      STRING: {
+        remove: 'usuń',
+        denied: 'Ten format pliku $ext jest niedozwolony.',
+        file: '$file',
+        selected: 'Wybrany plik: $file',
+        duplicate: 'Ten plik już został wybrany:\n$file',
+        toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+        toomany: 'Niedozwolona liczba plików (maks: $max)',
+        toobig: '$file ma za duży rozmiar (maks: $size)'
+      },
+      afterFileAppend: function(element, value, master_element) {
+        if(master_element.files.length >= 2) {
+           $(".attachment-button-js").hide();
+        }
+      },
+      afterFileRemove: function(element, value, master_element) {
+        if(master_element.files.length < 2) {
+           $(".attachment-button-js").show();
+        }
+      },
+    });
+
+    document.getElementById("new_study_note_").addEventListener("reset", () => {
+      featureGroup.clearLayers();
+
+      $("input[type=file].multifile").MultiFile("reset");
+
+      $(".organization-form").hide();
+      $(".person-form").show();
+
+      $(".organization-form input").removeAttr("required");
+      $(".person-form input").attr("required", "required");
+    });
+
+    $('.study-note-map__legend-header').click(function() { 
+      const $parent = $(this).parent();
+      const isActive = $parent.hasClass("study-note-map__legend-item--active");
+
+      if (isActive) {
+        $parent.removeClass("study-note-map__legend-item--active");
+      } else {
+        $parent.addClass("study-note-map__legend-item--active");
+
+        $parent.siblings().removeClass("study-note-map__legend-item--active");
+      }
+    });
+
+    $('#study_note_email').change(function(e) { 
+      if (e.target.value.length > 0) {
+        $("#study_note_rodo").attr("required", "required");
+      } else {  
+        $("#study_note_rodo").removeAttr("required");
+        $("#study_note_rodo").removeClass("is-invalid-input");
+        $("label[for=study_note_rodo]").removeClass("is-invalid-label");
+      }
+    });   
+
+    if ($('#study_note_email').val().length > 0) {
+      $("#study_note_rodo").attr("required", "required");
+    } else {  
+      $("#study_note_rodo").removeAttr("required");
+    }
+  });
+<% end %>
