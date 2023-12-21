@@ -1,3 +1,5 @@
+Przetłumaczone dnia 31.05.2021 r.
+
 # Umowa Społeczna Decidim
 
 Kodeks gwarancji demokratycznych i otwartej współpracy
