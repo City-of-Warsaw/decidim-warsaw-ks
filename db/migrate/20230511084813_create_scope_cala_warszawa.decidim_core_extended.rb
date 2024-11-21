@@ -4,6 +4,7 @@ class CreateScopeCalaWarszawa < ActiveRecord::Migration[5.2]
     reversible do |dir|
       dir.up do
         organization = Decidim::Organization.first
+        unless Decidim::Organization.nil?
         district_scope_type = Decidim::ScopeType.find_or_create_by(
           name: { "pl": "dzielnicowy" },
           plural: { "pl": "dzielnicowe" },
@@ -23,6 +24,7 @@ class CreateScopeCalaWarszawa < ActiveRecord::Migration[5.2]
             scope_type_id: citywide_scope_type.id,
             code: 'om'
           )
+        end
         end
       end
 

@@ -11,7 +11,8 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
   s.homepage = 'https://github.com/decidim/decidim-remarks'
   s.required_ruby_version = '>= 2.7'
-
+  s.authors = [""]
+  s.email = []
   s.name = 'decidim-comments_extended'
   s.summary = 'A decidim comments extension module'
   s.description = 'MOdule that extends Decdim Comments functionalities'

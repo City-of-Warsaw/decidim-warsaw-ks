@@ -73,7 +73,7 @@ Decidim.configure do |config|
   #
   config.maps = {
     provider: :osm,
-    api_key: Rails.application.secrets.maps[:api_key],
+    api_key: nil,
     dynamic: {
       tile_layer: {
         # url: "https://tiles.example.org/{z}/{x}/{y}.png?key={apiKey}&{foo}",

@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-consultation_map"
   s.required_ruby_version = ">= 2.7"
-
+  s.authors = [""]
+  s.email = []
   s.name = "decidim-consultation_map"
   s.summary = "A decidim consultation_map component"
   s.description = "Component that allows to build a map for Participatory Space and allows users to add remarks on it."

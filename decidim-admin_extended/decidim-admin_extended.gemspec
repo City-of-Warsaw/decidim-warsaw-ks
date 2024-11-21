@@ -10,6 +10,8 @@ Gem::Specification.new do |spec|
 	spec.summary     = "Summary of Decidim::AdminExtended."
 	spec.description = "Description of Decidim::AdminExtended."
 	spec.license     = "MIT"
+  spec.authors = [""]
+  spec.email = []
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

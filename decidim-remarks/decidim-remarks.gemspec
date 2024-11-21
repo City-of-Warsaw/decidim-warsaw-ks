@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-remarks"
   s.required_ruby_version = ">= 2.7"
-
+  s.authors = [""]
+  s.email = []
   s.name = "decidim-remarks"
   s.summary = "A decidim remarks module"
   s.description = "Component for adding Remarks."

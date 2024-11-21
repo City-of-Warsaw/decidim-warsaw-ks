@@ -6,6 +6,8 @@ require "decidim/rest_api/version"
 
 Gem::Specification.new do |s|
   s.version = Decidim::RestApi.version
+  s.authors = [""]
+  s.email = []
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-module-rest_api"
   s.required_ruby_version = ">= 2.7"

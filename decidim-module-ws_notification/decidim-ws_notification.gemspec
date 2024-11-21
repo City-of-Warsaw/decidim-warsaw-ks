@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-module-ws_notification"
   s.required_ruby_version = ">= 2.7"
-
+  s.authors = [""]
+  s.email = []
   s.name = "decidim-ws_notification"
   s.summary = "A decidim ws_notification module for Warszawski System Powiadomien"
   s.description = "."

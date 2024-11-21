@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-module-consultation_requests"
   s.required_ruby_version = ">= 2.7"
-
+  s.authors = [""]
+  s.email = []
   s.name = "decidim-consultation_requests"
   s.summary = "A decidim consultation_requests module"
   s.description = "Module for managing requests for consultations."

@@ -9,7 +9,8 @@ Gem::Specification.new do |s|
   s.license = "AGPL-3.0"
   s.homepage = "https://github.com/decidim/decidim-module-ad_users_space"
   s.required_ruby_version = ">= 2.7"
-
+  s.authors = [""]
+  s.email = []
   s.name = "decidim-ad_users_space"
   s.summary = "A decidim ad_users_space module"
   s.description = "Space dedicated fot users with AD permissions."
