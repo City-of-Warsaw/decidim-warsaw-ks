@@ -1,9 +1,34 @@
 # frozen_string_literal: true
 
 Decidim::Forms::Admin::UpdateQuestionnaire.class_eval do
+  include Decidim::Repository::Admin::GalleriesHelper
+
+  # overwritten method
+  # add gallery
+  def call
+    return broadcast(:invalid) if @form.invalid?
+
+    Decidim.traceability.perform_action!("update",
+                                         @questionnaire,
+                                         @user) do
+      Decidim::Forms::Questionnaire.transaction do
+        if @questionnaire.questions_editable?
+          update_questionnaire_questions
+          delete_answers unless @questionnaire.published?
+        end
+
+        update_questionnaire
+        add_gallery(@questionnaire)
+      end
+    end
+
+    broadcast(:ok)
+  end
+
   private
 
-  # Overwritten - added file_id and gallery_id
+  # overwritten method
+  # add attrs
   def update_questionnaire_question(form_question)
     question_attributes = {
       body: form_question.body,
@@ -13,8 +38,10 @@ Decidim::Forms::Admin::UpdateQuestionnaire.class_eval do
       question_type: form_question.question_type,
       max_choices: form_question.max_choices,
       max_characters: form_question.max_characters,
+      # custom:
       file_id: form_question.file_id,
-      gallery_id: form_question.gallery_id
+      gallery_id: form_question.gallery_id,
+      random_order: form_question.random_order
     }
 
     update_nested_model(form_question, question_attributes, @questionnaire.questions) do |question|
@@ -35,7 +62,9 @@ Decidim::Forms::Admin::UpdateQuestionnaire.class_eval do
           condition_type: form_display_condition.condition_type,
           condition_value: type == "match" ? form_display_condition.condition_value : nil,
           answer_option: %w(equal not_equal).include?(type) ? form_display_condition.answer_option : nil,
-          mandatory: form_display_condition.mandatory
+          mandatory: form_display_condition.mandatory,
+          # FIX saving display_condition: https://github.com/decidim/decidim/issues/13788
+          decidim_question_id: form_display_condition.decidim_question_id
         }
 
         next if form_display_condition.deleted? && form_display_condition.id.blank?
@@ -43,9 +72,10 @@ Decidim::Forms::Admin::UpdateQuestionnaire.class_eval do
         update_nested_model(form_display_condition, display_condition_attributes, question.display_conditions)
       end
 
-      form_question.matrix_rows.each do |form_matrix_row|
+      form_question.matrix_rows_by_position.each_with_index do |form_matrix_row, idx|
         matrix_row_attributes = {
-          body: form_matrix_row.body
+          body: form_matrix_row.body,
+          position: form_matrix_row.position || idx
         }
 
         update_nested_model(form_matrix_row, matrix_row_attributes, question.matrix_rows)
@@ -53,11 +83,14 @@ Decidim::Forms::Admin::UpdateQuestionnaire.class_eval do
     end
   end
 
-  # Overwritten - added file_id and gallery_id
+
+  # overwritten method
+  # add attrs
   def update_questionnaire
     @questionnaire.update!(title: @form.title,
                            description: @form.description,
                            tos: @form.tos,
+                           # custom:
                            file_id: @form.file_id,
                            gallery_id: @form.gallery_id)
   end

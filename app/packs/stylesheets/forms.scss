@@ -1,0 +1,422 @@
+/******************  DEFAULT  ******************/
+.hashtags__container.relative {
+  position: relative;
+  padding-bottom: 25px;
+}
+
+.auto-search-wrapper input,
+[type="text"],
+[type="password"],
+[type="date"],
+[type="datetime"],
+[type="datetime-local"],
+[type="month"],
+[type="week"],
+[type="email"],
+[type="number"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="url"],
+[type="color"],
+textarea,
+select,
+.select2 {
+  border-color: #8c8c8c !important;
+  box-shadow: none;
+  height: 3rem;
+  border-radius: 4px;
+
+  &::placeholder {
+    color: #3d393c;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+}
+
+.field.checkbox:not(.checkboxed) {
+  input {
+    //display: inline-block;
+    width: 13px;
+    border-radius: 3px;
+    vertical-align: top;
+    margin-top: 6px;
+  }
+
+  label {
+    width: calc(100% - (15px + 0.5rem));
+    margin-right: 0;
+  }
+}
+
+.field.select {
+  position: relative;
+
+  select {
+    background-image: url("images/carret-down.png");
+    //background-image: url('images/rectangle.png');
+    background-size: auto;
+    background-position: calc(100% + 3rem + 2px) center;
+    background-repeat: no-repeat;
+    //background-color: var(--primary);
+    padding-right: 3rem;
+  }
+
+  //.show-options {
+  //  cursor: pointer;
+  //  background-image: url('images/carret-down.png');
+  //  background-size: auto;
+  //  background-position: center;
+  //  background-repeat: no-repeat;
+  //  display: block;
+  //  position: absolute;
+  //  right: 0;
+  //  bottom: 1rem;
+  //  height: 3rem;
+  //  width: 3rem;
+  //  //padding-top: .8rem;
+  //  text-align: center;
+  //  background-color: var(--primary);
+  //  color: #fff;
+  //  border-top-right-radius: 3px;
+  //  border-bottom-right-radius: 3px;
+  //}
+}
+
+.input-group-label,
+.user-nickname .row > span:first-of-type {
+  border-color: #949494;
+  box-shadow: none;
+}
+
+.user-nickname {
+  position: relative;
+  margin-bottom: 1em;
+
+  &__input {
+    position: relative;
+
+    .prefix {
+      border-radius: 50%;
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background-image: url("images/default-user.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #dbdbdb;
+      top: 7px;
+      left: 8px;
+
+      &.success {
+        background-color: #148938;
+        background-image: url("images/check-icon.svg");
+        background-size: 18px 18px;
+      }
+
+      &.alert {
+        background-color: #e72430;
+        background-image: url("images/close-icon.svg");
+        background-size: 18px 18px;
+      }
+    }
+
+    .form-error {
+      padding-right: 160px;
+    }
+  }
+}
+
+.user-email {
+  position: relative;
+
+  &__input {
+    position: relative;
+
+    .prefix {
+      border-radius: 50%;
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      background-image: url("images/default-user.svg");
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #dbdbdb;
+      top: 32px;
+      left: 8px;
+    }
+
+    input {
+      padding-left: 50px;
+    }
+  }
+}
+
+// copying css rules for element that is no longer inside the label
+.user-nickname .row {
+  > span:first-of-type {
+    // this is the prefix div
+
+    border: 1px solid #949494;
+    padding: 0;
+    border-right: 0;
+    width: 8%;
+    height: 3rem;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+
+    .prefix {
+      display: inline-block;
+      height: 2.9rem;
+      padding-top: 0.7rem;
+      width: 100%;
+      text-align: center;
+      color: #757575;
+
+      &.success {
+        color: #008000;
+        border-color: #008000;
+        background-color: #f0fff0;
+        outline: 1px solid #008000;
+        outline-offset: 0px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+
+      &.alert {
+        color: #cc3333;
+        border-color: #cc3333;
+        background-color: #fdeeec;
+        outline: 1px solid #cc3333;
+        outline-offset: 0px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+    }
+  }
+
+  > span:last-of-type {
+    width: 92%;
+    height: 3rem;
+
+    input {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}
+
+.label-required {
+  cursor: auto;
+  text-decoration: none;
+  margin-left: 1px !important;
+}
+
+.help-text {
+  margin: 0rem 0 0.5rem;
+}
+
+.passwordConfirmationMsg {
+  display: block;
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #008000;
+}
+
+.is-invalid-label,
+.form-error {
+  color: #d11c28;
+  margin-top: 0.5rem;
+}
+
+.is-invalid-input:not(:focus) {
+  border-color: #e72430;
+  background-color: unset;
+}
+
+.checkboxed {
+  display: block;
+  margin-top: 0.75rem;
+
+  label {
+    width: calc(100% - 30px) !important;
+    margin-bottom: 3px !important;
+    margin-left: 10px;
+    margin-right: 0;
+    font-weight: 400;
+  }
+
+  [type="checkbox"] {
+    vertical-align: top;
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+    margin-bottom: unset;
+    appearance: none;
+    background-color: #fff;
+    border: 1px solid #6d6f6f;
+    border-radius: 0.15em;
+    display: inline-grid;
+    place-content: center;
+    flex-shrink: 0;
+    border-radius: 5px;
+
+    &::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      background-image: url("images/check.svg");
+      transform: scale(0);
+      background-size: 100% 100%;
+    }
+
+    &:disabled {
+      outline: unset;
+      border: 1px solid #8c8c8c;
+
+      &::before {
+        background-image: url("images/check-gray.svg");
+      }
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+  }
+
+  [type="checkbox"]:disabled + label {
+    color: #6d6f6f;
+    cursor: not-allowed;
+  }
+}
+
+.uppercase {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/******************  REGISTRATION  ******************/
+.register-form {
+  .card {
+    border: none;
+  }
+
+  .help-text {
+    // hiding for wcag
+    display: none;
+  }
+
+  .nickname-text {
+    display: block;
+    font-style: normal;
+  }
+
+  .form-input-extra-before {
+    margin-bottom: 0;
+  }
+
+  .field {
+    [type="checkbox"] + label[for],
+    [type="radio"] + label[for] {
+      width: calc(100% - 40px);
+      vertical-align: middle;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.speech-bubble.reverted:after {
+  left: unset;
+  right: 7%;
+}
+
+#register-form {
+  label:not(.checkboxed label, .ms-options label),
+  legend {
+    font-weight: bold;
+    margin: 0;
+    line-height: 1.8;
+    color: #1a181d;
+  }
+
+  .help-text {
+    font-size: 14px;
+  }
+
+  #registration_user_name_characters {
+    text-align: right;
+    margin-bottom: -18px;
+    font-weight: normal;
+    color: #717171;
+  }
+}
+
+.interests-form {
+  max-width: 576px;
+
+  .ms-options-wrap {
+    width: 100%;
+    margin-bottom: 1rem;
+
+    .ms-options {
+      border-top: 1px solid #8c8c8c;
+      margin-top: 4px;
+      border-radius: 5px;
+    }
+
+    > button {
+      background-image: url("images/carret-down.png") !important;
+      background-size: auto;
+      background-repeat: no-repeat;
+      padding-right: 3rem;
+      border-bottom: 1px solid #949494 !important;
+      border-radius: 4px;
+    }
+  }
+
+  .pretty-multiselect {
+    &.ms-active:not(.ms-has-selections) {
+      > button > span {
+        display: none;
+      }
+    }
+  }
+
+  label:not(.checkboxed label, .ms-options label) {
+    font-weight: bold;
+  }
+
+  .checkboxed label {
+    line-height: 1.4rem;
+  }
+
+  h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  h5 {
+    font-size: 14px;
+    margin-bottom: 1em;
+  }
+
+  .zip-code-field {
+    input {
+      width: 6em;
+      text-align: center;
+      display: inline-block;
+    }
+  }
+}
+
+.mr-auto {
+  margin-right: auto;
+}

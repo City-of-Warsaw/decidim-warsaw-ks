@@ -1,166 +1,213 @@
 # frozen_string_literal: true
 
-module Decidim::ExpertQuestions
-  class UserQuestion < ApplicationRecord
-    include Decidim::Authorable
-    include Decidim::Comments::Commentable
-    include Decidim::Reportable
-    include Decidim::Participable # for routing
-    include Decidim::ParticipatorySpaceResourceable # for routing
-    include Decidim::Traceable
-    include Decidim::Loggable
-    include Decidim::Followable
-    include Decidim::Searchable
+require_dependency "file_form_validator"
 
-    belongs_to :district, foreign_key: :district_id, class_name: "Decidim::Scope", optional: true
-    belongs_to :expert,
-               foreign_key: :decidim_expert_questions_experts_id,
-               class_name: "Decidim::ExpertQuestions::Expert"
+module Decidim
+  module ExpertQuestions
+    class UserQuestion < ApplicationRecord
+      include Decidim::HasComponent
+      include Decidim::Traceable
+      include Decidim::Loggable
+      include Decidim::Searchable
+      include Decidim::Reportable
+      include Decidim::Authorable
+      include Decidim::Comments::CommentableWithComponent
+      include Decidim::Followable
+      include Decidim::Resourceable
+      include Decidim::Publicable
 
-    has_one :expert_answer,
-            class_name: "Decidim::ExpertQuestions::ExpertAnswer",
-            foreign_key: :decidim_user_question_id
+      component_manifest_name "expert_questions"
 
-    has_many_attached :files
+      belongs_to :district, foreign_key: :district_id, class_name: "Decidim::Scope", optional: true
+      belongs_to :expert,
+                 foreign_key: :decidim_expert_questions_experts_id,
+                 class_name: "Decidim::ExpertQuestions::Expert"
 
-    scope :not_answered, -> { where(status: 'new') }
-    scope :answered, -> { where.not(status: 'new') }
-    scope :public_answer, -> { joins(:expert_answer).where.not('decidim_expert_questions_expert_answers.published_at': nil) }
-    scope :latest_first, -> { reorder(created_at: :desc) }
-    scope :user_user_questions, -> (user_id) { where(decidim_author_type: 'Decidim::UserBaseEntity', decidim_author_id: user_id) }
+      has_one :expert_answer,
+              class_name: "Decidim::ExpertQuestions::ExpertAnswer",
+              foreign_key: :decidim_user_question_id
 
-    delegate :component, :participatory_space, to: :expert
+      has_many :email_follows,
+               as: :followable,
+               foreign_key: "decidim_followable_id",
+               foreign_type: "decidim_followable_type",
+               class_name: "Decidim::CoreExtended::EmailFollow",
+               dependent: :destroy
 
-    validate :acceptable_files
+      delegate :component, :participatory_space, to: :expert
 
-    searchable_fields({
-                        participatory_space: { component: :participatory_space },
-                        A: :body,
-                        B: { expert_answer: :body },
-                        datetime: :created_at
-                      }, {
-                        index_on_create: true,
-                        index_on_update: true
-                      })
+      has_many_attached :files
 
-    def allow_edition?(user_question_token)
-      return false unless user_question_token.present?
-
-      token == user_question_token
-    end
-
-    def title
-      I18n.t("activemodel.attributes.user_question.title", signature: author_signature)
-    end
-
-    def author_signature
-      if author.is_a?(Decidim::CommentsExtended::UnregisteredAuthor)
-        signature.presence || I18n.t('decidim.comments_extended.models.comment.fields.unregistered_author')
-      else
-        author.name
-      end
-    end
-
-    def show_answer?
-      expert_answer&.published?
-    end
-
-    def new?
-      status == 'new'
-    end
-
-    def answered?
-      status == 'answered'
-    end
-
-    def participatory_space
-      component&.participatory_space
-    end
-
-    def organization
-      component&.organization
-    end
-
-    # to allow commenting
-    def private_space?
-      # false
-      participatory_space.private_space?
-    end
-
-    # followers - returns followers of the space
-    def users_to_notify_on_comment_created
-      Decidim::User.where(id: participatory_space.followers.map(&:id)).or(
-        Decidim::User.where(id: decidim_author_id)
-      )
-    end
-
-    def allowed_to_comment?(user)
-      true
-    end
-
-    def published?
-      !hidden?
-    end
-
-    def root_commentable
-      self
-    end
-
-    def presenter
-      Decidim::ExpertQuestions::UserQuestionPresenter.new
-    end
-
-    def reported_content_url
-      ::Decidim::ResourceLocatorPresenter.new(self).url
-    end
-
-    # Public: Overrides the `reported_attributes` Reportable concern method.
-    def reported_attributes
-      [:body, :signature]
-    end
-
-    # Public: Overrides the `reported_searchable_content_extras` Reportable concern method.
-    def reported_searchable_content_extras
-      [normalized_author.name]
-    end
-
-    def module_name
-      "Decidim::ExpertQuestions"
-    end
-
-    def mounted_engine
-      "decidim_expert_questions"
-    end
-
-    def mounted_params
-      {
-        host: organization.host,
-        resource_id: id,
-        component_id: component.id,
-        "#{component.participatory_space.underscored_name}_slug".to_sym => component.participatory_space.slug
+      scope :not_answered, -> { where(status: "new") }
+      scope :answered, -> { where.not(status: "new") }
+      scope :public_answer, -> { joins(:expert_answer).where.not("decidim_expert_questions_expert_answers.published_at": nil) }
+      scope :latest_first, -> { reorder(created_at: :desc) }
+      scope :user_user_questions, ->(user_id) { where(decidim_author_type: "Decidim::UserBaseEntity", decidim_author_id: user_id) }
+      scope :for_component, ->(component_id) {
+        joins(:expert).where(decidim_expert_questions_experts: { decidim_component_id: component_id })
       }
-    end
+      scope :without_system_hidden, -> { where.not(body: "system_generated_hidden_user_question") }
 
-    def mounted_admin_engine
-      "decidim_admin_expert_questions"
-    end
+      validates :files, file_form: {
+        max_size: 50.megabytes,
+        acceptable_types:
+          %w(
+            image/jpg image/jpeg image/gif image/png image/bmp
+            application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          )
+      }
 
-    def self.participatory_space_manifest
-      Decidim.find_participatory_space_manifest(Decidim::ParticipatoryProcess.name.demodulize.underscore.pluralize)
-    end
+      searchable_fields(
+        {
+          participatory_space: { component: :participatory_space },
+          A: :body,
+          B: { expert_answer: :body },
+          datetime: :created_at
+        },
+        index_on_create: ->(user_question) { !user_question.body.start_with?("system_generated_hidden_") },
+        index_on_update: ->(user_question) { !user_question.body.start_with?("system_generated_hidden_") }
+      )
 
-    def acceptable_files
-      return unless files.attached?
-      files.each do |file|
-        unless file.byte_size <= 50.megabyte
-          errors.add(:files, "Maksymalny rozmiar pliku to 50MB")
+      def allow_edition?(user_question_token)
+        return false if user_question_token.blank?
+
+        token == user_question_token
+      end
+
+      def deleted?
+        false
+      end
+
+      def can_be_deleted?
+        false
+      end
+
+      def title
+        I18n.t("activemodel.attributes.user_question.title", signature: author_signature)
+      end
+
+      def author_signature
+        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
+          signature.presence || I18n.t("decidim.comments_extended.models.comment.fields.unregistered_author")
+        else
+          author.name
         end
-        acceptable_types = %w[
-          image/jpg image/jpeg image/gif image/png image/bmp
-          application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document
-        ]
-        unless acceptable_types.include?(file.content_type)
-          errors.add(:files, "Dozwolne rozszerzenia plików: jpg jpeg gif png bmp pdf doc docx")
+      end
+
+      def show_answer?
+        expert_answer&.published?
+      end
+
+      def new?
+        status == "new"
+      end
+
+      def answered?
+        status == "answered"
+      end
+
+      def participatory_space
+        component&.participatory_space
+      end
+
+      def organization
+        component&.organization
+      end
+
+      # Public: Overrides the `reported_attributes` Reportable concern method.
+      def reported_attributes
+        [:body, :signature]
+      end
+
+      # Public: Overrides the `reported_searchable_content_extras` Reportable concern method.
+      def reported_searchable_content_extras
+        [normalized_author.name]
+      end
+
+      def self.participatory_space_manifest
+        Decidim.find_participatory_space_manifest(Decidim::ParticipatoryProcess.name.demodulize.underscore.pluralize)
+      end
+
+      def author_age
+        author_age_range
+      end
+
+      def author_district
+        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
+          district&.name
+        else
+          author.district&.name
+        end
+      end
+
+      def author_email
+        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
+          email
+        else
+          author&.email
+        end
+      end
+
+      def author_gender
+        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
+          gender.present? ? I18n.t("gender.public_post.#{gender}", scope: "decidim.users") : nil
+        else
+          author.gender.present? ? I18n.t("gender.public_post.#{author.gender}", scope: "decidim.users") : nil
+        end
+      end
+
+      # overwritten method
+      # make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27
+      # only admin administers information
+      def admins
+        Decidim::User.none
+      end
+
+      # overwritten method
+      # make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27
+      # only admin administers information
+      def moderators
+        Decidim::User.none
+      end
+
+      def visible?
+        participatory_space.try(:visible?) && component.try(:published?) && published?
+      end
+
+      def published?
+        !hidden?
+      end
+
+      # Public: Overrides the `comments_have_votes?` Commentable concern method.
+      def comments_have_votes?
+        true
+      end
+
+      # Overwritten method.
+      # User questions can’t be commented if:
+      # - it's not visible or not published
+      # - it has already been answered
+      # - the users_action_end_date has passed
+      # Only AD users are allowed to comment.
+      def user_allowed_to_comment?(user)
+        return false unless visible?
+        return false unless published?
+        # scenario in which the expert has already answered the user's question
+        return false if answered?
+        # scenario when component is closed
+        return false if component.users_action_end_date&.past?
+
+        # scenario when AD user is present
+        user.present? && user.ad_role?
+      end
+
+      # Na warsztatach ustaliliśmy przedziały wiekowe oraz to, że mieszkaniec zalogowany powinien podawać
+      # w swoim koncie rok urodzenia - ale prezentować miał się ten wiek w przedziałach.
+      def author_age_range
+        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
+          age.present? ? I18n.t("age.#{age}", scope: "decidim.comments") : nil
+        else
+          author.age_range.present? ? I18n.t("age.#{author.age_range}", scope: "decidim.comments") : nil
         end
       end
     end

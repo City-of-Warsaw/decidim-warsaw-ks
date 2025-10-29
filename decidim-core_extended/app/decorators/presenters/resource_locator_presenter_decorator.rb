@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 Decidim::ResourceLocatorPresenter.class_eval do
+  # overwritten method
+  # there are resources that are not available - e.g. Decidim::Proposals::Proposal which can have comments
+  # if so - do not render url
+  def url(options = {})
+    return unless root_resource&.organization
+
+    member_route("url", options.merge(host: root_resource.organization.host))
+  end
+
   private
 
   # Private method checking if resource is one of the custom Models without defined manifest

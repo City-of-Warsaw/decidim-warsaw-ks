@@ -1,0 +1,104 @@
+.search__result {
+  border-bottom-color: #dedede;
+
+  a.card {
+    &__search {
+      margin-bottom: 32px !important;
+      padding: 12px;
+      border: 1px solid #eaeaea !important;
+    }
+
+    &__search-description {
+      display: block;
+      padding-left: 0;
+    }
+  }
+
+  .card__search-data {
+    display: flex;
+    gap: 4px;
+  }
+
+  .card__search[id^="custom_proposal_"],
+  .card__search[id^="static_page_"] {
+    .card__search-description {
+      padding-top: 0 !important;
+      width: 100%;
+
+      &.editor-content {
+        font-size: 16px;
+        color: rgb(2 2 3 / var(--tw-text-opacity, 1));
+      }
+    }
+  }
+
+  .card__search[id^="page_"] {
+    .card__search-description {
+      width: 100%;
+
+      &.editor-content {
+        font-size: 16px;
+        color: rgb(2 2 3 / var(--tw-text-opacity, 1));
+      }
+    }
+  }
+
+  .card__search[id^="consultation_request_"] {
+    padding: 0 !important;
+
+    .bottom-wrapper {
+      padding: 0 12px 12px !important;
+    }
+
+    .editor-content {
+      font-size: 16px;
+      color: rgb(2 2 3 / var(--tw-text-opacity, 1));
+    }
+  }
+
+  .card__search[id^="participatory_process_"] {
+    .card__search-title {
+      color: rgb(0, 0, 0);
+      font-weight: 400;
+      font-size: 20px;
+      padding-bottom: 16px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .card--information {
+    border: 1px solid #eaeaea !important;
+
+    &:not(:has(~ .card--information)) {
+      margin-bottom: 32px;
+    }
+
+    .editor-content,
+    &__footer {
+      font-size: 16px;
+      color: rgb(2 2 3 / var(--tw-text-opacity, 1));
+    }
+
+    &:hover {
+      outline: none !important;
+    }
+  }
+
+  a[id^="news__information_"] {
+    .card__grid-text {
+      padding: 12px !important;
+    }
+  }
+}
+
+.filter-search.filter-container {
+  .input-group-field {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+a.filter {
+  align-items: center;
+}

@@ -1,54 +1,144 @@
-<%# add_decidim_meta_tags({
-                           title: translated_attribute(current_participatory_space.title),
-                           url: remarks_url
-                         }) %>
+<% add_decidim_meta_tags({
+  title: translated_attribute(current_component.name) 
+}) %>
 
-<%= render partial: "decidim/shared/component_announcement" %>
+<main>
+  <div class="participatory-space__container">     
+    <section>
+      <%= render partial: "decidim/shared/component_announcement" %>
+      <%= render partial: 'decidim/shared/users_action_disallowed' %>
+      <%= render partial: 'decidim/shared/component_settings_help_section' %>
+    </section> 
 
-<div class="row">
-  <% if current_component.users_action_disallowed? %>
-    <div class="column large-12"> 
-      <div class="callout warning-important">
-        <%= current_component.end_date_message %>
+    <section class="map-remarks">
+      <div class="flex gap-3 pb-8 filters--remarks max-md:flex-wrap"> 
+        <%= render partial: "filters" %>
+
+        <% if strip_tags(current_component.help_button_info.to_s).strip.present? %>
+          <button type="button" class="button button__sm button__gray uppercase h-10 ml-auto font-bold max-md:w-10 max-md:h-10 max-md:p-2" data-dialog-open="remarksMapHelpModal">
+            <%= show_svg("map-help-icon.svg") %>
+            <span class="ml-1 hidden md:inline"><%= t(".help") %></span>
+          </button>
+        <% end %>
+
+        <% if first_followable_remark.present? %>
+          <div class="flex justify-center w-full sm:w-auto">
+            <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: t(".tooltip_content") } do %>
+              <%= render partial: "decidim/shared/follow_button",
+                        locals: {
+                          followable: first_followable_remark,
+                          large: false,
+                          opts: { button_classes: "button button__sm button__gray button__follow h-10 font-bold hidden md:flex" }
+                        } %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <button type="button" class="hidden md:flex button button__sm button__gray map-fullscreen-js h-10 p-2 w-10">
+          <span data-fullscreen-on><%= show_svg("map-fullscreen-on.svg") %></span> 
+          <span data-fullscreen-off><%= show_svg("map-fullscreen-off.svg") %></span> 
+        </button>
       </div>
+           
+      <div id="map_remarks" aria-live="polite" class="<%= 'block-commenting' if (current_component.settings[:block_comments] && !current_user&.has_ad_role?) || (current_component.users_action_disallowed? && !(current_user && current_user.has_ad_role?)) %>">
+        <div id="map" class="map full-width h-screen md:h-[650px] z-10 max-md:-m-4"></div>
+
+        <% unless (current_component.settings[:block_comments] && !current_user&.has_ad_role?) || (current_component.users_action_disallowed? && !(current_user && current_user.has_ad_role?)) %>     
+          <button type="button" class="button button__primary button--add-marker add-marker-js max-md:w-full max-md:!right-auto max-md:!bottom-0">
+            <%= t(".add_marker") %> 
+            <%= show_svg("map-marker-white.svg") %>
+          </button>
+
+          <button type="button" class="button button--cancel-marker cancel-marker-js max-md:w-full max-md:!right-auto max-md:!bottom-0">
+            <%= t(".cancel_marker") %> 
+            <%= show_svg("map-marker-primary.svg") %>
+          </button>
+        <% end %>
+
+        <div id="new_remark" class="new-map-remark-box" aria-live="polite" data-new-remark-href="<%= new_remark_path %>" data-show-remark-href="<%= remarks_path %>"></div>
+
+        <div id="remark_success" class="remark-success-modal">
+          <div class="remark-success-modal__body">
+            <button type="button" class="close-button" aria-label="Zamknij">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+            <h4 class="h4 text-center">
+              <%= t(".success_modal.header") %> 
+            </h4>
+
+            <p class="mt-4 text-center">
+              <%= t(".success_modal.body").html_safe %> 
+            </p>
+          </div>
+        </div>
+
+
+        <%= hidden_field_tag 'markersMap', all_locations %> 
+        <%= hidden_field_tag 'coordinates', current_component.custom_settings["locations"] %>
+        <%#= render "remarks" %>
+      </div>
+    </section> 
+  </div>
+</main>
+
+<% if strip_tags(current_component.help_button_info.to_s).strip.present? %>
+  <%= decidim_modal id: "remarksMapHelpModal" do %>
+    <div data-dialog-container>
+      <%= icon "information-line" %>
+      <h3 class="h3"><%= t(".help_modal.header") %></h3>
+      <p>
+        <div class="editor-content fix-swipebox">
+          <%= quill_sanitize current_component.help_button_info %>
+        </div>
+      </p>
+    </div>
+
+    <div data-dialog-actions>
+      <button type="button" class="button button__lg button__primary" data-dialog-close="remarksMapHelpModal">
+        <%= t(".help_modal.ok") %>
+      </button>
     </div>
   <% end %>
+<% end %>
 
-  <div class="columns mediumlarge-12 large-12">
-    <div class="card card--secondary card--filters">
-      <%= render partial: "filters" %>
-    </div>
+<%= decidim_modal id: "outOfBoundsModal" do %>
+  <div data-dialog-container> 
+    <%= icon "information-line" %>
+    <h3 class="h3"><%= t(".warning_modal.header") %></h3>
+    <p>
+      <%= t(".warning_modal.body").html_safe %>
+    </p> 
   </div>
-</div>
 
-<div class="row">
-  <div class="row medium-up-2 pl-s pr-s">
-    <div class="column">
-      <h3 id="remarks-count" class="title-action__title section-heading remarks">
-        <%= t(".remarks_count", count: search.results.count).html_safe %>
-      </h3>
-    </div>
-  </div>
-  
-  <% if remarks_help_section.present? %>
-    <div class="help-section columns help-section--remarks-map">
-      <div class="row column"> 
-        <div class="ql-editor">
-        <%= quill_sanitize translated_attribute(remarks_help_section) %> 
-        </div> 
-      </div>
-    </div>
+  <div data-dialog-actions>
+    <button type="button" class="button button__lg button__primary" data-dialog-close="outOfBoundsModal">
+      <%= t(".warning_modal.ok") %>       
+    </button>
+  </div> 
+<% end %>
+
+<% content_for(:js_content) do %>
+  <%= nonced_javascript_tag do %>
+    let rasters = [];
+    let vectors = [];
+
+    <% @map_backgrounds.each do |map_bg| %>
+      <% if map_bg.raster_file_type? %>
+        rasters[`<%= map_bg.name %>`] = L.imageOverlay("<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>", [
+              [<%= map_bg.x_latitude || 0 %>, <%= map_bg.x_longitude || 0 %>],
+              [<%= map_bg.y_latitude || 0  %>, <%= map_bg.y_longitude || 0 %>],
+            ]);
+      <% end %>
+
+      <% if map_bg.vector_file_type? %>
+          vectors[`<%= map_bg.name %>`] = "<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>";
+      <% end %>
+    <% end %>
   <% end %>
+<% end %>
 
-  <div id="remarks" class="map-remarks columns mediumlarge-12 large-12" aria-live="polite">
-    <div id="map" class="map <%= 'block-commenting' if (current_component.settings[:block_comments] && !current_user&.has_ad_role?) || (current_component.users_action_disallowed? && !(current_user && current_user.has_ad_role?)) %>"></div>
-    <div id="new_remark" class="new-map-remark-box" aria-live="polite" data-href="<%= new_remark_path %>" data-show="<%= remarks_path %>"></div>
-    <%= hidden_field_tag 'markersMap', all_locations %>
-    <%= hidden_field_tag 'coordinates', current_component.custom_settings["locations"] %>
-    <%= render "remarks" %>
-  </div>
-</div>
-
-<%= javascript_include_tag("decidim/comments/comments") %>
-<%= javascript_include_tag("decidim/filters") %>
-<%= javascript_include_tag("polygon-map/polygon-map") %>
+<%= append_javascript_pack_tag "remarks" %>
+<%= append_javascript_pack_tag "comments" %>
+<%= append_javascript_pack_tag "decidim_comments" %>
+<%= append_javascript_pack_tag "polygon_map" %> 

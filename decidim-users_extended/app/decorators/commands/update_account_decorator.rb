@@ -8,20 +8,20 @@ Decidim::UpdateAccount.class_eval do
 
   # OVERWRITTEN DECIDIM METHOD
   def update_personal_data
-    @user.name = @form.name
-    @user.nickname = @form.nickname
-    @user.email = @form.email
-    @user.personal_url = @form.personal_url
-    @user.about = @form.about
+    current_user.name = @form.name
+    current_user.nickname = @form.nickname
+    current_user.email = @form.email
+    current_user.personal_url = @form.personal_url
+    current_user.about = @form.about
     # added custom attributes:
     # gender - allows to choose gender for the user
     # birth year - allows to fill in date of birth for the user
     # zip code - allows to fill in zip code for the user
     # district - allows to choose district for the user
-    @user.gender = @form.gender
-    @user.birth_year = @form.birth_year
-    @user.zip_code = @form.zip_code
-    @user.district = scope
+    current_user.gender = @form.gender
+    current_user.birth_year = @form.birth_year
+    current_user.zip_code = @form.zip_code
+    current_user.district = scope
   end
 
   def scope

@@ -1,0 +1,27 @@
+<%
+  field_id = local_assigns[:field_id] || "user_#{field_name}"
+  field_full_name = local_assigns[:field_full_name] || "user[#{field_name}]"
+%>
+
+<div class="flex items-center gap-4 <%= local_assigns[:class] %>">
+  <input type="hidden" name="<%= field_full_name %>" value="0">
+  
+  <div class="toggle__switch-toggle">
+    <label for="<%= field_id %>" class="toggle__switch-label">
+      <input
+        <%= "checked=\"checked\"".html_safe if checked %>
+        id="<%= field_id %>"
+        type="checkbox"
+        name="<%= field_full_name %>"
+        value="1">
+      <span class="sr-only">
+        Przełącz <%= label_text %>
+      </span>
+      <span class="toggle__switch-toggle-content"></span>
+    </label>
+  </div>
+
+  <label for="<%= field_id %>" class="toggle__switch-trigger-text">
+    <%= label_text %>
+  </label>
+</div>

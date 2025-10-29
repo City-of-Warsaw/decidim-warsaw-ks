@@ -1,0 +1,14 @@
+// overwritten class
+.cookie-warning {
+  background: #e8e8e8;
+  padding: 0.5em 1em;
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+
+  a {
+    // TODO: upgrade v028! poprawic lub usunac
+    // color: darken($anchor-color, 10%);
+  }
+}

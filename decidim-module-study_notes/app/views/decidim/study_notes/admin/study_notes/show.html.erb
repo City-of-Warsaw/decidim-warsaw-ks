@@ -1,104 +1,465 @@
-<div class="card">
-  <div class="card-divider">
-    <h2 class="card-title">
-      <%= t ".title" %>
-      <%= link_to "Pobierz PDF", study_note_path(study_note, format: :pdf), class: "button tiny button--title new" %>
-    </h2>
-  </div>
-  <div class="card-section">
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= t(".title") %>
 
+      <%= link_to "Pobierz PDF",
+                  study_note_path(study_note, format: :pdf, anonimized: false),
+                  class: "button button__sm " %>
+      <%= link_to "Pobierz zanonimizowany PDF",
+                  study_note_path(study_note, format: :pdf, anonimized: true),
+                  class: "button button__sm" %>
+      <%= link_to "Pobierz ZIP z załącznikami",
+                  export_zip_study_notes_path(with_attachments: true, study_notes_ids:[study_note.id]),
+                  class: "button button__sm" %>
+    </div>
+  </h1>
+</div>
+
+<div class="card-section">
+<div class="card">
+  <div class="card-section">
     <div class="row column">
       <p>
-        <strong>ID zgłoszenia: </strong><%= study_note.id %>
+        <strong> ID zgłoszenia: </strong><%= study_note.id %>
       </p>
-
       <p>
-        <strong>Data zgłoszenia: </strong><%= l study_note.created_at, format: "%d/%m/%Y - %H:%M" %>
+        <strong> Numer wewnętrzny: </strong><%= study_note.sequential_number %>
       </p>
-
       <p>
-        <strong>Oznaczenia na mapie:</strong><br />
-        <div id="map"></div>
-
-        <input type="hidden" name="locations" value="<%= study_note.locations %>" />
-
-        <%= javascript_include_tag("geojson-map/geojson-map.admin") %>
+        <strong> Data zgłoszenia: </strong><%= l study_note.created_at, format: "%d/%m/%Y - %H:%M" %>
       </p>
 
-      <% if study_note.organization_name.present? %>
-        <p>
-          <strong>Typ: </strong>Jednostka organizacyjna
-        </p>
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_1") %>
+          </h2>
+        </div>
 
-        <p>
-          <strong><%= t("study_note.organization_name", scope: "activemodel.attributes") %>: </strong><%= study_note.organization_name %>
-        </p>
-      <% else %>
-        <p>
-          <strong>Typ: </strong>Osoba fizyczna
-        </p>
+        <div class="card-section">
+          <p>
+            <%= study_note.authority_name_which_letter_is_addressed %>
+          </p>
+        </div>
+      </div>
 
-        <p>
-          <strong><%= t("study_note.full_name", scope: "activemodel.attributes") %>: </strong><%= study_note.first_name %> <%= study_note.last_name %>
-        </p> 
-      <% end %>
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_2") %>
+          </h2>
+        </div>
 
-      <p>
-        <strong>
-          <%= study_note.organization_name.present? ? "Adres siedziby:" : "Adres zamieszkania:" %></strong><br /><%= study_note.address %>
-      </p>
+        <div class="card-section">
+          <p>
+            <%= t(".letter_type.#{study_note.letter_type}") %>
+          </p>
+        </div>
+      </div>
 
-      <% if study_note.email.present? %>
-        <p>
-          <strong>E-mail: </strong><a href="mailto:<%= study_note.email %>" target="_blank"><%= study_note.email %></a>
-        </p>
-      <% end %>
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_3") %>
+          </h2>
+        </div>
 
-      <p>
-        <strong>Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga: </strong><br /><%= decidim_sanitize study_note.location_specification %>
-      </p>
-
-      <p>
-        <strong>Treść uwagi: </strong>
-        <br>
-        <%= decidim_sanitize study_note.body %>
-      </p>
-
-      <p>
-        <strong>Kategoria: </strong><%= study_note.category&.name %>
-      </p>
+        <div class="card-section">
+          <p>
+            <%= t(".urban_planning_act_type.#{study_note.urban_planning_act_type}") %>
+          </p>
+        </div>
+      </div>
 
 
-      <% if study_note.map_background %>
-        <p>
-          <strong>Podkład mapowy: </strong><%= study_note.map_background.name %>
-        </p>
-      <% end %>
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_4") %>
+          </h2>
+        </div>
 
-        <strong>Załączniki: </strong>
-        <% unless study_note.files.any? %>
-          brak
-        <% end %>
-      </p>
-      <% if study_note.files.any? %>
-        <ol>
-          <% study_note.files.each do |file| %>
-            <li class="heading6">
-              <a href="<%= main_app.url_for(file) %>" class="card__link" target="_blank">
-                <%= file.blob.filename %>
-              </a>
-            </li>
+        <div class="card-section">
+          <% if study_note.submitter_data_role == Decidim::StudyNotes::StudyNote::INDIVIDUAL %>
+            <p>
+              <strong><%= t(".submitter_data_role") %>: </strong>
+              <%= t(".submitter_role_person") %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_first_name") %>: </strong>
+              <%= study_note.submitter_data_first_name %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_last_name") %>: </strong>
+              <%= study_note.submitter_data_last_name %>
+            </p>
+
+          <% else %>
+
+            <p>
+              <strong><%= t(".submitter_data_role") %>: </strong>
+              <%= t(".submitter_role_organization") %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_org_name") %>: </strong>
+              <%= study_note.submitter_data_org_name %>
+            </p>
           <% end %>
-        </ol>
-      <% end %>
+
+          <p>
+            <strong><%= t(".submitter_data_country") %>: </strong>
+            <%= study_note.submitter_data_country %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_voivodeship") %>: </strong>
+            <%= study_note.submitter_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_county") %>: </strong>
+            <%= study_note.submitter_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_community") %>: </strong>
+            <%= study_note.submitter_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_street") %>: </strong>
+            <%= study_note.submitter_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_street_number") %>: </strong>
+            <%= study_note.submitter_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_flat_number") %>: </strong>
+            <%= study_note.submitter_data_flat_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_city") %>: </strong>
+            <%= study_note.submitter_data_city %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_zip_code") %>: </strong>
+            <%= study_note.submitter_data_zip_code %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_email") %>: </strong>
+            <%= study_note.submitter_data_email %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_phone_number") %>: </strong>
+            <%= study_note.submitter_data_phone_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_epuap_delivery_address") %>: </strong>
+            <%= study_note.submitter_data_epuap_delivery_address %>
+          <p>
+            <strong><%= t(".perpetual_owner_of_the_property") %>: </strong>
+            <%= study_note.perpetual_owner_of_the_property? ? "Tak" : "Nie" %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_5") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".mailing_address_data_voivodeship") %>: </strong>
+            <%= study_note.mailing_address_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_county") %>: </strong>
+            <%= study_note.mailing_address_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_community") %>: </strong>
+            <%= study_note.mailing_address_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_street") %>: </strong>
+            <%= study_note.mailing_address_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_street_number") %>: </strong>
+            <%= study_note.mailing_address_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_flat_number") %>: </strong>
+            <%= study_note.mailing_address_data_flat_number %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_city") %>: </strong>
+            <%= study_note.mailing_address_data_city %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_zip_code") %>: </strong>
+            <%= study_note.mailing_address_data_zip_code %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_6") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <% if study_note.attorney_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ATTORNEY %>
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+              <%= t(".attorney_role_all") %>
+            </p>
+          <% elsif study_note.attorney_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ATTORNEY_FOR_SERVICE %>
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+              <%= t(".attorney_role_delivery") %>
+            </p>
+          <% else %>
+
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+            </p>
+          <% end %>
+
+          <p>
+            <strong><%= t(".attorney_data_first_name") %>: </strong>
+            <%= study_note.attorney_data_first_name %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_last_name") %>: </strong>
+            <%= study_note.attorney_data_last_name %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_country") %>: </strong>
+            <%= study_note.attorney_data_country %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_voivodeship") %>: </strong>
+            <%= study_note.attorney_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_county") %>: </strong>
+            <%= study_note.attorney_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_community") %>: </strong>
+            <%= study_note.attorney_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_street") %>: </strong>
+            <%= study_note.attorney_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_street_number") %>:</strong>
+            <%= study_note.attorney_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_flat_number") %>: </strong>
+            <%= study_note.attorney_data_flat_number %></p>
+          <p>
+            <strong><%= t(".attorney_data_city") %>: </strong>
+            <%= study_note.attorney_data_city %></p>
+          <p>
+            <strong><%= t(".attorney_data_zip_code") %>: </strong>
+            <%= study_note.attorney_data_zip_code %></p>
+          <p>
+            <strong><%= t(".attorney_data_email") %>: </strong>
+            <%= study_note.attorney_data_email %></p>
+          <p>
+            <strong><%= t(".attorney_data_phone_number") %>: </strong>
+            <%= study_note.attorney_data_phone_number %></p>
+          <p>
+            <strong><%= t(".attorney_data_epuap_delivery_address") %>: </strong>
+            <%= study_note.attorney_data_epuap_delivery_address %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_7") %>
+          </h2>
+        </div>
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_7a") %>
+          </h2>
+        </div>
+        <p>Informacje dostępne w pliku PDF</p>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_7b") %>
+          </h2>
+        </div>
+        <div class="card-section">
+          <p>
+            <%= decidim_sanitize study_note.request_body %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_8") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".declaration_remote_correspondence") %>: </strong>
+            <%= study_note.declaration_remote_correspondence? ? "Tak" : "Nie" %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_9") %>
+          </h2>
+        </div>
+
+        <% if false %>
+        <div class="card-section">
+          <p>
+            <strong><%= t(".parcel_site_boundary") %>: </strong>
+              <% if study_note.parcel_site_boundary.any?
+                   study_note.parcel_site_boundary.each do |file|
+              %>
+
+                <%= file.filename %>
+                <%= icon_link_to "download-line",
+                                 main_app.rails_blob_path(file,
+                                                          disposition: "attachment"),
+                                 t(".download_file"),
+                                 class: "action-icon--data-transfer-download" %>
+              <% end %>
+              <% end %>
+          </p>
+        </div>
+        <% end %>
+
+        <div class="card-section">
+          <%= display_other_files(study_note) %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".additional_section") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".optional_confirmation_request") %>: </strong>
+            <%= study_note.optional_confirmation_request ? t(".option_yes") : t(".option_no") %>
+          </p>
+
+          <p>
+            <strong><%= t(".email_confirmation_request") %>: </strong>
+            <%= study_note.email_confirmation_request %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".last_confirmations") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".confirm_read_process_description") %>: </strong>
+            <%= study_note.confirm_read_process_description ? t(".option_yes") : "" %>
+          </p>
+
+          <p>
+            <strong><%= t(".confirm_process_personal_data") %>: </strong>
+            <%= study_note.confirm_process_personal_data ? t(".option_yes") : t(".option_no") %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            Dane z Signum
+          </h2>
+        </div>
+        <div class="card-section">
+          <% if study_note.registered_to_signum? %>
+
+            <div class="row column">
+              <strong>Znak sprawy:</strong> <%= study_note.signum_znak_sprawy %>
+            </div>
+
+            <div class="row column">
+              <strong>Barcode:</strong> <%= study_note.signum_barcode %>
+            </div>
+
+            <div class="row column">
+              <strong>Nr kancelaryjny:</strong> <%= study_note.signum_nr_kancelaryjny %>
+            </div>
+
+            <div class="row column">
+              <strong>ID korespondenta:</strong> <%= study_note.signum_kor_id %>
+            </div>
+
+            <div class="row column">
+              <strong>ID sprawy:</strong> <%= study_note.signum_spr_id %>
+            </div>
+
+            <% if study_note.signum_registered_by_user_id %>
+
+              <div class="row column">
+                <strong>Wprowadził:</strong> <%= Decidim::User.find(study_note.signum_registered_by_user_id).ad_full_name %>
+              </div>
+            <% end %>
+
+            <div class="row column">
+              <strong>Data rejestracji:</strong>
+              <%= l study_note.signum_registered_at, format: :decidim_short_cut_zero %>
+            </div>
+
+          <% else %>
+
+            Projekt jeszcze nie został przesłany do Signum
+            <br>
+            <% if allowed_to? :manage, :study_notes %>
+              <%= link_to 'Zarejestruj w Signum', [:register_to_signum, study_note], method: :post, class: 'button' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+     </div>
+
+
     </div>
-
-
-<!--    <dl>-->
-      <%#= display_for study_note, :first_name, :last_name, :body %>
-<!--    </dl>-->
-
   </div>
 </div>
 
-
+<div class="item__edit-sticky">
+  <div class="item__edit-sticky-container">
+    <div class="button--double form-general-submit">
+      <%= link_to t("decidim.admin.actions.back"), study_notes_path, class: "button button__sm button__secondary" %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,194 @@
+<% add_decidim_meta_tags({
+                           title: translated_attribute(questionnaire.title),
+                           description: translated_attribute(questionnaire.description),
+                         }) %>
+
+<% columns = allow_answers? && visitor_can_answer? && @form.responses.map(&:question).any?(&:matrix?) ? 9 : 6 %>
+
+<% if current_component.users_action_disallowed? %>
+  <%= render partial: 'decidim/shared/users_action_disallowed' %>
+<% else %>
+  <% if translated_attribute(current_settings.announcement).present? %>
+    <div class="help-section <%= flash[:alert].present? ? "hide" : "" %>" id="survey-help" data-toggler=".hide">
+      <div class="row column">
+        <div class="ql-editor">
+          <%= quill_sanitize translated_attribute(current_settings.announcement) %>
+        </div>
+      </div>
+    </div>
+  <% elsif translated_attribute(component_settings.announcement).present? %>
+    <div class="help-section <%= flash[:alert].present? ? "hide" : "" %>" id="survey-help" data-toggler=".hide">
+      <div class="row column">
+        <div class="ql-editor">
+          <%= quill_sanitize translated_attribute(component_settings.announcement) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="layout-1col cols-6" id="subsubcontent">
+    <div class="row column">
+      <div class="help-section <%= 'help-section--has-content' if questionnaire.has_content? %>">
+        <div class="row column survey__wrapper survey__wrapper--description <%= flash[:alert].present? ? "hide" : "" %>" id="survey-info" data-toggler=".hide">
+          <h2 class="help-section__title">
+            <%= translated_attribute questionnaire.title %>
+          </h2>
+
+          <% if questionnaire.has_content? %>
+            <div class="help-section__description ql-editor">
+              <%= quill_sanitize translated_attribute questionnaire.description %>
+              <%= render 'decidim/shared/gallery_attachments', model: questionnaire %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="survey__content">
+      <% unless questionnaire_for.try(:component)&.try(:published?) %>
+        <div class="row column">
+          <div class="callout warning">
+            <p><%= t(".questionnaire_not_published.body") %></p>
+          </div>
+        </div>
+      <% end %>
+
+      <% if !current_component.users_action_disallowed? %>
+        <% if allow_answers? %>
+          <% if visitor_can_answer? %>
+            <% if visitor_already_answered? %>
+                <div class="row column">
+                  <div class="callout success">
+                    <%= t(".questionnaire_answered.title").html_safe %>
+                  </div>
+                </div>
+            <% else %>
+              <div>
+                <noscript>
+                  <div class="section">
+                    <div class="callout warning">
+                      <h5><%= t(".questionnaire_js_disabled.title") %></h5>
+                      <p><%= t(".questionnaire_js_disabled.body") %></p>
+                    </div>
+                  </div>
+                </noscript>
+                <% unless current_participatory_space.can_participate?(current_user) %>
+                  <div class="section">
+                    <div class="callout alert">
+                      <h5><%= t(".questionnaire_for_private_users.title") %></h5>
+                      <p><%= t(".questionnaire_for_private_users.body") %></p>
+                    </div>
+                  </div>
+                <% end %>
+
+
+                <%= decidim_form_for(@form, url: update_url, method: :post, html: { multipart: true, class: "form answer-questionnaire" }, data: { "safe-path" => form_path }) do |form| %>
+                  <%#= form_required_explanation %>
+                  <%= invisible_captcha %>
+                  <% answer_idx = 0 %>
+                  <% cleaned_answer_idx = 0 %>
+
+                  <% @form.responses_by_step.each_with_index do |step_answers, step_index| %>
+                    <div id="step-<%= step_index %>" class="<%= step_index.zero? ? flash[:alert].present? ? "questionnaire__starting questionnaire-step hide" : "questionnaire__starting questionnaire-step" : flash[:alert].present? ? "questionnaire-step" : "questionnaire-step hide" %>" data-toggler=".hide" tabindex="-1">
+                      <% if @form.total_steps > 1 && step_index > 0 %>
+                        <div class="row column">
+                          <div class="steps-indicator">
+                            <h2 class="steps-indicator__title">
+                              <span class="steps-indicator__number"><%= step_index.to_s.rjust(2) %></span>
+                              <% if step_answers.any? && step_answers.first %>
+                                <label class="answer-questionnaire__question-label questionnaire-question">
+                                  <%= step_answers.first.label(cleaned_answer_idx) %>
+                                </label>
+                              <% end %>
+                            </h2>
+                          </div>
+                        </div>
+                      <% end %>
+
+                      <div class="survey__blocks">
+                        <% step_answers.each do |answer| %>
+                          <% if !answer.question.separator? %>
+                            <div class="answer question mt-2" data-max-choices="<%= answer.question.max_choices %>" data-conditioned="<%= answer.question.display_conditions.any? %>" data-question-id="<%= answer.question.id %>">
+                              <div class="answer-questionnaire__question">
+                                <% answer.question.display_conditions.each do |display_condition| %>
+                                  <%= content_tag :div, nil,  class: "display-condition", data: display_condition.to_html_data %>
+                                <% end %>
+
+                                <%= fields_for "questionnaire[responses][#{answer_idx}]", answer do |answer_form| %>
+                                  <%= render(
+                                        "decidim/forms/questionnaires/answer",
+                                        answer_form: answer_form,
+                                        answer: answer,
+                                        answer_idx: answer_idx,
+                                        cleaned_answer_idx: cleaned_answer_idx,
+                                        disabled: !current_participatory_space.can_participate?(current_user)
+                                      )
+                                  %>
+                                <% end %>
+                              </div>
+                            </div>
+                          <% end %>
+
+                          <% if !answer.question.separator? %>
+                            <% cleaned_answer_idx += 1 %>
+                          <% end %>
+                          <% answer_idx += 1 %>
+                        <% end %>
+
+                        <div class="survey__block survey__start-button-block">
+                          <div class="row column survey__wrapper">
+                            <% if step_index + 1 == @form.total_steps %>
+                              <% if show_represent_user_group? %>
+                                <div class="represent-user-group">
+                                  <%= cell("decidim/represent_user_group", form) %>
+                                </div>
+                              <% end %>
+
+                              <%= form.hidden_field :tos_agreement, value: 1 %>
+
+                              <div class="survey__info-box ql-editor">
+                                <%= decidim_sanitize translated_attribute questionnaire.tos %>
+                              </div>
+                            <% end %>
+
+                            <%= cell(
+                                  "decidim/forms/step_navigation",
+                                  step_index,
+                                  total_steps: @form.total_steps,
+                                  button_disabled: !current_participatory_space.can_participate?(current_user),
+                                  form: form
+                                ) %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="survey__wrapper">
+              <div class="row column">
+                <div class="answer-questionnaire">
+                  <strong>
+                    <%= t(".answer_questionnaire.anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
+                  </strong>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="row column">
+            <div class="callout warning">
+              <h4><%= t(".questionnaire_closed.title") %></h4>
+              <p><%= t(".questionnaire_closed.body") %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= append_javascript_pack_tag "admin_extended_questionnaire" %>
+<%= append_javascript_pack_tag "answer_question" %>

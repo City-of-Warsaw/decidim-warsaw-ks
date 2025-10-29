@@ -1,17 +1,31 @@
 # frozen_string_literal: true
 
 Decidim::AuthorCell.class_eval do
-
-  def show
-    render :show_new
+  # overwritten method
+  # kill caching
+  def perform_caching?
+    false
   end
 
-  # overwritten, remove link for blocked users
-  def profile_path?
-    return false if model.blocked?
-    return false if options[:skip_profile_link] == true
+  # overwritten
+  # for AD user with editorial or signature - that should be displayed in comments
+  # tip: comments in process and search are display by different cells
+  def author_name
+    return options[:author_name_text] if options[:author_name_text].present?
 
-    profile_path.present?
+    if model.respond_to?(:signature) && model.signature.present?
+      model.signature
+    elsif model.respond_to?(:editorial) && model.editorial.present?
+      model.editorial
+    else
+      model.name
+    end
+  end
+
+  # overwritten method
+  # disable profile preview
+  def profile_path?
+    false
   end
 
   def search_controller?
@@ -31,60 +45,8 @@ Decidim::AuthorCell.class_eval do
   end
 
   # overwritten method
-  # overwritten cell view
-  def flag_user
-    render :flag_user_new unless current_user == model
+  # make it nil
+  def cache_hash
+    nil
   end
-
-  # overwritten method
-  # overwritten cell view
-  def flag
-    render :flag_new
-  end
-
-  def has_actions?
-    options[:has_actions] == true
-  end
-
-  def excluding_controller_action?
-    index_action? && (!remarks_controller? || !map_remarks_controller || !user_questions_controller)
-  end
-
-  def flaggable?
-    return unless from_context
-    return unless context[:controller].try(:flaggable_controller?)
-    return if excluding_controller_action?
-
-    true
-  end
-
-  def render_flag
-    if from_context.class.name == "Decidim::Remarks::Remark"
-      cell("decidim/remarks/remark_m", from_context).(:flag_remark)
-    elsif from_context.class.name == "Decidim::ConsultationMap::Remark"
-      cell("decidim/consultation_map/remark_m", from_context).(:flag_remark)
-    elsif from_context.class.name == "Decidim::ExpertQuestions::UserQuestion"
-      cell("decidim/expert_questions/user_question_m", from_context).(:flag_question)
-    end
-  end
-
-  private
-
-  # overwritten method
-  # due to overwritten cell view, removed one condition: show_action?
-  def creation_date?
-    return unless from_context
-    return unless (from_context.respond_to?(:published_at) || from_context.respond_to?(:created_at))
-
-    true
-  end
-
-  # overwritten method
-  # change format date - removed hours & minutes
-  def creation_date
-    date_at = from_context.try(:published_at) || from_context.try(:created_at)
-
-    l date_at, format: :decidim_short_no_time
-  end
-
 end

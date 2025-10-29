@@ -1,0 +1,108 @@
+<noscript>
+  <%= cell("decidim/announcement", { title: t("decidim.forms.questionnaires.show.questionnaire_js_disabled.title"), body: t("decidim.forms.questionnaires.show.questionnaire_js_disabled.body") }, callout_class: "warning") %>
+</noscript>
+
+<% unless current_participatory_space.can_participate?(current_user) %>
+  <%= cell("decidim/announcement", { title: t("decidim.forms.questionnaires.show.questionnaire_for_private_users.title"), body: t("decidim.forms.questionnaires.show.questionnaire_for_private_users.body") }, callout_class: "alert") %>
+<% end %>
+
+<%= decidim_form_for(@form, url: update_url, method: :post, html: { multipart: true, class: "form answer-questionnaire" }, data: { "safe-path" => form_path }) do |form| %>
+
+  <%= invisible_captcha %>
+  <% answer_idx = 0 %>
+  <% cleaned_answer_idx = 1 %>
+  <% @form.responses_by_step.each_with_index do |step_answers, step_index| %>
+    <%# changed: when survey has errors - show all pages on one view, hide step number %>
+    <% hidden_attr = "hidden" if !step_index.zero? && flash[:alert].blank? || step_index.zero? && flash[:alert].present? %>
+    <div id="step-<%= step_index %>" class="answer-questionnaire__step" <%= hidden_attr %>>
+
+      <%# change: move explanation to step-0 only %>
+      <%= form_required_explanation if step_index.zero? %>
+
+      <%# changed: when survey has errors - show all pages on one view, hide step number %>
+      <% if !step_index.zero? && @form.total_steps > 1 && flash[:alert].blank? %>
+        <h2 class="steps-indicator">
+          <div class="steps-indicator__number">
+            <%= step_index %><span class="answer-questionnaire__steps">/<%= @form.total_steps - 1 %></span>
+          </div>
+
+          <span class="steps-indicator__progress" style="width: <%= (step_index.to_f / (@form.total_steps - 1).to_f) * 100 %>%; <%= step_index + 1 == @form.total_steps ? "border-top-right-radius: 5px;" : "" %>"></span>
+        </h2>
+      <% end %>
+
+      <% current_bg_class = '' %>
+      <% step_answers.each do |answer| %>
+        <% if !(answer.question.separator? || answer.question.title_and_description?) %>
+          <% if answer.question.display_conditions.any? %>
+            <% bg_class = current_bg_class %>
+          <% else %>
+            <% bg_class = cycle('bg-odd', 'bg-even') %>
+            <% current_bg_class = bg_class %>
+          <% end %>
+        <% else %>
+          <% bg_class = '' %>
+        <% end %>
+        <div class="answer question <%= bg_class %>" data-max-choices="<%= answer.question.max_choices %>" data-conditioned="<%= answer.question.display_conditions.any? %>" data-question-id="<%= answer.question.id %>">
+          <% answer.question.display_conditions.each do |display_condition| %>
+            <%= content_tag :div, nil, class: "display-condition", data: display_condition.to_html_data %>
+          <% end %>
+
+          <%= fields_for "questionnaire[responses][#{answer_idx}]", answer do |answer_form| %>
+            <%= render(
+              "decidim/forms/questionnaires/answer",
+              answer_form:,
+              answer:,
+              answer_idx:,
+              cleaned_answer_idx:,
+              disabled: !current_participatory_space.can_participate?(current_user)
+            ) %>
+          <% end %>
+        </div>
+
+        <% if !(answer.question.separator? || answer.question.title_and_description?) %>
+          <% cleaned_answer_idx += 1 %>
+        <% end %>
+
+        <% answer_idx += 1 %>
+      <% end %>
+
+      <div class="answer-questionnaire__footer">
+        <% if step_index + 1 == @form.total_steps %>
+          <% if show_represent_user_group? %>
+            <%= cell("decidim/represent_user_group", form) %>
+          <% end %>
+
+          <% if show_public_participation? %>
+            <%= cell("decidim/public_participation", form) %>
+          <% end %>
+
+          <% unless current_user %>
+            <div class="row column">
+              <%= form.label :email, "Jeśli chcesz otrzymać potwierdzenie wypełnienia formularza na e-mail, wpisz tu swój adres:", for: :email %>
+              <%= form.text_field :email, label: false, style: "width: 100%; margin-top: 16px;" %>
+            </div>
+          <% end %>
+
+          <div class="ql-editor">
+            <%# changed: hide tos_agreement %>
+            <%= form.hidden_field :tos_agreement, value: 1 %>
+            <div>
+              <%= decidim_sanitize_editor translated_attribute questionnaire.tos %>
+            </div>
+          </div>
+        <% end %>
+
+        <%# changed: when survey has errors - show all pages on one view, hide step number %>
+        <% if flash[:alert].blank? || step_index + 1 == @form.total_steps %>
+          <%= cell(
+            "decidim/forms/step_navigation",
+            step_index,
+            total_steps: @form.total_steps,
+            button_disabled: !current_participatory_space.can_participate?(current_user),
+            form:
+          ) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

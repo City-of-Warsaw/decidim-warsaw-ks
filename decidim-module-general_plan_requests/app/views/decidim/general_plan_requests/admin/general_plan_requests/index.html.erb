@@ -1,0 +1,11 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t(".title") %>
+      <%= link_to 'Eksport XLSX', export_general_plan_requests_path(format: :xlsx), class: "button button__sm button__secondary" %>
+    </h1>
+  </div>
+
+  <%= render partial: 'table' %>
+</div>

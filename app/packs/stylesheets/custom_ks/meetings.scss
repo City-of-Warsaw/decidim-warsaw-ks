@@ -1,0 +1,94 @@
+.agenda-wrapper {
+  padding: 24px;
+  margin-bottom: 30px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+}
+
+.agenda-section-heading {
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+  letter-spacing: 0.05em;
+  font-family: Arial, sans-serif !important;
+  color: #3d393c !important;
+}
+
+.agenda-item--title {
+  font-weight: 600;
+
+  strong {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+    letter-spacing: 0.05em;
+    font-family: Arial, sans-serif !important;
+    color: #3d393c !important;
+  }
+}
+
+.meeting {
+  &__aside-block {
+    &__item {
+      svg {
+        display: none;
+      }
+    }
+
+    &__title,
+    &__text {
+      font-size: 18px;
+      line-height: 23px;
+    }
+  }
+
+  &--past {
+    .card__calendar-month {
+      background-color: gray;
+    }
+
+    .h4.card__list-title {
+      color: gray;
+    }
+  }
+
+  &__calendar-container {
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+
+      li {
+        margin-bottom: 0;
+      }
+    }
+
+    .address {
+      &__location {
+        font-size: 18px;
+      }
+
+      &__address {
+        font-size: 16px;
+      }
+
+      &__hints {
+        font-size: 16px;
+        margin-bottom: 16px !important;
+      }
+    }
+  }
+
+  &__body {
+    padding: 8px;
+    border: 4px solid rgb(243 244 247 / var(--tw-border-opacity, 1));
+  }
+}
+
+.meeting-list__map {
+  margin-top: 4rem;
+}

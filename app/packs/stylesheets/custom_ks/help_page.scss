@@ -1,0 +1,78 @@
+.custom-title {
+  margin: 45px 0 20px 0;
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.custom-section-heading {
+  padding: 24px;
+}
+
+.custom--card--list__item {
+  padding: 24px !important;
+}
+
+.custom-repository-gallery-box {
+  padding: 24px !important;
+}
+
+.section {
+  padding: 24px;
+
+  h2 {
+    padding: 0 !important;
+  }
+}
+
+.help-section {
+  &__title {
+    padding-top: 80px;
+  }
+
+  &__description {
+    position: relative;
+    overflow: visible;
+    padding-bottom: 30px;
+
+    &:not(:empty) {
+      border-top-right-radius: 5px;
+      padding: 32px 96px;
+      background-color: #f5f6f7;
+      border-top-left-radius: 5px;
+      margin-bottom: -20px;
+      margin-top: 2rem;
+      border-top: 1px solid #eaeaea;
+      border-left: 1px solid #eaeaea;
+      border-right: 1px solid #eaeaea;
+    }
+
+    &:empty {
+      &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 20px;
+        background-color: #f5f6f7;
+        border-top-left-radius: 5px;
+        bottom: -20px;
+        border-top-right-radius: 5px;
+      }
+    }
+
+    @media only screen and (max-width: 640px) {
+      padding: 24px !important;
+    }
+  }
+}
+
+.custom-help-section__description {
+  margin: 0px auto 50px;
+  max-width: 1200px;
+}
+
+@media print, screen and (min-width: 40em) {
+  .wrapper {
+    padding: 3rem 1.5rem;
+  }
+}

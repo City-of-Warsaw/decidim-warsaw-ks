@@ -1,0 +1,36 @@
+<main>
+  <div class="participatory-space__container">     
+    <section class="py-6"> 
+      <%= link_to general_plan_requests_path + "#subcontent", class: "back-link" do %>
+        <%= icon "arrow-go-back-line", class: "icon--small", role: "img", "aria-hidden": true %>
+        <span><%= t(".back") %></span>
+      <% end %>
+    </section>
+
+    <section class="general-plan-request-wrapper">
+      <div class="general-plan-request-success">
+        <div class="general-plan-request-success__popup">
+          <%# <a class="close" href=""><span aria-hidden="true">&times;</span></a> %>
+
+          <div class="inner">
+            <h3><%= t(".heading") %></h3>
+
+            <p><strong><%= t(".thank_you") %></strong></p>
+
+            <% if general_plan_request.email_confirmation_request.present? %>
+              <p><%= t(".email_sent") %></p>
+            <% end %>
+
+            <%= link_to general_plan_request_path(general_plan_request.uuid, format: :pdf), class: "pdf-link flex", rel: "noopener", title: "Pobierz" do %>
+              <%= t(".download_pdf") %><%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+            <% end %>
+          </div>
+
+          <div class="foot">
+            <%= link_to t(".send_new"), general_plan_requests_path + "#subcontent", class: "button button__sm button__transparent-secondary" %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>

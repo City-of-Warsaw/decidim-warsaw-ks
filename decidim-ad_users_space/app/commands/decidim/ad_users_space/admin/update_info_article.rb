@@ -4,7 +4,8 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user updates Info Article
-      class UpdateInfoArticle < Rectify::Command
+      class UpdateInfoArticle < Decidim::Command
+        include Decidim::Repository::Admin::GalleriesHelper
 
         def initialize(info_article, form, user)
           @form = form
@@ -12,13 +13,14 @@ module Decidim
           @current_user = user
         end
 
-        # Creates the info_article if valid.
+        # Updates the info_article if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call
           return broadcast(:invalid) if form.invalid?
 
           update_info_article!
+          add_gallery(info_article)
 
           broadcast(:ok, info_article)
         end
@@ -40,7 +42,8 @@ module Decidim
           {
             title: form.title,
             body: form.body,
-            article_category: form.article_category,
+            article_category_id: form.article_category_id,
+            weight: form.weight,
             gallery_id: form.gallery_id
           }
         end

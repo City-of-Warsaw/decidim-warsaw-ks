@@ -4,22 +4,15 @@
 # Class Decorator - Extending Decidim::ParticipatoryProcesses::Admin::CreateParticipatoryProcessStep
 #
 # Command has been expanded with:
-# additional attribute
+# - custom additional attributes
 Decidim::ParticipatoryProcesses::Admin::CreateParticipatoryProcessStep.class_eval do
-  private
-
-  def create_participatory_process_step
-    Decidim.traceability.create!(
-      Decidim::ParticipatoryProcessStep,
-      @form.current_user,
-      title: form.title,
-      description: form.description,
-      start_date: form.start_date,
-      end_date: form.end_date,
-      participatory_process: @participatory_process,
-      active: @participatory_process.steps.empty?,
-      # custom
-      date: form.date
-    )
+  def attributes
+    super.merge({
+                  participatory_process: form.current_participatory_space,
+                  active: form.current_participatory_space.steps.empty?,
+                  # custom
+                  date: form.date,
+                  send_notifications_on_activation: form.send_notifications_on_activation
+                })
   end
 end

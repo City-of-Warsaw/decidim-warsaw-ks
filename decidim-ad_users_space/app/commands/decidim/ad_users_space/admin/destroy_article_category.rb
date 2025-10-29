@@ -4,13 +4,13 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user destroys Article Category
-      class DestroyArticleCategory < Rectify::Command
+      class DestroyArticleCategory < Decidim::Command
         def initialize(article_category, user)
           @article_category = article_category
           @current_user = user
         end
 
-        # Creates the article_category if valid.
+        # Destroys the article_category.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call

@@ -1,0 +1,1 @@
+import "src/area-polygon-map/area-polygon-map.js";

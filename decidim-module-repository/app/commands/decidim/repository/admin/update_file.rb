@@ -4,7 +4,7 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user updates file
-      class UpdateFile < Rectify::Command
+      class UpdateFile < Decidim::Command
         def initialize(file, form, user)
           @file = file
           @form = form

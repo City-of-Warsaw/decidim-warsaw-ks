@@ -4,7 +4,7 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user creates Article Category
-      class CreateArticleCategory < Rectify::Command
+      class CreateArticleCategory < Decidim::Command
         def initialize(form, user)
           @form = form
           @current_user = user
@@ -38,6 +38,7 @@ module Decidim
           {
             name: form.name,
             description: form.description,
+            weight: form.weight,
             organization: current_user.organization
           }
         end

@@ -1,31 +1,96 @@
 pl:
+  time:
+    formats:
+      tooltip: "%d-%m-%Y %H:%M"
   activemodel:
     attributes:
       static_page_topic:
         template: Szablon strony
+      user:
+        name: Nazwa użytkownika
     models:
       decidim/component_published_event: Nowa możliwość podzielenia się opinią
       decidim/attachment_created_event: Nowy załącznik
+  activerecord:
+    models:
+      decidim/comments/comment:
+        one: Komentarze
+        few: Komentarze
+        many: Komentarze
+        other: Komentarze
+    attributes:
+      decidim/action_log:
+        created_at: Data
+        with_participatory_space: Konsultacja
+      decidim/user:
+        editorial: Nazwa wyświetlana
   errors:
     messages:
       banned_word: Prosimy o kulturalne wypowiedzi. Usuń z tekstu słowa obraźliwe.
       banned_word_in_name: Nie można zapisać nazwy użytkownika zawierającej słowo obraźliwe.
+      extension_whitelist_error: Niedozwolone rozszerzenie pliku
+      too_short: jest za krótki (poniżej 10 znaków)
   carrierwave:
     errors:
       image_dimension_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}px)"
       image_size_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}MB)"
   decidim:
+    shared:
+      flag_modal:
+        does_not_belong: Zawiera nielegalną aktywność, groźby samobójstwa, dane o charakterze prywatnym lub inne treści, które według Ciebie nie powinny pojawić się w Konsultacje społeczne w Warszawie.
+      flag_user_modal:
+        does_not_belong: Zawiera nielegalną aktywność, groźby samobójstwa, dane o charakterze prywatnym lub inne treści, które według Ciebie nie powinny pojawić się w Konsultacje społeczne w Warszawie.
+    follows:
+      destroy:
+        button: NIE OBSERWUJ
+    newsletter_templates:
+      basic_only_text_settings_form:
+        footer: Stopka maila
     admin:
       static_page_topics:
         templates:
           contact: Kontakt
           standalone: Samodzielna strona
+    author:
+      ad_user: Konsultacje społeczne Warszawa
+      unregistered_author: Użytkownik niezarejestrowany
+      signature_missing: od niezarejestrowanego użytkownika
     content_blocks:
+      footer_sub_hero:
+        name: Baner podrzędny stopki
       hero_settings_form:
         addition_to_welcome_text: Dopisek do tekstu powitalnego
+        description: Opis
+        hero_image_action_title: Tytuł przycisku akcji
+        hero_image_action_url: URL przycisku akcji
         hero_image_alt: Opis alternatywny (ALT) dla obrazu głównego
+      meetings_map:
+        title: Najbliższe spotkania
+    devise:
+      registrations:
+        new:
+          newsletter_title: Mamy wysyłać e-maile?
+    components:
+      add_comment_form:
+        account_message: <a href="/users/sign_in">Zaloguj się / </a><a href="/users/sign_up">Zarejestruj się</a>
+        form:
+          signature:
+            placeholder: Podpis
+          select_age: Wiek
+          select_gender: Płeć
+          select_district: Dzielnica
+      comment:
+        moderated_at: Wpis ukryty – naruszał regulamin (%{date})
+        deleted_at: Wpis usunięty przez osobę, która go opublikowała (%{date})
     profile:
       blocked: Zablokowany użytkownik
+    errors:
+      internal_server_error:
+        title: Wystąpił problem z serwisem
+        try_later: |
+          <p>Nie posiadasz odpowiednich uprawnień lub pojawił się inny problem systemowy.</p>
+          <p>Spróbuj ponownie później.</p>
+          <p>Skontaktuj się z nami: <a href="mailto:konsultacje@um.warszawa.pl" title="Skontaktuj się z nami">konsultacje@um.warszawa.pl</a>.</p>
     events:
       components:
         component_published:
@@ -33,16 +98,27 @@ pl:
       attachments:
         attachment_created:
           notification_title: Dodaliśmy <a href="%{resource_path}">Nowy dokument</a> w konsultacjach <a href="%{attached_to_url}">%{resource_title}</a>
+    search_results_section:
+      till: "Konsultacje trwają do&nbsp;<strong>%{ending_date}</strong>"
+  devise:
+    failure:
+      already_authenticated: Masz już konto – nie musisz się rejestrować
+    passwords:
+      new:
+        forgot_your_password: Nie pamiętasz hasła?
+    shared:
+      links:
+        didn_t_receive_confirmation_instructions: Nie dotarł link do aktywacji konta?
   views:
     pagination:
-      first: <span aria-hidden="true">&laquo;</span> Pierwsza<span class="show-for-sr"> strona</span>
+      first: Pierwsza<span class="show-for-sr"> strona</span>
       first_title: ""
-      last: Ostatnia<span class="show-for-sr"> strona</span> <span aria-hidden="true">&raquo;</span>
+      last: Ostatnia<span class="show-for-sr"> strona</span>
       last_title: ""
-      next: Następna<span class="show-for-sr"> strona</span> <span aria-hidden="true">&rsaquo;</span>
+      next: Następna<span class="show-for-sr"> strona</span>
       next_title: ""
       pagination: Strony
-      previous: <span aria-hidden="true">&lsaquo;</span> Poprzednia<span class="show-for-sr"> strona</span>
+      previous: Poprzednia<span class="show-for-sr"> strona</span>
       previous_title: ""
       title: "Numer strony: "
       truncate: "&hellip;"

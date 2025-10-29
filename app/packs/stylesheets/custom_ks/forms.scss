@@ -1,0 +1,478 @@
+// register form
+
+.step-1,
+.step-2 {
+  .form__wrapper-block.buttons {
+    height: 100%;
+    padding: 40px 0;
+    display: flex;
+    gap: 32px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  label {
+    font-size: 18px;
+  }
+
+  .username-label-caption {
+    font-size: 14px;
+    font-weight: 400;
+
+    + span {
+      display: none;
+    }
+  }
+
+  .peek-password {
+    display: none;
+  }
+
+  input,
+  select {
+    background-color: #fff;
+  }
+}
+
+.ms-options-wrap {
+  width: 100%;
+
+  > button {
+    background-image: url("images/carret-down.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+    padding-right: 3rem;
+    border-radius: 4px;
+  }
+}
+
+.zip-code-field {
+  input {
+    width: 6em;
+    text-align: center;
+    display: inline-block;
+  }
+}
+
+.form__wrapper label,
+.form__wrapper-block label {
+  &:not(.form__wrapper-checkbox-label) {
+    font-size: 18px;
+  }
+}
+
+.step-1,
+.form__wrapper-block {
+  .new_user {
+    .show-for-sr,
+    .help-text {
+      display: none !important;
+    }
+
+    .form__wrapper {
+      padding-top: 0;
+    }
+
+    .card__content {
+      padding-top: 0;
+    }
+
+    #card__tos {
+      p {
+        font-size: 14px;
+
+        a {
+          color: var(--primary);
+        }
+      }
+    }
+
+    .tos-agreement-disclaimer {
+      font-size: 14px;
+      margin-top: 1em;
+      display: block;
+
+      strong a {
+        font-weight: bold;
+      }
+    }
+
+    div.actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      padding-top: 12px;
+      flex-wrap: wrap;
+
+      .link {
+        line-height: 52px;
+        height: 52px;
+        color: var(--primary);
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      > button:not(.link) {
+        min-width: 150px;
+      }
+    }
+
+    .pretty-multiselect {
+      &.ms-active:not(.ms-has-selections) {
+        > button > span {
+          display: none;
+        }
+      }
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 0;
+    }
+
+    .subheading {
+      font-size: 14px;
+      margin-bottom: 1em;
+    }
+
+    .ms-options-wrap {
+      margin-bottom: 1em;
+      margin-top: 16px;
+
+      > button {
+        border-bottom: 1px solid #949494 !important;
+      }
+
+      .ms-options {
+        border-top: 1px solid #8c8c8c;
+        margin-top: 4px;
+        border-radius: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 8px;
+        justify-content: flex-end;
+        align-self: baseline;
+
+        ul {
+          flex-basis: 100%;
+        }
+
+        > a {
+          flex-basis: 32%;
+          font-size: 14px !important;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    hr.full-width {
+      width: 100%;
+      margin: 4rem 1.5rem;
+    }
+
+    .card--errors {
+      border: 0;
+      padding-top: 1rem;
+      margin-bottom: 1rem;
+
+      .card__content {
+        padding-bottom: 0rem;
+      }
+    }
+
+    label.form__wrapper-checkbox-label {
+      font-size: 14px;
+      font-weight: 400 !important;
+      background-color: #f2f2f2;
+      padding: 15px;
+      display: flex;
+      align-items: baseline;
+      border-radius: 4px;
+    }
+  }
+
+  #card__tos.form__wrapper-block {
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.step-1 {
+  .login__info {
+    background-color: rgba(28, 124, 151, 0.1);
+    padding: 32px 16px;
+    position: relative;
+
+    p {
+      color: #000 !important;
+
+      a {
+        color: var(--primary) !important;
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      right: 7%;
+      width: 0;
+      height: 0;
+      border: 36px solid;
+      border-color: rgba(28, 124, 151, 0.1) transparent transparent;
+      transform: scaleX(0.75);
+      pointer-events: none;
+    }
+  }
+}
+
+.step-2,
+.edit_user {
+  .show-for-sr {
+    display: none;
+  }
+
+  input,
+  select {
+    margin-top: 16px;
+    font-size: 16px !important;
+    height: 41px;
+  }
+
+  #card__newsletter {
+    border-top: none;
+
+    label {
+      font-size: 14px;
+    }
+  }
+
+  .field.zip-code-field {
+    display: flex;
+
+    label {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        margin-left: 0;
+        width: 80px;
+      }
+    }
+
+    .form-tooltip {
+      &__hint {
+        width: 41px;
+        height: 41px;
+      }
+
+      &__content {
+        transform: translateY(-35px);
+        font-size: 12px;
+      }
+    }
+  }
+
+  .form__wrapper-block {
+    label {
+      display: flex;
+      flex-direction: column;
+
+      input,
+      select {
+        width: 100%;
+        font-size: 18px;
+      }
+
+      &.form__wrapper-checkbox-label {
+        flex-direction: row;
+        align-items: center;
+
+        input[type="checkbox"] {
+          width: 20px;
+          height: 20px;
+          margin-top: 0;
+          accent-color: var(--primary) !important;
+        }
+      }
+    }
+  }
+}
+
+.step-2 {
+  display: none;
+
+  .field.zip-code-field {
+    .form-tooltip {
+      transform: translate(-130px, 38px);
+    }
+  }
+}
+
+.edit_user {
+  p {
+    color: black;
+  }
+
+  .field.zip-code-field label,
+  p.help-text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  p.help-text {
+    margin-top: 35px;
+  }
+
+  p.help-text:first-of-type {
+    margin-top: 0;
+  }
+
+  .field.zip-code-field {
+    .form-tooltip {
+      transform: translate(-130px, 61px);
+
+      &__content {
+        transform: translate(-3px, -55px);
+      }
+    }
+
+    label {
+      margin-top: 25px;
+    }
+  }
+
+  .field.checkboxed {
+    label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 14px;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        margin-top: 0;
+        margin-right: 8px;
+        appearance: auto !important;
+        accent-color: var(--primary) !important;
+      }
+    }
+  }
+}
+
+.button_to {
+  margin-left: 0 !important;
+}
+
+.register-form,
+.new_user {
+  .password-rules {
+    background-color: #f2f2f2;
+    padding: 24px 20px;
+    margin-bottom: 1em;
+    font-size: 14px;
+
+    h6 {
+      font-weight: bold;
+      color: black;
+      font-size: 14px;
+    }
+
+    ul {
+      list-style-type: none;
+      margin-left: 0;
+      margin-bottom: 0;
+
+      li {
+        display: flex;
+        align-items: center;
+        margin-top: 6px;
+
+        .password-rule-result {
+          width: 14px;
+          height: 14px;
+          margin-right: 8px;
+          position: relative;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+
+          &::before {
+            content: "";
+            position: absolute;
+            background-color: black;
+            border-radius: 50%;
+            width: 5px;
+            height: 5px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+
+        &.password-rule-success .password-rule-result {
+          &::before {
+            content: unset;
+          }
+          background-image: url("images/check-colored.svg");
+        }
+
+        &.password-rule-error .password-rule-result {
+          &::before {
+            content: unset;
+          }
+          background-image: url("images/error-colored.svg");
+        }
+      }
+    }
+  }
+}
+
+.form__wrapper--edit-password {
+  gap: 1.5rem;
+}
+
+.form__select-wrapper {
+  background-color: rgba(28, 124, 151, 0.1);
+  padding: 24px 15px;
+  width: calc(100% + 32px);
+  transform: translateX(-16px);
+  position: relative;
+  z-index: 10;
+
+  &:has(.ms-active) {
+    z-index: 9998 !important;
+  }
+
+  .ms-options-wrap {
+    position: relative;
+    z-index: 20;
+
+    &.ms-active {
+      z-index: 9999 !important;
+
+      .ms-options {
+        z-index: 10000 !important;
+      }
+    }
+
+    .ms-options {
+      position: absolute;
+      z-index: 30;
+    }
+  }
+
+  @media only screen and (min-width: 640px) {
+    width: 100%;
+    transform: translateX(0);
+  }
+}

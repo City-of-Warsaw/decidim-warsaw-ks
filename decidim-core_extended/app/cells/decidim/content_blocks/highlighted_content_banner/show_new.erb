@@ -3,7 +3,7 @@
     <div class="row">
       <div class="columns large-6 text-center">
         <% if current_organization.highlighted_content_banner_image.present? %>
-          <%= image_tag current_organization.highlighted_content_banner_image.url, alt: current_organization.highlighted_content_banner_alt, class: 'better-warsaw-image'  %>
+          <%= image_tag current_organization.attached_uploader(:highlighted_content_banner_image).path, alt: current_organization.highlighted_content_banner_alt, class: 'better-warsaw-image'  %>
         <% end %>
       </div>
       <div class="columns large-6">

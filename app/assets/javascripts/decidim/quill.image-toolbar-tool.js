@@ -1,4 +1,4 @@
-function createImageToolbarToolHandler(options) {
+export function createImageToolbarToolHandler(options) {
   const DEFAULT_OPTIONS = {
     uploadEndpointUrl: "",
     acceptMimeTypes: "image/png, image/gif, image/jpeg",
@@ -11,10 +11,25 @@ function createImageToolbarToolHandler(options) {
   const popup = document.createElement("div");
   popup.id = "ql-image-toolbar-popup";
   popup.style.display = "none";
+  popup.style.position = "fixed";
+  popup.style.zIndex = "1000";
+  popup.style.backgroundColor = "white";
+  popup.style.border = "1px solid #ccc";
+  popup.style.padding = "10px";
+  popup.style.flexDirection = "column";
+  popup.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+  popup.style.top = "50%";
+  popup.style.left = "50%";
+  popup.style.transform = "translate(-50%, -50%)";
 
   const popupCloseButton = document.createElement("button");
   popupCloseButton.id = "ql-image-toolbar-popup-close-button";
   popupCloseButton.innerHTML = "&times;";
+  popupCloseButton.style.alignSelf = "flex-end";
+  popupCloseButton.style.border = "none";
+  popupCloseButton.style.background = "none";
+  popupCloseButton.style.fontSize = "20px";
+  popupCloseButton.style.cursor = "pointer";
   popupCloseButton.addEventListener("click", () => {
     popup.style.display = "none";
   });
@@ -25,6 +40,9 @@ function createImageToolbarToolHandler(options) {
   popupForm.setAttribute("method", "post");
   popupForm.setAttribute("enctype", "multipart/form-data");
   popupForm.setAttribute("action", options.uploadEndpointUrl);
+  popupForm.style.display = "flex";
+  popupForm.style.flexDirection = "column";
+  popupForm.style.gap = "10px";
   popupForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -51,6 +69,7 @@ function createImageToolbarToolHandler(options) {
   popupFileField.className = "ql-image-toolbar-popup-field";
   const popupFileFieldLabel = document.createElement("div");
   popupFileFieldLabel.innerText = "Plik:";
+  popupFileFieldLabel.style.marginBottom = "5px";
 
   const popupFileFieldInput = document.createElement("input");
   popupFileFieldInput.style.width = "100%";
@@ -67,6 +86,7 @@ function createImageToolbarToolHandler(options) {
   popupAltField.className = "ql-image-toolbar-popup-field";
   const popupAltFieldLabel = document.createElement("div");
   popupAltFieldLabel.innerText = "Opis alternatywny:";
+  popupAltFieldLabel.style.marginBottom = "5px";
 
   const popupAltFieldInput = document.createElement("input");
   popupAltFieldInput.setAttribute("type", "text");
@@ -82,6 +102,8 @@ function createImageToolbarToolHandler(options) {
   popupSubmitButton.className = "ql-image-toolbar-popup-button";
   popupSubmitButton.innerText = "Dodaj";
   popupSubmitButton.style.alignSelf = "flex-end";
+  popupSubmitButton.style.padding = "6px 12px";
+  popupSubmitButton.style.cursor = "pointer";
   popupSubmitButton.type = "submit";
 
   popupForm.appendChild(popupSubmitButton);
@@ -97,7 +119,7 @@ function createImageToolbarToolHandler(options) {
     data.append("file[alt]", alt);
     data.append(
       "authenticity_token",
-      document.getElementsByName("csrf-token")[0].content
+      document.querySelector('meta[name="csrf-token"]').content
     );
 
     try {
@@ -112,7 +134,6 @@ function createImageToolbarToolHandler(options) {
 
       if (!response.ok) {
         alert("Wystąpił błąd podczas wysyłania pliku.");
-
         return null;
       }
 
@@ -126,36 +147,31 @@ function createImageToolbarToolHandler(options) {
             "errors"
           ].join("\n")}`
         );
-
         return null;
       }
     } catch (error) {
       console.error(error);
-
       alert("Wystąpił błąd podczas wysyłania pliku.");
-
       return null;
     }
   }
 
   function insertImage(quill, url, alt) {
     const range = quill.getSelection(true);
-
     quill.insertEmbed(range.index, "extended-image", { url, alt });
     quill.setSelection(range.index + 1);
   }
 
-  return async function () {
+  return function () {
     quill = this.quill;
 
-    const [, element] = this.controls.find(([id]) => id === "image");
+    const toolbarElement = this.container;
+    const imageButton = toolbarElement.querySelector(".ql-extended-image");
 
     if (popup.style.display === "flex") {
       popup.style.display = "none";
     } else {
       popup.style.display = "flex";
-      popup.style.top = `${element.offsetTop + element.offsetHeight}px`;
-      popup.style.left = `${element.offsetLeft - popup.scrollWidth}px`;
     }
   };
 }

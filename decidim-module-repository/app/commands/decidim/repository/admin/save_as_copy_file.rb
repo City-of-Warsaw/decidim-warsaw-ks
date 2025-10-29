@@ -4,14 +4,14 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user save file as copy
-      class SaveAsCopyFile < Rectify::Command
+      class SaveAsCopyFile < Decidim::Command
         def initialize(original_file, form, user)
           @original_file = original_file
           @form = form
           @current_user = user
         end
 
-        # Updates the file if valid.
+        # save file as copy file if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call

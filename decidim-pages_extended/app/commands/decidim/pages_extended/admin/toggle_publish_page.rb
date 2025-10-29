@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # This command is executed when the user changes publication statuss
       # of a Page from the admin panel.
-      class TogglePublishPage < Rectify::Command
+      class TogglePublishPage < Decidim::Command
         include Decidim::PagesExtended::ApplicationHelper
         # Initializes a TogglePublishPage Command.
         #

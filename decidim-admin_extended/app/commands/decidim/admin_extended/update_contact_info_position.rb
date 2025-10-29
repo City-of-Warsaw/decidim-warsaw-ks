@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating a Contact Info Position
-    class UpdateContactInfoPosition < Rectify::Command
+    class UpdateContactInfoPosition < Decidim::Command
       # Public: Initializes the command.
       #
       # contact_info_position - A Contact Info Position to update.

@@ -1,0 +1,12 @@
+<a href="<%= resource_url(remark,{commentId: "#{remark.id}",anchor: "comment_#{remark.id}"}) %>">
+  <div class="my-comment">
+    <h2 class="mb-4 title text-wrap break-words"><%= remark.body.truncate(200, omission: '...', separator: ' ') %></h2>
+    <div class="flex gap-1 items-start justify-start md:justify-between flex-col md:flex-row">
+      <div class="flex items-start md:gap-1 flex-col md:flex-row">
+        <span class="strong-text whitespace-nowrap">Uwaga do: </span>
+        <strong class="text-wrap break-words"><%= translated_attribute remark.participatory_space.title %></strong>
+      </div>
+      <p class="mt-1.5 md:mt-0 created-at-date"><%=l(remark.created_at, format: :decidim_short_cut_zero) %></p>
+    </div>
+  </div>
+</a>

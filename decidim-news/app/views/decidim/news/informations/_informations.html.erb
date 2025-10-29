@@ -1,8 +1,15 @@
-<% @informations.each_with_index do |information, index| %>
-  <% if (0..2).include?(index) && (params[:page].blank? || params[:page] ==  '1') %>
-    <%= cell "decidim/news/information", information, length: 750, column_size_classes: 'large-12' %>
-  <% else %>
-    <%= cell "decidim/news/information", information, column_size_classes: 'large-4 medium-12' %>
+<% if params[:page].blank? || params[:page] == '1' %>
+  <% highlighted_cards.each do |information| %>
+    <%= card_for information, size: :l, highlight: true, length: 1200 %>
+  <% end %>
+
+  <% if remaining_cards.any? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-2 ">
+      <% remaining_cards.each do |information| %>
+        <%= card_for information, size: :g, highlight: true, length: 210 %>
+      <% end %>
+    </div>
   <% end %>
 <% end %>
-<%= decidim_paginate @informations %>
+
+

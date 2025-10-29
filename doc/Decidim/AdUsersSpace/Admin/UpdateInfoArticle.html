@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::AdUsersSpace::Admin::UpdateInfoArticle</li>
           
@@ -88,6 +88,11 @@
   
   
   
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html" title="Decidim::Repository::Admin::GalleriesHelper (module)">Repository::Admin::GalleriesHelper</a></span></dd>
+  </dl>
   
   
 
@@ -237,7 +242,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates the info_article if valid.</p>
+<p>Updates the info_article if valid.</p>
 </div></span>
   
 </li>
@@ -317,6 +322,17 @@
   
 
 
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html" title="Decidim::Repository::Admin::GalleriesHelper (module)">Repository::Admin::GalleriesHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#add_gallery-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#add_gallery (method)">#add_gallery</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#create_gallery_with_images!-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#create_gallery_with_images! (method)">#create_gallery_with_images!</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#new_gallery_params-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#new_gallery_params (method)">#new_gallery_params</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#tiles_view%3F-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#tiles_view? (method)">#tiles_view?</a></span></p>
+
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -346,14 +362,14 @@
       <pre class="lines">
 
 
-9
 10
 11
 12
-13</pre>
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_info_article'>info_article</span><span class='comma'>,</span> <span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span>
@@ -398,12 +414,12 @@
       <pre class="lines">
 
 
-28
-29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_user'>current_user</span>
   <span class='ivar'>@current_user</span>
@@ -441,12 +457,12 @@
       <pre class="lines">
 
 
-28
-29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@form</span>
@@ -484,12 +500,12 @@
       <pre class="lines">
 
 
-28
-29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info_article'>info_article</span>
   <span class='ivar'>@info_article</span>
@@ -518,7 +534,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates the info_article if valid.</p>
+<p>Updates the info_article if valid.</p>
 
 <p>Broadcasts :ok if successful, :invalid otherwise.</p>
 
@@ -534,21 +550,23 @@
       <pre class="lines">
 
 
-18
 19
 20
 21
 22
 23
-24</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
 
   <span class='id identifier rubyid_update_info_article!'>update_info_article!</span>
+  <span class='id identifier rubyid_add_gallery'>add_gallery</span><span class='lparen'>(</span><span class='id identifier rubyid_info_article'>info_article</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='comma'>,</span> <span class='id identifier rubyid_info_article'>info_article</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -572,23 +590,25 @@
       <pre class="lines">
 
 
-39
-40
 41
 42
 43
 44
 45
-46</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info_article_params'>info_article_params</span>
   <span class='lbrace'>{</span>
     <span class='label'>title:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span>
     <span class='label'>body:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
-    <span class='label'>article_category:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_article_category'>article_category</span><span class='comma'>,</span>
+    <span class='label'>article_category_id:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_article_category_id'>article_category_id</span><span class='comma'>,</span>
+    <span class='label'>weight:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span><span class='comma'>,</span>
     <span class='label'>gallery_id:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_gallery_id'>gallery_id</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
@@ -612,17 +632,17 @@
       <pre class="lines">
 
 
-30
-31
 32
 33
 34
 35
 36
-37</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/update_info_article.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_info_article!'>update_info_article!</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span><span class='lparen'>(</span>
@@ -642,9 +662,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

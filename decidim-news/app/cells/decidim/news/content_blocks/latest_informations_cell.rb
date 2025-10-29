@@ -5,6 +5,7 @@ module Decidim
     module ContentBlocks
       class LatestInformationsCell < Decidim::ViewModel
         include Decidim::CardHelper
+        include Decidim::News::UrlHelper
 
         def show
           return if latest_informations.blank?
@@ -13,20 +14,20 @@ module Decidim
         end
 
         def latest_informations
-          @latest_informations ||= Decidim::News::Information
-                               .where(organization: current_organization)
-                               .order(created_at: :desc)
-                               .limit(limit)
-        end
-
-        def all_news_path
-          Decidim::News::Engine.routes.url_helpers.news_index_path
+          @latest_informations ||= Decidim::News::Information.where(decidim_organization_id: current_organization.id)
+                                                             .published
+                                                             .sorted_by_weight
+                                                             .limit(limit)
         end
 
         private
 
         def limit
           3
+        end
+
+        def all_path
+          decidim_news.news_index_path
         end
       end
     end

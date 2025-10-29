@@ -73,7 +73,6 @@ module Decidim::Comments
         let(:commentable) { Decidim::News::Information.create(title: 'Title', body: 'Body', organization: organization) }
 
         it "cell sets proper commentable path" do
-          # TODO: do sprawdzenia widok
           expect(subject).to have_css("a[href='/informations/#{commentable.id}#comment_#{comment.id}']")
         end
 

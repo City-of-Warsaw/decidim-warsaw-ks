@@ -1,0 +1,65 @@
+<div class="filters__section">
+  <div class="fcell">
+    <ul class="dropdown menu" data-dropdown-menu data-close-on-click-inside="false">
+      <li>
+        <a href="#" class="dropdown button button__sm button__secondary">
+          <%= t("filter_label", scope: "decidim.admin.filters") %>
+          <%= icon "arrow-down-s-line", class: "dropdown-filter-icon" %>
+        </a>
+        <%= dropdown_submenu(submenu_options_tree(:notes)) %>
+      </li>
+    </ul>
+  </div>
+  <div class="fcell search">
+    <%= search_form_for(query, url: url_for) do |form| %>
+      <%= applied_filters_hidden_field_tags %>
+        <div class="form__wrapper">
+          <div class="card">
+            <div class="card-section">
+              <div class="grid grid-cols-4 gap-5">
+                <div class="flex flex-col col-span-1">
+                  <%= form.number_field :id_gteq, class: "!mt-1 px-2 py-1 border border-gray outline outline-1 outline-transparent rounded bg-background-2 text-black font-normal placeholder:text-gray focus:outline-2 focus:outline-secondary disabled:bg-background-3 disabled:text-gray-2 disabled:cursor-not-allowed max-w-xs w-full" %>
+                </div>
+
+                <div class="flex flex-col col-span-1">
+                  <%= form.number_field :id_lteq, class: "!mt-1 px-2 py-1 border border-gray outline outline-1 outline-transparent rounded bg-background-2 text-black font-normal placeholder:text-gray focus:outline-2 focus:outline-secondary disabled:bg-background-3 disabled:text-gray-2 disabled:cursor-not-allowed max-w-xs w-full" %>
+                </div>
+
+                <div class="flex flex-col col-span-1 [&>button]:h-6 [&>button]:top-1 [&_input]:!mt-1 [&_input]:h-auto [&_input]:text-sm [&_input]:px-2 [&_input]:py-1 [&_input]:border [&_input]:border-gray [&_input]:outline [&_input]:outline-1 [&_input]:outline-transparent [&_input]:rounded [&_input]:bg-background-2 [&_input]:text-black [&_input]:font-normal [&_input]:placeholder:text-gray [&_input]:focus:outline-2 [&_input]:focus:outline-secondary [&_input]:disabled:bg-background-3 [&_input]:disabled:text-gray-2 [&_input]:disabled:cursor-not-allowed max-w-xs w-full">
+                  <%= form.date_field :created_at_gteq, hide_help: true %>
+                </div>
+
+                <div class="flex flex-col col-span-1 [&>button]:h-6 [&>button]:top-1 [&_input]:!mt-1 [&_input]:h-auto [&_input]:text-sm [&_input]:px-2 [&_input]:py-1 [&_input]:border [&_input]:border-gray [&_input]:outline [&_input]:outline-1 [&_input]:outline-transparent [&_input]:rounded [&_input]:bg-background-2 [&_input]:text-black [&_input]:font-normal [&_input]:placeholder:text-gray [&_input]:focus:outline-2 [&_input]:focus:outline-secondary [&_input]:disabled:bg-background-3 [&_input]:disabled:text-gray-2 [&_input]:disabled:cursor-not-allowed max-w-xs w-full">
+                  <%= form.date_field :created_at_lteq, hide_help: true %>
+                </div>
+              </div>
+
+              <div class="flex flex-col mt-2">
+                <div class="grid grid-cols-[1fr_50px] items-end gap-x-4">
+                  <div class="cell">
+                    <%= form.search_field(
+                          search_field_predicate,
+                          class: "px-2 py-1 text-sm border border-gray outline outline-1 outline-transparent rounded bg-background-2 text-black font-normal placeholder:text-gray focus:outline-2 focus:outline-secondary disabled:bg-background-3 disabled:text-gray-2 disabled:cursor-not-allowed",
+                          label: false,
+                          placeholder: t(search_field_predicate,
+                                         collection: collection_name,
+                                         scope: "decidim.admin.filters.search_placeholder")) %>
+                  </div>
+                  <div class="cell">
+                    <button type="submit" class="button button__sm button__secondary w-full" aria-label="<%= t("decidim.search.term_input_placeholder") %>">
+                      <%= icon "search-line", class: "!fill-white w-4 h-4" %>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="fcell flex items-center gap-2" data-applied-filters-tags>
+  <%= applied_filters_tags(:notes) %>
+</div>

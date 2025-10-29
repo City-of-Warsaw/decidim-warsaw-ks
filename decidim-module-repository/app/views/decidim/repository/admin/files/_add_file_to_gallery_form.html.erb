@@ -1,0 +1,12 @@
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="row column">
+      <%= add_file_to_gallery_form.collection_select :file_id,
+                                                     Decidim::Repository::File.alphabetical,
+                                                     :id,
+                                                     :name,
+                                                     include_blank: true,
+                                                     label: 'Plik z repozytorium' %>
+    </div>
+  </div>
+</div>

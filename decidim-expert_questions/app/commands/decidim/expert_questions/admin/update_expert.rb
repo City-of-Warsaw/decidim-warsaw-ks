@@ -4,16 +4,16 @@ module Decidim
   module ExpertQuestions
     module Admin
       # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class UpdateExpert < Rectify::Command
+      class UpdateExpert < Decidim::Command
         # Initializes a UpdateExpert Command.
         #
         # form - The form from which to get the data.
         # current_user - The current instance of the expert to be updated.
         def initialize(form, expert)
+          super()
           @form = form
           @expert = expert
           @current_user = form.current_user
-          @form.avatar = @expert.avatar if @form.avatar.blank?
         end
 
         # Updates the expert if valid.
@@ -22,27 +22,21 @@ module Decidim
         def call
           return broadcast(:invalid) if @form.invalid?
 
-          test_update_expert
-
-          if @expert.valid?
-            update_expert
-            broadcast(:ok)
-          else
-            @form.errors.add :avatar, @expert.errors[:avatar] if @expert.errors.has_key? :avatar
-            broadcast(:invalid)
-          end
+          build_temp_expert
+          @form.valid? && temp_expert.valid?
+          update_expert
+          broadcast(:ok)
         end
 
         private
 
-        def test_update_expert
-          @expert.position = @form.position
-          @expert.affiliation = @form.affiliation
-          @expert.description = @form.description
-          @expert.avatar = @form.avatar
-          @expert.weight = @form.weight
-          @expert.remove_avatar = @form.remove_avatar
+        def build_temp_expert
+          @temp_expert ||= Decidim::ExpertQuestions::Expert.new(
+            component: @form.current_component,
+            avatar: @form.avatar
+          )
         end
+        alias_method :temp_expert, :build_temp_expert
 
         def update_expert
           Decidim.traceability.update!(
@@ -55,21 +49,19 @@ module Decidim
 
         def expert_attributes
           {
-            position: @form.position,
+            full_name: @form.full_name,
             affiliation: @form.affiliation,
             description: @form.description,
-            avatar: @form.avatar,
-            # decidim_user_id: @form.decidim_user_id,
             weight: @form.weight,
-            remove_avatar: @form.remove_avatar
-            # component: @form.current_component
-          }
+          }.tap do |attrs|
+            attrs[:avatar] = @form.avatar if @form.avatar.present?
+          end
         end
 
         def log_info
           {
             resource: {
-              title: @expert.user.name
+              title: @expert.full_name
             },
             participatory_space: {
               title: @form.current_component.participatory_space.title

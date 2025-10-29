@@ -20,11 +20,11 @@ Decidim::System::UpdateOrganizationForm.class_eval do
     [:enable_starttls_auto_n, GraphQL::Types::Boolean]
   ]
 
-  attr_writer :password_n
+  attribute :password_n, String
 
   # method that allows encrypt password from database
   def password_n
-    Decidim::AttributeEncryptor.decrypt(encrypted_password_n) unless encrypted_password_n.nil?
+    encrypted_password_n.nil? ? super : Decidim::AttributeEncryptor.decrypt(encrypted_password_n)
   end
 
   # OVERWRITTEN DECIDIM METHOD
@@ -53,7 +53,7 @@ Decidim::System::UpdateOrganizationForm.class_eval do
     new_smtp_settings["user_name"] = user_name_n
     new_smtp_settings["from_email"] = from_email_n
     new_smtp_settings["from_label"] = from_label_n
-    new_smtp_settings["encrypted_password"] = Decidim::AttributeEncryptor.encrypt(@password_n)
+    new_smtp_settings["encrypted_password"] = Decidim::AttributeEncryptor.encrypt(password_n)
 
     new_smtp_settings
   end

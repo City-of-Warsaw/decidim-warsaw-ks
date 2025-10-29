@@ -32,6 +32,7 @@ pl:
         add_file: Dodaj plik
       filters:
         search_placeholder:
+          name_cont: Nazwa
           name_or_description_cont: Nazwa lub opis
       menu:
         repository: Repozytorium
@@ -66,7 +67,11 @@ pl:
         no_folders: Nie dodano jeszcze żadneej kategorii
         no_galleries: Nie dodano jeszcze żadnej galerii
         no_files: Nie dodano jeszcze żadnego pliku
-
+    admin_log:
+      gallery:
+        create: "%{user_name} utworzył(a) galerię %{resource_name}"
+        delete: "%{user_name} usunął/ęła galerię %{resource_name}"
+        update: "%{user_name} zaktualizował(a) galerię %{resource_name}"
     repository:
       admin:
         folders:
@@ -87,6 +92,9 @@ pl:
           destroy:
             success: Usunięto kategorię
         galleries:
+          forms:
+            file_validation:
+              allowed_file_extensions: Jeden z załączonych plików jest niepoprawny. Dozwolone pliki
           new:
             create: Zapisz
             title: Nowa galeria
@@ -98,11 +106,19 @@ pl:
             update: Aktualizuj
           update:
             success: Zaktualizowano galerię
+            error: Popraw błędy w formularzu
           index:
             title: Galerie
           destroy:
             success: Usunięto galerię
+          destroy_gallery_file:
+            success: Zdjęcie zostało usunięte z galerii
         files:
+          forms:
+            file_validation:
+              allowed_file_extensions: Dozwolone pliki
+          editor_images:
+            search: "Szukaj"
           new:
             create: Zapisz
             title: Dodaj plik
@@ -119,3 +135,5 @@ pl:
             title: Pliki
           destroy:
             success: Usunięto plik
+          filters:
+            text: Nazwa lub opis

@@ -1,22 +1,22 @@
-<li class="column">
-  <div class="card card--expert">
-    <div class="card__image--wrapper">
+<li class="md:w-[calc(50%-12px)] w-full">
+  <div class="border border-neutral-400 text-center expert-info flex flex-col h-full min-w-full">
+    <div class="expert-avatar-wrapper">
       <%= expert_avatar expert %>
     </div>
     <div class="card__content">
-      <div class="card__header">
-        <%= expert.position_and_name %>
+      <h2 class="card__header">
+        <%= expert.full_name %>
         <br>
         <%= expert.affiliation %>
-      </div>
-      <div class="card__text">
+      </h2>
+      <div class="card__text pb-3-">
         <%= decidim_sanitize expert.description %>
       </div>
     </div>
 
     <% if !current_component.users_action_disallowed? %>
-      <div class="card__footer card__footer--spaces">
-        <%= link_to (t("decidim.expert_questions.user_questions.index.new_user_question") + "<span class='show-for-sr'> ekspertowi: " + expert.position_and_name + "</span>").html_safe, new_user_question_path(expert_id: expert.id, anchor: "subcontent"), class: "card__button button--sc light button small" %>
+      <div class="card__footer card__footer--spaces custom-card-footer mt-auto">
+        <%= link_to (t("decidim.expert_questions.user_questions.index.new_user_question") + "<span class='show-for-sr'> ekspertowi: " + expert.full_name + "</span>").html_safe, new_user_question_path(expert_id: expert.id, anchor: "subcontent"), class: "card__button button--sc light button small ml-0", style: "margin-left: 0px !important;" %>
       </div>
     <% end %>
   </div>

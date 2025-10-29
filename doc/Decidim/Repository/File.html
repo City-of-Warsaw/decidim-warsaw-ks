@@ -275,7 +275,51 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#svg%3F-instance_method" title="#svg? (instance method)">#<strong>svg?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#thumbnail_200-instance_method" title="#thumbnail_200 (instance method)">#<strong>thumbnail_200</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#thumbnail_500-instance_method" title="#thumbnail_500 (instance method)">#<strong>thumbnail_500</strong>  &#x21d2; Object </a>
     
 
     
@@ -391,12 +435,12 @@
       <pre class="lines">
 
 
-51
-52
-53</pre>
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_acceptable_types'>acceptable_types</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>OrganizationSettings</span><span class='period'>.</span><span class='id identifier rubyid_for'>for</span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upload_allowed_content_types_admin'>upload_allowed_content_types_admin</span>
@@ -421,19 +465,29 @@
       <pre class="lines">
 
 
-55
-56
-57
-58
-59</pre>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_correct_content_type_file'>correct_content_type_file</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dozowolne pliki: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_acceptable_types'>acceptable_types</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_with_acceptable_content_type?'>with_acceptable_content_type?</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_with_acceptable_content_type?'>with_acceptable_content_type?</span>
+    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span>
+      <span class='symbol'>:file</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin.files.forms.file_validation.allowed_file_extensions</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_acceptable_types'>acceptable_types</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -455,21 +509,31 @@
       <pre class="lines">
 
 
-70
-71
-72
-73
-74
-75</pre>
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_correct_file_extension'>correct_file_extension</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
 
   <span class='id identifier rubyid_acceptable_file_extensions'>acceptable_file_extensions</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>OrganizationSettings</span><span class='period'>.</span><span class='id identifier rubyid_for'>for</span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upload_allowed_file_extensions_admin'>upload_allowed_file_extensions_admin</span>
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dozowolne pliki: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_acceptable_file_extensions'>acceptable_file_extensions</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>, </span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_acceptable_file_extensions'>acceptable_file_extensions</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='period'>.</span><span class='id identifier rubyid_extension_without_delimiter'>extension_without_delimiter</span><span class='rparen'>)</span>
+  <span class='kw'>unless</span> <span class='id identifier rubyid_acceptable_file_extensions'>acceptable_file_extensions</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='period'>.</span><span class='id identifier rubyid_extension_without_delimiter'>extension_without_delimiter</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span>
+      <span class='symbol'>:file</span><span class='comma'>,</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin.files.forms.file_validation.allowed_file_extensions</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_acceptable_file_extensions'>acceptable_file_extensions</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>, </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -491,27 +555,31 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
-83
-84
-85</pre>
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_correct_file_size'>correct_file_size</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plik jest niepoprawny. Rozmiar nie może być równy 0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_byte_size'>byte_size</span> <span class='op'>==</span> <span class='int'>0</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plik jest niepoprawny. Rozmiar nie może być równy 0</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_byte_size'>byte_size</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
 
   <span class='id identifier rubyid_max_file_size_in_b'>max_file_size_in_b</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>OrganizationSettings</span><span class='period'>.</span><span class='id identifier rubyid_for'>for</span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upload_maximum_file_size'>upload_maximum_file_size</span>
   <span class='id identifier rubyid_max_file_size_in_mb'>max_file_size_in_mb</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_max_file_size_in_b'>max_file_size_in_b</span><span class='period'>.</span><span class='id identifier rubyid_to_f'>to_f</span> <span class='op'>/</span> <span class='int'>1</span><span class='period'>.</span><span class='id identifier rubyid_megabyte'>megabyte</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_round'>round</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plik jest za duży (max. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_max_file_size_in_mb'>max_file_size_in_mb</span><span class='embexpr_end'>}</span><span class='tstring_content'>MB)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_byte_size'>byte_size</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_max_file_size_in_b'>max_file_size_in_b</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_byte_size'>byte_size</span> <span class='op'>&gt;</span> <span class='id identifier rubyid_max_file_size_in_b'>max_file_size_in_b</span>
+    <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:file</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plik jest za duży (max. </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_max_file_size_in_mb'>max_file_size_in_mb</span><span class='embexpr_end'>}</span><span class='tstring_content'>MB)</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -555,15 +623,15 @@
       <pre class="lines">
 
 
-87
-88
-89</pre>
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_image?'>image?</span>
-  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>image</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -607,15 +675,15 @@
       <pre class="lines">
 
 
-91
-92
-93</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_media?'>media?</span>
-  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>video</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>audio</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>video</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>audio</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -659,15 +727,67 @@
       <pre class="lines">
 
 
-99
-100
-101</pre>
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_owned_by?'>owned_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_creator_id'>creator_id</span> <span class='op'>==</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="svg?-instance_method">
+  
+    #<strong>svg?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 111</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_svg?'>svg?</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>svg+xml</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -689,6 +809,7 @@
       <pre class="lines">
 
 
+38
 39
 40
 41
@@ -696,12 +817,49 @@
 43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_thumbnail_200'>thumbnail_200</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variable?'>variable?</span>
 
-  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='lparen'>(</span><span class='label'>resize:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>200x200</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variable?'>variable?</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='lparen'>(</span><span class='label'>resize:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>200x200</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="thumbnail_500-instance_method">
+  
+    #<strong>thumbnail_500</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_thumbnail_500'>thumbnail_500</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variable?'>variable?</span>
+
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='lparen'>(</span><span class='label'>resize:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>x500</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -723,19 +881,21 @@
       <pre class="lines">
 
 
-45
-46
-47
-48
-49</pre>
+52
+53
+54
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_thumbnail_900'>thumbnail_900</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variable?'>variable?</span>
 
-  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='lparen'>(</span><span class='label'>resize:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>x900</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variable?'>variable?</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_variant'>variant</span><span class='lparen'>(</span><span class='label'>resize:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>x900&gt;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -779,15 +939,15 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_video?'>video?</span>
-  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>video</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>video</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -831,20 +991,20 @@
       <pre class="lines">
 
 
-61
-62
-63
-64
-65
-66
-67
-68</pre>
+74
+75
+76
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/models/decidim/repository/file.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_with_acceptable_content_type?'>with_acceptable_content_type?</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
 
   <span class='id identifier rubyid_acceptable_types'>acceptable_types</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_item'>item</span><span class='op'>|</span>
     <span class='id identifier rubyid_item'>item</span> <span class='op'>=</span> <span class='const'>Regexp</span><span class='period'>.</span><span class='id identifier rubyid_quote'>quote</span><span class='lparen'>(</span><span class='id identifier rubyid_item'>item</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span> <span class='op'>!=</span> <span class='const'>Regexp</span>
@@ -861,9 +1021,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

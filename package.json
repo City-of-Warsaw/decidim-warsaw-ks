@@ -1,5 +1,40 @@
 {
-  "name": "decidim_warszawa_ks",
+  "name": "app",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@decidim/browserslist-config": "^0.29.3",
+    "@decidim/core": "^0.29.3",
+    "@decidim/webpacker": "^0.29.3",
+    "@rails/activestorage": "^8.0.200",
+    "@tiptap/extension-subscript": "^2.23.0",
+    "@tiptap/extension-superscript": "^2.23.0",
+    "@tiptap/extension-table": "^2.23.0",
+    "@tiptap/extension-table-cell": "^2.23.0",
+    "@tiptap/extension-table-header": "^2.23.0",
+    "@tiptap/extension-table-row": "^2.23.0",
+    "@tiptap/extension-text-align": "^2.23.0",
+    "@turf/turf": "^7.2.0",
+    "concaveman": "^2.0.0",
+    "dropzone": "^6.0.0-beta.2",
+    "emojibase": "^16.0.0",
+    "graphql-ws": "^6.0.3",
+    "js-beautify": "^1.15.4",
+    "leaflet-lasso": "^2.2.13",
+    "picmo": "^5.8.5"
+  },
+  "version": "0.1.0",
+  "engines": {
+    "node": "18.17.1",
+    "npm": "9.6.7",
+    "yarn": "~1.22.1"
+  },
+  "devDependencies": {
+    "@decidim/dev": "^0.29.3",
+    "@decidim/eslint-config": "^0.29.3",
+    "@decidim/prettier-config": "^0.29.3",
+    "@decidim/stylelint-config": "^0.29.3"
+  },
+  "browserslist": [
+    "extends @decidim/browserslist-config"
+  ]
 }

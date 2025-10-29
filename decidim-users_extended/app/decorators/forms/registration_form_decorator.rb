@@ -9,18 +9,19 @@ Decidim::RegistrationForm.class_eval do
   attribute :birth_year
   attribute :district_id
   # notifications
-  attribute :notifications_from_neighbourhood, Virtus::Attribute::Boolean
-  attribute :newsletter_notifications, Virtus::Attribute::Boolean
-  attribute :follow_ngo, Virtus::Attribute::Boolean
+  attribute :notifications_from_neighbourhood, Decidim::AttributeObject::TypeMap::Boolean
+  attribute :newsletter_notifications, Decidim::AttributeObject::TypeMap::Boolean
+  attribute :follow_ngo, Decidim::AttributeObject::TypeMap::Boolean
   # interests
   attribute :scopes_ids, Array[Integer]
   attribute :tags_ids, Array[Integer]
   attribute :zip_code
+  attribute :scope_citywide, Decidim::AttributeObject::TypeMap::Boolean
 
   validates :birth_year, numericality: { only_integer: true, greater_than: 1899, less_than_or_equal_to: Date.current.year, allow_nil: true }, if: proc { |attr| attr[:birth_year].present? }
   validates :zip_code, allow_blank: true, allow_nil: true, format: { with: /\A[0-9]{2}-[0-9]{3}\z/ }
   validates :name, obscenity: { message: :banned_word_in_name }
-  validates :gender, inclusion: %w[male female other], allow_blank: true
+  validates :gender, inclusion: %w[male female other no_answer], allow_blank: true
   validates :district_id, numericality: true, allow_blank: true
 
   def nickname
@@ -34,13 +35,18 @@ Decidim::RegistrationForm.class_eval do
   alias organization current_organization
 
   def available_scopes
-    Decidim::Scope.all.map do |el|
+    Decidim::Scope.district_only.all.map do |el|
       [translated_attribute(el.name), el.id]
     end
   end
+  def citywide_scope
+    Decidim::Scope.citywide
+  end
 
   def picked_scopes
-    scopes_ids.reject(&:blank?)
+    scopes = scopes_ids.reject(&:blank?)
+    scopes += [Decidim::Scope.citywide.id] if scope_citywide
+    scopes
   end
 
   def picked_tags

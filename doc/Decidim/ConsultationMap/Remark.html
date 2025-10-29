@@ -93,7 +93,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Authorable, Decidim::Comments::Commentable, HasComponent, Loggable, Participable, ParticipatorySpaceResourceable, Reportable, Searchable, Traceable</dd>
+      <dd>Authorable, Decidim::Comments::CommentableWithComponent, Followable, HasComponent, Loggable, Publicable, Reportable, Resourceable, Searchable, Traceable</dd>
   </dl>
   
   
@@ -145,19 +145,10 @@
 </li>
 
       
-    </ul>
-  
-    <h2>
-      Instance Method Summary
-      <small><a href="#" class="summary_toggle">collapse</a></small>
-    </h2>
-
-    <ul class="summary">
-      
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#acceptable_images-instance_method" title="#acceptable_images (instance method)">#<strong>acceptable_images</strong>  &#x21d2; Object </a>
+      <a href="#ransackable_scopes-class_method" title="ransackable_scopes (class method)">.<strong>ransackable_scopes</strong>(_auth_object = nil)  &#x21d2; Object </a>
     
 
     
@@ -172,6 +163,39 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#admins-instance_method" title="#admins (instance method)">#<strong>admins</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information.</p>
+</div></span>
   
 </li>
 
@@ -201,7 +225,75 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#allowed_to_comment%3F-instance_method" title="#allowed_to_comment? (instance method)">#<strong>allowed_to_comment?</strong>(user)  &#x21d2; Boolean </a>
+      <a href="#author_age_range-instance_method" title="#author_age_range (instance method)">#<strong>author_age_range</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Na warsztatach ustaliliśmy przedziały wiekowe oraz to, że mieszkaniec zalogowany powinien podawać w swoim koncie rok urodzenia - ale prezentować miał się ten wiek w przedziałach.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#author_district-instance_method" title="#author_district (instance method)">#<strong>author_district</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#author_email-instance_method" title="#author_email (instance method)">#<strong>author_email</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#author_gender-instance_method" title="#author_gender (instance method)">#<strong>author_gender</strong>  &#x21d2; Object </a>
     
 
     
@@ -267,6 +359,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#comments_have_votes%3F-instance_method" title="#comments_have_votes? (instance method)">#<strong>comments_have_votes?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Public: Overrides the ‘comments_have_votes?` Commentable concern method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#deleted%3F-instance_method" title="#deleted? (instance method)">#<strong>deleted?</strong>  &#x21d2; Boolean </a>
     
 
@@ -276,6 +392,28 @@
   
   
   
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#enqueue_map_remark_geocoding-instance_method" title="#enqueue_map_remark_geocoding (instance method)">#<strong>enqueue_map_remark_geocoding</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
   
   
   
@@ -311,7 +449,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#module_name-instance_method" title="#module_name (instance method)">#<strong>module_name</strong>  &#x21d2; Object </a>
+      <a href="#moderators-instance_method" title="#moderators (instance method)">#<strong>moderators</strong>  &#x21d2; Object </a>
     
 
     
@@ -325,51 +463,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#mounted_admin_engine-instance_method" title="#mounted_admin_engine (instance method)">#<strong>mounted_admin_engine</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#mounted_engine-instance_method" title="#mounted_engine (instance method)">#<strong>mounted_engine</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information.</p>
+</div></span>
   
 </li>
 
@@ -378,6 +474,50 @@
   <span class="summary_signature">
     
       <a href="#mounted_params-instance_method" title="#mounted_params (instance method)">#<strong>mounted_params</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#organization-instance_method" title="#organization (instance method)">#<strong>organization</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#participatory_space-instance_method" title="#participatory_space (instance method)">#<strong>participatory_space</strong>  &#x21d2; Object </a>
     
 
     
@@ -414,30 +554,6 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#private_space%3F-instance_method" title="#private_space? (instance method)">#<strong>private_space?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>to allow commenting.</p>
-</div></span>
   
 </li>
 
@@ -482,30 +598,8 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Public: Overrides the `reported_attributes` Reportable concern method.</p>
+<p>Public: Overrides the ‘reported_attributes` Reportable concern method.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#reported_content_url-instance_method" title="#reported_content_url (instance method)">#<strong>reported_content_url</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -528,7 +622,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Public: Overrides the `reported_searchable_content_extras` Reportable concern method.</p>
+<p>Public: Overrides the ‘reported_searchable_content_extras` Reportable concern method.</p>
 </div></span>
   
 </li>
@@ -559,7 +653,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#users_to_notify_on_comment_created-instance_method" title="#users_to_notify_on_comment_created (instance method)">#<strong>users_to_notify_on_comment_created</strong>  &#x21d2; Object </a>
+      <a href="#user_allowed_to_comment%3F-instance_method" title="#user_allowed_to_comment? (instance method)">#<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; Boolean </a>
     
 
     
@@ -574,8 +668,30 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>followers - returns followers of the space.</p>
+<p>Overwritten method.</p>
 </div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#visible%3F-instance_method" title="#visible? (instance method)">#<strong>visible?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -584,6 +700,7 @@
   
 
 
+  
   
   
   
@@ -620,15 +737,45 @@
       <pre class="lines">
 
 
-130
-131
-132</pre>
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 169</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space_manifest'>participatory_space_manifest</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_participatory_space_manifest'>find_participatory_space_manifest</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_demodulize'>demodulize</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='period'>.</span><span class='id identifier rubyid_pluralize'>pluralize</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ransackable_scopes-class_method">
+  
+    .<strong>ransackable_scopes</strong>(_auth_object = nil)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+165
+166
+167</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 165</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_ransackable_scopes'>ransackable_scopes</span><span class='lparen'>(</span><span class='id identifier rubyid__auth_object'>_auth_object</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='lbracket'>[</span><span class='symbol'>:with_any_category</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -642,51 +789,40 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="acceptable_images-instance_method">
+  <h3 class="signature first" id="admins-instance_method">
   
-    #<strong>acceptable_images</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>admins</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><table class="source_code">
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-134
-135
-136
-137
-138
-139
-140
-141
-142
-143
-144
-145
-146
-147</pre>
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 218</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_acceptable_images'>acceptable_images</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
-  <span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_img'>img</span><span class='op'>|</span>
-
-    <span class='kw'>unless</span> <span class='id identifier rubyid_img'>img</span><span class='period'>.</span><span class='id identifier rubyid_byte_size'>byte_size</span> <span class='op'>&lt;=</span> <span class='int'>50</span><span class='period'>.</span><span class='id identifier rubyid_megabyte'>megabyte</span>
-      <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:images</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Maksymalny rozmiar obrazu to 50 mb</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-
-    <span class='id identifier rubyid_acceptable_types'>acceptable_types</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image/jpg</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image/jpeg</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image/gif</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image/png</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>image/bnp</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
-    <span class='kw'>unless</span> <span class='id identifier rubyid_acceptable_types'>acceptable_types</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_img'>img</span><span class='period'>.</span><span class='id identifier rubyid_content_type'>content_type</span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:images</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dowolne rozszerzenia obrazów: jpg jpeg gif png bmp</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_admins'>admins</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -730,18 +866,18 @@
       <pre class="lines">
 
 
-44
-45
-46
-47
-48</pre>
+76
+77
+78
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allow_edition?'>allow_edition?</span><span class='lparen'>(</span><span class='id identifier rubyid_remark_token'>remark_token</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_remark_token'>remark_token</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-  
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_remark_token'>remark_token</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
   <span class='id identifier rubyid_token'>token</span> <span class='op'>==</span> <span class='id identifier rubyid_remark_token'>remark_token</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -750,9 +886,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="allowed_to_comment?-instance_method">
+  <h3 class="signature " id="author_age_range-instance_method">
   
-    #<strong>allowed_to_comment?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
+    #<strong>author_age_range</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -761,24 +897,13 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Na warsztatach ustaliliśmy przedziały wiekowe oraz to, że mieszkaniec zalogowany powinien podawać w swoim koncie rok urodzenia - ale prezentować miał się ten wiek w przedziałach.</p>
+
 
   </div>
 </div>
 <div class="tags">
   
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
 
 </div><table class="source_code">
   <tr>
@@ -786,15 +911,137 @@
       <pre class="lines">
 
 
-83
-84
-85</pre>
+191
+192
+193
+194
+195
+196
+197</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 191</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_allowed_to_comment?'>allowed_to_comment?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
-  <span class='kw'>true</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_author_age_range'>author_age_range</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_age'>age</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>age.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_age'>age</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.comments</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_age_range'>age_range</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>age.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_age_range'>age_range</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.comments</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="author_district-instance_method">
+  
+    #<strong>author_district</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175
+176
+177
+178
+179</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_author_district'>author_district</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_district'>district</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_district'>district</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="author_email-instance_method">
+  
+    #<strong>author_email</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+181
+182
+183
+184
+185
+186
+187</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 181</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_author_email'>author_email</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_email'>email</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_author'>author</span><span class='op'>&amp;.</span><span class='id identifier rubyid_email'>email</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="author_gender-instance_method">
+  
+    #<strong>author_gender</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+199
+200
+201
+202
+203
+204
+205</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 199</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_author_gender'>author_gender</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_gender'>gender</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gender.public_post.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_gender'>gender</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.users</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_gender'>gender</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gender.public_post.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_gender'>gender</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.users</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -816,20 +1063,20 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58
-59
-60</pre>
+86
+87
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_signature'>author_signature</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended.html" title="Decidim::CommentsExtended (module)">CommentsExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended/UnregisteredAuthor.html" title="Decidim::CommentsExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_signature'>signature</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.comments_extended.models.comment.fields.unregistered_author</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_signature'>signature</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.comments_extended.models.comment.fields.unregistered_author</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
   <span class='kw'>end</span>
@@ -876,15 +1123,69 @@
       <pre class="lines">
 
 
-40
-41
-42</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_can_be_deleted?'>can_be_deleted?</span>
   <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="comments_have_votes?-instance_method">
+  
+    #<strong>comments_have_votes?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Public: Overrides the ‘comments_have_votes?` Commentable concern method.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 115</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_comments_have_votes?'>comments_have_votes?</span>
+  <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -928,15 +1229,45 @@
       <pre class="lines">
 
 
-36
-37
-38</pre>
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_deleted?'>deleted?</span>
   <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="enqueue_map_remark_geocoding-instance_method">
+  
+    #<strong>enqueue_map_remark_geocoding</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+231
+232
+233</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 231</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_enqueue_map_remark_geocoding'>enqueue_map_remark_geocoding</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap.html" title="Decidim::ConsultationMap (module)">ConsultationMap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="GeocodeRemarkAddressJob.html" title="Decidim::ConsultationMap::GeocodeRemarkAddressJob (class)">GeocodeRemarkAddressJob</a></span></span><span class='period'>.</span><span class='id identifier rubyid_perform_later'>perform_later</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -958,23 +1289,45 @@
       <pre class="lines">
 
 
-62
-63
-64
-65
-66
-67
-68
-69</pre>
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_map_location'>map_location</span><span class='lparen'>(</span><span class='id identifier rubyid_to_json'>to_json</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_default_icon'>default_icon</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>settings</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>custom</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Repository/File.html" title="Decidim::Repository::File (class)">File</a></span></span><span class='period'>.</span><span class='id identifier rubyid_svgs'>svgs</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>settings</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>custom</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>file_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_default_color'>default_color</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>settings</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>custom</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>color</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span>  <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>settings</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>custom</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>color</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#197893</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_all_locations'>all_locations</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lat</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_latitude'>latitude</span>
-  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lng</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_longitude'>longitude</span>
-  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lat</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_latitude'>latitude</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>lng</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_longitude'>longitude</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>category_id</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_category'>category</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>category_name</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_category'>category</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>category_color</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='id identifier rubyid_default_color'>default_color</span> <span class='op'>:</span> <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_color'>color</span>
+  <span class='id identifier rubyid_all_locations'>all_locations</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>category_icon</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>=</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='id identifier rubyid_default_icon'>default_icon</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_default_icon'>default_icon</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_download'>download</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_file_id'>file_id</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='op'>:</span> <span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_inline_svg'>inline_svg</span><span class='lparen'>(</span><span class='id identifier rubyid_category'>category</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>\&quot;</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&#39;</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
 
   <span class='id identifier rubyid_to_json'>to_json</span> <span class='op'>?</span> <span class='id identifier rubyid_all_locations'>all_locations</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span> <span class='op'>:</span> <span class='id identifier rubyid_all_locations'>all_locations</span>
 <span class='kw'>end</span></pre>
@@ -984,89 +1337,40 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="module_name-instance_method">
+  <h3 class="signature " id="moderators-instance_method">
   
-    #<strong>module_name</strong>  &#x21d2; <tt>Object</tt> 
-  
-
+    #<strong>moderators</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
 
-
-109
-110
-111</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 109</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_module_name'>module_name</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Decidim::ConsultationMap</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
+  
+</h3><div class="docstring">
+  <div class="discussion">
     
-      <div class="method_details ">
-  <h3 class="signature " id="mounted_admin_engine-instance_method">
-  
-    #<strong>mounted_admin_engine</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information</p>
 
 
-126
-127
-128</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 126</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_mounted_admin_engine'>mounted_admin_engine</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim_admin_consultation_map</span><span class='tstring_end'>&quot;</span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
+  </div>
 </div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="mounted_engine-instance_method">
-  
-    #<strong>mounted_engine</strong>  &#x21d2; <tt>Object</tt> 
+<div class="tags">
   
 
-  
-
-  
-</h3><table class="source_code">
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-113
-114
-115</pre>
+225
+226
+227</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 225</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_mounted_engine'>mounted_engine</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim_consultation_map</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_moderators'>moderators</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1088,25 +1392,85 @@
       <pre class="lines">
 
 
-117
-118
-119
-120
-121
-122
-123
-124</pre>
+156
+157
+158
+159
+160
+161
+162
+163</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 156</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mounted_params'>mounted_params</span>
   <span class='lbrace'>{</span>
-    <span class='label'>host:</span> <span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span><span class='comma'>,</span>
-    <span class='label'>resource_id:</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
-    <span class='label'>component_id:</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+    <span class='symbol'>:host</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span><span class='comma'>,</span>
+    <span class='symbol'>:resource_id</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
+    <span class='symbol'>:component_id</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span>
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_underscored_name'>underscored_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>_slug</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_slug'>slug</span>
   <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="organization-instance_method">
+  
+    #<strong>organization</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+211
+212
+213</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 211</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_organization'>organization</span>
+  <span class='id identifier rubyid_component'>component</span><span class='op'>&amp;.</span><span class='id identifier rubyid_organization'>organization</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="participatory_space-instance_method">
+  
+    #<strong>participatory_space</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+207
+208
+209</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 207</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_participatory_space'>participatory_space</span>
+  <span class='id identifier rubyid_component'>component</span><span class='op'>&amp;.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1128,69 +1492,15 @@
       <pre class="lines">
 
 
-91
-92
-93</pre>
+142
+143
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_presenter'>presenter</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap.html" title="Decidim::ConsultationMap (module)">ConsultationMap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="RemarkPresenter.html" title="Decidim::ConsultationMap::RemarkPresenter (class)">RemarkPresenter</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="RemarkPresenter.html#initialize-instance_method" title="Decidim::ConsultationMap::RemarkPresenter#initialize (method)">new</a></span></span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="private_space?-instance_method">
-  
-    #<strong>private_space?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>to allow commenting</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-72
-73
-74</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 72</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_private_space?'>private_space?</span>
-  <span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_private_space?'>private_space?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1234,12 +1544,12 @@
       <pre class="lines">
 
 
-87
-88
-89</pre>
+138
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 138</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_published?'>published?</span>
   <span class='op'>!</span><span class='id identifier rubyid_hidden?'>hidden?</span>
@@ -1261,7 +1571,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Public: Overrides the `reported_attributes` Reportable concern method.</p>
+<p>Public: Overrides the ‘reported_attributes` Reportable concern method.</p>
 
 
   </div>
@@ -1275,45 +1585,15 @@
       <pre class="lines">
 
 
-100
-101
-102</pre>
+147
+148
+149</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 147</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reported_attributes'>reported_attributes</span>
   <span class='lbracket'>[</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='symbol'>:signature</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="reported_content_url-instance_method">
-  
-    #<strong>reported_content_url</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-95
-96
-97</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 95</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_reported_content_url'>reported_content_url</span>
-  <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ResourceLocatorPresenter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1332,7 +1612,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Public: Overrides the `reported_searchable_content_extras` Reportable concern method.</p>
+<p>Public: Overrides the ‘reported_searchable_content_extras` Reportable concern method.</p>
 
 
   </div>
@@ -1346,12 +1626,12 @@
       <pre class="lines">
 
 
-105
-106
-107</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 152</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reported_searchable_content_extras'>reported_searchable_content_extras</span>
   <span class='lbracket'>[</span><span class='id identifier rubyid_normalized_author'>normalized_author</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
@@ -1376,15 +1656,15 @@
       <pre class="lines">
 
 
-50
-51
-52</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_title'>title</span>
-  <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>activemodel.attributes.remark.title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>signature:</span> <span class='id identifier rubyid_author_signature'>author_signature</span><span class='rparen'>)</span>
+  <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>activemodel.attributes.remark.title</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>signature:</span> <span class='id identifier rubyid_author_signature'>author_signature</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1392,9 +1672,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="users_to_notify_on_comment_created-instance_method">
+  <h3 class="signature " id="user_allowed_to_comment?-instance_method">
   
-    #<strong>users_to_notify_on_comment_created</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -1403,13 +1683,33 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>followers - returns followers of the space</p>
+<p>Overwritten method. Map Remarks can’t be commented if:</p>
+<ul><li>
+<p>it’s not visible or not published</p>
+</li><li>
+<p>the users_action_end_date has passed</p>
+</li></ul>
+
+<p>Only AD users are allowed to comment.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1417,19 +1717,79 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81</pre>
+124
+125
+126
+127
+128
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 124</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_users_to_notify_on_comment_created'>users_to_notify_on_comment_created</span>
-  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_or'>or</span><span class='lparen'>(</span>
-    <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_decidim_author_id'>decidim_author_id</span><span class='rparen'>)</span>
-  <span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_user_allowed_to_comment?'>user_allowed_to_comment?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_visible?'>visible?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_published?'>published?</span>
+  <span class='comment'># scenario when component is closed
+</span>  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_users_action_end_date'>users_action_end_date</span><span class='op'>&amp;.</span><span class='id identifier rubyid_past?'>past?</span>
+
+  <span class='comment'># scenario when AD user is present
+</span>  <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_role?'>ad_role?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="visible?-instance_method">
+  
+    #<strong>visible?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/models/decidim/consultation_map/remark.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_visible?'>visible?</span>
+  <span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:visible?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:published?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_published?'>published?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1441,9 +1801,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

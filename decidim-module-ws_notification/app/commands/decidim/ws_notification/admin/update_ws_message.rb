@@ -4,7 +4,10 @@ module Decidim
   module WsNotification
     module Admin
       # This command is executed when user updates WS Message
-      class UpdateWsMessage < Rectify::Command
+      class UpdateWsMessage < Decidim::Command
+        include ActionView::Helpers::SanitizeHelper
+        include Decidim::ApplicationHelper
+
         def initialize(ws_message, form, user)
           @ws_message = ws_message
           @form = form
@@ -38,8 +41,8 @@ module Decidim
         def ws_message_params
           {
             title: form.title,
-            body: form.body,
-            sms_body: form.sms_body,
+            body: decidim_sanitize(form.body),
+            sms_body: decidim_sanitize(form.sms_body),
             valid_date_from: form.valid_date_from,
             valid_date_to: form.valid_date_to,
             urgent: form.urgent,

@@ -1,7 +1,17 @@
-<div class="row column">
-  <%= form.text_field :name %>
-</div>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <div class="row column">
+        <%= form.text_field :name %>
+      </div>
 
-<div class="row column">
-  <%= form.text_field :description %>
+      <div class="row column">
+        <%= form.editor :description %>
+      </div>
+
+      <div class="row column">
+        <%= form.number_field :weight %>
+      </div>
+    </div>
+  </div>
 </div>

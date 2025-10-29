@@ -10,7 +10,7 @@ module Decidim
       isolate_namespace Decidim::StudyNotes
 
       routes do
-        # Add engine routes here
+        get 'mapa-um/GraniceDzialek/findByNrObrAndNrDz/:nr_obr/:nr_dz', to: 'um_map#findByNrObrAndNrDz'
         resources :study_notes, only: [:index, :create, :show]
         root to: "study_notes#index"
       end
@@ -21,20 +21,11 @@ module Decidim
         end
       end
 
-      # decorators
-      config.autoload_paths << File.join(
-        Decidim::StudyNotes::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::StudyNotes::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
-      end
-
-      initializer "decidim_study_notes.assets" do |app|
-        app.config.assets.precompile += %w[decidim_study_notes_manifest.js decidim/study_notes/admin/leaflet.draw.modCS.js decidim/study_notes/admin/leaflet-src.1.8.0.modCS.js decidim/study_notes/admin/geojson-map.js.erb  decidim_study_notes_manifest.css geojson-map/images/marker-icon.png geojson-map/images/marker-shadow.png leaflet.css]
       end
     end
   end

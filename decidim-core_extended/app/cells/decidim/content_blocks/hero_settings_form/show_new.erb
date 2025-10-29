@@ -1,6 +1,11 @@
 <% form.fields_for :settings, form.object.settings do |settings_fields| %>
   <%= settings_fields.translated :text_field, :welcome_text, label: t(".welcome_text") %>
   <%= settings_fields.translated :text_field, :addition_to_welcome_text, label: t(".addition_to_welcome_text") %>
+
+  <%= settings_fields.editor :description, toolbar: :full, lines: 30, label: t(".description") %>
+  
+  <%= settings_fields.text_field :hero_image_action_title, label: t(".hero_image_action_title") %>
+  <%= settings_fields.text_field :hero_image_action_url, label: t(".hero_image_action_url") %>
 <% end %>
 
 <% form.fields_for :images, form.object.images do |images_fields| %>

@@ -1,49 +1,29 @@
-<%= render partial: "decidim/shared/component_announcement" %>
+<main class="layout-1col cols-10 py-10"> 
+  <section>
+    <%= render partial: "decidim/shared/component_announcement" %>
+    <%= render partial: 'decidim/shared/users_action_disallowed' %>
+    <%= render partial: 'decidim/shared/component_settings_help_section', locals: {
+          followable_resource: first_followable_remark,
+          tooltip_content: t(".tooltip_content"),
+          button_classes: "button__follow--remarks"
+        } %>
+  </section>
 
-<% if current_component.users_action_disallowed? %>
-  <div class="row">
-    <div class="column large-12"> 
-      <div class="callout warning-important">
-        <%= current_component.end_date_message %>
-      </div>
+  <section class="remarks">
+    <% if user_allowed_to_add_remark?(current_user) %>
+      <%= render "new", form_object: @form %>
+    <% end %>
+      
+    <%= render partial: "filters" %>
+
+    <h2 class="show-for-sr">Opinie</h2>
+
+    <span id="remarks-count" class="title-action__title" aria-live="polite" aria-atomic="true">
+      <%= t(".remarks_count", count: remarks.count).html_safe %>
+    </span> 
+    
+    <div id="remarks" class="remarks__list">
+      <%= render "remarks" %>
     </div>
-  </div>
-<% end %>
-
-<% if remarks_help_section.present? %> 
-  <div class="help-section">
-    <div class="row column"> 
-      <div class="ql-editor">
-      <%= quill_sanitize translated_attribute(remarks_help_section) %> 
-      </div> 
-    </div>
-  </div>
-<% end %>
-
-<div class="row">
-  <% if !current_component.users_action_disallowed? %>
-    <%= render "new", form_object: @form %>
-  <% end %>
-
-  <div class="columns mediumlarge-12 large-12">
-    <div class="card card--secondary">
-      <%= render partial: "filters" %>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="row medium-up-2 pl-s pr-s">
-    <div class="column">
-      <h3 id="remarks-count" class="title-action__title section-heading remarks" aria-live="polite" aria-atomic="true">
-        <%= t(".remarks_count", count: search.results.count).html_safe %>
-      </h3>
-    </div>
-  </div>
-
-  <div id="remarks" class="columns mediumlarge-12 large-12">
-    <%= render "remarks" %>
-  </div>
-</div>
-
-<%= javascript_include_tag("decidim/filters") %>
+  </section>
+</main>

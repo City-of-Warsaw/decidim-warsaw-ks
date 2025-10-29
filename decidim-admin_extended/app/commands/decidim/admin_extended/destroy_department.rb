@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when destroying a department.
-    class DestroyDepartment < Rectify::Command
+    class DestroyDepartment < Decidim::Command
       # Public: Initializes the command.
       #
       # department - The department to destroy

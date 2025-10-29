@@ -1,0 +1,11 @@
+<div class="card__list-image">
+  <% if has_image? %>
+    <%= image_tag resource_image_url, class: "w-full h-full object-cover" %>
+  <% else %>
+    <div class="w-full h-full relative">
+      <div class="w-full h-full bg-primary opacity-10 absolute top-0 left-0 z-10">
+      </div>
+      <%= external_icon "media/images/placeholder-card-l.svg", class: "card__placeholder-l" %>
+    </div>
+  <% end %>
+</div>

@@ -23,26 +23,16 @@ module Decidim
         end
       end
 
-      # decorators
-      config.autoload_paths << File.join(
-        Decidim::ConsultationMap::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::ConsultationMap::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
       end
 
       initializer "decidim_consultation_map.add_cells_view_paths" do
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::ConsultationMap::Engine.root}/app/cells")
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::ConsultationMap::Engine.root}/app/views") # for partials
-      end
-
-      initializer "decidim_consultation_map.assets" do |app|
-        app.config.assets.precompile += %w[decidim_consultation_map_manifest.js
-                                           decidim_consultation_map_manifest.css]
       end
     end
   end

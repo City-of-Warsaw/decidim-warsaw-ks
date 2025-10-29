@@ -1,0 +1,41 @@
+<span class="exports button button__sm button__secondary" data-toggle="export-dropdown">
+  Eksport
+  <%= icon "arrow-down-s-line", class: "dropdown-filter-icon" %>
+</span>
+
+<div class="dropdown-pane" id="export-dropdown" data-dropdown data-position=bottom data-alignment=right data-auto-focus="true" data-close-on-click="true">
+  <ul class="vertical menu add-components">
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.excel"),
+                  export_study_notes_path(format: :xlsx, q: params[:q]) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip"),
+                  export_zip_study_notes_path(q: params[:q]) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_with_attachments"),
+                  export_zip_study_notes_path(q: params[:q], with_attachments: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_anonymized"),
+                  export_zip_study_notes_path(q: params[:q], anonymized: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_anonymized_with_attachments"),
+                  export_zip_study_notes_path(q: params[:q], normalized: true, with_attachments: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized"),
+                  export_zip_study_notes_path(q: params[:q], normalized: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized_anonymized"),
+                  export_zip_study_notes_path(q: params[:q], normalized: true, anonymized: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized_anonymized_with_attachments"),
+                  export_zip_study_notes_path(q: params[:q], normalized: true, anonymized: true, with_attachments: true) %>
+    </li>
+  </ul>
+</div>

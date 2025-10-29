@@ -6,13 +6,15 @@ module Decidim
     class ContactInfoGroupForm < Form
       attribute :name, String
       attribute :subtitle, String
-      attribute :published,  Virtus::Attribute::Boolean
+      attribute :published, Decidim::AttributeObject::TypeMap::Boolean, default: false
       attribute :weight, Integer
 
       mimic :contact_info_group
 
-      validates :name, :weight, presence: true
-      validates :published, inclusion: { in: [true, false]}
+      validates :name,
+                :weight,
+                presence: true
+      validates :published, inclusion: { in: [true, false] }
     end
   end
 end

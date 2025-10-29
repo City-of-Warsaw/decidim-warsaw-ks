@@ -1,0 +1,60 @@
+<div class="space-y-8">
+  <%= render :title_new %>
+</div>
+
+<div class="custom-wrapper">
+  <% tooltip_id = "tooltip-#{SecureRandom.hex(4)}" %>
+  <div class="form-tooltip">
+    <div class="form-tooltip__content editor-content" id="<%= tooltip_id %>">
+      <%= t(".tooltip_content") %>
+    </div>
+    <div class="form-tooltip__hint" aria-describedby="<%= tooltip_id %>" tabindex="0">
+      <%= follow_button_for(current_participatory_space, nil, { button_classes: "button button__sm button__gray button__follow button__follow--process"}) %>
+    </div>
+  </div>
+
+  <hr />
+
+  <% if nav_items.present? %>
+    <%= cell "decidim/nav_links", nav_items %>
+  <% end %>
+
+  <ul class="extra definition-data custom-card-timeline-box">
+    <% all_steps_count = current_participatory_space.steps.count %>
+    <% active_step_pos = current_participatory_space.active_step ? current_participatory_space.active_step.position : 0 %>
+    <% if current_participatory_space.steps.any? %>
+      <% current_participatory_space.steps.each do |step| %>
+        <% additional_classes = step_classes(step, all_steps_count, active_step_pos) %>
+        <li class="card--list__item custom-card--list__item <%= additional_classes %>">
+          <h2 class="show-for-sr">Linia czasu</h2>
+          <span class="timeline-line"></span>
+          <div class="card--list__text card--list__text--top custom-card--list__text--top custom-card--list__text">
+            <% if step.position < current_participatory_space.active_step.position %>
+              <%= image_pack_tag 'media/images/circle-checked-icon.png', alt: '' %>
+            <% elsif step.position == current_participatory_space.active_step.position %>
+              <%= image_pack_tag 'media/images/circle-active-icon.png', alt: '' %>
+            <% else %>
+              <%= image_pack_tag 'media/images/circle-empty-icon.png', alt: '' %>
+            <% end %>
+            <div>
+              <h3 class="card--list__heading heading-small custom-heading"><%= translated_attribute(step.title) %></h3>
+              <span class="text-medium"><%= translated_attribute(step["description"]).html_safe %></span>
+              <span class="text-medium">
+                <%= translated_attribute(step["date"]).html_safe %>
+              </span>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <% if current_participatory_space.steps.count > 3 %>
+    <button aria-expanded="false"
+            data-show="Pokaż wszystko"
+            data-hide="Ukryj ponownie"
+            class="timeline-visibility-toggle-js">Pokaż wszystko</button>
+  <% end %>
+</div>
+
+<%= append_javascript_pack_tag "participatory_space" %>

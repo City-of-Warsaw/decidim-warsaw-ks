@@ -17,7 +17,6 @@ Decidim::ParticipatoryProcesses::Permissions.class_eval do
       public_list_process_groups_action?
       public_read_process_group_action?
       public_read_process_action?
-      public_report_content_action?
       return permission_action
     end
 
@@ -36,11 +35,16 @@ Decidim::ParticipatoryProcesses::Permissions.class_eval do
     user_can_create_process?
     user_can_update_process?
     user_can_publish_process?
+    user_can_preview_process?
+    user_can_upload_images_in_process?
 
     # org admins and space admins can do everything in the admin section
     org_admin_action?
+    participatory_process_type_action?
 
     return permission_action unless process
+
+    user_can_read_private_users?
 
     moderator_action?
     # collaborator_action?
@@ -52,6 +56,13 @@ Decidim::ParticipatoryProcesses::Permissions.class_eval do
 
 
   private
+
+  def user_can_read_private_users?
+    return unless permission_action.subject == :space_private_user
+    return unless process.private_space?
+
+    toggle_allow(user.ad_admin?)
+  end
 
   def has_manageable_processes?(role: :any)
     return unless user
@@ -90,12 +101,19 @@ Decidim::ParticipatoryProcesses::Permissions.class_eval do
     toggle_allow(user.ad_admin?)
   end
 
+  def user_can_preview_process?
+    return unless permission_action.action == :preview &&
+      permission_action.subject == :process
+
+    toggle_allow(user.ad_admin? || can_manage_process?(role: :admin))
+  end
+
   # Customization: ad_admin && admin can publish process, expert can not
   def user_can_update_process?
     return unless permission_action.action == :update &&
                   permission_action.subject == :process
 
-    toggle_allow(user.ad_admin? || can_manage_process?(role: :admin))
+    toggle_allow(user.ad_admin? || can_manage_process?(role: :admin) && !process.published?)
   end
 
   def can_manage_process?(role: :any)
@@ -104,11 +122,15 @@ Decidim::ParticipatoryProcesses::Permissions.class_eval do
     user.ad_admin? || user.ad_coordinator? && participatory_processes_with_role_privileges(role).include?(current_participatory_space)
   end
 
+  # Overwritten
+  # Process admins can perform everything *inside* that process. They cannot
+  # publish a process
   def process_admin_action?
     return if user.ad_admin?
-    return unless can_manage_process?(role: :admin)
-    return disallow! if permission_action.action == :create &&
-                        permission_action.subject == :process
+    return if !can_manage_process?(role: :admin) || process.published?
+
+    # return disallow! if permission_action.action == :create &&
+    #                     permission_action.subject == :process
     return disallow! if permission_action.action == :publish &&
                         permission_action.subject == :process
 

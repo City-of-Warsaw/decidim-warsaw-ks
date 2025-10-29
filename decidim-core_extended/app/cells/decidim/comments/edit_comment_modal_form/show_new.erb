@@ -1,0 +1,70 @@
+<%= form_for(form_object, url: decidim_comments.comment_path(comment), method: :put, remote: true, html: { id: nil }) do |form| %>
+  <div data-dialog-container class="custom-reply-wrapper">
+    <div class="custom-header-wrapper">
+      <%= icon "edit-line" %>
+      <h2 class="h2" id="dialog-title-budget-confirm" data-dialog-title>
+        <%= t("decidim.components.edit_comment_modal_form.title") %>
+      </h2>
+    </div>
+
+
+    <div class="form__wrapper gap-2 w-full">
+      <label class="text-gray-2" for="<%= form_id %>">
+        <%= t("decidim.components.edit_comment_modal_form.form.body.label") %>
+      </label>
+
+      <div class="field remark-field--body">
+        <%= form.text_area(
+            :body,
+            id: form_id,
+            rows: 4,
+            maxlength: comments_max_length,
+            required: true,
+            class: "w-full",
+            placeholder: t("decidim.components.edit_comment_modal_form.form.body.placeholder"),
+            label: false, 
+            data: { remaining_characters: "##{form_id}-remaining-characters", input_emoji: true }
+        ) %>
+      </div>
+
+      <% if model.files.any? %>
+        <ul class="space-y-2">
+          <% model.files.each do |file| %>
+            <% next unless file.present? %>
+            <li class="flex items-center justify-between pb-1 custom-modal-item">
+              <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" target="_blank" rel="noopener" class="custom-link flex-1 max-w-[700px] overflow-hidden whitespace-nowrap text-ellipsis underline text-link">
+                <%= file.filename.to_s %>
+              </a>
+              
+              <button type="button" class="flex-shrink-0 text-sm text-red-500 cursor-pointer remove-file-btn">
+                Usuń
+              </button>
+
+              <%= check_box_tag 'comment[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %> 
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="field file-field remark-field--files position-relative">
+        <%= form.file_field :files,
+                            label: false,
+                            class: 'multifile hidden',
+                            id: "comment_files_#{form_id}",
+                            accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+                            multiple: true %>
+        <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= form_id %>">Dodaj załącznik</button>
+      </div>
+
+      <%= form.hidden_field(:token, value: token) %>
+    </div>
+
+  </div>
+  <div data-dialog-actions>
+    <button type="submit" data-dialog-close="editCommentModal<%#= model.id %>" class="button button__sm md:button__lg button__secondary">
+      <%= t("decidim.components.edit_comment_modal_form.form.submit") %>
+    </button>
+
+    <span id="<%= form_id %>-remaining-characters" class="remaining-character-count"></span>
+  </div>
+<% end %> 

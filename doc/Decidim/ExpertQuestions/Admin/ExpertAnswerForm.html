@@ -104,7 +104,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class holds a Form to create/update translatable meetings from Decidim&#39;s admin panel.</p>
+<p>This class holds a Form to create/update translatable meetings from Decidim’s admin panel.</p>
 
 
   </div>
@@ -218,12 +218,12 @@
       <pre class="lines">
 
 
-29
-30
-31</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert'>expert</span>
   <span class='ivar'>@expert</span> <span class='op'>||=</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert'>expert</span>
@@ -248,12 +248,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_question'>user_question</span>
   <span class='ivar'>@user_question</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_user_question_id'>user_question_id</span><span class='rparen'>)</span>
@@ -278,14 +278,14 @@
       <pre class="lines">
 
 
-19
-20
-21
-22
-23</pre>
+30
+31
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/admin/expert_answer_form.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_question_exists'>user_question_exists</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user_question_id'>user_question_id</span>
@@ -302,9 +302,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

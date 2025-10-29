@@ -1,0 +1,65 @@
+<!--TODO zajrzec później-->
+<div class="card-divider">
+  <h2 class="card-title"> Galeria </h2>
+</div>
+<div class="card-section">
+  <div class="row column gallery-type-radio">
+    <div>
+      <label for="gallery_type_repo">
+        <input type="radio" id="gallery_type_repo" name="gallery_type" value="repo" class="gallery-type-radio-js" <%= "checked" unless @form.errors[:new_gallery_name].any? || @form.errors[:images].any? %> >
+        Galeria z repozytorium
+      </label>
+    </div>
+    <div>
+      <label for="gallery_type_new">
+        <input type="radio" id="gallery_type_new" name="gallery_type" value="new" class="gallery-type-radio-js" <%= "checked" if @form.errors[:new_gallery_name].any? || @form.errors[:images].any? %> >
+        Nowa galeria</label>
+    </div>
+  </div>
+  <div class="gallery-type-form repo-form">
+    <div class="row column">
+      <!--      Attributes name is typed here, due to many various modules, where this partial is rendered-->
+      <%= form.collection_select :gallery_id,
+                                 Decidim::Repository::Gallery.alphabetical, :id, :name,
+                                 include_blank: true,
+                                 selected: @form.gallery_id,
+                                 label: "Galeria z repozytorium" %>
+    </div>
+  </div>
+  <div class="author-type-form new-form hidden">
+    <div class="row column">
+      <!--      Attributes name is typed here, due to many various modules, where this partial is rendered-->
+      <%= form.text_field :new_gallery_name, label: "Tytuł galerii *" %>
+    </div>
+    <div class="row column">
+      <!--      Attributes name is typed here, due to many various modules, where this partial is rendered-->
+      <%= form.file_field :images, multiple: true, class: 'multifile', label: "Obrazki" %>
+    </div>
+  </div>
+</div>
+
+<%= nonced_javascript_tag do %>
+
+  function handleGalleryRepoVisibility() {
+    if ($('#gallery_type_repo').is(":checked"))
+      {
+        $(".new-form").hide();
+        $(".repo-form").show();
+      }
+    else if ($('#gallery_type_new').is(":checked"))
+      {
+        $(".repo-form").hide();
+        $(".new-form").show();
+      }
+    }
+  $("document").ready(
+    function() {
+      $('.gallery-type-radio-js').change(handleGalleryRepoVisibility);
+      handleGalleryRepoVisibility();
+
+      // TODO: upgrade v029! poprawic lub usunac - brak select2
+      // $("#<%= form.object_name %>_gallery_id").select2();
+    }
+  )
+  ;
+<% end %>

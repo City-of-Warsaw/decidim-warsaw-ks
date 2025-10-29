@@ -1,38 +1,29 @@
-<div class="card__content update-user_question" id="editable-user_question-<%= user_question.id %>">
+<div class="update-user_question" id="editable-user_question-<%= user_question.id %>">
   <%= decidim_form_for(form_object, url: decidim_participatory_process_expert_questions.second_step_update_user_question_path(user_question), method: :patch, remote: true) do |form| %>
-    <%= form.hidden_field :expert_id %> 
-    <div>
-      <p id="email-legend" class="mb-none"><%= t('.email_legend') %></p>
-      <div class="field remark-field--email">
-        <%= form.email_field :email, label: false, placeholder: t("email_placeholder", scope: 'decidim.expert_questions.user_questions.form'), autocomplete: "email" %>
-        <span class="form-error">Nieprawidłowy format</span>
+    <%= form.hidden_field :expert_id %>
+
+    <div class="flex items-center justify-center flex-col">
+      <legend><%= t('.statistics_legend') %></legend>
+      <div class="remark-field--selects w-full flex items-center justify-center">
+        <%= form.select :gender,
+                        form_object.gender_options_for_public_post,
+                        { include_blank: t("select_gender", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                        { multiple: false } %>
+        <%= form.select :age,
+                        form_object.user_age_for_select,
+                        { include_blank: t("select_age", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                        { multiple: false } %>
+        <%= form.select :district_id,
+                        form_object.user_districts_for_select,
+                        { include_blank: t("select_district", scope: 'decidim.expert_questions.user_questions.form'), label: false },
+                        { multiple: false } %>
       </div>
     </div>
-    <fieldset>
-      <legend><%= t('.statistics_legend') %></legend>
-      <div class="field remark-field--selects"> 
-          <%= form.select :gender,
-                          form_object.user_gender_for_select,
-                          { include_blank: t("select_gender", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                          { multiple: false, "aria-label": t("select_gender", scope: 'decidim.expert_questions.user_questions.form') } %>  
-          <%= form.select :age,
-                          form_object.user_age_for_select,
-                          { include_blank: t("select_age", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                          { multiple: false, "aria-label": t("select_age", scope: 'decidim.expert_questions.user_questions.form') } %> 
-          <%= form.select :district_id,
-                          form_object.user_districts_for_select,
-                          { include_blank: t("select_district", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                          { multiple: false, "aria-label": t("select_district", scope: 'decidim.expert_questions.user_questions.form') } %> 
-      </div>
-      <div class="field remark-field--rodo checkboxed rodo-field">
-        <%= form.check_box :rodo, label: t(".rodo"), aria: { describedby: 'email-legend' } %>
-      </div>
-    </fieldset>
-    <div class="row actions">
-      <div class='pull-right'>
-        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
-        <%= form.submit t(".save"), class: "button", data: { disable: true } %>
-      </div>
+
+    <div class="flex items-center justify-center gap-2 mt-6">   
+      <%= form.button type: "submit", class: "button button__sm button__secondary ml-auto", data: { disable: true } do %>
+        <%= t(".save") %> 
+      <% end %>
     </div>
   <% end %>
 </div>

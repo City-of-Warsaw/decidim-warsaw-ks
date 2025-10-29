@@ -2,18 +2,18 @@
 <html>
   <head>
     <title>Decidim - Login</title>
-    <%= render partial: "layouts/decidim/admin/header" %>
+    <%= render partial: "layouts/decidim/system/header" %>
   </head>
 
-  <body class="login">
-    <div class="login-form-wrapper" style="width: 75rem;">
-      <div class="login-form">
-        <h1 class='text-center mb-m'><%= current_organization.name %></h1>
-        <%= display_flash_messages %>
-        <div class="login-form-inner">
-          <%= yield %>
-        </div>
-      </div>
+  <body class="text-black text-md form-defaults bg-gray-3 h-screen w-screen grid place-items-center">
+  <%= render layout: "layouts/decidim/shared/layout_center" do %>
+    <div class="space-y-8 my-10">
+      <h1 class="h1 decorator"><%= current_organization.name["pl"] %></h1>
     </div>
+
+    <%= render "decidim/system/shared/notices" %>
+
+    <%= yield %>
+  <% end %>
   </body>
 </html>

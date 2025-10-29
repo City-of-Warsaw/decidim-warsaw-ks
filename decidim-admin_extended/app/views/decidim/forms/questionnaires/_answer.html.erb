@@ -1,30 +1,62 @@
 <% field_id = "questionnaire_responses_#{answer_idx}" %>
 
 <% if answer.question.separator? %>
-  <%= render partial: "decidim/forms/questionnaires/answers/#{answer.question.question_type}", locals: { answer: answer, answer_form: answer_form, answer_idx: answer_idx, field_id: field_id, disabled: disabled } %>
+
+  <%= render partial: "decidim/forms/questionnaires/answers/#{answer.question.question_type}", locals: { answer:, answer_form:, answer_idx:, field_id:, disabled: } %>
   <%= answer_form.hidden_field :question_id %>
+
+<% elsif answer.question.title_and_description? %>
+
+  <div class="answer-questionnaire__step-heading">
+    <h3 class="h3"><%= translated_attribute(answer.question.body) %></h3>
+    <% if translated_attribute(answer.question.description).present? %>
+      <div class="editor-content">
+        <%= decidim_sanitize_editor_admin translated_attribute(answer.question.description) %>
+      </div>
+    <% end %>
+  </div>
+
+  <%= render partial: "decidim/forms/questionnaires/answers/#{answer.question.question_type}", locals: { answer:, answer_form:, answer_idx:, field_id:, disabled: } %>
+  <%= answer_form.hidden_field :question_id %>
+
 <% else %>
-  <% case answer.question.question_type %>
-  <% when "single_option", "multiple_option", "sorting" %>
-    <label class="questionnaire-question"><%= answer.label(cleaned_answer_idx) %></label>
-  <% else %>
-    <%= label_tag field_id, answer.label(cleaned_answer_idx), class: "questionnaire-question" %>
-  <% end %>
 
-  <% if translated_attribute(answer.question.description).present? %>
-    <div class="help-text">
-      <%= decidim_sanitize translated_attribute(answer.question.description) %>
-    </div>
-  <% end %>
+  <div class="answer-questionnaire__question">
+    <%
+        label_options = {
+          class: "answer-questionnaire__question-label questionnaire-question",
+          data: { "answer-idx": cleaned_answer_idx }
+        }
+        label_options[:for] = nil if %w(matrix_single matrix_multiple single_option multiple_option).include?(answer.question.question_type)
+    %>
 
-  <%= render 'decidim/shared/gallery_attachments', model: answer.question %>
-  <%= render partial: "decidim/forms/questionnaires/answers/#{answer.question.question_type}", locals: { answer: answer, answer_form: answer_form, answer_idx: answer_idx, field_id: field_id, disabled: disabled, maxlength: (answer.question.max_characters if answer.question.max_characters.positive?) } %>
+    <%= label_tag field_id, **label_options do %>
+      <%= translated_attribute(answer.question.body) %>
+      <% if answer.question.mandatory? %>
+        <%= answer_form.send(:required_indicator) %>
+      <% end %>
+      <% if answer.question.max_choices %>
+        <%= " (#{answer.send(:max_choices_label)})" %>
+      <% end %>
+    <% end %>
 
-  <%= answer_form.hidden_field :question_id %>
+    <% if translated_attribute(answer.question.description).present? %>
+      <div class="answer-questionnaire__question-description editor-content">
+        <%= decidim_sanitize_editor_admin translated_attribute(answer.question.description) %>
+      </div>
+    <% end %>
 
-  <small class="form-error max-choices-alert"><%= t(".max_choices_alert") %></small>
+    <% if answer.question.max_choices %>
+      <small class="form-error max-choices-alert"><%= t(".max_choices_alert") %></small>
+    <% end %>
 
-  <% answer.errors.full_messages.each do |msg| %>
-    <small class="form-error is-visible"><%= msg %></small>
-  <% end %>
+    <% answer.errors.full_messages.each do |msg| %>
+      <small class="form-error is-visible"><%= msg %></small>
+    <% end %>
+
+    <%= render 'decidim/shared/gallery_attachments', model: answer.question %>
+    <%= render partial: "decidim/forms/questionnaires/answers/#{answer.question.question_type}", locals: { answer:, answer_form:, answer_idx:, field_id:, disabled:, maxlength: (answer.question.max_characters if answer.question.max_characters.positive?) } %>
+    <%= answer_form.hidden_field :question_id %>
+  </div>
+
 <% end %>

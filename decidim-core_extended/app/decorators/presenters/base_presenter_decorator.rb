@@ -9,7 +9,8 @@ Decidim::Log::BasePresenter.class_eval do
 
   # overwritten method
   # added custom params for processes actions log concerning about tags & report files
-  # added custom params for titles actions log concerning about informations, consultation requests, info_articles, pages
+  # added custom params for informations, consultation requests, info_articles, pages concerning about banner img
+  # added custom params for user concerning about editorial
   def i18n_params
     {
       user_name: user_presenter.present,
@@ -20,7 +21,8 @@ Decidim::Log::BasePresenter.class_eval do
       process_current_files: process_current_files,
       process_was_tags: process_was_tags,
       process_current_tags: process_current_tags,
-      banner_img: banner_img
+      banner_img: banner_img,
+      user_editorial: user_editorial
     }
   end
 
@@ -51,6 +53,12 @@ Decidim::Log::BasePresenter.class_eval do
   def banner_img
     if action_log && action_log.extra && action_log.extra["banner_img"]
       action_log.extra["banner_img"]["original_filename"]
+    end
+  end
+
+  def user_editorial
+    if action_log && action_log.extra && action_log.extra["user_editorial"]
+      action_log.extra["user_editorial"]
     end
   end
 end

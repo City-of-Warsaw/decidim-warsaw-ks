@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Decidim::DecidimFormHelper.module_eval do
+  
   # Find template for static page
   # Return string
   def page_template(page)
@@ -13,13 +14,17 @@ Decidim::DecidimFormHelper.module_eval do
   # Returns static pages templates list
   # Return Array of String
   def page_templates
-    # %w"faq contact costs info standalone"
-    %w"contact"
+    # %w(faq contact costs info standalone)
+    %w(contact)
   end
 
   # Returns templates list for StaticPageTopic select in form
   # Return Array of String
   def templates_collection_for_select
-    page_templates.map{ |t| [t("decidim.admin.static_page_topics.templates.#{t}"), t] }
+    page_templates.map { |t| [t("decidim.admin.static_page_topics.templates.#{t}"), t] }
+  end
+
+  def scopes_for_select(organization)
+    @scopes_for_select ||= organization.scopes.map { |scope| [translated_attribute(scope.name), scope.id] }
   end
 end

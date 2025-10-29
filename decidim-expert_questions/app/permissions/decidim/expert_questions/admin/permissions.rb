@@ -33,16 +33,19 @@ module Decidim
           @expert_answer ||= context.fetch(:expert_answer, nil)
         end
 
+        # :create, :update, :read, :destroy
         def allowed_expert_action?
           return unless permission_action.subject == :expert
           return if permission_action.action == :publish
 
-          if permission_action.action == :read
+          case permission_action.action
+          when :read
             toggle_allow(user.ad_admin? || has_role_in_space?(:admin) || is_user_space_expert?)
-          elsif permission_action.action == :destroy
-            toggle_allow(expert&.can_be_deleted? && (user.ad_admin? || has_role_in_space?(:admin)))
+          when :destroy
+            toggle_allow(expert&.can_be_deleted? && (user.ad_admin? || has_role_in_space?(:admin) && !current_participatory_space.published?))
           else
-            toggle_allow(user.ad_admin? || has_role_in_space?(:admin))
+            # toggle_allow(user.ad_admin? || user.ad_coordinator? && !current_participatory_space.published?)
+            toggle_allow(user.ad_admin? || has_role_in_space?(:admin) && !current_participatory_space.published?)
           end
         end
 
@@ -69,20 +72,21 @@ module Decidim
           return if permission_action.action == :publish
           return if permission_action.action == :create
 
-          toggle_allow((user.ad_admin? || has_role_in_space?(:admin) || is_user_space_expert?) && admin_terms_accepted?)
+          toggle_allow((user.ad_admin? || user.ad_coordinator? || has_role_in_space?(:admin) || is_user_space_expert?) && admin_terms_accepted?)
         end
 
         def allowed_creating_expert_answers_action?
           return unless permission_action.subject == :expert_answer
           return unless permission_action.action == :create
 
-          toggle_allow(!question&.expert_answer && (user.ad_admin? || has_role_in_space?(:admin) || expert_is_allowed_to_answer?(question)) && admin_terms_accepted?)
+          toggle_allow(!question&.expert_answer && (user.ad_admin? || user.ad_coordinator? || has_role_in_space?(:admin) || expert_is_allowed_to_answer?(question)) && admin_terms_accepted?)
         end
 
+        # permission for :publish action in: expert and expert_answer
         def allowed_publishing_action?
           return unless permission_action.action == :publish
 
-          toggle_allow(user.ad_admin? && admin_terms_accepted?)
+          toggle_allow((user.ad_admin? || user.ad_coordinator?) && admin_terms_accepted?)
         end
 
         def expert_is_allowed_to_answer?(question)

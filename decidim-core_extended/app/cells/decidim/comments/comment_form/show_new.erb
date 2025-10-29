@@ -1,0 +1,128 @@
+<%= form_for(form_object, url: decidim_comments.comments_path(order:), method: :post, remote: true, html: { id: form_id, class: "comment-form" }) do |form| %>
+  <div class="comment-wrapper" data-user-logged-in="<%= current_user.present? %>">
+      <%= form.hidden_field :commentable_gid, id: nil %>
+      <%= form.hidden_field :alignment, id: nil, class: "alignment-input" %>
+      <%= comment_as_for(form) %> 
+
+      <div class="flex justify-between items-end mb-4">
+        <label class="comment__form-label" for="<%= add_comment_id %>">
+          <%= t("decidim.components.add_comment_form.form.body.label") %>
+        </label>
+
+      </div>
+
+    <div class="field remark-field--body">
+      <%= form.text_area(
+            :body,
+            id: add_comment_id,
+            class: "w-full",
+            rows: 4,
+            maxlength: comments_max_length,
+            required: true,
+            placeholder: t("decidim.components.add_comment_form.form.body.placeholder"),
+            label: false,
+            data: { remaining_characters: "##{add_comment_id}-remaining-characters-body", input_emoji: true }
+          ) %>
+          
+        <span id="<%= add_comment_id %>-remaining-characters-body" class="remaining-character-count"></span>
+    </div>
+
+    <div class="field file-field remark-field--files position-relative">
+      <%= form.file_field :files,
+                          label: false,
+                          class: 'multifile hidden',
+                          id: "comment_files_" + add_comment_id,
+                          accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+                          multiple: true %>
+
+      <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= add_comment_id %>">Dodaj załącznik</button>
+    </div>
+
+    <div class="signature-wrapper">
+        <% unless current_user %>
+          <div class="flex flex-col">
+            <%= form.text_field(
+                :signature,
+                id: add_comment_id,
+                maxlength: signature_max_length_cell,
+                required: true, 
+                placeholder: t("decidim.components.add_comment_form.form.signature.placeholder"),
+                label: false,
+            ) %>
+          </div>
+          <p><%= t("decidim.expert_questions.user_questions.new.tos_agreement", link: link_to("regulamin", regulamin_url)) %></p>
+        <% end %>
+      </div>
+
+      <div class="comment__form-submit">
+        <% unless user_signed_in? %>
+          <p>
+            <span>
+              <%== t(
+                    "decidim.components.add_comment_form.account_message",
+                    sign_in_url: decidim.new_user_session_path,
+                    sign_up_url: decidim.new_user_registration_path
+                  ) %>
+            </span>
+          </p>
+        <% end %>
+        <button class="button button__sm button__secondary ml-auto" type="submit">
+          <span>
+          <% if reply? %>
+            <%= t("decidim.components.add_comment_form.form.submit_reply") %>
+          <% else %>
+            <%= t("decidim.components.add_comment_form.form.submit_root_comment") %>
+          <% end %>
+          </span>
+          <%= icon "chat-1-line" %>
+        </button>
+      </div>
+  </div>
+
+  <div class="detail-info-container">
+    <p class="close-icon">
+      <%= icon "close-line" %>
+    </p>
+    <div class="text-center m-auto w-full">
+      <h4 class="h4 comment-section-heading pr-6">Dziękujemy, Twój komentarz został opublikowany!</h4>
+      <h4 class="section-heading-note mt-4">
+        <p>Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?</p>
+        <p>Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.</p>
+      </h4>
+      <% unless current_user %>
+        <br />
+        <br />
+        <p class="bottom">Prosimy, powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych</p>
+      <% end %>
+      <div class="remark-field--selects w-full flex flex-col gap-4 sm:flex-row sm:gap-0 items-center justify-center">
+          <% unless current_user %>
+            <%= form.select :gender,
+                        form_object.gender_options_for_public_post,
+                        { include_blank: t("select_gender", scope: 'decidim.components.add_comment_form.form'), label: false },
+                        { multiple: false, id: add_comment_id, class: "w-full sm:w-auto" } %>
+            <%= form.select :age,
+                        form_object.user_age_for_select,
+                        { include_blank: t("select_age", scope: 'decidim.components.add_comment_form.form'), label: false },
+                        { multiple: false, id: add_comment_id, class: "w-full sm:w-auto" } %>
+            <%= form.select :district_id,
+                        form_object.user_districts_for_select,
+                        { include_blank: t("select_district", scope: 'decidim.components.add_comment_form.form'), label: false },
+                        { multiple: false, id: add_comment_id, class: "w-full sm:w-auto" } %>
+            <% end %>
+      </div>
+    </div>
+
+    <div class="comment__form-submit-custom">
+      <button class="button button__sm button__secondary ml-auto" type="submit">
+        <span>
+        <% if reply? %>
+          <%= t("decidim.components.add_comment_form.form.submit_reply") %>
+        <% else %>
+          <%= t("decidim.components.add_comment_form.form.submit_root_comment") %>
+        <% end %>
+        </span>
+        <%= icon "chat-1-line" %>
+      </button>
+    </div>
+  </div>
+<% end %>

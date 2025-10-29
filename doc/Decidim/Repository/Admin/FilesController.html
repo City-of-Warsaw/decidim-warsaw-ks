@@ -69,12 +69,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Admin::ApplicationController</span>
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Admin::ApplicationController</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></li>
           
             <li class="next">Decidim::Repository::Admin::FilesController</li>
           
@@ -88,11 +90,6 @@
   
   
   
-  
-  <dl>
-      <dt>Includes:</dt>
-      <dd>Admin::Officializations::Filterable</dd>
-  </dl>
   
   
 
@@ -149,7 +146,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>returns collection for view handle by Decidim::Repository::Admin::Files::Filterable.</p>
+</div></span>
   
 </li>
 
@@ -330,50 +329,6 @@
 </li>
 
       
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#save_as_copy%3F-instance_method" title="#save_as_copy? (instance method)">#<strong>save_as_copy?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#search_field_predicate-instance_method" title="#search_field_predicate (instance method)">#<strong>search_field_predicate</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
         <li class="public ">
   <span class="summary_signature">
     
@@ -386,6 +341,52 @@
   
   
   
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#subaction_for%3F-instance_method" title="#subaction_for? (instance method)">#<strong>subaction_for?</strong>(subaction)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>check if action is as searched.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#tab_menu_name-instance_method" title="#tab_menu_name (instance method)">#<strong>tab_menu_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
   
   
   
@@ -424,6 +425,19 @@
 
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -438,29 +452,40 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns collection for view handle by Decidim::Repository::Admin::Files::Filterable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-129
-130
-131
-132
-133
-134
-135</pre>
+150
+151
+152
+153
+154
+155
+156</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 129</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
-  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../File.html" title="Decidim::Repository::File (class)">File</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-                                           <span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
-                                           <span class='period'>.</span><span class='id identifier rubyid_with_attached_files'>with_attached_files</span>
-                                           <span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='symbol'>:creator</span><span class='rparen'>)</span>
-                                           <span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
+  <span class='ivar'>@files</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../File.html" title="Decidim::Repository::File (class)">File</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+                                      <span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
+                                      <span class='period'>.</span><span class='id identifier rubyid_with_attached_files'>with_attached_files</span>
+                                      <span class='period'>.</span><span class='id identifier rubyid_includes'>includes</span><span class='lparen'>(</span><span class='symbol'>:creator</span><span class='rparen'>)</span>
+                                      <span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -482,7 +507,6 @@
       <pre class="lines">
 
 
-37
 38
 39
 40
@@ -521,10 +545,22 @@
 73
 74
 75
-76</pre>
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -539,10 +575,17 @@
         <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_html'>html</span> <span class='kw'>do</span>
           <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_message'>message</span>
           <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span>
-                        <span class='label'>gallery_id:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_admin_gallery_id'>admin_gallery_id</span><span class='comma'>,</span>
-                        <span class='label'>folder_id:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_folder_id'>folder_id</span><span class='rparen'>)</span>
+            <span class='label'>gallery_id:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_admin_gallery_id'>admin_gallery_id</span><span class='comma'>,</span>
+            <span class='label'>folder_id:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_folder_id'>folder_id</span>
+          <span class='rparen'>)</span>
         <span class='kw'>end</span>
-        <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_json'>json</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>file_url:</span> <span class='id identifier rubyid_main_app'>main_app</span><span class='period'>.</span><span class='id identifier rubyid_url_for'>url_for</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='rbrace'>}</span><span class='rbrace'>}</span>
+        <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_json'>json</span> <span class='kw'>do</span>
+          <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span><span class='comma'>,</span> <span class='label'>file_url:</span> <span class='id identifier rubyid_decidim_repository'>decidim_repository</span><span class='period'>.</span><span class='id identifier rubyid_blob_url'>blob_url</span><span class='lparen'>(</span>
+            <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_signed_id'>signed_id</span><span class='comma'>,</span>
+            <span class='label'>filename:</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span>
+            <span class='label'>disposition:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attachment</span><span class='tstring_end'>&quot;</span></span>
+          <span class='rparen'>)</span> <span class='rbrace'>}</span>
+        <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
 
@@ -557,9 +600,13 @@
         <span class='id identifier rubyid_format'>format</span><span class='period'>.</span><span class='id identifier rubyid_json'>json</span> <span class='kw'>do</span>
           <span class='comment'># for duplicated record we return that duplicated file
 </span>          <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_duplicated_file'>duplicated_file</span>
-            <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>file_url:</span> <span class='id identifier rubyid_main_app'>main_app</span><span class='period'>.</span><span class='id identifier rubyid_url_for'>url_for</span><span class='lparen'>(</span><span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_duplicated_file'>duplicated_file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+            <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span><span class='comma'>,</span> <span class='label'>file_url:</span> <span class='id identifier rubyid_decidim_repository'>decidim_repository</span><span class='period'>.</span><span class='id identifier rubyid_blob_url'>blob_url</span><span class='lparen'>(</span>
+              <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_duplicated_file'>duplicated_file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_signed_id'>signed_id</span><span class='comma'>,</span>
+              <span class='label'>filename:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_duplicated_file'>duplicated_file</span><span class='period'>.</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span>
+              <span class='label'>disposition:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attachment</span><span class='tstring_end'>&quot;</span></span>
+            <span class='rparen'>)</span> <span class='rbrace'>}</span>
           <span class='kw'>else</span>
-            <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='comma'>,</span> <span class='label'>errors:</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span> <span class='rbrace'>}</span>
+            <span class='id identifier rubyid_render'>render</span> <span class='label'>json:</span> <span class='lbrace'>{</span> <span class='label'>message:</span><span class='comma'>,</span> <span class='label'>errors:</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_values'>values</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span> <span class='rbrace'>}</span>
           <span class='kw'>end</span>
         <span class='kw'>end</span>
       <span class='kw'>end</span>
@@ -586,45 +633,51 @@
       <pre class="lines">
 
 
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
 118
 119
-120</pre>
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='comment'># if params[:admin_gallery_id]
-</span>  <span class='comment'>#   gallery_image = Decidim::Repository::GalleryImage.find_by gallery_id: params[:admin_gallery_id], file_id: file.id
-</span>  <span class='comment'>#   gallery_image.destroy
-</span>  <span class='comment'>#   flash[:notice] = &quot;Zdjęcie zostało usunięte z galerii&quot;
-</span>  <span class='comment'># end
-</span>  <span class='const'><span class='object_link'><a href="DestroyFile.html" title="Decidim::Repository::Admin::DestroyFile (class)">DestroyFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="DestroyFile.html#call-instance_method" title="Decidim::Repository::Admin::DestroyFile#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-    <span class='kw'>end</span>
 
-    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
-      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files.destroy.error</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_gallery_image'>gallery_image</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../GalleryImage.html" title="Decidim::Repository::GalleryImage (class)">GalleryImage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span> <span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>file_id:</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+    <span class='id identifier rubyid_gallery_image'>gallery_image</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+    <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>galleries.destroy_gallery_file.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='const'><span class='object_link'><a href="DestroyFile.html" title="Decidim::Repository::Admin::DestroyFile (class)">DestroyFile</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="DestroyFile.html#call-instance_method" title="Decidim::Repository::Admin::DestroyFile#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+
+      <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
+        <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files.destroy.error</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:admin_gallery_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -648,20 +701,18 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82</pre>
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="FileEditForm.html" title="Decidim::Repository::Admin::FileEditForm (class)">FileEditForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_model'>from_model</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
-  <span class='comment'># render template: &#39;decidim/repository/admin/files/edit_old&#39;
-</span><span class='kw'>end</span></pre>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -682,19 +733,29 @@
       <pre class="lines">
 
 
+8
+9
+10
+11
 12
 13
 14
 15
-16</pre>
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_editor_images'>editor_images</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="SearchFileForm.html" title="Decidim::Repository::Admin::SearchFileForm (class)">SearchFileForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span><span class='period'>.</span><span class='id identifier rubyid_images_or_video'>images_or_video</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:per_page</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='int'>16</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_render'>render</span> <span class='label'>template:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim/repository/admin/files/editor_images</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='kw'>false</span>
+  <span class='id identifier rubyid_base_collection'>base_collection</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span><span class='period'>.</span><span class='id identifier rubyid_images_or_video'>images_or_video</span>
+  <span class='id identifier rubyid_base_collection'>base_collection</span> <span class='op'>=</span> <span class='id identifier rubyid_base_collection'>base_collection</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim_repository_files.name ILIKE :q</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>q:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%</span><span class='embexpr_beg'>#{</span><span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>%</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
+  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_base_collection'>base_collection</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:per_page</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='int'>16</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_render'>render</span> <span class='label'>template:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim/repository/admin/files/editor_images</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>layout:</span> <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -716,12 +777,12 @@
       <pre class="lines">
 
 
-125
-126
-127</pre>
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 125</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file'>file</span>
   <span class='ivar'>@file</span> <span class='op'>||=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -746,17 +807,17 @@
       <pre class="lines">
 
 
-18
 19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:per_page</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='int'>15</span><span class='rparen'>)</span>
+  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -778,16 +839,16 @@
       <pre class="lines">
 
 
-29
 30
 31
 32
 33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -816,18 +877,18 @@
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146
-147
-148
-149</pre>
+163
+164
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 163</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_redirect_after_create_or_destroy_path'>redirect_after_create_or_destroy_path</span><span class='lparen'>(</span><span class='label'>gallery_id:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>folder_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_gallery_id'>gallery_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -844,9 +905,43 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="save_as_copy?-instance_method">
+  <h3 class="signature " id="show-instance_method">
   
-    #<strong>save_as_copy?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+    #<strong>show</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
+  <span class='ivar'>@file</span> <span class='op'>=</span> <span class='id identifier rubyid_file'>file</span>
+
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span><span class='lparen'>(</span><span class='id identifier rubyid_admin_files_path'>admin_files_path</span><span class='comma'>,</span> <span class='label'>alert:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nie znaleziono pliku</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="subaction_for?-instance_method">
+  
+    #<strong>subaction_for?</strong>(subaction)  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
   
 
   
@@ -855,6 +950,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>check if action is as searched</p>
+
 
   </div>
 </div>
@@ -880,15 +977,15 @@
       <pre class="lines">
 
 
-137
-138
-139</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 159</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_save_as_copy?'>save_as_copy?</span>
-  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:submit_for_action</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:submit_for_action</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>save_as_copy</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>def</span> <span class='id identifier rubyid_subaction_for?'>subaction_for?</span><span class='lparen'>(</span><span class='id identifier rubyid_subaction'>subaction</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:subaction</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:subaction</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='id identifier rubyid_subaction'>subaction</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -896,9 +993,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="search_field_predicate-instance_method">
+  <h3 class="signature " id="tab_menu_name-instance_method">
   
-    #<strong>search_field_predicate</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+    #<strong>tab_menu_name</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
   
 
   
@@ -910,50 +1007,12 @@
       <pre class="lines">
 
 
-151
-152
-153</pre>
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 143</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_search_field_predicate'>search_field_predicate</span>
-  <span class='symbol'>:name_or_description_cont</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="show-instance_method">
-  
-    #<strong>show</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-23
-24
-25
-26
-27</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 23</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
-  <span class='ivar'>@file</span> <span class='op'>=</span> <span class='id identifier rubyid_file'>file</span>
-
-  <span class='id identifier rubyid_redirect_to'>redirect_to</span><span class='lparen'>(</span><span class='id identifier rubyid_admin_files_path'>admin_files_path</span><span class='comma'>,</span> <span class='label'>alert:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nie znaleziono pliku</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_file'>file</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_tab_menu_name'>tab_menu_name</span> <span class='op'>=</span> <span class='symbol'>:admin_repository_menu</span></pre>
     </td>
   </tr>
 </table>
@@ -974,32 +1033,42 @@
       <pre class="lines">
 
 
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
 95
 96
 97
 98
 99
-100</pre>
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/files_controller.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="FileEditForm.html" title="Decidim::Repository::Admin::FileEditForm (class)">FileEditForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_subaction'>subaction</span> <span class='op'>=</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:subaction</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_subaction_for?'>subaction_for?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>save_as_copy</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_subaction_for?'>subaction_for?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>save_as_copy</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+              <span class='const'><span class='object_link'><a href="SaveAsCopyFile.html" title="Decidim::Repository::Admin::SaveAsCopyFile (class)">SaveAsCopyFile</a></span></span>
+            <span class='kw'>else</span>
+              <span class='const'><span class='object_link'><a href="UpdateFile.html" title="Decidim::Repository::Admin::UpdateFile (class)">UpdateFile</a></span></span>
+            <span class='kw'>end</span>
 
-  <span class='id identifier rubyid_command'>command</span> <span class='op'>=</span> <span class='id identifier rubyid_save_as_copy?'>save_as_copy?</span> <span class='op'>?</span> <span class='const'><span class='object_link'><a href="SaveAsCopyFile.html" title="Decidim::Repository::Admin::SaveAsCopyFile (class)">SaveAsCopyFile</a></span></span> <span class='op'>:</span> <span class='const'><span class='object_link'><a href="UpdateFile.html" title="Decidim::Repository::Admin::UpdateFile (class)">UpdateFile</a></span></span>
   <span class='id identifier rubyid_command'>command</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='ivar'>@form</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
       <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>files.update.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
@@ -1022,9 +1091,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:20 2023 by
+  Generated on Wed Oct 29 14:41:39 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

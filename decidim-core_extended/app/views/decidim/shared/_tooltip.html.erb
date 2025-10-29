@@ -1,0 +1,9 @@
+<% tooltip_id = "tooltip-#{SecureRandom.hex(4)}" %>
+<div class="form-tooltip">
+  <div class="form-tooltip__content editor-content" id="<%= tooltip_id %>">
+    <%= tooltip_content.html_safe %>
+  </div>
+  <div class="form-tooltip__hint" aria-describedby="<%= tooltip_id %>" tabindex="0">
+    <%= yield %>
+  </div>
+</div>

@@ -74,6 +74,11 @@
   
 
   
+  <dl>
+    <dt>Included in:</dt>
+    <dd><span class='object_link'><a href="../../AdUsersSpace/Admin/CreateInfoArticle.html" title="Decidim::AdUsersSpace::Admin::CreateInfoArticle (class)">AdUsersSpace::Admin::CreateInfoArticle</a></span>, <span class='object_link'><a href="../../AdUsersSpace/Admin/UpdateInfoArticle.html" title="Decidim::AdUsersSpace::Admin::UpdateInfoArticle (class)">AdUsersSpace::Admin::UpdateInfoArticle</a></span>, <span class='object_link'><a href="../../ConsultationRequests/Admin/CreateConsultationRequest.html" title="Decidim::ConsultationRequests::Admin::CreateConsultationRequest (class)">ConsultationRequests::Admin::CreateConsultationRequest</a></span>, <span class='object_link'><a href="../../ConsultationRequests/Admin/UpdateConsultationRequest.html" title="Decidim::ConsultationRequests::Admin::UpdateConsultationRequest (class)">ConsultationRequests::Admin::UpdateConsultationRequest</a></span>, <span class='object_link'><a href="../../News/Admin/CreateInformation.html" title="Decidim::News::Admin::CreateInformation (class)">News::Admin::CreateInformation</a></span>, <span class='object_link'><a href="../../News/Admin/UpdateInformation.html" title="Decidim::News::Admin::UpdateInformation (class)">News::Admin::UpdateInformation</a></span>, <span class='object_link'><a href="../../PagesExtended/Admin/CreatePage.html" title="Decidim::PagesExtended::Admin::CreatePage (class)">PagesExtended::Admin::CreatePage</a></span>, <span class='object_link'><a href="../../ParticipatoryProcessesExtended/Admin/CreateResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::CreateResult (class)">ParticipatoryProcessesExtended::Admin::CreateResult</a></span>, <span class='object_link'><a href="../../ParticipatoryProcessesExtended/Admin/UpdateResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::UpdateResult (class)">ParticipatoryProcessesExtended::Admin::UpdateResult</a></span></dd>
+  </dl>
+  
 
   
   <dl>
@@ -83,9 +88,54 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Custom helper that supports: creating, updating &amp; validating gallery in repository creating, updating &amp; validating new gallery during creating/updating objects in admin panel space</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#form-instance_method" title="#form (instance method)">#<strong>form</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute form.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
@@ -97,6 +147,72 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_gallery-instance_method" title="#add_gallery (instance method)">#<strong>add_gallery</strong>(object)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_gallery_with_images!-instance_method" title="#create_gallery_with_images! (instance method)">#<strong>create_gallery_with_images!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_gallery_params-instance_method" title="#new_gallery_params (instance method)">#<strong>new_gallery_params</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -124,13 +240,201 @@
   
 
 
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="form-instance_method">
+  
+    #<strong>form</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute form.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
+  <span class='ivar'>@form</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="tiles_view?-instance_method">
+  <h3 class="signature first" id="add_gallery-instance_method">
+  
+    #<strong>add_gallery</strong>(object)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_gallery'>add_gallery</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_new_gallery_name'>new_gallery_name</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span> <span class='op'>||</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:present?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span>
+
+  <span class='id identifier rubyid_create_gallery_with_images!'>create_gallery_with_images!</span>
+  <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_update_column'>update_column</span><span class='lparen'>(</span><span class='symbol'>:gallery_id</span><span class='comma'>,</span> <span class='ivar'>@new_gallery</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_gallery_with_images!-instance_method">
+  
+    #<strong>create_gallery_with_images!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 24</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_gallery_with_images!'>create_gallery_with_images!</span>
+  <span class='ivar'>@new_gallery</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span>
+    <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Gallery.html" title="Decidim::Repository::Gallery (class)">Gallery</a></span></span><span class='comma'>,</span>
+    <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_new_gallery_params'>new_gallery_params</span><span class='comma'>,</span>
+    <span class='label'>visibility:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>admin-only</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='ivar'>@new_gallery</span>
+  <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_image'>image</span><span class='op'>|</span>
+    <span class='kw'>next</span> <span class='kw'>if</span> <span class='id identifier rubyid_image'>image</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='ivar'>@new_gallery</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+      <span class='label'>name:</span> <span class='id identifier rubyid_image'>image</span><span class='period'>.</span><span class='id identifier rubyid_original_filename'>original_filename</span><span class='comma'>,</span>
+      <span class='label'>file:</span> <span class='id identifier rubyid_image'>image</span><span class='comma'>,</span>
+      <span class='label'>creator:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
+      <span class='label'>organization:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_organization'>current_organization</span>
+    <span class='rparen'>)</span>
+    <span class='ivar'>@new_gallery</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@new_gallery</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span><span class='lparen'>(</span><span class='id identifier rubyid_new_gallery_params'>new_gallery_params</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_gallery_params-instance_method">
+  
+    #<strong>new_gallery_params</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 46</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new_gallery_params'>new_gallery_params</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>name:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_new_gallery_name'>new_gallery_name</span><span class='comma'>,</span>
+    <span class='label'>creator:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
+    <span class='label'>organization:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_organization'>current_organization</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tiles_view?-instance_method">
   
     #<strong>tiles_view?</strong>  &#x21d2; <tt>Boolean</tt> 
   
@@ -166,15 +470,15 @@
       <pre class="lines">
 
 
-5
-6
-7</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/helpers/decidim/repository/admin/galleries_helper.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_tiles_view?'>tiles_view?</span>
-  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:view_type</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:view_type</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>tiles</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:view_type</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:view_type</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>tiles</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -186,9 +490,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

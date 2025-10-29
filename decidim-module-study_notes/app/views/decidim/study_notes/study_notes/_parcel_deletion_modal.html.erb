@@ -1,0 +1,20 @@
+<%= decidim_modal id: "parcelDeletionModal" do %>
+  <div data-dialog-container>
+    <%= icon "delete-bin-line" %>
+    <h3 class="h3"><%= t(".title") %> <span data-note-id></span></h3>
+
+    <div>
+      <p id="parcelDeletionModal-description" class="whitespace-pre-line leading-normal"></p>
+    </div>
+  </div>
+
+  <div data-dialog-actions>
+    <button type="button" class="button button__lg button__transparent-secondary" data-dialog-close="parcelDeletionModal">
+      <%= t(".cancel") %>
+    </button>
+
+    <button type="button" class="button button__lg button__primary" data-dialog-close="parcelDeletionModal" data-action="remove-parcel-from-note">
+      <%= t(".delete") %>
+    </button>
+  </div>
+<% end %>

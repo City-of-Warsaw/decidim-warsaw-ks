@@ -1,16 +1,20 @@
 <div class="table-scroll">
   <% @files.each_slice(4) do |slice| %>
-    <div class="row" style="margin-bottom: 4px; display: flex;">
+    <div class="row" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 4px;">
       <% slice.each do |file| %>
-        <%= content_tag :div, class: 'select-image',
-                        style: 'width:23%; border: 1px solid #adadad; padding: 3px; margin-left: 4px; text-align: center',
+        <%= content_tag :div,
+                        class: 'select-image',
+                        style: 'border: 1px solid #adadad; padding: 3px; text-align: center; cursor: pointer;',
                         data: data_for_file(file) do %>
-          <%# fix for missing files in localhost storage %>
-          <% if file.image? && ActiveStorage::Blob.service.exist?(file.file.blob.key) %>
-            <%= image_tag(main_app.rails_representation_path(file.thumbnail_200)) %>
+          <% if file.image? && !file.svg? && ActiveStorage::Blob.service.exist?(file.file.blob.key) %>
+            <%= image_tag(Rails.application.routes.url_helpers.rails_representation_url(
+              file.thumbnail_200.processed,
+              only_path: true)) %>
             <br>
           <% end %>
-          <%= link_to file.file.filename, defined?(show_select_buttons) ? '#' : edit_admin_file_path(file), style: 'line-break: anywhere' %>
+          <%= link_to file.file.filename,
+                      defined?(show_select_buttons) ? '#' : edit_admin_file_path(file),
+                      style: 'line-break: anywhere' %>
         <% end %>
       <% end %>
     </div>
@@ -25,8 +29,7 @@
       var type = this.getAttribute("data-type");
 
       if (type === 'image') {
-        //var alt = this.getAttribute("data-alt");
-        var alt = '';
+        var alt = this.getAttribute("data-alt");
 
         window.parent.postMessage({
           type: 'image',

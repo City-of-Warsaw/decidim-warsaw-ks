@@ -2,8 +2,8 @@
 
 module Decidim
   module PagesExtended
-    # This cell renders the card for an instance of a page
-    # the default size is the Medium Card (:m)
+    # A cell to display a single page.
+    # warning! this cell handle with component's object Decidim::Pages::Page AND also Decidim::StaticPage
     class PageCell < Decidim::ViewModel
       
       def show
@@ -13,7 +13,7 @@ module Decidim
       private
 
       def card_size
-        "decidim/pages_extended/page_m"
+        "decidim/pages_extended/page_s"
       end
     end
   end

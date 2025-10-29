@@ -36,6 +36,12 @@ Decidim::ParticipatoryProcesses::AdminLog::ParticipatoryProcessPresenter.class_e
     case action
     when "create", "publish", "unpublish", "update"
       "decidim.admin_log.participatory_process.#{action}"
+    when "update_praticipatory_process_report"
+      "decidim.admin_log.participatory_process.#{action}"
+    when "publish_participatory_process_report", "unpublish_participatory_process_report"
+      "decidim.admin_log.participatory_process.#{action}"
+    when "send_notification_process_report", "send_notification_process_result"
+      "decidim.admin_log.participatory_process.#{action}"
     when "add_report_files_to_process"
       "decidim.admin_log.participatory_process.#{action}"
     when "add_tags_to_process"

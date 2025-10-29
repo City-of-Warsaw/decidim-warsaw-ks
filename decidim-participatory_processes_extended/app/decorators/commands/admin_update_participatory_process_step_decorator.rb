@@ -17,7 +17,14 @@ Decidim::ParticipatoryProcesses::Admin::UpdateParticipatoryProcessStep.class_eva
       end_date: form.end_date,
       description: form.description,
       # custom
-      date: form.date
+      date: form.date,
+      send_notifications_on_activation: form.send_notifications_on_activation
     }
+  end
+
+  def notify_followers
+    return unless step.saved_change_to_date
+
+    Decidim::CoreExtended::TemplatedMailerJob.perform_later('process_step_changed', { resource: step })
   end
 end

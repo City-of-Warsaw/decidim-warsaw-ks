@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating an main_menu_item.
-    class UpdateMainMenuItem < Rectify::Command
+    class UpdateMainMenuItem < Decidim::Command
       # Public: Initializes the command.
       #
       # main_menu_item - The MainMenuItem to update

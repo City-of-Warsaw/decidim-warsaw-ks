@@ -1,0 +1,47 @@
+<div class="text-center">
+  <button class="share-link button text-center" data-open="socialShare"> 
+    <img class="" aria-hidden="true" src="<%= asset_pack_path("media/images/share-icon.svg") %>" />
+    <span>
+      <%= t(".share") %>
+      <% if try(:resource) %>
+        <span class="show-for-sr"><%= resource_title(resource) %></span>
+      <% end %>
+    </span>
+  </button>
+</div>
+<div class="reveal" id="socialShare" data-reveal>
+  <div class="reveal__header">
+    <h1 class="reveal__title"><%= t(".share") %>:</h1>
+    <%# TODO: upgrade v028! poprawic lub usunac %>
+    <button class="close-button" data-close aria-label="<%#= t(".close_window") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="button-group text-center">
+  <%= social_share_button_tag(decidim_page_title,
+        url: decidim_meta_url,
+        image: decidim_meta_image_url,
+        desc: h(decidim_meta_description),
+        via: decidim_meta_twitter_handler) %>
+    <a role="button" href="#" class="button" data-open="urlShare">
+      <%# TODO: upgrade v028! poprawic lub usunac %>
+      <%#= icon "link-intact", role: "img", "aria-hidden": true %>
+      <%= t(".share_link") %>
+    </a>
+  </div>
+</div>
+<div class="reveal" id="urlShare" data-reveal>
+  <div class="reveal__header">
+    <h1 class="reveal__title"><%= t(".share_link") %>:</h1>
+    <%# TODO: upgrade v028! poprawic lub usunac %>
+    <button class="close-button" data-close aria-label="<%#= t(".close_window") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="copy-area">
+    <input type="text" title="<%= t(".share_link") %>" value="<%= "#{decidim_meta_url}" %>" readonly class="copy-area__input">
+    <span class="copy-area__feedback">Skopiowano link do schowka</span>
+  </div>
+</div>
+
+<%= append_javascript_pack_tag "share_modal" %>

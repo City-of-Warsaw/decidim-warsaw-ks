@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::ExpertQuestions::Admin::UpdateExpert</li>
           
@@ -104,7 +104,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class holds a Form to create/update translatable meetings from Decidim&#39;s admin panel.</p>
+<p>This class holds a Form to create/update translatable meetings from Decidim’s admin panel.</p>
 
 
   </div>
@@ -126,6 +126,30 @@
     </h2>
 
     <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#build_temp_expert-instance_method" title="#build_temp_expert (instance method)">#<strong>build_temp_expert</strong>  &#x21d2; Object </a>
+    
+
+    
+      (also: #temp_expert)
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -224,28 +248,6 @@
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#test_update_expert-instance_method" title="#test_update_expert (instance method)">#<strong>test_update_expert</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="private ">
-  <span class="summary_signature">
-    
       <a href="#update_expert-instance_method" title="#update_expert (instance method)">#<strong>update_expert</strong>  &#x21d2; Object </a>
     
 
@@ -311,10 +313,10 @@
       <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_expert'>expert</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='rparen'>)</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@expert</span> <span class='op'>=</span> <span class='id identifier rubyid_expert'>expert</span>
   <span class='ivar'>@current_user</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span>
-  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span> <span class='op'>=</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -329,7 +331,47 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="call-instance_method">
+  <h3 class="signature first" id="build_temp_expert-instance_method">
+  
+    #<strong>build_temp_expert</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='temp_expert-instance_method'>temp_expert</span></span>
+    </span>
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+33
+34
+35
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 33</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_build_temp_expert'>build_temp_expert</span>
+  <span class='ivar'>@temp_expert</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='label'>component:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_current_component'>current_component</span><span class='comma'>,</span>
+    <span class='label'>avatar:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="call-instance_method">
   
     #<strong>call</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -363,12 +405,7 @@
 26
 27
 28
-29
-30
-31
-32
-33
-34</pre>
+29</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 22</span>
@@ -376,15 +413,10 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
 
-  <span class='id identifier rubyid_test_update_expert'>test_update_expert</span>
-
-  <span class='kw'>if</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span>
-    <span class='id identifier rubyid_update_expert'>update_expert</span>
-    <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span>
-  <span class='kw'>else</span>
-    <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span> <span class='symbol'>:avatar</span><span class='comma'>,</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='lbracket'>[</span><span class='symbol'>:avatar</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_has_key?'>has_key?</span> <span class='symbol'>:avatar</span>
-    <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_build_temp_expert'>build_temp_expert</span>
+  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_temp_expert'>temp_expert</span><span class='period'>.</span><span class='id identifier rubyid_valid?'>valid?</span>
+  <span class='id identifier rubyid_update_expert'>update_expert</span>
+  <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -406,33 +438,29 @@
       <pre class="lines">
 
 
+50
+51
+52
+53
+54
+55
 56
 57
 58
-59
-60
-61
-62
-63
-64
-65
-66
-67</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_attributes'>expert_attributes</span>
   <span class='lbrace'>{</span>
-    <span class='label'>position:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_position'>position</span><span class='comma'>,</span>
+    <span class='label'>full_name:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span><span class='comma'>,</span>
     <span class='label'>affiliation:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_affiliation'>affiliation</span><span class='comma'>,</span>
     <span class='label'>description:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span><span class='comma'>,</span>
-    <span class='label'>avatar:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='comma'>,</span>
-    <span class='comment'># decidim_user_id: @form.decidim_user_id,
-</span>    <span class='label'>weight:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span><span class='comma'>,</span>
-    <span class='label'>remove_avatar:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_remove_avatar'>remove_avatar</span>
-    <span class='comment'># component: @form.current_component
-</span>  <span class='rbrace'>}</span>
+    <span class='label'>weight:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span><span class='comma'>,</span>
+  <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attrs'>attrs</span><span class='op'>|</span>
+    <span class='id identifier rubyid_attrs'>attrs</span><span class='lbracket'>[</span><span class='symbol'>:avatar</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -454,69 +482,29 @@
       <pre class="lines">
 
 
+61
+62
+63
+64
+65
+66
+67
+68
 69
-70
-71
-72
-73
-74
-75
-76
-77
-78</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_log_info'>log_info</span>
   <span class='lbrace'>{</span>
     <span class='label'>resource:</span> <span class='lbrace'>{</span>
-      <span class='label'>title:</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+      <span class='label'>title:</span> <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='label'>participatory_space:</span> <span class='lbrace'>{</span>
       <span class='label'>title:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
     <span class='rbrace'>}</span>
   <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="test_update_expert-instance_method">
-  
-    #<strong>test_update_expert</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-38
-39
-40
-41
-42
-43
-44
-45</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 38</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_test_update_expert'>test_update_expert</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_position'>position</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_position'>position</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_affiliation'>affiliation</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_affiliation'>affiliation</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span>
-  <span class='ivar'>@expert</span><span class='period'>.</span><span class='id identifier rubyid_remove_avatar'>remove_avatar</span> <span class='op'>=</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_remove_avatar'>remove_avatar</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -538,17 +526,17 @@
       <pre class="lines">
 
 
+41
+42
+43
+44
+45
+46
 47
-48
-49
-50
-51
-52
-53
-54</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/commands/decidim/expert_questions/admin/update_expert.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_expert'>update_expert</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span><span class='lparen'>(</span>
@@ -568,9 +556,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

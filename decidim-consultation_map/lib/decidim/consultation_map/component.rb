@@ -17,10 +17,13 @@ Decidim.register_component(:consultation_map) do |component|
   # component.actions = %w()
 
   component.settings(:global) do |settings|
+    settings.attribute :help_section_visibility, type: :boolean
+    settings.attribute :help_section_title, type: :string
+    settings.attribute :help_section_subtitle, type: :string
+    settings.attribute :help_section_description, type: :text, editor: true
     settings.attribute :announcement, type: :text, translated: true, editor: true
     settings.attribute :show_on_space_page, type: :boolean
-    settings.attribute :block_comments, type: :boolean
-    settings.attribute :help_section, type: :text, editor: true
+    settings.attribute :comments_enabled, type: :boolean, default: true
     # settings.attribute :locations, type: :text
     #   # Add your global settings
     #   # Available types: :integer, :boolean
@@ -29,10 +32,13 @@ Decidim.register_component(:consultation_map) do |component|
 
   component.settings(:step) do |settings|
     settings.attribute :announcement, type: :text, translated: true, editor: true
+    settings.attribute :comments_blocked, type: :boolean, default: false
   end
 
   component.settings(:custom) do |settings|
     settings.attribute :locations, type: :text
+    settings.attribute :color, type: :text
+    settings.attribute :file_id, type: :integer
   end
 
   component.register_resource(:remark) do |resource|

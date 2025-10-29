@@ -241,7 +241,6 @@ class Importers::ProcessesImporter < Importers::BaseImporter
     end
 
     ActiveRecord::Base.connection.execute('TRUNCATE "public"."decidim_participatory_processes" RESTART IDENTITY CASCADE;')
-    # TODO: remove versions
   end
 
   # -----------------------------------------
@@ -271,17 +270,6 @@ class Importers::ProcessesImporter < Importers::BaseImporter
     # i.error_files
 
     i.update_admin_permissions
-
-    # TODO: aktualizacja zdjec i zalacznikow w tresci
-
-
-    # uploader = Decidim::AttachmentUploader.new
-    # uploader = MyUploader.new
-    # uploader.store!(attachment_file_path)
-    # File.open('somewhere') do |f|
-    #   u.avatar = f
-    # end
-
     attachment_file_path = "files_to_migrate/konsultacje/documents/formularz_do_zglaszania_uwag_20.doc"
     File.exist? attachment_file_path
     a = Decidim::Attachment.new

@@ -3,6 +3,8 @@
 Decidim::Surveys::CreateSurvey.class_eval do
   include Rails.application.routes.mounted_helpers
 
+  # overwritten method
+  # add tos to questionnaire
   def call
     @survey = Decidim::Surveys::Survey.new(component: @component, questionnaire: Decidim::Forms::Questionnaire.new(tos: default_tos))
 
@@ -12,13 +14,12 @@ Decidim::Surveys::CreateSurvey.class_eval do
   private
 
   def default_tos
-    tos_url = Decidim::StaticPage.find_by(slug: 'terms-and-conditions').present? ?
-                 decidim.page_url(Decidim::StaticPage.find_by(slug: 'terms-and-conditions'), host: @component.organization.host) :
-                 ""
+    static_page = Decidim::StaticPage.find_by(slug: "terms-of-service")
+    tos_url = static_page ? decidim.page_url(static_page, host: @component.organization.host) : ""
 
     {
-      en: "<a href='#{tos_url}'>Przeczytaj regulamin korzystania ze strony</a>",
-      pl: "<a href='#{tos_url}'>Przeczytaj regulamin korzystania ze strony</a>"
+      en: "Wypełniając ankietę, akceptujesz <a href='#{tos_url}'>regulamin</a>.",
+      pl: "Wypełniając ankietę, akceptujesz <a href='#{tos_url}'>regulamin</a>."
     }
   end
 end

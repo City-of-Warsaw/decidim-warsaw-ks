@@ -4,7 +4,7 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user updates Article Category
-      class UpdateArticleCategory < Rectify::Command
+      class UpdateArticleCategory < Decidim::Command
 
         def initialize(article_category, form, user)
           @form = form
@@ -12,7 +12,7 @@ module Decidim
           @current_user = user
         end
 
-        # Creates the article_category if valid.
+        # Updates the article_category if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call
@@ -39,7 +39,8 @@ module Decidim
         def article_category_params
           {
             name: form.name,
-            description: form.description
+            description: form.description,
+            weight: form.weight
           }
         end
       end

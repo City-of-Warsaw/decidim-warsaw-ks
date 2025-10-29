@@ -14,6 +14,7 @@ module Decidim
         let(:area) { create(:area, organization: organization) }
         let(:fb_url) { Faker::Internet.url(host: 'facebook', scheme: 'https') }
         let(:recipients) { 'ngo' }
+        let(:selected_scope) { create(:scope, organization: current_organization) }
         let(:fb_url_two) { Faker::Internet.url(host: 'facebook', scheme: 'http') }
         let(:recipients_two) { 'mix' }
 
@@ -42,7 +43,9 @@ module Decidim
               scopes_enabled: false,
               area_id: area.id,
               fb_url: fb_url,
-              recipients: recipients
+              recipients: recipients,
+              selected_scope_ids: selected_scope.id,
+              users_action_allowed_for_unregister_users: true
             }
           }
         end

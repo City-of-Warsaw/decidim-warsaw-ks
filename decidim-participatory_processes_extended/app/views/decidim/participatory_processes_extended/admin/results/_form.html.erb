@@ -1,0 +1,25 @@
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <div class="row column">
+        <%= form.text_field :name, autofocus: true %>
+      </div>
+
+      <div class="row column">
+        <%= form.editor :body, toolbar: :full, lines: 30 %>
+      </div>
+
+      <div class="row column">
+        <%= form.number_field :weight %>
+      </div>
+
+      <div class="row column">
+        <%= form.date_field :added_at %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <%= render partial: 'decidim/repository/admin/galleries/new_or_present_gallery', locals: { form: form } %>
+  </div>
+</div>

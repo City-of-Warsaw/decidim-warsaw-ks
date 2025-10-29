@@ -5,48 +5,61 @@
 # Decorator implements additional functionalities to the Controller
 # and changes existing methods.
 Decidim::ParticipatoryProcesses::ParticipatoryProcessesController.class_eval do
-  include Decidim::Paginable
   helper Decidim::Repository::ApplicationHelper
+  helper Decidim::FollowableHelper
 
-  helper_method :map_remarks, :map_component, :filtered_collection, :process_tags
+  helper_method :map_remarks,
+                :map_component,
+                :filtered_collection,
+                :process_tags,
+                :process_first_result,
+                :testexxx,
+                :paginable_processes_options
 
-  def show
-    enforce_permission_to :read, :process, process: current_participatory_space
-
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "pdf"   # File name excluding ".pdf" extension.
-      end
+  # overwritten method that comes from Decidim::Paginable
+  # reduce first element array to 20 - only for processes list
+  def per_page
+    if paginable_processes_options.include?(params[:per_page])
+      params[:per_page].to_i
+    elsif params[:per_page]
+      sorted = paginable_processes_options.sort
+      params[:per_page].to_i.clamp(sorted.first, sorted.last)
+    else
+      paginable_processes_options.first
     end
   end
 
   private
 
-  def per_page
-    21
+  # overwritten method
+  # add return [] if params[:filter].present?
+  # purpose: hide promoted collection if user use filters for processes
+  def promoted_collection
+    return [] if params[:filter].present?
+
+    @promoted_collection ||= promoted_participatory_processes.query + promoted_participatory_process_groups.query
   end
 
   def default_filter_params
     {
-      date: nil,
-      scope_id: nil,
-      area_id: nil,
-      department_id: nil,
+      with_date: nil,
       address: nil,
       address_lat: nil,
       address_lng: nil,
-      year: nil,
-      recipients: nil,
-      tags: nil
+      with_any_year: nil,
+      with_any_department: nil,
+      with_any_recipients: nil,
+      with_any_scope: nil,
+      with_any_tag: nil,
+      with_any_date: nil
     }
   end
 
   def collection
     @collection ||= begin
                       processes = participatory_processes.order(start_date: :desc)
-                      if filter.address_lat.present? && filter.address_lng.present?
-                        processes = processes.joins(:scope).in_range_from(filter.address_lat, filter.address_lng, 2000.0)
+                      if filter_params[:address_lat].present? && filter_params[:address_lng].present?
+                        processes = processes.joins(:scope).in_range_from(filter_params[:address_lat], filter_params[:address_lng], 2000.0)
                       end
                       processes
                     end
@@ -77,5 +90,15 @@ Decidim::ParticipatoryProcesses::ParticipatoryProcessesController.class_eval do
 
   def process_tags
     Decidim::AdminExtended::Tag.order(name: :asc)
+  end
+
+  def process_first_result
+    @process_first_result ||= current_participatory_space.results.published.sorted_by_weight.first
+  end
+
+  # ONLY FOR PROCESSES list
+  # swap 25 with 20 so that the number of tiles is even
+  def paginable_processes_options
+    [20, 50, 100].freeze
   end
 end

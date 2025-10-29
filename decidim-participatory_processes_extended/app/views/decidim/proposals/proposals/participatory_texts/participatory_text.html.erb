@@ -1,18 +1,10 @@
-<% if current_component.users_action_disallowed? %>
-  <div class="row">
-    <div class="column large-12"> 
-      <div class="callout warning-important">
-        <%= current_component.end_date_message %>
-      </div>
-    </div>
-  </div>
-<% end %>
+<%= render partial: 'decidim/shared/users_action_disallowed' %>
 
-<% if proposals_help_section.present? %>
+<% if current_component.settings[:help_section].present? %>
   <div class="help-section">
     <div class="row column">
       <div class="ql-editor">
-        <%= quill_sanitize translated_attribute(proposals_help_section) %>
+        <%= quill_sanitize translated_attribute(current_component.settings[:help_section]) %>
       </div>
     </div>
   </div>
@@ -28,6 +20,7 @@
   </div>
 </div>
 
+<% content_for(:js_content) do %>
 <%= nonced_javascript_tag do %>
   $('.collapsable-header[tabindex=0]').on("keydown", function(event) {
     if (event.which == 32) {
@@ -35,4 +28,5 @@
       $(`#${$(this).data("toggle")}`).foundation('toggle');
     }
   });
+<% end %>
 <% end %>

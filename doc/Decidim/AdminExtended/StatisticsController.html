@@ -69,14 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="Decidim::AdminExtended::ApplicationController (class)">ApplicationController</a></span></span>
+      <span class="inheritName">Decidim::Admin::ApplicationController</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Decidim::Admin::ApplicationController</li>
-          
-            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="Decidim::AdminExtended::ApplicationController (class)">ApplicationController</a></span></li>
           
             <li class="next">Decidim::AdminExtended::StatisticsController</li>
           
@@ -90,6 +88,11 @@
   
   
   
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Decidim::Admin::Officializations::Filterable</dd>
+  </dl>
   
   
 
@@ -118,10 +121,32 @@
 
     <ul class="summary">
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#collection-instance_method" title="#collection (instance method)">#<strong>collection</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#edit-instance_method" title="#edit (instance method)">#<strong>edit</strong>  &#x21d2; Object </a>
+      <a href="#create-instance_method" title="#create (instance method)">#<strong>create</strong>  &#x21d2; Object </a>
     
 
     
@@ -140,10 +165,10 @@
 </li>
 
       
-        <li class="private ">
+        <li class="public ">
   <span class="summary_signature">
     
-      <a href="#generate_menu_items-instance_method" title="#generate_menu_items (instance method)">#<strong>generate_menu_items</strong>  &#x21d2; Object </a>
+      <a href="#destroy-instance_method" title="#destroy (instance method)">#<strong>destroy</strong>  &#x21d2; Object </a>
     
 
     
@@ -151,7 +176,29 @@
   
   
   
-  <span class="note title private">private</span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#edit-instance_method" title="#edit (instance method)">#<strong>edit</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
   
   
   
@@ -208,10 +255,10 @@
 </li>
 
       
-        <li class="private ">
+        <li class="public ">
   <span class="summary_signature">
     
-      <a href="#statistic-instance_method" title="#statistic (instance method)">#<strong>statistic</strong>  &#x21d2; Object </a>
+      <a href="#new-instance_method" title="#new (instance method)">#<strong>new</strong>  &#x21d2; Object </a>
     
 
     
@@ -219,7 +266,7 @@
   
   
   
-  <span class="note title private">private</span>
+  
   
   
   
@@ -230,10 +277,34 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#show-instance_method" title="#show (instance method)">#<strong>show</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>used for the archive.</p>
+</div></span>
+  
+</li>
+
+      
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#statistics-instance_method" title="#statistics (instance method)">#<strong>statistics</strong>  &#x21d2; Object </a>
+      <a href="#statistic-instance_method" title="#statistic (instance method)">#<strong>statistic</strong>  &#x21d2; Object </a>
     
 
     
@@ -280,18 +351,165 @@
 
   
   
-  
-  
-  
-  
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="edit-instance_method">
+  <h3 class="signature first" id="collection-instance_method">
+  
+    #<strong>collection</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95
+96</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 93</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
+  <span class='comment'># For Client&#39;s request - not present all data
+</span>  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_excluding_hidden_stats'>excluding_hidden_stats</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create-instance_method">
+  
+    #<strong>create</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:new</span><span class='comma'>,</span> <span class='symbol'>:statistics</span>
+  <span class='id identifier rubyid_form'>form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="StatisticForm.html" title="Decidim::AdminExtended::StatisticForm (class)">StatisticForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CreateStatistic.html" title="Decidim::AdminExtended::CreateStatistic (class)">CreateStatistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="CreateStatistic.html#call-instance_method" title="Decidim::AdminExtended::CreateStatistic#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>statistics.create.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_extended'>decidim_admin_extended</span><span class='period'>.</span><span class='id identifier rubyid_statistics_path'>statistics_path</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>statistics.create.error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:edit</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="destroy-instance_method">
+  
+    #<strong>destroy</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 66</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:delete</span><span class='comma'>,</span> <span class='symbol'>:statistics</span><span class='comma'>,</span> <span class='label'>statistic:</span> <span class='id identifier rubyid_statistic'>statistic</span>
+
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DestroyStatistic.html" title="Decidim::AdminExtended::DestroyStatistic (class)">DestroyStatistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="DestroyStatistic.html#call-instance_method" title="Decidim::AdminExtended::DestroyStatistic#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_statistic'>statistic</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>statistics.destroy.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_extended'>decidim_admin_extended</span><span class='period'>.</span><span class='id identifier rubyid_statistics_path'>statistics_path</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:not_allowed</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>statistics.destroy.not_allowed</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_extended'>decidim_admin_extended</span><span class='period'>.</span><span class='id identifier rubyid_statistics_path'>statistics_path</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>statistics.destroy.error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_extended'>decidim_admin_extended</span><span class='period'>.</span><span class='id identifier rubyid_statistics_path'>statistics_path</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="edit-instance_method">
   
     #<strong>edit</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -305,65 +523,17 @@
       <pre class="lines">
 
 
-20
-21
-22
-23</pre>
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
-  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:statistics</span><span class='comma'>,</span> <span class='label'>statistic:</span> <span class='id identifier rubyid_statistic'>statistic</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="StatisticForm.html" title="Decidim::AdminExtended::StatisticForm (class)">StatisticForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_model'>from_model</span><span class='lparen'>(</span><span class='id identifier rubyid_statistic'>statistic</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="generate_menu_items-instance_method">
-  
-    #<strong>generate_menu_items</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 52</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_generate_menu_items'>generate_menu_items</span>
-  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_manageable_stats'>manageable_stats</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&lt;=</span> <span class='id identifier rubyid_statistics'>statistics</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
-
-  <span class='id identifier rubyid_manageable_stats'>manageable_stats</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span>
-    <span class='kw'>unless</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>sys_name:</span> <span class='id identifier rubyid_m'>m</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span>
-        <span class='label'>name:</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.admin_extended.statistics.default_name</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
-        <span class='label'>sys_name:</span> <span class='id identifier rubyid_m'>m</span>
-      <span class='rparen'>)</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -385,23 +555,17 @@
       <pre class="lines">
 
 
-12
-13
 14
 15
 16
-17
-18</pre>
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
-
-  <span class='id identifier rubyid_generate_menu_items'>generate_menu_items</span> <span class='comment'># TODO: do usuniecia gdy sie wszystkie wygeneruja
-</span>  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_update_counts'><span class='object_link'><a href="Statistic.html#update_counts-class_method" title="Decidim::AdminExtended::Statistic.update_counts (method)">update_counts</a></span></span>
-  <span class='id identifier rubyid_statistics'>statistics</span>
+  <span class='ivar'>@statistics</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -436,16 +600,85 @@
       <pre class="lines">
 
 
-68
-69
-70</pre>
+101
+102
+103</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 101</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_manageable_stats'>manageable_stats</span>
   <span class='ivar'>@manageable_stats</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_manageable_stats'><span class='object_link'><a href="Statistic.html#manageable_stats-class_method" title="Decidim::AdminExtended::Statistic.manageable_stats (method)">manageable_stats</a></span></span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new-instance_method">
+  
+    #<strong>new</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:new</span><span class='comma'>,</span> <span class='symbol'>:statistics</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="StatisticForm.html" title="Decidim::AdminExtended::StatisticForm (class)">StatisticForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="show-instance_method">
+  
+    #<strong>show</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>used for the archive</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -466,45 +699,15 @@
       <pre class="lines">
 
 
-44
-45
-46</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_statistic'>statistic</span>
   <span class='ivar'>@statistic</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="statistics-instance_method">
-  
-    #<strong>statistics</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-48
-49
-50</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 48</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_statistics'>statistics</span>
-  <span class='ivar'>@statistics</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Statistic.html" title="Decidim::AdminExtended::Statistic (class)">Statistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -526,28 +729,28 @@
       <pre class="lines">
 
 
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40</pre>
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/statistics_controller.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
-  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:statistics</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_statistic'>statistic</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="StatisticForm.html" title="Decidim::AdminExtended::StatisticForm (class)">StatisticForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
 
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="UpdateStatistic.html" title="Decidim::AdminExtended::UpdateStatistic (class)">UpdateStatistic</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="UpdateStatistic.html#call-instance_method" title="Decidim::AdminExtended::UpdateStatistic#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_statistic'>statistic</span><span class='comma'>,</span> <span class='ivar'>@form</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -572,9 +775,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:35 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

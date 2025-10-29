@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19.747" viewBox="0 0 19 19.747">
+  <g id="Component_112_2" data-name="Component 112 – 2" transform="translate(0 1.5)">
+    <rect id="Rectangle_1318" data-name="Rectangle 1318" width="19" height="17" rx="3" transform="translate(0 1.247)" fill="#a0a0a0"/>
+    <rect id="Rectangle_1319" data-name="Rectangle 1319" width="17" height="13" rx="2" transform="translate(1 5.247)" fill="#fff"/>
+    <circle id="Ellipse_160" data-name="Ellipse 160" cx="1.5" cy="1.5" r="1.5" transform="translate(8 7.247)" fill="#a0a0a0"/>
+    <circle id="Ellipse_164" data-name="Ellipse 164" cx="1.5" cy="1.5" r="1.5" transform="translate(8 12.247)" fill="#a0a0a0"/>
+    <circle id="Ellipse_161" data-name="Ellipse 161" cx="1.5" cy="1.5" r="1.5" transform="translate(3 7.247)" fill="#a0a0a0"/>
+    <circle id="Ellipse_165" data-name="Ellipse 165" cx="1.5" cy="1.5" r="1.5" transform="translate(3 12.247)" fill="#a0a0a0"/>
+    <circle id="Ellipse_162" data-name="Ellipse 162" cx="1.5" cy="1.5" r="1.5" transform="translate(13 7.247)" fill="#a0a0a0"/>
+    <g id="Rectangle_1320" data-name="Rectangle 1320" transform="translate(0 1.247)" fill="none" stroke="#a0a0a0" stroke-width="1">
+      <rect width="19" height="17" rx="3" stroke="none"/>
+      <rect x="0.5" y="0.5" width="18" height="16" rx="2.5" fill="none"/>
+    </g>
+    <line id="Line_175" data-name="Line 175" y2="3.723" transform="translate(4.536)" fill="none" stroke="#a0a0a0" stroke-linecap="round" stroke-width="3"/>
+    <line id="Line_176" data-name="Line 176" y2="3.723" transform="translate(14.464)" fill="none" stroke="#a0a0a0" stroke-linecap="round" stroke-width="3"/>
+  </g>
+</svg>

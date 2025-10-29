@@ -3,7 +3,7 @@
 module Decidim
   module UsersExtended
     # A command with all the business logic when a user publishes a draft project.
-    class CreateAdminSession < Rectify::Command
+    class CreateAdminSession < Decidim::Command
       # Public: Initializes the command.
       #
       # form     - admin sign-in form

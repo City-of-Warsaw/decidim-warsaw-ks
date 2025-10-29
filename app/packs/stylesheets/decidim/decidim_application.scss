@@ -1,0 +1,53 @@
+// This is a file that can be overridden by the application in order to override styles
+// Notice that this file is included at the very end of the stylesheets packs to have
+// more priority
+//
+// To override the Tailwind CSS configuration you can do so by following the instructions
+// available at https://docs.decidim.org/en/develop/customize/styles.html#_tailwind_css
+//
+// By default this is empty.
+
+// -- Stare w wersji 024 mialy jeszcze to:
+//*= require decidim
+//@import "../decidim/comments_extended/application.css
+//@import "../decidim/news/application.css
+//@import "../decidim/expert_questions/user_questions.scss
+//@import "../decidim/remarks/remarks.scss
+//@import "../decidim/consultation_map/remarks.scss
+//@import "../decidim/users_extended/application.css
+// --
+
+@import "../jquery.multiselect";
+@import "../locations-map/leaflet";
+@import "../polygon-map/polygon-map";
+@import "../locations-map/autocomplete.min";
+@import "../locations-map/leaflet-gesture-handling.min";
+@import "../MarkerCluster";
+// @import "../forum_articles";
+// @import "../study_notes";
+// @import "../general_plan_requests";
+// @import "../search_results";
+// @import "../authors";
+@import "../elements";
+// @import "../forms";
+// @import "../forum";
+@import "../main_page";
+@import "../meetings";
+// @import "../participatory_texts";
+// @import "../processes";
+@import "../swipebox";
+// @import "../wcag";
+// @import "../informations.scss";
+
+// @import "../application.scss";
+@import "../cookie-bar.scss";
+
+// @import "../surveys";
+// @import "../rwd";
+@import "../admin/quill.custom-classes";
+@import "../video-js";
+@import "../leaflet.draw";
+@import "../select2.modCS";
+// @import "../remarks/remarks.scss";
+@import "../custom_ks/custom-ks";
+// @import "../user-questions/user-questions.scss";

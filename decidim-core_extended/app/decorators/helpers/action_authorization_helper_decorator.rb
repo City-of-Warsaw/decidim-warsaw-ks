@@ -11,29 +11,31 @@ Decidim::ActionAuthorizationHelper.module_eval do
       url = arguments[0]
       html_options = arguments[1]
     else
-      body = arguments[0]
+      body = content_tag :span, arguments[0]
       url = arguments[1]
       html_options = arguments[2]
     end
 
     html_options ||= {}
     resource = html_options.delete(:resource)
+    permissions_holder = html_options.delete(:permissions_holder)
 
     if action == :follow
       html_options = clean_authorized_to_data_open(html_options)
 
       html_options["data-open"] = "followModal"
       url = "#"
+
     elsif !current_user
       html_options = clean_authorized_to_data_open(html_options)
 
-      html_options["data-open"] = "loginModal"
+      html_options["data-dialog-open"] = "loginModal"
       url = "#"
-    elsif action && !action_authorized_to(action, resource: resource).ok?
+    elsif action && !action_authorized_to(action, resource:, permissions_holder:).ok?
       html_options = clean_authorized_to_data_open(html_options)
 
-      html_options["data-open"] = "authorizationModal"
-      html_options["data-open-url"] = modal_path(action, resource)
+      html_options["data-dialog-open"] = "authorizationModal"
+      html_options["data-dialog-remote-url"] = modal_path(action, resource)
       url = "#"
     end
 

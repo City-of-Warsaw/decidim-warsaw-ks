@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when destroying a banned word.
-    class DestroyBannedWord < Rectify::Command
+    class DestroyBannedWord < Decidim::Command
       # Public: Initializes the command.
       #
       # banned word - The banned word to destroy

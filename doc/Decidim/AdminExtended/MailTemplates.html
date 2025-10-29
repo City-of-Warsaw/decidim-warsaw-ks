@@ -320,157 +320,687 @@
 153
 154
 155
-156</pre>
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/lib/decidim/admin_extended/mail_templates.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_templates'>templates</span>
   <span class='lbrace'>{</span>
-    <span class='comment'># processes
-</span>    <span class='label'>new_process_published:</span> <span class='lbrace'>{</span>
+    <span class='comment'># DECIDIM: THE PROCESS:
+</span>    <span class='label'>new_process_created_by_coordinator:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie użytkownik wewnętrznego o utworzeniu nowego procesu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Koordynator utworzył nowy proces</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Koordynator utworzył nowy proces&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>process_updated_by_admin:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie użytkownik wewnętrznego o aktualizacji przez użytkownika wewnętrznego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Koordynator zaktualizował proces</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Koordynator zaktualizował proces&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new_process_published:</span> <span class='lbrace'>{</span>
       <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowych konsultacjach zgodnych z zainteresowaniami zaznaczonymi w Moim koncie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
       <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowe konsultacje</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
         &lt;p&gt;Nowe konsultacje w Warszawie&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>published_process_updated:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o aktualizacji w obserowanych konsultacjach</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Aktualizacja konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Wprowadzono zmiany do obserwowanej przez Ciebie konsultacji&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>step_name</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>report_published:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Informacja o opublikowaniu raportu konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Opublikowano raport z konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Opublikowano raport z konsultacji&lt;/p&gt;
+        &lt;p&gt;%{report_description}&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='words_sep'> </span><span class='tstring_content'>report_description</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>notification_about_process_results:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Informacja o efektach konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Efekty konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Treść efektu konsultacji&lt;/p&gt;
+        &lt;p&gt;%{result_body}&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='words_sep'> </span><span class='tstring_content'>result_body</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='label'>process_step_activation:</span> <span class='lbrace'>{</span>
       <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Zmiana etapu w timelinie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
       <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zmiana etapu konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
         &lt;p&gt;Nowy etap konsultacji&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>step_name</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>process_updated:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o aktualizacji w obserowanych konsultacjach</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Aktualizacja konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Wprowadzono zmiany do obserwowanej przez Ciebie konsultacji&lt;/p&gt;
+    <span class='label'>process_step_changed:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Zmiana daty etapu w konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zmiana etapu konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Data dla etapu %{step_name} w %{consultation_title} została zaktualizowana.&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>step_name</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>report_published:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Informacja o opublikowaniu raportu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Opublikowano raport z konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Opublikowano raport z konsultacji&lt;/p&gt;
+    <span class='label'>component_published:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Publikacja komponentu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Opublikowano nowy komponent w procesie, który obserwujesz</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Komponent %{resource_title} jest teraz aktywny w &lt;a href=&#39;%{consultation_link}&#39;&gt;%{consultation_title}&lt;/a&gt;&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='comment'># components
-</span>    <span class='label'>expert_answer:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o tym, że ekspert odpowiedział na moje pytanie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Ekspert odpowiedział na Twoje pytanie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Nasz ekspert %{expert_name} odpowiedział na Twoje pytanie.&lt;/p&gt;
+    <span class='label'>two_days_till_consultations_end:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o tym, że za dwa dni kończą się obserwowane Konsultacje</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zostały dwa dni do końca</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Powiadomienie o tym, że za dwa dni kończy się obserwowany proces&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>new_meeting:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowym spotkaniu w obserwowanych konsultacjach</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowe spotkanie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Organizowane jest nowe spotkanie w ramach obserwowanych przez Ciebie konsultacji&lt;/p&gt;
-        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+    <span class='label'>attachment_created:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Dodano nowy załącznik do Konsultacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Aktualizacja w %{attached_to_title}</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Nowy załącznik został załączony do %{consultation_title}. Możesz go zobaczyć na tej stronie:&lt;/p&gt;
+        &lt;a href=&#39;%{attached_to_link}&#39; class=&#39;button&#39;&gt;%{attached_to_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>attached_to_link</span><span class='words_sep'> </span><span class='tstring_content'>attached_to_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>meeting_updated:</span> <span class='lbrace'>{</span>
+
+    <span class='comment'># CUSTOM COMPONENT: STUDY NOTE
+</span>    <span class='label'>create_study_note_confirmation:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowej uwadze do planu ogólnego wysyłane na email z ustawień komponentu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Info. do administratora komponentu: Uwagi do planu ogólnego o nowej uwadze</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;&lt;p&gt;otrzymaliśmy kolejną uwagę do planu ogólnego.&lt;/p&gt;&lt;p&gt;---&lt;/p&gt;&lt;p&gt;Z pozdrowieniami&lt;/p&gt;&lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM COMPONENT: GENERAL PLAN REQUEST
+</span>    <span class='label'>create_general_plan_request_confirmation_to_admin:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Info. do administratora komponentu: Wniosku do Planu Ogólnego o nowym wniosku</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Został wysłany wniosek do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Treść&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>create_general_plan_request_confirmation_to_submitter:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Podziękowanie wnioskodacy za wysłanie wniosku do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Dziękujemy za Twoje wysłanie wniosku do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Dziękujemy za wysłanie wniosku do planu ogólnego. W załączniku znajdziesz potwierdzenie wysłanie wniosku.&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='label'>create_study_note_confirmation_to_submitter:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Podziękowanie wnioskodawcy za wysłanie uwagi do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Dziękujemy za Twoje wysłanie uwagi do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;&lt;p&gt;Dziękujemy za wysłanie uwagi do planu ogólnego. W załączniku znajdziesz potwierdzenie wysłanie uwagi.&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># DECIDIM COMPONENT: MEETING
+</span>    <span class='label'>meeting_updated:</span> <span class='lbrace'>{</span>
       <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o aktualizacji w obserowanym spotkaniu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
       <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Aktualizacja spotkania</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
         &lt;p&gt;Wprowadzono zmiany do obserwowanym przez Ciebie spotkaniu&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>survey_closed:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o tym, że ankieta w ramach obserwowanych konsultacji została zamknięta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zamknięto ankietę</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Ankieta w obserwowanych przez Ciebie konsultacjach została zamknięta.&lt;/p&gt;
-        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='comment'># comments, remarks, etc.
-</span>    <span class='label'>new_comment_to_resource:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o skomentowaniu mojej uwagi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowy komentarz do Twojej uwagi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Na stronie konsultacji pojawił się nowy komentarz do twojej uwagi.&lt;/p&gt;
-        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>resource_was_reported:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Informacja o tym, że mój komentarz lub uwaga zostały zgłoszone lub usunięte przez administratora</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zgłoszono Twoją uwagę</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Twój wpis został zgłoszony jako naruszajacy regulamin&lt;/p&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='comment'># users
-</span>    <span class='label'>activation_needed:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mail powitalny z prośbą o potwierdzenie adresu email</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Potwierdż adres e-mail</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Dziękujemy za założenie konta na stronie konsultacji społęcznych w&amp;nbsp;Warszawie.&lt;/p&gt;
-        &lt;p&gt;W celu potwierdzenia rejestracji, prosimy o kliknięcie w poniższy link:&lt;/p&gt;
-        &lt;a href=&#39;%{activation_link}&#39; class=&#39;button&#39;&gt;Aktywuj konto&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>activation_success:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mail powitalny po założeniu konta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Dziękujemy za założenie konta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Dziękujemy za założenie konta na stronie konsultacji społęcznych w&amp;nbsp;Warszawie.&lt;/p&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>password_change:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Reset hasła</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zmiana hasła</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Otrzymaliśmy prośbę o zmianę hasła na stronie budżetu obywatelskiego w&amp;nbsp;Warszawie.&lt;/p&gt;
-        &lt;p&gt;Jeżeli&amp;nbsp;chcesz zmienić hasło, kliknij w poniższy link&lt;/p&gt;
-        &lt;a href=&#39;%{password_reset_link}&#39; class=&#39;button&#39;&gt;Link do zmiany hasła&lt;/a&gt;
-        &lt;p&gt;W przeciwnym wypadku prosimy zignorować ten e-mail.&lt;/p&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='label'>delete_account:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Usunięcie konta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Usunięcie konta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Twoje konto na stronie konsultacji społecznych zostało zamknięte.&lt;/p&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='comment'># timed
-</span>    <span class='label'>two_days_till_consultations_end:</span> <span class='lbrace'>{</span>
-      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o tym, że za dwa dni kończy się obserwowany proces lub komponent w procesie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zostały dwa dni do końca</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Powiadomienie o tym, że za dwa dni kończy się obserwowany proces lub komponent w procesie&lt;/p&gt;
-        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
-        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
     <span class='rbrace'>}</span><span class='comma'>,</span>
     <span class='label'>meeting_in_two_days:</span> <span class='lbrace'>{</span>
       <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie na dwa dni przed spotkaniem w obserwowanym procesie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
       <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Spotkanie odbędzie się za dwa dni</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
-      <span class='label'>body:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
-        &lt;p&gt;Powiadomienie o tym, że za dwa dni kończy się obserwowany proces lub komponent w procesie&lt;/p&gt;
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Za dwa dni rozpoczyna się obserwowane spotkanie&lt;/p&gt;
         &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new_comment_to_meeting:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowym komentarzu do obserwowanego spotkania</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne – nowy komentarz do obserwowanego spotkania %{commentable_title}</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;na stronie obserwowanego spotkania, pojawił się nowy komentarz
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM COMPONENT: CUSTOM PROPOSAL
+</span>    <span class='label'>new_comment_to_custom_proposal:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowym komentarzu do obserwowanych uwag do dokumentu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne – nowy komentarz do obserwowanego dokumentu %{commentable_title}</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;na stronie obserwowanego dokumentu, pojawił się nowy komentarz
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM STANDALONE: INFORMATION
+</span>    <span class='label'>information_updated:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o aktualizacji obserwowanej informacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Aktualizacja informacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Wprowadzono zmiany w obserwowanej przez Ciebie informacji&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new_comment_to_information:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowym komentarzu do obserwowanej informacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne – nowy komentarz do obserwowanej informacji %{commentable_title}</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;na stronie obserwowanej informacji, pojawił się nowy komentarz
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM COMPONENT: REMARK
+</span>    <span class='label'>new_remark:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowej uwadze w obserwowanym komponencie uwag</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowa uwaga</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Dodano nową uwagę: %{remark_body}&lt;/p&gt;
+         &lt;p&gt;w obserwowanym przez Ciebie komponencie uwag w ramach konsultacji: %{consultation_title}&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='words_sep'> </span><span class='tstring_content'>remark_body</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new_comment_to_remark:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie do autora o skomentowaniu jego uwagi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowy komentarz do Twojej uwagi</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;Kliknij poniższy link, żeby zobaczyć szczegóły:&lt;/p&gt;
+        &lt;p&gt;&lt;a href=&#39;%{commentable_link}&#39; rel=&#39;noopener noreferrer&#39; target=&#39;_blank&#39;&gt;%{commentable_title}&lt;/a&gt;.&lt;/p&gt;
+        &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM COMPONENT: CONSULTATION_MAP
+</span>    <span class='label'>new_map_remark:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowej uwadze w obserwowanym komponencie uwag na mapie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowa uwaga na mapie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Dodano nową uwagę w obserwowanym przez Ciebie komponencie uwag na mapie&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new_comment_to_map_remark:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie do autora o skomentowaniu jego uwagi na mapie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowy komentarz do Twojej uwagi na mapie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;Kliknij poniższy link, żeby zobaczyć szczegóły:&lt;/p&gt;
+        &lt;p&gt;&lt;a href=&#39;%{commentable_link}&#39; rel=&#39;noopener noreferrer&#39; target=&#39;_blank&#39;&gt;%{commentable_title}&lt;/a&gt;.&lt;/p&gt;
+        &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># CUSTOM COMPONENT: USER QUESTION
+</span>    <span class='label'>new_user_question:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o nowym pytaniu do eksperta w obserwowanym komponencie pytania do eksperta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowe pytanie do eksperta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='label'>new_comment_to_user_question:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie do autora pytania do eksperta o skomentowaniu jego pytania</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowy komentarz do Twojego pytania do eksperta</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+        &lt;p&gt;Treść komentarza: %{comment_body}&lt;/p&gt;
+        &lt;p&gt;Kliknij poniższy link, żeby zobaczyć szczegóły:&lt;/p&gt;
+        &lt;p&gt;&lt;a href=&#39;%{commentable_link}&#39; rel=&#39;noopener noreferrer&#39; target=&#39;_blank&#39;&gt;%{commentable_title}&lt;/a&gt;.&lt;/p&gt;
+        &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+        &lt;p&gt;---&lt;/p&gt;
+        &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+        &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>experts_answer_to_user_question:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie o odpowiedzi eksperta – powiadomienie dla autora jego pytania</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Ekspert odpowiedział na Twoje pytanie</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Nasz ekspert %{expert_name} odpowiedział na Twoje pytanie.&lt;/p&gt;
+        &lt;p&gt;Kliknij w poniższy link, by zobaczyć szczegóły:&lt;/p&gt;
+        &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='words_sep'> </span><span class='tstring_content'>expert_name</span><span class='words_sep'> </span><span class='tstring_content'>user_question_body</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># DECIDIM STANDALONE: COMMENT
+</span>    <span class='label'>new_reply_to_comment:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Powiadomienie do autora komentarza o skomentowaniu komentarza</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Nowa odpowiedź do Twojego komentarza</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+          &lt;p&gt;Treść odpowiedzi: %{comment_body}&lt;/p&gt;
+          &lt;p&gt;Kliknij poniższy link, żeby zobaczyć szczegóły:&lt;/p&gt;
+          &lt;p&gt;&lt;a href=&#39;%{commentable_link}&#39; rel=&#39;noopener noreferrer&#39; target=&#39;_blank&#39;&gt;%{commentable_title}&lt;/a&gt;.&lt;/p&gt;
+          &lt;p&gt;&lt;br&gt;&lt;/p&gt;
+          &lt;p&gt;---&lt;/p&gt;
+          &lt;p&gt;Z pozdrowieniami&lt;/p&gt;
+          &lt;p&gt;Urząd m.st. Warszawy&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>comment_body</span><span class='words_sep'> </span><span class='tstring_content'>commentable_link</span><span class='words_sep'> </span><span class='tstring_content'>commentable_title</span><span class='words_sep'> </span><span class='tstring_content'>notifications_settings_link</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># DECIDIM / CUSTOM: MODERATION
+</span>    <span class='label'>report_notification_to_moderators:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało zgłoszone do moderacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zgłoszono wpis do moderacji</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Zgłoszono wpis jako naruszajacy regulamin:&lt;/p&gt;
         &lt;a href=&#39;%{resource_link}&#39; class=&#39;button&#39;&gt;%{resource_title}&lt;/a&gt;
-      </span><span class='tstring_end'>&quot;</span></span>
-    <span class='rbrace'>}</span>
+        &lt;p&gt;&lt;b&gt;Zgłoszona zawartość:&lt;/b&gt;&lt;/p&gt;
+        &lt;p&gt;%{reported_content}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;Powód:&lt;/b&gt;&lt;/p&gt;
+        &lt;p&gt;%{report_reasons}&lt;/p&gt;
+        &lt;p&gt;w konsultacji:&lt;/p&gt;
+        &lt;a href=&#39;%{consultation_link}&#39; class=&#39;button&#39;&gt;%{consultation_title}&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>resource_link</span><span class='words_sep'> </span><span class='tstring_content'>resource_title</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='words_sep'> </span><span class='tstring_content'>reported_content</span><span class='words_sep'> </span><span class='tstring_content'>report_reasons</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>hide_notification_to_moderators:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Ukrycie wpisu</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Poniższa &lt;a href=&#39;%{resource_link}&#39;&gt;zawartość&lt;/a&gt; została ukryta.&lt;/p&gt;
+        &lt;p&gt;&lt;a href=&#39;%{manage_moderations_link}&#39;&gt;Zarządzaj moderacjami.&lt;/a&gt;&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>reported_content</span><span class='words_sep'> </span><span class='tstring_content'>manage_moderations_link</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>hidden_resource_notification_to_author:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Twój wpis został ukryty</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Administrator ukrył Twój wpis, ponieważ treść została zgłoszona jako %{report_reasons}.&lt;/br&gt;
+        &lt;i&gt;%{reported_content}&lt;/i&gt;&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>reported_content</span><span class='words_sep'> </span><span class='tstring_content'>report_reasons</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># DECIDIM / CUSTOM: USER:
+</span>    <span class='label'>activation_needed:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mail powitalny z prośbą o potwierdzenie adresu email</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Potwierdż adres e-mail</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dziękujemy za założenie konta na stronie konsultacji społęcznych w&amp;nbsp;Warszawie.&lt;/p&gt;
+        &lt;p&gt;W celu potwierdzenia rejestracji, prosimy o kliknięcie w poniższy link:&lt;/p&gt;
+        &lt;a href=&#39;%{activation_link}&#39; class=&#39;button&#39;&gt;Aktywuj konto&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>activation_link</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>password_change:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Reset hasła</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Zmiana hasła</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Otrzymaliśmy prośbę o zmianę hasła na stronie budżetu obywatelskiego w&amp;nbsp;Warszawie.&lt;/p&gt;
+        &lt;p&gt;Jeżeli&amp;nbsp;chcesz zmienić hasło, kliknij w poniższy link&lt;/p&gt;
+        &lt;a href=&#39;%{password_reset_link}&#39; class=&#39;button&#39;&gt;Link do zmiany hasła&lt;/a&gt;
+        &lt;p&gt;W przeciwnym wypadku prosimy zignorować ten e-mail.&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>password_reset_link</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>block_user:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Zablokowanie konta użytkownika</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Twoje konto zostało zablokowane</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Witaj,&lt;/p&gt;
+        &lt;p&gt;Twoje konto zostało zablokowane.&lt;/p&gt;
+        &lt;p&gt;Powód: %{reason_for_blocking}.&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>reason_for_blocking</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+
+    <span class='comment'># DECIDIM QUESTIONNAIRE
+</span>    <span class='label'>answer_questionnaire_confirmation_to_public_user:</span> <span class='lbrace'>{</span>
+      <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Potwierdzenie dla użytkownika po wypełnieniu ankiety</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Dziękujemy za Twoją odpowiedź na kwestionariusz</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>body:</span>
+        <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+          &lt;p&gt;Dziękujemy za odpowiedź na kwestionariusz.&lt;/p&gt;
+          &lt;p&gt;Kliknij w poniższy link, by zobaczyć swoją odpowiedź:&lt;/p&gt;
+          &lt;a href=&#39;%{answer_questionnaire_public_user_link}&#39; class=&#39;button&#39;&gt;Link do Twojej odpowiedzi&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+      <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>answer_questionnaire_public_user_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='comment'># DECIDIM Study note zip file notification
+</span>    <span class='label'>study_note_zip_notification:</span> <span class='lbrace'>{</span>
+        <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Potwierdzenie dla administratora o wygenerowaniu pliku zip z wnioskami</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+        <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Plik do pobrania jest juz gotowy</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+        <span class='label'>body:</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+            &lt;p&gt;Plik z uwagi do planu ogólnego jest juz przygotowany do pobrania&lt;/p&gt;
+            &lt;a href=&#39;%{study_note_zip_link}&#39; class=&#39;button&#39;&gt;Pobierz klikając tu&lt;/a&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>study_note_zip_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+      <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>generate_sequential_numbers_for_study_notes:</span> <span class='lbrace'>{</span>
+        <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Potwierdzenie dla administratora o wygenerowaniu numerów wewnętrznych</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+        <span class='label'>subject:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Konsultacje Społeczne - Numery wewnetrzne zostały wygenerowane</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+        <span class='label'>body:</span>
+          <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;p&gt;Dzień dobry,&lt;/p&gt;
+            &lt;p&gt;Nadawanie numerów wewnętrznych do uwag do planu ogólnego zostało zakończone.&lt;/p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+        <span class='label'>helpers:</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>consultation_link</span><span class='words_sep'> </span><span class='tstring_content'>consultation_title</span><span class='tstring_end'>]</span></span>
+      <span class='rbrace'>}</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -483,9 +1013,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:15 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

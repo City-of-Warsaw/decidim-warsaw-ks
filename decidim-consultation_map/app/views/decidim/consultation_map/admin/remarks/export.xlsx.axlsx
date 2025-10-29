@@ -1,30 +1,79 @@
-wb =  xlsx_package.workbook
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista") do |sheet|
+  # Defined a text wrapping style for columns:
+  # - 'Treść',
+  # - 'URL załącznika'
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+
+  # specified width for columns:
+  # - 'Treść',
+  # - 'URL załącznika'
+  col_widths = [nil, 40, nil, nil, nil, nil, nil, nil, nil, 70, nil, nil]
+
   sheet.add_row [
-                  'Lp.',
-                  'Autor',
-                  'Treść',
-                  'Liczba komentarzy',
-                  'Podpis',
-                  'E-mail',
-                  'Dzielnica',
-                  'Wiek',
-                  'Płeć',
-                  'Data utworzenia'
-                ]
-  @remarks.each_with_index do |user, index|
-    sheet.add_row [
-                    index + 1,
-                    user.author.name,
-                    user.body,
-                    user.comments_count,
-                    user.signature,
-                    user.email,
-                    translated_attribute(user.district&.name),
-                    # TODO: dodawac rozroznienie: author.is_a?(Decidim::User) ?
-                    user.age.present? ? I18n.t("age.#{user.age}", scope: "decidim.comments") : nil,
-                    user.gender.present? ? I18n.t("gender.#{user.gender}", scope: "decidim.users") : nil,
-                    l(user.created_at, format: :short)
-                  ]
+    'Lp.',
+    'Treść',
+    'Liczba komentarzy',
+    'Podpis',
+    'E-mail',
+    'Dzielnica',
+    'Wiek',
+    'Płeć',
+    'Data utworzenia',
+    'URL załącznika',
+    'Link do uwagi',
+    'Lokalizacja pinezki'
+  ]
+
+  @remarks.each_with_index do |remark, index|
+    files_urls = links_to_files_array(remark.files)
+
+    if files_urls.empty?
+
+      sheet.add_row [
+        index + 1,
+        remark.body,
+        remark.comments_count,
+        remark.signature,
+        remark.author_email,
+        translated_attribute(remark.author_district),
+        remark.author_age_range,
+        remark.author_gender,
+        l(remark.created_at, format: :short),
+        '',
+        resource_locator(remark).url,
+        remark.address
+      ], style: [nil, wrap_text, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+
+      sheet.add_hyperlink location: resource_locator(remark).url, ref: "K#{sheet.rows.size}"
+
+    else
+
+        files_urls.each_with_index do |file_url, file_url_index|
+
+        sheet.add_row [
+          "#{index + 1}.#{file_url_index + 1}",
+          remark.body,
+          remark.comments_count,
+          remark.signature,
+          remark.author_email,
+          translated_attribute(remark.author_district),
+          remark.author_age_range,
+          remark.author_gender,
+          l(remark.created_at, format: :short),
+          file_url,
+          resource_locator(remark).url,
+          remark.address
+        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, nil, nil, wrap_text, nil, nil]
+
+        sheet.add_hyperlink location: file_url, ref: "J#{sheet.rows.size}"
+        sheet.add_hyperlink location: resource_locator(remark).url, ref: "K#{sheet.rows.size}"
+      end
+    end
   end
+
+  # set defined width columns:
+  sheet.column_widths *col_widths
 end

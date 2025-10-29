@@ -1,40 +1,55 @@
-<div class="row column">
-  <%= form.text_field :name %>
-</div>
-<div class="row column">
-  <%= form.file_field :file_input %>
-</div>
-<div class="row column">
-  <%= form.file_field :audio_description_input %>
-</div>
-<div class="row column">
-  <%= form.file_field :subtitles_input %>
-</div>
-<div class="row column">
-  <%= form.file_field :subtitles_for_readers_input %>
-</div>
-<div class="row column">
-  <%= form.text_field :description %>
-</div>
-<div class="row column">
-  <%= form.text_field :author %>
-</div>
-<div class="row column">
-  <%= form.text_field :alt %>
-</div>
-<div class="row column">
-  <%= form.text_field :copyright %>
-</div>
-<div class="row column">
-  <%= form.collection_select :permission,
-                             file_permissions,
-                             :first,
-                             :last,
-                             include_blank: true,
-                             selected: @form.permission.presence || :editable %>
-</div>
-<div class="row">
-  <div class="columns xlarge-6">
-    <%= form.collection_select :folder_id, Decidim::Repository::Folder.alphabetical, :id, :name, include_blank: true %>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="row column">
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="row column">
+      <label for="file_file_input">Plik *</label><br>
+      <%= form.file_field :file_input, label: false %>
+    </div>
+
+    <div class="row column">
+      <label for="file_file_input">Plik audiodeskrypcji</label><br>
+      <%= form.file_field :audio_description_input, label: false %>
+    </div>
+
+    <div class="row column">
+      <label for="file_file_input">Plik z napisami</label><br>
+      <%= form.file_field :subtitles_input, label: false %>
+    </div>
+
+    <div class="row column">
+      <label for="file_file_input">Plik z napisami dla czytników</label><br>
+      <%= form.file_field :subtitles_for_readers_input, label: false %>
+    </div>
+
+    <div class="row column">
+      <%= form.text_field :description %>
+    </div>
+    <div class="row column">
+      <%= form.text_field :author %>
+    </div>
+    <div class="row column">
+      <%= form.text_field :alt %>
+    </div>
+    <div class="row column">
+      <%= form.text_field :copyright %>
+    </div>
+    <div class="row column">
+      <%= form.collection_select :permission,
+                                 file_permissions,
+                                 :first,
+                                 :last,
+                                 include_blank: true,
+                                 selected: @form.permission.presence || :editable %>
+    </div>
+    <div class="row column">
+      <%= form.collection_select :folder_id,
+                                 Decidim::Repository::Folder.alphabetical,
+                                 :id,
+                                 :name,
+                                 include_blank: true %>
+    </div>
   </div>
 </div>

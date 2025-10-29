@@ -1,4 +1,4 @@
-function createRepositoryImageToolbarToolHandler(options) {
+export function createRepositoryImageToolbarToolHandler(options) {
   const DEFAULT_OPTIONS = {
     iframeSourceUrl: "",
     iframeHeight: 500,

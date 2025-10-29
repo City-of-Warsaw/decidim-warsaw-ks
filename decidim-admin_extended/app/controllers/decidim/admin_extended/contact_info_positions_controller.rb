@@ -5,8 +5,11 @@ require_dependency "decidim/admin_extended/application_controller"
 module Decidim::AdminExtended
   # Controller that allows managing all Contact Info Positions at the admin panel.
   class ContactInfoPositionsController < ApplicationController
-    layout "decidim/admin/pages"
+    include Decidim::Admin::Concerns::HasTabbedMenu
+    layout 'decidim/admin/static_pages'
     helper_method :contact_info_groups
+
+    add_breadcrumb_item_from_menu :admin_pages_sidebar_menu
 
     def index
       enforce_permission_to :update, :organization, organization: current_organization
@@ -64,6 +67,8 @@ module Decidim::AdminExtended
     end
 
     private
+
+    def tab_menu_name = :admin_contact_info_positions_menu
 
     def contact_info_groups
       Decidim::AdminExtended::ContactInfoGroup.sorted_by_weight

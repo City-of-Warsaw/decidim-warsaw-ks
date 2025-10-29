@@ -4,10 +4,10 @@ module Decidim
   module AdminExtended
     # A form object to create and update Banned Word.
     class HeroSectionForm < Form
+      include Decidim::HasUploadValidations
+
       attribute :title, String
-      attribute :subtitle, String
-      attribute :banner_img
-      attribute :banner_img_alt, String
+      attribute :description, String
 
       mimic :hero_section
 

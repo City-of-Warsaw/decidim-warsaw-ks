@@ -4,7 +4,8 @@ module Decidim
   module ConsultationRequests
     module Admin
       # This command is executed when user updates Consultation Requests
-      class UpdateConsultationRequest < Rectify::Command
+      class UpdateConsultationRequest < Decidim::Command
+        include Decidim::Repository::Admin::GalleriesHelper
 
         def initialize(consultation_request, form, user)
           @form = form
@@ -19,6 +20,7 @@ module Decidim
           return broadcast(:invalid) if form.invalid?
 
           update_consultation_request!
+          add_gallery(consultation_request)
 
           broadcast(:ok, consultation_request)
         end
@@ -42,8 +44,7 @@ module Decidim
             applicant: form.applicant,
             body: form.body,
             date_of_request: form.date_of_request,
-            gallery_id: form.gallery_id,
-            comments_allowed: form.comments_allowed
+            gallery_id: form.gallery_id
           }
         end
       end

@@ -73,7 +73,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>CheckBoxesTreeHelper, PaginateHelper</dd>
+      <dd>CheckBoxesTreeHelper, Comments::CommentsHelper, FollowableHelper, PaginateHelper</dd>
   </dl>
   
   
@@ -230,6 +230,8 @@
 
   
   
+  
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -250,15 +252,15 @@
       <pre class="lines">
 
 
+36
 37
 38
 39
 40
-41
-42</pre>
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_activity_filter_values'>activity_filter_values</span>
   <span class='lbracket'>[</span>
@@ -286,26 +288,22 @@
       <pre class="lines">
 
 
-12
 13
 14
 15
 16
 17
 18
-19
-20</pre>
+19</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_avatar'>expert_avatar</span><span class='lparen'>(</span><span class='id identifier rubyid_expert'>expert</span><span class='rparen'>)</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card__image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>activemodel.attributes.expert.avatar</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
-  <span class='kw'>elsif</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card__image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>activemodel.attributes.expert.avatar</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_main_app'>main_app</span><span class='period'>.</span><span class='id identifier rubyid_url_for'>url_for</span><span class='lparen'>(</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_avatar'>avatar</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>activemodel.attributes.expert.avatar</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>card__image</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_image_tag'>image_tag</span> <span class='id identifier rubyid_asset_path'>asset_path</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim/default-avatar.svg</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card__image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_image_pack_tag'>image_pack_tag</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>media/images/default-avatar.svg</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>class:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card__image</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>alt:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -328,23 +326,23 @@
       <pre class="lines">
 
 
+28
 29
 30
 31
 32
 33
-34
-35</pre>
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_expert_values'>filter_expert_values</span>
   <span class='id identifier rubyid_origin_values'>origin_values</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_published'>published</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_component_id:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_expert'>expert</span><span class='op'>|</span>
-    <span class='id identifier rubyid_origin_values'>origin_values</span> <span class='op'>&lt;&lt;</span> <span class='const'>TreePoint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_origin_values'>origin_values</span> <span class='op'>&lt;&lt;</span> <span class='const'>TreePoint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
-  <span class='const'>TreeNode</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>TreePoint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.expert_questions.user_questions.filters.all</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_origin_values'>origin_values</span><span class='rparen'>)</span>
+  <span class='const'>TreeNode</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>TreePoint</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.expert_questions.user_questions.filters.all_experts</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_origin_values'>origin_values</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -366,15 +364,15 @@
       <pre class="lines">
 
 
+21
 22
 23
 24
 25
-26
-27</pre>
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filter_user_questions_state_values'>filter_user_questions_state_values</span>
   <span class='lbracket'>[</span>
@@ -402,15 +400,15 @@
       <pre class="lines">
 
 
+43
 44
 45
 46
 47
-48
-49</pre>
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/helpers/decidim/expert_questions/application_helper.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort_filter_values'>sort_filter_values</span>
   <span class='lbracket'>[</span>
@@ -428,9 +426,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

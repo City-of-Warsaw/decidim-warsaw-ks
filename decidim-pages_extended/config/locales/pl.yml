@@ -1,15 +1,32 @@
 pl:
+  activerecord:
+    models:
+      decidim/pages/page:
+        one: Strony
+        few: Strony
+        many: Strony
+        other: Strony
   decidim:
     components:
       pages:
         settings:
           global:
-            help_section: Tekst pomocniczy
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
     admin:
       pages:
         index:
-          published: Opublikowanana
-          not_published: Nieopublikowanana
+          published: Opublikowana
+          not_published: Nieopublikowana
+      static_pages:
+        topic:
+          destroy: Usuń temat
+          edit: Edytuj temat
+          empty: Nie ma stron w tym temacie
+          without_topic: Strony bez tematu
     admin_log:
       page:
         create: "%{user_name} utworzył(a) stronę informacyjną %{resource_name} w %{space_name}"
@@ -29,8 +46,8 @@ pl:
             title: Edytuj stronę
           index:
             title: Strony informacyjne
-            published: Opublikowanana
-            not_published: Nieopublikowanana
+            published: Opublikowana
+            not_published: Nieopublikowana
           new:
             save: Utwórz
             title: Nowa strona informacyjna
@@ -48,9 +65,6 @@ pl:
         show:
           view: Zobacz
     pages:
-      hero:
-        sub_header: Podtytuł ogólny Konsultacji Społecznych
-        header: Baza wiedzy
       actions:
         confirm_destroy: "Jesteś pewny?"
         destroy: Usuń
@@ -71,8 +85,8 @@ pl:
             error: Nie udało się usunąć strony
           index:
             title: Strony informacyjne
-            published: Opublikowanana
-            non_published: Nieopublikowanana
+            published: Opublikowana
+            non_published: Nieopublikowana
           publish:
             succes: Opublikowano stonę
             error: Nie udało się opublikować strony
@@ -82,16 +96,14 @@ pl:
           pages:
             body: Treść
             title: Tytuł
-      home:
-        statistics:
-          all_pages_count: Strony
 
       models:
         page:
           fields:
             published: Opublikowana
             title: Tytuł
-
+    statistics:
+      all_pages_count: Strony
     assemblies:
       statistics:
         all_pages_count: Liczba stron

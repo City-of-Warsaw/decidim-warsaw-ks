@@ -13,7 +13,7 @@
   </td>
   <td class="table-list__actions">
     <% if allowed_to? :update, :organization, organization: current_organization %>
-      <%= icon_link_to "pencil", edit_main_menu_item_path(main_menu_item), t("actions.edit", scope: "decidim.admin_extended.main_menu_items"), class: "action-icon--edit" %>
+      <%= icon_link_to "pencil-line", edit_main_menu_item_path(main_menu_item), t("actions.edit", scope: "decidim.admin_extended.main_menu_items"), class: "action-icon--edit" %>
     <% end %>
   </td>
 </tr>

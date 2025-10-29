@@ -73,7 +73,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>TranslatableAttributes</dd>
+      <dd>ResourceHelper, TranslatableAttributes</dd>
   </dl>
   
   
@@ -95,15 +95,371 @@
 
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#component_description-instance_method" title="#component_description (instance method)">#<strong>component_description</strong>(component)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
 
   
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#component_source_name-instance_method" title="#component_source_name (instance method)">#<strong>component_source_name</strong>(component)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#component_title-instance_method" title="#component_title (instance method)">#<strong>component_title</strong>(component)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#participatory_space_title-instance_method" title="#participatory_space_title (instance method)">#<strong>participatory_space_title</strong>(component)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resource_title-instance_method" title="#resource_title (instance method)">#<strong>resource_title</strong>(resource)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#resource_url-instance_method" title="#resource_url (instance method)">#<strong>resource_url</strong>(resource, options = {})  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="component_description-instance_method">
+  
+    #<strong>component_description</strong>(component)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_component_description'>component_description</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_help_section_visibility'>help_section_visibility</span>
+    <span class='id identifier rubyid_decidim_sanitize'>decidim_sanitize</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_settings'>settings</span><span class='period'>.</span><span class='id identifier rubyid_help_section_description'>help_section_description</span><span class='comma'>,</span> <span class='label'>strip_tags:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_truncate'>truncate</span><span class='lparen'>(</span><span class='int'>250</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="component_source_name-instance_method">
+  
+    #<strong>component_source_name</strong>(component)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 41</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_component_source_name'>component_source_name</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_manifest_name'>manifest_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.name</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.components</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_upcase'>upcase</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="component_title-instance_method">
+  
+    #<strong>component_title</strong>(component)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_component_title'>component_title</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_translated_attribute'>translated_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="participatory_space_title-instance_method">
+  
+    #<strong>participatory_space_title</strong>(component)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 31</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_participatory_space_title'>participatory_space_title</span><span class='lparen'>(</span><span class='id identifier rubyid_component'>component</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_space'>space</span> <span class='op'>=</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+  <span class='id identifier rubyid_translated_attribute'>translated_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_space'>space</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_space'>space</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="resource_title-instance_method">
+  
+    #<strong>resource_title</strong>(resource)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_resource_title'>resource_title</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_destination_resource'>destination_resource</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_root_commentable'>root_commentable</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Decidim::News::Information</span><span class='tstring_end'>&quot;</span></span>
+                           <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_root_commentable'>root_commentable</span>
+                          <span class='kw'>else</span>
+                            <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_root_commentable'>root_commentable</span><span class='op'>&amp;.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+                          <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_translated_attribute'>translated_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_destination_resource'>destination_resource</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:title</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_destination_resource'>destination_resource</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:name</span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="resource_url-instance_method">
+  
+    #<strong>resource_url</strong>(resource, options = {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/helpers/decidim/users_extended/application_helper.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_resource_url'>resource_url</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='comment'># We not using decidm proposals/consultation requests - for escape this link
+</span>  <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span> <span class='op'>||</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Proposals.html" title="Decidim::Proposals (module)">Proposals</a></span></span><span class='op'>::</span><span class='const'>Proposal</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationRequests.html" title="Decidim::ConsultationRequests (module)">ConsultationRequests</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationRequests/ConsultationRequest.html" title="Decidim::ConsultationRequests::ConsultationRequest (class)">ConsultationRequest</a></span></span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News/Engine.html" title="Decidim::News::Engine (class)">Engine</a></span></span><span class='period'>.</span><span class='id identifier rubyid_routes'>routes</span><span class='period'>.</span><span class='id identifier rubyid_url_helpers'>url_helpers</span><span class='period'>.</span><span class='id identifier rubyid_news_path'>news_path</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News/Information.html" title="Decidim::News::Information (class)">Information</a></span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_resource_locator'>resource_locator</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

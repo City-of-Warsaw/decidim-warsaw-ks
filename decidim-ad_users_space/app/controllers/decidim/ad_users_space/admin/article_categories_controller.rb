@@ -5,12 +5,16 @@ module Decidim
     module Admin
       # This controller is responsible for managing Article Categories in Admin Panel
       class ArticleCategoriesController < Decidim::Admin::ApplicationController
+        include Decidim::Admin::Concerns::HasTabbedMenu
+        include Decidim::Admin::Officializations::Filterable
+
+        before_action :set_article_categories_breadcrumb_item
+
         helper Decidim::ApplicationHelper
-        layout "decidim/admin/info_articles"
 
         def index
           enforce_permission_to :update, :organization
-          @article_categories = collection.page(params[:page]).per(15)
+          @article_categories = filtered_collection
         end
 
         def new
@@ -75,13 +79,23 @@ module Decidim
 
         private
 
+        def tab_menu_name = :admin_info_articles_menu
+
         def article_category
           @article_category ||= collection.find_by(id: params[:id])
         end
 
         def collection
-          ArticleCategory.where(decidim_organization_id: current_organization.id)
-          # current_organization.article_categories
+          @collection ||= Decidim::AdUsersSpace::ArticleCategory.where(decidim_organization_id: current_organization.id)
+                                                                .sorted_by_weight
+        end
+
+        def set_article_categories_breadcrumb_item
+          controller_breadcrumb_items << {
+            label: I18n.t("article_categories", scope: "decidim.admin.titles"),
+            url: decidim_ad_users_space.admin_article_categories_path,
+            active: true
+          }
         end
       end
     end

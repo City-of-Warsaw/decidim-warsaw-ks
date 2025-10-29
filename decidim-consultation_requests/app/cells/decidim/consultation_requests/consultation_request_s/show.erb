@@ -1,0 +1,19 @@
+<%= link_to resource_path, id: dom_id(resource), class: "card__search" do %>
+  <div class="flex-grow w-full flex flex-col gap-2 !pt-3 px-3">
+
+    <%= content_tag title_tag, class: "h4 card__search-title" do %>
+        <%= title %>
+    <% end %>
+    <%= content_tag "description", class: "card__search-description editor-content" do %>
+      <%= description %>
+    <% end %>
+  </div>
+  <div class="flex flex-wrap items-stretch justify-between w-full bottom-wrapper">
+    <%= content_tag "date", class: "card__search-data" do %>
+      <%= date_of_submission %>
+    <% end %>
+    <%= content_tag "author", class: "card__search-data" do %>
+      <%= applicant %>
+    <% end %>
+  </div>
+<% end %>

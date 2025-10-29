@@ -1,61 +1,22 @@
+<% add_decidim_page_title(t(".title")) %>
 <div class="card">
-  <div class="card-divider">
-    <h2 class="card-title">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
       <%= t(".title") %>
-      <span class="exports dropdown tiny button button--simple" style="float:right;" data-toggle="export-dropdown"><%= t "actions.export", scope: "decidim.admin" %></span>
-      <div class="dropdown-pane" id="export-dropdown" data-dropdown data-position=bottom data-alignment=right data-auto-focus="true" data-close-on-click="true">
-        <ul class="vertical menu add-components">
-          <li class="exports--format--xlsx exports--xlsx">
-            <%= link_to 'Eksport XLSX',export_study_notes_path(format: :xlsx) %>
-          </li>
-          <li>
-            <%= link_to 'Eksport GEOJSON',export_study_notes_path(format: :text) %>
-          </li>
-        </ul>
-      </div>
-      <%= link_to 'Kategorie', categories_path, class: "tiny button--title new" %>
-      <%= link_to 'Pozycje legendy', legend_items_path, class: "tiny button--title new" %>
-      <%= link_to 'Podkłady mapowe', map_backgrounds_path, class: "tiny button--title new" %>
-    </h2>
+      <%= link_to 'Nadaj numery wewnętrzne', sequential_numbers_study_notes_path, class: "button button__sm button__secondary" %>
+
+      <%= render partial: "export_searched_notes" %>
+      <%= render partial: "export_chosen_notes" %>
+
+      <%= link_to 'Pozycje legendy', legend_items_path, class: "button button__sm button__secondary" %>
+      <%= link_to 'Podkłady mapowe', map_backgrounds_path, class: "button button__sm button__secondary" %>
+    </h1>
   </div>
 
-  <div class="card-section">
-    <div class="table-scroll">
-      <table class="table-list">
-        <thead>
-        <th>ID zgłoszenia</th>
-        <th>Typ</th>
-        <th>Zgłaszający</th>
-        <th>Kategoria</th>
-        <th>Data zgłoszenia</th>
-        <th class="actions"><%= t("actions.title", scope: "decidim.consultation_map.admin") %></th>
-        </thead>
-        <tbody>
-        <% @notes.each do |note| %>
-          <tr data-id="<%= note.id %>">
-            <td>
-              <%= link_to note.id, note %>
-            </td>
-            <td>
-              <%= note.organization_name.present? ? 'Jednostka organizacyjna' : 'Osoba fizyczna' %>
-            </td>
-            <td>
-              <%= note.name %>
-            </td>
-            <td>
-              <%= note.category&.name %>
-            </td>
-            <td>
-              <%= l note.created_at, format: "%d/%m/%Y - %H:%M" %>
-            </td>
-            <td class="table-list__actions">
-              <%= icon_link_to "eye", note, t("actions.preview", scope: "decidim.study_notes.admin"), class: "action-icon--preview" %>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-      <%= paginate @notes, theme: "decidim" %>
-    </div>
-  </div>
+  <%= render partial: "filters" %>
+  <%= render partial: 'table' %>
 </div>
+
+<%= decidim_paginate @notes %>
+
+<%= prepend_javascript_pack_tag "admin_study_notes", defer: true %>

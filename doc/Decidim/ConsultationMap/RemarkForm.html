@@ -109,7 +109,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class holds a Form to create/update translatable meetings from Decidim&#39;s admin panel.</p>
+<p>This class holds a Form to create/update translatable meetings from Decidim’s admin panel.</p>
 
 
   </div>
@@ -365,7 +365,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../UserProfilableCollections.html" title="Decidim::UserProfilableCollections (module)">UserProfilableCollections</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../UserProfilableCollections.html#user_age_for_select-instance_method" title="Decidim::UserProfilableCollections#user_age_for_select (method)">#user_age_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_districts_for_select-instance_method" title="Decidim::UserProfilableCollections#user_districts_for_select (method)">#user_districts_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_gender_for_select-instance_method" title="Decidim::UserProfilableCollections#user_gender_for_select (method)">#user_gender_for_select</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../UserProfilableCollections.html#gender_options_for_profile-instance_method" title="Decidim::UserProfilableCollections#gender_options_for_profile (method)">#gender_options_for_profile</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#gender_options_for_public_post-instance_method" title="Decidim::UserProfilableCollections#gender_options_for_public_post (method)">#gender_options_for_public_post</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_age_for_select-instance_method" title="Decidim::UserProfilableCollections#user_age_for_select (method)">#user_age_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_districts_for_select-instance_method" title="Decidim::UserProfilableCollections#user_districts_for_select (method)">#user_districts_for_select</a></span></p>
 
   
   
@@ -389,15 +389,15 @@
       <pre class="lines">
 
 
-98
-99
-100</pre>
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_categories'>categories</span>
-  <span class='ivar'>@categories</span> <span class='op'>||=</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_categories'>categories</span>
+  <span class='ivar'>@categories</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap.html" title="Decidim::ConsultationMap (module)">ConsultationMap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Category.html" title="Decidim::ConsultationMap::Category (class)">Category</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sorted'>sorted</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -419,15 +419,15 @@
       <pre class="lines">
 
 
-102
-103
-104</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_categories_select'>categories_select</span>
-  <span class='id identifier rubyid_categories'>categories</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_cat'>cat</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_translated_attribute'>translated_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_cat'>cat</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_cat'>cat</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_categories'>categories</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_cat'>cat</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_cat'>cat</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_cat'>cat</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -449,14 +449,14 @@
       <pre class="lines">
 
 
-92
-93
-94
-95
-96</pre>
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_category'>category</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_component'>component</span>
@@ -483,14 +483,14 @@
       <pre class="lines">
 
 
-69
-70
-71
-72
-73</pre>
+62
+63
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_category_exists'>category_exists</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_decidim_category_id'>decidim_category_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -517,15 +517,15 @@
       <pre class="lines">
 
 
-75
-76
-77
-78
-79
-80</pre>
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_category_was_picked'>category_was_picked</span>
   <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_categories'>categories</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span>
@@ -553,12 +553,12 @@
       <pre class="lines">
 
 
-82
-83
-84</pre>
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
   <span class='id identifier rubyid_current_component'>current_component</span><span class='op'>&amp;.</span><span class='id identifier rubyid_organization'>organization</span>
@@ -583,12 +583,12 @@
       <pre class="lines">
 
 
-106
-107
-108</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_max_characters'>max_characters</span>
   <span class='int'>4000</span>
@@ -613,14 +613,14 @@
       <pre class="lines">
 
 
-86
-87
-88
-89
-90</pre>
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scope'>scope</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
@@ -647,14 +647,14 @@
       <pre class="lines">
 
 
-63
-64
-65
-66
-67</pre>
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 56</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scope_exists'>scope_exists</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_district_id'>district_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -681,15 +681,15 @@
       <pre class="lines">
 
 
-56
-57
-58
-59
-60
-61</pre>
+49
+50
+51
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/forms/decidim/consultation_map/remark_form.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_belongs_to_organizations'>user_belongs_to_organizations</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
@@ -707,9 +707,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

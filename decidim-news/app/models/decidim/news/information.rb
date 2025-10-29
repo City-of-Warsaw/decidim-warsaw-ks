@@ -1,97 +1,105 @@
 # frozen_string_literal: true
 
-module Decidim::News
-  class Information < ApplicationRecord
-    include Decidim::HasAttachments
-    include Decidim::HasAttachmentCollections
-    include Decidim::Comments::Commentable
-    include Decidim::Searchable
-    include Decidim::Followable
-    include Decidim::Traceable
-    include Decidim::Loggable
+module Decidim
+  module News
+    # A Information is used to add content to public view.
+    class Information < ApplicationRecord
+      include Decidim::Comments::Commentable
+      include Decidim::Searchable
+      include Decidim::Followable
+      include Decidim::Traceable
+      include Decidim::Loggable
+      include Decidim::Reportable
 
-    belongs_to :organization,
-               foreign_key: "decidim_organization_id",
-               class_name: "Decidim::Organization"
-    belongs_to :gallery, class_name: "Decidim::Repository::Gallery", optional: true
+      belongs_to :organization,
+                 foreign_key: "decidim_organization_id",
+                 class_name: "Decidim::Organization"
 
-    has_many :email_follows,
-             as: :followable,
-             foreign_key: "decidim_followable_id",
-             foreign_type: "decidim_followable_type",
-             class_name: "Decidim::CoreExtended::EmailFollow"
+      belongs_to :gallery,
+                 class_name: "Decidim::Repository::Gallery",
+                 optional: true
 
-    default_scope { order(created_at: :desc) }
+      has_many :email_follows,
+               as: :followable,
+               foreign_key: "decidim_followable_id",
+               foreign_type: "decidim_followable_type",
+               class_name: "Decidim::CoreExtended::EmailFollow",
+               dependent: :destroy
 
-    self.table_name = "decidim_news_informations"
+      scope :published, -> { where(published: true) }
+      scope :sorted_by_weight, -> { order(:weight) }
 
-    def self.log_presenter_class_for(_log)
-      Decidim::News::AdminLog::InformationPresenter
-    end
+      self.table_name = "decidim_news_informations"
 
-    searchable_fields({
-                        participatory_space: :itself,
-                        D: :body,
-                        A: :title,
-                        datetime: :created_at
-                      },
-                      index_on_create: true,
-                      index_on_update: true)
+      def self.log_presenter_class_for(_log)
+        Decidim::News::AdminLog::InformationPresenter
+      end
 
-    # Public method allowing to establish Engine for the Object
-    #
-    # Returns: String
-    def mounted_engine
-      "decidim_news"
-    end
+      searchable_fields({
+                          organization_id: :decidim_organization_id,
+                          participatory_space: :itself,
+                          D: :body,
+                          A: :title,
+                          datetime: :created_at
+                        },
+                        index_on_create: ->(information) { information.published? },
+                        index_on_update: ->(information) { information.published? })
 
-    # Public method that establish URL and PATH for the Object.
-    # Used by ResourceLocatorPresenter
-    #
-    # Returns: String
-    def route_name
-      'news'
-    end
+      # Public method allowing to establish Engine for the Object
+      #
+      # Returns: String
+      def mounted_engine
+        "decidim_news"
+      end
 
-    # Public method that allows comments to all users
-    #
-    # Returns: Boolean
-    def private_space?
-      false
-    end
+      # Public method that establish URL and PATH for the Object.
+      # Used by ResourceLocatorPresenter
+      #
+      # Returns: String
+      def route_name
+        "news"
+      end
 
-    def mounted_params
-      {
-        host: organization.host
-      }
-    end
+      def mounted_params
+        {
+          host: organization.host
+        }
+      end
 
-    def permission_class_chain
-      [
-        ::Decidim::Permissions
-      ]
-    end
+      def permission_class_chain
+        [
+          ::Decidim::Permissions
+        ]
+      end
 
-    def moderators
-      Decidim::User.none
-    end
+      # overwritten method
+      # make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27
+      # only admin administers information
+      def admins
+        Decidim::User.none
+      end
 
-    def participatory_space
-      self
-    end
+      # overwritten method
+      # make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27
+      # only admin administers information
+      def moderators
+        Decidim::User.none
+      end
 
-    # Public method retrieving Users that need to be notified
-    #
-    # Returns: ActiveRecord::Relation
-    def users_to_notify_on_comment_created
-      followers
-    end
+      # Public: Overrides the `comments_have_votes?` Commentable concern method.
+      def comments_have_votes?
+        true
+      end
 
-    # Public method that allows comments to all users
-    #
-    # Returns: Boolean
-    def allowed_to_comment?(user)
-      true
+      # overwritten method
+      # information be set in admin panel, to disallow/allow to comment by unregistered author
+      def user_allowed_to_comment?(user)
+        # scenario when registered user is present
+        return true if user.present?
+
+        # scenario when unregistered author is present
+        users_action_allowed_for_unregister_users?
+      end
     end
   end
 end

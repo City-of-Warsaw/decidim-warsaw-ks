@@ -6,7 +6,7 @@
 # searchable fields
 Decidim::StaticPage.class_eval do
   include Decidim::Searchable
-  
+
   belongs_to :gallery, class_name: "Decidim::Repository::Gallery", optional: true
 
   scope :for_help_pages, -> { where(show_on_help_page: true) }
@@ -20,8 +20,24 @@ Decidim::StaticPage.class_eval do
                     },
                     index_on_create: ->(static_page) { static_page.visible? },
                     index_on_update: ->(static_page) { static_page.visible? })
-  
+
   def visible?
-    show_on_help_page?
+    show_on_help_page? || show_in_footer?
+  end
+
+  def mounted_engine
+    "decidim_static_page"
+  end
+
+  def update_organization_tos_version
+    return unless slug == "terms-of-service"
+
+    organization.update!(tos_version: created_at)
+  end
+
+  def mounted_params
+    {
+      host: organization.host
+    }
   end
 end

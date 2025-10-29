@@ -15,18 +15,53 @@
   )
 %>
 
-<% if @topic %>
-  <%# Pokazuje strony podpiete pod temat (static_page_topic) %>
-  <%= render page_template(@page),
-             title: translated_attribute(@topic.title),
-             description: translated_attribute(@topic.description),
-             page: @page,
-             pages: @pages
-  %>
-<% else %>
-  <%= render page_template(@page),
-             title: translated_attribute(@page.title),
-             description: nil,
-             page: @page
-  %>
+<!-- condition displaying the "accessibility_declaration" template has been added temporarily,
+until the application is updated to version 0.29, because quill in version 0.24 does not support
+the HTML tags needed there-->
+
+<%= render layout:"layouts/decidim/shared/layout_center", locals: { columns: 10 } do %>
+  <% if @page.slug == "dostepnosc" %>
+      <%= render "decidim/pages/templates/accessibility_declaration" %>
+  <% elsif @topic %> 
+      <% unless @page.show_on_help_page? %>
+        <%= render partial: "header", locals: {
+          topic: translated_attribute(@topic.title),
+          description: translated_attribute(@topic.description) 
+        } %> 
+      <% end %>
+
+      <% if controller_name == 'pages' && @page.show_on_help_page? %>
+        <div class="navigation-wrapper">
+          <%= link_to :pages, class: "back-link" do %>
+            <img src="<%= asset_pack_path('media/images/arrow-left-s-line.svg') %>" width="20" height="20" alt="" />
+            <span>Powrót do Bazy Wiedzy</span>
+          <% end %>
+        </div>
+      <% end %>
+
+      <% if @pages.present? %>
+        <div class="vertical-tabs">
+          <%= render partial: "navigation", locals: { 
+            page: @page, 
+            pages: @pages 
+          }  %>
+          
+          <%= render page_template(@page),
+            page: @page,
+            pages: @pages
+          %>
+        </div>
+      <% else %>
+        <%= render page_template(@page),
+          page: @page,
+          pages: @pages
+        %>
+      <% end %>
+  <% else %>
+    <%= render page_template(@page),
+              title: translated_attribute(@page.title),
+              description: nil,
+              page: @page
+    %>
+  <% end %>
 <% end %>

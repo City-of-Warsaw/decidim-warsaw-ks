@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "rails"
-require "decidim/core"
-require "apipie-rails"
+require 'rails'
+require 'decidim/core'
+require 'apipie-rails'
 
 module Decidim
   module RestApi
@@ -15,44 +15,52 @@ module Decidim
         scope '/rest-api' do
           resources :categories, only: [:index]
           resources :districts, only: [:index]
-          resources :participatory_processes, only: [:show, :index]
+          resources :participatory_processes, only: %i[show index]
         end
         # Endpoint with no authentication for test only
         unless Rails.env.production?
           scope '/rest-api-no-auth', noauth: true do
             resources :categories, only: [:index]
             resources :districts, only: [:index]
-            resources :participatory_processes, only: [:show, :index]
+            resources :participatory_processes, only: %i[show index]
           end
         end
       end
 
-      initializer "decidim_rest_api.append_routes", after: :load_config_initializers do |_app|
+      initializer 'decidim_rest_api.append_routes', after: :load_config_initializers do |_app|
         Rails.application.routes.append do
-          mount Decidim::RestApi::Engine => "/"
+          mount Decidim::RestApi::Engine => '/'
 
           # routing for apipie gem
           apipie
+
+          get "baza-wiedzy", to: "decidim/pages#index"
+          get "kontakt", to: "decidim/pages#show",defaults: { id: "kontakt" }
+          get "regulamin", to: "decidim/pages#show", defaults: { id: "terms-of-service" }
+          get "dostepnosc", to: "decidim/pages#show", defaults: { id: "dostepnosc" }
+
+          get "metody", to: redirect('/baza-wiedzy#temat-2')
+          get "publikacje", to: redirect('/baza-wiedzy#temat-3')
+          get "publikacja-24-inspiracje", to: redirect('/baza-wiedzy#publikacja-24-inspiracje')
+          get "rozegraj-miasto", to: redirect('/baza-wiedzy#rozegraj-miasto')
+
+          get '/:name', to: redirect { |params, _request| "/processes/#{params[:name].gsub('_', '-')}" },
+                        constraints: -> (request) { request.path != '/sitemap.xml' }
         end
       end
 
-      # TODO: For Version 0.25.2
-      # initializer "RestApi.webpacker.assets_path" do
-      #   Decidim.register_assets_path File.expand_path("app/packs", root)
-      # end
 
-      initializer "decidim_rest_api.append_routes", after: :load_config_initializers do |_app|
+      initializer 'decidim_rest_api.append_routes', after: :load_config_initializers do |_app|
         # config for apipie gem
         Apipie.configure do |config|
-          config.app_name                = "Decidim Warszawa KS"
-          config.api_base_url            = "/rest-api"
-          config.doc_base_url            = "/rest-api-doc"
+          config.app_name                = 'Decidim Warszawa KS'
+          config.api_base_url            = '/rest-api'
+          config.doc_base_url            = '/rest-api-doc'
           config.api_controllers_matcher = "#{Rails.root}/decidim-module-rest_api/app/controllers/decidim/**/*.rb"
           config.default_locale = 'pl'
-          config.app_info = "REST API dla Decidim Warszawa KS. Dostęp do API wymaga przekazania w nagłówku zapytania poprawnego tokenu X-Api-Key"
+          config.app_info = 'REST API dla Decidim Warszawa KS. Dostęp do API wymaga przekazania w nagłówku zapytania poprawnego tokenu X-Api-Key'
         end
       end
-
     end
   end
 end

@@ -143,6 +143,28 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#mounted_engine-instance_method" title="#mounted_engine (instance method)">#<strong>mounted_engine</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -194,13 +216,51 @@
 
 15
 16
-17</pre>
+17
+18
+19
+20
+21</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/cells/decidim/consultation_map/remark_cell.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_size'>card_size</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim/consultation_map/remark_m</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:size</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='symbol'>:l</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim/consultation_map/remark_l</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim/consultation_map/remark_s</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mounted_engine-instance_method">
+  
+    #<strong>mounted_engine</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/cells/decidim/consultation_map/remark_cell.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mounted_engine'>mounted_engine</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim_consultation_map</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -242,9 +302,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

@@ -4,7 +4,9 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user creates Info Article
-      class CreateInfoArticle < Rectify::Command
+      class CreateInfoArticle < Decidim::Command
+        include Decidim::Repository::Admin::GalleriesHelper
+
         def initialize(form, user)
           @form = form
           @current_user = user
@@ -17,6 +19,7 @@ module Decidim
           return broadcast(:invalid) if form.invalid?
 
           create_info_article!
+          add_gallery(info_article)
 
           broadcast(:ok, info_article)
         end
@@ -39,7 +42,8 @@ module Decidim
             title: form.title,
             body: form.body,
             organization: current_user.organization,
-            article_category: form.article_category,
+            article_category_id: form.article_category_id,
+            weight: form.weight,
             gallery_id: form.gallery_id
           }
         end

@@ -1,0 +1,29 @@
+<header class="text-center pt-10 max-w-[1200px] m-auto">
+  <h1 class="title-decorator inline-block text-left mb-12"><%= hero_section_public.title %></h1>
+</header>
+
+<section class="layout-1col cols-10 mb-10 editor-content">
+  <%= quill_sanitize hero_section_public.description %>
+</section>
+
+<%= nonced_javascript_tag do %>
+  const button = document.getElementById('toggle-button');
+  const textContent = document.getElementById('textContent');
+  const arrowIcon = document.querySelector('.arrow-icon');
+
+  if (button && textContent && arrowIcon) {
+    button.addEventListener('click', () => {
+      textContent.classList.toggle('collapse');
+      button.classList.toggle('rotate-arrow');
+      arrowIcon.classList.toggle('rotate-arrow');
+
+      if (textContent.classList.contains('collapse')) {
+        button.textContent = 'Rozwiń';
+        button.appendChild(arrowIcon);
+      } else {
+        button.textContent = 'Zwiń';
+        button.appendChild(arrowIcon);
+      }
+    });
+  }
+<% end %>

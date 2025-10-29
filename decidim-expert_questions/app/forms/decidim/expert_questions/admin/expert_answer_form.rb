@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency 'file_form_validator'
+
 module Decidim
   module ExpertQuestions
     module Admin
@@ -9,10 +11,19 @@ module Decidim
 
         attribute :body, String
         attribute :user_question_id, Integer
-        attribute :files, [String]
+        attribute :files, [ActionDispatch::Http::UploadedFile]
+        attribute :remove_files, [Integer]
 
         validates :body, presence: true
         validates :user_question_id, presence: true
+        validates :files, file_form: {
+          max_size: 50.megabytes,
+          acceptable_types:
+            %w[
+              image/jpg image/jpeg image/gif image/png image/bmp application/pdf application/msword
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            ]
+        }
 
         validate :user_question_exists
 

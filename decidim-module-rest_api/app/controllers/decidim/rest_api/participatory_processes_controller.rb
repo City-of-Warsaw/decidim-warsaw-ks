@@ -37,11 +37,6 @@ module Decidim::RestApi
     param_group :participatory_process
     returns :participatory_process_return, code: 200, desc: "a successful response"
     def show
-      # TODO: cache
-      # @item = Post.find(params[:id])
-      # if stale?(last_modified: @item.updated_at, public: true)
-      #   render json: @item
-      # end
       render json: collection.find(params[:id])
     end
 

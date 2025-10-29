@@ -1,81 +1,122 @@
 # frozen_string_literal: true
 
-require_dependency "decidim/news/application_controller"
+module Decidim
+  module News
+    module Admin
+      # Controller that allows to manage Information in admin panel
+      class InformationsController < Decidim::News::Admin::ApplicationController
+        include Decidim::Admin::Officializations::Filterable
 
-module Decidim::News
-  class Admin::InformationsController < Decidim::Admin::ApplicationController
-    helper Decidim::ApplicationHelper
-    layout "decidim/admin/informations"
+        helper Decidim::ApplicationHelper
+        helper Decidim::SanitizeHelper
 
-    def index
-      enforce_permission_to :update, :organization
-      @informations = collection.page(params[:page]).per(15)
-    end
+        register_permissions(::Decidim::News::Admin::ApplicationController,
+                             ::Decidim::News::Admin::Permissions,
+                             ::Decidim::Admin::Permissions)
 
-    def new
-      enforce_permission_to :update, :organization
-      @form = form(Decidim::News::Admin::InformationForm).instance
-    end
-
-    def create
-      enforce_permission_to :update, :organization
-      @form = form(Decidim::News::Admin::InformationForm).from_params(params)
-
-      Decidim::News::Admin::CreateInformation.call(@form) do
-        on(:ok) do
-          flash[:notice] = I18n.t("informations.create.success", scope: "decidim.admin")
-          redirect_to informations_path
+        def permission_class_chain
+          ::Decidim.permissions_registry.chain_for(::Decidim::News::Admin::ApplicationController)
         end
 
-        on(:invalid) do
-          flash.now[:alert] = I18n.t("informations.create.error", scope: "decidim.admin")
-          render :new
+        def index
+          enforce_permission_to :index, :information
+
+          @informations = filtered_collection
+        end
+
+        def new
+          enforce_permission_to :update, :information
+
+          @form = form(Decidim::News::Admin::InformationForm).instance
+        end
+
+        def create
+          enforce_permission_to :update, :information
+
+          @form = form(Decidim::News::Admin::InformationForm).from_params(params)
+
+          Decidim::News::Admin::CreateInformation.call(@form) do
+            on(:ok) do
+              flash[:notice] = I18n.t('informations.create.success', scope: 'decidim.admin')
+              redirect_to informations_path
+            end
+
+            on(:invalid) do
+              flash.now[:alert] = I18n.t('informations.create.error', scope: 'decidim.admin')
+              render :new
+            end
+          end
+        end
+
+        def edit
+          enforce_permission_to :update, :information
+
+          @form = form(Decidim::News::Admin::InformationForm).from_model(information)
+        end
+
+        def update
+          enforce_permission_to :update, :information
+
+          @form = form(Decidim::News::Admin::InformationForm).from_params(params)
+
+          Decidim::News::Admin::UpdateInformation.call(information, @form) do
+            on(:ok) do
+              flash[:notice] = I18n.t('informations.update.success', scope: 'decidim.admin')
+              redirect_to informations_path
+            end
+
+            on(:invalid) do
+              flash.now[:alert] = I18n.t('informations.update.error', scope: 'decidim.admin')
+              render :edit
+            end
+          end
+        end
+
+        def publish
+          enforce_permission_to :update, :information
+
+          Decidim::News::Admin::PublishInformation.call(information) do
+            on(:ok) do
+              flash[:notice] = I18n.t('informations.publish.success', scope: 'decidim.admin')
+              redirect_to informations_path
+            end
+          end
+        end
+
+        def unpublish
+          enforce_permission_to :update, :information
+
+          Decidim::News::Admin::UnpublishInformation.call(information) do
+            on(:ok) do
+              flash[:notice] = I18n.t('informations.unpublish.success', scope: 'decidim.admin')
+              redirect_to informations_path
+            end
+          end
+        end
+
+        def destroy
+          enforce_permission_to :update, :information
+
+          Decidim::News::Admin::DestroyInformation.call(information) do
+            on(:ok) do
+              flash[:notice] = I18n.t('informations.destroy.success', scope: 'decidim.admin')
+              redirect_to informations_path
+            end
+          end
+        end
+
+        private
+
+        def information
+          @information ||= collection.find_by(id: params[:id])
+        end
+
+        # admin can preview unpublished information in public view, from admin panel
+        def collection
+          @collection ||= Decidim::News::Information.where(decidim_organization_id: current_organization.id)
+                                                    .sorted_by_weight
         end
       end
-    end
-
-    def edit
-      enforce_permission_to :update, :organization
-      @form = form(Decidim::News::Admin::InformationForm).from_model(information)
-    end
-
-    def update
-      @information = collection.find(params[:id])
-      enforce_permission_to :update, :organization
-      @form = form(Decidim::News::Admin::InformationForm).from_params(params)
-
-      Decidim::News::Admin::UpdateInformation.call(information, @form) do
-        on(:ok) do
-          flash[:notice] = I18n.t("informations.update.success", scope: "decidim.admin")
-          redirect_to informations_path
-        end
-
-        on(:invalid) do
-          flash.now[:alert] = I18n.t("informations.update.error", scope: "decidim.admin")
-          render :edit
-        end
-      end
-    end
-
-    def destroy
-      enforce_permission_to :update, :organization
-
-      Decidim::News::Admin::DestroyInformation.call(information) do
-        on(:ok) do
-          flash[:notice] = I18n.t("informations.destroy.success", scope: "decidim.admin")
-          redirect_to informations_path
-        end
-      end
-    end
-
-    private
-
-    def information
-      @information ||= collection.find_by(id: params[:id])
-    end
-
-    def collection
-      Information.where(decidim_organization_id: current_organization.id)
     end
   end
 end

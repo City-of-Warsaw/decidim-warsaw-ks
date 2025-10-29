@@ -3,6 +3,8 @@
 module Decidim
   module PagesExtended
     module Admin
+      # Warning - this controller decorater handles with component Pages
+      # NOT Static Pages
       class PagesController < Decidim::Admin::Components::BaseController
         # include Rails.application.routes.mounted_helpers
         helper Decidim::ApplicationHelper
@@ -94,7 +96,7 @@ module Decidim
         end
 
         def pages
-          @pages ||= Decidim::Pages::Page.where(component: current_component).order(title: :asc).page(params[:page]).per(15)
+          @pages ||= Decidim::Pages::Page.where(component: current_component).order(weight: :asc).page(params[:page]).per(15)
         end
 
         def page

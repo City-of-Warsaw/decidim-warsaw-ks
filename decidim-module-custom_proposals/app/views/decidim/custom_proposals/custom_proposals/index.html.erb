@@ -1,0 +1,14 @@
+
+<div class="layout-1col cols-10 py-10">
+  <%= render partial: 'decidim/shared/users_action_disallowed' %>
+  <%= render partial: 'decidim/shared/component_settings_help_section', locals: {
+        followable_resource: first_published_followable_custom_proposal,
+        tooltip_content: t(".tooltip_content"),
+        button_classes: "button__follow--custom-proposals"
+      } %>
+  <div id="proposals">
+    <% custom_proposals.each do |custom_proposal| %>
+      <%= render partial: "custom_proposal", locals: { custom_proposal: custom_proposal } %>
+    <% end %>
+  </div>
+</div>

@@ -352,6 +352,7 @@
       <pre class="lines">
 
 
+12
 13
 14
 15
@@ -366,17 +367,14 @@
 24
 25
 26
-27
-28
-29</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span><span class='comma'>,</span> <span class='label'>user_question:</span> <span class='id identifier rubyid_user_question'>user_question</span>
-
-  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ExpertAnswerForm.html" title="Decidim::ExpertQuestions::Admin::ExpertAnswerForm (class)">ExpertAnswerForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='label'>user_question_id:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ExpertAnswerForm.html" title="Decidim::ExpertQuestions::Admin::ExpertAnswerForm (class)">ExpertAnswerForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
 
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CreateExpertAnswer.html" title="Decidim::ExpertQuestions::Admin::CreateExpertAnswer (class)">CreateExpertAnswer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="CreateExpertAnswer.html#call-instance_method" title="Decidim::ExpertQuestions::Admin::CreateExpertAnswer#call (method)">call</a></span></span><span class='lparen'>(</span><span class='ivar'>@form</span><span class='rparen'>)</span> <span class='kw'>do</span>
     <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
@@ -410,13 +408,13 @@
       <pre class="lines">
 
 
+29
+30
 31
-32
-33
-34</pre>
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span><span class='comma'>,</span> <span class='label'>expert_answer:</span> <span class='id identifier rubyid_expert_answer'>expert_answer</span>
@@ -442,12 +440,12 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_answer'>expert_answer</span>
   <span class='ivar'>@expert_answer</span> <span class='op'>||=</span> <span class='id identifier rubyid_expert_answers'>expert_answers</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -472,12 +470,12 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+82
+83
+84</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_answers'>expert_answers</span>
   <span class='ivar'>@expert_answers</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertAnswer.html" title="Decidim::ExpertQuestions::ExpertAnswer (class)">ExpertAnswer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>user_question:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
@@ -505,15 +503,13 @@
 7
 8
 9
-10
-11</pre>
+10</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span><span class='comma'>,</span> <span class='label'>user_question:</span> <span class='id identifier rubyid_user_question'>user_question</span>
-
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ExpertQuestions::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ExpertAnswerForm.html" title="Decidim::ExpertQuestions::Admin::ExpertAnswerForm (class)">ExpertAnswerForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -536,6 +532,8 @@
       <pre class="lines">
 
 
+51
+52
 53
 54
 55
@@ -547,12 +545,10 @@
 61
 62
 63
-64
-65
-66</pre>
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_publish'>publish</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:publish</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span>
@@ -588,6 +584,8 @@
       <pre class="lines">
 
 
+66
+67
 68
 69
 70
@@ -598,12 +596,10 @@
 75
 76
 77
-78
-79
-80</pre>
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unpublish'>unpublish</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:publish</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span>
@@ -638,6 +634,8 @@
       <pre class="lines">
 
 
+34
+35
 36
 37
 38
@@ -651,12 +649,10 @@
 46
 47
 48
-49
-50
-51</pre>
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:expert_answer</span><span class='comma'>,</span> <span class='label'>expert_answer:</span> <span class='id identifier rubyid_expert_answer'>expert_answer</span>
@@ -694,12 +690,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/expert_answers_controller.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_question'>user_question</span>
   <span class='ivar'>@user_question</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:user_question_id</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:user_question_id</span><span class='rbracket'>]</span>
@@ -714,9 +710,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

@@ -4,7 +4,7 @@ module Decidim
   module ParticipatoryProcessesExtended
     module Admin
       # A command with all the business logic when selecting process for new main page process
-      class DestroyMainPageProcess < Rectify::Command
+      class DestroyMainPageProcess < Decidim::Command
         # Public: Initializes the command.
         #
         # form - A form object with the params.

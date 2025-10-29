@@ -1,0 +1,32 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= t(".title") %>
+    </div>
+  </h1>
+</div>
+<%= decidim_form_for(@form, url: generate_sequential_numbers_study_notes_path(@form), html: { class: "form-defaults form " }) do |f| %>
+  <div class="card-section">
+    <div class="card">
+      <div class="form__wrapper">
+        <div class="card pt-4">
+          <div class="card-section">
+            <div class="row column">
+
+              <%= f.number_field :sequential_number,min: 0,max: 9999999, help_text: "Nadawanie numeracji rozpocznie się chronologicznie od pierwszej dodanej uwagi." %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="item__edit-sticky">
+    <div class="item__edit-sticky-container">
+      <div class="button--double form-general-submit">
+        <%= link_to t("decidim.admin.actions.back"), study_notes_path, class: "button button__sm button__secondary" %>
+        <%= f.submit t(".save"), class: "button button__sm button__secondary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

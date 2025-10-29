@@ -1,0 +1,129 @@
+<%= render layout: "layouts/decidim/shared/layout_item" do %>
+  <section class="layout-main__section layout-main__heading">
+    <h1 class="h2 decorator"><%= present(meeting).title(links: true, html_escape: true ) %></h1>
+
+    <%= cell "decidim/meetings/dates_and_map", meeting %>
+    <%= render partial: "meeting_poll_actions", locals: { mobile: true } %>
+
+  <section class="layout-main__section">
+    <div class="editor-content meeting__short-description">
+     <h3><%= meeting.title_description %></h3>
+    </div>
+  </section>
+
+  <% if strip_tags(@meeting.description["pl"]).present? %>
+    <section class="layout-main__section !mt-4">
+      <div class="editor-content meeting__body">
+        <%= render_meeting_body(@meeting) %>
+      </div>
+    </section>
+  <% end %>
+
+   <% if (meeting.closed? && meeting.closing_visible?) || (registration.present? && registration.meeting.component.settings.registration_code_enabled) || (meeting.services.any?) %>
+      <section class="layout-aside__section layout-aside__buttons custom-section-wrapper">
+        <% if meeting.closed? && meeting.closing_visible? %>
+          <% if meeting.has_contributions? %>
+            <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "add-box-line" } do %>
+              <h3 class="meeting__aside-block__title"><%= t("contributions", scope: "decidim.meetings.meetings.show") %></h3>
+              <div class="meeting__aside-block__large"><%= meeting.contributions_count %></div>
+            <% end %>
+          <% end %>
+
+          <% if meeting.has_attendees? %>
+            <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "group-line" } do %>
+              <h3 class="meeting__aside-block__title"><%= t("attendees", scope: "decidim.meetings.meetings.show") %></h3>
+              <div class="meeting__aside-block__large"><%= meeting.attendees_count %></div>
+            <% end %>
+          <% end %>
+
+          <% if meeting.attending_organizations.present? %>
+            <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "community-line" } do %>
+              <h3 class="meeting__aside-block__title"><%= t("organizations", scope: "decidim.meetings.meetings.show") %></h3>
+              <ul class="meeting__aside-block__list">
+                <% meeting.attending_organizations.split("\n").each do |organizations| %>
+                <li><%= organizations %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if registration.present? && registration.meeting.component.settings.registration_code_enabled %>
+          <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "coupon-line" } do %>
+            <h3 class="meeting__aside-block__title"><%= registration_code_help_text %></h3>
+            <div class="meeting__aside-block__large"><%= registration.code %></div>
+            <% if registration.validated? %>
+              <div class="label success"><%= t("validated", scope: "decidim.meetings.meetings.show.registration_state") %></div>
+              <% else %>
+              <div class="label warning"><%= t("validation_pending", scope: "decidim.meetings.meetings.show.registration_state") %></div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if meeting.services.any? %>
+          <h3 class="h3 text-[22.5px]"><%= meeting.title_services %></h3>
+          <% meeting.services.order(:id).each do |service| %>
+            <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "star-line" } do %>
+              <h4 class="meeting__aside-block__title"><%= translated_attribute(service["title"]) %></h4>
+              <div class="meeting__aside-block__text editor-content"><%= translated_attribute(service["description"]).html_safe %></div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </section>
+    <% end %>
+  </section>
+
+  <section class="layout-main__section">
+    <% unless meeting.in_person? || meeting.withdrawn? %>
+      <%= cell "decidim/meetings/online_meeting_link", meeting %>
+    <% end %>
+  </section>
+
+  <%= cell "decidim/tab_panels", tab_panel_items %>
+
+  <% if meeting.agenda.present? && meeting.agenda.visible? %>
+    <section class="layout-main__section">
+      <%= render "meeting_agenda" %>
+    </section>
+  <% end %>
+
+  <% if meeting.gallery %>
+    <%= render 'decidim/shared/gallery_attachments', model: meeting %>
+  <% end %>
+
+  <% if meeting.closed? && meeting.closing_visible? %>
+    <section class="layout-main__section">
+      <%= render "meeting_minutes" %>
+    </section>
+  <% end %>
+
+  <% if meeting.address.present? %>
+    <section class="layout-main__section">
+      <div
+        class="section meeting-map"
+        id="area-map"
+        data-lat="<%= meeting.latitude %>"
+        data-lng="<%= meeting.longitude %>"
+        style="cursor: pointer;"
+      >
+        <%= static_map_link(meeting) %>
+      </div>
+    </section>
+  <% end %>
+
+  <%= pad_iframe_for meeting %>
+
+  <% content_for :aside do %>
+    <%= render partial: "meeting_aside" %>
+  <% end %>
+
+  <% content_for :item_footer do %>
+    <%= comments_for meeting %>
+  <% end %>
+<% end %>
+
+<%= render partial: "add_to_calendar_modal", locals: { ics_url: calendar_meeting_url(meeting), google_url: google_calendar_event_url(meeting), id: meeting.id } %>
+
+<%= append_javascript_pack_tag "meetings-map" %>
+<%= append_javascript_pack_tag "meeting_detail" %>
+<%= append_javascript_pack_tag "participatory_processes_extended_meetings" %>

@@ -10,50 +10,55 @@ module Decidim
       isolate_namespace Decidim::AdUsersSpace
 
       initializer "decidim.menu" do
-        # Decidim.menu :menu do |menu|
-        #   menu.item I18n.t("menu.forum", scope: "decidim"),
-        #             decidim_ad_users_space.forum_articles_path,
-        #             position: 8,
-        #             active: :inclusive,
-        #             if: !!(current_user && current_user.has_ad_role?)
-        # end
-        #
-        # Decidim.menu :menu do |menu|
-        #   menu.item I18n.t("menu.info", scope: "decidim"),
-        #             decidim_ad_users_space.info_articles_path,
-        #             position: 9,
-        #             active: :inclusive,
-        #             if: !!(current_user && current_user.has_ad_role?)
-        # end
-
         Decidim.menu :menu do |menu|
-          menu.item I18n.t("menu.ad_users_space", scope: "decidim"),
-                    decidim_ad_users_space.info_articles_path,
-                    position: 9,
-                    active: is_active_link?(decidim_ad_users_space.info_articles_path, :inclusive) ||
-                            is_active_link?(decidim_ad_users_space.forum_articles_path, :inclusive),
-                    if: !!current_user&.has_ad_role?
+          menu.add_item :info_articles,
+                        "Strefa koordynatora konsultacji", # sys_name for MainMenuItem
+                        decidim_ad_users_space.info_articles_path,
+                        position: 9,
+                        active: is_active_link?(decidim_ad_users_space.info_articles_path, :inclusive),
+                        if: !!current_user&.has_ad_role?
         end
       end
 
-      initializer "decidim.user_menu" do
-        # Decidim.menu :admin_menu do |menu|
-        #   menu.item I18n.t("menu.forum", scope: "decidim.admin"),
-        #             decidim_ad_users_space.admin_forum_articles_path,
-        #             icon_name: "lightbulb",
-        #             position: 5.1,
-        #             active: is_active_link?(decidim_ad_users_space.admin_forum_articles_path, :inclusive),
-        #             if: current_user.ad_admin?
-        # end
+      Decidim.menu :home_content_block_menu do |menu|
+        menu.add_item :info_articles,
+                      "Strefa koordynatora konsultacji", # sys_name for MainMenuItem
+                      decidim_ad_users_space.info_articles_path,
+                      position: 9,
+                      active: is_active_link?(decidim_ad_users_space.info_articles_path, :inclusive) ||
+                        is_active_link?(decidim_ad_users_space.forum_articles_path, :inclusive),
+                      if: !!current_user&.has_ad_role?
+      end
 
+      initializer "decidim.user_menu" do
         Decidim.menu :admin_menu do |menu|
-          menu.item I18n.t("menu.info", scope: "decidim.admin"),
-                    decidim_ad_users_space.admin_info_articles_path,
-                    icon_name: "justify-left",
-                    position: 5.2,
-                    active: is_active_link?(decidim_ad_users_space.admin_info_articles_path, :inclusive) ||
-                            is_active_link?(decidim_ad_users_space.admin_article_categories_path, :inclusive),
-                    if: current_user.ad_admin?
+          menu.add_item :admin_info_articles,
+                        "Strefa koordynatora konsultacji", # sys_name for MainMenuItem
+                        decidim_ad_users_space.admin_info_articles_path,
+                        icon_name: "menu-line",
+                        position: 5.2,
+                        active: is_active_link?(decidim_ad_users_space.admin_info_articles_path, :inclusive) ||
+                                is_active_link?(decidim_ad_users_space.admin_article_categories_path, :inclusive),
+                        if: current_user.ad_admin?
+        end
+      end
+
+      initializer "decidim_admin.menu" do
+        Decidim.menu :admin_info_articles_menu do |menu|
+          menu.add_item :admin_info_articles,
+                        I18n.t("info_articles", scope: "decidim.admin.titles"),
+                        decidim_ad_users_space.admin_info_articles_path,
+                        icon_name: "pages-line",
+                        position: 1,
+                        active: is_active_link?(decidim_ad_users_space.admin_info_articles_path, :inclusive),
+                        if: allowed_to?(:update, :organization)
+          menu.add_item :admin_article_categories,
+                        I18n.t("article_categories", scope: "decidim.admin.titles"),
+                        decidim_ad_users_space.admin_article_categories_path,
+                        icon_name: "pages-line",
+                        position: 2,
+                        active: is_active_link?(decidim_ad_users_space.admin_article_categories_path, :inclusive),
+                        if: allowed_to?(:update, :organization)
         end
       end
 
@@ -85,17 +90,13 @@ module Decidim
         end
 
         resources :forum_articles, except: [:destroy], as: 'forum_articles'
-        resources :info_articles, only: [:index, :show], as: 'info_articles'
+        resources :info_articles, only: [:index, :show], as: 'info_articles', path: 'zaplanuj-konsultacje'
       end
 
       initializer 'decidim_ad_users_space.append_routes', after: :load_config_initializers do |_app|
         Rails.application.routes.append do
           mount Decidim::AdUsersSpace::Engine => '/'
         end
-      end
-
-      initializer "decidim_ad_users_space.assets" do |app|
-        app.config.assets.precompile += %w[decidim_ad_users_space_manifest.js decidim_ad_users_space_manifest.css]
       end
 
       # add cells views paths

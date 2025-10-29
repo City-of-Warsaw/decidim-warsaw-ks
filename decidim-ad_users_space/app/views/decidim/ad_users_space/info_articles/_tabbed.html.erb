@@ -13,7 +13,7 @@
       <h2 class="section-heading">
         <%= title %>
         <br>
-        <small><%= description %></small>
+        <small><div class="ql-editor"><%= quill_sanitize description %></div></small>
       </h2>
     </div>
 
@@ -38,7 +38,7 @@
                 <h2>
                   <%= article.title %>
                 </h2>
-                <%= decidim_sanitize article.body %>
+                <%= quill_sanitize article.body %>
 
                 <%= render 'decidim/shared/gallery_attachments', model: article %>
               </div>

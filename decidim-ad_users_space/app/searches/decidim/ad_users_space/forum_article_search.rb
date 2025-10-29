@@ -3,7 +3,8 @@
 module Decidim
   module AdUsersSpace
     # Service that encapsulates all logic related to filtering participatory processes.
-    class ForumArticleSearch < Searchlight::Search
+    class ForumArticleSearch
+    # class ForumArticleSearch < Searchlight::Search
 
       def initialize(organization, raw_options = {})
         super(raw_options)

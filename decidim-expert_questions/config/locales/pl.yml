@@ -1,17 +1,22 @@
 ---
 pl:
+  activerecord:
+    models:
+      decidim/expert_questions/user_question:
+        one: Pytania do eksperta
+        few: Pytania do eksperta
+        many: Pytania do eksperta
+        other: Pytania do eksperta
   activemodel:
     attributes:
       expert_answer:
         body: Treść odpowiedzi
+        files: <span>Dodaj plik </span>
       expert:
         affiliation: Afiliacja
         created_at: Dodano
-        description: Krótki opis
-        name: Imię i nazwisko
-        position: Stanowisko
-        user: Użytkownik
-        decidim_user_id: Użytkownik
+        description: Opis
+        full_name: Imię i nazwisko
         weight: Kolejność na stronie
         avatar: Awatar
       user_question:
@@ -23,7 +28,6 @@ pl:
         gender: Płeć
         age: Wiek
         status: Status
-
   decidim:
     admin:
       actions:
@@ -61,6 +65,8 @@ pl:
           email_subject: "Nowe pytanie w %{participatory_space_title}"
           notification_title: "Nowe pytanie do eksperta w konsultacji: <a href='%{resource_path}'>pytanie</a>"
     expert_questions:
+      user_question_l:
+        edit: Edytuj
       admin:
         actions:
           confirm_destroy: Czy na pewno chcesz usunąć Eksperta z tego komponentu?
@@ -89,7 +95,7 @@ pl:
             success: Opublikowano odpowiedź Eksperta
           unpublish:
             invalid: Wystąpił błąd podczas cofania publikacji odpowiedzi Eksperta
-            success: COfnieto publikację odpowiedź Eksperta
+            success: Cofnieto publikację odpowiedzi Eksperta
         experts:
           destroy:
             success: Usunięto Eksperta
@@ -119,14 +125,29 @@ pl:
           index:
             no_answer: Brak odpowiedzi do opublikowania
             title: Pytania do eksperta
+      export:
+        user_question:
+          lp: Lp.
+          body: Treść pytania
+          url: URL załącznika
+          author_name: Autor
+          email: "E-mail"
+          district: Dzielnica
+          age: Wiek
+          gender: Płeć
+          status: Status
+          created_at: Data dodania pytania
+          answered_at: Data dodania odpowiedzi
+          expert_name: Imię i nazwisko eksperta
+          answer_body: Odpowiedź eksperta
+          is_published: Odpowiedź opublikowano
       models:
         expert:
           fields:
             affiliation: Afiliacja
             created_at: Dodano
             description: Opis
-            name: Imię i nazwisko
-            position: Stanowisko
+            full_name: Imię i nazwisko
           name: Ekspert
         user_question:
           fields:
@@ -154,7 +175,7 @@ pl:
           answered: Tylko z odpowiedzią
           created_at: Od najnowszych
           expert: Ekspert
-          search: Szukaj
+          search: Szukaj pytań
           state: Status
           sort: Sortowanie wyników
           my_user_questions: Moje pytania
@@ -169,10 +190,11 @@ pl:
         index:
           new_user_question: Zadaj pytanie
           user_questions_count:
-            one: "%{count} pytanie"
-            few: "%{count} pytania"
-            many: "%{count} pytań"
-            other: "%{count} pytania"
+            one: "Znaleziono %{count} pytanie"
+            few: "Znaleziono %{count} pytania"
+            many: "Znaleziono %{count} pytań"
+            other: "Znaleziono %{count} pytania"
+          tooltip_content: <p>Obserwuj, żeby dostać e-mail, gdy ktoś zada nowe pytanie.</p>
         count:
           user_questions_count:
             one: "%{count} pytanie"
@@ -187,40 +209,32 @@ pl:
           expert_not_found: Przykro nam, nie znaleziono Eksperta
           terms: regulamin
           tos_agreement: "Publikując treść, akceptujesz <strong>%{link}</strong>."
-          anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby zadać pytanie
+          anonymous_user_message: Jeśli chcesz zadać pytanie, <a href="%{sign_in_link}">zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>.
         create:
           invalid: Wystąpił błąd podczas zadawania pytania
           success: Dziękujemy za przesłanie pytania
           header: Dziękujemy
         edit_form:
           clear: Wyczyść
-          email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
           header: Dziękujemy za dodanie uwagi
           save: Zapisz
           statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
-            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
         full_edit:
           clear: Wyczyść
-          email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
-          header: Dziękujemy za pytanie
+          header: Dziękujemy, Twoje pytanie zostało opublikowane!
+          note:
+            Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?<br/>
+            Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.
           save: Zapisz
           statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
-            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
         form:
           email_aria_label: Podaj swój email jeżeli chcesz być powiadomiony o odpowiedziach
           statistics_aria_label: Opcjonalnie do celów statystycznych wypełnij poniższe pola
-          email_placeholder: Twój e-mail
           select_gender: Płeć
           select_age: Wiek
           select_district: Dzielnica
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+          terms: regulamin
+          tos_agreement: "Rejestrując się, akceptujesz <strong>%{link}</strong>."
       presenters:
         user_questions:
           name: "Pytanie do: <span class='expert-mini-header'>%{expert_name}</span>"
@@ -229,8 +243,14 @@ pl:
         name: Pytania do eksperta
         settings:
           global:
-            help_section: Tekst pomocniczy
+            comments_enabled: Komentarze włączone
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
             announcement: Ogłoszenie
           step:
             announcement: Ogłoszenie
             asking_enabled_for_participants: Użytkownicy mogą zadawać pytania
+            comments_blocked: Komentarze zablokowane

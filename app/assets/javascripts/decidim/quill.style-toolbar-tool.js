@@ -1,8 +1,9 @@
-Parchment = Quill.import("parchment");
+const Parchment = Quill.import("parchment");
+import { QuillToolbarDropDown } from "./quill.dynamic-tools";
 
 const DEFAULT_LABEL = "Styl";
 
-function registerQuillStyleToolbarTool() {
+export function registerQuillStyleToolbarTool() {
   Quill.register(
     new Parchment.Attributor.Class("class", "custom", {
       scope: Parchment.Scope.BLOCK,
@@ -11,7 +12,7 @@ function registerQuillStyleToolbarTool() {
   );
 }
 
-function initializeQuillStyleToolbarTool(quill, styles = {}) {
+export function initializeQuillStyleToolbarTool(quill, styles = {}) {
   const flippedStyles = Object.fromEntries(
     Object.entries(styles).map(([k, v]) => [v, k])
   );

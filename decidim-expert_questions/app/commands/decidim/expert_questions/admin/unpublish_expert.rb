@@ -4,7 +4,7 @@ module Decidim
   module ExpertQuestions
     module Admin
       # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class UnpublishExpert < Rectify::Command
+      class UnpublishExpert < Decidim::Command
         # Initializes a PublishExpert Command.
         #
         # form - The form from which to get the data.

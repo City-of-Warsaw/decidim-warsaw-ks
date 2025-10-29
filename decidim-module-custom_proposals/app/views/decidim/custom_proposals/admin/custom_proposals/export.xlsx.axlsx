@@ -1,0 +1,73 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  # Defined a text wrapping style for columns: 
+  # - 'Treść komentarza',
+  # - 'URL załącznika'
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true } )
+
+  # specified width for columns:
+  # - 'Treść komentarza',
+  # - 'URL załącznika'
+  col_widths = [nil, nil, nil, nil, 40, nil, nil, nil, nil, nil, 70]
+
+  sheet.add_row [
+    'Lp.',
+    'Kolejność fragmentu',
+    'Nazwa fragmentu',
+    'Podpis komentarza',
+    'Treść komentarza',
+    'Data dodania komentarza',
+    'E-mail',
+    'Dzielnica',
+    'Wiek',
+    'Płeć',
+    'URL załącznika'
+  ]
+
+  @comments.each_with_index do |comment, index|
+    urls = links_to_files_array(comment.files)
+
+    if urls.empty?
+
+      sheet.add_row [
+        index + 1,
+        comment.root_commentable.weight,
+        comment.root_commentable.title,
+        comment.signature,
+        comment.body.values[0],
+        l(comment.created_at, format: :short),
+        comment.email,
+        comment.district.present? ? comment.district.name.values[0] : '',
+        comment.age.present? ? I18n.t(comment.age, scope: 'decidim.comments.age', default: '') : '',
+        comment.gender.present? ? I18n.t(comment.gender, scope: 'decidim.comments.gender', default: '') : '',
+        ''
+      ], style: [nil, nil, nil, nil, wrap_text, nil, nil, nil, nil, nil, wrap_text]
+
+    else
+
+      urls.each_with_index do |url, url_index|
+
+        sheet.add_row [
+          "#{index + 1}.#{url_index + 1}",
+          comment.root_commentable.weight,
+          comment.root_commentable.title,
+          comment.signature,
+          comment.body.values[0],
+          l(comment.created_at, format: :short),
+          comment.email,
+          comment.district.present? ? comment.district.name.values[0] : '',
+          comment.age.present? ? I18n.t(comment.age, scope: 'decidim.comments.age', default: '') : '',
+          comment.gender.present? ? I18n.t(comment.gender, scope: 'decidim.comments.gender', default: '') : '',
+          url
+        ], style: [nil, nil, nil, nil, wrap_text, nil, nil, nil, nil, nil, wrap_text]
+
+        sheet.add_hyperlink location: url, ref: "K#{sheet.rows.size}"
+      end
+    end
+  end
+
+  # set defined width columns:
+  sheet.column_widths *col_widths
+end

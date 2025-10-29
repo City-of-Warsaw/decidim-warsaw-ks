@@ -1,0 +1,353 @@
+.survey {
+  .help-section {
+    &::after {
+      display: none;
+    }
+
+    &--has-content::after {
+      display: block;
+    }
+  }
+
+  &__wrapper {
+    margin: auto;
+    max-width: 792px;
+
+    &--description {
+      max-width: none;
+    }
+
+    .section {
+      margin-bottom: 1rem;
+
+      .photos-list {
+        border-color: #dbdbdb;
+
+        .card--list__item:not(:last-child) > div {
+          border-color: #dbdbdb;
+        }
+      }
+    }
+
+    .ql-editor p {
+      margin-bottom: 16px !important;
+    }
+
+    .ql-editor .repository-single-file {
+      height: fit-content;
+      margin-left: 0;
+      margin-right: 0;
+
+      &,
+      a,
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  &__title {
+    color: black;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  &__steps {
+    padding-bottom: 20px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #dbdbdb;
+      margin-top: 20px;
+    }
+  }
+
+  .answer-questionnaire {
+    &__submit {
+      justify-content: center;
+      margin-top: 0;
+
+      > :nth-child(2) {
+        margin-left: auto;
+      }
+
+      &:not(:first-child) {
+        margin-top: 70px;
+      }
+
+      .button {
+        line-height: 1;
+        margin-bottom: 0;
+        padding: 16px;
+
+        &.back-action {
+          color: var(--primary);
+
+          &:hover,
+          &:focus {
+            color: white;
+          }
+        }
+
+        &.cancel-action {
+          margin-right: 16px;
+          color: var(--primary);
+          border: unset;
+
+          &:hover,
+          &:focus {
+            background-color: white;
+          }
+        }
+
+        &.primary-action {
+          min-width: 150px;
+        }
+
+        &.large {
+          padding: 24px;
+          width: 347px;
+          max-width: 80%;
+        }
+      }
+    }
+  }
+
+  &__block {
+    position: relative;
+    z-index: 1;
+    padding: 70px 0;
+
+    &:last-child:not(:first-child:last-child) {
+      padding-bottom: 20px;
+
+      &:nth-child(2n) {
+        &::before {
+          content: "";
+          position: absolute;
+          left: -4rem;
+          right: -4rem;
+          top: 0;
+          bottom: -4rem !important;
+          z-index: -1;
+          background-color: #f5f6f7;
+        }
+      }
+    }
+
+    &:nth-child(2n):not(:first-child:last-child) {
+      &::before {
+        content: "";
+        position: absolute;
+        left: -4rem;
+        right: -4rem;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        background-color: #f5f6f7;
+      }
+    }
+
+    .questionnaire-question {
+      font-weight: bold;
+      font-size: 16px;
+      margin-bottom: 14px;
+
+      h3 {
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 14px;
+      }
+    }
+
+    .repository-single-file {
+      width: 100%;
+      margin: 30px auto;
+    }
+
+    .row.gallery .section {
+      margin-bottom: 0.5rem;
+    }
+
+    .radio-button-collection > .collection-input {
+      margin-top: 0.5rem;
+    }
+
+    .checkboxed {
+      margin-top: 1rem;
+
+      input {
+        margin-right: 12px;
+      }
+    }
+
+    .checkboxed,
+    .radio-button-collection > .collection-input > label {
+      display: flex;
+      align-items: baseline;
+      cursor: pointer;
+
+      input[type="checkbox"] {
+        cursor: pointer;
+      }
+
+      > input:first-child {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        margin-bottom: 0;
+        position: relative;
+
+        &[type="radio"] {
+          top: 2px;
+        }
+      }
+    }
+  }
+
+  &__start-button-block {
+    padding-top: 0 !important;
+  }
+
+  .section-heading {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-top: 24px;
+    color: black;
+  }
+
+  .survey-answer {
+    &--files {
+      margin-top: 0px;
+      margin-bottom: 0px;
+
+      .MultiFile-list:not(:empty) {
+        margin-top: 30px;
+        margin-bottom: 15px;
+        padding: 10px 20px;
+        border: 1px solid #dbdbdb;
+        border-radius: 2px;
+      }
+
+      .survey-file-button {
+        color: #197a94;
+        background-color: unset;
+        background-image: url("images/attachment-icon.svg");
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding-left: 25px;
+        margin-top: 3px;
+        height: 18px;
+        cursor: pointer;
+      }
+
+      .MultiFile-remove {
+        order: 2;
+        background-color: #197a94;
+        color: white;
+        padding: 4px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      div.MultiFile-label {
+        display: flex;
+        color: black;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 15px;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #dbdbdb;
+        }
+
+        > span {
+          order: 1;
+          word-break: break-word;
+          margin-right: 20px;
+        }
+      }
+    }
+
+    &--table {
+      width: 100%;
+
+      table {
+        thead {
+          border: unset;
+          background-color: #f5f6f7;
+
+          tr {
+            border-bottom: 1px solid #dbdbdb;
+
+            td {
+              padding: 16px;
+              font-weight: normal;
+            }
+          }
+        }
+
+        tbody {
+          border-color: #dbdbdb;
+
+          tr {
+            border-bottom: 1px solid #dbdbdb;
+
+            &:nth-child(2n) {
+              background-color: #f5f6f7;
+            }
+
+            &:last-child {
+              border-bottom: unset;
+            }
+          }
+        }
+
+        td {
+          border-right: 1px solid #dbdbdb;
+
+          &:last-child {
+            border-right: unset;
+          }
+
+          &:first-child {
+            font-weight: bold;
+          }
+        }
+
+        .checkboxed,
+        .checkboxed > input {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  &__info-box {
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #dbdbdb;
+    margin-bottom: 30px;
+    margin-top: 0;
+
+    &.checkboxed {
+      padding-bottom: 25px;
+    }
+
+    input {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.questionnaire-question-matrix td {
+  min-width: 50px;
+}

@@ -4,6 +4,7 @@ module Decidim
   module AdminExtended
     class ApplicationController < Decidim::Admin::ApplicationController
       protect_from_forgery with: :exception
+      helper Decidim::CoreExtended::UrlHelper
     end
   end
 end

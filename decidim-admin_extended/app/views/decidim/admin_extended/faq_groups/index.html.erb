@@ -1,0 +1,56 @@
+<% add_decidim_page_title(t("faq_groups.title", scope: "decidim.admin")) %>
+
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("faq_groups.title", scope: "decidim.admin") %>
+      <%= link_to t(".add_faq_group"), new_faq_group_path, class: "button button__sm button__secondary expanded small new" %>
+    </h1>
+  </div>
+
+  <fieldset class="card-section">
+    <div class="table-scroll">
+      <table class="table-list">
+        <thead>
+          <tr>
+            <th><%= t("activemodel.attributes.faq_group.title") %></th>
+            <th><%= t("activemodel.attributes.faq_group.subtitle") %></th>
+            <th>Publiczny</th>
+            <th><%= t("activemodel.attributes.faq_group.created_at") %></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% faq_groups.each do |faq_group| %>
+            <tr>
+              <td><%= faq_group.title %></td>
+              <td>
+                <% if faq_group.subtitle.present? %>
+                  <%= decidim_sanitize html_truncate(faq_group.subtitle, length: 50, separator: "..."), strip_tags: %w[img video] %>
+                <% else %>
+                  <%= "-" %>
+                <% end %>
+              </td>
+              <td><%= faq_group.published ? t(".published_yes") : t(".published_no") %></td>
+              <td><%= l faq_group.created_at, format: :decidim_short_cut_zero %></td>
+              <td class="table-list__actions">
+                <%= icon_link_to "pencil-line",
+                                 edit_faq_group_path(faq_group),
+                                 t("actions.edit", scope: "decidim.admin"),
+                                 class: "action-icon--edit",
+                                 method: :get %>
+                <%= icon_link_to "delete-bin-line",
+                                 [faq_group],
+                                 t("actions.destroy", scope: "decidim.admin"),
+                                 class: "action-icon--remove",
+                                 method: :delete,
+                                 data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </fieldset>
+</div>

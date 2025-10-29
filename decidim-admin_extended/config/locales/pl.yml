@@ -7,13 +7,19 @@ pl:
         other: Wnioski o konsultacje
       help_pages:
         other: Baza wiedzy użytkowników zewnętrznych
+      decidim/admin_extended/contact_info_position:
+        one: Kontakty
+        few: Kontakty
+        many: Kontakty
+        other: Kontakty
   activemodel:
     attributes:
+      additional_translation:
+        key: Klucz tłumaczenia
+        value: Wyświetlana wartość
       log_search:
         user_id: Użytkownik
         process: Konsultacje
-        start_date: Data od
-        end_date: Data do
       area:
         color: Kolor
         text_color: Kolor tekstu
@@ -21,14 +27,14 @@ pl:
       contact_info_group:
         name: Nazwa
         subtitle: Dopisek
-        published: Publiczny
+        published: Publiczny *
         weight: Kolejność na stronie
       contact_info_position:
         name: Nazwa
         position: Stanowisko
         phone: Numer telefonu
         email: Adres email
-        published: Publiczny
+        published: Publiczny *
         weight: Kolejność na stronie
         contact_info_group_id: Grupa pozycji
       department:
@@ -37,11 +43,18 @@ pl:
         name: Nazwa
         system_name: Nazwa systemowa
         subject: Temat wiadomosci
+        footer: Stopka wiadomości
         body: Treść
       main_menu_item:
         name: Aktualna nazwa
         weight: Kolejność na stronie
         visible: Widoczny
+      newsletter:
+        send_to_followers: Wyślij do obserwujących dane konsulacje
+        scope_ids: Dzielnice
+        send_to_tags: "Wyślij newsletter do obserwujących dany tag (temat konsultacji)"
+        send_to_type_ngo: "Wyślij do potwierdzonych użytkowników, którzy zaznaczyli zgodę na otrzymywanie e-maili o konsultacjach dla NGO"
+        tag_ids: Tematy konsultacji
       static_page:
         show_on_help_page: Pokaż w bazie wiedzy
         gallery_id: Galeria z repozytorium
@@ -55,28 +68,82 @@ pl:
         name: Słowo
       organization:
         highlighted_content_banner_alt: Opis alternatywny (ALT) dla banera ze zdjęciem
+        theme_color: Kolor motywu
       hero_section:
-        title: Tekst powitalny
-        subtitle: Dopisek do tekstu powitalnego
-        banner_img: Obraz główny
-        banner_img_alt: Opis alternatywny (ALT) dla obrazu głównego
+        title: Tytuł
+        description: Opis
       component:
         description: Opis
         admin_email: Adres email do potwierdzeń
         end_date_message: Komunikat po dacie zakończenia
+        help_button_info: Treść pod przyciskiem Pomoc
+      faq:
+        title: Tytuł
+        content: Zawartość
+        published: Publiczny *
+        faq_group_id: Grupa pytań
+        weight: Kolejnosć na stronie
+        created_at: Utworzono
+      faq_group:
+        title: Tytuł
+        subtitle: Dopisek
+        published: Publiczny *
+        weight: Kolejnosć na stronie
+        created_at: Utworzono
+      user:
+        editorial: Nazwa wyświetlana
   decidim:
+    moderations:
+      admin:
+        reportable:
+          unreport:
+            success: Zgłoszona treść nie została ukryta.
+    newsletter_mailer:
+      newsletter_without_account:
+        see_on_website: Nie widzisz tego e-maila poprawnie? Wyświetl go w <a href="%{link}" target="_blank">przeglądarce</a>.
+        note: Otrzymujesz ten e-mail, ponieważ subskrybujesz newslettery %{organization_name}
+        unsubscribe: Aby zrezygnować z otrzymywania tego typu wiadomości e-mail, <a href="%{link}" target="_blank" class="unsubscribe">cofnij subskrypcję</a>.
     forms:
       admin:
+        questionnaires:
+          answers:
+            actions:
+              export: Eksport
+              back: Powrót
+              next: Następna
+              previous: Poprzednia
+          form:
+            unpublished_warning: "Ankieta jest nie opublikowana"
+            already_answered_warning: Odpowiedzi zostały juz udzielone w tej ankiecie
         models:
           components:
             file_id: Plik z repozytorium
             gallery_id: Galeria z repozytorium
       user_answers_serializer:
-        gender: Płeć
-        birth_year: Rok urodzenia
-        district: Dzielnica
+        age: Wiek
+        gender: Kim jesteś?
+        birth_year: Jaki jest Twój rok urodzenia?
+        district: W jakiej dzielnicy mieszkasz?
+        session_token: Token
+        user_status: Status
+        ip_hash: ID hash
+        completion: Zakończenie
+        registered: Zarejestrowany
+        unregistered: Niezarejestrowany
+      step_navigation:
+        show:
+          back: Cofnij
+          cancel: Anuluj
+          start: Rozpocznij ankietę
     newsletter_templates:
+      basic_only_text_settings_form:
+        interpolations_hint: '<p>Dostępne zmienne:<ul class="interpolations_hint">
+                              <li>„%{name}” w dowolnym miejscu tekstu głównego lub tematu, a zostanie zastąpiony nazwą odbiorcy.</li>
+                              <li>„%{unsubscribe_link}” w stopce aby wyświetlić url linku do wypisywania sie z newslettera</li></ul></p>'
+      basic_only_text:
+        name: Powiadomienie (do osób obserwujących dany proces)
       ks_custom:
+        name: Newsletter (do osób zapisanych na newsletter)
         cta_text_preview: Weź udział
         body_preview: |-
           Pellentesque in pharetra justo. In iaculis, magna eu dignissim sollicitudin, libero metus dapibus magna, 
@@ -93,32 +160,107 @@ pl:
           Nullam quis imperdiet lectus.
         lead_preview: "<strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit bonum ed."
         title_preview: "Zaangażuj się i decyduj<br>o Warszawie"
+      ks_multi_process:
+        name: Newsletter o kilku procesach
+        body_preview: |-
+          Pellentesque in pharetra justo. In iaculis, magna eu dignissim sollicitudin, libero metus dapibus magna, 
+          ac faucibus dolor elit ut turpis. Aenean varius auctor lectus vitae maximus. Nam in finibus est, vitae viverra lorem. 
+          Suspendisse lacinia dictum Leo at efficitur. Proin mollis molestie augue, nec malesuada libero euismod in. 
+          Suspendisse facilisis magna at augue efficitur tempus. Ut vehicula elementum metus, id auctor augue volutpat in. 
+          Donec a mauris pulvinar, feugiat velit at, interdum tellus. Fusce diam nulla, placerat eget turpis gravida, 
+          pharetra feugiat libero. Nunc ac aliquet elit. Nulla ut arcu non eros mollis consequat sed eget ante.
+        footer_preview: |-
+          Pellentesque in pharetra justo. In iaculis, magna eu dignissim sollicitudin, libero metus dapibus magna, 
+          ac faucibus dolor elit ut turpis. Aenean varius auctor lectus vitae maximus. Nam in finibus est, vitae viverra lorem. 
+          Suspendisse lacinia dictum Leo at efficitur. Proin mollis molestie augue, nec malesuada libero euismod in. 
+          Suspendisse facilisis magna at augue efficitur tempus. Ut vehicula elementum metus, id auctor augue volutpat in. 
+          Donec a mauris pulvinar, feugiat velit at, interdum tellus. Fusce diam nulla, placerat eget turpis gravida, 
+          pharetra feugiat libero. Nunc ac aliquet elit. Nulla ut arcu non eros mollis consequat sed eget ante.
+        introduction_preview: |-
+          Phasellus ut pharetra justo, sit amet congue enim. Aliquam elementum posuere ante, et tempus ligula sodales in. 
+          Nulla dictum tellus quis dolor finibus, sit amet imperdiet urna congue. Phasellus pellentesque fringilla viverra. 
+          Ut molestie ligula sed est interdum fermentum. Sed gravida urna ipsum, sit amet hendrerit mi sodales eget. 
+          Nullam quis imperdiet lectus.
+        lead_preview: "<strong>Lorem ipsum dolor sit amet,</strong> consectetur adipiscing elit bonum ed."
+        title_preview: "Zaangażuj się i decyduj<br>o Warszawie"
+      ks_custom_settings_form:
+        body: Treść pod przyciskiem
+        cta_text: Opis przycisku
+        cta_url: Link przycisku
+        encouragement: Hasło przed przyciskiem
+        interpolations_hint: '<p>Dostępne zmienne:<ul class="interpolations_hint">
+                            <li>„%{name}” w dowolnym miejscu tekstu głównego lub tematu, a zostanie zastąpiony nazwą odbiorcy.</li>
+                            <li>„%{unsubscribe_link}” w stopce aby wyświetlić url linku do wypisywania sie z newslettera</li></ul></p>'
+        introduction: Treść nad przyciskiem
+        lead: Lead
+        main_image: Obraz
+        title: Treść wyświetlana na obrazie
+      ks_multi_process_settings_form:
+        body: Treść
+        footer: Treść stopki
+        interpolations_hint: '<p>Dostępne zmienne:<ul class="interpolations_hint">
+                            <li>„%{name}” w dowolnym miejscu tekstu głównego lub tematu, a zostanie zastąpiony nazwą odbiorcy.</li>
+                            <li>„%{unsubscribe_link}” w stopce aby wyświetlić url linku do wypisywania sie z newslettera</li></ul></p>'
+        introduction: Treść pod leadem
+        lead: Lead
+        main_image: Obraz
     admin:
+      additional_translation:
+        title: Zarządzanie tłumaczeniami
+      filters:
+        ad_active_eq:
+          label: Dostęp AD
+          values:
+            active: Aktywny
+            inactive: Nieaktywny
+      actions:
+        hide: Dezaktywuj
+        activate: Aktywuj
+        back: Wróć
+        cancel: Wróć
+        confirm_destroy: Czy napewno usunąć?
+        create: Utwórz
+        destroy: Usuń
+        edit: Edytuj
+        save: Zapisz
+        update: Aktualizuj
+      newsletter_templates:
+        index:
+          title: Szablony
       titles:
         mail_templates: Szablony maili
+      contact_info_groups:
+        title: Grupy
       static_pages:
+        title: Baza wiedzy
         index:
           show_in_footer: "Pokaż w stopce: %{show}"
           show_on_help_page: "Pokaż w bazie wiedzy: %{show}"
           visibility: Widoczność
       areas:
         form:
-          text_color: |-
-            Kolor wykorzystywany jest jako kolor tekstu, na tle głównego koloru kategorii.<br>
-            <strong>UPEWNIJ SIĘ</strong>, że kolor na tym tle spełnia wymagania WCAG.<br>
-            Kontrasty możesz sprawdzić na stronie: <a href='webaim.org/resources/contrastchecker/'>Contrast Checker</a>.
+          text_color_html: |
+            Kolor wykorzystywany jest jako kolor tekstu na tle głównego koloru kategorii.<br>
+            <strong>UPEWNIJ SIĘ</strong>, kolor na tym tle spełnia wymagania WCAG.<br>
+            Kontrasty możesz sprawdzić na stronie:
+            <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener noreferrer">Contrast Checker</a>.
       banned_words:
         title: Wulgaryzmy
       contacts:
         title: Kontakty
+      faqs:
+        title: Pytania i odpowiedzi
+      faq_groups:
+        title: Grupy
       components:
         form:
           users_action_end_help: Po tej dacie użytkownicy zewnętrzni już nie będą mogli dodawać uwag, pytań i komentarzy
-          users_action_end_date: Data zamknięcia tego komponentu
+          users_action_end_date: Data zamknięcia tego komponentu (o godzinie 23:59:59) *
       logs:
-        logs_list:
-          select_a_user: Wybierz użytkownika
-          select_a_process: Wybierz konsultację
+        filters:
+          participatory_space: Znajdź konsultację
+          newest_first: "Od najnowszych"
+          oldest_first: "Od najstarszych"
       statistics:
         title: Statystyki
       departments:
@@ -130,13 +272,14 @@ pl:
       main_menu_items:
         title: Menu główne
       menu:
+        additional_translations: Zarządzaj tłumaczeniami
         banned_words: Wulgaryzmy
         customizing_menu: Menu główne
         departments: Jednostki
         mail_templates: Szablony maili
         statistics: Statystyki
         tags: Tagi
-        hero_sections: Edycja górnych sekcji
+        hero_sections: Edycja banerów
       models:
         mail_template:
           fields:
@@ -152,12 +295,34 @@ pl:
         user:
           fields:
             ad_role: Rola AD
+            name_and_surname: Imię i nazwisko
             last_sign_in_at: Ostatnie logowanie
+            editorial: Nazwa wyświetlana
       tags:
         title: Tagi
       hero_sections:
-        title: Sekcje
+        title: Górne banery
+      newsletters:
+        create:
+          file_error: Załączony plik jest zbyt duży
+        update:
+          file_error: Załączony plik jest zbyt duży
+      users:
+        edit:
+          title: Edycja redakcji
+          update: Aktualizuj
+        update:
+          success: Redakcja użytkownika została zaktulizowana
     admin_log:
+      additional_translation:
+        update: "%{user_name} zaktualizował(a) tłumaczenie dla klucza: %{key}"
+      user:
+        deactivate_ad_user: "Użytkownik %{user_name} zmienił(a) status konta na nieaktywny dla użytkownika %{resource_name}- <a href='/admin/users?q%5Bad_active_eq%5D=inactive'>Lista użytkowników</a>"
+        activate_ad_user: "Użytkownik %{user_name} zmienił(a) status konta na aktywny dla użytkownika %{resource_name} - <a href='/admin/users?q%5Bad_active_eq%5D=active'>Lista użytkowników</a>"
+        auto_activate_ad_user: "System zmienił status konta AD na aktywny dla użytkownika %{resource_name} - <a href='/admin/users?q%5Bad_active_eq%5D=active'>Lista użytkowników</a>"
+        auto_deactivate_ad_user: "System zmienił status konta AD na nieaktywny dla użytkownika %{resource_name} - <a href='/admin/users?q%5Bad_active_eq%5D=inactive'>Lista użytkowników</a>"
+       # exports
+        admins_list_export: "Użytkownik %{user_name} wyeksportował(a) listę z danymi użytkowników wewnętrznych"
       mail_template:
         update: "%{user_name} zaktualizował(a) szablon maila %{resource_name}"
       banned_word:
@@ -172,15 +337,62 @@ pl:
         update: "%{user_name} zaktualizował(a) element menu %{resource_name}"
       statistic:
         update: "%{user_name} zaktualizował(a) statystykę %{resource_name}"
+        create: "%{user_name} utworzył(a) statystykę %{resource_name}"
+        delete: "%{user_name} usunął(a) statystykę %{resource_name}"
       tag:
         create: "%{user_name} utworzył(a) tag %{resource_name}"
         delete: "%{user_name} usunął/usunęła tag %{resource_name}"
         update: "%{user_name} zaktualizował(a) tag %{resource_name}"
       hero_section:
-        update: "%{user_name} zaktualizował(a) Edycję górnych sekcji %{resource_name}"
-        update_banner_img: "%{user_name} zaktualizował(a) baner w Edycji górnych sekcji %{resource_name} - %{banner_img}"
+        update: "%{user_name} zaktualizował(a) baner %{resource_name}"
+      faq_group:
+        create: "%{user_name} dodał(a) grupę w Pytaniach i odpowiedziach %{resource_name}"
+        delete: "%{user_name} usunął/usunęła grupę w Pytaniach i odpowiedziach %{resource_name}"
+        update: "%{user_name} zaktualizował(a) grupę w Pytaniach i odpowiedziach %{resource_name}"
+      faq:
+        create: "%{user_name} dodał(a) pytanie w Pytaniach i odpowiedziach %{resource_name}"
+        delete: "%{user_name} usunął/usunęła pytanie w Pytaniach i odpowiedziach %{resource_name}"
+        update: "%{user_name} zaktualizował(a) pytanie w Pytaniach i odpowiedziach %{resource_name}"
     admin_extended:
+      additional_translation:
+        update:
+          success: "Tłumaczenie zostało zaktualizowane"
+          error: "Wystąpił błąd przy aktualizacji tłumaczenia"
+      additional_translations:
+        edit:
+          update: Aktualizuj
+          title: Edycja tłumaczenia
+        index:
+          headers:
+            key: Klucz
+            value: Tłumaczenie
+            actions: Akcje
       mail_templates:
+        helpers:
+          unsubscribe_link: Linkt do wypisywania się z powiadomienia
+          commentable_link: Link do elementu, którego dotyczy komentarz (np. Spotkanie, Uwaga)
+          commentable_title: Element, którego dotyczy komentarz (np. Spotkanie, Uwaga)
+          comment_body: Treść komentarza
+          user_name: Publiczna nazwa użytkownika (w mianowniku)
+          expert_name: Imię i nazwisko eksperta (w mianowniku)
+          resource_link: Link do elementu, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)
+          resource_title: Element, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)
+          consultation_title: Konsultacje, do których należy element
+          consultation_link: Link do konsultacji, do których należy element (jeśli dotyczy)
+          step_name: Nazwę etapu (jeśli dotyczy)
+          info_articles_link: Link do udostępnionej strefy konsultacji
+          activation_link: Link aktywacyjny dla nowego konta
+          notifications_settings_link: Link do ustawień powiadomień
+          password_reset_link: Link do stworzenia nowego hasła
+          reason_for_blocking: Treść powodu dotyczącego zablokowanego konta
+          report_reasons: Treść powodu dotyczącego zgłoszonej zawartości
+          reported_content: Element, którego dotyczy zgłoszenie (np. Komentarz, Uwaga, jeśli dotyczy)
+          resource_content: Element, którego dotyczy usunięcie (np. Komentarz, Uwaga, jeśli dotyczy)
+          attached_to_title: Konsultacje, do których należy, do których należy załączony załącznik
+          attached_to_link: Link do konsultacji, do których należy załączony załącznik
+          report_description: Opis raportu
+          result_body: Treść efektu
+          answer_questionnaire_public_user_link: Link do treści przekazanych w ankiecie uwag
         edit:
           title: Edycja szablonu
           update: Zapisz
@@ -243,6 +455,13 @@ pl:
           cancel: Anuluj
           save: Zapisz
       contact_info_groups:
+        index:
+          group_name: Nazwa grupy
+          subtitle: Dopisek
+          published: Publiczny
+          created_at: Data utworzenia
+          published_yes: Tak
+          published_no: Nie
         form:
           published_no: Nie
           published_yes: Tak
@@ -254,32 +473,77 @@ pl:
           errors: Nie udało się edytować grupy
         destroy:
           success: Grupa została usunięcia
+      faqs:
+        index:
+          add_faq: Utwórz pytanie
+          faqs: Pytania
+          group_name: Nazwa grupy
+          groups: Grupy
+          published_yes: Tak
+          published_no: Nie
+        form:
+          published_yes: Tak
+          published_no: Nie
+        new:
+          add_faq: Utwórz pytanie
+        create:
+          success: Pytanie zostało dodane
+          errors: Nie udało się dodać pytania
+        update:
+          success: Pytanie zostało edytowane
+          errors: Nie udało się edytować pytania
+        edit:
+          edit_faq: Edytuj pytanie
+        destroy:
+          success: Pytanie zostało usunięte
+      faq_groups:
+        index:
+          add_faq_group: Utwórz grupę
+          published_yes: Tak
+          published_no: Nie
+        form:
+          published_yes: Tak
+          published_no: Nie
+        new:
+          add_faq_group: Utwórz grupę
+        create:
+          success: Grupa została dodana
+          errors: Nie udało się dodać grupy
+        update:
+          success: Grupa została edytowana
+          errors: Nie udało się edytować grupy
+        edit:
+          edit_faq_group: Edytuj grupę
+        destroy:
+          success: Grupa została usunięta
       hero_sections:
         index:
           headers:
-            name: Nazwa sekcji
+            name: Baner
             system_name: Nazwa systemowa
             updated_at: Data ostatniej aktualizacji
         show:
-          title: Poodgląd wyglądu sekcji
+          title: Podgląd wyglądu baneru
           hs_title: Tytuł
-          hs_subtitle: Podtytuł
+          hs_description: Opis
           hs_baner_img: Obraz główny
           hs_download_img: Pobierz obraz
           hs_baner_img_alt: Opis alternatywny (ALT) dla obrazu głównego
           hs_system_name: Nazwa systemowa
           hs_update_at: Data ostatniej aktualizacji
         edit:
-          title: Edycja wyglądu sekcji
-          news_hero_headers: Dla Aktualności
+          title: Edycja wyglądu banerów
+          news_hero_headers: Dla Informacji
           consultation_requests_hero_headers: Dla Wniosków o konsultacje
           info_article_hero_headers: Dla Strefy koordynatora
           pages_hero_headers: Dla Bazy wiedzy
           update: Zapisz
         update:
-          success: Zaktualizowano wygląd działu
+          success: Zaktualizowano wygląd banerów
           error: Nie udało się zaktualizować wyglądu działu
       statistics:
+        create:
+          success: Statystyka została dodana
         update:
           success: Zaktualizowano statystyki
           error: Nie udało się zaktualizować statystyk
@@ -287,17 +551,24 @@ pl:
           update: Aktualizuj
           title: "Edycja Statystyki - %{name}: %{count}"
         actions:
+          destroy: Usuń
           edit: Edytuj
+          new: Dodaj nową pozycję
         visible:
           false: Niewidoczne
           true: Widoczne
+        destroy:
+          success: Usunięto
+          not_allowed: Operacja niedozwolona
+        new: Nowa statystyka
+        save: Zapisz
         default_name:
-          followers_count: Obserwujący
           participants_count: Uczestnicy
           this_year_comments_count: Komentarze od początku roku
           this_year_processes_count: Konsultacje od początku roku
           this_year_remarks_count: Uwagi od początku roku
           this_year_meetings_count: Spotkania od początku roku
+          this_year_meetings_duration: Czas trwania spotkań od początku roku
           meetings_count: Spotkania
           assemblies_count: Zespoły
           comments_count: Komentarze
@@ -306,36 +577,25 @@ pl:
         sys_name:
           this_year_comments_count: Liczba komentarzy od początku roku
           this_year_processes_count: Liczba konsultacji od początku roku
-          this_year_remarks_count: Liczba uwag od początku roku
+          this_year_remarks_count: 'Liczba opinii od początku roku z komponentów: Uwagi, Uwagi do dokumentu, Uwagi na mapie oraz ankiety'
           this_year_meetings_count: Liczba spotkań od początku roku
+          this_year_meetings_duration: Czas trwania spotkań od początku roku liczony w godzinach 
           assemblies_count: Liczba zespołów
           comments_count: Liczba komentarzy
-          followers_count: Liczba obserwujących
-          meetings_count: Liczba spotkań
+          meetings_count: Łączna liczba spotkań w systemie
           participants_count: Liczba uczestników
-          processes_count: Liczba konsultacji
-          users_count: Liczba użytkowników
+          processes_count: Łączna liczba konsultacji w systemie
+          users_count: Łączna liczba użytkowników zewnętrznych i wewnętrznych w systemie, którzy zarejestrowali i potwierdzili konto
         index:
           headers:
             weight: Kolejność na stronie
             actions: Działania
             count: Wartość
             explanation: Opis
+            additional_statistic_number: Dodatkowe dane
             name: Nazwa wyświetlana
             visible: Widoczne
-      newsletter_templates:
-        ks_custom_settings_form:
-          body: Treść pod przyciskiem
-          cta_text: Opis przycisku
-          cta_url: Link przycisku
-          encouragement: Hasło przed przyciskiem
-          interpolations_hint: 'Wskazówka: wstaw „%{name}” w dowolnym miejscu tekstu głównego lub tematu, a zostanie zastąpiony nazwą odbiorcy'
-          introduction: Treść nad przyciskiem
-          lead: Lead
-          main_image: Obraz
-          title: Treść wyświetlana na obrazie
-        ks_custom:
-          name: ''
+            sum: Suma
       departments:
         actions:
           edit: Edytuj
@@ -353,7 +613,7 @@ pl:
             actions: Działania
             name: Nazwa
         new:
-          save: Utwórz
+          create: Utwórz
           title: Nowa jednostka
         update:
           error: Nie udało się zaktualizować tagu
@@ -369,7 +629,7 @@ pl:
             actions: Działania
             name: Nazwa
             sys_name: Oryginalna nazwa elementu
-            weight: Kolejność
+            weight: Kolejność na stronie
             visible: Widoczny
         update:
           error: Wystąpił błąd podczas aktualizowania tego elementu menu
@@ -394,7 +654,7 @@ pl:
             actions: Działania
             name: Nazwa
         new:
-          save: Utwórz
+          create: Utwórz
           title: Nowy tag
         update:
           error: Nie udało się zaktualizować tagu

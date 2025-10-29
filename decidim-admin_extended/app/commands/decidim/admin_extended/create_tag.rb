@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating an tag.
-    class CreateTag < Rectify::Command
+    class CreateTag < Decidim::Command
       # Public: Initializes the command.
       #
       # form - A form object with the params.

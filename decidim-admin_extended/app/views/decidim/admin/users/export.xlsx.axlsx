@@ -1,0 +1,31 @@
+wb =  xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  sheet.add_row [
+                  'Lp.',
+                  'Nazwę użytkownika',
+                  'Email',
+                  'Imię',
+                  'Nazwisko',
+                  'Rola',
+                  'Nazwa wyświetlana',
+                  'Data utworzenia konta',
+                  'Status (aktywne, nieaktywne)',
+                  'Data dezaktywacji'
+                ]
+  @users.each_with_index do |user, index|
+    sheet.add_row [
+                    index + 1,
+                    user.nickname,
+                    user.email,
+                    user.first_name,
+                    user.last_name,
+                    user.role_name ? user.role_name : '-',
+                    user.editorial,
+                    l(user.created_at, format: :short),
+                    user.ad_access_deactivate_date.present? ? "Nieaktywny" : "Aktywny",
+                    user.ad_access_deactivate_date.present? ? l(user.ad_access_deactivate_date, format: :short) : "-",
+                  ]
+  end
+  column_width = 10
+  sheet.column_widths *(Array.new(10, column_width))
+end

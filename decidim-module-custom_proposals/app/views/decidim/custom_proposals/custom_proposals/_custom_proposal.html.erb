@@ -1,0 +1,29 @@
+<div class="article proposal-wrapper" id='proposal-<%= custom_proposal.id %>'>
+  <button aria-controls="<%= custom_proposal.id %>-content" class="card__title custom-proposal" data-url="<%= custom_proposal.id %>" id="<%= custom_proposal.id %>" aria-expanded="false">
+    <h2 class="section-title"><%= custom_proposal.title %></h2>
+    <img src="<%= asset_pack_path('media/images/arrow-down-s-line.svg') %>" width="32" height="32" alt="" class="toggle-button" />
+  </button>
+
+
+  <div class="content-wrapper">
+    <div class="card__content" id="<%= custom_proposal.id %>-content" aria-labelledby="<%= custom_proposal.id %>" role="region">
+      <div class="editor-content card__content_custom custom-text rich-text-display custom-proposal__content">
+        <%= quill_sanitize custom_proposal.body %>
+      </div>
+
+      <div class="participatory-space">
+        <div class="row">
+          <div class="columns mediumlarge-9 small-12">
+            <h4 class="show-for-sr">Komentarze</h4>
+            <%= comments_for custom_proposal %>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<%= append_javascript_pack_tag "knowledge_base" %>
+<%= append_javascript_pack_tag "proposal" %>
+<%= append_javascript_pack_tag "comments" %>
+

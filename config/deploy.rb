@@ -1,3 +1,4 @@
+require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
@@ -11,16 +12,9 @@ set :branch, 'develop'
 # set :repository, ''
 set :rvm_use_path, '/usr/local/rvm/scripts/rvm'
 
-# Optional settings:
 set :user, 'deploy'          # Username in the server to SSH to.
 # set :port, '30000'           # SSH port number.
 set :forward_agent, true     # SSH forward_agent.
-
-# Shared dirs and files will be symlinked into the app-folder by the 'deploy:link_shared_paths' step.
-# Some plugins already add folders to shared_dirs like `mina/rails` add `public/assets`, `vendor/bundle` and many more
-# run `mina -d` to see all folders and files already included in `shared_dirs` and `shared_files`
-# set :shared_dirs, fetch(:shared_dirs, []).push('public/assets')
-# set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 set :shared_dirs, fetch(:shared_dirs, []).push('tmp/pids', 'tmp/sockets')
 set :shared_files, fetch(:shared_files, []).push('.env', 'config/master.key')
 
@@ -32,24 +26,9 @@ task :remote_environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use', 'ruby-2.7.3@default'
+  invoke :'rvm:use', 'ruby-3.2.6@default'
 end
 
-# Put any custom commands you need to run at setup
-# All paths in `shared_dirs` and `shared_paths` will be created on their own.
-task :setup do
-  # command %{rbenv install 2.5.3 --skip-existing}
-  # command %{rvm install ruby-2.5.3}
-  # command %{gem install bundler}
-  command %[mkdir "#{fetch(:shared_path)}/config"]
-  command %[touch "#{fetch(:shared_path)}/config/database.yml"]
-  command %[touch "#{fetch(:shared_path)}/config/secrets.yml"]
-  command %[touch "#{fetch(:shared_path)}/config/master.key"]
-  command %[echo "-----> Be sure to edit '#{fetch(:shared_path)}/config/database.yml' and 'master.key' and 'secrets'."]
-end
-
-
-set :default_stage, 'staging'
 desc "Deploys STAGING"
 task :staging do
   puts "START STAGING"
@@ -58,6 +37,7 @@ task :staging do
   set :deploy_to, '/var/www/decidim'
   set :branch, 'develop'
   set :rails_env, 'staging'
+  set :force_asset_precompile, true
 end
 
 desc "Deploys PROD1"
@@ -83,11 +63,29 @@ task :prod2 do
 end
 
 
+desc 'Restart _sidekiq on server.'
+task :restart_sidekiq do
+  comment 'Restart sidekiq'
+  command 'sudo systemctl restart sidekiq.service'
+end
 
+desc 'Regenerate sitemap'
+task :regenerate_sitemap do
+  comment 'Sitemap regenerate'
+  command %(cd "#{fetch(:current_path)}")
+  command 'RAILS_ENV=production bundle exec rake sitemap:refresh:no_ping'
+end
 
-desc "Deploys the current version to the server."
+desc 'Update cron with whenever'
+task :update_cron do
+  comment "Update cron with whenever"
+  in_path(fetch(:current_path)) do
+    command "RAILS_ENV=#{fetch(:rails_env)} bundle exec whenever --update-crontab #{fetch(:application_name)}_#{fetch(:current_stage)} --load-file config/schedule.rb"
+  end
+end
+
+desc 'Deploys the current version to the server.'
 task :deploy do
-  invoke fetch(:current_stage, 'staging')
   # uncomment this line to make sure you pushed your local branch to the remote origin
   # invoke :'git:ensure_pushed'
   deploy do
@@ -97,15 +95,17 @@ task :deploy do
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
+    command %{npm i}
     invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
-        command %[ln -s /var/www/decidim/storage/public/uploads "#{fetch(:current_path)}/public/uploads"]
-        command %[ln -s /var/www/decidim/storage/storage "#{fetch(:current_path)}/storage"]
+        command %[ln -s /srv/www/decidim/storage/public/uploads "#{fetch(:current_path)}/public/uploads"]
+        command %[ln -s /srv/www/decidim/storage/storage "#{fetch(:current_path)}/storage"]
         command %{touch tmp/restart.txt}
+        comment 'Restarting Passenger...'
       end
     end
   end

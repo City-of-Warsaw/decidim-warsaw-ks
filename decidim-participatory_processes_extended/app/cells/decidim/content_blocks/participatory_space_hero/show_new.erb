@@ -1,0 +1,43 @@
+<section id="hero-<%= resource&.id %>" data-process-hero>
+  <div class="participatory-space__hero">
+    <div class="line-decor <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>"></div>
+    <div class="process-header__container custom-row">
+      <div class="custom-process-header__info">
+        <div class="participatory-space__hero-text">
+          <h1 class="h1 text-5xl">
+            <%= title_text %>
+          </h1>
+          <% if has_cta? %>
+            <%= link_to cta_text, cta_path, class: "button button__lg button__secondary", data: { cta: "" } %>
+          <% end %>
+        </div>
+
+        <span class="process-header__status">
+          <% if current_participatory_space.end_date.present? && current_participatory_space.end_date >= Time.current.to_date %>
+            <span class="status-circle status-circle--active"></span>
+            <% if current_participatory_space.end_date.blank?  %>
+              <strong>Trwające</strong>
+            <% else %>
+              <p>Konsultacje trwają&nbsp;</p>
+              <%= t(".till", ending_date: l(current_participatory_space.end_date.to_date, format: :decidim_short_cut_zero)).html_safe %>
+          <% end %>
+          <% else %>
+            <span class="status-circle status-circle--inactive"></span>
+            <% if current_participatory_space.consultation_status.present? %>
+              Zakończone –&nbsp;<strong><%= t("consultation_statuses.#{current_participatory_space.consultation_status}", scope: 'activemodel.attributes.participatory_process').downcase %></strong>
+            <% else %>
+              <strong>Zakończone</strong>
+            <% end %>
+          <% end %>
+        </span>
+
+      <div><%= area_and_scopes(current_participatory_space) %></div>
+      </div>
+      <div class="custom-column">
+        <div class="process-img-wrapper">
+          <%= image_path  %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

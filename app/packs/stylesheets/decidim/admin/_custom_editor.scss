@@ -1,0 +1,210 @@
+:root {
+  --white: #fff;
+  --black: #2e2b29;
+  --black-contrast: #110f0e;
+  --gray-1: rgba(61, 37, 20, 0.05);
+  --gray-2: rgba(61, 37, 20, 0.08);
+  --gray-3: rgba(61, 37, 20, 0.12);
+  --gray-4: rgba(53, 38, 28, 0.3);
+  --gray-5: rgba(28, 25, 23, 0.6);
+  --green: #22c55e;
+  --purple: #6a00f5;
+  --purple-contrast: #5800cc;
+  --purple-light: rgba(88, 5, 255, 0.05);
+  --yellow-contrast: #facc15;
+  --yellow: rgba(250, 204, 21, 0.4);
+  --yellow-light: #fffae5;
+  --red: #ff5c33;
+  --red-light: #ffebe5;
+  --shadow: 0px 12px 33px 0px rgba(0, 0, 0, 0.06),
+    0px 3.618px 9.949px 0px rgba(0, 0, 0, 0.04);
+}
+
+.editor-container {
+  .editor-input {
+    [data-buttonbubble] {
+      @apply px-2 py-1 border border-solid border-[var(--editor-bubble-border-color)] bg-white shadow-md shadow-[var(--editor-bubble-shadow-color)];
+
+      [data-buttonbubble-content] {
+        @apply inline-flex;
+
+        [data-buttonbubble-value] {
+          @apply truncate ml-2 max-w-[185px];
+        }
+      }
+
+      button {
+        @apply mx-1 cursor-pointer text-[var(--editor-active-color)];
+      }
+    }
+
+    hr {
+      margin-top: 1rem !important;
+      margin-bottom: 1rem !important;
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    td,
+    th {
+      border: 1px solid var(--gray-3);
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 6px 8px;
+      position: relative;
+      vertical-align: top;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: var(--gray-1);
+      text-align: left;
+
+      p {
+        font-weight: normal !important;
+      }
+    }
+
+    .selectedCell:after {
+      background: var(--gray-2);
+      content: "";
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .column-resize-handle {
+      background-color: var(--purple);
+      bottom: -2px;
+      pointer-events: none;
+      position: absolute;
+      right: -2px;
+      top: 0;
+      width: 4px;
+    }
+  }
+
+  .tableWrapper {
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  &.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
+  }
+
+  .editor-toolbar {
+    @apply flex items-center gap-x-6 gap-y-1 flex-wrap;
+
+    .editor-toolbar-group {
+      @apply items-center !mx-0 !flex min-h-8;
+
+      &--secondary {
+        @apply bg-[#f6f8fa] rounded-lg !px-2;
+      }
+    }
+  }
+
+  // Custom styles
+  .custom-legal-basis {
+    font-size: 12px;
+  }
+
+  .area-color-headline {
+    background-color: var(--primary);
+    color: white;
+    width: fit-content;
+    display: block;
+  }
+
+  .custom-text-wrap-image {
+    clear: none;
+    margin-top: 1.5rem;
+
+    &::after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+  }
+
+  .editor-content-image:has(+ .custom-text-wrap-image) img {
+    float: left;
+    margin: 1.5rem 1.5rem 1.5rem 0px;
+  }
+
+  .section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .ql-button,
+  .custom-button {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0.5rem 0 0.5rem 3rem;
+    padding: 0.85em 1em;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.25s ease-out, color 0.25s ease-out;
+    font-family: inherit;
+    font-size: 1rem;
+    -webkit-appearance: none;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    color: white;
+    background-color: var(--primary);
+    border-color: var(--primary);
+    text-decoration: none !important;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: unset;
+      color: black;
+    }
+  }
+
+  th > p > .custom-button,
+  td > p > .custom-button {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+
+  blockquote {
+    font-style: normal !important;
+
+    ::before,
+    ::after {
+      content: unset !important;
+    }
+  }
+
+  .show-for-sr {
+    display: block !important;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
+}

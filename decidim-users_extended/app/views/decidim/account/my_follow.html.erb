@@ -1,0 +1,34 @@
+<% add_decidim_page_title(t("my_follow", scope: "layouts.decidim.user_menu")) %>
+<% content_for(:subtitle) { t("my_follow", scope: "layouts.decidim.user_menu") } %>
+
+<%= render layout: "layouts/decidim/shared/layout_user_profile" do %>
+  <div class="-mt-3 md:mt-0 mb-6 md:mb-11 px-3 md:px-0">
+    <strong class="text-sm md:text-[16px]">Twoje obserwacje, do których dostajesz powiadomienia email.</strong>
+    <p class="text-sm md:text-[16px]">Aby zrezygnować z danej obserwacji, wejdz na stronę i wybierz "nie obserwuj"</p>
+  </div>
+
+  <strong class="pb-2.5 md:pb-5 px-3 md:px-0 border-b-2 border-b-background-4 mb-3 md:mb-[18px] block w-full text-[16px] md:text-xl">KONSULTACJE</strong>
+
+  <% my_followed_processes.each do |process| %>
+    <div>
+      <%= render partial: "decidim/account/my_followed_consultation",locals: {process: process} %>
+    </div>
+  <% end %>
+
+  <strong class="pb-2.5 md:pb-5 px-3 md:px-0 border-b-2 border-b-background-4 mb-3 md:mb-[18px] mt-7 md:mt-10 block w-full text-[16px] md:text-xl">KOMPONENTY</strong>
+
+  <% my_followed_components.each do |component| %>
+    <div>
+      <%= render partial: "decidim/account/my_followed_component",locals: {component: component} %>
+    </div>
+  <% end %>
+
+  <strong class="pb-2.5 md:pb-5 px-3 md:px-0 border-b-2 border-b-background-4 mb-3 md:mb-[18px] mt-7 md:mt-10 block w-full text-[16px] md:text-xl">STRONY INFORMACYJNE</strong>
+
+  <% my_followed_informations.each do |page| %>
+    <div>
+      <%= render partial: "decidim/account/my_followed_news",locals: {page: page} %>
+    </div>
+  <% end %>
+
+<% end %>

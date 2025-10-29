@@ -1,0 +1,28 @@
+(function() {
+    var rootCommentableId = <%== "comments-for-#{@comment.root_commentable.commentable_type.demodulize}-#{@comment.root_commentable.id}".to_json %>;
+    var commentHtml = '<%== j(cell("decidim/comments/comment", @comment, edit_token: @comment.token).call) %>';
+    var inReplyTo = <%== (reply?(@comment) ? @commentable.id : nil).to_json %>;
+
+    var $comments = $("#" + rootCommentableId);
+    var component = $comments.data("comments");
+    if (inReplyTo) {
+        component.addReply(inReplyTo, commentHtml, true);
+
+        var hideButton = $("#comment_" + <%= root_comment.id %>).find("[data-comment-hide]").first();
+        hideButton.find("[data-show-comment-reply]").first().html('<%= t("decidim.components.comment.show_replies", count: Decidim::Comments::SortedComments.for(root_comment.reload).size) %>');
+
+    } else {
+        component.addThread(commentHtml, true);
+    }
+
+    <% if @comment.token.present? %>
+        document.cookie = "comment_edit_token_<%= @comment.id %>=<%= @comment.token %>; path=/"; 
+    <% end %>
+
+    Rails.fire(document, "comments:loaded", {
+        commentsIds: [<%= @comment.id %>, <%= @comment.commentable.id %>]
+    });
+
+    // Update the comments count
+    $(".comments-count", $comments).text(<%== t("decidim.components.comments.title", count: @comments_count).to_json %>);
+}());

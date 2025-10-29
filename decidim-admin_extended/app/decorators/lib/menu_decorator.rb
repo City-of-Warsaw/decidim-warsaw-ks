@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 Decidim::Menu.class_eval do
-
-  def item(label, url, options = {})
-    label, options = custom_item_options(label, options) if @name == :menu
-    @items << Decidim::MenuItem.new(label, url, options)
+  # overwritten method
+  # add custom_item_options
+  def add_item(identifier, label, url, options = {})
+    if @name == :home_content_block_menu
+      label, options = custom_item_options(identifier, label, options) if @name == :home_content_block_menu
+    else
+      options = { position: (1 + @items.length) }.merge(options)
+    end
+    @items << Decidim::MenuItem.new(label, url, identifier, options)
   end
 
   private
 
-  def custom_item_options(label, options = {})
-    custom_menu_item = Decidim::AdminExtended::MainMenuItem.find_item(label)
+  def custom_item_options(identifier, label, options = {})
+    custom_menu_item = Decidim::AdminExtended::MainMenuItem.find_item(identifier)
     if custom_menu_item
       options[:position] = custom_menu_item.weight.to_f
       options[:original_label] = label

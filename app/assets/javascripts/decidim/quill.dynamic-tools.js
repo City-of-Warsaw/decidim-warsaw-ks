@@ -67,7 +67,7 @@ class QuillToolbarItem {
 }
 
 /** @class Class representing a dropdown tool for a Quill Editor toolbar. */
-class QuillToolbarDropDown extends QuillToolbarItem {
+export class QuillToolbarDropDown extends QuillToolbarItem {
   /**
    * Creates an instance of QuillToolbarDropDown.
    *

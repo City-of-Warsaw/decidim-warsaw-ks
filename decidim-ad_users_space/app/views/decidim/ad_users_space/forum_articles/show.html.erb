@@ -9,7 +9,7 @@
 <div class="row column view-header">
   <div class="m-bottom">
     <%= link_to forum_articles_path, class: "small hollow" do %>
-      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <%= icon "arrow-go-back-line", class: "icon--small", role: "img", "aria-hidden": true %>
       <span><%= t(".back_to_forum", current: forum_article.title) %></span>
     <% end %>
   </div>
@@ -56,6 +56,7 @@
   </div>
 <% end %>
 
+<% content_for(:js_content) do %>
 <%= nonced_javascript_tag do %>
   $(document).ready(function() {
     $('.new_comment textarea').keyup(function() {
@@ -63,5 +64,4 @@
     });
   });
 <% end %>
-
-<%= javascript_include_tag("decidim/comments/comments") %>
+<% end %>

@@ -8,7 +8,7 @@ This is the open-source repository for decidim-warsaw-ks, based on [Decidim](htt
 
 ## Modules
 
-The software is based on the Decidim 0.24.3 solution. It is a system that includes ready-made modules. During the development work, additional modules were produced, extending the functionality of existing modules or adding new modules to the system. All modules are an integral part of the platform, stored in the GIT repository and installed together as one application.
+The software is based on the Decidim 0.29.3 solution. It is a system that includes ready-made modules. During the development work, additional modules were produced, extending the functionality of existing modules or adding new modules to the system. All modules are an integral part of the platform, stored in the GIT repository and installed together as one application.
 
 ### Stock modules
 
@@ -23,7 +23,7 @@ The software is based on the Decidim 0.24.3 solution. It is a system that includ
 ### Custom and extended modules
 
 | #  | Module                  | Gem name                                 | Description                                                                                                       |
-| -- | ----------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+|----| ----------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | 1  | AD Users                | decidim-ad_users_space                   | Adds Active Directory integration and authentication                                                              |
 | 2  | Admin extended          | decidim-admin_extended                   | Extended to develop custom features                                                                               |
 | 3  | Comments extended       | decidim-comments_extended                | Extended to develop custom features                                                                               |
@@ -31,15 +31,17 @@ The software is based on the Decidim 0.24.3 solution. It is a system that includ
 | 5  | Consultation requests   | decidim-consultation_requests            | Adds new type of content: Consultation request                                                                    |
 | 6  | Core extended           | decidim-core_extended                    | Extended to develop custom features                                                                               |
 | 7  | Expert questions        | decidim-expert_questions                 | Adds new participatory process component that allows users to ask designated experts questions                    |
-| 8  | Repository              | decidim-module-repository                | Adds media and files management                                                                                   |
-| 9  | REST API                | decidim-module-rest_api                  | Adds API allowing integrations with other systems                                                                 |
-| 10 | Study notes             | decidim-module-study_notes               | Adds new participatory process component that allows users to send comments on planning documents, including maps |
-| 11 | WS notification         | decidim-module-ws_notification           | Adds custom notifications system integration                                                                      |
-| 12 | News                    | decidim-news                             | Adds new type of content: News                                                                                    |
-| 13 | Pages extended          | decidim-pages_extended                   | Extended to develop custom features                                                                               |
-| 14 | Participatory processes | decidim-participatory_processes_extended | Extended to develop custom features                                                                               |
-| 15 | Remarks                 | decidim-remarks                          | Adds new participatory process component that allows users to send remarks                                        |
-| 16 | Users extended          | decidim-users_extended                   | Extended to develop custom features                                                                               |
+| 8  | Custom proposals        | decidim-module-custom_proposals          | Adds new custom proposals component
+| 9  | General plan request    | decidim-module-general_plan_requests     | Adds new general plan request component
+| 10 | Repository              | decidim-module-repository                | Adds media and files management                                                                                   |
+| 11 | REST API                | decidim-module-rest_api                  | Adds API allowing integrations with other systems                                                                 |
+| 12 | Study notes             | decidim-module-study_notes               | Adds new participatory process component that allows users to send comments on planning documents, including maps |
+| 13 | WS notification         | decidim-module-ws_notification           | Adds custom notifications system integration                                                                      |
+| 14 | News                    | decidim-news                             | Adds new type of content: News                                                                                    |
+| 15 | Pages extended          | decidim-pages_extended                   | Extended to develop custom features                                                                               |
+| 16 | Participatory processes | decidim-participatory_processes_extended | Extended to develop custom features                                                                               |
+| 17 | Remarks                 | decidim-remarks                          | Adds new participatory process component that allows users to send remarks                                        |
+| 18 | Users extended          | decidim-users_extended                   | Extended to develop custom features                                                                               |
 
 ## License
 

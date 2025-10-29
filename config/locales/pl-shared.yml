@@ -8,5 +8,5 @@ pl:
     participatory_processes:
       participatory_processes:
         filters:
-          show_all: Rozwiń filtrowanie
-          hide_all: Zwiń filtrowanie
+          show_all: Rozwiń filtrowanie<span class="show-for-sr"> powyżej</span>
+          hide_all: Zwiń filtrowanie<span class="show-for-sr"> powyżej</span>

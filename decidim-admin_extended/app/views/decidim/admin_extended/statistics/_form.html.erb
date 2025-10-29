@@ -1,0 +1,19 @@
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="row column">
+      <%= form.text_field :name %>
+    </div>
+
+    <div class="row column">
+      <%= form.number_field :weight %>
+    </div>
+
+    <div class="row column">
+      <%= form.number_field :additional_statistic_number, value:0, label: "Dodatkowe dane dodawane do statystyki" %>
+    </div>
+
+    <div class="row column">
+      <%= form.check_box :visibility %>
+    </div>
+  </div>
+</div>

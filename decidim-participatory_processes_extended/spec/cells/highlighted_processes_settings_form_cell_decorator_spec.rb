@@ -9,7 +9,7 @@ module Decidim
         
         let(:cell) { described_class.new }
 
-        describe "max results label"
+        describe "max results label" do
           subject { cell.label }
 
           it { is_expected.to eq("Maksymalna ilość elementów do pokazania") }

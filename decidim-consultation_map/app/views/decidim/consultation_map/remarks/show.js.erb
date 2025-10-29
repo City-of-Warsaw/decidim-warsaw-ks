@@ -38,3 +38,5 @@ $('#new_remark' + " [data-decidim-comments]").each(function (_i, el) {
   comments.mountComponent();
   $(el).data("comments", comments);
 });
+
+document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $newRemarkBox[0] }));

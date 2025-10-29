@@ -1,0 +1,5 @@
+<% form.fields_for :settings, form.object.settings do |settings_fields| %>
+  <%= settings_fields.text_field :header, label: "Nagłówek" %>
+  <%= settings_fields.editor :description, toolbar: :full, label: "Opis" %>
+  <%= settings_fields.text_field :action_title, label: "Tytuł przycisku akcji" %>
+<% end %>

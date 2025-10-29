@@ -69,12 +69,10 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Searchlight::Search</span>
+      <span class="inheritName">Object</span>
       
         <ul class="fullTree">
           <li>Object</li>
-          
-            <li class="next">Searchlight::Search</li>
           
             <li class="next">Decidim::AdUsersSpace::ForumArticleSearch</li>
           
@@ -104,7 +102,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>Service that encapsulates all logic related to filtering participatory processes.</p>
+<p>Service that encapsulates all logic related to filtering participatory processes. TODO: upgrade v025! poprawic lub usunac zaleznosc Searchlight</p>
 
 
   </div>
@@ -169,7 +167,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of ForumArticleSearch.</p>
+<p>class ForumArticleSearch &lt; Searchlight::Search.</p>
 </div></span>
   
 </li>
@@ -200,8 +198,7 @@
     </ul>
   
 
-
-  <div id="constructor_details" class="method_details_list">
+<div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
@@ -216,7 +213,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of ForumArticleSearch.</p>
+<p>class ForumArticleSearch &lt; Searchlight::Search</p>
 
 
   </div>
@@ -230,13 +227,13 @@
       <pre class="lines">
 
 
-8
-9
 10
-11</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 10</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_organization'>organization</span><span class='comma'>,</span> <span class='id identifier rubyid_raw_options'>raw_options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_raw_options'>raw_options</span><span class='rparen'>)</span>
@@ -269,12 +266,12 @@
       <pre class="lines">
 
 
-13
-14
-15</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_base_query'>base_query</span>
   <span class='const'><span class='object_link'><a href="ForumArticle.html" title="Decidim::AdUsersSpace::ForumArticle (class)">ForumArticle</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='ivar'>@organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
@@ -299,15 +296,15 @@
       <pre class="lines">
 
 
-17
-18
 19
 20
 21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/searches/decidim/ad_users_space/forum_article_search.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_search_text'>search_text</span>
   <span class='id identifier rubyid_query'>query</span><span class='period'>.</span><span class='id identifier rubyid_left_outer_joins'>left_outer_joins</span><span class='lparen'>(</span><span class='symbol'>:comments</span><span class='rparen'>)</span>
@@ -325,9 +322,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

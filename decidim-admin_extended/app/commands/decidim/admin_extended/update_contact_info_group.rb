@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating a Contact Info Group
-    class UpdateContactInfoGroup < Rectify::Command
+    class UpdateContactInfoGroup < Decidim::Command
       # Public: Initializes the command.
       #
       # contact_info_group - A Contact Info Group to update.

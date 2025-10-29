@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= Decidim::GraphiQL::Rails.config.title || "Decidim API" %></title>
+    <%= stylesheet_pack_tag("decidim_api_graphiql") %>
+  </head>
+  <body>
+    <div id="graphiql-container">
+      Loading...
+    </div>
+
+    <%= javascript_pack_tag "decidim_api_graphiql", defer: false %>
+
+    <%
+      js_configs = {
+        graphql_endpoint: graphql_endpoint_path,
+        default_query: Decidim::GraphiQL::Rails.config.initial_query,
+        request_headers: JSON.pretty_generate(Decidim::GraphiQL::Rails.config.resolve_headers(self))
+      }
+    %>
+
+    <%= nonced_javascript_tag do %>
+      window.Decidim.config.set(<%== js_configs.to_json %>);
+    <% end %>
+  </body>
+</html>

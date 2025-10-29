@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when creating a Contact Info Group
-    class CreateContactInfoGroup < Rectify::Command
+    class CreateContactInfoGroup < Decidim::Command
       # Public: Initializes the command.
       #
       # form - A form object with the params.
@@ -43,7 +43,8 @@ module Decidim
           name: form.name,
           subtitle: form.subtitle,
           published: form.published,
-          weight: form.weight
+          weight: form.weight,
+          organization: form.current_organization
         }
       end
     end

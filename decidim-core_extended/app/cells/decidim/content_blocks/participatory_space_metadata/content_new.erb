@@ -1,0 +1,121 @@
+<div class="participatory-space__metadata-grid">
+  <% if current_participatory_space.start_date.present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("start_date", scope: "activemodel.attributes.participatory_process_step") %>
+        </span>
+      </div>
+      <span>
+        <%== l(current_participatory_space.start_date, format: :decidim_with_month_name_cut_zero) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if current_participatory_space.end_date.present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("end_date", scope: "activemodel.attributes.participatory_process_step") %>
+        </span>
+      </div>
+      <span>
+        <%== l(current_participatory_space.end_date, format: :decidim_with_month_name_cut_zero) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.local_area).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("local_area", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+        <%= translated_attribute(current_participatory_space.local_area) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.meta_scope).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("meta_scope", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+        <%= translated_attribute(current_participatory_space.meta_scope) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.participatory_structure).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("participatory_structure", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+      <%= translated_attribute(current_participatory_space.participatory_structure) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if current_participatory_space.fb_url.present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("fb_url", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+        <%= link_to t("join_us_on_fb", scope: "decidim.participatory_processes.participatory_processes.right_column"),
+                    current_participatory_space.fb_url,
+                    class: 'fb-link',
+                    target: '_blank' %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.participatory_scope).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("participatory_scope", scope: "decidim.participatory_processes.participatory_processes.description") %>
+        </span>
+      </div>
+      <span>
+        <%= translated_attribute(current_participatory_space.participatory_scope) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.target).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("target", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+        <%= translated_attribute(current_participatory_space.target) %>
+      </span>
+    </div>
+  <% end %>
+
+  <% if translated_attribute(current_participatory_space.developer_group).present? %>
+    <div class="participatory-space__metadata-item">
+      <div class="participatory-space__metadata-item-title">
+        <span>
+          <%= t("developer_group", scope: "activemodel.attributes.participatory_process") %>
+        </span>
+      </div>
+      <span>
+        <%= translated_attribute(current_participatory_space.developer_group) %>
+      </span>
+    </div>
+  <% end %>
+</div>

@@ -1,6 +1,6 @@
 # Decidim::RestApi
 
-Adds API allowing integrations with other systems.
+Rest API for consultations.
 
 ## Usage
 

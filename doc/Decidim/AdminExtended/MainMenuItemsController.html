@@ -167,28 +167,6 @@
 </li>
 
       
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#generate_menu_items-instance_method" title="#generate_menu_items (instance method)">#<strong>generate_menu_items</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
         <li class="public ">
   <span class="summary_signature">
     
@@ -206,9 +184,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>helper_method :main_menu_item.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -364,9 +340,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="generate_menu_items-instance_method">
+  <h3 class="signature " id="index-instance_method">
   
-    #<strong>generate_menu_items</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+    #<strong>index</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -378,52 +354,6 @@
       <pre class="lines">
 
 
-58
-59
-60
-61
-62</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/main_menu_items_controller.rb', line 58</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_generate_menu_items'>generate_menu_items</span>
-  <span class='id identifier rubyid_evaluated_menu'>evaluated_menu</span><span class='period'>.</span><span class='id identifier rubyid_items'>items</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_m'>m</span><span class='op'>|</span>
-    <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MainMenuItem.html" title="Decidim::AdminExtended::MainMenuItem (class)">MainMenuItem</a></span></span><span class='period'>.</span><span class='id identifier rubyid_create_missing_item'><span class='object_link'><a href="MainMenuItem.html#create_missing_item-class_method" title="Decidim::AdminExtended::MainMenuItem.create_missing_item (method)">create_missing_item</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_original_label'>original_label</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="index-instance_method">
-  
-    #<strong>index</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>helper_method :main_menu_item</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-13
 14
 15
 16
@@ -431,13 +361,12 @@
 18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/main_menu_items_controller.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/controllers/decidim/admin_extended/main_menu_items_controller.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span><span class='comma'>,</span> <span class='label'>organization:</span> <span class='id identifier rubyid_current_organization'>current_organization</span>
 
-  <span class='id identifier rubyid_generate_menu_items'>generate_menu_items</span> <span class='comment'># TODO: do usuniecia gdy sie wszystkie wygeneruja
-</span>  <span class='ivar'>@items</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MainMenuItem.html" title="Decidim::AdminExtended::MainMenuItem (class)">MainMenuItem</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
+  <span class='ivar'>@items</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdminExtended.html" title="Decidim::AdminExtended (module)">AdminExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="MainMenuItem.html" title="Decidim::AdminExtended::MainMenuItem (class)">MainMenuItem</a></span></span><span class='period'>.</span><span class='id identifier rubyid_all'>all</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -565,9 +494,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:35 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

@@ -6,13 +6,6 @@ Decidim::Admin::CreateAttachment.class_eval do
   def notify_followers
     return unless @attachment.attached_to.is_a?(Decidim::Followable)
 
-    # Decidim::EventsManager.publish(
-    #   event: "decidim.events.attachments.attachment_created",
-    #   event_class: Decidim::AttachmentCreatedEvent,
-    #   resource: @attachment,
-    #   followers: @attachment.attached_to.followers
-    # )
-
     Decidim::NotificationGenerator.new(
       "decidim.events.attachments.attachment_created",
       Decidim::AttachmentCreatedEvent,
@@ -22,6 +15,6 @@ Decidim::Admin::CreateAttachment.class_eval do
       {}
     ).generate
 
-    Decidim::CoreExtended::TemplatedMailerJob.perform_now('attachment_created', { resource: @attachment })
+    Decidim::CoreExtended::TemplatedMailerJob.perform_later('attachment_created', { resource: @attachment })
   end
 end

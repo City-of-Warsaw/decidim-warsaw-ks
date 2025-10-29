@@ -1,0 +1,57 @@
+<div class="button--double form-general-submit answer-questionnaire__submit">
+  <% if !first_step? %> 
+    <%= link_to(
+      t("decidim.forms.step_navigation.show.back"),
+      "#subsubcontent",
+      class: "button button__primary button__lg min-w-[150px]",
+      data: {
+        toggle: [previous_step_dom_id, current_step_dom_id].join(" ")
+      }
+    ) %>
+
+    <%= link_to(
+      t("decidim.forms.step_navigation.show.cancel"),
+      "#subsubcontent",
+      class: "button button__primary button__lg min-w-[150px]",
+      data: {
+        toggle: ["step-0", current_step_dom_id, "survey-help", "survey-info"].join(" ")
+      }
+    ) %>
+  <% end %>
+
+  <% if last_step? %>
+    <%= form.submit(
+      t("decidim.forms.step_navigation.show.submit"),
+      role: "button",
+      class: "button button__primary button__lg min-w-[150px]",
+      disabled: button_disabled?,
+      data: {
+        confirm: t("decidim.forms.step_navigation.show.are_you_sure"),
+        disable: true
+      },
+      formnovalidate: true,
+    ) %>
+  <% elsif first_step? %>
+    <%= link_to(
+      t("decidim.forms.step_navigation.show.start"),
+      "#subsubcontent",
+      role: "button",
+      class: "button button__primary button__lg min-w-[150px] mx-auto",
+      data: {
+        toggle: [next_step_dom_id, current_step_dom_id, "survey-help", "survey-info"].join(" ")
+      }
+    ) %>
+  <% else %>
+    <%= link_to(
+      t("decidim.forms.step_navigation.show.continue"),
+      "#subsubcontent",
+      role: "button",
+      class: "button button__primary button__lg min-w-[150px]",
+      data: {
+        toggle: [next_step_dom_id, current_step_dom_id].join(" ")
+      }
+    ) %>
+  <% end %>
+</div>
+
+<%= append_javascript_pack_tag "core_extended_survey_questions_scroll" %>

@@ -1,0 +1,17 @@
+<section class="wrapper-home upcoming-events home-section">
+  <div class="row">
+    <h2 class="section-heading">
+      <%= t("decidim.meetings.content_blocks.upcoming_events.upcoming_events") %>
+      <small class="show-for-sr">
+        <%= t("decidim.meetings.content_blocks.upcoming_events.upcoming_events_explanation", count: upcoming_meetings.size) %>
+      </small>
+    </h2>
+    <div class="row">
+      <div class="columns medium-12">
+        <% if show_map? %>
+          <%= cell "decidim/meetings/meetings_map", upcoming_meetings, map_id: 'upcoming-meetings' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

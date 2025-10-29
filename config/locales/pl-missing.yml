@@ -69,35 +69,54 @@ pl:
 
   activerecord:
     models:
-      comment: Komentarz
-      decidim/comments/comment:
-        one: komentarz
-        few: komentarze
-        many: komentarzy
-        other: komentarzy
-      decidim/expert_questions/user_question:
-        one: pytanie do eksperta
-        few: pytania do eksperta
-        many: pytań do eksperta
-        other: pytań do eksperta
-      decidim/consultation_requests/consultation_request:
-        one: wniosek o konsultacje
-        few: wnioski o konsultacje
-        many: wniosków o konsultacje
-        other: wniosków o konsultacje
       decidim/forms/admin/display_condition_form:
         condition_question: teraz?
-      decidim/moderation:
-        one: wpis
-        few: wpisy
-        many: wpisów
-        other: wpisy
       decidim/static_page:
-        one: baza wiedzy
-        few: bazy wiedzy
-        many: baz wiedzy
-        other: baz wiedzy
+        one: Baza wiedzy
+        few: Baza wiedzy
+        many: Baza wiedzy
+        other: Baza wiedzy
   decidim:
+    accessibility:
+      external_link: Link zewnętrzny
+      front_page_link: Powrót
+      logo: "Oficjalne logo dla %{organization}"
+      opens_in_new_tab: Otwórz w nowej zakładce
+      secondary_menu: Menu podrzędne
+      skip_button: Pomiń
+    comments:
+      age:
+        under_20: "< 20"
+        between_21_30: "21 - 30"
+        between_31_40: "31 - 40"
+        between_41_50: "41 - 50"
+        over_50: "> 50"
+      comment_thread:
+        accessibility_label: Wątek komentarzy rozpoczęty przez %{full_name} w dniu %{date}
+    components:
+      component:
+        download_file: Pobierz plik
+      comment:
+        hide_replies:
+          one: Ukryj odpowiedź
+          other: Ukryj %{count} odpowiedzi
+    moderations:
+      actions:
+        parent_hidden: Nie można odkryć tego zasobu, ponieważ jego zawartość nadrzędna jest nadal ukryta.
+    pages:
+      home:
+        hero:
+          participate_title: Weź udział w procesie
+    reported_mailer:
+      hide:
+        content: Zgłoszenia treść
+        details: Szczegóły
+        hello: Witaj %{name},
+        manage_moderations: Zarządzaj moderacjami
+        participatory_space: Konsultacja
+        reason: Powód
+        report_html: <p>Poniższa<a href="%{url}">zawartość</a> została ukryta automatycznie.</p>
+        subject: Zasób został ukryty automatycznie
     searches:
       results: 
         view_all: Pokaż wszystkie
@@ -111,16 +130,28 @@ pl:
       moderation:
         unhide: "%{user_name} przywrócił(a) widocznosć zgłoszonego zasobu typu %{resource_type} w przestrzeni %{space_name}"
     admin:
+      actions:
+        cancel: Anuluj
       filters:
         moderations:
           reportable_type_string_eq:
             values:
               Decidim::Comments::Comment: Komentarze
-              Decidim::Comments::Proposal: Propozycje
         state_eq:
           label: Status
+      moderations:
+        report:
+          reasons:
+            parent_hidden: Zawartość nadrzędna została ukryta
   forms:
     length_validator:
       minimum:
         other: Co najmniej %{count} znaków
-
+  layouts:
+    decidim:
+      header:
+        accesibility-title: Deklaracja dostępności
+  ransack:
+    predicates:
+      gteq: po lub równe
+      lteq: przed lub równe

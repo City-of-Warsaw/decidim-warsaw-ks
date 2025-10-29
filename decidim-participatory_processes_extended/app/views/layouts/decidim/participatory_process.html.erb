@@ -1,7 +1,8 @@
 <% add_decidim_page_title(translated_attribute(current_component.name)) if try(:current_component) %>
 <% add_decidim_page_title(translated_attribute(current_participatory_space.title)) %>
 <% add_decidim_meta_tags(
-  image_url: current_participatory_space.banner_image.url,
+  # TODO: upgrade v025! poprawic lub usunac
+  # image_url: current_participatory_space.banner_image.url,
   description: translated_attribute(current_participatory_space.short_description),
 ) %>
 
@@ -9,6 +10,10 @@
   <%= render partial: "layouts/decidim/process_header" %>
   <%= cell "decidim/translation_bar", current_organization %>
   <div class="wrapper <%= current_participatory_space.area ? "area-color-#{current_participatory_space.decidim_area_id}" : '' %>">
+    <% if try(:current_component) %>
+      <h2 class="show-for-sr"><%= translated_attribute(current_component.name) %></h2>
+    <% end %>
+
     <%= yield %>
   </div>
   <% if content_for? :expanded %>
@@ -22,4 +27,5 @@
   <% end %>
 <% end %>
 
-<% provide :meta_image_url, current_participatory_space.banner_image.url %>
+<%# TODO: upgrade v025! poprawic lub usunac %>
+<%# provide :meta_image_url, current_participatory_space.banner_image.url %>

@@ -3,12 +3,11 @@
 module Decidim
   module UsersExtended
     class AdAuthorizationService
-
-      GROUP_MATCH = /CN=Decidim_ks_*/
-      # GROUP_MATCH = /CN=#{ENV['AD_BASE_FILTER']}*/
+      GROUP_MATCH = /CN=#{ENV['AD_BASE_FILTER']}*/.freeze
 
       # Public: Initializes the command.
       #
+      # login    - user login from AD
       # password - user AD password
       def initialize(login, password)
         @login = login
@@ -21,33 +20,42 @@ module Decidim
         return false if @login.blank? || @password.blank?
 
         @ad_user = @ad_service.get_ad_user(@login)
-        return unless @ad_user
+        return unless ad_user
 
         # validate password with AD
         return unless ad_user_authenticated?
+        update_or_create_user(ad_user)
 
-        # check if user has valid rol in system
-        return unless ad_user_role(@ad_user)
+        # check if user has valid role in system
+        return unless ad_user_authorized?
 
-        find_or_create_user(@ad_user)
-        update_user(@ad_user)
         @user
       end
 
       attr_accessor :ad_user
       attr_reader :user
 
-      def ad_user_role(ad_user)
-        ad_user.find_ad_role_for(GROUP_MATCH)
+      def ad_user_authenticated?
+        @ad_service.initialize_ldap_con(ad_user.ad_dn, @password).bind
       end
 
-      def ad_user_authenticated?
-        @ad_service.initialize_ldap_con(@ad_user.ad_dn, @password).bind
+      def ad_user_authorized?
+        !!ad_user_role(ad_user)
+      end
+
+      def ad_user_role(ad_user)
+        @user_role ||= ad_user.find_ad_group_for(GROUP_MATCH)
       end
 
       # Return found user or create new one for
-      def find_or_create_user(ad_user)
-        @user = find_user(ad_user) || create_user(ad_user)
+      def update_or_create_user(ad_user)
+        @user = find_user(ad_user)
+        if @user
+          update_user(ad_user)
+        else
+          @user = create_user(ad_user)
+        end
+        @user
       end
 
       # Create new user form AD data
@@ -58,8 +66,9 @@ module Decidim
           ad_name: ad_user.ad_name,
           name: ad_user.first_name,
           nickname: gen_nickname(ad_user),
-          # first_name: @ad_user.first_name, # tych pol nie ma w KS
-          # last_name: @ad_user.last_name,   # tych pol nie ma w KS
+          first_name: ad_user.first_name,
+          last_name: ad_user.last_name,
+          office_name: ad_user.office_name,
           password: password,
           password_confirmation: password,
           organization: Decidim::Organization.first,
@@ -88,14 +97,17 @@ module Decidim
           email: ad_user.email,
           admin: true,
           nickname: user.nickname.presence || gen_nickname(ad_user),
-          # first_name: ad_user.first_name, # tych pol nie ma w KS
-          # last_name: ad_user.last_name,   # tych pol nie ma w KS
+          first_name: ad_user.first_name,
+          last_name: ad_user.last_name,
+          office_name: ad_user.office_name,
           ad_name: ad_user.ad_name,
           ad_role: ad_user_role(ad_user),
           # fix for all the invitations that were sent by mistake
           confirmed_at: DateTime.current,
           confirmation_sent_at: nil,
-          confirmation_token: nil
+          confirmation_token: nil,
+          ad_access_deactivate_date: ad_user_authorized? ? nil : Time.current,
+          password_updated_at: Time.current
         )
       end
 
@@ -110,51 +122,33 @@ module Decidim
       end
 
       # Remove polish letters from string
-      def unify_polish_letters(str)
-        str.gsub(' ', '').gsub('ą', 'a').gsub('ę', 'e').gsub('ć', 'c').gsub('Ć', 'C').gsub('ł', 'l').gsub('Ł', 'L').
-          gsub('ń', 'n').gsub('Ń', 'N').gsub('ó', 'o').gsub('ś', 's').gsub('Ś', 'S').
-          gsub('ź', 'z').gsub('ż', 'z').gsub('Ż', 'Z').gsub('.', '')
+      def unify_letters(str)
+        str.tr('ąĄęĘćĆłŁńŃóÓśŚźżŻ', 'aAeEcClLnNoOsSzzZ').delete(' .')
       end
 
-      # Generate nickname from first and last name
+      # Generate nickname from first name and last name
       def gen_nickname(ad_user)
-        unify_polish_letters("#{ad_user.first_name}-#{ad_user.last_name}-#{Time.current.to_i}".first(20))
+        unify_letters("#{ad_user.first_name}-#{ad_user.last_name}-#{Time.current.to_i}".downcase.first(20))
       end
 
-      # Generate random pasword
+      # Generate random password
+      # Why? Password is required for Decidim user, but it is never used for AD users login
       def gen_password
-        "#{::Faker::Lorem.word}#{::Faker::Number.between(from: 0, to: 9)}#{::Faker::Lorem.word}#{::Faker::Number.between(from: 0, to: 9)}"
+        plain = []
+        chars = ("a".."z").to_a
+        3.times { |i| plain << chars[rand(chars.size - 1)] }
+
+        chars = ("A".."Z").to_a
+        3.times { |i| plain << chars[rand(chars.size - 1)] }
+
+        chars = ("0".."9").to_a
+        3.times { |i| plain << chars[rand(chars.size - 1)] }
+
+        chars = ["$", "!", "@", "#", "%", "*"]
+        1.times { |i| plain << chars[rand(chars.size - 1)] }
+
+        plain.shuffle.join
       end
-
-      # Test method
-      # #########################################
-      # testowa funkcja do znajdowania uzytkownika
-      def find_user_from_ad(ad_name)
-        u = Decidim::User.where.not(ad_name: ad_name)
-        user_attrs = ad_service.get_user_info(u.ad_name)
-        first_name = user_attrs.givenname.first
-        last_name = user_attrs.sn.first
-        u
-
-        # GROUP_MATCH = /CN=Decidim_ks_*/
-        login, password = '', ''
-        ad_service = Decidim::UsersExtended::AdService.new
-        ad_user = ad_service.get_ad_user(login)
-        ad_service.initialize_ldap_con(ad_user.ad_dn, password).bind
-        ad_service.authenticate('', '')
-
-        # Decidim::User.where.not(ad_name: nil).each do |u|
-        #   user_attrs = ad_service.get_user_info(u.ad_name)
-        #   first_name = user_attrs.givenname.first
-        #   last_name = user_attrs.sn.first
-        #   u.name = first_name
-        #   u.first_name = first_name
-        #   u.last_name = last_name
-        #   u.nickname = unpolish_letters("#{first_name}-#{last_name}-#{Time.current.to_i}".first(20))
-        #   u.save
-        # end
-      end
-
     end
   end
 end

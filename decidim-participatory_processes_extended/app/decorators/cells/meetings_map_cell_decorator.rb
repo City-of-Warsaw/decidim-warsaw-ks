@@ -10,4 +10,8 @@ Decidim::Meetings::MeetingsMapCell.class_eval do
 
     render :show_new
   end
+
+  def map_id
+    options[:map_id].presence || "map"
+  end
 end

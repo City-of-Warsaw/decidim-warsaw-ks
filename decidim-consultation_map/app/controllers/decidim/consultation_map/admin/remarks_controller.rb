@@ -15,7 +15,6 @@ module Decidim::ConsultationMap::Admin
       enforce_permission_to :read, :map_remark
 
       @remarks = collection
-      # TODO: create_log(current_user, 'remarks_export')
       respond_to do |format|
         format.xlsx
       end
@@ -52,9 +51,5 @@ module Decidim::ConsultationMap::Admin
     def remark
       @remark ||= collection.find(params[:id]) if params[:id]
     end
-
-  # def current_component
-  #   remark.try(:component)
-  # end
   end
 end

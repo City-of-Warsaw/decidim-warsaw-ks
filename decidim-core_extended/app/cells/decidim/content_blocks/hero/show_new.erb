@@ -1,25 +1,25 @@
-<section class="extended hero home-section">
-  <div class="hero__bg-image">
-    <%= image_tag(background_image, alt: hero_image_alt) %>
-  </div>
+<section class="extended home-hero home__section">
+  <div class="home-hero__container columns"> 
+    <div class="home-hero__text">
+      <h1 class="home-hero__heading">
+        <strong><%= translated_welcome_text %></strong><br />
+        <%= addition_to_welcome_text %>
+      </h1>
 
-  <div class="hero__container">
-    <div class="row">
-      <div class="columns small-centered large-10">
-        <h1 class="text-highlight heading1 hero-heading">
-          <% if translated_welcome_text.blank? %>
-            <%= t("decidim.pages.home.hero.welcome", organization: current_organization.name) %>
-          <% else %>
-            <%= decidim_sanitize translated_welcome_text %>
-          <% end %>
-        </h1>
+      <div class="home-hero__description ql-editor">
+        <%= decidim_sanitize translated_attribute description %>
       </div>
+
+      <% if hero_image_action_url.present? %>
+        <a class="button home-hero__button" href="<%= hero_image_action_url %>">
+          <%= hero_image_action_title %>
+        </a>
+      <% end %>
     </div>
-    <div class="row">
-      <div class="columns small-centered small-12 medium-12 mediumlarge-12">
-        <h2 class="hero-second-heading white-text"><%= text_from_button %></h2>
-      </div>
+    <div class="home-hero__image">
+      <%= image_tag(background_image, alt: hero_image_alt) if background_image  %>
     </div>
+
+    <%= consultation_decor %>
   </div>
-  <%= consultation_decor %>
 </section>

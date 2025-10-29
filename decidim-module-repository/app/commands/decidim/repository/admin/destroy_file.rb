@@ -4,7 +4,7 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user destroys File
-      class DestroyFile < Rectify::Command
+      class DestroyFile < Decidim::Command
 
         def initialize(file, user)
           @file = file

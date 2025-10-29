@@ -9,7 +9,7 @@ module Decidim
 
     def initialize(receiver, resource)
       self.receiver = receiver
-      self.email = if receiver.is_a?(Decidim::CommentsExtended::UnregisteredAuthor)
+      self.email = if receiver.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
                      resource.email
                    elsif receiver.is_a?(Decidim::CoreExtended::EmailFollow)
                      receiver.email
@@ -19,7 +19,7 @@ module Decidim
                      receiver.email.blank? ? receiver.user.email : receiver.email
                    end
 
-      self.name = if receiver.is_a?(Decidim::CommentsExtended::UnregisteredAuthor)
+      self.name = if receiver.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
                     resource.signature.presence || @email
                   elsif receiver.is_a?(Decidim::CoreExtended::EmailFollow)
                     receiver.email

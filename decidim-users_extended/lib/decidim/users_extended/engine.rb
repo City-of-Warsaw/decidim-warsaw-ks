@@ -9,9 +9,9 @@ module Decidim
         # scope '/admin' do
         get 'login-by-warszawa19115',       controller: 'sessions', action: 'peum_login', as: :peum_login
         get 'auth/warszawa19115/callback',  controller: 'sessions', action: 'peum_callback'
-        get 'adlogin', controller: 'sessions', action: 'new'
-        get 'sign-in', controller: 'sessions', action: 'new'
-        post 'login', controller: 'sessions', action: 'create'
+        get 'adlogin',  controller: 'sessions', action: 'new'
+        get 'sign-in',  controller: 'sessions', action: 'new'
+        post 'adlogin', controller: 'sessions', action: 'create'
         # end
         get 'check-nickname', controller: 'registrations', action: 'check_nickname'
       end
@@ -22,19 +22,10 @@ module Decidim
         end
       end
 
-      initializer "decidim_users_extended.assets" do |app|
-        app.config.assets.precompile += %w[decidim/users_extended/password-strength.js]
-      end
-
-      # make decorators available to applications that use this Engine
-      config.autoload_paths << File.join(
-        Decidim::UsersExtended::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::UsersExtended::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
       end
 

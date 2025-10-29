@@ -8,14 +8,13 @@ module Decidim
     #
     # Attributes that are saved through this command:
     # - signature
-    # - email
     # - district_id
     # - age
     # - gender
     #
     # In this case Boolean field 'edited' has default value of false, as this Command is used only in one specific moment:
     # right after creation to gather statistical data
-    class SecondStepRemarkUpdate < Rectify::Command
+    class SecondStepRemarkUpdate < Decidim::Command
       # Initializes an Update Remark Command
       #
       # form - The form from which to get the data
@@ -46,7 +45,6 @@ module Decidim
 
       def remark_attributes
         {
-          email: @form.email,
           district_id: @form.district_id,
           age: @form.age,
           gender: @form.gender
@@ -54,7 +52,7 @@ module Decidim
       end
 
       def unregistered_author
-        Decidim::CommentsExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        Decidim::CoreExtended::UnregisteredAuthor.where(organization: @current_organization).first
       end
     end
   end

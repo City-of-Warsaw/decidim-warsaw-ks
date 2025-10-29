@@ -26,28 +26,6 @@ module Decidim::AdminExtended
       end
     end
 
-    context 'when creating an item' do
-      it 'returns nil if it exists' do
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-        expect(manu_item_class.create_missing_item(oryginal_name)).to be nil
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-      end
-
-      it 'creates one if it does not exist' do
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-        expect(manu_item_class.create_missing_item('Unexisting')).to eq(manu_item_class.all.last)
-        expect(manu_item_class.all.count).to eq(initial_items_count + 1)
-      end
-
-      it 'skips if label belongs to Assemblies' do
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-        expect(manu_item_class.create_missing_item('Zespoły')).to be nil
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-        expect(manu_item_class.create_missing_item('Assemblies')).to be nil
-        expect(manu_item_class.all.count).to eq(initial_items_count)
-      end
-    end
-
     it "overwrites the log presenter" do
       expect(described_class.log_presenter_class_for(:foo))
         .to eq Decidim::AdminExtended::AdminLog::MainMenuItemPresenter

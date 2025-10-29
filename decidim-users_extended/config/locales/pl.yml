@@ -9,7 +9,7 @@ pl:
       password_confirmation:
         blank: Hasła w obu polach muszą być identyczne
       tos_agreement:
-        accepted: Jeżeli chcesz założyć konto, musisz zaakceptować klauzulę RODO
+        accepted: Zgoda jest wymagana
   activemodel:
     attributes:
       organization:
@@ -22,24 +22,34 @@ pl:
       user:
         nickname: Nazwa użytkownika
         email: Twój e-mail
-        birth_year: Rok urodzenia
-        district: Dzielnica
-        district_id: Dzielnica
-        gender: Płeć
+        birth_year: Jaki jest Twój rok urodzenia?
+        district: W jakiej dzielnicy mieszkasz?
+        district_id: W jakiej dzielnicy mieszkasz?
+        gender: Kim jesteś?
         first_name: Imię
         last_name: Nazwisko
         acceptance: Akceptacja
         follow_ngo: Interesują mnie też procesy dla NGO
         zip_code: Kod pocztowy
-
+        editorial: Nazwa wyświetlana
   decidim:
+    consultation_map:
+      admin:
+        category:
+          create:
+            success: 'Kategoria została utworzona'
+            update: 'Nie udało się utworzyć kategorii'
+          update:
+            success: 'Kategoria została zaktualizowana'
+            errors: 'Popraw błędy w formularzu'
     notifications_settings:
       show:
+        notifications_from_neighbourhood: Chcę otrzymywać e-maile, kiedy rozpoczną się konsultacje z obszaru moich zainteresowań
         administrators: Administratorzy
         allow_public_contact: Każdy może wysłać mi prywatną wiadomość, nawet jeśli go nie obserwuję
         direct_messages: Przyjmuj prywatne wiadomości od każdego
         email_on_moderations: Chcę otrzymywać e-mail za każdym razem, gdy coś jest zgłaszane do moderacji
-        email_on_notification: Chcę dostawać e-mail za każdym razem, gdy otrzymuję powyższe powiadomienia
+        email_on_notification: Powiadamiaj mnie o reakacjach na moje wpisy/komentarze
         everything_followed: Dotyczące konsultacji i innych wpisów, które obserwuję
         newsletter_notifications: Chcę otrzymywać newsletter
         newsletters: Newslettery
@@ -59,6 +69,8 @@ pl:
           error: Nieprawidłowe dane logowania
           success: Zalogowano pomyślnie
     account:
+      my_followed_consultation:
+        till: "Konsultacje trwają do: %{ending_date} "
       show:
         change_password: Zmień aktualne hasło
         select_district: Wybierz
@@ -72,31 +84,34 @@ pl:
         login: "Użytkownik %{user_name} zalogował się z pomocą AD"
         assign_role: "Użytkownikowi %{user_name} zmieniono rolę na podstawie danych z AD"
         update_user: "Użytkownik %{user_name} zaktualizował(a) dane użytkownika zewnętrznęgo %{resource_name}"
+        update_user_editorial: "Użytkownik %{user_name} zaktualizował(a) redakcję użytkownika wewnętrznego %{resource_name}"
     devise:
       registrations:
         new:
           nickname_help_new: Nawa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis
-          already_have_an_account?: Masz już konto? %{link} nim.
           no_rodo_page: NALEŻY DODAĆ STRONĘ Z RODO
-          forgotten_password?: Zapomniałeś hasła? %{link}
+          forgotten_password?: Nie pamiętasz hasła? %{link}
+          form_first_page_header: Krok 1/2 - <strong>Dane logowania</strong>
+          form_second_page_header: Krok 2/2 - <strong>Ustawienia powiadomień i dane statystyczne</strong>
           remind_password: Przypomnij hasło
           rodo: RODO
-          rodo_text: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail. Udzielam zgody w celu założenia konta na platformie konsultacji społecznych 
-            m.st. Warszawy. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy 
-            przetwarzania danych osobowych na podstawie dobrowolnej zgody.
-          select_gender: Wybierz płeć
-          select_district: Wybierz dzielnicę
-          sign_up: Zarejestruj nowe konto
+          sign_up_title: Zarejestruj nowe konto
+          sign_up: Zarejestruj się
           terms: regulamin
           tos_agreement: "Rejestrując się, akceptujesz <strong>%{link}</strong>."
+          rodo_text: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy
+            użytkownika oraz adresu e-mail. Udzielam zgody w celu założenia konta na platformie konsultacji społecznych
+            m.st. Warszawy. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy
+            przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+        new_second_step:
+          select_gender: Wybierz płeć
+          select_district: Wybierz dzielnicę
       sessions:
         new:
-          remind_password: Zapomniałeś hasła? %{link}
+          remind_password: Nie pamiętasz hasła? %{link}
       shared:
         speech_bubble:
-          already_have_an_account?: Masz już konto? %{link}
           no_account?: Nie masz jeszcze konta? %{link}
           sign_up: Zarejestruj się
           forgotten_password?: Nie pamiętasz hasła? %{link}
@@ -109,9 +124,16 @@ pl:
             newsletter_smtp_settings: Ustawienia SMTP dla maili Newslettera
     users:
       gender:
-        female: Kobieta
-        male: Mężczyzna
-        other: Inna
+        profile:
+          female: Kobietą
+          male: Mężczyzną
+          other: Inna odpowiedź
+          no_answer: Nie chcę odpowiadać
+        public_post:
+          female: Kobieta
+          male: Mężczyzna
+          other: Inna odpowiedź
+          no_answer: Nie chcę odpowiadać
     users_extended:
       admin:
         sessions:
@@ -121,11 +143,20 @@ pl:
             password: Hasło
             submit: Zaloguj się
   devise:
+    passwords:
+      user:
+        form_errors: Popraw błędy w formularzu
+        reset_password_token_invalid: Link do zmiany hasła stracił ważność. Wygeneruj link ponownie
     shared:
       links:
-        forgot_your_password: Przypomnij hasło
+        forgot_your_password: Nie pamiętasz hasła?
   layouts:
     decidim:
+      user_profile:
+        my_interests: Powiadomienia e-mail
+      user_menu:
+        my_comment: Moje opinie
+        my_follow: Obserwowane
       wrapper:
         account: Konto
         delete_my_account: Usuwanie konta
@@ -134,5 +165,3 @@ pl:
         notifications_settings: Powiadomienia
         title: Ustawienia użytkownika
         user_groups: Grupy
-      header:
-        accesibility-title: Deklaracja dostępności

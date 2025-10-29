@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Decidim::ParticipatoryProcessesExtended::Admin::ResultsController
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::ParticipatoryProcessesExtended::Admin::ResultsController";
+  relpath = '../../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span>
+     &raquo; 
+    <span class="title">ResultsController</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Decidim::ParticipatoryProcessesExtended::Admin::ResultsController
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Admin::ApplicationController</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Admin::ApplicationController</li>
+          
+            <li class="next">Decidim::ParticipatoryProcessesExtended::Admin::ResultsController</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Admin::Filterable, Admin::ParticipatorySpaceAdminContext, Decidim::Paginable, Decidim::ParticipatoryProcesses::Admin::Concerns::ParticipatoryProcessAdmin</dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Controller that allows managing all Results (cosuntlation effects appearing on process page) at the admin panel</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#collection-instance_method" title="#collection (instance method)">#<strong>collection</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create-instance_method" title="#create (instance method)">#<strong>create</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#destroy-instance_method" title="#destroy (instance method)">#<strong>destroy</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#edit-instance_method" title="#edit (instance method)">#<strong>edit</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#index-instance_method" title="#index (instance method)">#<strong>index</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new-instance_method" title="#new (instance method)">#<strong>new</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#notification_can_be_sent%3F-instance_method" title="#notification_can_be_sent? (instance method)">#<strong>notification_can_be_sent?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>private method use in index view to enable/disable button ‘send_notification’ returns Boolean.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#publish-instance_method" title="#publish (instance method)">#<strong>publish</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#result-instance_method" title="#result (instance method)">#<strong>result</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#revert_consultation_status-instance_method" title="#revert_consultation_status (instance method)">#<strong>revert_consultation_status</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>private method After delete all collection belongs to current participatory space, change consultation status back to ‘Opublikowano raport’ for process of this space returns Boolean.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#send_notification-instance_method" title="#send_notification (instance method)">#<strong>send_notification</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#update-instance_method" title="#update (instance method)">#<strong>update</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="collection-instance_method">
+  
+    #<strong>collection</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 111</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
+  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Result.html" title="Decidim::ParticipatoryProcessesExtended::Result (class)">Result</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>participatory_space:</span> <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create-instance_method">
+  
+    #<strong>create</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:result</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ResultForm.html" title="Decidim::ParticipatoryProcessesExtended::Admin::ResultForm (class)">ResultForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="CreateResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::CreateResult (class)">CreateResult</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="CreateResult.html#call-instance_method" title="Decidim::ParticipatoryProcessesExtended::Admin::CreateResult#call (method)">call</a></span></span><span class='lparen'>(</span><span class='ivar'>@form</span><span class='comma'>,</span> <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.create.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.create.error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:new</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="destroy-instance_method">
+  
+    #<strong>destroy</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:destroy</span><span class='comma'>,</span> <span class='symbol'>:result</span><span class='comma'>,</span> <span class='label'>result:</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='id identifier rubyid_result'>result</span><span class='period'>.</span><span class='id identifier rubyid_destroy!'>destroy!</span>
+  <span class='id identifier rubyid_revert_consultation_status'>revert_consultation_status</span>
+
+  <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.destroy.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="edit-instance_method">
+  
+    #<strong>edit</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:result</span><span class='comma'>,</span> <span class='label'>result:</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ResultForm.html" title="Decidim::ParticipatoryProcessesExtended::Admin::ResultForm (class)">ResultForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_model'>from_model</span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="index-instance_method">
+  
+    #<strong>index</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:result</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new-instance_method">
+  
+    #<strong>new</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 20</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:result</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ResultForm.html" title="Decidim::ParticipatoryProcessesExtended::Admin::ResultForm (class)">ResultForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="notification_can_be_sent?-instance_method">
+  
+    #<strong>notification_can_be_sent?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>private method use in index view to enable/disable button ‘send_notification’ returns Boolean</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+126
+127
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 126</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_notification_can_be_sent?'>notification_can_be_sent?</span>
+  <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_exists?'>exists?</span><span class='lparen'>(</span><span class='label'>notification_send:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>published:</span> <span class='kw'>true</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_consultation_status'>consultation_status</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>effects</span><span class='tstring_end'>&#39;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="publish-instance_method">
+  
+    #<strong>publish</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 64</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_publish'>publish</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:publish</span><span class='comma'>,</span> <span class='symbol'>:result</span>
+
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="PublishResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::PublishResult (class)">PublishResult</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="PublishResult.html#call-instance_method" title="Decidim::ParticipatoryProcessesExtended::Admin::PublishResult#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span> <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.publish.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="result-instance_method">
+  
+    #<strong>result</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107
+108
+109</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 107</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='ivar'>@result</span> <span class='op'>||=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="revert_consultation_status-instance_method">
+  
+    #<strong>revert_consultation_status</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>private method After delete all collection belongs to current participatory space, change consultation status back to ‘Opublikowano raport’ for process of this space returns Boolean</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+119
+120
+121</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 119</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_revert_consultation_status'>revert_consultation_status</span>
+  <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='label'>consultation_status:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>report</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_any?'>any?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="send_notification-instance_method">
+  
+    #<strong>send_notification</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_send_notification'>send_notification</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:send_notification</span><span class='comma'>,</span> <span class='symbol'>:result</span>
+
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="SendNotificationForResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::SendNotificationForResult (class)">SendNotificationForResult</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="SendNotificationForResult.html#call-instance_method" title="Decidim::ParticipatoryProcessesExtended::Admin::SendNotificationForResult#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span> <span class='id identifier rubyid_collection'>collection</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.send_notification.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:no_report_added</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.send_notification.no_result_added</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:report_notification_was_send</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.send_notification.result_notification_was_send</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="update-instance_method">
+  
+    #<strong>update</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/controllers/decidim/participatory_processes_extended/admin/results_controller.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
+  <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:result</span><span class='comma'>,</span> <span class='label'>result:</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ResultForm.html" title="Decidim::ParticipatoryProcessesExtended::Admin::ResultForm (class)">ResultForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_params'>from_params</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='rparen'>)</span>
+
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::ParticipatoryProcessesExtended::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="UpdateResult.html" title="Decidim::ParticipatoryProcessesExtended::Admin::UpdateResult (class)">UpdateResult</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="UpdateResult.html#call-instance_method" title="Decidim::ParticipatoryProcessesExtended::Admin::UpdateResult#call (method)">call</a></span></span><span class='lparen'>(</span><span class='ivar'>@form</span><span class='comma'>,</span> <span class='id identifier rubyid_result'>result</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span> <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.update.success</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_decidim_admin_participatory_processes'>decidim_admin_participatory_processes</span><span class='period'>.</span><span class='id identifier rubyid_results_path'>results_path</span><span class='lparen'>(</span><span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span><span class='lbracket'>[</span><span class='symbol'>:alert</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>results.update.error</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.participatory_processes_extended.admin</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_render'>render</span> <span class='symbol'>:edit</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Oct 29 14:41:36 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>

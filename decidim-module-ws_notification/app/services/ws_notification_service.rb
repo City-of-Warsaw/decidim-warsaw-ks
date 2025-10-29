@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'savon'
+require "savon"
 
 class WsNotificationServiceError < StandardError; end
 class WsNotificationServiceTimeoutError < WsNotificationServiceError; end
@@ -8,11 +8,15 @@ class WsNotificationServiceTimeoutError < WsNotificationServiceError; end
 class WsNotificationService
 
   def initialize
-    @login = ENV.fetch('WS_NOTIFICATION_LOGIN')
-    @password = ENV.fetch('WS_NOTIFICATION_PASSWORD')
-    @client = Savon.client(
-      # TODO: testowy, dodac konfig dla PRD
-      wsdl: ENV.fetch('WS_NOTIFICATION_WSDL'),
+    @login = ENV.fetch("WS_NOTIFICATION_LOGIN", nil)
+    @password = ENV.fetch("WS_NOTIFICATION_PASSWORD", nil)
+  end
+
+  def client
+    return unless ENV.fetch("WS_NOTIFICATION_WSDL", nil)
+
+    @client ||= Savon.client(
+      wsdl: ENV.fetch("WS_NOTIFICATION_WSDL", nil),
       adapter: :net_http,
       # Lower timeouts so these specs don't take forever when the service is not available.
       open_timeout: 10,
@@ -22,13 +26,12 @@ class WsNotificationService
   end
 
   # Zwraca liste tematow
-  # [{:tem_id=>"1", :tem_nazwa=>"Kultura", :tem_typ_id=>"1", :tem_opis=>"Imprezy plenerowe i wydarzenia kulturalne."}]
   def get_categories
     @_categories ||= begin
-                       message = { login: @login, haslo: @password }
-                       response = @client.call(:get_tematy_wiadomosci, message: message)
+      message = { login: @login, haslo: @password }
+                       response = client.call(:get_tematy_wiadomosci, message: message)
                        response.body[:get_tematy_wiadomosci_response][:get_tematy_wiadomosci_result][:lista][:temat]
-                     end
+    end
   rescue Net::OpenTimeout
     []
   rescue Net::ReadTimeout
@@ -36,28 +39,35 @@ class WsNotificationService
   end
 
   # Zwraca liste dzielnic
-  # [{:dzi_id=>"21", :dzi_nazwa=>"Bemowo", :dzi_symbol=>"I"}]
   def get_districts
     @_districts ||= begin
-                      message = { login: @login, haslo: @password }
-                      response = @client.call(:get_dzeilnice, message: message)
+      message = { login: @login, haslo: @password }
+                      response = client.call(:get_dzeilnice, message: message)
                       response.body[:get_dzeilnice_response][:get_dzeilnice_result][:lista][:dzielnica]
-                    end
+    end
   rescue Net::OpenTimeout
     []
   rescue Net::ReadTimeout
     []
   end
 
+  # @return districts list from WS, for dev and staging env return simple array
   def get_districts_collection
+    return [["Dzielnica 1 (brak polaczenia)", 1], ["Dzielnica 2 (brak polaczenia)", 1]] unless client_connected?
+
     get_districts.sort{ |c, cc| c[:dzi_nazwa] <=> cc[:dzi_nazwa] }.map{ |c| [c[:dzi_nazwa], c[:dzi_id]] }
   end
 
+  # @return categories list from WS, for dev and staging env return simple array
   def get_categories_collection
+    return [["Kategoria 1 (brak polaczenia)", 1], ["Kategoria 2 (brak polaczenia)", 1]] unless client_connected?
+
     get_categories.sort{ |c, cc| c[:tem_nazwa] <=> cc[:tem_nazwa] }.map{ |c| [c[:tem_nazwa], c[:tem_id]] }
   end
 
   def create_message(ws_message)
+    return "OK" unless client_connected?
+
     message = {
       login: @login,
       haslo: @password,
@@ -67,26 +77,29 @@ class WsNotificationService
       waznaOd: ws_message.valid_date_from.iso8601,
       waznaDo: ws_message.valid_date_to.iso8601,
       kategoria: ws_message.category_id,
-      dzielnice: ws_message.district_ids,
+      dzielnice: ws_message.district_ids.join(","),
       pilna: ws_message.urgent,
       mzaSkm: ws_message.mza_skm,
       sms: ws_message.sms,
       mobile: ws_message.mobile,
       komentarz: ws_message.comment
     }
-    response = @client.call(:utworz_wiadomosci, message: message)
+    response = client.call(:utworz_wiadomosci, message: message)
     response.body[:utworz_wiadomosci_response][:utworz_wiadomosci_result] # => "OK"
   end
 
   # WsNotificationService.new.test_connection
-  def test_connection
-    @client.operations # => [:hello_world, :utworz_wiadomosci, :get_dzeilnice, :get_tematy_wiadomosci]
-    response = @client.call(:hello_world) # => {:hello_world_response=>{:hello_world_result=>"Hello World", :@xmlns=>"https://komunikaty.um.warszawa.pl/"}}
-    response.body[:hello_world_response][:hello_world_result] == "Hello World"
-  rescue Net::OpenTimeout
-    false
-  rescue Net::ReadTimeout
-    false
-  end
+  def client_connected?
+    return false unless client
 
+    @client_connected ||= begin
+      client.operations
+      response = client.call(:hello_world)
+      response.body[:hello_world_response][:hello_world_result] == "Hello World"
+    rescue Net::OpenTimeout
+      false
+    rescue Net::ReadTimeout
+      false
+    end
+  end
 end

@@ -1,0 +1,15 @@
+#map,
+.map {
+  width: 800px;
+  height: 400px;
+}
+
+#map-study-notes-admin-index {
+  border-radius: 0;
+  height: 700px;
+  width: 1200px;
+}
+
+.locations .added-marker {
+  width: 50%;
+}

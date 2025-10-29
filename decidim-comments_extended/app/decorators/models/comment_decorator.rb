@@ -26,7 +26,6 @@ Decidim::Comments::Comment.class_eval do
   end
 
   def unscoped_commentable?
-    # TODO: dodac pozostale
     root_commentable.is_a?(Decidim::Participable) ||
       root_commentable.is_a?(Decidim::News::Information) ||
       root_commentable.is_a?(Decidim::ConsultationRequests::ConsultationRequest)

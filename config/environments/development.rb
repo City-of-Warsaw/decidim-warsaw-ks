@@ -26,6 +26,7 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+  config.active_job.queue_adapter = :inline
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
@@ -38,7 +39,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'http://localhost', port: 3000 }
   config.action_mailer.asset_host = 'http://localhost:3000' # this does not work in cells
   # This work in newsletter templates, but it is problematic:
-  # config.action_controller.asset_host = 'http://localhost3:3000'
+  config.action_controller.asset_host = ENV.fetch("ASSET_HOST") { 'http://localhost:3000' }
 
   config.action_mailer.perform_caching = false
 
@@ -62,23 +63,12 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-  # Debug mode disables concatenation and preprocessing of assets.
-  # This option may cause significant delays in view rendering with a large
-  # number of complex assets.
-  config.assets.debug = true
-
-  # Suppress logger output for asset requests.
-  config.assets.quiet = true
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # No precompilation on demand on first request
-  config.assets.check_precompiled_asset = false
 
   # Lograge config
   config.lograge.enabled = true

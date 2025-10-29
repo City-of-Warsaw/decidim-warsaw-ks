@@ -11,6 +11,9 @@ Decidim::Scope.class_eval do
   default_scope { order(scope_type_id: :asc, name: :asc) }
   geocoded_by :address
 
+  scope :citywide, -> { where(code:  'om').first }
+  scope :district_only, -> { where.not(code:  'om') }
+
   # overwritten
   # Public: checking if location data is available in
   # location searching tree.

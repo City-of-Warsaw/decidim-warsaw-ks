@@ -1,0 +1,16 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+s = wb.styles
+wrap_text = s.add_style alignment: { wrap_text: true, vertical: :top }
+header = s.add_style b: true, bg_color: 'C0C0C0', alignment: { wrap_text: true, vertical: :top }
+
+wb.add_worksheet(name: "Eksport") do |sheet|
+  sheet.add_row survey_export_headers, style: header
+
+  survey_answers_rows.each do |row|
+    sheet.add_row row, style: wrap_text
+  end
+
+  sheet.column_widths *column_widths
+end

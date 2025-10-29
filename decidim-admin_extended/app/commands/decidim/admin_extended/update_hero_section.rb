@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating a Hero Section.
-    class UpdateHeroSection < Rectify::Command
+    class UpdateHeroSection < Decidim::Command
       # Public: Initializes the command.
       #
       # hero_section - The Hero Section to update
@@ -15,13 +15,6 @@ module Decidim
         @current_user = user
       end
 
-      # zapisuje log jesli wczesniej niebylo obrazka, lub jesli zostal zmieniony
-      def add_log_if_banner_img_changed(banner_img_id_before_change)
-        return if banner_img_id_before_change.nil?
-
-        add_log_banner_img(@hero_section) if !@hero_section.banner_img.attached? || banner_img_id_before_change != @hero_section.banner_img.id
-      end
-
       # Executes the command. Broadcasts these events:
       #
       # - :ok when everything is valid.
@@ -29,11 +22,9 @@ module Decidim
       #
       # Returns nothing.
       def call
-        banner_img_id_before_change = @hero_section.banner_img.id if @hero_section.banner_img.attached?
         return broadcast(:invalid) if form.invalid?
 
         update_hero_section
-        add_log_if_banner_img_changed(banner_img_id_before_change)
         broadcast(:ok)
       end
 
@@ -58,19 +49,8 @@ module Decidim
       def attributes
         {
           title: form.title,
-          subtitle: form.subtitle,
-          banner_img_alt: form.banner_img_alt
-        }.tap { |attr| attr[:banner_img] = form.banner_img if form.banner_img }
-      end
-
-      def add_log_banner_img(hero_section)
-        Decidim::ActionLogger.log(
-          "update_banner_img",
-          form.current_user,
-          hero_section,
-          hero_section.versions.last.id,
-          { banner_img: form.banner_img }
-        )
+          description: form.description,
+        }
       end
     end
   end

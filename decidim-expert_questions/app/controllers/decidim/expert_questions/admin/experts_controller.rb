@@ -13,6 +13,8 @@ module Decidim::ExpertQuestions
     def export
       enforce_permission_to :read, :expert
 
+      @xml_serializer = Decidim::ExpertQuestions::UserQuestionXlsSerializer.new
+
       # create_log(current_user, 'experts_export')
       respond_to do |format|
         format.xlsx { render 'decidim/expert_questions/admin/user_questions/export'}
@@ -22,11 +24,12 @@ module Decidim::ExpertQuestions
     def new
       enforce_permission_to :create, :expert
       @form = form(Decidim::ExpertQuestions::Admin::ExpertForm).instance
+      @form.weight = 0
     end
 
     def create
       enforce_permission_to :create, :expert
-      @form = form(Decidim::ExpertQuestions::Admin::ExpertForm).from_params(params).with_context(current_component: current_component, current_user: current_user)
+      @form = form(Decidim::ExpertQuestions::Admin::ExpertForm).from_params(params)
 
       should_be_published = params[:publish] && allowed_to?(:publish, :expert)
       Decidim::ExpertQuestions::Admin::CreateExpert.call(@form, should_be_published) do
@@ -49,7 +52,9 @@ module Decidim::ExpertQuestions
 
     def update
       enforce_permission_to :update, :expert, expert: expert
-      @form = form(Decidim::ExpertQuestions::Admin::ExpertForm).from_params(params).with_context(current_component: current_component, current_user: current_user)
+      @form = form(Decidim::ExpertQuestions::Admin::ExpertForm)
+                .from_params(params)
+                .with_context(expert: expert, current_component: current_component, current_user: current_user)
 
       Decidim::ExpertQuestions::Admin::UpdateExpert.call(@form, expert) do
         on(:ok) do
@@ -112,7 +117,6 @@ module Decidim::ExpertQuestions
       @expert ||= experts.find(params[:id]) if params[:id]
     end
 
-    # TODO: czy wszyscy moga eksportowac wszystkie pytania do ekspeta?
     def user_questions
       @user_questions ||= Decidim::ExpertQuestions::UserQuestion.joins(:expert).where('decidim_expert_questions_experts.decidim_component_id': current_component.id)
     end

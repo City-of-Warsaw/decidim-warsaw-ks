@@ -1,0 +1,94 @@
+<%= render partial: "layouts/decidim/meta_tags_config" %>
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" class="no-js">
+<head>
+  <title><%= decidim_page_title %></title>
+  <%= render partial: "layouts/decidim/head" %>
+</head>
+<body>
+  <ul class="ul-reset" role="list">
+    <li>
+      <%= link_to t("skip_button", scope: "decidim.accessibility"), "#content", class: "skip" %>
+    </li>
+    <li>
+      <%= link_to "Przejdź do menu", "#main-menu", class: "skip desktop-skip" %>
+    </li>
+    <li>
+      <%= link_to "Przejdź do wyszukiwarki", "#search-bar", class: "skip desktop-skip" %>
+    </li>
+    <li>
+      <%= link_to "Przejdź do menu", "#main-menu", class: "skip mobile-skip mobile-skip--menu" %>
+    </li>
+    <li>
+      <%= link_to "Przejdź do wyszukiwarki", "#search-bar", class: "skip mobile-skip mobile-skip--search" %>
+    </li>
+  </ul>
+  <header>
+    <%
+      if respond_to?(:current_component) && current_component && can_be_managed?(current_component)
+        edit_link(
+          manage_component_path(current_component),
+          :read,
+          :component,
+          component: current_component,
+          current_participatory_space: current_participatory_space
+        )
+      end
+    %>
+    <%= render partial: "layouts/decidim/impersonation_warning" %>
+    <%= render partial: "layouts/decidim/omnipresent_banner" %>
+
+    <div class="off-canvas off-canvas--mobile-menu position-right hide-for-large" data-position="right"
+         id="offCanvas" data-off-canvas data-trap-focus="true">
+      <!-- Close button -->
+      <button class="close-button"
+              aria-label="Zamknij" type="button"
+              data-close>
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <!-- Menu -->
+      <div class="hide-for-medium" data-set="nav-holder"></div>
+      <div class="hide-for-medium usermenu-off-canvas-holder"
+           data-set="nav-login-holder"></div>
+      <div class="hide-for-medium mt-s ml-s mr-s search-off-canvas-holder" data-set="">
+        <%# TODO: upgrade v028! poprawic lub usunac %>
+        <%#= render partial: "layouts/decidim/off_canvas_search" %>
+
+        <div class="hmb_accesibility text-center">
+          <% page = Decidim::StaticPage.find_by(slug: 'dostepnosc') %>
+          <a href="<%= page ? decidim.page_path(page) + "#subcontent" : 'https://um.warszawa.pl/dostepnosc' %>" aria-label='Dostępność miasta Warszawy'>
+            <%= image_pack_tag 'media/images/accesibility-icon.svg', alt: "", title: "Dostępność miasta Warszawy" %>
+          </a>
+        </div> 
+      </div>
+    </div>
+
+
+    <div class="off-canvas-content" data-off-canvas-content>
+      <div class="footer-separator">
+        <%= render partial: "layouts/decidim/header" %>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <%= render partial: "layouts/decidim/timeout_modal" %>
+
+    <%= render "layouts/decidim/wrapper" do %>
+      <%= yield %>
+    <% end %>
+
+    <%= render partial: "decidim/shared/confirm_modal" %>
+    <%= render partial: "decidim/shared/authorization_modal" %>
+  </main>
+
+  <footer>
+    <%= render partial: "layouts/decidim/main_footer" %>
+    <%= render partial: "layouts/decidim/mini_footer" %>
+  </footer>
+
+  <%= render partial: "layouts/decidim/decidim_javascript" %>
+  <%# TODO: upgrade v029! poprawic lub usunac %>
+  <%#= render partial: "layouts/decidim/cookie_warning" %>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <%= stylesheet_pack_tag "email" %>
+</head>
+
+<body>
+<!-- <style> -->
+<div class="header">
+  <%= link_to @organization.official_url do %>
+    <%= image_pack_tag "media/images/mail-header-top.png", alt: "", style: "width: 100%;" %>
+  <% end %>
+</div>
+<table class="body">
+  <tr>
+    <td class="float-center" align="center" valign="top">
+      <center>
+        <table class="header-image" bgcolor="#f5f6f7">
+          <tr>
+            <td>
+              <%= image_pack_tag "media/images/mail-header-bottom.png", alt: "", style: "width: 100%;" %>
+            </td>
+          </tr> 
+        </table>
+      </center>
+    </td>
+  </tr>
+
+  <% if content_for?(:see_on_website) %>
+    <table class="container">
+      <th class="small-12 first columns float-right">
+        <p class="headnote">
+          <%= yield(:see_on_website) %>
+        </p>
+      </th>
+    </table>
+  <% end %>
+
+  <tr>
+    <td class="float-center" align="center" valign="top">
+      <center>
+        <table class="main container" bgcolor="#f5f6f7"> 
+          <tr>
+            <td>
+              <table class="spacer">
+                <tbody>
+                <tr>
+                  <td height="30px" style="font-size:30px;line-height:30px;"> </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="row">
+                <tbody>
+                <tr>
+                  <p class="disclaimer">Wiadomość wygenerowana automatycznie. Prosimy na nią nie odpowiadać.</p>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="spacer">
+                <tbody>
+                <tr>
+                  <td height="30px" style="font-size:30px;line-height:30px;"> </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="row content">
+                <tr>
+                  <th class="small-12 first columns">
+                    <%= yield %>
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+
+              <table class="spacer">
+                <tbody>
+                <tr>
+                  <td height="30px" style="font-size:30px;line-height:30px;"> </td>
+                </tr>
+                </tbody>
+              </table>
+              
+              <table class="row">
+                <tr>
+                  <th class="small-12 first columns">
+                    <hr />
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+              <% if @footer.nil? %>
+              <table class="row">
+                <tr>
+                  <th class="small-12 first columns">
+                    <center>
+                      <p class="footer">
+                        <%= link_to @organization.official_url do %>
+                          m&#46;st&#46; Warszawa&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;BIP&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;Warszawa 19115
+                        <% end %>
+                        <br />
+                        Urząd m&#46;st&#46; Warszawy
+                      </p>
+                    </center>
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+                <% end %>
+            </td>
+          </tr>
+        </table>
+
+        <% if @footer.nil? %>
+          <% if content_for?(:note) or content_for?(:unsubscribe) %>
+            <table class="container">
+              <tr>
+                <td>
+                  <table class="row">
+                    <th class="expander"></th>
+                    <th class="small-12 first last columns">
+                      <center>
+                        <%= yield(:note) if content_for?(:note) %>
+                        <%= yield(:unsubscribe) if content_for?(:unsubscribe) %>
+                      </center>
+                    </th>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          <% end %>
+        <% end %>
+        <% if @footer.present? %>
+          <table class="container">
+            <tr>
+              <td>
+                <table class="row">
+                  <th class="expander"></th>
+                  <th class="small-12 first last columns">
+                    <center>
+                      <%= raw @footer %>
+                    </center>
+                  </th>
+                </table>
+              </td>
+            </tr>
+          </table>
+        <% end %>
+      </center>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

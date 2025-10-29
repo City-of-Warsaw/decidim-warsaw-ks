@@ -38,7 +38,7 @@ extra_admin_link(
 
   <div class="m-bottom">
     <%= link_to proposals_path(filter_link_params), class: "small hollow" do %>
-      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
+      <%= icon "arrow-go-back-line", class: "icon--small", role: "img", "aria-hidden": true %>
       <span><%= t(".back_to_list") %></span>
     <% end %>
   </div>
@@ -119,7 +119,9 @@ extra_admin_link(
               </div>
             </div>
             <br>
-            <%= follow_button_for(@proposal) %>
+            <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: t(".tooltip_content") } do %>
+              <%= follow_button_for(@proposal, nil, { button_classes: "button button__sm button__gray button__follow"}) %>
+            <% end %>
           </div>
         </div>
       <% end %>
@@ -138,6 +140,6 @@ extra_admin_link(
 </div>
 <%= attachments_for @proposal %>
 
-<%= sorted_comments_for @proposal %>
+<%= recent_comments_for @proposal %>
 
 <%= cell("decidim/flag_modal", @proposal) %>

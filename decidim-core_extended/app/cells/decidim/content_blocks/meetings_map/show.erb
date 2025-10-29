@@ -1,0 +1,31 @@
+<section class="meetings-section pb-12"> 
+  <div class="home__section !pb-8">
+    <h2 class="h2 title-decorator"><%= t(".title") %></h2>
+  </div> 
+
+  <div class="home-meetings">
+    <%= cell "decidim/meetings/meetings_map", selected_meetings, map_id: 'selected-meetings' %>
+    <div class="home-meetings__popup"></div>
+    <ul class="home-meetings__list ul-reset" role="list">
+      <% selected_meetings.each_with_index do |meeting, index| %>
+        <li data-meeting-index="<%= index %>">
+          <img class="home-meetings__list-icon" src="<%= asset_pack_path("media/images/map-pin-icon-gray.svg") %>" alt=""/>
+          <div class="">
+            <h3>
+              <button>
+                <%= translated_attribute(meeting.title) %>
+                <span class="show-for-sr"> <%= translated_attribute(meeting.participatory_space.title) %>
+                  pokaż na mapie</span>
+              </button>
+            </h3>
+            <p><%= translated_attribute(meeting.participatory_space.title) %></p>
+            <hr>
+            <span>
+           <%= "#{l meeting.start_time, format: :decidim_short_cut_zero}, #{l meeting.start_time, format: "%A"} #{meeting.start_time.strftime("%H:%M") } – #{meeting.end_time.strftime("%H:%M")}" %>
+          </span>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</section>

@@ -1,5 +1,6 @@
 <%
   components = participatory_space.components.published.or(Decidim::Component.where(id: self.try(:current_component)))
+  components_without_proposals = components.reject { |component| component.manifest_name.to_sym == :proposals && component.id != 70 }
 %>
 
 <%=
@@ -9,8 +10,13 @@
                               url: decidim_participatory_processes.participatory_process_path(participatory_space),
                               active: is_active_link?(decidim_participatory_processes.participatory_process_path(participatory_space), :exclusive) ||
                                 is_active_link?(decidim_participatory_processes.all_metrics_participatory_process_path(participatory_space), :exclusive)
-                            }
-                          ] + components.map do |component|
+                            },
+                            ({
+                              name: t("participatory_processes_extended.results.index.title", scope: "decidim"),
+                              url: decidim_participatory_processes.participatory_process_path(participatory_space) + "/results",
+                              active: is_active_link?(decidim_participatory_processes.participatory_process_path(participatory_space) + "/results", :exclusive)
+                            } unless participatory_space.consultation_status != "effects")
+                          ].compact + components.map do |component|
     {
       name: translated_attribute(component.name),
       url: main_component_path(component),

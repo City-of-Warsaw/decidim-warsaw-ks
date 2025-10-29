@@ -1,30 +1,20 @@
-<%= decidim_form_for(@form) do |f| %>
-  <div class="card">
-    <div class="card-divider">
-      <h2 class="card-title">
-        <%= t(".title",
-              name: t(statistic.sys_name, scope: 'decidim.admin_extended.statistics.sys_name'),
-              count: statistic.count
-              )
-        %></h2>
+<% add_decidim_page_title(statistic.name) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= statistic.sys_name.present? ? t(".title", name: t(statistic.sys_name, scope: 'decidim.admin_extended.statistics.sys_name'), count: statistic.count) : statistic.name %>
+  </h1>
+</div>
+<div class="item__edit-form">
+  <%= decidim_form_for(@form, html: { class: "form-defaults form scope_types_edit" }) do |f| %>
+    <div class="card">
+      <div class="card-section">
+        <%= render partial: "form", object: f %>
+      </div>
     </div>
-    <div class="card-section">
-
-      <div class="row column">
-        <%= f.text_field :name %>
+    <div class="item__edit-sticky">
+      <div class="item__edit-sticky-container">
+        <%= f.submit t(".update"), class: "button button__sm button__secondary" %>
       </div>
-
-      <div class="row column">
-        <%= f.number_field :weight %>
-      </div>
-
-      <div class="row column">
-        <%= f.check_box :visibility %>
-      </div>
-
     </div>
-  </div>
-  <div class="button--double form-general-submit">
-    <%= f.submit t(".update") %>
-  </div>
-<% end %>
+  <% end %>
+</div>

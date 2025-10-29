@@ -13,7 +13,15 @@ module Decidim
       private
 
       def card_size
-        "decidim/consultation_map/remark_m"
+        if options[:size] == :l
+          "decidim/consultation_map/remark_l"
+        else
+          "decidim/consultation_map/remark_s"
+        end
+      end
+
+      def mounted_engine
+        "decidim_consultation_map"
       end
     end
   end

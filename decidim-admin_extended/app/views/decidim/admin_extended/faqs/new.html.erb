@@ -1,0 +1,22 @@
+<% add_decidim_page_title(t(".add_faq")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t(".add_faq") %>
+  </h1>
+</div>
+
+<div class="item__edit-form">
+  <%= decidim_form_for(@form, html: { class: "form-defaults form" }) do |f| %>
+    <div class="card">
+      <div class="card-section">
+        <%= render partial: "form", object: f %>
+      </div>
+    </div>
+    <div class="item__edit-sticky">
+      <div class="item__edit-sticky-container">
+        <%= link_to t("actions.cancel", scope: "decidim.admin"), faqs_path, class: "button button__sm button__secondary" %>
+        <%= f.submit  t("actions.save", scope: "decidim.admin"), class: "button button__sm button__secondary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -27,23 +27,28 @@ Decidim::Admin::Permissions.class_eval do
 
     # allow! if can_manage_space?(role: :any)
     can_manage_space?(role: :any)
-
+    can_use_image_editor?
     components_actions?
     read_component_action?
     read_admin_dashboard_action?
     publish_components_action?
     apply_newsletter_permissions_for_admin!
     manage_expert_questions_action?
+    manage_custom_proposals_action?
 
     read_processes_action?
     global_moderation_action?
     read_admin_log_action?
     allowed_repository_action?
     main_page_processes_action?
+    results_action?
     banned_words_action?
     hero_sections_action?
     contact_info_positions_action?
     contact_info_groups_action?
+    statistics_action_delete?
+    statistics_action_edit?
+    statistics_action_new?
 
     if user.ad_admin? && admin_terms_accepted?
       allow! if read_metrics_action?
@@ -53,6 +58,7 @@ Decidim::Admin::Permissions.class_eval do
       disallow! if disallowed_user_action?
 
       allow! if permission_action.subject == :category
+      allow! if permission_action.subject == :participatory_process_reports
       allow! if permission_action.subject == :component
       allow! if permission_action.subject == :admin_user && !permission_action.action.in?([:create,:destroy])
       allow! if permission_action.subject == :attachment
@@ -87,10 +93,30 @@ Decidim::Admin::Permissions.class_eval do
 
   def read_assembly_action?
     return true if permission_action.subject == :space_area &&
-                  permission_action.action == :enter &&
-                  context.fetch(:space_name, nil) == :assemblies
+                   permission_action.action == :enter &&
+                   context.fetch(:space_name, nil) == :assemblies
 
     # toggle_allow(user.ad_admin? || user.ad_coordinator?)
+  end
+
+  def statistics_action_delete?
+    return unless permission_action.subject == :statistics && permission_action.action == :delete
+
+    statistic = context.fetch(:statistic, nil)
+    return disallow! if !statistic.deletable
+
+    toggle_allow(user.ad_admin?)
+  end
+
+  def statistics_action_edit?
+    return unless permission_action.subject == :statistics && permission_action.action == :update
+
+    toggle_allow(user.ad_admin?)
+  end
+  def statistics_action_new?
+    return unless permission_action.subject == :statistics && permission_action.action == :new
+
+    toggle_allow(user.ad_admin?)
   end
 
   def read_admin_dashboard_action?
@@ -115,7 +141,6 @@ Decidim::Admin::Permissions.class_eval do
     if permission_action.action == :manage
       toggle_allow(user.has_ad_role? && !user.ad_expert?)
     elsif permission_action.action == :update
-      # TODO: uzupelnic, tylko odpowiednio oznaczone pliki mozna aktualizowac
       toggle_allow(user.has_ad_role? && !user.ad_expert?)
     end
   end
@@ -124,6 +149,24 @@ Decidim::Admin::Permissions.class_eval do
     return unless permission_action.subject == :main_page_processes
 
     toggle_allow(user.ad_admin?)
+  end
+
+  def results_action?
+    return unless permission_action.subject == :result &&
+                  (
+                    permission_action.action == :read ||
+                    permission_action.action == :create ||
+                    permission_action.action == :update ||
+                    permission_action.action == :publish ||
+                    permission_action.action == :destroy ||
+                    permission_action.action == :send_notification
+                  )
+
+    if permission_action.action == :publish
+      toggle_allow(user.ad_admin? && admin_terms_accepted?)
+    else
+      toggle_allow((user.ad_admin? || user.ad_coordinator?) && admin_terms_accepted?)
+    end
   end
 
   def banned_words_action?
@@ -185,13 +228,13 @@ Decidim::Admin::Permissions.class_eval do
     if permission_action.action == :manage
       toggle_allow(user.ad_admin? || has_role_in_space?(:admin) || is_user_this_space_expert?)
     else
-      toggle_allow(user.ad_admin? || has_role_in_space?(:admin))
+      toggle_allow(user.ad_admin? || has_role_in_space?(:admin) && !current_participatory_space.published?)
     end
   end
 
   def read_component_action?
     return unless permission_action.subject == :component &&
-      permission_action.action == :read
+                  permission_action.action == :read
 
     toggle_allow(user.ad_admin? || has_role_in_space?(:admin) || is_user_this_space_expert?)
   end
@@ -200,7 +243,15 @@ Decidim::Admin::Permissions.class_eval do
     return unless permission_action.subject == :component
     return unless permission_action.action == :manage_expert_questions
 
-    toggle_allow(user.ad_admin? || has_role_in_space?(:admin) || is_user_this_space_expert?)
+    toggle_allow(user.ad_admin? || has_role_in_space?(:admin) && !current_participatory_space.published? || is_user_this_space_expert?)
+  end
+
+  def manage_custom_proposals_action?
+    return unless permission_action.subject == :component
+    return unless permission_action.action == :manage_custom_proposals
+
+    toggle_allow((user.ad_admin? ||
+      (user.ad_coordinator? || has_role_in_space?(:admin)) && !current_participatory_space.published?) && admin_terms_accepted?)
   end
 
   def publish_components_action?
@@ -253,9 +304,9 @@ Decidim::Admin::Permissions.class_eval do
     return false unless user.ad_expert?
 
     current_participatory_space.components.where(manifest_name: 'expert_questions').any? &&
-          Decidim::ExpertQuestions::Expert.joins(:component)
-          .where('decidim_components.participatory_space_id = ? AND decidim_components.participatory_space_type = ?', current_participatory_space.id, current_participatory_space.class.name)
-          .pluck(:decidim_user_id).include?(user.id)
+      Decidim::ExpertQuestions::Expert.joins(:component)
+      .where('decidim_components.participatory_space_id = ? AND decidim_components.participatory_space_type = ?', current_participatory_space.id, current_participatory_space.class.name)
+      .pluck(:decidim_user_id).include?(user.id)
   end
 
   # Returns a collection of Participatory processes where the given user has the

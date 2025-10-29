@@ -1,0 +1,62 @@
+@import "stylesheets/decidim/vendor/_social_share_button";
+
+// file overwritten to add custom styles for the .copy-area class and replace the background in the .ssb-twitter class
+
+$size: 45px;
+
+.share-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.social-share-button {
+  display: inline-block;
+  vertical-align: top;
+
+  .ssb-icon {
+    margin-right: 5px;
+    background-size: $size $size;
+    height: $size;
+    width: $size;
+  }
+}
+
+a.ssb-icon.ssb-whatsapp_app {
+  display: none;
+}
+
+.copy-area {
+  position: relative;
+  margin: 0;
+  padding: 0;
+
+  &__input {
+    cursor: pointer !important;
+  }
+
+  &__feedback {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    color: green;
+  }
+}
+
+.ssb-twitter {
+  background-image: url("images/decidim/extras/x.svg") !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  a.ssb-icon.ssb-whatsapp_app {
+    display: inline-block;
+  }
+
+  a.ssb-icon.ssb-whatsapp_web {
+    display: none;
+  }
+}

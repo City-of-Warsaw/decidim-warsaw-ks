@@ -1,46 +1,68 @@
 # frozen_string_literal: true
 
-require_dependency "decidim/news/application_controller"
+module Decidim
+  module News
+    # Controller that allows to view Information in public
+    class InformationsController < Decidim::News::ApplicationController
+      include Decidim::AdminExtended::HeroSectionHelper
+      include Decidim::Paginable
+      include Decidim::CoreExtended::CommentTokenCookie
 
-module Decidim::News
-  class InformationsController < ApplicationController
-    layout "layouts/decidim/information"
-    helper_method :help_section, :news_hero_section
+      helper Decidim::FollowableHelper
+      helper Decidim::AttachmentsHelper
+      helper Decidim::SanitizeHelper
 
-    include Decidim::Paginable
-    # include Decidim::PaginateHelper
-    # include Decidim::SanitizeHelper
-    helper Decidim::FollowableHelper
-    helper Decidim::Comments::CommentsHelper
-    helper Decidim::AttachmentsHelper
-    helper Decidim::SanitizeHelper
+      layout 'layouts/decidim/hero_section_banner'
 
-    helper_method :information, :informations
+      helper_method :hero_section_public,
+                    :info_or_request_title,
+                    :banner_partial_name,
+                    :pages_or_info_articles?,
+                    :information,
+                    :highlighted_cards,
+                    :remaining_cards
 
-    def index
-      @informations = informations.page(params[:page]).per(15)
-    end
+      register_permissions(::Decidim::News::ApplicationController,
+                           ::Decidim::News::Permissions,
+                           ::Decidim::Permissions)
 
-    def show
-      information
-    end
+      def permission_class_chain
+        ::Decidim.permissions_registry.chain_for(::Decidim::News::ApplicationController)
+      end
 
-    private
+      def index
+        @collection = paginate(collection)
+      end
 
-    def information
-      @information ||= informations.find_by(id: params[:id])
-    end
+      # admin can preview unpublished information in public view, from admin panel
+      # when looking for id information, then consider the entire collection
+      def show
+        enforce_permission_to :show, :information, information:
+      end
 
-    def informations
-      Information.where(decidim_organization_id: current_organization.id)
-    end
+      private
 
-    def help_section
-      @help_section ||= Decidim::ContextualHelpSection.find_content(current_organization, 'help_pages')
-    end
+      def information
+        @information ||= entire_collection.find(params[:id])
+      end
 
-    def news_hero_section
-      @news_hero_section ||= Decidim::AdminExtended::HeroSection.find_by(system_name: 'news')
+      def collection
+        @collection ||= entire_collection.published.sorted_by_weight
+      end
+
+      def highlighted_cards
+        @highlighted_cards ||= collection.first(3)
+      end
+
+      def remaining_cards
+        @remaining_cards ||= collection.drop(3)
+      end
+
+      # admin can preview unpublished information in public view, from admin panel
+      # when looking for id information, then consider the entire collection
+      def entire_collection
+        @entire_collection ||= Decidim::News::Information.where(decidim_organization_id: current_organization.id)
+      end
     end
   end
 end

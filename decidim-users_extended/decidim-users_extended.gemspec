@@ -7,20 +7,28 @@ require "decidim/users_extended/version"
 Gem::Specification.new do |spec|
   spec.name        = "decidim-users_extended"
   spec.version     = Decidim::UsersExtended.version
+  spec.authors     = [""]
+  spec.email       = []
   spec.summary     = "Summary of Decidim::UsersExtended."
   spec.description = "Description of Decidim::UsersExtended."
   spec.license     = "MIT"
 
-  spec.authors = [""]
-  spec.email = []
+  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
+  # to allow pushing to a single host or delete this section to allow pushing to any host.
+  # if spec.respond_to?(:metadata)
+  #   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  # else
+  #   raise "RubyGems 2.0 or newer is required to protect against " \
+  #     "public gem pushes."
+  # end
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "decidim-core", '0.24.3'
-  spec.add_dependency "decidim-assemblies", '0.24.3'
+  spec.add_dependency "decidim-core", '0.29.3'
+  spec.add_dependency "decidim-assemblies", '0.29.3'
 
   spec.add_development_dependency "sqlite3"
-  # spec.add_development_dependency "decidim-dev", '0.24.3' # TODO: save in a constant
+  # spec.add_development_dependency "decidim-dev", '0.29.3' # TODO: save in a constant
   # spec.add_development_dependency "bootsnap", '~> 1.3'
   # spec.add_development_dependency "faker"
 end

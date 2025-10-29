@@ -1,0 +1,56 @@
+
+<div class="table-scroll">
+  <table class="table-list">
+    <thead>
+    <th><%= check_box_tag "study_notes_bulk", "all", false, class: "js-check-all" %></th>
+    <th><%= sort_link(query, :id, "ID Decidim", default_order: :desc) %></th>
+    <th><%= sort_link(query, :sequential_number, "Numer wewn.", default_order: :desc) %></th>
+    <th><%= sort_link(query, :submitter_data_first_name, t("activemodel.attributes.study_note.submitter_data_first_name"), default_order: :desc) %></th>
+    <th><%= sort_link(query, :submitter_data_last_name, t("activemodel.attributes.study_note.submitter_data_last_name"), default_order: :desc) %></th>
+    <th><%= sort_link(query, :submitter_data_org_name, "Nazwa jednostki organizacyjnej", default_order: :desc) %></th>
+    <th><%= sort_link(query, :created_at, "Data", default_order: :desc) %></th>
+    <th><%= sort_link(query, :signum_nr_kancelaryjny, "Nr kancelaryjny", default_order: :desc) %></th>
+    <th class="actions"></th>
+    </thead>
+    <tbody>
+    <% @notes.each do |study_note| %>
+      <tr data-id="<%= study_note.id %>">
+        <td>
+          <%= check_box_tag "study_notes_ids[]",
+                            study_note.id,
+                            false,
+                            class: "js-study-note-checkbox" %>
+        </td>
+        <td>
+          <%= link_to study_note.id, study_note %>
+        </td>
+        <td>
+          <%= study_note.sequential_number.presence || '-' %>
+        </td>
+        <td>
+          <%= study_note.submitter_data_first_name %>
+        </td>
+        <td>
+          <%= study_note.submitter_data_last_name %>
+        </td>
+        <td>
+          <%= study_note.submitter_data_org_name %>
+        </td>
+        <td>
+          <%= l study_note.created_at, format: "%d/%m/%Y - %H:%M" %>
+        </td>
+        <td>
+          <%= study_note.signum_nr_kancelaryjny.presence || '-' %>
+        </td>
+        <td class="table-list__actions">
+          <%= icon_link_to "eye-line",
+                           study_note,
+                           t("actions.preview", scope: "decidim.admin"),
+                           class: "action-icon--preview" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+

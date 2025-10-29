@@ -1,5 +1,38 @@
 (function() {
     let remark_form = $('#new-remark-box');
     remark_form.replaceWith("<%== escape_javascript(render 'decidim/remarks/remarks/new', form_object: @form) %>")
+ 
+    $('#new-remark-box').foundation();
+
+    $('#new-remark-box .comment-field--body textarea').each(function () {
+        $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+    }); 
+
+    $("#new-remark-box input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+        max: 5,
+        STRING: {
+        remove: 'usuń',
+        denied: 'Ten format pliku $ext jest niedozwolony.',
+        file: '$file',
+        selected: 'Wybrany plik: $file',
+        duplicate: 'Ten plik już został wybrany:\n$file',
+        toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+        toomany: 'Niedozwolona liczba plików (maks: $max)',
+        toobig: '$file ma za duży rozmiar (maks: $size)'
+        }, 
+    });
+
+    $("#new-remark-box .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+        e.preventDefault();
+        
+        $(this).addClass("AttachmentButton-applied");
+
+        var target_id = $(this).data("target");
+        $(this).closest("form").find(target_id + " > input")
+            .last()
+            .click();
+    });
+
+    document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $('#new-remark-box')[0] }));
 }());
 

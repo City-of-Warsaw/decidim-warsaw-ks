@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating an tag.
-    class UpdateTag < Rectify::Command
+    class UpdateTag < Decidim::Command
       # Public: Initializes the command.
       #
       # tag - The Tag to update

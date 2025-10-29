@@ -4,7 +4,7 @@ module Decidim
   module ParticipatoryProcessesExtended
     module Admin
       # A command with all the business logic when selecting process for existing main page process
-      class UpdateMainPageProcess < Rectify::Command
+      class UpdateMainPageProcess < Decidim::Command
         # Public: Initializes the command.
         #
         # main_page_process - The Main Page Process to update

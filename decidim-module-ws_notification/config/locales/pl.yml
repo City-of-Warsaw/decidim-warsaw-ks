@@ -3,16 +3,16 @@ pl:
   activemodel:
     attributes:
       ws_message:
-        body: Treść
+        body: Treść powiadomienia w aplikacji 19115
         category_id: Kategoria
         district_ids: Dzielnice
         sms_body: Treść SMS
         valid_date_from: Data ważności od
         valid_date_to: Data ważności do
-        urgent: Czy pilny?
-        mza_skm: Mza SKM?
-        sms: SMS?
-        mobile: Mobile?
+        urgent: Pilna wiadomość
+        mza_skm: MZA/ SKM
+        sms: Powiadomienie SMS
+        mobile: Aplikacja mobilna 19115
         title: Tytuł
         comment: Komentarz
     activerecord:
@@ -27,14 +27,14 @@ pl:
       models:
         ws_message:
           fields:
-            body: Treść
+            body: Treść powiadomienia w aplikacji 19115
             sms_body: Treść SMS
             valid_date_from: Data ważności od
             valid_date_to: Data ważności do
-            urgent: Czy pilny?
-            mza_skm: Mza SKM?
-            sms: SMS?
-            mobile: Mobile?
+            urgent: Pilna wiadomość
+            mza_skm: MZA/ SKM
+            sms: Powiadomienie SMS
+            mobile: Aplikacja mobilna 19115
             title: Tytuł
             comment: Komentarz
             author: Autor

@@ -20,6 +20,7 @@ module Decidim
 
         @body = service.parse_body
         @organization = meeting.organization
+        @footer = service.footer
 
         mail(to: email, subject: service.parse_subject)
       end

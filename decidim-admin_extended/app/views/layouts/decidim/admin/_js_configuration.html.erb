@@ -1,12 +1,41 @@
 <%
 js_configs = {
-  icons_path: image_path("decidim/icons.svg"),
+  api_path: decidim_api.root_path(locale: nil),
+  icons_path: Decidim.cors_enabled ? "" : asset_pack_path("media/images/remixicon.symbol.svg"),
   messages: {
-    "selfxssWarning": {
-      title: t("decidim.security.selfxss_warning.title"),
-      description: t("decidim.security.selfxss_warning.description")
-    }
-  }
+    "selfxssWarning": t("decidim.security.selfxss_warning"),
+    editor: t("editor"),
+    date: t("date"),
+    time: t("time")
+  },
+  external_domain_allowlist: [current_organization.host] + current_organization.external_domain_allowlist,
+
+  osmUrl: Decidim.maps[:osm],
+  nominatimUrl: Decidim.maps[:nominatim],
+
+  # Icons
+  markerIconUrl:        asset_pack_path("media/images/marker-icon.png"),
+  markerIconRetinaUrl:  asset_pack_path("media/images/marker-icon-2x.png"),
+  markerShadowUrl:      asset_pack_path("media/images/marker-shadow.png"),
+
+  markerOfflineIconUrl:        asset_pack_path("media/images/marker-offline.svg"),
+  markerOfflineIconRetinaUrl:  asset_pack_path("media/images/marker-offline.svg"),
+  markerOfflineActiveIconUrl:       asset_pack_path("media/images/marker-offline-active.svg"),
+  markerOfflineActiveIconRetinaUrl: asset_pack_path("media/images/marker-offline-active.svg"),
+  markerOfflineClosedIconUrl:       asset_pack_path("media/images/marker-offline-closed.svg"),
+  markerOfflineClosedIconRetinaUrl: asset_pack_path("media/images/marker-offline-closed.svg"),
+
+  markerOnlineIconUrl:        asset_pack_path("media/images/marker-online.svg"),
+  markerOnlineIconRetinaUrl:  asset_pack_path("media/images/marker-online.svg"),
+  markerOnlineActiveIconUrl:        asset_pack_path("media/images/marker-online-active.svg"),
+  markerOnlineActiveIconRetinaUrl:  asset_pack_path("media/images/marker-online-active.svg"),
+  markerOnlineClosedIconUrl:        asset_pack_path("media/images/marker-online-closed.svg"),
+  markerOnlineClosedIconRetinaUrl:  asset_pack_path("media/images/marker-online-closed.svg"),
+
+  calendarIconGrayUrl:  asset_pack_path("media/images/calendar-icon-gray.svg"),
+  closeIconBlackUrl:    asset_pack_path("media/images/close-icon-black.svg"),
+  computerIconGrayUrl:  asset_pack_path("media/images/computer-icon-gray.svg"),
+  mapPinIconGrayUrl:    asset_pack_path("media/images/map-pin-icon-gray.svg"),
 }
 character_messages = {
   "charactersAtLeast": {
@@ -21,6 +50,6 @@ character_messages = {
 %>
 
 <%= nonced_javascript_tag do %>
-  Decidim.config.set(<%== js_configs.to_json %>);
   Decidim.InputCharacterCounter.configureMessages(<%== character_messages.to_json %>);
+  Decidim.config.set(<%== js_configs.to_json %>);
 <% end %>

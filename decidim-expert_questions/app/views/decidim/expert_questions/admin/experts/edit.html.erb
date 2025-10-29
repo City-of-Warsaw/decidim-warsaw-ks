@@ -1,15 +1,28 @@
-<%= decidim_form_for(@form, url: { action: "update" }, html: { class: "form experts_form edit_expert" })  do |f| %>
-  <%= render partial: "form", object: f, locals: { title: "#{t(".title")} -  #{expert.position_and_name}" } %>
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= "#{t(".title")} - #{expert.full_name}" %>
+  </h1>
+</div>
+<div class="item__edit-form">
+  <%= decidim_form_for(@form, url: { action: "update" }, html: { class: "form-defaults form edit_expert" })  do |f| %>
+    <div class="card">
+      <div class="card-section">
+        <%= render partial: "form", object: f %>
+      </div>
+    </div>
+    <div class="item__edit-sticky">
+      <div class="item__edit-sticky-container">
+        <%= f.submit t(".update"), class: "button button__sm button__secondary" %>
 
-  <div class="button--double form-general-submit">
-    <%= f.submit t(".update") %>
-
-    <% if allowed_to? :publish, :expert %>
-      <% if expert.published? %>
-        <%= link_to t("actions.unpublish", scope: "decidim.admin"), unpublish_expert_path(expert), method: :put, class: "button muted" %>
-      <% else %>
-        <%= link_to t("actions.publish", scope: "decidim.admin"), publish_expert_path(expert), method: :put, class: "button hollow" %>
-      <% end %>
-    <% end %>
-  </div>
-<% end %>
+        <% if allowed_to? :publish, :expert %>
+          <% if expert.published? %>
+            <%= link_to t("actions.unpublish", scope: "decidim.admin"), unpublish_expert_path(expert), method: :put, class: "button button__sm button__secondary" %>
+          <% else %>
+            <%= link_to t("actions.publish", scope: "decidim.admin"), publish_expert_path(expert), method: :put, class: "button button__sm button__secondary" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

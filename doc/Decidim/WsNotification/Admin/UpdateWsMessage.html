@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::WsNotification::Admin::UpdateWsMessage</li>
           
@@ -88,6 +88,11 @@
   
   
   
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>ActionView::Helpers::SanitizeHelper, ApplicationHelper</dd>
+  </dl>
   
   
 
@@ -317,6 +322,8 @@
   
 
 
+  
+  
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
@@ -346,14 +353,14 @@
       <pre class="lines">
 
 
-8
-9
-10
 11
-12</pre>
+12
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_ws_message'>ws_message</span><span class='comma'>,</span> <span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
   <span class='ivar'>@ws_message</span> <span class='op'>=</span> <span class='id identifier rubyid_ws_message'>ws_message</span>
@@ -398,12 +405,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_user'>current_user</span>
   <span class='ivar'>@current_user</span>
@@ -441,12 +448,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@form</span>
@@ -484,12 +491,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ws_message'>ws_message</span>
   <span class='ivar'>@ws_message</span>
@@ -534,16 +541,16 @@
       <pre class="lines">
 
 
-17
-18
-19
 20
 21
 22
-23</pre>
+23
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
@@ -572,17 +579,17 @@
       <pre class="lines">
 
 
-29
-30
-31
 32
 33
 34
 35
-36</pre>
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_ws_message!'>update_ws_message!</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_update!'>update!</span><span class='lparen'>(</span>
@@ -612,9 +619,6 @@
       <pre class="lines">
 
 
-38
-39
-40
 41
 42
 43
@@ -629,16 +633,19 @@
 52
 53
 54
-55</pre>
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/commands/decidim/ws_notification/admin/update_ws_message.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ws_message_params'>ws_message_params</span>
   <span class='lbrace'>{</span>
     <span class='label'>title:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span>
-    <span class='label'>body:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
-    <span class='label'>sms_body:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_sms_body'>sms_body</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_decidim_sanitize'>decidim_sanitize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>sms_body:</span> <span class='id identifier rubyid_decidim_sanitize'>decidim_sanitize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_sms_body'>sms_body</span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>valid_date_from:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_valid_date_from'>valid_date_from</span><span class='comma'>,</span>
     <span class='label'>valid_date_to:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_valid_date_to'>valid_date_to</span><span class='comma'>,</span>
     <span class='label'>urgent:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_urgent'>urgent</span><span class='comma'>,</span>
@@ -662,9 +669,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

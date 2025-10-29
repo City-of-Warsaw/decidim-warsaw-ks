@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when creating a mail template.
-    class UpdateMailTemplate < Rectify::Command
+    class UpdateMailTemplate < Decidim::Command
       # Public: Initializes the command.
       #
       # mail_template = MailTemplate object
@@ -47,9 +47,9 @@ module Decidim
       # returns Hash
       def attributes
         {
-          name: form.name,
           subject: form.subject,
           body: form.body,
+          footer: form.footer,
           active: form.active
         }
       end

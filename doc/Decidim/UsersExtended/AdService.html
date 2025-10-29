@@ -328,6 +328,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#user_info_attrs-instance_method" title="#user_info_attrs (instance method)">#<strong>user_info_attrs</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -503,13 +525,13 @@
       <pre class="lines">
 
 
-41
-42
-43
-44</pre>
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_ad_user'>get_ad_user</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_user_attrs'>user_attrs</span> <span class='op'>=</span> <span class='id identifier rubyid_get_user_info'>get_user_info</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='rparen'>)</span>
@@ -535,10 +557,6 @@
       <pre class="lines">
 
 
-76
-77
-78
-79
 80
 81
 82
@@ -547,10 +565,14 @@
 85
 86
 87
-88</pre>
+88
+89
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 80</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_all_groups'>get_all_groups</span>
   <span class='id identifier rubyid_ldap_con'>ldap_con</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span>
@@ -585,11 +607,6 @@
       <pre class="lines">
 
 
-61
-62
-63
-64
-65
 66
 67
 68
@@ -598,19 +615,24 @@
 71
 72
 73
-74</pre>
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_user_info'>get_user_info</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ldap_con'>ldap_con</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span>
   <span class='id identifier rubyid_base_filter'>base_filter</span> <span class='op'>=</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>LDAP</span><span class='op'>::</span><span class='const'>Filter</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>objectClass</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>user</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_search_filter'>search_filter</span> <span class='op'>=</span> <span class='id identifier rubyid_base_filter'>base_filter</span> <span class='op'>&amp;</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>LDAP</span><span class='op'>::</span><span class='const'>Filter</span><span class='period'>.</span><span class='id identifier rubyid_eq'>eq</span><span class='lparen'>(</span><span class='ivar'>@attr_login</span><span class='comma'>,</span> <span class='id identifier rubyid_login'>login</span><span class='rparen'>)</span>
-    <span class='comment'># results = []
-</span>  <span class='id identifier rubyid_result_attrs'>result_attrs</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>dn</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='ivar'>@attr_login</span><span class='comma'>,</span> <span class='ivar'>@attr_firstname</span><span class='comma'>,</span> <span class='ivar'>@attr_lastname</span><span class='comma'>,</span> <span class='ivar'>@attr_mail</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>memberof</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>objectClass</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_attrs'>attrs</span> <span class='op'>=</span> <span class='kw'>nil</span>
-  <span class='id identifier rubyid_ldap_con'>ldap_con</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span><span class='lparen'>(</span><span class='symbol'>:base</span> <span class='op'>=&gt;</span> <span class='ivar'>@base_dn</span><span class='comma'>,</span> <span class='symbol'>:filter</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_search_filter'>search_filter</span><span class='comma'>,</span> <span class='symbol'>:attributes</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_result_attrs'>result_attrs</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_entry'>entry</span><span class='op'>|</span>
+  <span class='comment'># search_filter = base_filter &amp; Net::LDAP::Filter.begins(auth.attr_login, q) &amp; Net::LDAP::Filter.begins(&#39;memberof&#39;, &#39;decidim_bo*&#39;)
+</span>  <span class='comment'># search_filter = base_filter &amp; Net::LDAP::Filter.begins(&#39;memberof&#39;, &#39;CN=decidim_bo_bem_koord,OU=Decidim_BO,OU=.SecurityGroups,OU=.Konta Specjalne,OU=Urzad Miasta Warszawy,DC=bzmw,DC=gov,DC=pl&#39;)
+</span>  <span class='comment'># results = []
+</span>  <span class='id identifier rubyid_attrs'>attrs</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_ldap_con'>ldap_con</span><span class='period'>.</span><span class='id identifier rubyid_search'>search</span><span class='lparen'>(</span><span class='symbol'>:base</span> <span class='op'>=&gt;</span> <span class='ivar'>@base_dn</span><span class='comma'>,</span> <span class='symbol'>:filter</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_search_filter'>search_filter</span><span class='comma'>,</span> <span class='symbol'>:attributes</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_user_info_attrs'>user_info_attrs</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_entry'>entry</span><span class='op'>|</span>
     <span class='id identifier rubyid_attrs'>attrs</span> <span class='op'>=</span> <span class='id identifier rubyid_entry'>entry</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_attrs'>attrs</span>
@@ -635,34 +657,34 @@
       <pre class="lines">
 
 
-90
-91
-92
-93
-94
-95
-96
-97
-98
-99
-100
-101
-102
-103
-104
-105
-106
-107
 108
 109
 110
 111
 112
 113
-114</pre>
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 108</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_import_all_groups'>import_all_groups</span>
   <span class='id identifier rubyid_ad_service'>ad_service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../UsersExtended.html" title="Decidim::UsersExtended (module)">UsersExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Decidim::UsersExtended::AdService (class)">AdService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Decidim::UsersExtended::AdService#initialize (method)">new</a></span></span>
@@ -709,11 +731,6 @@
       <pre class="lines">
 
 
-46
-47
-48
-49
-50
 51
 52
 53
@@ -722,10 +739,15 @@
 56
 57
 58
-59</pre>
+59
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span><span class='lparen'>(</span><span class='id identifier rubyid_ldap_user'>ldap_user</span><span class='op'>=</span><span class='ivar'>@ldap_user</span><span class='comma'>,</span> <span class='id identifier rubyid_ldap_password'>ldap_password</span><span class='op'>=</span><span class='ivar'>@ldap_password</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
@@ -764,14 +786,74 @@
 36
 37
 38
-39</pre>
+39
+40
+41
+42
+43
+44</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_test_connection'>test_connection</span>
   <span class='id identifier rubyid_ldap_con'>ldap_con</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span>
-  <span class='id identifier rubyid_ldap_con'>ldap_con</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_ldap_con'>ldap_con</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+    <span class='lbrace'>{</span> <span class='label'>result:</span> <span class='kw'>true</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='kw'>nil</span> <span class='rbrace'>}</span>
+  <span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='lbrace'>{</span> <span class='label'>result:</span> <span class='kw'>false</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="user_info_attrs-instance_method">
+  
+    #<strong>user_info_attrs</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user_info_attrs'>user_info_attrs</span>
+  <span class='lbracket'>[</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>dn</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='ivar'>@attr_login</span><span class='comma'>,</span> <span class='ivar'>@attr_firstname</span><span class='comma'>,</span> <span class='ivar'>@attr_lastname</span><span class='comma'>,</span> <span class='ivar'>@attr_mail</span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>memberof</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>objectClass</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># [&quot;top&quot;, &quot;person&quot;, &quot;organizationalPerson&quot;, &quot;user&quot;]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>company</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># [&quot;URZĄD M.ST. WARSZAWY&quot;]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>physicalDeliveryOfficeName</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># Biuro / Dzielnica =&gt; [&quot;Biuro Informatyki (IT)&quot;] albo [&quot;Centrum Komunikacji Społecznej (CK)&quot;]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>department</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># Wydział =&gt; [&quot;Wydział Budżetu Obywatelskiego&quot;]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>title</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>      <span class='comment'># tytuł =&gt; [&quot;Naczelniczka wydziału w biurze&quot;]
+</span>    <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>manager</span><span class='tstring_end'>&#39;</span></span>     <span class='comment'># przełożony
+</span>  <span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -783,9 +865,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

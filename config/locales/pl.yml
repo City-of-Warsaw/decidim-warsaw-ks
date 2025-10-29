@@ -1,14 +1,40 @@
 pl:
   activemodel:
     attributes:
+      answer:
+        add_documents: Plik
+        body: Odpowiedź
+        choices: Odpowiedzi
+        selected_choices: Wybrane opcje
+        question:
+          max_choices: Maksymalna liczba opcji do wyboru
+          question_type: Typ odpowiedzi
+          add_documents: Plik
+        questionnaire_question:
+          mandatory: Odpowiedź wymagana
+          max_characters: Limit znaków (zostaw 0, jeśli nie chcesz ustawiać limitu)
       report:
         details: "Dodatkowe uwagi lub inny powód:"
+      page:
+        new_gallery_name: Nazwa
+        new_gallery_images: Obrazki
+        weight: "Kolejność"
       meeting:
+        title_services: Tytuł usług
+        title_description: Tytuł opisu
         type_of_meeting: Typ spotkania
+        start_time: Data i godzina rozpoczęcia
+        end_time: Data i godzina zakończenia
+        new_gallery_name: Nazwa
+        new_gallery_images: Obrazki
       questionnaire_question:
         max_characters: Limit znaków (zostaw 0, jeśli nie chcesz ustawiać limitu)
         mandatory: Odpowiedź wymagana
+        random_order: Losowa kolejność
         question_type: Typ odpowiedzi
+      questionnaire:
+        new_gallery_name: Nazwa
+        new_gallery_images: Obrazki
       participatory_process_group:
         local_area: Część Warszawy
         meta_scope: Komórka odpowiedzialna
@@ -33,26 +59,42 @@ pl:
       static_page:
         content: Treść
         slug: URL (link)
+    errors:
+      models:
+        answer:
+          attributes:
+            add_documents:
+              blank: jest wymagany
+              missing: jest wymagany
+              needs_to_be_reattached: Plik jest wymagany
+            body:
+              blank: nie może byc puste
+              too_long: jest zbyt długie
+            choices:
+              blank: nie zostały zaznaczone
+              missing: nie zostały zaznaczone
+              too_many:
+                one: "Maksymalny wybór opcji: %{count}"
+                few: "Maksymalny wybór opcji: %{count}"
+                many: "Maksymalny wybór opcji: %{count}"
+                other: "Maksymalny wybór opcji: %{count}"
+            selected_choices:
+              blank: nie zostały zaznaczone
+              missing: nie zostały zaznaczone
+          questionnaire:
+            request_invalid: Podczas przetwarzania formularza wystąpił błąd. Proszę spróbować ponownie.
   activerecord:
     models:
       decidim/participatory_process:
-        one: Konsultacja społeczna
+        one: Konsultacje społeczne
         few: Konsultacje społeczne
-        many: Konsultacji społecznych
+        many: Konsultacje społeczne
         other: Konsultacje społeczne
-      decidim/proposals/proposal:
-        one: Dokument
-        few: Dokumenty
-        many: Dokumentów
-        other: Dokumenty
-      decidim/scopes:
-        one: Dzielnica
-        few: Dzielnice
-        many: Dzielnic
-        other: Dzielnice
   date:
     formats:
       decidim_short: "%d.%m.%Y"
+      decidim_short_cut_zero: "%-d.%m.%Y"
+      decidim_with_month_name_cut_zero: "%-d %B %Y"
     month_names:
       -
       - stycznia
@@ -68,45 +110,43 @@ pl:
       - listopada
       - grudnia
   decidim:
-    follows:
-      create:
-        participatory_space: Obserwuj <span class="show-for-sr">%{resource_name}</span>
     shared:
       flag_modal:
-        description: "Dlaczego ta wypowiedź narusza nasz <a href='%{link}'>Regulamin</a>?"
-        spam: Jest spamem
-        does_not_belong: Wprowadza w błąd
-        offensive: Jest obraźliwa lub agresywna
-        title: Zgłoś nieodpowiednią wypowiedź
-      flag_user_modal:
-        already_reported: Ta treść została już zgłoszona i zostanie sprawdzona przez administratora.
+        already_reported: Ta treść została już zgłoszona i zostanie ona sprawdzona przez administratora.
         close: Zamknij
-        description: "Dlaczego ten użytkownik narusza nasz <a href='%{link}'>Regulamin</a> i powinien zostać zablokowany?"
-        does_not_belong: Wprowadza innych w błąd
-        offensive: Jego wypowiedzi są obraźliwe lub agresywne
+        description: Dlaczego ta wypowiedź narusza nasz <a href='/pages/terms-and-conditions#subcontent'>Regulamin</a>?
+        does_not_belong: Wprowadza w błąd
+        hide: Ukryj
+        hide_content: Ukryj tę treść
+        offensive: Jest obraźliwa lub agresywna
+        reason: Powód
         report: Zgłoś
-        spam: Publikuje spam
-        title: Zgłoś użytkownika
+        spam: Jest spamem
+        title: Zgłoś nieodpowiednią wypowiedź
+      participatory_space_filters:
+        filters:
+          scope: Dzielnica
+          year: Rok
+          recipients: Odbiorcy
+          tags: Tagi
+          department: Jednostka
       confirm_modal:
-        cancel: Popraw
+        cancel: Anuluj
         ok: Wyślij
         title: Potwierdź
       follow_modal:
-        close_modal: Zamknij okno
-        follow: Obserwuj
+        form_error: Niepoprawny format
         save: Zapisz
         cancel: Anuluj
         clear: Wyczyść
         email_legend: Podaj swój adres e-mail, jeśli chcesz dostawać powiadomienia o aktualizacjach
         email_aria_label: Podaj swój email jeżeli chcesz być powiadomiony o odpowiedziach
         email_placeholder: Twój e-mail
-        log_in: Zaloguj się
-        register: Zarejestruj się
         rodo:
           no_rodo_page: BRAK STRONY Z RODO
-          rodo: RODO
+          rodo_page: RODO
           label: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail w celu otrzymywania powiadomień o zmianach na obserwowanej 
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail w celu otrzymywania powiadomień o zmianach na obserwowanej
             stronie. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
     account:
       update:
@@ -115,17 +155,25 @@ pl:
     reports:
       create:
         success: Utworzyliśmy zgłoszenie. Teraz zweryfikuje je administrator.
+        success_hide: Komentarz został ukryty
     devise:
+      registrations:
+        new:
+          already_have_an_account?: Masz już konto?
+          subtitle: ""
       sessions:
+        new:
+          are_you_new?: Nie masz jeszcze konta?
+          register: Zarejestruj się
         user:
           timed_out: Twoja sesja wygasła. Zaloguj się ponownie, aby kontynuować.
     application:
       collection:
         documents:
-          one: dokument
-          few: dokumenty
-          many: dokumentów
-          other: dokumentów
+          one: załącznik
+          few: załączniki
+          many: załączników
+          other: załączniki
       photos:
         related_photos: Galeria
     statistics:
@@ -134,10 +182,14 @@ pl:
       highlighted_meetings:
         upcoming_meetings: Najbliższe spotkania
     meetings:
+      actions:
+        confirm_destroy: Potwierdź usunięcie
       type_of_meeting:
         in_person: Na żywo
         hybrid: Online i na żywo
       meetings:
+        show:
+          back: Powrót
         filters:
           type_values:
             in_person: Na żywo
@@ -149,22 +201,83 @@ pl:
         metadata:
           participatory_structure: Kontakt
     forms:
+      questionnaire_answer_presenter:
+        download_attachment: Pobierz załącznik
+      upload:
+        labels:
+          add_attachment: Dodaj załącznik
+          add_file: Dodaj plik
+          add_image: Dodaj obraz
+          edit_image: Edytuj obraz
+          error: Błąd!
+          file_size_too_large: "Plik jest za duży! Maksymalny rozmiar to: %{megabytes}MB"
+          filename: Filename
+          remove: Usuń
+          replace: Podmień
+          save: Zapisz
+          title: Tytuł
+          title_required: Tytuł jest wymagany!
+          uploaded: Wgrano
+          validating: Weryfikacja...
+          validation_error: Błąd walidacji! Sprawdź, czy plik ma dozwolone rozszerzenie lub rozmiar.
+        select_file: Wybierz plik
+      upload_help:
+        dropzone: Upuść plik tutaj lub użyj przycisku do przesłania
       step_navigation:
         show:
           are_you_sure: Wysłać odpowiedź?
           submit: Wyślij
       admin:
         questionnaires:
+          answers:
+            export:
+              answer:
+                title: Odpowiedź
+            index:
+              title: Odpowiedzi
+          form:
+            add_separator: Dodaj separator
+            add_title_and_description: Dodaj tytuł i opis
           display_condition:
             condition_types:
               not_equal: Nie równa się
               equal: Równa się
           answer_option:
             free_text: Możliwość wpisania dowolnego tekstu
+          question:
+            duplicate: Duplikuj
+      question:
+        max_choices: "Maksymalny wybór opcji: %{count}"
+      question_types:
+        files: Pliki
+        long_answer: Długa odpowiedź
+        matrix_multiple: Macierz (wiele opcji)
+        matrix_single: Macierz (jedna opcja)
+        multiple_option: Wiele opcji
+        short_answer: Krótka odpowiedź
+        single_option: Jedna opcja
+        sorting: Sortowanie
+        title_and_description: Tytuł i opis
+        questionnaire_answer_presenter:
+          download_attachment: Pobierz załącznik
+        questionnaires:
+          answer:
+            invalid: Podczas wypełniania formularza wystąpiły błędy.
+            max_choices_alert: Wybrano zbyt wiele opcji
+            success: Wypełniono formularz.
+          question:
+            max_choices: "Maksymalny wybór opcji: %{count}"
       questionnaires:
+        answer:
+          max_choices_alert: Wybrano zbyt wiele opcji
         show:
           answer_questionnaire:
-            anonymous_user_message: Jeśli chcesz udzielić odpowiedzi, <a href="%{sign_in_link}">zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>!
+            already_have_an_account?: Masz już konto?
+            are_you_new?: Jesteś nowym użytkownikiem?
+            sign_in_description: Zaloguj się, aby wziąć udział w ankiecie
+            sign_up_description: Utwórz konto, aby wziąć udział w ankiecie
+            title: Answer the form
+            anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby dodać odpowiedzi.
           questionnaire_for_private_users:
             title: Ankieta nie jest teraz aktywna – nie możesz dodać odpowiedzi!
           questionnaire_closed:
@@ -172,53 +285,90 @@ pl:
             title: Ankieta nie jest teraz aktywna – nie możesz dodać odpowiedzi!
           questionnaire_answered:
             body: ""
-            title: Dziękujemy za przesłanie odpowiedzi!
-          tos_agreement: Wypełniając ankietę, akceptujesz regulamin
-      file_help:
-        image:
-          message_1: Dodaj obraz, na którym są ludzie. Na obrazie nie może być tekstu.
+            title: |
+              Dziękujemy, Twoje odpowiedzi zostały zapisane!<br/><br/>
+              <span style="font-weight: normal;">Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?</span><br/>
+              <span style="font-weight: normal;">Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.</span>
+          terms: regulamin
+          tos_agreement: "Akceptuję regulamin"
     datepicker:
       help_text: "Format: dd.mm.rrrr"
     participatory_processes:
+      index:
+        title: Lista konsultacji
       content_blocks:
         highlighted_processes:
           name: Aktualne konsultacje
+        area_map:
+          name: Obszar konsultacji
       participatory_processes:
         filters:
+          all_types: Wszystkie typy
           counters:
             active:
               one: 1 aktualna konsultacja
               few: "%{count} aktualne konsultacje"
               many: "%{count} aktualnych konsultacji"
               other: "%{count} aktualnych konsultacji"
+            all:
+              one: 1 konsultacja
+              few: "%{count} konsultacje"
+              many: "%{count} konsultacji"
+              other: "%{count} konsultacje"
+            past:
+              one: 1 przeszła konsultacja
+              few: "%{count} przeszłe konsultacje"
+              many: "%{count} przeszłych konsultacje"
+              other: "%{count} przeszłych konsultacji"
+            upcoming:
+              one: 1 nadchodzące konsultacje
+              few: "%{count} nadchodzących konsultacji"
+              many: "%{count} nadchodzących konsultacji"
+              other: "%{count} nadchodzących konsultacji"
       pages:
         home:
           highlighted_processes:
-            see_all_processes: Zobacz wszystkie konsultacje
             active_processes: Aktualne konsultacje
+            processes_button_title: Link do listy wszystkich procesów
+            see_all_processes: Zobacz wszystkie konsultacje
       show:
         related_processes: Zobacz także
         local_area: Część Warszawy
         meta_scope: Komórka odpowiedzialna
         participatory_structure: Kontakt
-      #        clients demand to change start & end date to data rozpoczęcia / zakończenia - restore to decidim translation
-      #        start_date: Początek konsultacji
-      #        end_date: Koniec konsultacji
       admin:
         participatory_processes:
           form:
             related_processes: Powiązane konsultaje
             announcement_help: Wpisany tu tekst wyświetli się użytkownikowi nad opisem procesu
     admin:
+      attachment_collections:
+        index:
+          attachment_collection_used: Folder w użyciu
+      components:
+        create:
+          success_landing_page: <p>Komponent został pomyślenie utworzony. Możesz dodać do strony głównej konsultacji tzw. blok treści powiązany z tym komponentem. Przejdź do <a href="%{landing_page_path}">Strony startowej</a>, aby go skonfigurować.</p>
+      newsletter_templates:
+        index:
+          title: "Szablony"
       block_user:
         new:
           description: Zablokowanie użytkownika spowoduje, że nie będzie on mógł dłużej używać swojego konta. To działanie możesz potem cofnąć i odblokować użytkownika.
       view_public_page: Podgląd
       actions:
         new_process: Nowe konsultacje
+        newsletter:
+          new: Nowy e-mail
       dashboard:
+        pending_moderations:
+          announcement:
+            one: Jest %{count} oczekująca moderacja
+            other: "Oczekujące moderacje: %{count}"
+          goto_moderation: Idź do globalnych modearacji
+          title: Oczekujące moderacje
         show:
-          welcome: Panel administracyny
+          dropdown: Rozwiń
+          view_more_logs: Więcej logów
       filters:
         results:
           scope_id_eq:
@@ -228,23 +378,41 @@ pl:
       menu:
         admins: Użytkownicy wewnętrzni
         moderation: Moderacje
+        newsletters: Newslettery i powiadomienia
         static_pages: Baza wiedzy
         participatory_processes: Konsultacje
         scopes: Dzielnice
       models:
         participatory_process:
           fields:
+            promoted: Promowane
             created_at: Utworzony
       moderations:
         reports:
           index:
             participatory_space: "Gdzie?"
       newsletters:
+        new:
+          title: Nowy e-mail
         index:
-          no_scopes: Brak dzielnic
+          title: "Newslettery i powiadomienia"
+          segmented_to_process: "Wybrane konsultacje społeczne: "
+          segmented_to_scopes: "Wybrane dzielnice: "
+          participants: "Użytkownicy"
+          no_scopes: Brak wybranych dzielnic
+          ngo: Osoby zainteresowane konsultacjami dla NGO
+          tags: "Osoby, które zaznaczyły tagi: %{tags}"
         select_recipients_to_deliver:
-          scopes_help: Wysyła newsletter do użytkowników, którzy mają dowolną z wybranych dzielnic ustawioną jako aktywną w zakładce konta „Moje zainteresowania”
-          select_scopes: Filtruj według użytkowników, którzy mają dowolną z wybranych dzielnic ustawioną jako aktywna w zakładce konta „Moje zainteresowania”
+          recipients_count: Ten e-mail zostanie wysłany do <strong id='recipients_count'>%{count}</strong> użytkowników.
+          deliver: Roześlij e-maile
+          send_to_all_users: Wyślij newsletter do wszystkich użytkowników
+          select_users: Wybierz użytkowników, do których chcesz wysyłać newsletter lub powiadomienie
+          followers_help: "Wysyła powiadomienie do wszystkich użytkowników, którzy obserwują konsultacje zaznaczone na poniższej liście"
+          send_to_tags_helper: "Wysyła newsletter do wszystkich użytkowników, którzy w zakładce „Moje zainteresowania” zaznaczyli jeden z poniższych tagów (tematów konsultacji)"
+          select_tags: "Zaznacz tagi, których obserwujący mają otrzymać ten newsletter. Jeśli chcesz zaznaczyć więcej niż jeden tag, przytrzymaj klawisz CTRL."
+          select_spaces: "Zaznacz interesujące Cię konsultacje."
+          scopes_help: Wysyła newsletter do użytkowników, którzy w zakładce „Moje zainteresowania” zaznaczyli daną dzielnicę.
+          select_scopes: "Wyślij newsletter do obserwujących daną dzielnicę. Jeśli chcesz zaznaczyć więcej niż jedną dzielnicę, przytrzymaj klawisz CTRL."
         resources:
           index:
             headers:
@@ -259,6 +427,9 @@ pl:
         edit:
           active_content_blocks: Aktywne bloki
           inactive_content_blocks: Nieaktywne bloki
+      participatory_processes:
+        index:
+          not_published: Nieopublikowana
       scopes:
         new:
           title: Nowa dzielnica
@@ -266,33 +437,52 @@ pl:
           title: Edytuj dzielnicę
       static_pages:
         form:
+          slug_help: Slug
           none: Bez tematu
       titles:
         users: Użytkownicy wewnętrzni
         participatory_processes: Konsultacje społeczne
         scopes: Dzielnice
+        static_pages: Baza wiedzy
     components:
+      add_comment_form:
+        form:
+          submit_reply: "Wyślij"
+          submit_root_comment: "Wyślij"
+          body:
+            placeholder: "Treść komentarza"
+            label: Dodaj swój komentarz
+      pagination:
+        page_title: Tytuł strony
       surveys:
         settings:
           step:
             allow_unregistered_help: Jeśli do wypełnienia ankiety nie będzie wymagane logowanie, ankieta będzie bardziej podatna na automatyczne ataki. Zalecamy ostrożność!
           global:
-            ends_at_help: Jeśli pozostawisz puste, to ankieta nie zostanie zamknięta
-            ends_at: Data zamknięcia ankiety
-      add_comment_form:
-        remaining_characters: "Pozostała liczba znaków: %{count}"
-        remaining_characters_1: "Pozostał %{count} znak"
+            ends_at_help: Po tej dacie użytkownicy zewnętrzni już nie będą mogli wypełnić ankiety. Jeśli pozostawisz puste, to ankieta nie zostanie zamknięta.
+            ends_at: Data zamknięcia ankiety (o godzinie 23:59:59)
       pages:
         name: Strona informacyjna
       proposals:
         name: Uwagi do dokumentu
     content_blocks:
+      participatory_space_hero:
+        till: do&nbsp;<strong>%{ending_date}</strong>
       sub_hero:
         name: Baner tekstowy
       stats:
         name: Konsultacje w liczbach
       highlighted_content_banner:
         name: Baner ze zdjęciem
+      meetings_map:
+        name: Mapa spotkań
+      register_user:
+        name: Baner do rejestracji
+      two_part_block_info:
+        name: Podwójny blok informacyjny
+    export_mailer:
+      download_your_data_export:
+        click_button: 'Kliknij poniższy przycisk, aby pobrać swoje dane. <br/>Plik będzie dostępny do %{date}. <br/>Potrzebujesz <a href=''''https://www.7-zip.org/''''>7-Zip</a> (Windows), <a href="https://www.keka.io/en/">Keka</a> (MacOS) lub <a href="https://peazip.github.io">PeaZip</a> (Linux) do otwarcia pliku. <br/>Hasło: %{password} <br/>'
     following:
       no_followings: Jeszcze niczego nie obserwuje
     moderations:
@@ -306,6 +496,10 @@ pl:
             participatory_space: "Gdzie?"
             reports: Powód
     pages:
+      models:
+        page:
+          fields:
+            weight: Kolejność
       terms_and_conditions:
         accept:
           success: Dziękujemy za zaakceptowanie regulaminu korzystania ze strony
@@ -318,9 +512,9 @@ pl:
           alert: ""
           body: Poświęć chwilę, aby sprawdzić, co się zmieniło i zaakceptuj nowy regulamin
           title: UWAGA! Zmieniliśmy regulamin korzystania ze strony
-      index:
-        subheading: ""
-        title: Baza wiedzy
+      terms_of_service:
+        refuse:
+          modal_body: Jeśli odmówisz, nie będziesz mógł/mogła korzystać z platformy, możesz <a href="%{download_your_data_path}">pobrać swoje dane</a> i/lub <a href="%{delete_path}">usunąć konto</a>.
       home:
         extended:
           debates: Porozmawiaj
@@ -372,7 +566,10 @@ pl:
     surveys:
       surveys:
         answer:
-          success: Dziękujemy za wypełnienie ankiety!
+          success: |
+            Dziękujemy, Twoje odpowiedzi zostały zapisane!<br/><br/>
+            <span style="font-weight: normal;">Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?</span><br/>
+            <span style="font-weight: normal;">Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.</span>
     templates:
       admin:
         questionnaire_templates:
@@ -390,19 +587,75 @@ pl:
         send_me_reset_password_instructions: Wyślij mi instrukcję resetowania hasła
       send_instructions: Za kilka minut otrzymasz e-mail z instrukcjami, jak zresetować hasło
     registrations:
-      signed_up_but_unconfirmed: Na Twój e-mail wysłaliśmy wiadomość z linkiem potwierdzającym. Kliknij link, aby aktywować konto. Pamiętaj, żeby sprawdzić też folder SPAM!
+      signed_up_but_unconfirmed: Na Twój e-mail wysłaliśmy wiadomość z linkiem potwierdzającym. Kliknij link, aby aktywować konto. <br>Pamiętaj, żeby sprawdzić też folder SPAM!
     sessions:
       signed_in: Udało Ci się zalogować
       signed_out: Udało Ci się wylogować
   errors:
     messages:
-      cannot_be_blank: To pole nie może byc puste
-      blank: To pole nie może byc puste
-      empty: To pole nie może byc puste
+      cannot_be_blank: To pole nie może być puste
+      blank: To pole nie może być puste
+      empty: To pole nie może być puste
+      required: To pole jest wymagane
+      invalid: Nieprawidłowy format
+      not_in_range: Wartość poza dozwolonym zakresem
   layouts:
     decidim:
+      data_consent:
+        dialog:
+          title: Informacje o plikach cookies
+          description: "Na tej stronie korzystamy z plików cookies. Dzięki nim strona działa poprawnie i jest  wygodniejsza w obsłudze.
+                        Szczegóły o używanych przez nas plikach cookies oraz zasadach przetwarzania danych
+                        osobowych znajdziesz w <a href='/pages/polityka-prywatnosci'>Polityce prywatności</a>"
+        details:
+          items:
+            pwaInstallPromptSeen:
+              description: Zapamięta, czy  widziałeś_aś już  komunikat o instalacji  aplikacji PWA  (Progressive Web App).  Dzięki temu nie pojawi  się on ponownie.
+            decidim-consent:
+              description: Zapisze informacje o   tym, jakie pliki cookies zaakceptowałeś_aś na tej stronie.
+            session_id:
+              description: Dzięki niemu strona „pamięta” użytkownika, gdy przechodzi między różnymi podstronami.
+            _pk_ses:
+              description: Tymczasowe dane wizyty
+              service: Zewnętrzny system Matomo
+            _pk_id:
+              service: Zewnętrzny system Matomo
+              description: Unikatowy ID odwiedzającego stronę
+        modal:
+          external:
+            title: Zewnętrzne
+            description: "Te pliki cookies pochodzą z innych serwisów, np. YouTube. Dzięki nim możesz oglądać
+                          ich treści na naszej stronie.
+                          Te cookies zapamiętają Twoje ustawienia i aktywność w serwisach zewnętrznych. Jeśli je
+                          włączysz, zgadzasz się na zasady polityki prywatności danego serwisu zewnętrznego."
+          analytics:
+            title: Analityczne
+            description: Dzięki tym plikom cookies wiemy, ile osób odwiedza stronę i z jakich funkcji korzysta. Te informacje są zbierane anonimowo i pomagają nam ulepszać stronę (np. przy użyciu narzędzia Matomo).
+          description: "Na tej stronie używamy plików cookies. Dzięki nim strona działa poprawnie i jest
+                        bezpieczna. Cookies pomagają też zapamiętać Twoje ustawienia i sprawiają, że
+                        korzystanie ze strony jest wygodniejsze. Nie zbieramy cookies do celów
+                        marketingowych.
+                        W każdej chwili możesz zmienić swoje zgody na używanie plików cookies."
+          statistics:
+            description: Tymczasowe dane wizyty
+            title: Statystyki
+        warning:
+          consent_required: "🍪 Nie możesz zobaczyć tej treści, bo wyłączyłaś/eś dodatkowe ciasteczka."
+      shared:
+        layout_center:
+          select_gender: Wybierz płeć
+          select_district: Wybierz dzielnicę
+      admin:
+        newsletters:
+          title: Newslettery i powiadomienia
+        users:
+          title: Użytkownicy
       user_menu:
+        user_interests: Zainteresowania
         account: "%{name} Konto użytkownika"
+      user_profile:
+        delete_my_account: Usuwanie konta
+        my_data: Pobierz dane
       process_navigation:
         process_menu_item: Opis
       participatory_processes:
@@ -412,11 +665,20 @@ pl:
           filtered_processes: Znalezione konsultacje
           filters: Wyszukiwarka konsultacji
       footer:
+        decidim_title: Menu
+        help: Pomoc
         decidim_logo: Platforma Decidim
-        made_with_open_source: 'Strona internetowa powstała z użyciem <a target="_blank" href="https://github.com/decidim/decidim">otwartego oprogramowania</a>.'
+        made_with_open_source: 'Strona internetowa powstała z użyciem <a target="_blank" href="https://github.com/City-of-Warsaw">otwartego oprogramowania</a>.'
+        privacy_policy: Polityka prywatności
+      header:
+        close_menu: Zamknij menu
+        navigation: Nawigacja
+        sign_in: Zaloguj się
+        sign_up: Zarejestruj się
       cookie_warning:
-        link_label: Dowiedz się więcej o ciasteczkach<span class="show-for-sr"> otwiera się w nowej karcie</span>
+        link_label: Dowiedz się więcej o ciasteczkach
         description_html: "Ta strona używa ciasteczek. Kontynuując przeglądanie witryny, zgadzasz się na korzystanie z ciasteczek. %{link}."
+        ok: Zgadzam się
   password_validator:
     email_included_in_password: Hasło jest zbyt podobne do Twojego adresu e-mail
     name_included_in_password: Hasło jest zbyt podobne do Twojego imienia
@@ -430,6 +692,58 @@ pl:
     password_too_short: Hasło jest za krótkie
   time:
     formats:
+      decidim_with_month_name_cut_zero: "%-d %B %Y"
       decidim_short_no_time: "%d.%m.%Y"
       decidim_short: "%d.%m.%Y %H:%M"
       decidim_day_of_year: "%d.%m.%Y"
+      decidim_short_cut_zero: "%-d.%m.%Y"
+  editor:
+    extensions:
+      button:
+        bubbleMenu:
+          edit: Edytuj
+          remove: Usuń
+          url: Adres URL
+        hrefLabel: Link URL
+        targetLabel: Obiekt docelowy
+        targets:
+          blank: Nowa karta
+          default: Domyślne (ta sama zakładka)
+      html:
+        htmlLabel: Edytuj HTML
+      videoEmbed:
+        urlLabel: Adres URL wideo (YouTube lub Vimeo)
+      video:
+        urlLabel: Adres URL wideo
+    toolbar:
+      control:
+        button: Przycisk
+        horizontalRule: Linia pozioma
+        textAlignLeft: Wyrównaj do lewej
+        textAlignCenter: Wyrównaj do środka
+        textAlignRight: Wyrównaj do prawej
+        textAlignJustify: Wyjustuj
+        html: Edytuj HTML
+        undo: Cofnij
+        redo: Przywróć
+        customStyle:
+          name: Styl tekstu
+          default: Styl
+          areaHeadline: Wyróżniony śródtytuł
+          legalBasis: Podstawa prawna
+          textWrapImage: Oblewanie obrazu tekstem
+        table: Tabela
+        tableAddColumnBefore: Dodaj kolumnę przed
+        tableAddColumnAfter: Dodaj kolumnę po
+        tableAddRowBefore: Dodaj wiersz przed
+        tableAddRowAfter: Dodaj wiersz po
+        tableDeleteColumn: Usuń kolumnę
+        tableDeleteRow: Usuń wiersz
+        tableDeleteTable: Usuń tabelę
+        tableMergeCells: Scal komórki
+        tableSplitCell: Podziel komórkę
+        imageRepository: Repozytorium obrazów
+        strike: Przekreślenie
+        subscript: Indeks dolny
+        superscript: Indeks górny
+        video: Wideo

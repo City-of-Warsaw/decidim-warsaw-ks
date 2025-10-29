@@ -8,23 +8,29 @@ module Decidim::StudyNotes
     helper_method :map_background
 
     def index
-      # enforce_permission_to :manage, :map_background
+      enforce_permission_to :manage, :map_backgrounds
       @map_backgrounds = collection.page(params[:page]).per(15)
     end
 
     def new
-      # enforce_permission_to :manage, :map_background
+      enforce_permission_to :manage, :map_backgrounds
       @form = Decidim::StudyNotes::Admin::MapBackgroundForm.new
     end
 
     def create
-      # enforce_permission_to :manage, :map_background
+      enforce_permission_to :manage, :map_backgrounds
+
       @form = form(Decidim::StudyNotes::Admin::MapBackgroundForm).from_params(params)
-      if @form.valid?
-        @form.create_map_background
-        redirect_to map_backgrounds_path, notice: 'Podkład mapowy został dodany'
-      else
-        render action: :new
+      Decidim::StudyNotes::Admin::CreateMapBackground.call(@form, current_component) do
+        on(:ok) do
+          flash[:notice] = I18n.t("map_background.create.success", scope: "decidim.consultation_map.admin")
+          redirect_to map_backgrounds_path, notice: 'Podkład mapowy został dodany'
+        end
+
+        on(:invalid) do
+          flash.now[:alert] = I18n.t("map_background.create.error", scope: "decidim.consultation_map.admin")
+          render :new
+        end
       end
     end
 
@@ -34,13 +40,20 @@ module Decidim::StudyNotes
     end
 
     def update
-      # enforce_permission_to :manage, :map_background
+      enforce_permission_to :manage, :map_backgrounds
+
+
       @form = form(Decidim::StudyNotes::Admin::MapBackgroundForm).from_params(params)
-      if @form.valid?
-        @form.update(map_background)
-        redirect_to map_backgrounds_path, notice: 'Podkład mapowy został zaktulizowany'
-      else
-        render action: :edit
+      Decidim::StudyNotes::Admin::UpdateMapBackground.call(map_background, @form) do
+        on(:ok) do
+          flash[:notice] = I18n.t("map_background.update.success", scope: "decidim.consultation_map.admin")
+          redirect_to map_backgrounds_path, notice: 'Podkład mapowy został zaktualizowany'
+        end
+
+        on(:invalid) do
+          flash.now[:alert] = I18n.t("map_background.update.error", scope: "decidim.consultation_map.admin")
+          render :edit
+        end
       end
     end
 

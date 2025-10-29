@@ -12,7 +12,10 @@ module Decidim
       routes do
         # Add engine routes here
         resources :remarks, except: :new do
-          patch :second_step_update, on: :member
+          member do
+            post :vote
+            patch :second_step_update
+          end
         end
         root to: "remarks#index"
       end
@@ -23,25 +26,16 @@ module Decidim
         end
       end
 
-      # decorators
-      config.autoload_paths << File.join(
-        Decidim::Remarks::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::Remarks::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
       end
 
       initializer "decidim_remarks.add_cells_view_paths" do
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::Remarks::Engine.root}/app/cells")
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::Remarks::Engine.root}/app/views") # for partials
-      end
-
-      initializer "decidim_remarks.assets" do |app|
-        app.config.assets.precompile += %w[decidim_remarks_manifest.js decidim_remarks_manifest.css]
       end
     end
   end

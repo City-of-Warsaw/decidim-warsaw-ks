@@ -1,0 +1,5 @@
+<% if current_component.users_action_disallowed? %>
+  <div class="flash warning my-4">
+    <%= current_component.end_date_message %>
+  </div> 
+<% end %>

@@ -1,33 +1,34 @@
-<div class="row column view-header">
-  <div class="m-bottom">
-    <%= link_to study_notes_path + "#subcontent", class: "small hollow" do %>
-      <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
-      <span>Powrót</span>
-    <% end %>
-  </div> 
-</div>
-<div class="row columns"> 
-  <div class="study-note-success">
-    <div class="study-note-success__popup">
-      <%# <a class="close" href=""><span aria-hidden="true">&times;</span></a> %>
+<main>
+  <div class="participatory-space__container">     
+    <section class="py-6"> 
+      <%= link_to study_notes_path + "#subcontent", class: "back-link" do %>
+        <%= icon "arrow-go-back-line", class: "icon--small", role: "img", "aria-hidden": true %>
+        <span><%= t(".back") %></span>
+      <% end %>
+    </section>
 
-      <div class="inner">
-        <h3>Uwaga do studium została zgłoszona</h3>
+    <section class="study-note-wrapper">
+      <div class="study-note-success">
+        <div class="study-note-success__popup"> 
+          <div class="inner">
+            <h3><%= t(".heading") %></h3>
 
-        <p><strong>Dziękujemy za zgłoszenie.</strong></p>
+            <p><strong><%= t(".thank_you") %></strong></p>
 
-        <% if study_note.email.present? %>
-          <p><%= "System automatycznie wysłał potwierdzenie na podany adres e-mail." %></p>
-        <% end %>
+            <% if study_note.email_confirmation_request.present? %>
+              <p><%= t(".email_sent") %></p>
+            <% end %>
 
-        <%= link_to study_note_path(study_note, format: :pdf), class: "pdf-link", rel: "noopener", title: "Pobierz" do %>
-          Pobierz potwierdzenie PDF<%= image_tag 'download-icon.png' %>
-        <% end %>
+            <%= link_to study_note_path(study_note, uuid: study_note.uuid, format: :pdf), class: "pdf-link flex", rel: "noopener", title: "Pobierz" do %> 
+              <%= t(".download_pdf") %><%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+            <% end %>
+          </div>
+
+          <div class="foot">
+            <%= link_to t(".send_new"), study_notes_path + "#subcontent", class: "button button__sm button__transparent-secondary" %>
+          </div>
+        </div>
       </div>
-
-      <div class="foot">
-        <%= link_to "Zgłoś kolejną uwagę do studium", study_notes_path + "#subcontent" %>
-      </div>
-    </div>
+    </section>
   </div>
-</div>
+</main>

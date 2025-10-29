@@ -1,0 +1,11 @@
+<header class="text-center py-10">
+  <h1 class="title-decorator inline-block text-left mb-12">
+    <%= topic %>
+  </h1>
+</header>
+
+<% if description.present? %>
+  <section class="layout-1col cols-10 mb-10 editor-content">
+    <%= description %>
+  </section>
+<% end %>

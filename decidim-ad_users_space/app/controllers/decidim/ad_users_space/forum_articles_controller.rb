@@ -27,6 +27,8 @@ module Decidim::AdUsersSpace
     end
 
     def show
+      raise ActionController::RoutingError, "Not Found" unless forum_article
+
       forum_article
       @comments = forum_article.comments.latest_first.page(params[:page]).per(15)
     end

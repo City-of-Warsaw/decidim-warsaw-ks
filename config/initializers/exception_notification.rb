@@ -1,4 +1,5 @@
 return if Rails.env.development?
+return unless ENV.fetch('EXCEPTION_NOTIFICATION', nil).present?
 
 require 'exception_notification/rails'
 
@@ -23,8 +24,8 @@ ExceptionNotification.configure do |config|
   # Email notifier sends notifications by email.
   config.add_notifier :email, {
     email_prefix: '[KS-stg] ',
-    sender_address: %{"KS Staging Error Notifier" <test@domain.com>},
-    exception_recipients: %w{test@domain.com}
+    sender_address: %{"KS Staging Error Notifier" <#{ENV.fetch('SMTP_FROM')}>},
+    exception_recipients: %w{przemyslaw.adamowicz@atende.pl}
   }
 
   # Campfire notifier sends notifications to your Campfire room. Requires 'tinder' gem.

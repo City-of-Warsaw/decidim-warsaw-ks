@@ -33,21 +33,16 @@ module Decidim
       object.title["pl"]
     end
 
-    # TODO: dodac host
     def hero_image
-      object.hero_image.url
+      object.attached_uploader(:hero_image).url
     end
 
-    # TODO: dodac host
     def banner_image
-      object.banner_image.url
+      object.organization.attached_uploader(:highlighted_content_banner_image).url
     end
 
-    # TODO: poprawic url
     def url
-      # participatory_process_url(object.slug, host: '')
       "/processes/#{Rails.application.routes.url_helpers.url_for(object.slug)}"
-      # Rails.application.routes.url_helpers.participatory_process_url(object.slug, host: '')
     end
 
     def address

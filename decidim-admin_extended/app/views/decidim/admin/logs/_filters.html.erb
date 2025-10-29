@@ -1,0 +1,40 @@
+<div class="filters__section">
+  <div class="fcell search">
+    <%= search_form_for(query, url: url_for, html: { class: "form form-defaults" }) do |form| %>
+      <div class="form__wrapper">
+        <div class="card">
+          <div class="card-section">
+            <div class="grid grid-cols-4 p-4 pb-0 gap-x-4">
+              <div class="row column">
+                <%= form.text_field :with_participatory_space, placeholder: t(".participatory_space"), class: "participatory-space-search", value: nil, data: {
+                  selected: form.object.with_participatory_space
+                } %>
+              </div>
+              <div class="row column">
+                <%= form.datetime_field :created_at_dtgteq, hide_help: true %>
+              </div>
+              <div class="row column">
+                <%= form.datetime_field :created_at_dtlteq, hide_help: true, default_time: "23:59" %>
+              </div>
+              <div class="row column">
+                <%= form.search_field(search_field_predicate, class: "input-group-field", label: t(".user"), placeholder: t(".text")) %>
+              </div>
+              <div class="row column">
+                <div class="grid grid-cols-[70%_30%] items-end gap-x-4">
+                  <div class="cell">
+                    <%= form.select(:sort_by_admin_log_select_param, sort_by_select, { label: false }, class: "input-group-field") %>
+                  </div>
+                  <div class="cell">
+                    <button type="submit" class="button button__sm button__secondary" aria-label="<%= t("decidim.search.term_input_placeholder") %>">
+                      <%= icon "search-line", class: "!fill-white w-4 h-4" %>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

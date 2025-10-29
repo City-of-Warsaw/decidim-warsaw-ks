@@ -1,0 +1,69 @@
+<div class="<%= area_class %>">
+  <%= link_to resource_path, class: [classes[:default], "card card--process"], id: resource_id do %>
+    <div class="main-card-wrapper">
+      <div class="<%= classes[:img] %> card__image--wrapper">
+        <% if has_image? %>
+          <%= image_tag resource_image_url, alt: alt_title %>
+        <% else %>
+          <%= external_icon "media/images/placeholder-card-g.svg", class: "card__placeholder-g" %>
+        <% end %>
+
+        <div class="process-status">
+          <% if model.end_date.present? && model.end_date >= Time.current.to_date %>
+            <span class="process-status__circle process-status__circle--active"></span>
+            <p class="process-status__title">Trwające</p>
+          <% else %>
+            <span class="process-status__circle process-status__circle--inactive"></span>
+            <p class="process-status__title">Zakończone</p>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card__content">
+        <% if !highlight? %>
+          <div class="consultation-decor">
+            <div class="colored-box"></div>
+          </div>
+        <% end %>
+
+        <div class="card__middle-part">
+          <div class="<%= classes[:text] %> card__title">
+            <%= content_tag title_tag, title, class: title_class %>
+          </div>
+
+          <div class="columns medium-12">
+            <%= areas_data %>
+          </div>
+        </div>
+
+        <div class="card__separator"></div>
+
+        <div class="card__footer card__footer--spaces flexed-to-bottom">
+          <div class="row">  
+            <div class="columns medium-6 process-status-subtext">
+              
+            </div>
+
+            <div class="columns medium-6 text-right process-recipients">
+              <% if model.not_for_citizens? %>
+                <%= t(model.recipients, scope: 'activemodel.attributes.participatory_process.recipients_type') %>
+              <% end %>
+            </div>
+          </div>
+        
+          <% if metadata_cell.present? %>
+            <div class="<%= classes[:metadata] %> card__metadata">
+              <%= cell metadata_cell, resource, links: false, **options %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <% if highlight? %>
+      <div class="consultation-decor">
+        <div class="colored-box"></div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

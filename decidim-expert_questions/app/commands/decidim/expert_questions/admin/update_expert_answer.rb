@@ -4,7 +4,7 @@ module Decidim
   module ExpertQuestions
     module Admin
       # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class UpdateExpertAnswer < Rectify::Command
+      class UpdateExpertAnswer < Decidim::Command
         # Initializes a CreateExpertAnswer Command.
         #
         # form - The form from which to get the data.
@@ -22,11 +22,20 @@ module Decidim
         def call
           return broadcast(:invalid) if @form.invalid?
 
+          remove_files
           update_expert_answer
           broadcast(:ok)
         end
 
         private
+
+        def remove_files
+          return if @form.remove_files.none?
+
+          @form.remove_files.each do |file_id|
+            @expert_answer.files.find(file_id).destroy
+          end
+        end
 
         def update_expert_answer
           Decidim.traceability.update!(
@@ -40,7 +49,7 @@ module Decidim
         def expert_answer_attributes
           {
             body: @form.body,
-            files: @form.files
+            files: @expert_answer.files.map(&:blob) + @form.files
           }
         end
 

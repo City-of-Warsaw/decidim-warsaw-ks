@@ -19,7 +19,6 @@ module Importers
       if Rails.env.development?
         'files_to_migrate/'
       else
-        # TODO:
         '/var/www/decidim/migracja/task-list-data/'
       end
     end

@@ -1,12 +1,45 @@
 <%
   js_configs = {
-    icons_path: image_path("decidim/icons.svg"),
+    api_path: decidim_api.root_path(locale: nil),
+    icons_path: Decidim.cors_enabled ? "" : asset_pack_path("media/images/remixicon.symbol.svg"),
     messages: {
       "selfxssWarning": {
         title: t("decidim.security.selfxss_warning.title"),
         description: t("decidim.security.selfxss_warning.description")
-      }
-    }
+      },
+      editor: t("editor")
+    },
+    external_domain_allowlist: [current_organization.host] + current_organization.external_domain_allowlist,
+    consent_cookie_name: Decidim.consent_cookie_name,
+
+    osmUrl: Decidim.maps[:osm],
+    nominatimUrl: Decidim.maps[:nominatim],
+
+    # Icons
+    markerIconUrl:        asset_pack_path("media/images/marker-icon.png"),
+    markerIconRetinaUrl:  asset_pack_path("media/images/marker-icon-2x.png"),
+    markerShadowUrl:      asset_pack_path("media/images/marker-shadow.png"),
+
+    markerOfflineIconUrl:             asset_pack_path("media/images/marker-offline.svg"),
+    markerOfflineIconRetinaUrl:       asset_pack_path("media/images/marker-offline.svg"),
+    markerOfflineActiveIconUrl:       asset_pack_path("media/images/marker-offline-active.svg"),
+    markerOfflineActiveIconRetinaUrl: asset_pack_path("media/images/marker-offline-active.svg"),
+    markerOfflineClosedIconUrl:       asset_pack_path("media/images/marker-offline-closed.svg"),
+    markerOfflineClosedIconRetinaUrl: asset_pack_path("media/images/marker-offline-closed.svg"),
+
+    markerOnlineIconUrl:              asset_pack_path("media/images/marker-online.svg"),
+    markerOnlineIconRetinaUrl:        asset_pack_path("media/images/marker-online.svg"),
+    markerOnlineActiveIconUrl:        asset_pack_path("media/images/marker-online-active.svg"),
+    markerOnlineActiveIconRetinaUrl:  asset_pack_path("media/images/marker-online-active.svg"),
+    markerOnlineClosedIconUrl:        asset_pack_path("media/images/marker-online-closed.svg"),
+    markerOnlineClosedIconRetinaUrl:  asset_pack_path("media/images/marker-online-closed.svg"),
+
+    remarkMapMarkerIconUrl:        asset_pack_path("media/images/map-marker-cursor.svg"),
+
+    calendarIconGrayUrl:  asset_pack_path("media/images/calendar-icon-gray.svg"),
+    closeIconBlackUrl:    asset_pack_path("media/images/close-icon-black.svg"),
+    computerIconGrayUrl:  asset_pack_path("media/images/computer-icon-gray.svg"),
+    mapPinIconGrayUrl:    asset_pack_path("media/images/map-pin-icon-gray.svg"),
   }
   character_messages = {
     "charactersAtLeast": {
@@ -31,9 +64,4 @@
   Decidim.InputCharacterCounter.configureMessages(<%== character_messages.to_json %>);
   Decidim.ExternalLink.configureMessages(<%== external_link_messages.to_json %>);
   Decidim.FormValidator.configureMessages(<%== validator_messages.to_json %>);
-
-  <% if Rails.env.development? %>
-    // overwritten configuration for remove selfxss_warning in development
-    Decidim.config.set(<%== { messages: nil }.to_json %>);
-  <% end %>
 <% end %>

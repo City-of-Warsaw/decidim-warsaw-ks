@@ -93,7 +93,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Comments::Commentable, Followable, HasAttachmentCollections, HasAttachments, Loggable, Searchable, Traceable</dd>
+      <dd>Comments::Commentable, Followable, Loggable, Reportable, Searchable, Traceable</dd>
   </dl>
   
   
@@ -108,7 +108,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>A Information is used to add content to public view.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -157,7 +168,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#allowed_to_comment%3F-instance_method" title="#allowed_to_comment? (instance method)">#<strong>allowed_to_comment?</strong>(user)  &#x21d2; Boolean </a>
+      <a href="#admins-instance_method" title="#admins (instance method)">#<strong>admins</strong>  &#x21d2; Object </a>
     
 
     
@@ -172,7 +183,31 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Public method that allows comments to all users.</p>
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#comments_have_votes%3F-instance_method" title="#comments_have_votes? (instance method)">#<strong>comments_have_votes?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Public: Overrides the ‘comments_have_votes?` Commentable concern method.</p>
 </div></span>
   
 </li>
@@ -195,7 +230,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information.</p>
+</div></span>
   
 </li>
 
@@ -249,28 +286,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#participatory_space-instance_method" title="#participatory_space (instance method)">#<strong>participatory_space</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#permission_class_chain-instance_method" title="#permission_class_chain (instance method)">#<strong>permission_class_chain</strong>  &#x21d2; Object </a>
     
 
@@ -286,30 +301,6 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#private_space%3F-instance_method" title="#private_space? (instance method)">#<strong>private_space?</strong>  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Public method that allows comments to all users.</p>
-</div></span>
   
 </li>
 
@@ -341,7 +332,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#users_to_notify_on_comment_created-instance_method" title="#users_to_notify_on_comment_created (instance method)">#<strong>users_to_notify_on_comment_created</strong>  &#x21d2; Object </a>
+      <a href="#user_allowed_to_comment%3F-instance_method" title="#user_allowed_to_comment? (instance method)">#<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; Boolean </a>
     
 
     
@@ -356,7 +347,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Public method retrieving Users that need to be notified.</p>
+<p>overwritten method information be set in admin panel, to disallow/allow to comment by unregistered author.</p>
 </div></span>
   
 </li>
@@ -366,7 +357,6 @@
   
 
 
-  
   
   
   
@@ -400,12 +390,12 @@
       <pre class="lines">
 
 
-22
-23
-24</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_log_presenter_class_for'>log_presenter_class_for</span><span class='lparen'>(</span><span class='id identifier rubyid__log'>_log</span><span class='rparen'>)</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="AdminLog.html" title="Decidim::News::AdminLog (module)">AdminLog</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="AdminLog/InformationPresenter.html" title="Decidim::News::AdminLog::InformationPresenter (class)">InformationPresenter</a></span></span>
@@ -422,9 +412,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="allowed_to_comment?-instance_method">
+  <h3 class="signature first" id="admins-instance_method">
   
-    #<strong>allowed_to_comment?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
+    #<strong>admins</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -433,9 +423,48 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Public method that allows comments to all users</p>
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information</p>
 
-<p>Returns: Boolean</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_admins'>admins</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="comments_have_votes?-instance_method">
+  
+    #<strong>comments_have_votes?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Public: Overrides the ‘comments_have_votes?` Commentable concern method.</p>
 
 
   </div>
@@ -462,14 +491,14 @@
       <pre class="lines">
 
 
-87
-88
-89</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 90</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_allowed_to_comment?'>allowed_to_comment?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_comments_have_votes?'>comments_have_votes?</span>
   <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -486,18 +515,29 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>overwritten method make blank collection due for decidim-core-0.29.3/lib/decidim/reportable.rb:27 only admin administers information</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-69
-70
-71</pre>
+85
+86
+87</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_moderators'>moderators</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
@@ -535,12 +575,12 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mounted_engine'>mounted_engine</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim_news</span><span class='tstring_end'>&quot;</span></span>
@@ -565,49 +605,19 @@
       <pre class="lines">
 
 
-57
-58
-59
-60
-61</pre>
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 63</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_mounted_params'>mounted_params</span>
   <span class='lbrace'>{</span>
     <span class='label'>host:</span> <span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span>
   <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="participatory_space-instance_method">
-  
-    #<strong>participatory_space</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-73
-74
-75</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 73</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_participatory_space'>participatory_space</span>
-  <span class='kw'>self</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -629,75 +639,19 @@
       <pre class="lines">
 
 
-63
-64
-65
-66
-67</pre>
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_permission_class_chain'>permission_class_chain</span>
   <span class='lbracket'>[</span>
     <span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Permissions</span>
   <span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="private_space?-instance_method">
-  
-    #<strong>private_space?</strong>  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Public method that allows comments to all users</p>
-
-<p>Returns: Boolean</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-53
-54
-55</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 53</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_private_space?'>private_space?</span>
-  <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -732,15 +686,15 @@
       <pre class="lines">
 
 
-46
-47
-48</pre>
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_route_name'>route_name</span>
-  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>news</span><span class='tstring_end'>&#39;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>news</span><span class='tstring_end'>&quot;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -748,9 +702,9 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="users_to_notify_on_comment_created-instance_method">
+  <h3 class="signature " id="user_allowed_to_comment?-instance_method">
   
-    #<strong>users_to_notify_on_comment_created</strong>  &#x21d2; <tt>Object</tt> 
+    #<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
   
 
   
@@ -759,15 +713,26 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Public method retrieving Users that need to be notified</p>
-
-<p>Returns: ActiveRecord::Relation</p>
+<p>overwritten method information be set in admin panel, to disallow/allow to comment by unregistered author</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -775,15 +740,23 @@
       <pre class="lines">
 
 
-80
-81
-82</pre>
+96
+97
+98
+99
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/models/decidim/news/information.rb', line 96</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_users_to_notify_on_comment_created'>users_to_notify_on_comment_created</span>
-  <span class='id identifier rubyid_followers'>followers</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_user_allowed_to_comment?'>user_allowed_to_comment?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+  <span class='comment'># scenario when registered user is present
+</span>  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+
+  <span class='comment'># scenario when unregistered author is present
+</span>  <span class='id identifier rubyid_users_action_allowed_for_unregister_users?'>users_action_allowed_for_unregister_users?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -795,9 +768,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

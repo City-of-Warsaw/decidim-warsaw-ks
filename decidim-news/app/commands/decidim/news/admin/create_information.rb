@@ -3,19 +3,28 @@
 module Decidim
   module News
     module Admin
-      # This command is executed when user creates Information
-      class CreateInformation < Rectify::Command
+      # A command with all the business logic to create Information
+      class CreateInformation < Decidim::Command
+        include Decidim::Repository::Admin::GalleriesHelper
+
+        # Public: Initializes the command.
+        #
+        # form - A form object with the params.
         def initialize(form)
           @form = form
         end
 
-        # Creates the information if valid.
+        # Executes the command. Broadcasts these events:
         #
-        # Broadcasts :ok if successful, :invalid otherwise.
+        # - :ok when everything is valid.
+        # - :invalid if the form wasn't valid and we couldn't proceed.
+        #
+        # Returns nothing.
         def call
           return broadcast(:invalid) if form.invalid?
 
           create_information!
+          add_gallery(information)
 
           broadcast(:ok, information)
         end
@@ -28,18 +37,20 @@ module Decidim
           @information = Decidim.traceability.create!(
             Decidim::News::Information,
             form.current_user,
-            information_params,
-            visibility: "admin-only"
+            attributes,
+            visibility: 'admin-only'
           )
         end
 
-        def information_params
+        def attributes
           {
             title: form.title,
             body: form.body,
             gallery_id: form.gallery_id,
             organization: form.current_organization,
-            users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users
+            users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users,
+            weight: form.weight,
+            added_on: form.added_on
           }
         end
       end

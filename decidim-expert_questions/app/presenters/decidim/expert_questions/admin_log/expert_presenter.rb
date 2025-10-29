@@ -9,7 +9,7 @@ module Decidim
 
         def diff_fields_mapping
           {
-            position: :string,
+            full_name: :string,
             affiliation: :string,
             description: :string,
             weight: :integer,

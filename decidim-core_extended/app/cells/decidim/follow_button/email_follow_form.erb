@@ -1,0 +1,68 @@
+<%= form_with(
+      url: decidim_core_extended.email_follows_path,
+      method: :post,
+      remote: true,
+      data: { abide: true, "live-validate" => true, "validate-on-blur" => true }
+    ) do |form| %>
+
+  <%= hidden_field_tag :format, :js %>
+  <%= form.hidden_field :followable_gid, value: model.to_sgid.to_s %> 
+  
+  <div data-dialog-container>
+    <%= icon "follow" %>
+    <h3 class="h3">Obserwuj</h3> 
+    
+    <div>
+      <label for="email" id="email-legend" class="email-label">
+        <%= t("decidim.shared.follow_modal.email_legend") %>
+      </label>
+
+      <div class="field comment-field--email custom-comment-field--email">
+        <%= form.email_field :email,
+                            placeholder: t("decidim.shared.follow_modal.email_placeholder"),
+                            label: false %>
+        <small class="form-error">
+          <%= t("decidim.shared.follow_modal.form_error") %>
+        </small>
+      </div>
+
+      <div class="field checkboxed comment-field--rodo rodo-field">
+        <%= form.check_box :rodo,
+                          required: true,
+                          class: "custom-radio-rodo",
+                          label: t("decidim.shared.follow_modal.rodo.label",
+                                    link: link_to(
+                                      static_page_with_rodo ?
+                                        t("decidim.shared.follow_modal.rodo.rodo_page") :
+                                        t("decidim.shared.follow_modal.rodo.no_rodo_page"),
+                                      "#")) %>
+      </div>
+    </div> 
+  </div>
+
+  <div data-dialog-actions>
+    <ul class="ul-reset ul-contents" role="list">
+      <li>
+        <%= link_to t("decidim.shared.login_modal.please_log_in"),
+                    decidim.new_user_session_path,
+                    class: 'link'%>
+        <span> / </span>
+      </li>
+      <li>
+        <%= link_to t("decidim.shared.login_modal.sign_up"),
+                    decidim.new_user_registration_path,
+                    class: 'link'%>
+      </li>
+    </ul>
+
+    <div class="flex gap-2">
+      <%= form.submit t("decidim.shared.follow_modal.cancel"),
+                      type: 'button',
+                      data: { "dialog-close": "followModal" },
+                      class: "button button__lg button__transparent-primary ml-auto" %>
+      <%= form.submit t("decidim.shared.follow_modal.save"),
+                      class: "button button__lg button__primary",
+                      data: { disable: true } %>
+    </div>
+  </div>
+<% end %>

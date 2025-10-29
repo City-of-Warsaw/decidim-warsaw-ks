@@ -1,0 +1,8 @@
+.custom-border {
+  border-bottom: 1px solid #dbdbdb !important;
+  margin-bottom: 0px !important;
+}
+
+.custom-container-wrapper .custom-border:last-child {
+  border-bottom: none !important;
+}

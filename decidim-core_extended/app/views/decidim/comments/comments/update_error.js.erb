@@ -1,0 +1,40 @@
+(function() {
+  let modalId = '#editCommentModal<%= j(@comment.id) %>';
+  let $form = $(modalId).find('form');
+  
+  $form.replaceWith('<%= j(cell("decidim/comments/edit_comment_modal_form", @comment, form_object: @form).call) %>');
+
+  $form = $(modalId).find('form');
+  $form.foundation();
+
+  $form.find('.comment-field--body textarea').each(function () {
+    $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+  }); 
+
+  $form.find("input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+    max: 5,
+    STRING: {
+      remove: 'usuń',
+      denied: 'Ten format pliku $ext jest niedozwolony.',
+      file: '$file',
+      selected: 'Wybrany plik: $file',
+      duplicate: 'Ten plik już został wybrany:\n$file',
+      toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+      toomany: 'Niedozwolona liczba plików (maks: $max)',
+      toobig: '$file ma za duży rozmiar (maks: $size)'
+    }, 
+  });
+
+  $form.find(".attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+    e.preventDefault();
+    
+    $(this).addClass("AttachmentButton-applied");
+
+    var target_id = $(this).data("target");
+    $(this).closest("form").find(target_id + " > input")
+        .last()
+        .click();
+  });
+
+  document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $form[0] }));
+}());

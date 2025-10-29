@@ -13,16 +13,14 @@ if Rails.env.development?
     config.csp = {
       default_src: %w(http: 'self'),
       font_src: %w('self' data: http:),
-      frame_src: %w('self' https://www.youtube.com),
+      frame_src: %w('self' https://www.youtube.com https://www.youtube-nocookie.com),
       # Wylaczone zeby mozna bylo podgladac maile na localhost
       # frame_src: %w('none'),
-      # frame_ancestors: %w('none'),
-      img_src: %w('self' http: data:),
+      frame_ancestors: %w('self'),
+      img_src: ["'self'", "data:", "http:"],
       media_src: %w(http: 'self'),
       object_src: %w('none'),
-      script_src: %w('self' http: 'unsafe-inline'),
-      # script_src: %w('self' http:),
-      # script_src: ["'self'", "https://#{ENV['MATOMO_HOST']}"],
+      script_src: %w(* 'self' http: 'unsafe-inline' 'unsafe-eval'), # wlaczone wszystko dla better_error
       style_src: %w('self' http: 'unsafe-inline')
     }
   end

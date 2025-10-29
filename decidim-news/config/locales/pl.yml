@@ -4,72 +4,77 @@ pl:
       information:
         body: Treść
         title: Tytuł
-        users_action_allowed_for_unregister_users: Kto może przesyłać komentarze w ramach tej aktualności?
+        users_action_allowed_for_unregister_users: Kto może przesyłać komentarze w ramach tej informacji? *
+        weight: Kolejność
+        added_on: Data dodania
   activerecord:
     models:
       decidim/news/information:
-        one: Aktualność
-        few: Aktualności
-        many: Aktualności
-        other: Aktualności
+        one: Informacje
+        few: Informacje
+        many: Informacje
+        other: Informacje
   decidim:
     admin:
+      actions:
+        publish: Publikuj
+        unublish: Cofnij publikację
       informations:
-        destroy:
-          error: NIe udało się usunać wpisu
-          success: Usunięto wpis
-        back_to_index: Powrót
         create:
-          error: Wystąpił błąd podczas dodawani wpisu
+          error: Wystąpił błąd podczas dodawania wpisu
           success: Wpis został dodany
+        destroy:
+          error: Nie udało się usunąć wpisu
+          success: Usunięto wpis
         new:
-          create: Nowa Aktualność
+          create: Nowa Informacja
+        publish:
+          success: Wpis został opublikowany
+        unpublish:
+          success: Cofnięto publikację wpisu
         update:
           error: Wystąpił błąd podczas aktualizowania wpisu
           success: Wpis został zaktualizowany
-        no_informations: Brak aktualności
       menu:
-        news: Aktualności
-      models:
-        information:
-          fields:
-            title: Tytuł
-            body: Treść
+        news: Informacje
       titles:
-        informations: Aktualności
+        informations: Informacje
     admin_log:
       information:
-        create: "%{user_name} utworzył(a) Aktualność %{resource_name}"
-        delete: "%{user_name} usunął/ęła Aktualność %{resource_name}"
-        update: "%{user_name} zaktualizował(a) Aktualność %{resource_name}"
+        create: "%{user_name} utworzył(a) informację %{resource_name}"
+        delete: "%{user_name} usunął/ęła informację %{resource_name}"
+        update: "%{user_name} zaktualizował(a) informację %{resource_name}"
+        publish: "%{user_name} opublikował(a) informację %{resource_name}"
+        unpublish: "%{user_name} cofnął(a) publikację informacji %{resource_name}"
     informations:
       actions:
         attachment_collections: Foldery
         attachments: Pliki
-      index:
-        title: Aktualności
-        description: Strona z aktualnosciami dotyczącymi Konsultacji społecznych w Warszawie
-    menu:
-      news: Aktualności
     news:
       admin:
         informations:
+          index:
+            title: Tytuł
+            body: Treść
           new:
             create: Dodaj
-            title: Nowa Aktualność
+            title: Nowa Informacja
           edit:
             title: Edytuj
             update: Zaktualizuj
       content_blocks:
         latest_informations:
           name: Może Cię zainteresować
-          view_all_informations: Zobacz więcej<span class="show-for-sr"> aktualności</span>
-      hero:
-        header: Aktualności
-        sub_header: Podtytuł ogólny Konsultacji Społecznych
+          view_all_informations: Zobacz więcej<span class="show-for-sr"> informacji</span>
       informations:
         show:
           view: Czytaj całość
           back: Powrót do listy
+          tooltip_content: |-
+            <p>Obserwuj, żeby dostać e-mail, gdy:</p>
+            <ul>
+              <li>pojawi się istotna aktualizacja</li>
+              <li>ktoś doda komentarz.</li>
+            </ul>
         index:
           read_more: Pokaż więcej

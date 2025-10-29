@@ -1,0 +1,1426 @@
+<main>
+  <div class="participatory-space__container">     
+    <section> 
+      <%= render partial: 'decidim/shared/component_settings_help_section' %>
+    </section> 
+ 
+    <section class="general-plan-request-wrapper"> 
+      <%= decidim_form_for(@form) do |form| %>
+        <%#= invisible_captcha %> 
+
+        <div class="form-head">
+          <h2><%= t(".form_title") %></h2>
+
+          <div>
+            <%= t(".submission_date") %>
+            <strong><%= Time.now.strftime("%-d.%m.%Y") %></strong>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_1">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_1") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_1"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :authority_name_which_letter_is_addressed, disabled: true, class: "mb-0" %> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_2">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+  
+            <div>
+              <h3><%= t(".section_2") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_2"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-section__content-checkboxes form-section__content-checkboxes--halves">
+              <div class="checkboxed">
+                <%= form.check_box :letter_type, disabled: true, checked: true %>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_2") %></label>
+              </div> 
+              
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_3") %></label>
+              </div> 
+              
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_4") %></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_3">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+  
+            <div>
+              <h3><%= t(".section_3") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_3"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-section__content-checkboxes">
+              <div class="checkboxed">
+                <%= form.check_box :urban_planning_act_type, disabled: true, checked: true %>  
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".urban_planning_act_type_2") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />               
+                <label class="styled-label"><%= t(".urban_planning_act_type_3") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />
+                <label class="styled-label"><%= t(".urban_planning_act_type_4") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />
+                <label class="styled-label"><%= t(".urban_planning_act_type_5") %></label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_4">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_4") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_4"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+            <div class="form-description">
+              <%= t(".section_4_description").html_safe %>
+            </div>
+
+            <%= form.label :submitter_data_role, t('activemodel.attributes.general_plan_request.submitter_data_role').html_safe %>
+            <div class="radio-wrapper">
+              <div>
+                <input type="radio" id="submitter_role_person" name="general_plan_request[submitter_data_role]" value="0" <%= "checked" unless @form.submitter_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ORGANIZATION %>>
+                <label for="submitter_role_person"><%= t(".submitter_role_person") %></label>
+              </div>
+
+              <div>
+                <input type="radio" id="submitter_role_organization" name="general_plan_request[submitter_data_role]" value="1" <%= "checked" if @form.submitter_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ORGANIZATION %>>
+                <label for="submitter_role_organization"><%= t(".submitter_role_organization") %></label>
+              </div>
+            </div>
+
+            <div class="submitter-form narrow-part person-form">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_first_name,
+                                      required: true,
+                                      autocomplete: "given-name",
+                                      data: { "disable-character-counter": true },
+                                      label: t('activemodel.attributes.general_plan_request.submitter_data_first_name')+"*" %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_last_name,
+                                      required: true,
+                                      autocomplete: "family-name",
+                                      data: { "disable-character-counter": true },
+                                      label: t('activemodel.attributes.general_plan_request.submitter_data_last_name')+"*" %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="submitter-form narrow-part organization-form hidden">
+              <%= form.text_field :submitter_data_org_name,
+                                  autocomplete: "organization",
+                                  data: { "disable-character-counter": true },
+                                  label: t('activemodel.attributes.general_plan_request.submitter_data_org_name')+"*" %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_country,
+                                  required: true,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+            
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_voivodeship,
+                                  required: true,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_county,
+                                  required: true,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_community,
+                                  required: true,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_street,
+                                  required: true,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_street_number,
+                                      required: true,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_zip_code,
+                                      required: true,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_city,
+                                      required: true,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.email_field :submitter_data_email,
+                                  value: current_user.present? ? current_user.email : nil,
+                                  autocomplete: "email",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.invalid") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_phone_number,
+                                  autocomplete: "phone",
+                                  data: { "disable-character-counter": true } %>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_epuap_delivery_address,
+                                  data: { "disable-character-counter": true } %>
+
+              <div class="form-description">
+                <%= t(".epuap_delivery_address_description") %>
+              </div>
+            </div>
+
+            <div class=""> 
+              <%= form.label :perpetual_owner_of_the_property,
+                            t('activemodel.attributes.general_plan_request.perpetual_owner_of_the_property')+"*",
+                            for: "general_plan_request_perpetual_owner_of_the_property_true general_plan_request_perpetual_owner_of_the_property_false" %>
+
+              <div class="radio-wrapper">
+                <%= form.radio_button :perpetual_owner_of_the_property, true, required: true, label: t(".option_yes") %>
+                <%= form.radio_button :perpetual_owner_of_the_property, false, required: true, label: t(".option_no") %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_5">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_5") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_5"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-description">
+              <%= t(".section_5_description").html_safe %>
+            </div> 
+            
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_country,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_voivodeship,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_county,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_community,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_street,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_street_number,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_zip_code,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_city,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_6">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_6") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_6"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-description">
+              <%= t(".section_6_description").html_safe %>
+            </div>
+
+            <div class="radio-wrapper">          
+              <%= form.radio_button :attorney_data_role, 0, label: t(".attorney_role_all") %>
+              <%= form.radio_button :attorney_data_role, 1, label: t(".attorney_role_delivery") %>  
+            </div>
+
+            <div class="submitter-form narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_first_name,
+                                      autocomplete: "given-name",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_last_name,
+                                      autocomplete: "family-name",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_country,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+            
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_voivodeship,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_county,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>    
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_community,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_street,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_street_number,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_zip_code,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_city,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.email_field :attorney_data_email,
+                                  autocomplete: "email",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.invalid") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_phone_number,
+                                  autocomplete: "phone",
+                                  data: { "disable-character-counter": true } %>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_epuap_delivery_address,
+                                  data: { "disable-character-counter": true } %>
+
+              <div class="form-description">
+                <%= t(".epuap_delivery_address_description") %>
+              </div>
+            </div> 
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_7">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_7") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_7"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+            <div class="form-description">
+              <%= @form.request_body_description_with_hyperlinks %>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_area(
+                    :request_body,
+                    id: 'general_plan_request_request_body',
+                    rows: 8,
+                    maxlength: 1000,
+                    required: true, 
+                    data: { remaining_characters: "#request_body-remaining-characters" },
+                    aria: { describedby: "request_body-remaining-characters" }
+                  ) %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="form-section">
+              <button type="button" class="form-section__trigger form-section__trigger--small" aria-expanded="false" data-toggle="request_body_content_details">
+                <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon form-section__trigger-icon--small' %>
+
+                <div>
+                  <label><%= t('activemodel.attributes.general_plan_request.request_body_content_details') %></label>
+
+                  <span class="action">
+                    <span expand><%= t(".expand") %></span>
+                    <span collapse><%= t(".collapse") %></span>
+                  </span>
+                </div>
+              </button>
+            
+
+              <div data-toggler="form-section__content--visible" class="form-section__content multiple-hash-input" id="request_body_content_details">
+                <%= form.hidden_field :request_body_content_details %>
+      
+                <ol class="multiple-hash-input__items"></ol>
+
+                <button type="button" class="multiple-hash-input__add-button multiple-hash-input__add-button-js">
+                  <%= image_pack_tag "media/images/plus.svg", alt: "" %>
+
+                  <span>
+                    <%= t(".add_item") %>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <button type="button" class="form-section__trigger form-section__trigger--small" aria-expanded="false" data-toggle="details_land_parcels_with_parameters">
+                <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon form-section__trigger-icon--small' %>
+
+                <div>
+                  <label><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters') %></label>
+
+                  <span class="action">
+                    <span expand><%= t(".expand") %></span>
+                    <span collapse><%= t(".collapse") %></span>
+                  </span>
+                </div>
+              </button>
+            
+
+              <div data-toggler="form-section__content--visible" class="form-section__content multiple-hash-input" id="details_land_parcels_with_parameters">
+                <%= form.hidden_field :details_land_parcels_with_parameters %>
+      
+                <ol class="multiple-hash-input__items"></ol>
+
+                <button type="button" class="multiple-hash-input__add-button multiple-hash-input__add-button-js">
+                  <%= image_pack_tag "media/images/plus.svg", alt: "" %>
+
+                  <span>
+                    <%= t(".add_item") %>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_8">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_8") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_8"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+
+            <div class="radio-wrapper !mb-2">
+              <%= form.radio_button :declaration_remote_correspondence, true, required: true, label: t(".declaration_remote_correspondence_true") %>
+              <%= form.radio_button :declaration_remote_correspondence, false, required: true, label: t(".declaration_remote_correspondence_false") %> 
+            </div>
+  
+            <label for="general_plan_request_declaration_remote_correspondence_true general_plan_request_declaration_remote_correspondence_false">
+              <%= t(".declaration_remote_correspondence_description") %>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_9">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_9") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <ul id="general_plan_request_form_section_9"  data-toggler="form-section__content--visible" class="form-section__content">
+            <li class="field file-field position-relative">
+              <%= form.label :attorney_power_represent_applicant_or_for_service, "• " + t("activemodel.attributes.general_plan_request.attorney_power_represent_applicant_or_for_service") %>
+
+              <div class="form-description">
+              <%= t(".attorney_power_represent_applicant_or_for_service_description").html_safe %>
+              </div>
+
+              <%= form.file_field :attorney_power_represent_applicant_or_for_service,
+                                  label: false,
+                                  class: 'multifile hidden multifile--general-plan-request-form',
+                                  accept: ".jpg,.jpeg,.pdf",
+                                  multiple: false
+              %>
+
+              <button type="button" class="general-plan-request-file-button attachment-button-js" data-target="#general_plan_request_attorney_power_represent_applicant_or_for_service"><%= t(".add_attachment") %></button>
+            </li>
+
+            <li class="field file-field position-relative">
+              <%= form.label :attorney_power_payment_stamp_duty_confirm, "• " + t("activemodel.attributes.general_plan_request.attorney_power_payment_stamp_duty_confirm") %>
+
+              <div class="form-description">
+                <%= t(".attorney_power_payment_stamp_duty_confirm_description").html_safe %>
+              </div>
+
+              <%= form.file_field :attorney_power_payment_stamp_duty_confirm,
+                                  label: false,
+                                  class: 'multifile hidden multifile--general-plan-request-form',
+                                  accept: ".jpg,.jpeg,.pdf",
+                                  multiple: false
+              %>
+
+              <button type="button" class="general-plan-request-file-button attachment-button-js" data-target="#general_plan_request_attorney_power_payment_stamp_duty_confirm"><%= t(".add_attachment") %></button>
+            </li>
+
+            <li class="field file-field position-relative">
+              <%= form.label :parcel_site_boundary, "• " + t("activemodel.attributes.general_plan_request.parcel_site_boundary") %>
+
+              <div class="form-description">
+                <%= t(".parcel_site_boundary_description").html_safe %>
+              </div>
+
+              <%= form.file_field :parcel_site_boundary,
+                                  label: false,
+                                  class: 'multifile hidden multifile--general-plan-request-form',
+                                  accept: ".jpg,.jpeg,.pdf",
+                                  multiple: false
+              %>
+
+              <button type="button" class="general-plan-request-file-button attachment-button-js" data-target="#general_plan_request_parcel_site_boundary"><%= t(".add_attachment") %></button>
+            </li>
+
+            <li class="field file-field position-relative">
+              <%= form.label :files, "• " + t("activemodel.attributes.general_plan_request.files") %>
+
+              <div class="form-description"> 
+                <%= t(".files_description").html_safe %>
+              </div>
+
+              <%= form.file_field :files,
+                                  label: false,
+                                  class: 'multifile hidden multifile--general-plan-request-form',
+                                  accept: ".jpg,.jpeg,.pdf,.doc,.docx,.odt,.rtf",
+                                  multiple: true
+              %>
+
+              <button type="button" class="general-plan-request-file-button attachment-button-js" data-target="#general_plan_request_files"><%= t(".add_attachment") %></button>
+            </li>
+          </ul>
+        </div>
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="general_plan_request_form_section_10">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t('activemodel.attributes.general_plan_request.optional_confirmation_request') %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="general_plan_request_form_section_10"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">          
+            <div class="radio-wrapper">
+              <%= form.radio_button :optional_confirmation_request, true, required: true, label: t(".option_yes") %>
+              <%= form.radio_button :optional_confirmation_request, false, required: true, label: t(".option_no") %>
+            </div>
+
+            <div id="email_confirmation_request" class="hidden field narrow-part">
+              <%= form.email_field :email_confirmation_request, pattern: "email" %>
+              <span class="form-error" data-form-error-on="pattern"><%= t("errors.messages.invalid") %></span>
+              <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <div>
+            <div class="field rodo-field checkboxed">
+              <div>
+                <%= form.check_box :confirm_read_process_description, required: true %>
+              </div>
+              
+              <div>
+                <%= form.check_box :confirm_process_personal_data, required: true %>
+              </div>
+            </div>  
+            <small class="muted"><%= t(".required_fields") %></small>
+          </div>
+
+          <div class='buttons'>
+            <%= form.button t(".preview"),
+                            type: 'input',
+                            name: "subaction",
+                            value: "preview_pdf",
+                            class: "preview-link button button__lg button__transparent-secondary",
+                            formtarget: "_blank" %>
+
+
+            <%= form.submit t(".create"), class: "button button__lg button__primary", data: { disable: true } %>
+          </div>
+        </div>
+
+      <% end %>
+
+      <div class="form-disclaimer">
+        <%= t(".tos_agreement", link: link_to((t(".terms")).html_safe,
+              decidim.page_path(current_component.settings.static_page_slug),
+              target: "_blank")).html_safe %>
+      </div>
+    </section>
+  </div>
+</main>
+
+<%= append_javascript_pack_tag "general_plan_requests" %>
+
+<% content_for(:js_content) do %>
+  <%= nonced_javascript_tag do %>
+    function renderContentDetails(append = false) {
+      if (!append)
+        $("#request_body_content_details .multiple-hash-input__items").empty();
+
+      var contentDetails = JSON.parse(
+        $("#general_plan_request_request_body_content_details").val() ||
+          `[{"index": "0", "name": "Plan ogólny gminy"}]`
+      );
+      contentDetails.slice(append ? -1 : undefined).forEach(function (item) {
+        $("#request_body_content_details .multiple-hash-input__items").append(
+          `
+              <li id="request_body_content_details_item_${item.index}">
+                <strong><%= t(".position") %> ${parseInt(item.index + 1)}</strong>
+                
+                <div>
+                  <label for="request_body_content_details_name_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.request_body_content_details_name') %></label>
+                  <input id="request_body_content_details_name_item_${
+                    item.index
+                  }" disabled type="text" value="<%= t('activemodel.attributes.general_plan_request.request_body_content_details_name_value') %>" />
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div>
+                  <label for="request_body_content_details_parcel_id_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.request_body_content_details_parcel_id') %></label>
+                  <input maxlength="900" id="request_body_content_details_parcel_id_item_${
+                    item.index
+                  }" type="text" value="${item.parcel_id || ""}" data-index="${
+            item.index
+          }" data-key="parcel_id" data-disable-character-counter="true" />
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div> 
+                  <label for="request_body_content_details_is_record_area_included_item_${
+                    item.index
+                  }"><%= t('activemodel.attributes.general_plan_request.request_body_content_details_is_record_area_included') %></label>
+
+                  <div class="form-description">
+                    <%= t(".is_record_area_included_description").html_safe %>
+                  </div> 
+
+                  <div class="radio-wrapper">
+                    <input type="radio" value="true" name="request_body_content_details_is_record_area_included_item_${
+                      item.index
+                    }" id="request_body_content_details_is_record_area_included_item_${
+            item.index
+          }_true" data-index="${item.index}" data-key="is_record_area_included" ${
+            item.is_record_area_included === "true" && "checked"
+          }><label for="request_body_content_details_is_record_area_included_item_${
+            item.index
+          }_true"><%= t(".option_yes") %></label>
+
+                    <input type="radio" value="false" name="request_body_content_details_is_record_area_included_item_${
+                      item.index
+                    }" id="request_body_content_details_is_record_area_included_item_${
+            item.index
+          }_false" data-index="${
+            item.index
+          }" data-key="is_record_area_included" ${
+            item.is_record_area_included === "false" && "checked"
+          }><label for="request_body_content_details_is_record_area_included_item_${
+            item.index
+          }_false"><%= t(".option_no") %></label>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="request_body_content_details_body_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.request_body_content_details_body') %></label>
+                  <textarea maxlength="1000" id="request_body_content_details_body_item_${
+                    item.index
+                  }" rows="8" data-remaining-characters="#request_body_content_details_body_item_${
+            item.index
+          }-characters" aria-describedby="request_body_content_details_body_item_${
+            item.index
+          }-characters" data-index="${item.index}" data-key="body">${
+            item.body || ""
+          }</textarea>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <button type="button" class="multiple-hash-input__delete-button multiple-hash-input__delete-button-js" data-index="${
+                  item.index
+                }">
+                  <%= image_pack_tag("media/images/trash.svg", alt: "") %>
+
+                  <span>
+                    <%= t(".delete_item") %>
+                  </span>
+                </button>
+              </li>              
+            `
+        );
+      });
+
+      if (append) {
+        $(
+          "#request_body_content_details .multiple-hash-input__items > li:last-of-type"
+        ).foundation();
+        $(
+          "#request_body_content_details .multiple-hash-input__items > li:last-of-type textarea"
+        ).data(
+          "remaining-characters-counter",
+          new Decidim.InputCharacterCounter(
+            $(
+              "#request_body_content_details .multiple-hash-input__items > li:last-of-type textarea"
+            )
+          )
+        );
+      } else {
+        $(
+          "#request_body_content_details .multiple-hash-input__items"
+        ).foundation(); 
+      }
+
+      Foundation.reInit("abide");
+    }
+
+    renderContentDetails();
+    initContentDetailsChangeEvents();
+
+    function initContentDetailsChangeEvents() {
+      $(
+        "#request_body_content_details input, #request_body_content_details textarea"
+      ).on("change", function (event) {
+        var contentDetails = JSON.parse(
+          $("#general_plan_request_request_body_content_details").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        var index = parseInt($(this).data("index"));
+        var key = $(this).data("key");
+        var value = event.target.value;
+
+        contentDetails[index][key] = value;
+        $("#general_plan_request_request_body_content_details").val(
+          JSON.stringify(contentDetails)
+        );
+      });
+
+      $(
+        "#request_body_content_details .multiple-hash-input__delete-button-js"
+      ).on("click", function () {
+        var index = $(this).data("index");
+        var contentDetails = JSON.parse(
+          $("#general_plan_request_request_body_content_details").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        contentDetails = contentDetails.filter(function (item) {
+          return item.index != index;
+        });
+        $("#general_plan_request_request_body_content_details").val(
+          JSON.stringify(contentDetails)
+        );
+
+        renderContentDetails();
+        initContentDetailsChangeEvents();
+      });
+
+      $("#request_body_content_details .multiple-hash-input__items > li").each(
+        function () {
+          const index = this.id.split("_").pop();
+          const regex = new RegExp(
+            `request_body_content_details_(parcel_id|body|is_record_area_included)_item_${index}`
+          );
+
+          $("input:not([type=radio]), textarea")
+            .filter(function () {
+              return this.id.match(regex);
+            })
+            .on("change", function (event) {
+              const inputs = $("input:not([type=radio]), textarea").filter(
+                function () {
+                  return this.id.match(regex);
+                }
+              );
+              const radioInputs = $("input[type=radio]").filter(function () {
+                return this.id.match(regex);
+              });
+
+              if (event.target.value.length > 0) {
+                inputs.attr("required", "required");
+                radioInputs.attr("required", "required");
+                inputs.each(function () {
+                  const label = $("label[for='" + this.id + "']");
+                  label.find("span.asterisk").remove();
+                  $(label).append('<span class="asterisk">*</span>');
+                });
+              } else {
+                const emptyInputs = $("input:not([type=radio]), textarea").filter(
+                  function () {
+                    return this.id.match(regex) && this.value === "";
+                  }
+                );
+
+                if (emptyInputs.length === inputs.length) {
+                  inputs.removeAttr("required");
+                  radioInputs.removeAttr("required");
+                  inputs.each(function () {
+                    $("#new_general_plan_request_").foundation(
+                      "validateInput",
+                      $(this)
+                    );
+
+                    const label = $("label[for='" + this.id + "']");
+                    label.find("span.asterisk").remove();
+                  });
+                }
+              }
+            });
+        }
+      );
+    }
+
+    $("#request_body_content_details .multiple-hash-input__add-button-js").on(
+      "click",
+      function () {
+        var contentDetails = JSON.parse(
+          $("#general_plan_request_request_body_content_details").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        contentDetails.push({
+          index: contentDetails.length,
+          name: "Plan ogólny gminy",
+        });
+        $("#general_plan_request_request_body_content_details").val(
+          JSON.stringify(contentDetails)
+        );
+
+        renderContentDetails(true);
+        initContentDetailsChangeEvents();
+      }
+    );
+
+    function renderLandParcels(append = false) {
+      if (!append)
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items"
+        ).empty();
+
+      var landParcels = JSON.parse(
+        $("#general_plan_request_details_land_parcels_with_parameters").val() ||
+          `[{"index": "0", "name": "Plan ogólny m.st. Warszawy"}]`
+      );
+      landParcels.slice(append ? -1 : undefined).forEach(function (item) {
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items"
+        ).append(
+          `
+              <li id="details_land_parcels_with_parameters_item_${item.index}"> 
+                <strong><%= t(".position") %> ${parseInt(item.index + 1)}</strong>
+
+                <div>
+                  <label for="details_land_parcels_with_parameters_name_item_${
+                    item.index
+                  }"><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_name') %></label>  
+                  <input id="details_land_parcels_with_parameters_name_item_${
+                    item.index
+                  }" disabled type="text" value="<%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_name_value') %>" />
+                </div>
+
+                <div>
+                  <label for="details_land_parcels_with_parameters_parcel_id_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_parcel_id') %></label>
+                  <input maxlength="900" id="details_land_parcels_with_parameters_parcel_id_item_${
+                    item.index
+                  }" type="text" value="${item.parcel_id || ""}" data-index="${
+            item.index
+          }" data-key="parcel_id" data-disable-character-counter="true" />
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div> 
+                  <label for="details_land_parcels_with_parameters_is_record_area_included_item_${
+                    item.index
+                  }"><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_is_record_area_included') %></label>
+
+                  <div class="form-description">
+                    <%= t(".is_record_area_included_description").html_safe %>
+                  </div>
+
+                  <div class="radio-wrapper">
+                    <input type="radio" value="true" name="details_land_parcels_with_parameters_is_record_area_included_item_${
+                      item.index
+                    }" id="details_land_parcels_with_parameters_is_record_area_included_item_${
+            item.index
+          }_true" data-index="${item.index}" data-key="is_record_area_included" ${
+            item.is_record_area_included === "true" && "checked"
+          }><label for="details_land_parcels_with_parameters_is_record_area_included_item_${
+            item.index
+          }_true"><%= t(".option_yes") %></label>
+
+                    <input type="radio" value="false" name="details_land_parcels_with_parameters_is_record_area_included_item_${
+                      item.index
+                    }" id="details_land_parcels_with_parameters_is_record_area_included_item_${
+            item.index
+          }_false" data-index="${
+            item.index
+          }" data-key="is_record_area_included" ${
+            item.is_record_area_included === "false" && "checked"
+          }><label for="details_land_parcels_with_parameters_is_record_area_included_item_${
+            item.index
+          }_false"><%= t(".option_no") %></label>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="details_land_parcels_with_parameters_area_class_name_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_area_class_name') %></label>
+                  <div class="form-description">
+                    <%= @form.area_class_name_description %>
+                  </div>
+                  <input maxlength="900" id="details_land_parcels_with_parameters_area_class_name_item_${
+                    item.index
+                  }" type="text" value="${
+            item.area_class_name || ""
+          }" data-index="${item.index}" data-key="area_class_name" data-disable-character-counter="true" />
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="narrow-part">
+                  <label for="details_land_parcels_with_parameters_max_percent_area_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_max_percent_area') %></label>
+                  <input id="details_land_parcels_with_parameters_max_percent_area_item_${
+                    item.index
+                  }" type="number" value="${
+            item.max_percent_area || ""
+          }" data-index="${
+            item.index
+          }" data-key="max_percent_area" min="0" max="100" data-validator="value_in_range" />  
+                  <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                  <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="narrow-part">
+                  <label for="details_land_parcels_with_parameters_max_height_building_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_max_height_building') %></label>
+                  <input id="details_land_parcels_with_parameters_max_height_building_item_${
+                    item.index
+                  }" type="number" value="${
+            item.max_height_building || ""
+          }" data-index="${
+            item.index
+          }" data-key="max_height_building" min="0" max="9999999" data-validator="value_in_range" /> 
+                  <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                  <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="narrow-part">
+                  <label for="details_land_parcels_with_parameters_min_percent_bio_item_${
+                    item.index
+                  }" ><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_min_percent_bio') %></label>
+                  <input id="details_land_parcels_with_parameters_min_percent_bio_item_${
+                    item.index
+                  }" type="number" value="${
+            item.min_percent_bio || ""
+          }" data-index="${
+            item.index
+          }" data-key="min_percent_bio" min="0" max="100" data-validator="value_in_range" /> 
+                  <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                  <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <button type="button" class="multiple-hash-input__delete-button multiple-hash-input__delete-button-js" data-index="${
+                  item.index
+                }">
+                  <%= image_pack_tag("media/images/trash.svg", alt: "") %>
+
+                  <span>
+                    <%= t(".delete_item") %>
+                  </span>
+                </button>
+              </li>              
+            `
+        );
+      });
+
+      if (append) {
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items > li:last-of-type"
+        ).foundation();
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items > li:last-of-type textarea"
+        ).data(
+          "remaining-characters-counter",
+          new Decidim.InputCharacterCounter(
+            $(
+              "#details_land_parcels_with_parameters .multiple-hash-input__items > li:last-of-type textarea"
+            )
+          )
+        );
+      } else {
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items"
+        ).foundation();
+        $(
+          "#details_land_parcels_with_parameters .multiple-hash-input__items > li textarea"
+        ).data(
+          "remaining-characters-counter",
+          new Decidim.InputCharacterCounter(
+            $(
+              "#details_land_parcels_with_parameters .multiple-hash-input__items > li textarea"
+            )
+          )
+        );
+      }
+
+      Foundation.reInit("abide");
+    }
+
+    renderLandParcels();
+    initLandParcelsChangeEvents();
+
+    function initLandParcelsChangeEvents() {
+      $(
+        "#details_land_parcels_with_parameters input, #details_land_parcels_with_parameters textarea"
+      ).on("change", function (event) {
+        var landParcels = JSON.parse(
+          $("#general_plan_request_details_land_parcels_with_parameters").val() ||
+            `[{"index": "0", "name": "Plan ogólny m.st. Warszawy"}]`
+        );
+        var index = parseInt($(this).data("index"));
+        var key = $(this).data("key");
+        var value = event.target.value;
+
+        landParcels[index][key] = value;
+        $("#general_plan_request_details_land_parcels_with_parameters").val(
+          JSON.stringify(landParcels)
+        );
+      });
+
+      $(
+        "#details_land_parcels_with_parameters .multiple-hash-input__delete-button-js"
+      ).on("click", function () {
+        var index = $(this).data("index");
+        var landParcels = JSON.parse(
+          $("#general_plan_request_details_land_parcels_with_parameters").val() ||
+            `[{"index": "0", "name": "Plan ogólny m.st. Warszawy"}]`
+        );
+        landParcels = landParcels.filter(function (item) {
+          return item.index != index;
+        });
+        $("#general_plan_request_details_land_parcels_with_parameters").val(
+          JSON.stringify(landParcels)
+        );
+
+        renderLandParcels();
+        initLandParcelsChangeEvents();
+      });
+
+      $(
+        "#details_land_parcels_with_parameters .multiple-hash-input__items > li"
+      ).each(function () {
+        const index = this.id.split("_").pop();
+        const regex = new RegExp(
+          `details_land_parcels_with_parameters_(parcel_id|area_class_name|is_record_area_included|max_percent_area|max_height_building|min_percent_bio)_item_${index}`
+        );
+
+        $("input:not([type=radio]), textarea")
+          .filter(function () {
+            return this.id.match(regex);
+          })
+          .on("change", function (event) {
+            const inputs = $("input:not([type=radio]), textarea").filter(
+              function () {
+                return this.id.match(regex);
+              }
+            );
+            const radioInputs = $("input[type=radio]").filter(function () {
+              return this.id.match(regex);
+            });
+
+            if (event.target.value.length > 0) {
+              inputs.attr("required", "required");
+              radioInputs.attr("required", "required");
+              inputs.each(function () {
+                const label = $("label[for='" + this.id + "']");
+                label.find("span.asterisk").remove();
+                $(label).append('<span class="asterisk">*</span>');
+              });
+            } else {
+              const emptyInputs = $("input:not([type=radio]), textarea").filter(
+                function () {
+                  return this.id.match(regex) && this.value === "";
+                }
+              );
+
+              if (emptyInputs.length === inputs.length) {
+                inputs.removeAttr("required");
+                radioInputs.removeAttr("required");
+                inputs.each(function () {
+                  $("#new_general_plan_request_").foundation(
+                    "validateInput",
+                    $(this)
+                  );
+
+                  const label = $("label[for='" + this.id + "']");
+                  label.find("span.asterisk").remove();
+                });
+              }
+            }
+          });
+      });
+    }
+
+    $(
+      "#details_land_parcels_with_parameters .multiple-hash-input__add-button-js"
+    ).on("click", function () {
+      var landParcels = JSON.parse(
+        $("#general_plan_request_details_land_parcels_with_parameters").val() ||
+          `[{"index": "0", "name": "Plan ogólny m.st. Warszawy"}]`
+      );
+      landParcels.push({
+        index: landParcels.length,
+        name: "Plan ogólny m.st. Warszawy",
+      });
+      $("#general_plan_request_details_land_parcels_with_parameters").val(
+        JSON.stringify(landParcels)
+      );
+
+      renderLandParcels(true);
+      initLandParcelsChangeEvents();
+    });
+
+
+    $("input[type=file]#general_plan_request_files")
+      .not(".MultiFile-applied")
+      .MultiFile({
+        max: 2,
+        STRING: {
+          remove: "usuń",
+          denied: "Ten format pliku $ext jest niedozwolony.",
+          file: "$file",
+          selected: "Wybrany plik: $file",
+          duplicate: "Ten plik już został wybrany:\n$file",
+          toomuch: "Łączny rozmiar plików przekracza limit ($size)",
+          toomany: "Niedozwolona liczba plików (maks: $max)",
+          toobig: "$file ma za duży rozmiar (maks: $size)",
+        },
+        afterFileAppend: function (element, value, master_element) {
+          master_element.files.forEach(function (file, index) {
+            if (index === 0 && master_element.files.length > 1) {
+              if (
+                $(`#general_plan_request_files_list > div:eq(${index})`).hasClass(
+                  "MultiFile-label--added-inputs"
+                )
+              ) {
+                return;
+              } else {
+                $(`#general_plan_request_files_list > div:eq(${index})`).append(
+                  `
+                    <div>
+                      <label for="files_filename_one" ><%= t('activemodel.attributes.general_plan_request.files_filename_one') %> 1</label>
+                      <input id="files_filename_one" type="text" name="general_plan_request[files_filename_one]" required /> 
+                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                    </div>
+                    <div>
+                      <label for="files_filename_two" ><%= t('activemodel.attributes.general_plan_request.files_filename_two') %> 2</label>
+                      <input id="files_filename_two" type="text" name="general_plan_request[files_filename_two]" required /> 
+                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                    </div>
+                  `
+                );
+                $(`#general_plan_request_files_list > div:eq(${index})`).addClass(
+                  "MultiFile-label--added-inputs"
+                );
+              }
+            }
+
+            if (
+              !$(`#general_plan_request_files_list > div:eq(${index})`).hasClass(
+                "MultiFile-label--added-inputs"
+              )
+            ) {
+              $(`#general_plan_request_files_list > div:eq(${index})`).append(
+                `
+                  <div>
+                    <label for="files_filename_${
+                      index === 0 ? "one" : "two"
+                    }" ><%= t('activemodel.attributes.general_plan_request.files_filename_one') %></label>
+                    <input id="files_filename_${
+                      index === 0 ? "one" : "two"
+                    }" type="text" name="general_plan_request[files_filename_${
+                  index === 0 ? "one" : "two"
+                }]" required /> 
+                    <span class="form-error"><%= t("errors.messages.required") %></span>
+                  </div>
+                `
+              );
+
+              $(`#general_plan_request_files_list > div:eq(${index})`).addClass(
+                "MultiFile-label--added-inputs"
+              );
+            }
+
+            Foundation.reInit("abide");
+          });
+
+          if (master_element.files.length >= 2) {
+            $(this).parent().find(".attachment-button-js").hide();
+          }
+        },
+        afterFileRemove: function (element, value, master_element) {
+          if (master_element.files.length < 2) {
+            $(this).parent().find(".attachment-button-js").show();
+          }
+        },
+      });
+  <% end %>
+<% end %>

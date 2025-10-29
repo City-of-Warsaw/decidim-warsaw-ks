@@ -7,14 +7,16 @@ function sanitize(url, protocols) {
   return protocols.indexOf(protocol) > -1;
 }
 
-class ExtendedImage extends Quill.import("blots/block/embed") {
+export class ExtendedImage extends Quill.import("blots/block/embed") {
   static create(value) {
-    let node = super.create(value);
+    let node = super.create();
     if (typeof value === "object") {
       node.setAttribute("src", this.sanitize(value.url));
       if (value.alt) {
         node.setAttribute("alt", value.alt);
       }
+    } else if (typeof value === "string") {
+      node.setAttribute("src", this.sanitize(value));
     }
     return node;
   }

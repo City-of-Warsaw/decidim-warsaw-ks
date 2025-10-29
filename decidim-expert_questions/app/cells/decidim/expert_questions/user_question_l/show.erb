@@ -1,0 +1,118 @@
+<div class="column" id="<%= dom_id(model) %>">
+  <div class="<%= card_classes %>">
+    <% if model.hidden? %>
+      <%= render partial: "decidim/comments/comments/moderated", formats: [:html], locals: { comment: model } %>
+    <% else %>
+
+      <div class="card__top">
+        <div class="custom-header-with-expert">
+          <h3><%= title %><span class="show-for-sr"> <%= time_tag model.created_at, l(model.created_at, format: :decidim_short_cut_zero) %></span></h3>
+        </div>
+      </div>
+
+      <div class="card__content">
+        <%= render :header %>
+
+        <div class="card__text mb-4">
+          <div class="card__text--paragraph editor-content editor-content--user-question">
+            <%= description %>
+          </div>
+        </div>
+
+        <% model.files.each do |file| %>
+          <% if file.variable? %>
+            <div class="single-image">
+              <%= link_to Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox', rel: dom_id(model) do %>
+                <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), class: 'thumbnail') %>
+                <%= image_pack_tag "media/images/zoom-icon.svg", alt: '', class: 'zoom-icon' %>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="single-file">
+              <div class="single-file__text">
+                <div>
+                  <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" class="card__link" data-external-link="text-only" target="_blank">
+                    <h4 class="single-file__heading">
+                      <%= file.filename %>
+                    </h4>
+                  </a>
+
+                  <small class="block">
+                    <%= file.filename.extension_without_delimiter.upcase %>,
+                    <%= '%.2f' % ((file.byte_size / 1024000.0).ceil(2)) %> MB
+                  </small>
+                </div>
+              </div>
+              <div class="single-file__data">
+                <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
+                  <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if has_answer? %>
+        <div class="answers_and_comments mt-6">
+          <div class="expert-answer pb-[15px] border border-[#1b7c96] bg-[#f5f6f7] overflow-hidden rounded min-h-[140px] p-4 flex flex-col justify-center mb-4">
+            <div class="flex items-center mb-4">
+              <span class="font-bold mr-2">
+                <%== cell("decidim/author", init_expert_presenter) %>
+              </span>
+              <span class="text-gray-2 text-sm">
+                <%= time_tag model.created_at, l(model.created_at, format: :decidim_short_cut_zero) %>
+              </span>
+            </div>
+
+            <div class='expert_answer_body'>
+              <div class="editor-content editor-content--expert-answer mb-4">
+                <%= answer_body %>
+              </div>
+              <% answer_files.each do |file| %>
+                <% if file.variable? %>
+                  <div class="single-image">
+                    <%= link_to Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox', rel: "#{dom_id(model)}-answer" do %>
+                      <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), class: 'thumbnail') %>
+                      <%= image_pack_tag "media/images/zoom-icon.svg", alt: '', class: 'zoom-icon' %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="single-file">
+                    <div class="single-file__text">
+                      <div>
+                        <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" class="card__link" data-external-link="text-only" target="_blank">
+                          <h4 class="single-file__heading">
+                            <%= file.filename %>
+                          </h4>
+                        </a>
+
+                        <small class="block">
+                          <%= file.filename.extension_without_delimiter.upcase %>,
+                          <%= '%.2f' % ((file.byte_size / 1024000.0).ceil(2)) %> MB
+                        </small>
+                      </div>
+                    </div>
+                    <div class="single-file__data">
+                      <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
+                        <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%= comments_for model %>
+    <% end %>
+  </div>
+</div>
+
+<% if current_user.present? %>
+  <%= cell("decidim/report_button", model, modal_id: "flagModalUserQuestion#{model.id}").flag_modal %>
+<% end %>
+
+<%= append_javascript_pack_tag "comments" %>

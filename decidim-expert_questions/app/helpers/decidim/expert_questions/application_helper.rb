@@ -7,15 +7,14 @@ module Decidim
     module ApplicationHelper
       include PaginateHelper
       include Decidim::CheckBoxesTreeHelper
-
+      include Decidim::Comments::CommentsHelper
+      include ::Decidim::FollowableHelper
 
       def expert_avatar(expert)
-        if expert.user.avatar.present?
-          image_tag expert.avatar.url, class: "card__image", alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.name}"
-        elsif expert.avatar.present?
-          image_tag expert.avatar.url, class: "card__image", alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.name}"
+        if expert.avatar.present?
+          image_tag main_app.url_for(expert.avatar), alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.full_name}", class: 'card__image'
         else
-          image_tag asset_path("decidim/default-avatar.svg"), class: "card__image", alt: "#{expert.name}"
+          image_pack_tag("media/images/default-avatar.svg", class: "card__image", alt: "#{expert.full_name}")
         end
       end
 
@@ -29,7 +28,7 @@ module Decidim
       def filter_expert_values
         origin_values = []
         Decidim::ExpertQuestions::Expert.published.where(decidim_component_id: current_component.id).each do |expert|
-          origin_values << TreePoint.new(expert.id, expert.name)
+          origin_values << TreePoint.new(expert.id, expert.full_name)
         end
         TreeNode.new(TreePoint.new("", t("decidim.expert_questions.user_questions.filters.all_experts")), origin_values)
       end

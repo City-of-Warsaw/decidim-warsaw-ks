@@ -1,346 +1,769 @@
-<% if current_component.description.present? %>
-  <div class="help-section">
-    <div class="row column"> 
-      <div class="ql-editor">
-      <%= quill_sanitize translated_attribute(current_component.description) %> 
-      </div> 
-    </div>
-  </div>
-<% end %>
+<main>
+  <div class="participatory-space__container">     
+    <section> 
+      <%= render partial: 'decidim/shared/component_settings_help_section' %>
+    </section> 
 
-<div class="study-note-wrapper"> 
-  <div class="row columns"> 
-    <div class="settings">
-      <div class="auto-search-wrapper">
-        <input type="text"
-              autocomplete="off"
-              id="search"
-              class="full-width"
-              placeholder="Wpisz adres, żeby przybliżyć mapę"
-              aria-label="wpisz adres, żeby przybliżyć mapę, po wpisaniu 5 znaków wybierz z opcji poniżej">
-      </div>
+    <section class="study-note-wrapper">  
+      <%= decidim_form_for(@form) do |form| %> 
+        <div class="form-head">
+          <h2><%= t(".form_title") %></h2>
 
-      <% if backgrounds.raster_file_type.present? %>
-        <div class="raster-select">
-          <%= collection_select 'type', 'raster', backgrounds.raster_file_type, :id, :name, { prompt: 'Wybierz jedną z map Studium' }, name: 'raster', aria: { label: "Mapa rastrowa" } %>
-        </div>
-      <% end %>
-
-      <% if backgrounds.vector_file_type.present? %>
-        <div class="geojson-select">
-          <%= collection_select 'type', 'geojson', backgrounds.vector_file_type, :id, :name, { prompt: 'Wybierz jedną z map Studium' }, name: 'geojson', aria: { label: "Mapa wektorowa" } %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<%= nonced_javascript_tag do %>
-  let rasters = [];
-  let vectors = [];
-
-  <% backgrounds.each do |map_bg| %>
-    <% if map_bg.raster_file_type? %>
-      rasters[<%= map_bg.id %>] = L.imageOverlay("<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>", [
-            [<%= map_bg.x_latitude || 0 %>, <%= map_bg.x_longitude || 0 %>],
-            [<%= map_bg.y_latitude || 0  %>, <%= map_bg.y_longitude || 0 %>],
-          ]);
-    <% end %>
-
-    <% if map_bg.vector_file_type? %>
-        vectors[<%= map_bg.id %>] = "<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>";
-    <% end %>
-  <% end %>
-<% end %>
- 
-<div class="study-note-map">
-  <div id="study-note-map__map"></div>
-
-  <% if legends.present? %>
-    <div class="study-note-map__legends study-note-map__legends--desktop">
-      <% legends.each do |id, items| %>
-        <div class="study-note-map__legend" data-map-background-id="<%= id %>">
-          <% items.each do |item| %>
-            <div class="study-note-map__legend-item">
-              <div class="study-note-map__legend-header">
-                <h5><%= item.name %>:</h5>
-              </div>
-
-              <div class="study-note-map__legend-image">
-                <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
-              </div>
-            </div>
-          <% end %> 
-        </div>
-      <% end %>
-
-      <div class="study-note-map__heading">Legenda</div>
-    </div>
-
-    <div class="study-note-map__legends study-note-map__legends--mobile">
-      <% legends.each do |id, items| %>
-        <div class="study-note-map__legend" data-map-background-id="<%= id %>">
-          <% items.each do |item| %>
-            <div class="study-note-map__legend-item">
-              <div class="study-note-map__legend-header">
-                <h5><%= item.name %>:</h5>
-              </div>
-
-              <div class="study-note-map__legend-image">
-                <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
-              </div>
-            </div>
-          <% end %> 
-        </div>
-      <% end %>
-
-      <div class="study-note-map__heading">Legenda:</div>
-    </div>
-  <% end %>
-</div>
-
-<%= javascript_include_tag("geojson-map/leaflet.draw.modCS") %>
-<%= javascript_include_tag("geojson-map/geojson-map") %>
-
-
-<div class="study-note-wrapper"> 
-  <div class="row columns"> 
-    <%= decidim_form_for(@form) do |form| %>
-      <%#= invisible_captcha %>
-
-      <% if @form.map_backgrounds_raster %>
-        <%= form.hidden_field :map_background_id, multiple: false %> 
-      <% end %>
-
-      <div class="form-head">
-        <h2>Uwaga do studium</h2>
-
-        <div>
-          Data zgłoszenia:
-          <strong><%= Time.now.strftime("%d.%m.%Y") %></strong>
-        </div>
-      </div>
-
-      <div class="author-type-radio">
-        <div>
-          <input type="radio" id="author_type_person" name="study_note[author_type]" value="person" checked>
-          <label for="author_type_person">Osoba fizyczna</label>
-        </div>
-
-        <div>
-          <input type="radio" id="author_type_organization" name="study_note[author_type]" value="organization">
-          <label for="author_type_organization">Jednostka organizacyjna</label>
-        </div>
-      </div>
-
-      <%= form.hidden_field :locations %>
-
-      <h3 class="person-form">Twoje dane</h3>
-      <h3 class="organization-form hidden">Dane jednostki</h3>
-
-      <div class="author-type-form narrow-part person-form">
-        <div class="narrow-part__fields">
-          <div class="field">
-            <%= form.text_field :first_name, label: t('activemodel.attributes.study_note.first_name') + "*",  required: true, autocomplete: "given-name"  %>
-            <span class="form-error">To pole jest wymagane</span>
-          </div>
-
-          <div class="field">
-            <%= form.text_field :last_name, label: t('activemodel.attributes.study_note.last_name') + "*",  required: true, autocomplete: "family-name" %>
-            <span class="form-error">To pole jest wymagane</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="author-type-form narrow-part organization-form hidden">
-        <%= form.text_field :organization_name, label: t('activemodel.attributes.study_note.organization_name') + "*", autocomplete: "organization" %>
-        <span class="form-error">To pole jest wymagane</span>
-      </div>
-
-      <div class="narrow-part">
-        <%= form.email_field :email, label: t('activemodel.attributes.study_note.email'), value: current_user.present? ? current_user.email : nil, autocomplete: "email" %>
-      </div>
-
-      <h3 class="person-form">Adres zamieszkania</h3>
-      <h3 class="organization-form hidden">Adres siedziby</h3>
-
-      <div class="narrow-part">
-        <%= form.text_field :street, label: t('activemodel.attributes.study_note.street'),  required: true, autocomplete: "street-address" %>
-        <span class="form-error">To pole jest wymagane</span>
-      </div>
-
-      <div class="narrow-part">
-        <div class="narrow-part__fields">
-          <div class="field">
-            <%= form.text_field :street_number, label: t('activemodel.attributes.study_note.street_number'),  required: true, autocomplete: "street-address"  %>
-            <span class="form-error">To pole jest wymagane</span>
-          </div>
-
-          <div class="field">
-            <%= form.text_field :flat_number, label: t('activemodel.attributes.study_note.flat_number')%>
-          </div>
-        </div>
-
-        <div class="narrow-part__fields">
-          <div class="field">
-            <%= form.text_field :zip_code, label: t('activemodel.attributes.study_note.zip_code'), required: true, maxlength: 12, data: { "disable-character-counter": true }, autocomplete: "postal-code"  %>
-            <span class="form-error">To pole jest wymagane</span>
-          </div>
-
-          <div class="field">
-            <%= form.text_field :city, label: t('activemodel.attributes.study_note.city'),  required: true, autocomplete: "address-level2" %>
-            <span class="form-error">To pole jest wymagane</span>
-          </div>
-        </div>
-      </div>
-
-      <h3>Czego dotyczy uwaga?</h3>
-
-      <label class="styled-label position-relative" for="study_note_location_specification">
-        <%= t('activemodel.attributes.study_note.location_specification') %>*
-        <div class="study-note-tooltip" tabindex="0">
-          <div class="study-note-tooltip__content" id="tooltip-1">
-            <strong>Oznaczenie nieruchomości możesz określić w jeden z trzech sposobów:</strong>
-            <p>
-              1. podając numery działki ewidencyjnej i obrębu geodezyjnego (np. „działka 1/1, obręb 5-03-02”)<br />
-              2. wpisując adres (np. „pl. Bankowy 3/5”)<br />
-              3. opisowo (np. „obszar między ulicami Elektoralną, Orlą, al. Solidarności i pl. Bankowym”).<br />
-              Jeśli uwaga dotyczy całego miasta, wpisz np. „Warszawa" lub „całe miasto”.
-            </p>
-          </div>
-
-          <%= image_tag("help-icon.svg", alt: 'Pomoc') %>
-        </div>
-      </label>
-      <%= form.text_field :location_specification, label: false, required: true, aria: { describedby: "tooltip-1" } %>
-      <span class="form-error">To pole jest wymagane</span>
-
-      <%= form.text_area(
-            :body,
-            id: 'study_note_body',
-            rows: 8,
-            maxlength: @form.max_characters,
-            required: true,
-            label: t('activemodel.attributes.study_note.body'),
-            data: { remaining_characters: "#add_study_note-remaining-characters" },
-            aria: { describedby: "add_study_note-remaining-characters" }
-          ) %>
-      <span class="form-error">To pole jest wymagane</span>
-
-      <div class="field file-field position-relative">
-        <%= form.file_field :files,
-                            label: false,
-                            class: 'multifile hidden multifile--study-note-form',
-                            accept: ".pdf,.jpg,.png,.doc,.docx,.odt,.rtf",
-                            multiple: true
-        %>
-
-        <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_files" aria-describedby="tooltip-2">Dodaj załączniki (maksymalnie 2)</button>
-
-        <div class="study-note-tooltip" tabindex="0">
-          <div class="study-note-tooltip__content study-note-tooltip__content--small" id="tooltip-2">
-            <strong>Ograniczenia dotyczące plików:</strong>
-            <p>
-              1. Maksymalny rozmiar pliku: 5MB<br />
-              2. Dozwolone rozszerzenia plików: pdf, jpg, png, doc, docx, odt, rtf
-            </p>
-          </div>
-
-          <%= image_tag("help-icon.svg", alt: 'Pomoc') %>
-        </div>
-      </div>
-
-      <div class="narrower-part">
-        <%= form.select :category_id,
-                      @form.categories_select,
-                      { label: false, include_blank: t(".select_category") + '*' },
-                      { multiple: false, required: true, aria: { label: "Kategoria" } } %> 
-        <span class="form-error">To pole jest wymagane</span>
-      </div>
-
-      <small class="muted">Pola oznaczone gwiazdką są obowiązkowe</small>
-
-      <div class="form-actions">
-        <div class="field rodo-field checkboxed">
           <div>
-            <%= form.check_box :rodo, label: t(".rodo") %>
+            <%= t(".submission_date") %>
+            <strong><%= Time.now.strftime("%-d.%m.%Y") %></strong>
           </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_1">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_1") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
           
-          <div>
-            <%= form.check_box :acknowledged, label: t(".acknowledged"), required: true %>
+          <div id="study_note_form_section_1" data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :authority_name_which_letter_is_addressed, disabled: true, class: "mb-0" %> 
+                </div>
+              </div>
+            </div>
           </div>
-        </div>  
-
-        <div class='buttons'>
-          <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
-          <%= form.submit t(".create"), class: "button", data: { disable: true } %>
         </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_2">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+  
+            <div>
+              <h3><%= t(".section_2") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_2"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-section__content-checkboxes form-section__content-checkboxes--halves">
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_1") %></label>
+              </div> 
+              
+              <div class="checkboxed">
+                <%= form.check_box :letter_type, disabled: true, checked: true %>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_3") %></label>
+              </div> 
+              
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".letter_type_4") %></label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_3">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+  
+            <div>
+              <h3><%= t(".section_3") %></h3>
+
+              <span>
+                <%= t(".prefilled") %>
+              </span>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_3" data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-section__content-checkboxes">
+              <div class="checkboxed">
+                <%= form.check_box :urban_planning_act_type, disabled: true, checked: true %>  
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled /> 
+                <label class="styled-label"><%= t(".urban_planning_act_type_2") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />               
+                <label class="styled-label"><%= t(".urban_planning_act_type_3") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />
+                <label class="styled-label"><%= t(".urban_planning_act_type_4") %></label>
+              </div>
+
+              <div class="checkboxed">
+                <input type="checkbox" disabled />
+                <label class="styled-label"><%= t(".urban_planning_act_type_5") %></label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_4">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_4") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_4"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+            <div class="form-description">
+              <%= t(".section_4_description").html_safe %>
+            </div>
+
+            <%= form.label :submitter_data_role, t('activemodel.attributes.study_note.submitter_data_role').html_safe %>
+            <div class="radio-wrapper">
+              <div>
+                <input type="radio" id="submitter_role_person" name="study_note[submitter_data_role]" value="0" <%= "checked" unless @form.submitter_data_role == Decidim::StudyNotes::StudyNote::INDIVIDUAL %>>
+                <label for="submitter_role_person"><%= t(".submitter_role_person") %></label>
+              </div>
+
+              <div>
+                <input type="radio" id="submitter_role_organization" name="study_note[submitter_data_role]" value="1" <%= "checked" if @form.submitter_data_role == Decidim::StudyNotes::StudyNote::ORGANIZATION %>>
+                <label for="submitter_role_organization"><%= t(".submitter_role_organization") %></label>
+              </div>
+            </div>
+
+            <div class="submitter-form narrow-part person-form">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_first_name,
+                                      required: true,
+                                      autocomplete: "given-name",
+                                      data: { "disable-character-counter": true },
+                                      label: t('activemodel.attributes.study_note.submitter_data_first_name')+"*" %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_last_name,
+                                      required: true,
+                                      autocomplete: "family-name",
+                                      data: { "disable-character-counter": true },
+                                      label: t('activemodel.attributes.study_note.submitter_data_last_name')+"*" %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="submitter-form narrow-part organization-form hidden">
+              <%= form.text_field :submitter_data_org_name,
+                                  autocomplete: "organization",
+                                  data: { "disable-character-counter": true },
+                                  label: t('activemodel.attributes.study_note.submitter_data_org_name')+"*" %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_country,
+                                  required: true,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+            
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_voivodeship,
+                                  required: true,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_county,
+                                  required: true,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_community,
+                                  required: true,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_street,
+                                  required: true,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_street_number,
+                                      required: true,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :submitter_data_zip_code,
+                                      required: true,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :submitter_data_city,
+                                      required: true,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.email_field :submitter_data_email,
+                                  value: current_user.present? ? current_user.email : nil,
+                                  autocomplete: "email",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.invalid") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_phone_number,
+                                  autocomplete: "phone",
+                                  data: { "disable-character-counter": true } %>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :submitter_data_epuap_delivery_address,
+                                  data: { "disable-character-counter": true } %>
+
+              <div class="form-description">
+                <%= t(".epuap_delivery_address_description") %>
+              </div>
+            </div>
+
+            <div class=""> 
+              <%= form.label :perpetual_owner_of_the_property,
+                            t('activemodel.attributes.study_note.perpetual_owner_of_the_property')+"*",
+                            for: "study_note_perpetual_owner_of_the_property_true study_note_perpetual_owner_of_the_property_false" %>
+
+              <div class="radio-wrapper">
+                <%= form.radio_button :perpetual_owner_of_the_property, true, required: true, label: t(".option_yes") %>
+                <%= form.radio_button :perpetual_owner_of_the_property, false, required: true, label: t(".option_no") %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_5">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_5") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_5"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-description">
+              <%= t(".section_5_description").html_safe %>
+            </div> 
+            
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_country,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_voivodeship,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_county,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_community,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :mailing_address_data_street,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_street_number,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_zip_code,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :mailing_address_data_city,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_6">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_6") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_6"  data-toggler="form-section__content--visible" class="form-section__content">
+            <div class="form-description">
+              <%= t(".section_6_description").html_safe %>
+            </div>
+
+            <div class="radio-wrapper">          
+              <%= form.radio_button :attorney_data_role, 0, label: t(".attorney_role_all") %>
+              <%= form.radio_button :attorney_data_role, 1, label: t(".attorney_role_delivery") %>  
+            </div>
+
+            <div class="submitter-form narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_first_name,
+                                      autocomplete: "given-name",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_last_name,
+                                      autocomplete: "family-name",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_country,
+                                  autocomplete: "country",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+            
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_voivodeship,
+                                  autocomplete: "voivodeship",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>     
+            
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_county,
+                                  autocomplete: "county",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>    
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_community,
+                                  autocomplete: "community",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_street,
+                                  autocomplete: "street-address",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.required") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_street_number,
+                                      autocomplete: "street-address",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_flat_number,
+                                      data: { "disable-character-counter": true } %>
+                </div>
+              </div>
+
+              <div class="narrow-part__fields">
+                <div class="field">
+                  <%= form.text_field :attorney_data_zip_code,
+                                      autocomplete: "postal-code",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+
+                <div class="field">
+                  <%= form.text_field :attorney_data_city,
+                                      autocomplete: "address-level2",
+                                      data: { "disable-character-counter": true } %>
+                  <span class="form-error"><%= t("errors.messages.required") %></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.email_field :attorney_data_email,
+                                  autocomplete: "email",
+                                  data: { "disable-character-counter": true } %>
+              <span class="form-error"><%= t("errors.messages.invalid") %></span>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_phone_number,
+                                  autocomplete: "phone",
+                                  data: { "disable-character-counter": true } %>
+            </div>
+
+            <div class="narrow-part">
+              <%= form.text_field :attorney_data_epuap_delivery_address,
+                                  data: { "disable-character-counter": true } %>
+
+              <div class="form-description">
+                <%= t(".epuap_delivery_address_description") %>
+              </div>
+            </div>
+
+            <div class="narrow-part field file-field relative">
+              <%= form.label :attorney_power_represent_applicant_or_for_service, t("activemodel.attributes.study_note.attorney_power_represent_applicant_or_for_service") %>
+
+              <div class="form-description">
+              <%= t(".attorney_power_represent_applicant_or_for_service_description").html_safe %>
+              </div>
+
+              <%= form.file_field :attorney_power_represent_applicant_or_for_service,
+                                  label: false,
+                                  class: 'multifile hidden multifile--study-note-form',
+                                  accept: ".jpg,.jpeg,.pdf",
+                                  multiple: false
+              %>
+
+              <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_attorney_power_represent_applicant_or_for_service"><%= t(".add_attachment") %></button>
+            </div>
+
+            <div class="narrow-part field file-field relative">
+              <%= form.label :attorney_power_payment_stamp_duty_confirm, t("activemodel.attributes.study_note.attorney_power_payment_stamp_duty_confirm") %>
+
+              <div class="form-description">
+                <%= t(".attorney_power_payment_stamp_duty_confirm_description").html_safe %>
+              </div>
+
+              <%= form.file_field :attorney_power_payment_stamp_duty_confirm,
+                                  label: false,
+                                  class: 'multifile hidden multifile--study-note-form',
+                                  accept: ".jpg,.jpeg,.pdf",
+                                  multiple: false
+              %>
+
+              <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_attorney_power_payment_stamp_duty_confirm"><%= t(".add_attachment") %></button>
+            </div> 
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_7">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_7") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_7"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+            <div class="form-section">
+              <button type="button" class="form-section__trigger form-section__trigger--small" aria-expanded="false" data-toggle="detailed_notes">
+                <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon form-section__trigger-icon--small' %>
+
+                <div>
+                  <label><%= t('activemodel.attributes.study_note.detailed_notes') %></label>
+
+                  <span class="action">
+                    <span expand><%= t(".expand") %></span>
+                    <span collapse><%= t(".collapse") %></span>
+                  </span>
+                </div>
+              </button>
+
+              <div data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible multiple-hash-input" id="detailed_notes">
+                <div class="form-description">
+                  <%= t(".detailed_notes_description").html_safe %>
+                </div>
+                
+                <%= form.hidden_field :detailed_notes %>
+      
+                <ol class="multiple-hash-input__items"></ol>
+
+                <button type="button" class="multiple-hash-input__add-button multiple-hash-input__add-button-js">
+                  <%= image_pack_tag "media/images/plus.svg", alt: "" %>
+
+                  <span>
+                    <%= t(".add_item") %>
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            <label for="study_note_request_body" class="font-bold mb-4 block">
+              <%= t('activemodel.attributes.study_note.request_body') %> 
+            </label>
+
+            <div class="form-description">
+              <%= @form.request_body_description_with_hyperlinks %>
+            </div>
+
+            <div class="narrow-part pb-8">
+              <%= form.text_area(
+                    :request_body, 
+                    rows: 8,
+                    maxlength: 1000, 
+                    label: false,
+                    data: { remaining_characters: "#request_body-remaining-characters" },
+                    aria: { describedby: "request_body-remaining-characters" }
+                  ) %> 
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_8">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_8") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_8"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">
+            <div class="radio-wrapper !mb-2">
+              <%= form.radio_button :declaration_remote_correspondence, true, required: true, label: t(".declaration_remote_correspondence_true") %>
+              <%= form.radio_button :declaration_remote_correspondence, false, required: true, label: t(".declaration_remote_correspondence_false") %> 
+            </div>
+  
+            <label for="study_note_declaration_remote_correspondence_true study_note_declaration_remote_correspondence_false">
+              <%= t(".declaration_remote_correspondence_description") %>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_9">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t(".section_9") %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <ul id="study_note_form_section_9"  data-toggler="form-section__content--visible" class="form-section__content"> 
+            <li class="field file-field relative">
+              <%= form.label :files, t("activemodel.attributes.study_note.files") %>
+
+              <div class="form-description"> 
+                <%= t(".files_description").html_safe %>
+              </div>
+
+              <%= form.file_field :files,
+                                  label: false,
+                                  class: 'multifile hidden multifile--study-note-form',
+                                  accept: ".jpg,.jpeg,.pdf,.doc,.docx,.odt,.rtf",
+                                  multiple: true
+              %>
+
+              <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_files"><%= t(".add_attachment") %></button>
+            </li>
+          </ul>
+        </div>
+        <div class="form-section">
+          <button type="button" class="form-section__trigger" aria-expanded="false" data-toggle="study_note_form_section_10">
+            <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'form-section__trigger-icon' %>
+
+            <div>
+              <h3><%= t('activemodel.attributes.study_note.optional_confirmation_request') %></h3>
+
+              <span class="action">
+                <span expand><%= t(".expand") %></span>
+                <span collapse><%= t(".collapse") %></span>
+              </span>
+            </div>
+          </button>
+          
+          <div id="study_note_form_section_10"  data-toggler="form-section__content--visible" class="form-section__content form-section__content--visible">          
+            <div class="radio-wrapper">
+              <%= form.radio_button :optional_confirmation_request, true, required: true, label: t(".option_yes") %>
+              <%= form.radio_button :optional_confirmation_request, false, required: true, label: t(".option_no") %>
+            </div>
+
+            <div id="email_confirmation_request" class="hidden field narrow-part">
+              <%= form.email_field :email_confirmation_request, pattern: "email" %>
+              <span class="form-error" data-form-error-on="pattern"><%= t("errors.messages.invalid") %></span>
+              <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <div>
+            <div class="field rodo-field checkboxed">
+              <div>
+                <%= form.check_box :confirm_read_process_description, required: true %>
+              </div>
+              
+              <div>
+                <%= form.check_box :confirm_process_personal_data, required: true %>
+              </div>
+            </div>  
+            <small class="muted"><%= t(".required_fields") %></small>
+          </div>
+
+          <div class='buttons'>
+            <%= form.button t(".preview"),
+                            type: 'input',
+                            name: "subaction",
+                            value: "preview_pdf",
+                            class: "preview-link button button__lg button__transparent-secondary",
+                            formtarget: "_blank" %>
+
+
+            <%= form.submit t(".create"), class: "button button__lg button__primary", data: { disable: true } %>
+          </div>
+        </div>
+
+      <% end %>
+
+      <div class="form-disclaimer">
+        <%= t(".tos_agreement", link: link_to((t(".terms")).html_safe, decidim.page_path("rodo-studium"), target: "_blank")).html_safe %>
       </div>
-    <% end %>
-
-    <div class="form-disclaimer">
-      <%= t(".tos_agreement", link: link_to((t(".terms") + '<span class="show-for-sr"> otwiera się w nowej karcie</span>').html_safe, decidim.page_path("rodo-studium"), target: "_blank")).html_safe %>
-    </div>
-
+    </section>
   </div>
-</div>
 
-<%= javascript_include_tag "jquery.MultiFile" %>
+  <%= render partial: "parcel_selection_modal" %>
+  <%= render partial: "parcel_deletion_modal" %>
+  <%= render partial: "map_modal" %>
+</main>
+ 
 
-<%= nonced_javascript_tag do %>
-  $(function(){  
-    $('input[type=radio]').change(function() { 
-      if (this.value === 'person') {
-        $(".organization-form").hide();
-        $(".person-form").show();
+<%= append_javascript_pack_tag "study_notes" %>
 
-        $(".organization-form input").removeAttr("required");
-        $(".person-form input").attr("required", "required");
-      } else if (this.value === 'organization') {
-        $(".person-form").hide();
-        $(".organization-form").show();
-
-        $(".person-form input").removeAttr("required");
-        $(".organization-form input").attr("required", "required");
-      }
-    });
-
-    $("input[type=file].multifile--study-note-form").not(".MultiFile-applied").MultiFile({
-      max: 2,
-      STRING: {
-        remove: 'usuń',
-        denied: 'Ten format pliku $ext jest niedozwolony.',
-        file: '$file',
-        selected: 'Wybrany plik: $file',
-        duplicate: 'Ten plik już został wybrany:\n$file',
-        toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
-        toomany: 'Niedozwolona liczba plików (maks: $max)',
-        toobig: '$file ma za duży rozmiar (maks: $size)'
-      },
-      afterFileAppend: function(element, value, master_element) {
-        if(master_element.files.length >= 2) {
-           $(".attachment-button-js").hide();
-        }
-      },
-      afterFileRemove: function(element, value, master_element) {
-        if(master_element.files.length < 2) {
-           $(".attachment-button-js").show();
-        }
-      },
-    });
-
-    document.getElementById("new_study_note_").addEventListener("reset", () => {
-      featureGroup.clearLayers();
-
-      $("input[type=file].multifile").MultiFile("reset");
-
-      $(".organization-form").hide();
-      $(".person-form").show();
-
-      $(".organization-form input").removeAttr("required");
-      $(".person-form input").attr("required", "required");
-    });
-
+<% content_for(:js_content) do %>
+  <%= nonced_javascript_tag do %>
     $('.study-note-map__legend-header').click(function() { 
       const $parent = $(this).parent();
       const isActive = $parent.hasClass("study-note-map__legend-item--active");
@@ -354,20 +777,862 @@
       }
     });
 
-    $('#study_note_email').change(function(e) { 
-      if (e.target.value.length > 0) {
-        $("#study_note_rodo").attr("required", "required");
-      } else {  
-        $("#study_note_rodo").removeAttr("required");
-        $("#study_note_rodo").removeClass("is-invalid-input");
-        $("label[for=study_note_rodo]").removeClass("is-invalid-label");
+    function renderDetailedNotes(append = false) {
+      if (!append) {
+        $("#detailed_notes .multiple-hash-input__items").empty();
+        $("#selected_detailed_note_id").empty();
       }
-    });   
 
-    if ($('#study_note_email').val().length > 0) {
-      $("#study_note_rodo").attr("required", "required");
-    } else {  
-      $("#study_note_rodo").removeAttr("required");
+      var detailedNotes = JSON.parse(
+        $("#study_note_detailed_notes").val() ||
+          `[{"index": "0", "name": "Plan ogólny gminy"}]`
+      );
+
+      detailedNotes.slice(append ? -1 : undefined).forEach(function (item) {
+        $("#detailed_notes .multiple-hash-input__items").append(
+          `
+              <li id="detailed_notes_item_${item.index}"> 
+                <button type="button" class="multiple-hash-input__trigger" aria-expanded="false" data-toggle="detailed_notes_item_content_${item.index}">
+                  <%= image_pack_tag "media/images/chevron-down-thick.svg", alt: "", class: 'multiple-hash-input__trigger-icon' %>
+
+                  <div>
+                    <strong><%= t(".area") %> ${parseInt(item.index + 1)}</strong>
+
+                    <span class="action">
+                      <span expand><%= t(".expand") %></span>
+                      <span collapse><%= t(".collapse") %></span>
+                    </span>
+                  </div>
+                </button>
+
+                <div id="detailed_notes_item_content_${item.index}" data-toggler=".multiple-hash-input__item-content--visible" class="multiple-hash-input__item-content multiple-hash-input__item-content--visible">
+                  <div>
+                    <label for="detailed_notes_parcel_ids_item_${
+                      item.index
+                    }" ><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids') %> <button type="button" class="underline show-map-modal-js" data-detailed-note-id="${item.index}"><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids_find_on_map') %></button></label>
+
+                    <div class="form-description">
+                      <%= t(".detailed_notes_parcel_ids_description").html_safe %>
+                    </div> 
+
+                    <textarea id="detailed_notes_parcel_ids_item_${
+                      item.index
+                    }" type="text" rows="4" data-disable-character-counter="true" data-index="${item.index}" data-key="parcel_ids">${
+                        item.parcel_ids || ""
+                      }</textarea>
+                    <span class="form-error"><%= t("errors.messages.required") %></span>
+                  </div> 
+
+                  <div> 
+                    <label for="detailed_notes_is_record_area_included_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_is_record_area_included') %></label>
+
+                    <div class="form-description">
+                      <%= t(".is_record_area_included_description").html_safe %>
+                    </div> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }" id="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="is_record_area_included" ${
+                        item.is_record_area_included === "true" && "checked"
+                      }>
+                      <label for="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }" id="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="is_record_area_included" ${
+                        item.is_record_area_included === "false" && "checked"
+                      } data-toggle="detailed_notes_parcel_site_boundary_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_is_record_area_included_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div> 
+
+                  <div id="detailed_notes_parcel_site_boundary_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <label for="study_note_detailed_notes_parcel_site_boundary_${
+                      item.index
+                    }"><%= t("activemodel.attributes.study_note.parcel_site_boundary") %></label>
+
+                    <div class="form-description">
+                      <%= t(".parcel_site_boundary_description").html_safe %>
+                    </div>
+
+                    <input type="file" name="study_note[parcel_site_boundary][]" id="study_note_detailed_notes_parcel_site_boundary_${
+                      item.index
+                    }" class="multifile hidden multifile--study-note-form" accept=".jpg,.jpeg,.pdf" multiple="false" data-index="${item.index}" data-key="parcel_site_boundary"/>
+                    
+                    <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_detailed_notes_parcel_site_boundary_${
+                      item.index
+                    }"><%= t(".add_attachment") %></button>
+                  </div>
+                  
+                  <div> 
+                    <label for="detailed_notes_functional_profile_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_functional_profile') %></label> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_functional_profile_item_${
+                        item.index
+                      }" id="detailed_notes_functional_profile_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="functional_profile" ${
+                        item.functional_profile === "true" && "checked"
+                      } data-toggle="detailed_notes_functional_profile_details_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_functional_profile_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_functional_profile_item_${
+                        item.index
+                      }" id="detailed_notes_functional_profile_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="functional_profile" ${
+                        item.functional_profile === "false" && "checked"
+                      }>
+                      <label for="detailed_notes_functional_profile_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div>
+
+                  <div id="detailed_notes_functional_profile_details_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <label for="study_note_detailed_notes_functional_profile_area_${
+                          item.index
+                        }"><%= t("activemodel.attributes.study_note.detailed_notes_functional_profile_area") %></label>
+
+                        <select data-index="${item.index}" data-key="functional_profile_area_id" value="${item.functional_profile_area_id}"> 
+                          <option value="Strefa 1">Strefa 1</option>
+                          <option value="Strefa 2">Strefa 2</option>
+                          <option value="Strefa 3">Strefa 3</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label for="study_note_detailed_notes_functional_profile_area__classes${
+                          item.index
+                        }"><%= t("activemodel.attributes.study_note.detailed_notes_functional_profile_area_classes") %></label>
+
+                        <select data-index="${item.index}" data-key="functional_profile_area_class" value="${item.functional_profile_area_class}"> 
+                          <option value="Klasa 1">Klasa 1</option>
+                          <option value="Klasa 2">Klasa 2</option>
+                          <option value="Klasa 3">Klasa 3</option>
+                          <option value="Nie chcę, aby strefa miała profil dodatkowy">Nie chcę, aby strefa miała profil dodatkowy</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div> 
+                    <label for="detailed_notes_area_parameters_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_area_parameters') %></label> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_area_parameters_item_${
+                        item.index
+                      }" id="detailed_notes_area_parameters_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="area_parameters" ${
+                        item.area_parameters === "true" && "checked"
+                      } data-toggle="detailed_notes_area_parameters_details_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_area_parameters_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_area_parameters_item_${
+                        item.index
+                      }" id="detailed_notes_area_parameters_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="area_parameters" ${
+                        item.area_parameters === "false" && "checked"
+                      }>
+                      <label for="detailed_notes_area_parameters_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div>
+                  
+                  <div id="detailed_notes_area_parameters_details_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <div class="flex flex-col gap-4">
+                      <div>
+                        <div class="checkboxed !mt-0">
+                          <label for="study_note_detailed_notes_area_parameters_max_height_intensity_${
+                            item.index
+                          }">
+                            <input type="checkbox" id="study_note_detailed_notes_area_parameters_max_height_intensity_${
+                              item.index
+                              }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_height_intensity" data-toggle-input="detailed_notes_area_parameters_max_height_intensity_item_${
+                                item.index
+                              }" ${item.detailed_notes_area_parameters_max_height_intensity && "checked"} />
+
+                            <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_height_intensity") %>
+                          </label>
+                        </div>
+
+                        <input id="detailed_notes_area_parameters_max_height_intensity_item_${
+                                    item.index
+                                  }" type="number" value="${
+                            item.max_height_intensity || ""
+                          }" data-index="${
+                            item.index
+                          }" data-key="max_height_intensity" min="0" max="9999" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_height_intensity ? "" : "disabled"} />  
+                        <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                      </div>
+
+                      <div>
+                        <div class="checkboxed !mt-0">
+                          <label for="study_note_detailed_notes_area_parameters_max_height_building_${
+                            item.index
+                          }">
+                            <input type="checkbox" id="study_note_detailed_notes_area_parameters_max_height_building_${
+                              item.index
+                              }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_height_building" data-toggle-input="detailed_notes_area_parameters_max_height_building_item_${
+                                item.index
+                              }" ${item.detailed_notes_area_parameters_max_height_building && "checked"} />
+
+                            <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_height_building") %>
+                          </label>
+                        </div>
+
+                        <input id="detailed_notes_area_parameters_max_height_building_item_${
+                                    item.index
+                                  }" type="number" value="${
+                            item.max_height_building || ""
+                          }" data-index="${
+                            item.index
+                          }" data-key="max_height_building" min="0" max="9999" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_height_building ? "" : "disabled"} />  
+                        <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                      </div>
+
+                      <div>
+                        <div class="checkboxed !mt-0">
+                          <label for="study_note_detailed_notes_area_parameters_max_percent_area_${
+                            item.index
+                          }">
+                            <input type="checkbox" id="study_note_detailed_notes_area_parameters_max_percent_area_${
+                              item.index
+                              }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_percent_area" data-toggle-input="detailed_notes_area_parameters_max_percent_area_item_${
+                                item.index
+                              }" ${item.detailed_notes_area_parameters_max_percent_area && "checked"} />
+
+                            <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_percent_area") %>
+                          </label>
+                        </div>
+
+                        <input id="detailed_notes_area_parameters_max_percent_area_item_${
+                                    item.index
+                                  }" type="number" value="${
+                            item.max_percent_area || ""
+                          }" data-index="${
+                            item.index
+                          }" data-key="max_percent_area" min="0" max="100" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_percent_area ? "" : "disabled"} />  
+                        <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                      </div>
+
+                      <div>
+                        <div class="checkboxed !mt-0">
+                          <label for="study_note_detailed_notes_area_parameters_min_percent_bio_${
+                            item.index
+                          }">
+                            <input type="checkbox" id="study_note_detailed_notes_area_parameters_min_percent_bio_${
+                              item.index
+                              }" data-index="${item.index}" data-key="detailed_notes_area_parameters_min_percent_bio" data-toggle-input="detailed_notes_area_parameters_min_percent_bio_item_${
+                                item.index
+                              }" ${item.detailed_notes_area_parameters_min_percent_bio && "checked"} />
+
+                            <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_min_percent_bio") %>
+                          </label>
+                        </div>
+
+                        <input id="detailed_notes_area_parameters_min_percent_bio_item_${
+                                    item.index
+                                  }" type="number" value="${
+                            item.min_percent_bio || ""
+                          }" data-index="${
+                            item.index
+                          }" data-key="min_percent_bio" min="0" max="100" data-validator="value_in_range" ${item.detailed_notes_area_parameters_min_percent_bio ? "" : "disabled"} />  
+                        <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                      </div>
+                    </div>
+                  </div> 
+
+                  <div> 
+                    <label for="detailed_notes_infill_development_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_infill_development') %></label> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_infill_development_item_${
+                        item.index
+                      }" id="detailed_notes_infill_development_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="infill_development" ${
+                        item.infill_development === "true" && "checked"
+                      } data-toggle="detailed_notes_infill_development_details_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_infill_development_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_infill_development_item_${
+                        item.index
+                      }" id="detailed_notes_infill_development_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="infill_development" ${
+                        item.infill_development === "false" && "checked"
+                      }>
+                      <label for="detailed_notes_infill_development_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div>
+                  
+                  <div id="detailed_notes_infill_development_details_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <div class="flex flex-col">
+                      <div class="radio-wrapper radio-wrapper--single">
+                        <input type="radio" value="true" name="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }" id="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }_true" data-index="${item.index}" data-key="infill_development_include" ${
+                          item.infill_development_include === "true" && "checked"
+                        } data-toggle="detailed_notes_infill_development_include_details_item_${
+                          item.index
+                        }">
+                        <label for="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }_true"><%= t("activemodel.attributes.study_note.detailed_notes_infill_development_include") %></label>
+                      </div>
+
+                      <div class="radio-wrapper radio-wrapper--single">
+                        <input type="radio" value="false" name="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }" id="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }_false" data-index="${
+                          item.index
+                        }" data-key="infill_development_include" ${
+                          item.infill_development_include === "false" && "checked"
+                        }>
+                        <label for="detailed_notes_infill_development_include_item_${
+                          item.index
+                        }_false"><%= t("activemodel.attributes.study_note.detailed_notes_infill_development_exclude") %></label>
+                      </div> 
+                    </div>
+                  </div>
+                  
+                  <div> 
+                    <label for="detailed_notes_inner_city_development_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_inner_city_development') %></label> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }" id="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="inner_city_development" ${
+                        item.inner_city_development === "true" && "checked"
+                      } data-toggle="detailed_notes_inner_city_development_details_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }" id="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="inner_city_development" ${
+                        item.inner_city_development === "false" && "checked"
+                      }>
+                      <label for="detailed_notes_inner_city_development_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div>
+                  
+                  <div id="detailed_notes_inner_city_development_details_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <div class="flex flex-col">
+                      <div class="radio-wrapper radio-wrapper--single">
+                        <input type="radio" value="true" name="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }" id="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }_true" data-index="${item.index}" data-key="inner_city_development_include" ${
+                          item.inner_city_development_include === "true" && "checked"
+                        } data-toggle="detailed_notes_inner_city_development_include_details_item_${
+                          item.index
+                        }">
+                        <label for="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }_true"><%= t("activemodel.attributes.study_note.detailed_notes_inner_city_development_include") %></label>
+                      </div>
+
+                      <div class="radio-wrapper radio-wrapper--single">
+                        <input type="radio" value="false" name="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }" id="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }_false" data-index="${
+                          item.index
+                        }" data-key="inner_city_development_include" ${
+                          item.inner_city_development_include === "false" && "checked"
+                        }>
+                        <label for="detailed_notes_inner_city_development_include_item_${
+                          item.index
+                        }_false"><%= t("activemodel.attributes.study_note.detailed_notes_inner_city_development_exclude") %></label>
+                      </div> 
+                    </div>
+                  </div>
+
+                  <div> 
+                    <label for="detailed_notes_social_infrastructure_accessibility_item_${
+                      item.index
+                    }"><%= t('activemodel.attributes.study_note.detailed_notes_social_infrastructure_accessibility') %></label> 
+
+                    <div class="radio-wrapper">
+                      <input type="radio" value="true" name="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }" id="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }_true" data-index="${item.index}" data-key="detailed_notes_social_infrastructure_accessibility" ${
+                        item.detailed_notes_social_infrastructure_accessibility === "true" && "checked"
+                      } data-toggle="detailed_notes_social_infrastructure_accessibility_details_item_${
+                        item.index
+                      }">
+                      <label for="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }_true"><%= t(".option_yes") %></label>
+
+                      <input type="radio" value="false" name="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }" id="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="detailed_notes_social_infrastructure_accessibility" ${
+                        item.detailed_notes_social_infrastructure_accessibility === "false" && "checked"
+                      }>
+                      <label for="detailed_notes_social_infrastructure_accessibility_item_${
+                        item.index
+                      }_false"><%= t(".option_no") %></label>
+                    </div>
+                  </div>
+                  
+                  <div id="detailed_notes_social_infrastructure_accessibility_details_item_${
+                    item.index
+                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                    <div>
+                      <label for="detailed_notes_social_infrastructure_accessibility_body_item_${
+                        item.index
+                      }" ><%= t('activemodel.attributes.study_note.detailed_notes_social_infrastructure_accessibility_body') %></label>
+                      <textarea maxlength="1000" id="detailed_notes_social_infrastructure_accessibility_body_item_${
+                        item.index
+                      }" rows="8" data-remaining-characters="#detailed_notes_social_infrastructure_accessibility_body_item_${
+                        item.index
+                      }-characters" aria-describedby="detailed_notes_social_infrastructure_accessibility_body_item_${
+                        item.index
+                      }-characters" data-index="${item.index}" data-key="social_infrastructure_accessibility_body">${
+                        item.social_infrastructure_accessibility_body || ""
+                      }</textarea>
+                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                    </div>
+                  </div>
+
+                  <button type="button" class="multiple-hash-input__delete-button multiple-hash-input__delete-button-js" data-index="${
+                    item.index
+                  }">
+                    <%= image_pack_tag("media/images/trash.svg", alt: "") %>
+
+                    <span>
+                      <%= t(".delete_item") %>
+                    </span>
+                  </button>
+                </div>
+              </li>              
+            `
+        );
+      });
+
+      detailedNotes.slice(append ? -1 : undefined).forEach(function (item) {
+        $("#selected_detailed_note_id").append(
+          `<option value="${item.index}"><%= t(".area") %> ${parseInt(item.index + 1)}</option>`
+        );
+      });
+
+      if (append) {
+        $(
+          "#detailed_notes .multiple-hash-input__items > li:last-of-type"
+        ).foundation();
+        $(
+          "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea"
+        ).data(
+          "remaining-characters-counter",
+          new Decidim.InputCharacterCounter(
+            $(
+              "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea"
+            )
+          )
+        );        
+
+        $(".attachment-button-js")
+          .not(".AttachmentButton-applied")
+          .click(function (e) {
+            e.preventDefault();
+
+            $(this).addClass("AttachmentButton-applied");
+
+            var target_id = $(this).data("target");
+            $(this)
+              .closest("div")
+              .find(target_id + " > input")
+              .last()
+              .click();
+          });
+      } else {
+        $(
+          "#detailed_notes .multiple-hash-input__items"
+        ).foundation(); 
+      }
+
+      Foundation.reInit("abide");
     }
-  });
+
+    renderDetailedNotes();
+    initDetailedNotesChangeEvents();
+
+    function initDetailedNotesChangeEvents() {
+      $(
+        "#detailed_notes input, #detailed_notes textarea, #detailed_notes select"
+      ).on("change", function (event) {
+        var detailedNotes = JSON.parse(
+          $("#study_note_detailed_notes").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        var index = parseInt($(this).data("index"));
+        var key = $(this).data("key");
+        var value = event.target.value;
+
+        detailedNotes[index][key] = value;
+        $("#study_note_detailed_notes").val(
+          JSON.stringify(detailedNotes)
+        );
+      });
+
+      $(
+        "#detailed_notes .multiple-hash-input__delete-button-js"
+      ).on("click", function () {
+        var index = $(this).data("index");
+        var detailedNotes = JSON.parse(
+          $("#study_note_detailed_notes").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        detailedNotes = detailedNotes.filter(function (item) {
+          return item.index != index;
+        });
+        $("#study_note_detailed_notes").val(
+          JSON.stringify(detailedNotes)
+        );
+
+        renderDetailedNotes();
+        initDetailedNotesChangeEvents();
+      });
+
+      $("#detailed_notes .multiple-hash-input__items > li").each(
+        function () {
+          const index = this.id.split("_").pop();
+          const regex = new RegExp(
+            `detailed_notes_(parcel_id|body|is_record_area_included)_item_${index}`
+          );
+
+          $("input:not([type=radio]), textarea")
+            .filter(function () {
+              return this.id.match(regex);
+            })
+            .on("change", function (event) {
+              const inputs = $("input:not([type=radio]), textarea").filter(
+                function () {
+                  return this.id.match(regex);
+                }
+              );
+              const radioInputs = $("input[type=radio]").filter(function () {
+                return this.id.match(regex);
+              });
+
+              if (event.target.value.length > 0) {
+                inputs.attr("required", "required");
+                radioInputs.attr("required", "required");
+                inputs.each(function () {
+                  const label = $("label[for='" + this.id + "']");
+                  label.find("span.asterisk").remove();
+                  $(label).append('<span class="asterisk">*</span>');
+                });
+              } else {
+                const emptyInputs = $("input:not([type=radio]), textarea").filter(
+                  function () {
+                    return this.id.match(regex) && this.value === "";
+                  }
+                );
+
+                if (emptyInputs.length === inputs.length) {
+                  inputs.removeAttr("required");
+                  radioInputs.removeAttr("required");
+                  inputs.each(function () {
+                    $("#new_study_note_").foundation(
+                      "validateInput",
+                      $(this)
+                    );
+
+                    const label = $("label[for='" + this.id + "']");
+                    label.find("span.asterisk").remove();
+                  });
+                }
+              }
+            });
+        }
+      );
+
+      $("#detailed_notes").on("change", "input[type=radio]", function(event) { 
+        const name = $(this).attr("name");
+        const radioGroup = $(`input[type=radio][name="${name}"]`);
+        
+        radioGroup.filter("[data-toggle]").each(function() {
+          const targetElement = $(`#${$(this).data("toggle")}`); 
+
+          if ($(this).is(":checked")) {
+            targetElement.removeClass("hidden");
+            targetElement.removeAttr("hidden");
+          } else {
+            targetElement.addClass("hidden");
+            targetElement.attr("hidden", "");
+          }
+        });
+      });
+
+      $("#detailed_notes").on("change", "input[type=checkbox][data-toggle-input]", function(event) { 
+        const targetElement = $(`#${$(this).data("toggle-input")}`); 
+
+        if ($(this).is(":checked")) { 
+          targetElement.removeAttr("disabled");
+        } else { 
+          targetElement.attr("disabled", "");
+        } 
+      });
+      
+      $("#detailed_notes input[type=file]")
+        .not(".MultiFile-applied")
+        .MultiFile({
+          max: 1,
+          STRING: {
+            remove: "usuń",
+            denied: "Ten format pliku $ext jest niedozwolony.",
+            file: "$file",
+            selected: "Wybrany plik: $file",
+            duplicate: "Ten plik już został wybrany:\n$file",
+            toomuch: "Łączny rozmiar plików przekracza limit ($size)",
+            toomany: "Niedozwolona liczba plików (maks: $max)",
+            toobig: "$file ma za duży rozmiar (maks: $size)",
+          },
+          afterFileAppend: function (element, value, master_element) {
+            if (master_element.files.length >= 1) {
+              $(this).parent().find(".attachment-button-js").hide();
+            }
+          },
+          afterFileRemove: function (element, value, master_element) {
+            if (master_element.files.length < 1) {
+              $(this).parent().find(".attachment-button-js").show();
+            }
+          },
+        });
+
+        $(".show-map-modal-js").click(function(e) {
+          e.preventDefault();
+          const id = $(this).data("detailed-note-id");
+          
+          if(id !== window.Decidim.currentDetailedNoteId){
+            window.Decidim.currentDetailedNoteId = id;
+
+            if (window.Decidim.studyNoteMap){
+              window.Decidim.studyNoteMapRefreshParcelsLayer(window.Decidim.studyNoteMap);
+            }
+          }
+          
+          window.Decidim.currentDialogs.mapModal.open();
+        });
+    }
+
+    $("#detailed_notes .multiple-hash-input__add-button-js").on(
+      "click",
+      function () {
+        var detailedNotes = JSON.parse(
+          $("#study_note_detailed_notes").val() ||
+            `[{"index": "0", "name": "Plan ogólny gminy"}]`
+        );
+        detailedNotes.push({
+          index: detailedNotes.length,
+        });
+        $("#study_note_detailed_notes").val(
+          JSON.stringify(detailedNotes)
+        );
+
+        renderDetailedNotes(true);
+        initDetailedNotesChangeEvents();
+      }
+    );
+
+    $("input[type=file]#study_note_attorney_power_payment_stamp_duty_confirm, input[type=file]#study_note_attorney_power_represent_applicant_or_for_service")
+      .not(".MultiFile-applied")
+      .MultiFile({
+        max: 1,
+        STRING: {
+          remove: "usuń",
+          denied: "Ten format pliku $ext jest niedozwolony.",
+          file: "$file",
+          selected: "Wybrany plik: $file",
+          duplicate: "Ten plik już został wybrany:\n$file",
+          toomuch: "Łączny rozmiar plików przekracza limit ($size)",
+          toomany: "Niedozwolona liczba plików (maks: $max)",
+          toobig: "$file ma za duży rozmiar (maks: $size)",
+        },
+        afterFileAppend: function (element, value, master_element) {
+          if (master_element.files.length >= 1) {
+            $(this).parent().find(".attachment-button-js").hide();
+          }
+        },
+        afterFileRemove: function (element, value, master_element) {
+          if (master_element.files.length < 1) {
+            $(this).parent().find(".attachment-button-js").show();
+          }
+        },
+      });
+
+    $("input[type=file]#study_note_files")
+      .not(".MultiFile-applied")
+      .MultiFile({
+        max: 2,
+        STRING: {
+          remove: "usuń",
+          denied: "Ten format pliku $ext jest niedozwolony.",
+          file: "$file",
+          selected: "Wybrany plik: $file",
+          duplicate: "Ten plik już został wybrany:\n$file",
+          toomuch: "Łączny rozmiar plików przekracza limit ($size)",
+          toomany: "Niedozwolona liczba plików (maks: $max)",
+          toobig: "$file ma za duży rozmiar (maks: $size)",
+        },
+        afterFileAppend: function (element, value, master_element) {
+          master_element.files.forEach(function (file, index) {
+            if (index === 0 && master_element.files.length > 1) {
+              if (
+                $(`#study_note_files_list > div:eq(${index})`).hasClass(
+                  "MultiFile-label--added-inputs"
+                )
+              ) {
+                return;
+              } else {
+                $(`#study_note_files_list > div:eq(${index})`).append(
+                  `
+                    <div>
+                      <label for="files_filename_one" ><%= t('activemodel.attributes.study_note.files_filename_one') %> 1</label>
+                      <input id="files_filename_one" type="text" name="study_note[files_filename_one]" required /> 
+                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                    </div>
+                    <div>
+                      <label for="files_filename_two" ><%= t('activemodel.attributes.study_note.files_filename_two') %> 2</label>
+                      <input id="files_filename_two" type="text" name="study_note[files_filename_two]" required /> 
+                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                    </div>
+                  `
+                );
+                $(`#study_note_files_list > div:eq(${index})`).addClass(
+                  "MultiFile-label--added-inputs"
+                );
+              }
+            }
+
+            if (
+              !$(`#study_note_files_list > div:eq(${index})`).hasClass(
+                "MultiFile-label--added-inputs"
+              )
+            ) {
+              $(`#study_note_files_list > div:eq(${index})`).append(
+                `
+                  <div>
+                    <label for="files_filename_${
+                      index === 0 ? "one" : "two"
+                    }" ><%= t('activemodel.attributes.study_note.files_filename_one') %></label>
+                    <input id="files_filename_${
+                      index === 0 ? "one" : "two"
+                    }" type="text" name="study_note[files_filename_${
+                  index === 0 ? "one" : "two"
+                }]" required /> 
+                    <span class="form-error"><%= t("errors.messages.required") %></span>
+                  </div>
+                `
+              );
+
+              $(`#study_note_files_list > div:eq(${index})`).addClass(
+                "MultiFile-label--added-inputs"
+              );
+            }
+
+            Foundation.reInit("abide");
+          });
+
+          if (master_element.files.length >= 2) {
+            $(this).parent().find(".attachment-button-js").hide();
+          }
+        },
+        afterFileRemove: function (element, value, master_element) {
+          if (master_element.files.length < 2) {
+            $(this).parent().find(".attachment-button-js").show();
+          }
+        },
+      });
+  <% end %>
 <% end %>

@@ -9,8 +9,9 @@
 
 Decidim.seed!
 
+# HERO SECTIONS:
 Decidim::AdminExtended::HeroSection.create(
-  title: 'Aktualności',
+  title: 'Informacje',
   subtitle: 'Podtytuł ogólny Konsultacji Społecznych',
   banner_img_alt: 'Baner strony głównej reprezentujący Konsultacje Społeczne',
   system_name: 'news'
@@ -35,4 +36,62 @@ Decidim::AdminExtended::HeroSection.create(
   subtitle: 'Podtytuł ogólny Konsultacji Społecznych',
   banner_img_alt: 'Baner strony głównej reprezentujący Konsultacje Społeczne',
   system_name: 'pages'
+)
+
+Decidim::AdminExtended::HeroSection.create(
+  title: 'Baza wiedzy',
+  subtitle: 'Podtytuł ogólny Konsultacji Społecznych',
+  banner_img_alt: 'Baner strony głównej reprezentujący Konsultacje Społeczne',
+  system_name: 'pages'
+)
+
+# CURRENT DECIDIM MAIN MENU ITEMS:
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Strona główna',
+  name: 'Strona główna',
+  weight: 1,
+  visible: true
+)
+
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Pomoc',
+  name: 'Baza wiedzy',
+  weight: 2,
+  visible: true
+)
+
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Procesy',
+  name: 'Lista Konsultacji',
+  weight: 3,
+  visible: true
+)
+
+# CURRENT CUSTOM MENU ITEMS:
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Aktualności',
+  name: 'Informacje',
+  weight: 4,
+  visible: false
+)
+
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Wnioski o konsultacje',
+  name: 'Wnioski',
+  weight: 5,
+  visible: false
+)
+
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Strefa koordynatora konsultacji',
+  name: 'Strefa koordynatora konsultacji',
+  weight: 6,
+  visible: false
+)
+
+Decidim::AdminExtended::MainMenuItem.create(
+  sys_name: 'Pytania i odpowiedzi',
+  name: 'FAQ',
+  weight: 7,
+  visible: false
 )

@@ -2,12 +2,17 @@
 pl:
   activemodel:
     attributes:
+      category:
+        color: Kolor ikony
+        position: Kolejność wyświetlana
+      map_background:
+        position: Kolejność
       remark:
         images: Zdjęcia
         body: Treść opinii
         decidim_category_id: Kategoria
         email: Twój e-mail
-        signature: Podpis*
+        signature: Podpis
         district: Dzielnica
         gender: Płeć
         age: Wiek
@@ -16,9 +21,9 @@ pl:
   activerecord:
     models:
       decidim/consultation_map/remark:
-        one: Uwaga na mapie
+        one: Uwagi na mapie
         few: Uwagi na mapie
-        many: Uwag na mapie
+        many: Uwagi na mapie
         other: Uwagi na mapie
   decidim:
     admin:
@@ -32,15 +37,12 @@ pl:
         widget:
           map_title: Mapa konsultacji
         form:
-          email_aria_label: Podaj swój email jeżeli chcesz być powiadomiony o odpowiedziach
           statistics_aria_label: Opcjonalnie do celów statystycznych wypełnij poniższe pola
-          email_placeholder: Twój e-mail
           select_gender: Płeć
           select_age: Wiek
           select_district: Dzielnica
-          rodo: Klauzula RODO uisque mattis magna quis dolor faucibus, vitae laoreet felis rutrum.
-          wcag_category_label: "<span class='show-for-sr'>Kategoria</span>"
-          select_category: Kategoria
+          wcag_category_label: "<span class='show-for-sr'>Kategoria uwagi</span>"
+          select_category: Kategoria uwagi
         filters:
           activity: Moja aktywność
           all: Wszystkie
@@ -61,8 +63,6 @@ pl:
           select_gender: Płeć
           select_age: Wiek
           select_district: Dzielnica
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
         new:
           create: Dodaj
           clear: Wyczyść
@@ -71,41 +71,44 @@ pl:
           sign_up: Zarejestruj się
           tos_agreement: "Publikując treść, akceptujesz <strong>%{link}</strong>."
           terms: regulamin
-          title: Jaka jest Twoja opinia?
+          title: Dodaj uwagę
           anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby dodać uwagę
         create:
           header: Dziękujemy za dodanie komentarza!
           invalid: Podczas dodawania uwagi wystąpił błąd
           success: Dodano uwagę
-        warning_modal:
-          marker_is_outisde_of_polygon: Jeżeli chcesz dodać uwagę – ustaw znacznik w obszarze, który konsultujemy
-          close_modal: Zamknij okno
-          title: "Uwaga!"
         index:
           new_remark: Dodaj uwagę
           remarks_count: Liczba uwag na mapie %{count}
+          help: Pomoc
+          add_marker: Dodaj
+          cancel_marker: Anuluj
+          tooltip_content: Obserwuj, żeby dostać e-mail, gdy ktoś doda nową uwagę.
+          success_modal:
+            header: Dziękujemy, Twoja uwaga została opublikowana!
+            body: |
+              Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?<br />
+              Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.
+          help_modal:
+            header: Pomoc
+            ok: OK
+          warning_modal:
+            header: Poza obszarem konsultacji
+            body: Możesz dodać uwagę tylko na terenie, którego dotyczą konsultacje. Umieść znacznik na obszarze zaznaczonym na mapie.
+            ok: OK
         count:
           remarks_count: Liczba uwag na mapie %{count}
         edit_form:
           clear: Wyczyść
-          email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
           header: Dziękujemy za dodanie uwagi
           save: Zapisz
           statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
-            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
         full_edit:
           clear: Wyczyść
           email_legend: Jeśli chcesz dostawać powiadomienia o komentarzach, zostaw nam swój adres e-mail i zaakceptuj RODO
           header: Dziękujemy za dodanie uwagi
           save: Zapisz
           statistics_legend: Powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych
-          rodo: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail w celu otrzymywania powiadomień o odpowiedziach. Zgody udzielam na podstawie 
-            art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
       models:
         remark:
           fields:
@@ -114,7 +117,27 @@ pl:
             address: Adres
             body: Treść opinii
             author_name: Autor
+            files: Załączniki?
       admin:
+        map_background:
+          create:
+            error: Wystąpił bład przy dodawaniu podkładu
+            success: Dodano podkład
+            errors: Wystąpił bład przy dodawaniu podkładu
+          update:
+            success: Zaktualizowano podkład mapowy
+            errors: Wystąpił bład przy dodawaniu podkładu
+        map_backgrounds:
+          form:
+            file_type: Rodzaj
+          index:
+            title: Podkłady mapowe
+          new:
+            title: Dodaj podkład mapowy
+            create: Zapisz
+          edit:
+            title: Edycja podkładu mapowego
+            update: Aktualizuj
         actions:
           preview: Podgląd
           title: Działania
@@ -130,13 +153,13 @@ pl:
         custom_settings:
           click_on_map: |-
             <ul>
-            <li>Kliknij na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
-            <li>Po dodniu minimum 3 punktów, pierwszy punkt zmienia kolor na zielony, należy go kliknąć, by dane poligonu zostału zapisane.</li>
-            <li>Po kliknieciu w zielony punkt, poligon nadal można edytować, przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
+            <li>Kliknij ikonę pięciokąta na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
+            <li>Po dodaniu minimum 3 punktów, należy kliknąć pierwszy punkt, by dane poligonu zostały zapisane.</li>
+            <li>Po zapisaniu poligonu, poligon nadal można edytować, klikając w przycisk Edytuj znaczniki i przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
             </ul>
             <strong>UWAGA! Dodanie poligonu jest wymagane, by komponent pozwalał na dodawanie uwag na mapie</strong>
       remarks_title: Uwagi
-      remark_m:
+      remark_l:
         edited: (Edytowany)
         edit: Edytuj
     components:
@@ -144,8 +167,14 @@ pl:
         settings:
           step:
             announcement: Ogłoszenie
+            comments_blocked: Komentarze zablokowane
           global:
-            help_section: Tekst pomocniczy
+            comments_enabled: Komentarze włączone
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
             block_comments: Zablokuj dodawanie uwag użytkownikom zewnętrznym
             show_on_space_page: Pokaż widget mapy na stronie konsultacji
             announcement: Ogłoszenie

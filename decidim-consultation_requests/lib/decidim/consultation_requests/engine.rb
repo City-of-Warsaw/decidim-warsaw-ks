@@ -11,21 +11,31 @@ module Decidim
 
       initializer "decidim.menu" do
         Decidim.menu :menu do |menu|
-          menu.item I18n.t("menu.consultation_requests", scope: "decidim"),
-                    decidim_consultation_requests.consultation_requests_path,
-                    position: 7,
-                    active: :inclusive
+          menu.add_item :consultation_requests,
+                        "Wnioski o konsultacje", # sys_name for MainMenuItem
+                        decidim_consultation_requests.consultation_requests_path,
+                        position: 7,
+                        active: :inclusive
         end
+      end
+
+      Decidim.menu :home_content_block_menu do |menu|
+        menu.add_item :consultation_requests,
+                      "Wnioski o konsultacje", # sys_name for MainMenuItem
+                      decidim_consultation_requests.consultation_requests_path,
+                      position: 7,
+                      active: :inclusive
       end
 
       initializer "decidim.user_menu" do
         Decidim.menu :admin_menu do |menu|
-          menu.item I18n.t("menu.consultation_requests", scope: "decidim.admin"),
-                    decidim_consultation_requests.admin_consultation_requests_path,
-                    icon_name: "document",
-                    position: 4.7,
-                    active: is_active_link?(decidim_consultation_requests.admin_consultation_requests_path, :inclusive),
-                    if: allowed_to?(:update, :organization, organization: current_organization)
+          menu.add_item :admin_consultation_requests,
+                        "Wnioski o konsultacje", # sys_name for MainMenuItem
+                        decidim_consultation_requests.admin_consultation_requests_path,
+                        icon_name: "file-text-line",
+                        position: 4.7,
+                        active: is_active_link?(decidim_consultation_requests.admin_consultation_requests_path, :inclusive),
+                        if: allowed_to?(:update, :organization, organization: current_organization)
         end
       end
 
@@ -52,7 +62,7 @@ module Decidim
             resources :attachments, controller: 'admin/attachments', as: 'attachments'
           end
         end
-        resources :consultation_requests, only: [:index, :show], as: 'consultation_requests'
+        resources :consultation_requests, only: [:index, :show], as: 'consultation_requests', path: "wnioski"
       end
 
       initializer "decidim_consultation_requests.append_routes", after: :load_config_initializers do |_app|
@@ -61,15 +71,11 @@ module Decidim
         end
       end
 
-      # decorators
-      config.autoload_paths << File.join(
-        Decidim::ConsultationRequests::Engine.root, "app", "decorators", "{**}"
-      )
 
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::ConsultationRequests::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
       end
 
@@ -77,10 +83,6 @@ module Decidim
       initializer "decidim_consultation_requests.add_cells_view_paths" do
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::ConsultationRequests::Engine.root}/app/cells")
       end
-
-      # initializer "decidim_consultation_requests.assets" do |app|
-      #   app.config.assets.precompile += %w[decidim_consultation_requests_manifest.js decidim_consultation_requests_manifest.css]
-      # end
     end
   end
 end

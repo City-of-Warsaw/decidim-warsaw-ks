@@ -1,0 +1,39 @@
+.custom-proposal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #f5f6f7;
+  padding: 16px;
+
+  h2 {
+    font-weight: 400;
+  }
+}
+
+.article .content-wrapper {
+  display: none;
+  padding: 13px;
+}
+
+#proposals {
+  max-width: 1200px;
+  margin-top: 32px;
+}
+
+.custom-proposal__content {
+  padding-left: 0 !important;
+}
+
+.proposal-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.toggle-button {
+  transition: transform 0.2s ease;
+}
+
+.custom-proposal[aria-expanded="true"] .toggle-button {
+  transform: rotate(180deg);
+}

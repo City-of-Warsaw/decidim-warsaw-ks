@@ -1,0 +1,1 @@
+import "src/area-map/area-map.js";

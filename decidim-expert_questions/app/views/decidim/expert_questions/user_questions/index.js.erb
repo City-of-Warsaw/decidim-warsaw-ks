@@ -5,5 +5,42 @@ var $user_questionsCount = $('#user_questions-count');
 $user_questions.html('<%= j(render partial: "user_questions").strip.html_safe %>');
 $user_questionsCount.html('<%= j(render partial: "count").strip.html_safe %>');
 
-// var $dropdownMenu = $('.dropdown.menu', $user_questions);
-// $dropdownMenu.foundation();
+$('#user-questions .comment-field--body textarea').each(function () {
+    $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+});
+
+$("#user-questions input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+    max: 5,
+    STRING: {
+    remove: 'usuń',
+    denied: 'Ten format pliku $ext jest niedozwolony.',
+    file: '$file',
+    selected: 'Wybrany plik: $file',
+    duplicate: 'Ten plik już został wybrany:\n$file',
+    toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+    toomany: 'Niedozwolona liczba plików (maks: $max)',
+    toobig: '$file ma za duży rozmiar (maks: $size)'
+    },
+});
+
+$("#user-questions .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+    e.preventDefault();
+
+    $(this).addClass("AttachmentButton-applied");
+
+    var target_id = $(this).data("target");
+    $(this).closest("form").find(target_id + " > input")
+        .last()
+        .click();
+});
+
+$user_questions.foundation();
+
+$("[data-decidim-comments]").each(function (_i, el) {
+    var $el = $(el);
+    var comments = new Decidim.CommentsComponent($el, $el.data("decidim-comments"));
+    comments.mountComponent();
+    $(el).data("comments", comments);
+});
+
+document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $('#user-questions')[0] }));

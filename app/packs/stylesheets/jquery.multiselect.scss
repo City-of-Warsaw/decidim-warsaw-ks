@@ -1,0 +1,345 @@
+// During the work on account settings and registration form changes, styles from other files were moved here to consolidate them in one place.
+// Due to tight deadlines, full reorganization of multiselect styles was not possible.
+
+.ms-options-wrap {
+  position: relative;
+}
+
+.ms-options-wrap,
+.ms-options-wrap * {
+  box-sizing: border-box;
+}
+
+.ms-options-wrap > button:not(.auto-clear):focus-visible,
+.ms-options-wrap > button:not(.auto-clear) {
+  position: relative;
+  width: 100%;
+  text-align: left;
+  border: 1px solid #8c8c8c;
+  background-color: #fff;
+  font-size: 1rem;
+  color: black;
+  outline-offset: 0px;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.ms-options-wrap > button.ms-active:focus-visible,
+.ms-options-wrap > button.ms-active {
+  outline: unset !important;
+}
+
+.ms-options-wrap > button::before {
+  content: attr(data-label);
+  position: absolute;
+  font-size: 12px;
+  top: -7.5px;
+  background: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: -4px;
+}
+
+.ms-options-wrap > button > span {
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 3px;
+  line-height: 20px;
+}
+
+.ms-options-wrap > button[disabled] {
+  background-color: #e5e9ed;
+  color: #808080;
+  opacity: 0.6;
+}
+
+.ms-options-wrap > button:after {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 0;
+  border: 6px solid rgba(0, 0, 0, 0);
+  border-top-color: #999;
+  margin-top: -3px;
+}
+
+.ms-options-wrap.ms-active > button {
+  border-bottom: 0px !important;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.ms-options-wrap.ms-has-selections > button {
+  color: #333;
+}
+
+.ms-options-wrap > .ms-options {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  background: white;
+  z-index: 2000;
+  border-left: 1px solid #8c8c8c;
+  border-right: 1px solid #8c8c8c;
+  border-bottom: 1px solid #8c8c8c;
+  overflow: auto;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ms-options-wrap.ms-active > .ms-options {
+  visibility: visible;
+}
+
+.ms-options-wrap > .ms-options > .ms-search input {
+  width: 100%;
+  padding: 4px 5px;
+  border: none;
+  border-bottom: 1px groove;
+  outline: none;
+}
+
+/* .ms-options-wrap > .ms-options .ms-selectall, */
+.ms-options-wrap > .ms-options .ms-submitform,
+.ms-options-wrap > .ms-options .ms-clearall {
+  display: inline-block;
+  font-size: 0.9em;
+  text-transform: lowercase;
+  text-decoration: none;
+  vertical-align: middle;
+  padding: 10px 1em;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  border-radius: 4px;
+  transition: background-color 0.25s ease-out, color 0.25s ease-out;
+  font-size: 1rem;
+  -webkit-appearance: none;
+  line-height: 1;
+  text-align: center;
+  text-transform: none;
+  font-weight: bold;
+  cursor: pointer;
+  height: auto;
+  width: calc(100% - 10px);
+
+  &:focus-visible,
+  &:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--primary);
+    font-weight: bold;
+  }
+}
+
+/* .ms-options-wrap > .ms-options .ms-selectall:hover, */
+.ms-options-wrap > .ms-options .ms-submitform:hover,
+.ms-options-wrap > .ms-options .ms-clearall:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* .ms-options-wrap > .ms-options > .ms-selectall.global, */
+.ms-options-wrap > .ms-options > .ms-submitform.global,
+.ms-options-wrap > .ms-options > .ms-clearall.global {
+  margin: 4px 5px;
+}
+
+.ms-options-wrap > .ms-options > .dropdown-buttons-top {
+  padding: 12px 5px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 12px;
+  background-color: #f8f9fa;
+  order: 999; /* Ensure it appears last */
+  text-align: right;
+}
+
+.ms-options-wrap > .ms-options > .dropdown-separator {
+  border-top: 2px solid #ddd;
+  margin: 12px 0;
+  height: 2px;
+  background: #e9ecef;
+}
+
+.ms-options-wrap > .ms-options > .dropdown-buttons-bottom {
+  padding: 12px 5px;
+  border-top: 2px solid #ddd;
+  margin-top: 12px;
+  background-color: #f8f9fa;
+  order: 999; /* Ensure it appears last */
+  text-align: center;
+}
+
+.ms-options-wrap > .ms-options > .dropdown-buttons-bottom a {
+  color: white !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 4px !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  margin: 0 !important;
+}
+
+.ms-options-wrap > .ms-options > ul,
+.ms-options-wrap > .ms-options > ul > li.optgroup ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.ms-options-wrap > .ms-options > ul li.ms-hidden {
+  display: none;
+}
+
+.ms-options-wrap > .ms-options > ul > li.optgroup {
+  padding: 5px;
+}
+
+.ms-options-wrap > .ms-options > ul > li.optgroup + li.optgroup {
+  border-top: 1px solid #aaa;
+}
+
+.ms-options-wrap > .ms-options > ul > li.optgroup .label {
+  display: block;
+  padding: 5px 0 0 0;
+}
+
+.ms-options-wrap > .ms-options > ul label {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  border: 1px dotted transparent;
+}
+
+.ms-options-wrap > .ms-options > ul label.focused,
+.ms-options-wrap > .ms-options > ul label:hover {
+  background-color: #efefef;
+  border-color: #999;
+}
+
+.ms-options-wrap > .ms-options > ul li.selected label {
+  background-color: #efefef;
+  border-color: transparent;
+}
+
+.ms-options-wrap > .ms-options > ul input[type="checkbox"] {
+  margin: 0 5px 0 0;
+  position: absolute;
+  left: 4px;
+  top: 10px;
+}
+
+.ms-options-wrap > .ms-options.hide-checkbox > ul input[type="checkbox"] {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* Custom button containers */
+.ms-options-wrap > .ms-options > .dropdown-buttons-top {
+  padding: 12px 5px;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 12px;
+  background-color: #f8f9fa;
+  order: 999; /* Move to bottom since layout is reversed */
+  text-align: right;
+}
+
+.ms-options-wrap > .ms-options > .dropdown-buttons-bottom {
+  padding: 12px 5px;
+  border-top: 2px solid #ddd;
+  margin-top: 12px;
+  background-color: #f8f9fa;
+  order: -1; /* Move to top since layout is reversed */
+  text-align: right;
+}
+
+.ms-options-wrap.pretty-multiselect {
+  margin-top: 16px;
+  font-size: 18px;
+  width: 100%;
+
+  button {
+    border: 1px solid #8c8c8c !important;
+    border-radius: 5px;
+  }
+
+  .ms-options.hide-checkbox {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 6px;
+    padding: 14px 18px 24px;
+    border: 1px solid #8c8c8c;
+    border-radius: 5px;
+    max-height: none !important;
+    overflow: visible;
+
+    ul {
+      width: 100%;
+      padding: 18px 0;
+
+      li {
+        padding: 1px;
+
+        label {
+          cursor: pointer;
+          padding: 8px 4px;
+          font-size: 14px;
+          font-weight: 700;
+          font-family: Arial, sans-serif;
+        }
+
+        &:hover label {
+          background: #373737;
+          color: white;
+        }
+
+        &.selected label {
+          background: var(--primary) !important;
+          color: white;
+        }
+      }
+    }
+
+    .dropdown-buttons {
+      width: 100%;
+      display: flex;
+      gap: 20px;
+
+      a {
+        border-width: 1px;
+        font-size: 14px;
+      }
+    }
+
+    .dropdown-header {
+      border-bottom: 1px solid #e4e4e4;
+      padding-bottom: 18px;
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        font-size: 14px;
+        color: var(--primary);
+      }
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+}

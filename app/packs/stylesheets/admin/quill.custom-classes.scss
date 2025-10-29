@@ -1,0 +1,90 @@
+// Custom styles for Quill editor
+// name of classes have to begins with "custom-"
+// after add or remove css class, remember to update class list
+// in app/assets/javascripts/decidim/editor.js.es6: const styles
+
+.custom-area-color-headline {
+  background-color: #1b7c97;
+  color: white;
+  width: fit-content;
+  display: block;
+
+  &.ql-align-right {
+    margin-left: auto !important;
+  }
+
+  &.ql-align-center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  &.ql-align-justify {
+    width: 100% !important;
+  }
+}
+
+.custom-legal-basis {
+  font-size: 12px;
+}
+
+.ql-editor img:has(+ p.custom-image-float) {
+  float: left;
+  width: 30%;
+  margin: 0 40px 25px 0 !important;
+}
+
+.ql-html-overlayContainer {
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ql-html-popupContainer {
+  background: #fff;
+  position: relative;
+  width: 80%;
+  height: 50%;
+  border-radius: 10px;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.ql-html-textArea {
+  width: 100%;
+  height: calc(100% - 80px);
+  padding: 10px;
+  font-family: monospace;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.ql-html-buttonGroup {
+  width: 15%;
+  display: flex;
+  margin-top: 10px;
+
+  button {
+    margin-right: 20px;
+  }
+}
+
+.ql-html-button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.ql-html-buttonCancel {
+  background: #6c757d;
+}

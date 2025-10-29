@@ -6,6 +6,7 @@ Decidim.register_component(:study_notes) do |component|
   component.engine = Decidim::StudyNotes::Engine
   component.admin_engine = Decidim::StudyNotes::AdminEngine
   component.icon = "decidim/study_notes/icon.svg"
+  component.permissions_class_name = "Decidim::StudyNotes::Permissions"
 
   component.on(:before_destroy) do |instance|
     raise StandardError, "Can't remove this component" if Decidim::StudyNotes::StudyNote.where(component: instance).any?
@@ -22,6 +23,10 @@ Decidim.register_component(:study_notes) do |component|
   # end
   component.settings(:global) do |settings|
     settings.attribute :block_comments, type: :boolean
+    settings.attribute :help_section_visibility, type: :boolean
+    settings.attribute :help_section_title, type: :string
+    settings.attribute :help_section_subtitle, type: :string
+    settings.attribute :help_section_description, type: :text, editor: true
   end
 
   # component.settings(:step) do |settings|

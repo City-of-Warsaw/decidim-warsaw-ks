@@ -1,0 +1,12 @@
+<tr data-id="<%= additional_translation.id %>">
+  <td>
+    <%= additional_translation.key %>
+  </td> <td>
+    <%= additional_translation.value %>
+  </td>
+  <td class="table-list__actions">
+    <% if allowed_to? :update, :organization, organization: current_organization %>
+      <%= icon_link_to "pencil-line", edit_additional_translation_path(additional_translation), t("actions.edit", scope: "decidim.admin_extended.departments"), class: "action-icon--edit" %>
+    <% end %>
+  </td>
+</tr>

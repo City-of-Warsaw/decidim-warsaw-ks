@@ -5,10 +5,10 @@ module Decidim
     module Admin
       class FileForm < Form
         attribute :name, String
-        attribute :file_input, String
-        attribute :audio_description_input, String
-        attribute :subtitles_input, String
-        attribute :subtitles_for_readers_input, String
+        attribute :file_input
+        attribute :audio_description_input
+        attribute :subtitles_input
+        attribute :subtitles_for_readers_input
         attribute :alt, String
         attribute :description, String
         attribute :copyright, String
@@ -17,6 +17,7 @@ module Decidim
         attribute :admin_folder_id, Integer
         attribute :folder_id, Integer
         attribute :permission, String
+        attribute :subaction, String
 
         validates :name, presence: true, length: { maximum: 60 }
 

@@ -1,4 +1,11 @@
 pl:
+  activerecord:
+    models:
+      decidim/meetings/meeting:
+        one: Spotkania
+        few: Spotkania
+        many: Spotkania
+        other: Spotkania
   activemodel:
     errors:
       models:
@@ -9,19 +16,29 @@ pl:
             report_change_status:
               no_report_data_for_status_change: Żeby zmienić status należy dodać treść i datę publikacji raportu
     attributes:
+      attachments:
+        attachment_collection_id: Folder
+        files: Wybierz pliki
       main_page_process:
         process_id: Konsultacje
-        weight: Kolejność
+        weight: Kolejność na stronie
       participatory_process:
+        description: Opis*
+        short_description: Krótki opis*
         department: Jednostka odpowiedzialna za konsultacje
         department_id: Jednostka odpowiedzialna za konsultacje
         address: Adres wyświetlany
         fb_url: Link do wydarzenia na Facebooku
         hero_image_alt: Opis alternatywny (ALT) dla obrazu głównego
-        consultation_status: Status konsultacji
+        consultation_status: Status konsultacjico
+        consultation_statuses:
+          active: Trwające konsultacje
+          past: Zakończone konsultacje
+          report: Opublikowany raport
+          effects: Efekty konsultacji
         recipients: Odbiorcy
         recipients_type:
-          citizens: Dla Mieszkańców
+          citizens: Dla wszystkich
           mix: Dla Mieszkańców i NGO
           ngo: Dla NGO
         report_description: Opis
@@ -32,11 +49,24 @@ pl:
         report_files: Pliki raportu
         tags: Posiadane tagi
         tag_ids: Tagi
-        users_action_allowed_for_unregister_users: Kto może przesyłać uwagi i pytania w ramach tych konsultacji?
+        users_action_allowed_for_unregister_users: Kto może przesyłać uwagi i pytania w ramach tych konsultacji?*
+        new_gallery_name: Tytuł galerii*
+        images: Obrazki
+      report_file:
+        name: Nazwa wyświetlana
+        weight: Kolejność
+        published: Publiczny*
+      result:
+        name: Nazwa
+        body: Treść
+        weight: Kolejność na stronie
+        new_gallery_name: Tytuł galerii*
+        images: Obrazki
+        added_at: Data dodania
       scope:
         address: Adres wyświetlany
       participatory_process_step:
-        date: Data
+        date: Data wyświetlana
     models:
       decidim/meetings/create_meeting_event: Nowe spotkanie
       decidim/meetings/update_meeting_event: Aktualizacja spotkania
@@ -50,27 +80,52 @@ pl:
       decidim/participatory_processes_extended/two_days_till_meeting_event: Spotkanie
       decidim/resource_hidden_event: Komentarz
   decidim:
+    menu:
+      faq: Pytania i odpowiedzi
+      home: Strona główna
+      processes: Lista konsultacji w Warszawie
+      help: Baza wiedzy
+    content_blocks:
+      cta_settings_form:
+        image_alt: Opis alternatywny (ALT) dla obrazu tła
     components:
       meetings:
         settings:
           global:
-            help_section: Tekst pomocniczy
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
       proposals:
         settings:
           global:
-            help_section: Tekst pomocniczy
+            help_section: Opis nad komponentem
     admin_log:
+      report_file:
+        create: "%{user_name} dodał plik do raportu w procesie:  %{resource_name}"
+        delete: "%{user_name} usunął plik w raporcie w procesie: %{resource_name}"
+        update: "%{user_name} zaktualizował plik raporcie w procesie: %{resource_name}"
       participatory_process:
+        send_notification_process_result: "%{user_name} wysłał powiadomienie o efektach konsultacji w %{resource_name}"
+        send_notification_process_report: "%{user_name} wysłał powiadomienie o publikacji raportu w %{resource_name}"
+        publish_participatory_process_report: "%{user_name} opublikował raport w %{resource_name}"
+        update_praticipatory_process_report: "%{user_name} zaktualizował raport w %{resource_name}"
+        unpublish_participatory_process_report: "%{user_name} ukrył wyświetlanie raportu %{resource_name}"
         add_report_files_to_process: "%{user_name} zmienił pliki raportu w %{resource_name} <br> z plików: %{process_was_files} <br> na pliki: %{process_current_files}"
         add_tags_to_process: "%{user_name} zmienił tagi w %{resource_name} <br> z tagów: %{process_was_tags} <br> na tagi: %{process_current_tags}"
       main_page_process:
         add_process_to_main_page: "%{user_name} dodał(a) konsultacje  %{resource_name} do strony głównej"
         destroy_main_page_process: "%{user_name} usunął/usunęła konsultacje  %{resource_name} ze strony głownej"
         update_main_page_process: "%{user_name} zaktualizował(a) pozycję konsultacji  %{resource_name} na stronie głównej"
+      result:
+        create: "%{user_name} utworzył(a) Efekt konsultacji %{resource_name} w przestrzeni %{space_name}"
+        publish: "%{user_name} opublikował(a) Efekt konsultacji %{resource_name} z przestrzeni %{space_name}"
+        update: "%{user_name} zaktualizował(a) Efekt konsultacji %{resource_name} w przestrzeni %{space_name}"
     events:
       participatory_process:
         step_activated:
-          notification_title: Konsultacje <a href="%{resource_path}">%{participatory_space_title}</a> są teraz na etapie <a href="%{resource_path}">%{resource_title}</a>
+          notification_title: Konsultacje <a href="%{participatory_space_url}">%{participatory_space_title}</a> są teraz na etapie %{resource_title}
         published:
           notification_title: "Zapraszamy do nowych konsultacji społecznych: <a href='%{resource_path}'>%{participatory_space_title}</a>"
         report_published:
@@ -97,7 +152,69 @@ pl:
         update:
           error: Nie udało się zaktualizować pozycji konsultacji na stronie głównej
           success: Zaktualizowano pozycję konsultacji na stronie głównej
+      results:
+        index:
+          title: Efekty konsultacji
+      participatory_process_reports:
+        index:
+          title: Raport z konsultacji
       admin:
+        participatory_process_report_files:
+          form:
+            file_validation:
+              allowed_file_extensions: Dozwolone pliki
+            published_yes: Tak
+            published_no: Nie
+          new:
+            title: Dodaj nowy plik raportu
+            create: Utwórz
+          edit:
+            title: Edycja pliku
+            update: Aktualizuj
+          delete_file:
+            error: Wystąpił błąd
+            success: Usunięto plik z raportu
+          update:
+            success: Plik został zaktualizowany
+            error: Wystąpił błąd
+          create:
+            success: Utworzono
+            error: Wystąpił błąd
+        participatory_process_report:
+          new:
+            title: Dodaj raport
+            create: Zapisz
+          index:
+            new: Dodaj raport
+            edit: Edytuj
+            confirm_send: Czy napewno chcesz wysłać powiadomienie ?
+            new_file: Nowy plik
+            publish: "Opublikuj raport"
+            unpublish: "Ukryj raport"
+            title: "Edytuj raport"
+            status_set_report: Opublikowany raport
+            status_set_effects: Efekty konsultacji
+            send_notification: Wyślij powiadomienie
+          send_notification:
+            success: Powiadomienie zostało wysłane
+            no_report_added: Nie mozna wysłać notyfikacji - raport jest pusty
+            report_notification_was_send: Notyfikacja została juz wysłana
+            error: Proces nie został opublikowany
+          create:
+            success: Utworzono
+            error: Wystąpił błąd
+          edit:
+            title: Aktualizuj raport
+            update: Aktualizuj
+            error: Wystąpił błąd
+          update:
+            error: Wystąpił błąd
+            success: Zaktualizowano raport dotyczący konsultacji
+          publish:
+            no_report_added: Nie mozna opublikować raportu - raport jest pusty
+            success: Opublikowano raport
+          unpublish:
+            success: Raport został ukryty
         main_page_processes:
           edit:
             title: Edytuj pozycję konsultacji na stronie głównej
@@ -106,8 +223,44 @@ pl:
             create: Utwórz
             title: Nowa konsultacja do wyświetlenia na stronie głównej
           index:
-            weight: Kolejność
+            weight: Kolejność na stronie
             new: Nowa pozycja
+        results:
+          actions:
+            new: Nowy efekt
+            send_notification: Wyślij powiadomienie
+            publish: Publikuj
+            edit: Edytuj
+            destroy: Usuń
+            confirm_destroy: Czy na pewno chcesz usunąć ten efekt?
+          send_notification:
+            success: Powiadomienie zostało wysłane
+            no_report_added: Nie mozna wysłać notyfikacji - brak efektów konsultacji
+            report_notification_was_send: Notyfikacja została juz wysłana
+            error: Proces nie został opublikowany
+          edit:
+            title: Edytuj efekt konsultacji
+            update: Aktualizuj
+          new:
+            title: Nowy efekt konsultacji
+            create: Utwórz
+          index:
+            name: Nazwa
+            weight: Kolejność
+            created_at: Data utworzenia
+            published: Publiczny
+            confirm_send: Czy napewno chcesz wysłać powiadomienie ?
+            title: Efekty konsultacji
+          create:
+            error: Nie udało się dodać efektu konsultacji
+            success: Nowy efekt jest zapisany, opublikuje go Administrator
+          update:
+            error: Nie udało się zaktualizować efektu konsultacji
+            success: Zaktualizowano efekt konsultacji, opublikuje go Administrator
+          publish:
+            success: Opublikowano efekt konsultacji
+          destroy:
+            success: Usunięto efekt konsultacji
     proposals:
       participatory_text_proposal:
         follow_document: Obserwuj zmiany wprowadzane w tym dokumencie
@@ -128,6 +281,8 @@ pl:
             in_person: Spotkanie na żywo
             online: Spotkanie online
             hybrid: Spotkanie jednocześnie online i na żywo
+          share: Udostępnij
+          add_to_calendar: Dodaj do kalendarza
         filters:
           pick_type: Wybierz typ spotkania
           pick_date: Wybierz status
@@ -136,6 +291,14 @@ pl:
           status: Status
           submit: Szukaj
           wcag_hidden_label: "<span class='show-for-sr'>%{pick_info}</span>"
+        calendar_modal:
+          add_to_calendar: Dodaj do kalendarza
+          close_window: Zamknij okienko
+          calendar_google_link: Google Calendar
+          calendar_outlook_link: Microsoft Outlook
+          calendar_apple: iCalendar (.ics)
+        meeting_aside:
+          tooltip_content: Obserwuj, żeby dostać e-mail, gdy coś istotnego zmieni się w tym spotkaniu.
       meeting_m:
         add_to_calendar: Dodaj <span class='show-for-sr'>spotkanie</span> do kalendarza
       content_blocks:
@@ -146,31 +309,92 @@ pl:
       admin:
         meetings:
           form:
+            address_help: W tym miejscu wyświetli się pinezka na mapie. Adres opublikuje się też w opisie spotkania. Jeśli wydarzeniem jest przejście z wózkiem, możesz podać nazwę ulicy bez numeru np. "Madalińskiego"
+            location_help: Opisz miejsce spotkania np. "Teatr Baj, mała scena"
             required_for_in_person: Pola wymagane dla spotkań lokalnych i hybrydowych
             required_for_online: Pola wymagane dla spotkań online i hybrydowych
     admin:
+      multiple_attachments:
+        create:
+          error: Wystąpił błąd przy dodawaniu załączników
+          success: Dodano załączniki
+      actions:
+        attachment:
+          multifiles: Dodaj wiele plików
+      attachments:
+        multifiles:
+          title: Dodawanie wielu plików
+          dropzone: Upuść pliki tutaj lub użyj przycisku do przesłania
+          select_files: Wybierz pliki
+          filename: Nazwa pliku
+          attachment_name: Nazwa załącznika lub obrazu
+          weight: Kolejność na stronie
+          actions: Akcje
+          submit: Wgraj pliki
+      events:
+        participatory_process:
+          role_assigned:
+            email_intro: Przypisano Ci rolę %{role} w procesie partycypacyjnym „%{resource_title} <br> Kliknij w poniższy link i zaloguj się na swoje konto:”.
+            email_outro: " "
+            email_subject: Przypisano Ci rolę %{role} w „%{resource_title}”.
+            notification_title: Przypisano Ci rolę %{role} w procesie partycypacyjnym,<br> Kliknij w poniższy link i zaloguj się na swoje konto:<br><a href="%{resource_url}">%{resource_title}</a>.
+      participatory_process_user_roles:
+        create:
+          error: Wystąpił błąd podczas dodawania użytkownika do tego procesu partycypacyjnego.
+          success: Rola została przypisana do dodanego w tym procesie użytkownika.
+      models:
+        user:
+          fields:
+            invitation_accepted_at: Zaproszenie przyjęto
+            invitation_sent_at: Zaproszenie wysłano
+        participatory_process_user_role:
+          roles:
+            admin: Administrator procesu
+            ext_moderator: Moderator zewnętrzny
+      menu:
+        participatory_processes_submenu:
+          results: Efekty konsultacji
+          reports: Raport
       sidebar_menu_nav:
         consultations_on_main_page: Konsultacje na stronie głównej
       titles:
         main_page_process: Konsultacje na stronie głównej
+        result: Efekty konsultacji
       map_handling_data:
         click_on_map: |-
-          Kliknij na mapie, żeby postawić pinezkę. Lokalizację możesz też wyszukać, wpisując adres w polu pod mapą.<br>
+          To mapa, na której możesz oznaczyć pinezką lokalizację konsultacji — jeśli dotyczą one konkretnego miejsca, np. skweru.
+          W tym punkcie pojawią się spotkania online. <br>Jeśli nie ustawisz pinezki, spotkania online zostaną przypisane do 
+          lokalizacji urzędu dzielnicy lub ratusza Urzędu Miasta. <br> <br> Kliknij na mapie, żeby postawić pinezkę. Lokalizację możesz też wyszukać, wpisując adres w polu pod mapą.
           Aby edytować pozycję pinezki, chwyć ją i przeciągnij.
       scopes:
         form:
           address_help: Adres używany jest do wyświetlenia znacznika na mapie dla spotkań online, jeśli Konsultacja nie ma własnego adresu
     participatory_processes:
+      pages:
+        home:
+          highlighted_processes:
+            active_spaces: Aktualne konsultacje
+            see_all_spaces: Zobacz wszystkie konsultacje
       consultation_statuses:
         active: Trwające konsultacje
         past: Zakończone konsultacje
-        report: Opublikowano raport
+        report: Opublikowany raport
         effects: Efekty konsultacji
+      content_blocks:
+        main_data:
+          tooltip_content: |-
+            <p>Obserwuj, żeby dostać e-mail, gdy:</p>
+            <ul>
+              <li>opublikujemy raport, czyli podsumowanie konsultacji i&nbsp;uwag</li>
+              <li>dodamy informację o efektach tych konsultacji</li>
+              <li>coś ważnego zmieni się w tym procesie</li>
+              <li>będzie zbliżać się spotkanie lub zakończenie konsultacji.</li>
+            </ul>
       admin:
         participatory_processes:
           form:
             process_tags: Tagi do przypisania do wybranej konsultacji
-            status_set_report: "Status konsultacji: Opublikowano raport"
+            status_set_report: "Status konsultacji: Opublikowany raport"
             status_set_effects: "Status konsultacji: Efekty konsultacji"
             report_sent: "Wiadomosć o dołączeniu raportu została juz wysłana: %{date}"
             report: Raport
@@ -182,6 +406,16 @@ pl:
             short_description_help: Krótki opis nie może zawierać linków, ponieważ wpływa to na sposób wyświetlania miniatur w serwisie.
             fb_url_help: "Pełen adres URL do wydarzenia np. 'https://www.facebook.com/events/..'"
             process_tags_help: Żeby zaznaczyć kilka tagów, przytrzymaj CTRL
+            area: Obszar konsultacji
+          area_map:
+            click_on_map: |-
+              <ul>
+              <li>Kliknij ikonę pięciokąta na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
+              <li>Po dodaniu minimum 3 punktów, należy kliknąć pierwszy punkt, by dane poligonu zostały zapisane.</li>
+              <li>Po zapisaniu poligonu, poligon nadal można edytować, klikając w przycisk Edytuj znaczniki i przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
+              </ul>
+      process_g:
+        till: "do %{ending_date} "
       process_m:
         till: "do %{ending_date} "
       process_s:
@@ -208,13 +442,15 @@ pl:
           pick_scope: Wybierz dzielnicę lub poziom ogólnomiejski
           pick_tags: Wybierz tagi konsultacji
           pick_year: Rok
-          recipient_citizen: Dla mieszkańców
+          recipient_citizen: Dla wszystkich
           recipient_ngo: Dla NGO
           recipients: Dla kogo
           scope: Dzielnica
           status: Status
           submit: Szukaj
           tags: Temat
+          date: Status
+          year: Rok
           wcag_hidden_label: "<span class='show-for-sr'>%{pick_info}</span>"
           wcag_names:
             active: "Trwające<span class='show-for-sr'> konsultacje</span>"
@@ -223,7 +459,7 @@ pl:
             report: "Opublikowany raport<span class='show-for-sr'> - konsultacje z raportem</span>"
             effects: "Efekty konsultacji<span class='show-for-sr'> - konsultacje z efektami</span>"
           zip_code: Kod pocztowy
-          address: Adres
+          address: Wpisz adres
         right_column:
           join_us_on_fb: Dołącz do wydarzenia!
       recipients_type:
@@ -231,4 +467,16 @@ pl:
         mix: dla Mieszkańców i NGO
         ngo: dla NGO
       show:
-        fb_url: Facebook
+        fb_url: Facebookz
+  devise:
+    mailer:
+      ext_moderator:
+        invite_ext_moderator: "Zaproszenie do moderacji procesem partycypacyjnym"
+        subject: "Zaproszenie do moderacji procesem partycypacyjnym"
+      invitation_instructions:
+        invited_you_as_ext_moderator: "%{invited_by} zaprasza Cię jako moderatora do procesu partycypacyjnego. Możesz zaakceptować zaproszenie za pomocą poniższego linku."
+        someone_you_as_ext_moderator: "ktoś zaprasza Cię jako moderatora do procesu partycypacyjnego. Możesz zaakceptować zaproszenie za pomocą poniższego linku."
+  layouts:
+    decidim:
+      process_header:
+        till: "Konsultacje trwają do&nbsp;<strong>%{ending_date}</strong>"

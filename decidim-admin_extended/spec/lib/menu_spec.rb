@@ -6,7 +6,7 @@ module Decidim
   describe Menu do
     include Rails.application.routes.mounted_helpers
 
-    let(:menu_item) { Decidim::Menu.new(:menu).item(original_label, decidim.pages_path, options) }
+    let(:menu_item) { Decidim::Menu.new(:home_content_block_menu).add_item(identifier, original_label, decidim.pages_path, options) }
 
     let(:options) do
       {
@@ -21,6 +21,7 @@ module Decidim
     let(:if_option) { nil }
     let(:active) { :inclusive }
     let(:icon_name) { nil }
+    let(:identifier) { 'Pomoc' }
     let(:original_label) { 'Pomoc' }
     let(:visible) { false }
     let(:weight) { 1 }
@@ -82,7 +83,7 @@ module Decidim
     context "when generating other menus" do
       # checking if other menus are still behaving as they did
       let(:position) { 3.3 }
-      let(:menu_item) { Decidim::Menu.new(:user_menu).item(original_label, decidim.pages_path, options) }
+      let(:menu_item) { Decidim::Menu.new(:user_menu).add_item(identifier, original_label, decidim.pages_path, options) }
 
       it 'item is has custom label' do
         expect(menu_item.first.label).to eq(original_label)

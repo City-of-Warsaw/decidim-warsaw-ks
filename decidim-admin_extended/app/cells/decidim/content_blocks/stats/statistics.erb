@@ -1,13 +1,13 @@
 <% @chosen_stats.each_slice(4) do |set| %>
   <div class="home-pam__highlight">
     <% set.each do |stat| %>
-      <div class="space-stats__data">      
+      <div class="space-stats__data" <%= stat.additional_statistic_info_enabled ? "data-allow-html data-tooltip title='#{stat.additional_statistic_info.gsub(/\ (a|i|e|o|u|w|z)\ /m, ' \1&nbsp;').html_safe}'" : "" %> >      
         <h3 class="space-stats__title">
           <%= stat.name %>
         </h3>
 
-        <span class="space-stats__number">
-          <%= stat.count %>
+        <span class="space-stats__number"> 
+          <%= stat.sum_of_count_and_additional_number %>
         </span>
       </div>
     <% end %>

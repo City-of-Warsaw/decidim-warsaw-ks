@@ -1,5 +1,12 @@
 ---
 pl:
+  activerecord:
+    models:
+      decidim/consultation_requests/consultation_request:
+        one: Wnioski o konsultacje
+        few: Wnioski o konsultacje
+        many: Wnioski o konsultacje
+        other: Wnioski o konsultacje
   activemodel:
     attributes:
       consultation_request:
@@ -8,13 +15,6 @@ pl:
         comments_allowed: Włącz komentarze
         date_of_request: Data złożenia wniosku
         title: Tytuł
-    activerecord:
-      models:
-        decidim/consultation_requests/consultation_request:
-          one: Wniosek o konsultację
-          few: Wnioski o konsultację
-          many: Wniosków o konsultację
-          other: Wnioski o konsultację
   decidim:
     admin:
       models:
@@ -27,7 +27,7 @@ pl:
             date_of_request: Data żłożenia wniosku
       consultation_requests:
         create:
-          error: Nie udało się utowrzyć wniosku
+          error: Nie udało się utworzyć wniosku
           success: Dodano wniosek
         update:
           error: Nie udało się zaktualizować wniosku
@@ -48,6 +48,8 @@ pl:
         delete: "%{user_name} usunął/ęła Wniosek %{resource_name}"
         update: "%{user_name} zaktualizował(a) Wniosek %{resource_name}"
     consultation_requests:
+      consultation_request_s:
+        applicant: Wnioskodawca
       actions:
         attachment_collections: Folder załączników
         attachments: Załączniki
@@ -69,14 +71,6 @@ pl:
           new:
             create: Utwórz
             title: Nowy wniosek o konsultację
-      index:
-        description: Lista złożonych wniosków o kinsultacje społeczne
-        title: Wnioski o konsultacje
-      hero:
-        header: Wnioski o konsultacje
-        sub_header: Podtytuł ogólny Konsultacji Społecznych
     components:
       consultation_requests:
-        name: Wniski o konsultacje
-    menu:
-      consultation_requests: Wnioski o konsultacje
+        name: Wnioski o konsultacje

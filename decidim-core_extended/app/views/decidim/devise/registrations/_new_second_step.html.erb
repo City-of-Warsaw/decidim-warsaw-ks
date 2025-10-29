@@ -1,0 +1,86 @@
+<div class="form__wrapper-block border-none pt-0 pb-4">
+  <h2 class="h4">Powiedz nam coś o swoich zainteresowaniach</h2>
+  <p>Powiadomimy Cię, kiedy rozpoczną się związane z nimi konsultacje</p>
+
+  <div class="form__select-wrapper">
+    <%= f.select :scopes_ids,
+                 @form.available_scopes,
+                 { label: "Które dzielnice Cię interesują?", include_blank: false, legend_title: "Wybierz dzielnice" },
+                 {
+                   class: 'multiple scopes-ids-select-js',
+                   multiple: true,
+                   "data-placeholder": "Wybierz jedną lub kilka dzielnic",
+                   "aria-controls": "processes",
+                   "data-class": "caret-primary pretty-multiselect",
+                 } %>
+    
+    <%= render "decidim/shared/toggle_switch",
+               field_name: "scope_citywide",
+               checked: @form.scope_citywide,
+               class: "mt-4",
+               label_text: "Powiadamiaj mnie o wszystkich konsultacjach ogólnomiejskich" %>
+  </div>
+
+  <div class="form__select-wrapper mt-4">
+    <%= f.select :tags_ids,
+                 @form.available_tags,
+                 { label: "Które tematy Cię interesują?", include_blank: false, legend_title: "Wybierz tematy" },
+                 {
+                   class: 'multiple tags-ids-select-js',
+                   multiple: true,
+                   "data-placeholder": "Wybierz jeden lub kilka tematów",
+                   "aria-controls": "processes",
+                   "data-class": "caret-primary pretty-multiselect",
+                 } %>
+
+    <%= render "decidim/shared/toggle_switch",
+               field_name: "follow_ngo",
+               checked: @form.follow_ngo,
+               class: "mt-4",
+               label_text: t('follow_ngo', scope: 'decidim.notifications_settings.show') %>
+  </div>
+
+  <%= render "decidim/shared/toggle_switch",
+             field_name: "newsletter",
+             checked: true,
+             class: "mt-6",
+             label_text: t("decidim.devise.registrations.new.newsletter") %>
+</div>
+
+<div class="form__wrapper-block pt-8">
+  <h2 class="h4">Powiedz nam więcej o sobie</h2>
+  <p>Wypełnienie tych pól nie jest obowiązkowe, zbieramy te dane do celów statystycznych</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-end">
+    <%= f.select :gender,
+                 @form.gender_options_for_profile,
+                 { include_blank: t(".select_gender") },
+                 { multiple: false, class: "col-span-1" } %>
+    <div class="cols-span-1">
+      <%= f.number_field :birth_year,
+                         autocomplete: 'bday-year',
+                         placeholder: 'rrrr',
+                         "data-validator": "greater_and_lower_than",
+                         "data-greater-than": "1899",
+                         "data-lower-than": Date.today.year,
+                         class: "w-full" %>
+      <span class="form-error">
+        Rok urodzenia musi być większy niż 1899 oraz mniejszy lub równy <%= Date.today.year %>
+      </span>
+    </div>
+
+    <%= f.select :district_id,
+                 @form.user_districts_for_select,
+                 { include_blank: t(".select_district") },
+                 { multiple: false, class: "cols-span-1" } %>
+  </div>
+</div>
+
+<div class="form__wrapper-block buttons">
+  <%= f.button "Wróć", class: "link button-previous-step-js mr-auto uppercase hover:text-primary", type: "button" %>
+  <%= link_to t("actions.cancel", scope: "decidim.admin"), new_user_session_path, class: "link uppercase hover:text-primary" %>
+  <button type="submit" class="button button__lg button__secondary">
+    <%= t("decidim.devise.registrations.new.sign_up") %>
+    <%= icon "arrow-right-line", class: "fill-current" %>
+  </button>
+</div>

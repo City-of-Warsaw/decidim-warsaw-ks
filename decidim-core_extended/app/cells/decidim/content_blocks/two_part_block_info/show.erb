@@ -1,0 +1,39 @@
+<% if blocks_urls_not_nil? %>
+  <section class="wrapper-home home-text-panels home__section">
+    <ul role="list" class="home-text-panels__container">
+      <li data-href="<%= left_block_url %>" class="home-text-panels__panel">
+        <div class="home-text-panels__panel-header">
+          <%= image_pack_tag("media/images/question-icon.svg", alt: '') %>
+
+          <h2 class="heading3 highligted-content-banner-heading">
+            <%= link_to left_block_url, class: "clean-link" do %>
+              <%= left_title %>
+            <% end %>
+          </h2>
+        </div>
+
+        <div class="home-text-panels__panel-text">
+          <%= left_description %>
+        </div>
+      </li>
+
+      <li data-href="<%= right_block_url %>" class="home-text-panels__panel">
+        <div class="home-text-panels__panel-header">
+          <%= image_pack_tag("media/images/paragraph-icon.svg", alt: '') %>
+
+          <h2 class="heading3 highligted-content-banner-heading">
+            <%= link_to right_block_url, class: "clean-link" do %>
+              <%= right_title %>
+            <% end %>
+          </h2>
+        </div>
+
+        <div class="home-text-panels__panel-text">
+          <%= right_description %>
+        </div>
+      </li>
+    </ul>
+  </section>
+<% end %>
+
+<%= append_javascript_pack_tag "core_extended_pages", defer: false %>

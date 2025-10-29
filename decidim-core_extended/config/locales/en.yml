@@ -6,3 +6,7 @@ en:
     errors:
       image_dimension_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}px)"
       image_size_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}MB)"
+  devise:
+    passwords:
+      new:
+        forgot_your_password: Nie pamiętasz hasła?

@@ -69,14 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="Decidim::AdUsersSpace::ApplicationController (class)">ApplicationController</a></span></span>
+      <span class="inheritName">Decidim::ApplicationController</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Decidim::ApplicationController</li>
-          
-            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="Decidim::AdUsersSpace::ApplicationController (class)">ApplicationController</a></span></li>
           
             <li class="next">Decidim::AdUsersSpace::InfoArticlesController</li>
           
@@ -93,7 +91,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Paginable, PaginateHelper, SanitizeHelper</dd>
+      <dd><span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html" title="Decidim::AdminExtended::HeroSectionHelper (module)">Decidim::AdminExtended::HeroSectionHelper</a></span>, Paginable, PaginateHelper, SanitizeHelper</dd>
   </dl>
   
   
@@ -126,7 +124,7 @@
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#help_section-instance_method" title="#help_section (instance method)">#<strong>help_section</strong>  &#x21d2; Object </a>
+      <a href="#article_categories-instance_method" title="#article_categories (instance method)">#<strong>article_categories</strong>  &#x21d2; Object </a>
     
 
     
@@ -211,6 +209,28 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#orphan_articles-instance_method" title="#orphan_articles (instance method)">#<strong>orphan_articles</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -248,8 +268,8 @@
   
   
   
-  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="ApplicationController.html" title="Decidim::AdUsersSpace::ApplicationController (class)">ApplicationController</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="ApplicationController.html#enforce_permission-instance_method" title="Decidim::AdUsersSpace::ApplicationController#enforce_permission (method)">#enforce_permission</a></span></p>
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html" title="Decidim::AdminExtended::HeroSectionHelper (module)">Decidim::AdminExtended::HeroSectionHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html#banner_partial_name-instance_method" title="Decidim::AdminExtended::HeroSectionHelper#banner_partial_name (method)">#banner_partial_name</a></span>, <span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html#hero_section_public-instance_method" title="Decidim::AdminExtended::HeroSectionHelper#hero_section_public (method)">#hero_section_public</a></span>, <span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html#info_or_request_title-instance_method" title="Decidim::AdminExtended::HeroSectionHelper#info_or_request_title (method)">#info_or_request_title</a></span>, <span class='object_link'><a href="../AdminExtended/HeroSectionHelper.html#pages_or_info_articles%3F-instance_method" title="Decidim::AdminExtended::HeroSectionHelper#pages_or_info_articles? (method)">#pages_or_info_articles?</a></span></p>
 
   
 
@@ -258,9 +278,9 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="help_section-instance_method">
+  <h3 class="signature first" id="article_categories-instance_method">
   
-    #<strong>help_section</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+    #<strong>article_categories</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
   
 
   
@@ -272,15 +292,23 @@
       <pre class="lines">
 
 
-42
 43
-44</pre>
+44
+45
+46
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 43</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_help_section'>help_section</span>
-  <span class='ivar'>@help_section</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ContextualHelpSection</span><span class='period'>.</span><span class='id identifier rubyid_find_content'>find_content</span><span class='lparen'>(</span><span class='id identifier rubyid_current_organization'>current_organization</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ad_help_pages</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_article_categories'>article_categories</span>
+  <span class='ivar'>@article_categories</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdUsersSpace.html" title="Decidim::AdUsersSpace (module)">AdUsersSpace</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ArticleCategory.html" title="Decidim::AdUsersSpace::ArticleCategory (class)">ArticleCategory</a></span></span>
+                          <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+                          <span class='period'>.</span><span class='id identifier rubyid_joins'>joins</span><span class='lparen'>(</span><span class='symbol'>:articles</span><span class='rparen'>)</span>
+                          <span class='period'>.</span><span class='id identifier rubyid_distinct'>distinct</span>
+                          <span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -302,22 +330,12 @@
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22</pre>
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 20</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
-  <span class='comment'># @info_articles = info_articles.page(params[:page]).per(15)
-</span>  <span class='ivar'>@header_title</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.info_articles.index.title</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='ivar'>@topics</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdUsersSpace.html" title="Decidim::AdUsersSpace (module)">AdUsersSpace</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ArticleCategory.html" title="Decidim::AdUsersSpace::ArticleCategory (class)">ArticleCategory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
-  <span class='ivar'>@orphan_articles</span> <span class='op'>=</span> <span class='id identifier rubyid_info_articles'>info_articles</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>article_category_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -338,12 +356,12 @@
       <pre class="lines">
 
 
-34
-35
-36</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info_article'>info_article</span>
   <span class='ivar'>@info_article</span> <span class='op'>||=</span> <span class='id identifier rubyid_info_articles'>info_articles</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -368,15 +386,51 @@
       <pre class="lines">
 
 
-38
-39
-40</pre>
+32
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info_articles'>info_articles</span>
-  <span class='const'><span class='object_link'><a href="InfoArticle.html" title="Decidim::AdUsersSpace::InfoArticle (class)">InfoArticle</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+  <span class='ivar'>@info_articles</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../AdUsersSpace.html" title="Decidim::AdUsersSpace (module)">AdUsersSpace</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="InfoArticle.html" title="Decidim::AdUsersSpace::InfoArticle (class)">InfoArticle</a></span></span>
+                     <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="orphan_articles-instance_method">
+  
+    #<strong>orphan_articles</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 37</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_orphan_articles'>orphan_articles</span>
+  <span class='ivar'>@orphan_articles</span> <span class='op'>||=</span> <span class='id identifier rubyid_info_articles'>info_articles</span>
+                       <span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>article_category_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+                       <span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -392,29 +446,43 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ActionController::RoutingError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-24
-25
-26
-27
-28
-29
-30</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/info_articles_controller.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
-  <span class='id identifier rubyid_info_article'>info_article</span>
-  <span class='kw'>if</span> <span class='id identifier rubyid_info_article'>info_article</span><span class='period'>.</span><span class='id identifier rubyid_article_category'>article_category</span>
-    <span class='ivar'>@info_articles</span> <span class='op'>=</span> <span class='id identifier rubyid_info_articles'>info_articles</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>article_category_id:</span> <span class='id identifier rubyid_info_article'>info_article</span><span class='period'>.</span><span class='id identifier rubyid_article_category_id'>article_category_id</span><span class='rparen'>)</span>
-  <span class='kw'>end</span>
-  <span class='ivar'>@header_title</span> <span class='op'>=</span> <span class='id identifier rubyid_info_article'>info_article</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>RoutingError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Not Found</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_info_article'>info_article</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -426,9 +494,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

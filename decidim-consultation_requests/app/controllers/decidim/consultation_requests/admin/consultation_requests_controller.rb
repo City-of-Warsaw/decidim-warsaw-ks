@@ -5,12 +5,13 @@ module Decidim
     module Admin
       # This controller is responsible for managing Consultation Requests in Admin Panel
       class ConsultationRequestsController < Decidim::Admin::ApplicationController
-        layout "decidim/admin/consultation_requests"
+        include Decidim::Admin::Officializations::Filterable
+
         helper Decidim::ApplicationHelper
 
         def index
           enforce_permission_to :update, :organization
-          @consultation_requests = collection.page(params[:page]).per(15)
+          @consultation_requests = filtered_collection
         end
 
         def new
@@ -80,8 +81,8 @@ module Decidim
         end
 
         def collection
-          ConsultationRequest.where(decidim_organization_id: current_organization.id).order(:created_at)
-          # current_organization.consultation_requests
+          @collection ||= Decidim::ConsultationRequests::ConsultationRequest.where(decidim_organization_id: current_organization.id)
+                                                                            .order(:created_at)
         end
       end
     end

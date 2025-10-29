@@ -57,11 +57,197 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="decidim-ks">Decidim KS</h1>
+      <div id="content"><div id='filecontents'><h1 id="decidim-consultation-platform">Decidim – consultation platform</h1>
 
-<p>Free Open-Source participatory democracy, citizen participation and open government for cities and organizations</p>
+<p>The main objective of the Project is to launch a new digital service by the City of Warsaw in the form of an online Platform, integrated with other selected urban digital solutions, ready to support consultative processes carried out by the City of Warsaw.</p>
 
-<p>This is the open-source repository for decidim_warszawa_ks, based on <a href="https://github.com/decidim/decidim">Decidim</a>.</p>
+<p>Decidim KS is a platform designed to facilitate public participation and engagement in decision-making processes. Through this system, citizens can actively contribute their opinions, feedback, and ideas on various issues and projects. They can participate in surveys and discussions, providing valuable input to inform policies, plans and initiatives.</p>
+
+<p>This is the open-source repository for decidim-warsaw-ks, based on <a href="https://github.com/decidim/decidim">Decidim</a>.</p>
+
+<h2 id="modules">Modules</h2>
+
+<p>The software is based on the Decidim 0.29.3 solution. It is a system that includes ready-made modules. During the development work, additional modules were produced, extending the functionality of existing modules or adding new modules to the system. All modules are an integral part of the platform, stored in the GIT repository and installed together as one application.</p>
+
+<h3 id="stock-modules">Stock modules</h3>
+
+<table><thead>
+<tr>
+<th>#</th>
+<th>Module</th>
+<th>Gem name</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>Participatory processes</td>
+<td>decidim-participatory_processes</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Assemblies</td>
+<td>decidim-assemblies</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Initiatives</td>
+<td>decidim-initiatives</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Consultations</td>
+<td>decidim-consultations</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Conferences</td>
+<td>decidim-conferences</td>
+</tr>
+</tbody></table>
+
+<h3 id="custom-and-extended-modules">Custom and extended modules</h3>
+
+<table><thead>
+<tr>
+<th>#</th>
+<th>Module</th>
+<th>Gem name</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1</td>
+<td>AD Users</td>
+<td>decidim-ad_users_space</td>
+<td>Adds Active Directory integration and authentication</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Admin extended</td>
+<td>decidim-admin_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Comments extended</td>
+<td>decidim-comments_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Consultation map</td>
+<td>decidim-consultation_map</td>
+<td>Adds new participatory process component that allows users to create remarks marked on a map</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Consultation requests</td>
+<td>decidim-consultation_requests</td>
+<td>Adds new type of content: Consultation request</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Core extended</td>
+<td>decidim-core_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Expert questions</td>
+<td>decidim-expert_questions</td>
+<td>Adds new participatory process component that allows users to ask designated experts questions</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Custom proposals</td>
+<td>decidim-module-custom_proposals</td>
+<td>Adds new custom proposals component</td>
+</tr>
+<tr>
+<td>9</td>
+<td>General plan request</td>
+<td>decidim-module-general_plan_requests</td>
+<td>Adds new general plan request component</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Repository</td>
+<td>decidim-module-repository</td>
+<td>Adds media and files management</td>
+</tr>
+<tr>
+<td>11</td>
+<td>REST API</td>
+<td>decidim-module-rest_api</td>
+<td>Adds API allowing integrations with other systems</td>
+</tr>
+<tr>
+<td>12</td>
+<td>Study notes</td>
+<td>decidim-module-study_notes</td>
+<td>Adds new participatory process component that allows users to send comments on planning documents, including maps</td>
+</tr>
+<tr>
+<td>13</td>
+<td>WS notification</td>
+<td>decidim-module-ws_notification</td>
+<td>Adds custom notifications system integration</td>
+</tr>
+<tr>
+<td>14</td>
+<td>News</td>
+<td>decidim-news</td>
+<td>Adds new type of content: News</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Pages extended</td>
+<td>decidim-pages_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+<tr>
+<td>16</td>
+<td>Participatory processes</td>
+<td>decidim-participatory_processes_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Remarks</td>
+<td>decidim-remarks</td>
+<td>Adds new participatory process component that allows users to send remarks</td>
+</tr>
+<tr>
+<td>18</td>
+<td>Users extended</td>
+<td>decidim-users_extended</td>
+<td>Extended to develop custom features</td>
+</tr>
+</tbody></table>
+
+<h2 id="license">License</h2>
+
+<p>The application is based on a license: <a href="LICENSE-AGPLv3.txt">Affero GPL Affero 3</a>.</p>
+
+<p>Additionally, following documents were translated to Polish:</p>
+
+<ul>
+<li><a href="docs/license-AGPLv3-pl.md">AGPLv3 License</a></li>
+<li><a href="docs/license-decidim-pl.md">Decidim Social Contract</a></li>
+</ul>
+
+<p>These translations are NOT legally binding.</p>
+
+<h2 id="warranty-and-support">Warranty and support</h2>
+
+<p>The City of Warsaw does not guarantee the proper functioning of the shared source code of the software and does not provide any support for it.</p>
+
+<h2 id="installation">Installation</h2>
+
+<pre class="code ruby"><code class="ruby">git clone https://github.com/City-of-Warsaw/decidim-warsaw-ks.git
+cd decidim-warsaw-ks
+bundle install
+</code></pre>
 
 <h2 id="setting-up-the-application">Setting up the application</h2>
 
@@ -82,29 +268,23 @@ user.save!
 
 <p>You&#39;re good to go!</p>
 
-<h2 id="dokumentacja-kodu-r-d-owego">Dokumentacja kodu źródłowego</h2>
+<p>The official guide on how to install, set up and upgrade Decidim. See the <a href="https://docs.decidim.org/en/install/">Getting started guide</a>.</p>
 
-<p>Kod źródłowy oprogramowania został udokumentowany w formie komentarzy do klas, funkcji i innych składowych systemu. Bazowym językiem stosowanym w komentarzach jest język angielski, ponieważ framework Ruby On Rails oraz rozwiązanie Decidim jest napisane w języku angielskim a ponadto wynika to też z dobrych praktyk programistycznych.</p>
+<h2 id="source-code-documentation">Source code documentation</h2>
 
-<p>Dokumentacją został objęty kod wytworzony na potrzebę tego projektu w szczególności te obszary, w których zawarta jest logika biznesowa systemu np. gem projects, gem processes.</p>
+<p>The documentation was generated using the tool <a href="https://yardoc.org">YARD</a>.
+You can find it in the directory: <a href="doc/index.html">/doc</a>.</p>
 
-<p>Środowiskiem programistycznym wykorzystanym przy implementacji systemu jest Ruby On Rails. Istotną wartością tego frameworku jest samodokumentujący się kod źródłowy wynikający z tego w jaki sposób są nazywane funkcje, jak intuicyjna i przejrzysta jest składnia oraz jak naturalnie pisany jest kod by był zrozumiały dla ludzi. W związku z tym została przyjęta zasada, że dokumentacji nie podlegają oczywiste i zrozumiałe linie kodu (np. metoda ujęta w jednej linii). Również z tego powodu by nie robić nadmiarowych tekstów utrudniając programiście pracę nad rozwojem oprogramowania.</p>
-
-<p>Biblioteki zależnie takie jak np. Decidim posiadają własną dokumentację. Dokumentacja tych bibliotek nie wchodzi w zakres dokumentacji projektowej. Aby zapoznać się z dokumentacją oprogramowania stron trzecich należy odwiedzić ich oficjalne strony internetowe.</p>
-
-<p>Wygenerowana dokumentacja znajduje się w katalogu <code>/doc</code> projektu. Aby móc się z nią zapoznać należy uruchomić plik <code>doc/index.html</code> w dowolnej przeglądarce internetowej. Używanie dokumentacji nie wymaga dostępu do Internetu.</p>
-
-<p>Dokumentacja została wygenerowana za pomocą narzędzia <a href="https://yardoc.org">YARD</a>.\
-W celu ponownego wygenerowania lub aktualizacji dokumentacji należy zainstalować narzędzie poleceniem:\
+<p>To regenerate or update the documentation, install the tool with the command:
 <code>$ gem install yard</code>\
-a następnie w katalogu głównym aplikacji wywołać komendę do generowania dokumentacji:\
+next in the root directory of app run the command:
 <code>$ yardoc</code></p>
 </div></div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:15 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

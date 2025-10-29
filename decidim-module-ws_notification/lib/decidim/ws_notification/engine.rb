@@ -11,12 +11,13 @@ module Decidim
 
       initializer "decidim.user_menu" do
         Decidim.menu :admin_menu do |menu|
-          menu.item I18n.t("menu.ws_messages", scope: "decidim.admin"),
-                    decidim_ws_notification.admin_ws_messages_path,
-                    icon_name: "document",
-                    position: 6.7,
-                    active: is_active_link?(decidim_ws_notification.admin_ws_messages_path, :inclusive),
-                    if: allowed_to?(:update, :organization, organization: current_organization)
+          menu.add_item :ws_messages,
+                        I18n.t("menu.ws_messages", scope: "decidim.admin"),
+                        decidim_ws_notification.admin_ws_messages_path,
+                        icon_name: "broadcast-line",
+                        position: 6.7,
+                        active: is_active_link?(decidim_ws_notification.admin_ws_messages_path, :inclusive),
+                        if: allowed_to?(:update, :organization, organization: current_organization)
         end
       end
 
@@ -32,10 +33,6 @@ module Decidim
         Rails.application.routes.append do
           mount Decidim::WsNotification::Engine => "/"
         end
-      end
-
-      initializer "decidim_ws_notification.assets" do |app|
-        app.config.assets.precompile += %w[decidim_ws_notification_manifest.js decidim_ws_notification_manifest.css]
       end
     end
   end

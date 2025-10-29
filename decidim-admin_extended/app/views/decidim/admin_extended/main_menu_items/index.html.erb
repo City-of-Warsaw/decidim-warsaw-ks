@@ -1,25 +1,26 @@
+<% add_decidim_page_title(t("main_menu_items.title", scope: "decidim.admin")) %>
 <div class="card">
-  <div class="card-divider">
-    <h2 class="card-title">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
       <%= t("main_menu_items.title", scope: "decidim.admin") %>
-    </h2>
+    </h1>
   </div>
 
-  <div class="card-section">
-    <div class="table-scroll">
-      <table class="table-list">
-        <thead>
-          <th><%= t(".headers.name") %></th>
-          <th><%= t(".headers.weight") %></th>
-          <th><%= t(".headers.visible") %></th>
-          <th><%= t(".headers.sys_name") %></th>
-          <th><%= t(".headers.actions") %></th>
-        </thead>
+  <div class="table-scroll">
+    <table class="table-list">
+      <thead>
+      <tr>
+        <th><%= t(".headers.name") %></th>
+        <th><%= t(".headers.weight") %></th>
+        <th><%= t(".headers.visible") %></th>
+        <th><%= t(".headers.sys_name") %></th>
+        <th><%= t(".headers.actions") %></th>
+      </tr>
+      </thead>
 
-        <tbody>
-          <%= render partial: "main_menu_item", collection: @items.order('weight ASC') %>
-        </tbody>
-      </table>
-    </div>
+      <tbody>
+        <%= render partial: "main_menu_item", collection: @items.order('weight ASC') %>
+      </tbody>
+    </table>
   </div>
 </div>

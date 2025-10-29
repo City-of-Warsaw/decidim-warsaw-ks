@@ -11,10 +11,12 @@ module Decidim
         attribute :alt, String
         attribute :description, String
         attribute :copyright, String
-        attribute :_destroy, Boolean
+        attribute :_destroy, Decidim::AttributeObject::TypeMap::Boolean
 
         mimic :gallery_image
       end
     end
   end
 end
+
+

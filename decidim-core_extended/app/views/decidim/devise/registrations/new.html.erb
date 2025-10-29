@@ -1,0 +1,92 @@
+<% add_decidim_page_title(t(".sign_up_title")) %>
+
+<% content_for :devise_links do %>
+  <%= render "decidim/devise/shared/links" %>
+<% end %>
+
+<%= render "layouts/decidim/shared/layout_center", 
+           additional_classes: "overflow-hidden" do %>
+  <div class="step-1">
+    <div class="flex flex-col items-center">
+      <h1 class="title-decorator mt-12"><%= t("decidim.devise.registrations.new.sign_up_title") %></h1>
+      <h2 class="mt-4 text-[18px] md:text-[20px]"><%= t("decidim.devise.registrations.new.form_first_page_header").html_safe %></h2>
+    </div>
+
+    <div class="w-[150%] -translate-x-[20%] sm:w-full sm:translate-x-0 h-[5px] mt-[38px] mb-[38px] sm:mb-16 bg-[#ECF0F1]"></div>
+
+    <div class="login__info">
+      <p class="font-semibold text-center">
+        <%= t("decidim.devise.registrations.new.already_have_an_account?") %>
+        <%= link_to t("decidim.devise.registrations.new.log_in"), new_user_session_path %>
+      </p>
+    </div>
+
+    <div class="login__info-required">
+      <%= form_required_explanation %>
+    </div>
+
+    <% cache current_organization do %>
+      <%= render "decidim/devise/shared/omniauth_buttons" %>
+    <% end %>
+
+    <%= decidim_form_for(@form, namespace: "registration", as: resource_name, url: registration_path(resource_name), html: { id: "register-form" }) do |f| %>
+      <%= invisible_captcha %>
+
+      <div class="form__wrapper">
+        <%= f.text_field :name, autocomplete: "name" %>
+
+        <%= f.email_field :email, autocomplete: "email" %>
+
+        <%= render partial: "decidim/account/password_fields", locals: { form: f, user: :user } %>
+        <%= render partial: "decidim/devise/registrations/password_fields", locals: { form: f, user: :user } %>
+      </div>
+
+      <div id="card__tos" class="form__wrapper-block">
+        <div>
+          <% terms_of_service_summary_content_blocks.each do |content_block| %>
+            <%= cell content_block.manifest.cell, content_block %>
+          <% end %>
+        </div>
+
+        <p>
+          <%= t(
+                "decidim.devise.registrations.new.tos_agreement",
+                link: link_to(
+                  t("decidim.devise.registrations.new.terms"),
+                  page_path("terms-of-service")
+                )
+              ).html_safe %>
+        </p>
+
+        <%= f.check_box :tos_agreement,
+                        label: t("decidim.devise.registrations.new.rodo_text"),
+                        label_options: { class: "form__wrapper-checkbox-label" } %>
+      </div>
+
+      <div class="form__wrapper-block buttons">
+        <%= link_to t("actions.cancel", scope: "decidim.admin"), new_user_session_path, class: "link uppercase hover:text-primary" %>
+        <%= f.button "Dalej", class: "button button-next-step-js uppercase button__lg button__secondary", type: "button" %>
+      </div>
+  </div>
+
+    <div class="step-2">
+      <div class="flex flex-col items-center">
+        <h1 class="title-decorator mt-12"><%= t("decidim.devise.registrations.new.sign_up_title") %></h1>
+        <h2 class="mt-4 text-[18px] md:text-[20px]"><%= t("decidim.devise.registrations.new.form_second_page_header").html_safe %></h2>
+        <div class="w-[150%] -translate-x-[10%] sm:w-full sm:translate-x-0 h-[5px] mt-4 mb-[38px] sm:mt-[38px] sm:mb-[65px] bg-[#ECF0F1]"></div>
+      </div>
+
+      <%= render partial: "decidim/devise/registrations/new_second_step", locals: { f: f, user: :user } %>
+    </div>
+
+    <div class="login__links">
+      <%= render "decidim/devise/shared/links" %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= render "decidim/devise/shared/newsletter_modal" %>
+
+<%= append_javascript_pack_tag "multiselect" %>
+<%= append_javascript_pack_tag "users_extended_registrations" %>
+<%= append_javascript_pack_tag "users_extended_password_strength" %>

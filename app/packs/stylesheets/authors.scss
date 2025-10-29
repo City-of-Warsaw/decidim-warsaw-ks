@@ -1,0 +1,37 @@
+.author-data .author__name {
+  color: var(--primary);
+}
+
+#user-questions .author-data,
+.author-data.author-data--small {
+  font-size: 12px;
+
+  .author-data__main {
+    time {
+      color: #000;
+      margin-left: 0px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .author-data__extra {
+    color: #000;
+
+    &::before {
+      content: unset;
+    }
+  }
+
+  button.link-alt {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+button.link-alt > svg {
+  pointer-events: none;
+}

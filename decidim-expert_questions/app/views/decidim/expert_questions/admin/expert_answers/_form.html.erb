@@ -1,23 +1,38 @@
-<div class="card">
-  <div class="card-divider">
-    <h2 class="card-title"><%= t('.user_question') %></h2>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="row column">
+      <h2 class="card-title">
+        <%= t('.user_question') %>
+      </h2>
+    </div>
+    <div class="row column">
+      <%= decidim_sanitize user_question.body %>
+    </div>
   </div>
-  <div class="card-section">
-    <%= decidim_sanitize user_question.body %>
-  </div>
-</div>
 
-<div class="card">
-  <div class="card-divider">
-    <h2 class="card-title"><%= title %></h2>
-  </div>
-  <div class="card-section">
+  <div class="card pt-4">
     <div class="row column hashtags__container">
       <%= form.editor :body, hashtaggable: true %>
     </div>
+
+    <div class="row column">
       <%= form.file_field :files,
                           accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
                           multiple: true
       %>
     </div>
+
+    <div class="row column">
+      <% expert_answer && expert_answer.files.each do |file| %>
+        <p>
+          <%#= image_tag main_app.url_for(file), style: 'max-width: 150px' %>
+          <%= file.filename %>
+          <%= check_box_tag "expert_answer[remove_files][]", file.id, false, id: "expert_answer_remove_files_#{file.id}" %>
+          <%= label_tag "expert_answer_remove_files_#{file.id}", 'usuń' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
 </div>
+
+

@@ -1,0 +1,1 @@
+import "src/decidim/users_extended/password-strength.js";

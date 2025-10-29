@@ -11,10 +11,10 @@ en:
       user:
         nickname: Nazwa użytkownika
         email: Twój e-mail
-        birth_year: Rok urodzenia
-        district: Dzielnica
-        district_id: Dzielnica
-        gender: Płeć
+        birth_year: Jaki jest Twój rok urodzenia?
+        district: W jakiej dzielnicy mieszkasz?
+        district_id: W jakiej dzielnicy mieszkasz?
+        gender: Kim jesteś?
         first_name: Imię
         last_name: Nazwisko
         acceptance: Akceptacja
@@ -49,13 +49,13 @@ en:
           nickname_help_new: Nawa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis
           already_have_an_account?: Masz już konto? %{link} nim.
           no_rodo_page: NALEŻY DODAĆ STRONĘ Z RODO
-          forgotten_password?: Zapomniałeś hasła? %{link}
+          forgotten_password?: Nie pamiętasz hasła? %{link}
           remind_password: Przypomnij hasło
           rodo: RODO
           rodo_text: |-
-            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy 
-            użytkownika oraz adresu e-mail. Udzielam zgody w celu założenia konta na platformie konsultacji społecznych 
-            m.st. Warszawy. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy 
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie nazwy
+            użytkownika oraz adresu e-mail. Udzielam zgody w celu założenia konta na platformie konsultacji społecznych
+            m.st. Warszawy. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy
             przetwarzania danych osobowych na podstawie dobrowolnej zgody.
           select_gender: Wybierz płeć
           select_district: Wybierz dzielnicę
@@ -64,7 +64,7 @@ en:
           tos_agreement: "Rejestrując się, akceptujesz <strong>%{link}</strong>."
       sessions:
         new:
-          remind_password: Zapomniałeś hasła? %{link}
+          remind_password: Nie pamiętasz hasła? %{link}
       shared:
         speech_bubble:
           already_have_an_account?: Masz już konto? %{link}.
@@ -80,9 +80,16 @@ en:
             newsletter_smtp_settings: Ustawienia SMTP dla maili Newslettera
     users:
       gender:
-        female: Kobieta
-        male: Mężczyzna
-        other: Inna
+        profile:
+          female: Kobietą
+          male: Mężczyzną
+          other: Inna odpowiedź
+          no_answer: Nie chcę odpowiadać
+        public_post:
+          female: Kobieta
+          male: Mężczyzna
+          other: Inna odpowiedź
+          no_answer: Nie chcę odpowiadać
     users_extended:
       admin:
         sessions:

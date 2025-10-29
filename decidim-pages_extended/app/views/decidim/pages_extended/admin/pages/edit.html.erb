@@ -1,7 +1,20 @@
-<%= decidim_form_for(@form, method: :patch, url: update_pages_extended_url(page, current_component),html: { class: "form edit_page" }) do |form| %>
-  <%= render partial: "form", object: form, locals: { title: t(".title") } %>
-
-  <div class="button--double form-general-submit">
-    <%= form.submit t(".save") %>
-  </div>
-<% end %>
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t ".title" %>
+  </h1>
+</div>
+<div class="item__edit-form">
+  <%= decidim_form_for(@form, url: update_pages_extended_url(page, current_component), html: { class: "form-defaults form" }) do |f| %>
+    <div class="card">
+      <div class="card-section">
+        <%= render partial: "form", object: f %>
+      </div>
+    </div>
+    <div class="item__edit-sticky">
+      <div class="item__edit-sticky-container">
+        <%= f.submit t(".save"), class: "button button__sm button__secondary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

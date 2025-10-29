@@ -1,7 +1,7 @@
-// = require quill.min
+// = require ./quill
 // = require_self
-
 // overwritten Decidim configuration editor.js.es6
+// overwritten Quill editor initialization to prevent automatic insertion of empty paragraphs before headings
 
 ((exports) => {
   const quillFormats = [
@@ -11,7 +11,7 @@
     "underline",
     "header",
     "list",
-    "video",
+    "extended-video",
     "image",
     "alt",
     "break",
@@ -32,7 +32,7 @@
       ["bold", "italic", "underline", "linebreak"],
       ["undo", "redo"],
       [{ list: "ordered" }, { list: "bullet" }],
-      ["link", "video", "clean"],
+      ["link", "button", "extended-video", "clean"],
     ];
 
     if (toolbar === "full") {
@@ -47,12 +47,12 @@
         [{ indent: "-1" }, { indent: "+1" }],
         [{ direction: "rtl" }],
         ["blockquote"],
-        ["link", "image", "repository-image", "video"],
+        ["link", "button", "image", "repository-image", "extended-video"],
         ["clean"],
         ["divider"],
       ];
     } else if (toolbar === "basic") {
-      quillToolbar = [...quillToolbar, ["video"]];
+      quillToolbar = [...quillToolbar, ["extended-video"]];
     }
 
     var icons = Quill.import("ui/icons");
@@ -68,8 +68,14 @@
                     </svg>`;
 
     icons["divider"] = `<svg viewbox="0 0 18 18">
-                          <line x1="0" y1="9" x2="18" y2="9" stroke="black" />
+                          <line x1="0" y1="9" x2="18" y2="9" stroke="currentColor" />
                         </svg>`;
+
+    icons["extended-video"] = icons["video"];
+
+    icons[
+      "button"
+    ] = `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 32 32"><g><g><path d="M28.8,0H3.2A3.2,3.2,0,0,0,0,3.2V28.8A3.2,3.2,0,0,0,3.2,32H28.8A3.2,3.2,0,0,0,32,28.8V3.2A3.2,3.2,0,0,0,28.8,0Zm-.64,28.16H3.84V3.84H28.16Z"/><path d="M11.16,8.72h4.37a9,9,0,0,1,4.24.79,2.88,2.88,0,0,1,1.44,2.77,3.49,3.49,0,0,1-.56,2,2.3,2.3,0,0,1-1.6,1v.1a4.26,4.26,0,0,1,1.27.5,2.36,2.36,0,0,1,.91,1,3.9,3.9,0,0,1,.34,1.77,3.56,3.56,0,0,1-1.39,3,5.91,5.91,0,0,1-3.77,1.09H11.16Zm3,5.57h1.73a2.94,2.94,0,0,0,1.8-.41,1.44,1.44,0,0,0,.5-1.21,1.25,1.25,0,0,0-.59-1.16,3.8,3.8,0,0,0-1.86-.35H14.13Zm0,2.36v3.66h1.95A2.7,2.7,0,0,0,18,19.79a1.88,1.88,0,0,0,.53-1.39,1.61,1.61,0,0,0-.54-1.27,3,3,0,0,0-2-.48Z"/></g></g></svg>`;
 
     registerQuillStyleToolbarTool();
 
@@ -77,22 +83,24 @@
       "formats/extended-image": ExtendedImage,
       "formats/extended-video": ExtendedVideo,
       "formats/divider": Divider,
+      "formats/link": Link,
+      "modules/htmlEditButton": HtmlEditButton,
+      "formats/button": Button,
     });
 
     const $input = $(container).siblings('input[type="hidden"]');
-    container.innerHTML = $input.val() || "";
+    const originalHTML = $input.val() || "";
+    container.innerHTML = originalHTML;
 
     const quill = new Quill(container, {
       modules: {
         history: {
           userOnly: true,
         },
-        // linebreak: {},
+        htmlEditButton: {},
         toolbar: {
           container: quillToolbar,
           handlers: {
-            // "linebreak": exports.Decidim.Editor.lineBreakButtonHandler
-
             image: createImageToolbarToolHandler({
               uploadEndpointUrl:
                 //"https://ks.beta-um.warszawa.pl/admin/files",
@@ -109,12 +117,46 @@
                 quill.insertEmbed(range.index, "divider", "null");
               }
             },
+
+            "extended-video": function () {
+              const range = quill.getSelection();
+              const url = prompt("Podaj URL do wideo:");
+              if (url) {
+                quill.insertEmbed(range.index, "extended-video", {
+                  url: url,
+                  mimetype: "video/mp4",
+                });
+              }
+            },
           },
         },
       },
-      // formats: quillFormats,
       theme: "snow",
     });
+
+    setTimeout(() => {
+      let changed = false;
+
+      quill.root.querySelectorAll("h2, h3, h4").forEach((heading) => {
+        const prevElement = heading.previousElementSibling;
+
+        if (
+          prevElement &&
+          prevElement.tagName === "P" &&
+          prevElement.innerHTML === "<br>"
+        ) {
+          prevElement.parentNode.removeChild(prevElement);
+          changed = true;
+        }
+      });
+
+      if (changed) {
+        const selection = quill.getSelection();
+        quill.update();
+
+        if (selection) quill.setSelection(selection);
+      }
+    }, 0);
 
     initializeQuillStyleToolbarTool(quill, styles);
 
@@ -133,8 +175,6 @@
     quill.on("text-change", () => {
       const text = quill.getText();
 
-      // Triggers CustomEvent with the cursor position
-      // It is required in input_mentions.js
       let event = new CustomEvent("quill-position", {
         detail: quill.getSelection(),
       });

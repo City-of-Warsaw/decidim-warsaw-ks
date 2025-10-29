@@ -1,0 +1,33 @@
+ <% add_decidim_page_title(t("participatory_processes_extended.results.index.title", scope: "decidim")) %>
+
+<div class="results">
+  <div class="row column">
+    <div class="row">
+      <div class="columns mediumlarge-12 my-[80px]">
+        <div class="section">
+          <% collection.each do |result| %>
+            <div class="card--user_question max-w-[1200px] m-auto">
+              <div class="card__content">
+                <div class="effects__title flex items-center justify-between">
+                  <h4 class="title-decorator inline-block text-left mb-12"><%= result.name %></h4>
+
+                  <% if result.added_at %>
+                    <span><%= l(result.added_at, format: :decidim_short_cut_zero) %></span>
+                  <% end %>
+                </div>
+
+                <% if result.body.present? %>
+                  <div class="editor-content">
+                    <%= quill_sanitize(result.body) %>
+                  </div>
+                <% end %>
+
+                <%= render 'decidim/shared/gallery_attachments', model: result %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

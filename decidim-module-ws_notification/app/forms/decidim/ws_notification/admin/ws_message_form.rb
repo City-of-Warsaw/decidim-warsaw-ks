@@ -20,8 +20,8 @@ module Decidim
         attribute :district_ids, [Integer] # lista dzielnic z API
 
         validates :title, presence: true, length: { maximum: 41 }
-        validates :body, presence: true, length: { maximum: 612 }, if: Proc.new { |msg| msg.mza_skm || msg.mobile }
-        validates :sms_body, presence: true, length: { maximum: 300 }, if: Proc.new { |msg| msg.sms }
+        validates :body, presence: true, length: { maximum: 612 }, if: proc { |msg| msg.mza_skm || msg.mobile }
+        validates :sms_body, presence: true, length: { maximum: 300 }, if: proc { |msg| msg.sms }
         validates :comment, length: { maximum: 4000 }, allow_blank: true
         validates :valid_date_from, presence: true
         validates :valid_date_to, presence: true
@@ -35,8 +35,8 @@ module Decidim
         alias organization current_organization
 
         def dates_must_be_from_future
-          errors.add(:valid_date_from, "Nie może być z przeszłości") if valid_date_from && valid_date_from < DateTime.current
-          errors.add(:valid_date_to, "Nie może być z przeszłości") if valid_date_to && valid_date_to < DateTime.current
+          errors.add(:valid_date_from, "Nie może być z przeszłości") if valid_date_from && valid_date_from < Time.current
+          errors.add(:valid_date_to, "Nie może być z przeszłości") if valid_date_to && valid_date_to < Time.current
           errors.add(:valid_date_to, "Nie może być przed datą od") if valid_date_to && valid_date_from && valid_date_from > valid_date_to
         end
 

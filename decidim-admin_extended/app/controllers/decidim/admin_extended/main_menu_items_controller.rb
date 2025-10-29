@@ -6,14 +6,14 @@ module Decidim::AdminExtended
   class MainMenuItemsController < ApplicationController
     include Decidim::Admin::MenuHelper
     include ActiveLinkTo
+
     layout "decidim/admin/settings"
 
-    # helper_method :main_menu_item
+    add_breadcrumb_item_from_menu :admin_settings_menu
 
     def index
       enforce_permission_to :update, :organization, organization: current_organization
 
-      generate_menu_items # TODO: do usuniecia gdy sie wszystkie wygeneruja
       @items = Decidim::AdminExtended::MainMenuItem.all
     end
 
@@ -53,12 +53,6 @@ module Decidim::AdminExtended
 
     def menu_items_count
       evaluated_menu.items.count
-    end
-
-    def generate_menu_items
-      evaluated_menu.items.each do |m|
-        Decidim::AdminExtended::MainMenuItem.create_missing_item(m.original_label)
-      end
     end
   end
 end

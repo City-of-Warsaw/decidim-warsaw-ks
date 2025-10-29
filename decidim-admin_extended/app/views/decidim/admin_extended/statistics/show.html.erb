@@ -1,0 +1,12 @@
+<% add_decidim_page_title("Archiwum: #{statistic.name}") %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= "Archiwum: #{statistic.name}" %>
+  </h1>
+</div>
+
+<% statistic.past_years.each do |year| %>
+  <p>
+    <%= year %>: <%= statistic.count_published(year: year) %>
+  </p>
+<% end %>

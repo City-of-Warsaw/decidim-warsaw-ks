@@ -1,2 +1,10 @@
+# the following adds a rule for all bots to not index any page that contains a profile or search
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /profiles/
+Disallow: /search
+Disallow: /zaplanuj-konsultacje
+Disallow: /pages/elementy
+Disallow: /elementy
+Disallow: /pages/raport
+Disallow: /raport

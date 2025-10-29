@@ -24,6 +24,18 @@ Decidim::ContentBlocks::HeroCell.class_eval do
     translated_attribute(model.settings.addition_to_welcome_text)
   end
 
+  def description
+    model.settings.description
+  end
+
+  def hero_image_action_title
+    model.settings.hero_image_action_title
+  end
+
+  def hero_image_action_url
+    model.settings.hero_image_action_url
+  end
+
   def hero_image_alt
     model.settings.hero_image_alt
   end

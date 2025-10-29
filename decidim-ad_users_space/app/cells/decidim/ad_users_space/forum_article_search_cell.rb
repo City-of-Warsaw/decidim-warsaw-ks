@@ -4,7 +4,7 @@ module Decidim
   module AdUsersSpace
     # This cell renders the Show (:search) post card
     # for an given instance of a Forum Article
-    class ForumArticleSearchCell < ForumArticleSCell
+    class ForumArticleSearchCell < Decidim::CardSCell
 
       private
 

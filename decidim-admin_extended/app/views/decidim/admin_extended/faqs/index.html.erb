@@ -1,0 +1,56 @@
+<% add_decidim_page_title(t("faqs.title", scope: "decidim.admin")) %>
+
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("faqs.title", scope: "decidim.admin") %>
+      <%= link_to t(".add_faq"), new_faq_path, class: "button button__sm button__secondary" %>
+    </h1>
+  </div>
+
+  <% faq_groups.each do |faq_group| %>
+    <div class="card-divider">
+      <h2 class="card-title">
+        <strong><%= faq_group.title %></strong>
+      </h2>
+    </div>
+
+    <fieldset class="card-section">
+      <div class="table-scroll">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th><%= t("activemodel.attributes.faq.title") %></th>
+              <th>Publiczny</th>
+              <th><%= t("activemodel.attributes.faq.created_at") %></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+              <% faq_group.faqs.sorted_by_weight.each do |faq| %>
+                <tr>
+                  <td><%= faq.title %></td>
+                  <td><%= faq.published ? t(".published_yes") : t(".published_no") %></td>
+                  <td><%= l faq.created_at, format: :decidim_short_cut_zero %></td>
+                  <td class="table-list__actions">
+                    <%= icon_link_to "pencil-line",
+                                     edit_faq_path(faq),
+                                     t("actions.edit", scope: "decidim.admin"),
+                                     class: "action-icon--edit",
+                                     method: :get %>
+                    <%= icon_link_to "delete-bin-line",
+                                     [faq],
+                                     t("actions.destroy", scope: "decidim.admin"),
+                                     class: "action-icon--remove",
+                                     method: :delete,
+                                     data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+        </table>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

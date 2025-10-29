@@ -16,10 +16,8 @@ module Decidim
       def card_size
         if options[:size] == :search
           "decidim/ad_users_space/forum_article_search"
-        elsif options[:size] == :s
-          "decidim/ad_users_space/forum_article_s"
         else
-          "decidim/ad_users_space/forum_article_m"
+          "decidim/ad_users_space/forum_article_s"
         end
       end
     end

@@ -1,0 +1,12 @@
+<div class="js-offline-message hidden">
+  <%= cell("decidim/announcement", t(".cache_version_page"), callout_class: "alert" ) %>
+</div>
+<%# overwritten script for CSP %>
+<%= nonced_javascript_tag do %>
+  document.addEventListener("DOMContentLoaded", () => {
+    // show the banner if it is offline AND the offline-fallback is not displaying
+    if (!navigator.onLine && !document.querySelector("#offline-fallback-html")) {
+      document.querySelector(".js-offline-message").style.display = "block"
+    }
+  })
+<% end %>

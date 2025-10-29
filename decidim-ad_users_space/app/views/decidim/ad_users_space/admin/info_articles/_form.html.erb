@@ -1,20 +1,28 @@
-<div class="row column">
-  <%= form.text_field :title %>
-</div>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <div class="row column">
+        <%= form.text_field :title %>
+      </div>
 
-<div class="row column">
-  <%= form.editor :body %>
-</div>
+      <div class="row column">
+        <%= form.editor :body %>
+      </div>
 
-<div class="row column">
-  <%= form.select :article_category_id,
-                  @form.categories_select,
-                  { include_blank: t(".select_category") },
-                  { multiple: false } %>
-</div>
-<div class="row column">
-  <%= form.collection_select :gallery_id,
-                             Decidim::Repository::Gallery.alphabetical, :id, :name,
-                             include_blank: true,
-                             label: t("models.components.gallery_id", scope: "decidim.forms.admin") %>
+      <div class="row column">
+        <%= form.select :article_category_id,
+                        @form.article_categories_select,
+                        { include_blank: t(".select_category") },
+                        { multiple: false } %>
+      </div>
+
+      <div class="row column">
+        <%= form.number_field :weight %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <%= render partial: 'decidim/repository/admin/galleries/new_or_present_gallery', locals: { form: form } %>
+  </div>
 </div>

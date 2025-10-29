@@ -3,14 +3,14 @@
 module Decidim
   module Repository
     module Admin
-      # This command is executed when user creates file
-      class AddFileToGallery < Rectify::Command
+      # This command is executed when user adds file to gallery
+      class AddFileToGallery < Decidim::Command
         def initialize(form, user)
           @form = form
           @current_user = user
         end
 
-        # Creates the file if valid.
+        # Add the file to galleru if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call

@@ -7,6 +7,8 @@ module Decidim::AdminExtended
     layout "decidim/admin/settings"
     helper_method :mail_templates, :mail_template
 
+    add_breadcrumb_item_from_menu :admin_settings_menu
+
     def index
       enforce_permission_to :update, :organization, organization: current_organization
     end

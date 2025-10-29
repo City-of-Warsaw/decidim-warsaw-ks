@@ -1,0 +1,16 @@
+<% classes = [item_list_class] %>
+<% classes << past_meeting_class if model.past? %>
+
+<% if has_link_to_resource? && link_whole_card? %>
+  <%= link_to resource_path, class: classes.join(" "), id: resource_id, **html_options do %>
+    <%= render :content %>
+    <%= render :extra_data if render_extra_data? %>
+  <% end %>
+<% else %>
+  <%= content_tag :div, class: wrapper_class, id: resource_id do %>
+    <%= content_tag :div, class: classes.join(" ") do %>
+      <%= render :content %>
+    <% end %>
+    <%= render :extra_data if render_extra_data? %>
+  <% end %>
+<% end %>

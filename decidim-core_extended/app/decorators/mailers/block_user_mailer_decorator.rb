@@ -9,6 +9,7 @@ Decidim::BlockUserMailer.class_eval do
 
     @user = user
     @body = service.parse_body
+    @footer = service.footer
 
     mail(to: user.email, subject: service.parse_subject)
   end

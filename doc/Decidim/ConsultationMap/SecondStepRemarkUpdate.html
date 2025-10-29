@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Decidim::Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Decidim::Command</li>
           
             <li class="next">Decidim::ConsultationMap::SecondStepRemarkUpdate</li>
           
@@ -110,8 +110,6 @@
 <ul><li>
 <p>signature</p>
 </li><li>
-<p>email</p>
-</li><li>
 <p>district_id</p>
 </li><li>
 <p>age</p>
@@ -119,7 +117,7 @@
 <p>gender</p>
 </li></ul>
 
-<p>In this case Boolean field &#39;edited&#39; has default value of false, as this Command is used only in one specific moment: right after creation to gather statistical data</p>
+<p>In this case Boolean field ‘edited’ has default value of false, as this Command is used only in one specific moment: right after creation to gather statistical data</p>
 
 
   </div>
@@ -293,16 +291,16 @@
       <pre class="lines">
 
 
+22
 23
 24
 25
 26
 27
-28
-29</pre>
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='comma'>,</span> <span class='id identifier rubyid_remark'>remark</span><span class='rparen'>)</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span>
@@ -351,15 +349,15 @@
       <pre class="lines">
 
 
+33
 34
 35
 36
 37
-38
-39</pre>
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
@@ -387,23 +385,19 @@
       <pre class="lines">
 
 
+46
 47
 48
 49
 50
 51
-52
-53
-54
-55</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 46</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remark_attributes'>remark_attributes</span>
   <span class='lbrace'>{</span>
-    <span class='label'>signature:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_signature'>signature</span><span class='comma'>,</span>
-    <span class='label'>email:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_email'>email</span><span class='comma'>,</span>
     <span class='label'>district_id:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_district_id'>district_id</span><span class='comma'>,</span>
     <span class='label'>age:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_age'>age</span><span class='comma'>,</span>
     <span class='label'>gender:</span> <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_gender'>gender</span>
@@ -429,15 +423,15 @@
       <pre class="lines">
 
 
-57
-58
-59</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_unregistered_author'>unregistered_author</span>
-  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended.html" title="Decidim::CommentsExtended (module)">CommentsExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CommentsExtended/UnregisteredAuthor.html" title="Decidim::CommentsExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>organization:</span> <span class='ivar'>@current_organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>organization:</span> <span class='ivar'>@current_organization</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -459,12 +453,12 @@
       <pre class="lines">
 
 
+42
 43
-44
-45</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/commands/decidim/consultation_map/second_step_remark_update.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_remark_stats'>update_remark_stats</span>
   <span class='ivar'>@remark</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_remark_attributes'>remark_attributes</span><span class='rparen'>)</span>
@@ -479,9 +473,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

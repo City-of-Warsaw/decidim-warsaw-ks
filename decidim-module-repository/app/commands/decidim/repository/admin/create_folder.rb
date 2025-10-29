@@ -4,7 +4,7 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user creates folder
-      class CreateFolder < Rectify::Command
+      class CreateFolder < Decidim::Command
         def initialize(form, user)
           @form = form
           @current_user = user

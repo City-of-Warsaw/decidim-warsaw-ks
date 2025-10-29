@@ -10,6 +10,7 @@ module Decidim
       # override its layout and provide all kinds of useful methods.
       class ApplicationController < Decidim::Admin::Components::BaseController
         helper Decidim::ApplicationHelper
+        helper Decidim::CoreExtended::UrlHelper
         helper_method :experts, :expert
 
         def experts

@@ -1,0 +1,39 @@
+<% button_classes = "button button__sm button__gray button__follow #{button_classes ||= nil}".strip %>
+
+<% if current_component.with_help_section? %>
+  <div class="help-section">
+    <div class="row column">
+      <h2 class="help-section__title">
+        <%= quill_sanitize current_component.help_section.title %>
+      </h2>
+
+      <% if current_component.help_section.subtitle.present? %>
+        <h3 class="help-section__subtitle">
+          <%= quill_sanitize current_component.help_section.subtitle %>
+        </h3>
+      <% end %>
+
+      <% if defined?(followable_resource) && followable_resource.present? %>
+        <div class="flex justify-center mt-4 tooltip-wrapper">
+          <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: } do %>
+            <%= follow_button_for(followable_resource, nil, button_classes: ) %>
+          <% end %>
+        </div>
+      <% end %>
+
+      <div class="help-section__description custom-help-section__description editor-content">
+        <% if current_component.help_section.description.present? %>
+          <%= quill_sanitize current_component.help_section.description %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <% if defined?(followable_resource) && followable_resource.present? %>
+    <div class="flex justify-center mt-4 tooltip-wrapper">
+      <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: } do %>
+        <%= follow_button_for(followable_resource, nil, button_classes: ) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

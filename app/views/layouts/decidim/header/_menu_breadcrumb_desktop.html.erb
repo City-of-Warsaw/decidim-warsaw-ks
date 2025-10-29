@@ -1,0 +1,9 @@
+<div class="menu-bar__breadcrumb-desktop__dropdown-wrapper" onmouseenter="document.getElementById('main-dropdown-menu').classList.remove('no-animation')">
+  <%= link_to decidim.root_url, class: "menu-bar__breadcrumb-desktop__dropdown-trigger", onmouseenter: "document.getElementById('main-dropdown-summary').click()" do %>
+    <%= icon "home-2-line", class: "pointer-events-none text-white" %><span class="sr-only"><%= t("decidim.menu.home") %></span>
+  <% end %>
+  <%# usuniete rozwijanie %>
+</div>
+<%# usuniete rozwijanie %>
+
+<%= render partial: "layouts/decidim/header/menu_breadcrumb_items" %>

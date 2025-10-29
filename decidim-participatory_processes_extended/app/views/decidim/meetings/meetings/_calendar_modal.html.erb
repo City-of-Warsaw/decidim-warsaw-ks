@@ -1,0 +1,33 @@
+<div class="text-center">
+  <button class="button text-center" data-open="calendarAdd">
+    <img class="" aria-hidden="true" src="<%= asset_pack_path("media/images/calendar-icon.svg") %>" />
+    <span><%= t(".add_to_calendar") %></span>
+  </button>
+</div>
+<div class="reveal" id="calendarAdd" data-reveal>
+  <div class="reveal__header">
+    <h1 class="reveal__title"><%= t(".add_to_calendar") %>:</h1>
+    <button class="close-button" data-close aria-label="<%= t(".close_window") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <ul class="button-group button-group--calendars text-center ul-reset" role="list">
+    <li>
+      <a href="<%= calendar_google_link %>" class="button" target="_blank"><%= t(".calendar_google_link") %></a>
+    </li>
+    <li>
+      <a href="<%= calendar_outlook_link %>" class="button" target="_blank"><%= t(".calendar_outlook_link") %></a>
+    </li>
+    <li>
+      <a href="<%= calendar_apple %>" class="button" rel="noopener noreferrer" download="" target="_blank"><%= t(".calendar_apple") %></a>
+    </li>
+  </ul>
+</div>
+
+<% content_for(:js_content) do %>
+<%= nonced_javascript_tag do %>
+  $(".ssb-icon").removeAttr("onclick");
+  $(".ssb-icon").click((event) => SocialShareButton.share(event.currentTarget));
+<% end %>
+<% end %>

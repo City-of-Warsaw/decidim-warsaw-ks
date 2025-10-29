@@ -1,0 +1,372 @@
+---
+pl:
+  activemodel:
+    attributes: 
+      general_plan_request:
+        authority_name_which_letter_is_addressed: "Nazwa:"
+        letter_type: "2.1. wniosek do projektu aktu"
+        urban_planning_act_type: "3.1. plan ogólny gminy"
+        submitter_data_role: "<strong>Zaznacz, czy składasz wniosek jako osoba fizyczna, czy jako jednostka organizacyjna</strong> (instytucja, przedsiębiorstwo itp.):"
+        submitter_data_first_name: Imię
+        submitter_data_last_name: Nazwisko
+        submitter_data_org_name: Nazwa 
+        submitter_data_country: Kraj
+        submitter_data_voivodeship: Województwo
+        submitter_data_county: Powiat
+        submitter_data_community: Gmina
+        submitter_data_street: Ulica
+        submitter_data_street_number: Nr domu
+        submitter_data_flat_number: Nr lokalu
+        submitter_data_city: Miejscowość
+        submitter_data_zip_code: Kod pocztowy
+        submitter_data_email: E-mail
+        submitter_data_phone_number: Nr telefonu
+        submitter_data_epuap_delivery_address: Adres skrytki ePUAP lub adres do doręczeń elektronicznych
+        perpetual_owner_of_the_property: Czy jesteś (lub osoba, w imieniu której składasz wniosek) właścicielem lub użytkownikiem wieczystym nieruchomości objętej wnioskiem? 
+        mailing_address_data_country: Kraj
+        mailing_address_data_voivodeship: Województwo
+        mailing_address_data_county: Powiat
+        mailing_address_data_community: Gmina
+        mailing_address_data_street: Ulica
+        mailing_address_data_street_number: Nr domu 
+        mailing_address_data_flat_number: Nr lokalu
+        mailing_address_data_city: Miejscowość
+        mailing_address_data_zip_code: Kod pocztowy
+        attorney_data_first_name: Imię
+        attorney_data_last_name: Nazwisko 
+        attorney_data_country: Kraj
+        attorney_data_voivodeship: Województwo
+        attorney_data_county: Powiat
+        attorney_data_community: Gmina
+        attorney_data_street: Ulica
+        attorney_data_street_number: Nr domu
+        attorney_data_flat_number: Nr lokalu
+        attorney_data_city: Miejscowość
+        attorney_data_zip_code: Kod pocztowy
+        attorney_data_email: E-mail
+        attorney_data_phone_number: Nr telefonu
+        attorney_data_epuap_delivery_address: Adres skrytki ePUAP lub adres do doręczeń elektronicznych
+        request_body: "<strong>7.1. Treść wniosku</strong>"
+        request_body_content_details: 7.2. Szczegółowe informacje dotyczące treści wniosku w odniesieniu do działek ewidencyjnych
+        request_body_content_details_name: Nazwa aktu planowania przestrzennego
+        request_body_content_details_name_value: Plan ogólny gminy
+        request_body_content_details_parcel_id: Identyfikator działki lub działek ewidencyjnych 
+        request_body_content_details_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych? 
+        request_body_content_details_body: Treść
+        details_land_parcels_with_parameters: 7.3. Szczegółowe informacje dotyczące działek ewidencyjnych oraz niektórych parametrów
+        details_land_parcels_with_parameters_name: Nazwa planu ogólnego gminy lub miejscowego planu zagospodarowania przestrzennego
+        details_land_parcels_with_parameters_name_value: Plan ogólny m.st. Warszawy 
+        details_land_parcels_with_parameters_parcel_id: Identyfikator działki lub działek ewidencyjnych 
+        details_land_parcels_with_parameters_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych? 
+        details_land_parcels_with_parameters_area_class_name: Nazwa lub nazwy klasy przeznaczenia terenu (albo symbol lub symbole klasy przeznaczenia terenu) 
+        details_land_parcels_with_parameters_max_percent_area: Maksymalny udział powierzchni zabudowy (%) 
+        details_land_parcels_with_parameters_max_height_building: Maksymalna wysokość zabudowy (w metrach) 
+        details_land_parcels_with_parameters_min_percent_bio: Minimalny udział powierzchni biologicznie czynnej (%) 
+        attorney_power_represent_applicant_or_for_service: Pełnomocnictwo do reprezentowania składającego pismo lub pełnomocnictwo do doręczeń [zgodnie z ustawą z dnia 16 listopada 2006 r. o opłacie skarbowej (Dz. U. z 2023 r. poz. 2111)]
+        attorney_power_payment_stamp_duty_confirm: Potwierdzenie uiszczenia opłaty skarbowej od pełnomocnictwa – jeżeli obowiązek uiszczenia takiej opłaty wynika z ustawy z dnia 16 listopada 2006 r. o opłacie skarbowej. 
+        parcel_site_boundary: Określenie granic terenu w formie graficznej w przypadku wskazania terenu objętego pismem jako części działki ewidencyjnej lub działek ewidencyjnych. 
+        files: Inne załączniki 
+        files_filename_one: Nazwa załącznika
+        files_filename_two: Nazwa załącznika
+        optional_confirmation_request: Czy chcesz otrzymać potwierdzenie złożenia wniosku na adres e-mail?
+        email_confirmation_request: Adres e-mail
+        confirm_process_personal_data: |-
+            Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia wniosku oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+        confirm_read_process_description: |-
+            Zapoznałam/em się z zamieszczonym na górze strony opisem składania wniosku przez formularz.*
+  decidim: 
+    general_plan_requests:
+      general_plan_requests:
+        index:
+          form_title: Wniosek do planu ogólnego
+          submission_date: "Data zgłoszenia:"
+          section_1: "1. Organ, do którego jest składane pismo" 
+          section_2: "2. Rodzaj pisma"
+          letter_type_2: 2.2. uwaga do konsultowanego projektu aktu
+          letter_type_3: 2.3. wniosek o zmianę aktu
+          letter_type_4: 2.4. wniosek o sporządzenie aktu
+          section_3: "3. Rodzaj aktu planowania przestrzennego"
+          urban_planning_act_type_2: 3.2. miejscowy plan zagospodarowania przestrzennego, w tym zintegrowany plan inwestycyjny lub miejscowy plan rewitalizacji
+          urban_planning_act_type_3: 3.3. uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury, tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje materiałów budowlanych, z jakich mogą być wykonane
+          urban_planning_act_type_4: 3.4. audyt krajobrazowy
+          urban_planning_act_type_5: 3.5. plan zagospodarowania przestrzennego województwa
+          section_4: 4. Dane składającego pismo
+          section_4_description: |
+            <ul>
+              <li>Jeśli składasz wniosek we własnym imieniu – wypełnij tę część własnymi danymi.</li>
+              <li>Jeśli składasz wniosek w imieniu innej osoby lub w imieniu instytucji – wypełnij tę część danymi tej osoby lub instytucji. </li>
+              <li>Jeśli składasz wniosek w imieniu swoim i innych osób – wypełnij tę część swoimi danymi, a dane pozostałych osób załącz w osobnym pliku (załącznik dodasz w ostatniej części formularza).</li>
+            </ul>
+          submitter_role_person: Osoba fizyczna
+          submitter_role_organization: Jednostka organizacyjna
+          epuap_delivery_address_description: Wpisz taki adres, jeśli go posiadasz i chcesz, żeby korespondencję w sprawie wniosku doręczać Ci za pomocą środków komunikacji elektronicznej.
+          option_yes: Tak
+          option_no: Nie
+          section_5: 5. Adres do korespondencji składającego pismo
+          section_5_description: Wypełnij tę część, jeśli Twój adres do korespondencji (lub adres do korespondencji osoby, w imieniu której składasz wniosek) jest inny, niż adres zamieszkania lub siedziby. 
+          section_6: 6. Dane pełnomocnika
+          section_6_description: Wypełnij tę część, jeśli chcesz ustanowić pełnomocnika lub jeśli jesteś pełnomocnikiem i składasz wniosek w imieniu innej osoby. 
+          attorney_role_all: Pełnomocnik
+          attorney_role_delivery: Pełnomocnik do doręczeń
+          section_7: 7. Treść pisma
+          request_body_description: |
+            Maksymalnie 1000 znaków. Jeśli chcesz wpisać więcej treści — załącz ją w osobnym pliku (załącznik dodasz w ostatniej części formularza).<br /><br />
+
+            W treści wpisz co najmniej:
+            <ul>
+              <li>jakiej lokalizacji dotyczy Twój wniosek (np. numer działki i obrębu, adres) — informację tę możesz ewentualnie wpisać w punkcie 7.2 lub 7.3 </li>
+              <li>czego dotyczy Twój wniosek (np. o jaką strefę planistyczną wnioskujesz) — informację tę możesz ewentualnie wpisać w punkcie 7.2 lub 7.3 </li>
+            </ul>
+          add_item: Dodaj kolejną pozycję
+          section_8: 8. Oświadczenie w sprawie korespondencji elektronicznej
+          declaration_remote_correspondence_true: Wyrażam zgodę
+          declaration_remote_correspondence_false: Nie wyrażam zgody
+          declaration_remote_correspondence_description: na doręczanie korespondencji w niniejszej sprawie za pomocą środków komunikacji elektronicznej w rozumieniu art. 2 pkt 5 ustawy z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną (Dz. U. z 2020 r. poz. 344).*
+          section_9: 9. Załączniki
+          add_attachment: Dodaj załącznik
+          attorney_power_represent_applicant_or_for_service_description: |
+            Załącz pełnomocnictwo, jeśli składasz wniosek jako pełnomocnik innej osoby.<br />
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF.
+          attorney_power_payment_stamp_duty_confirm_description: |  
+            Załącz potwierdzenie, jeśli załączasz pełnomocnictwo. <br />
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF. 
+          parcel_site_boundary_description: |
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF. 
+          files_description: |
+            Możesz dodać maksymalnie 2 załączniki, o maksymalnym rozmiarze 5 MB każdy.<br />
+            Dopuszczalne formaty plików to: JPG, PDF, DOCX, ODT, RTF.<br /><br />
+            W przypadku dołączenia do pisma załączników zawierających dane osobowe, inne niż w punktach 4, 5, 6, załączniki te należy zanonimizować, tj. ukryć dane osobowe.
+          optional_confirmation_request_description: Jeśli tak, podaj adres email.*
+          required_fields: "* Pola oznaczone gwiazdką są obowiązkowe"
+          is_record_area_included_description: |
+            Jeśli zaznaczysz „nie”, możesz dodać załącznik graficzny i wskazać w nim granice terenu (załącznik dodasz w ostatniej części formularza).
+          tos_agreement: "Twoje dane przetwarzane są zgodnie z <strong>%{link}</strong>."
+          terms: Klauzulą o przetwarzaniu danych osobowych
+          clear: Wyczyść
+          preview: Podgląd
+          create: Wyślij
+          prefilled: (uzupełnione)
+          expand: (rozwiń)
+          collapse: (zwiń)
+          position: Pozycja
+          delete_item: Usuń tę pozycję
+        create:
+          success: Wniosek do planu ogólnego został złożony pomyślnie.
+          invalid: Podczas wypełniania wystąpił błąd. Sprawdź formularz i spróbuj raz jeszcze.
+        show:
+          heading: Wniosek do planu ogólnego został wysłany
+          thank_you: Dziękujemy za zgłoszenie.
+          back: Powrót
+          email_sent: System automatycznie wysłał potwierdzenie na podany adres e-mail.
+          download_pdf: Pobierz potwierdzenie PDF
+          send_new: Wyślij kolejny wniosek do planu ogólnego
+      admin:
+        general_plan_requests:
+          show:
+            ordinal_number: Lp.
+            title: Wniosek do planu ogólnego
+            section_1: 1. Organ, do którego jest składane pismo
+            section_2: 2. Rodzaj pisma
+            letter_type:
+              project_act_request: 2.1 wniosek do projektu aktu
+              consulted_act_project_remark: 2.2 uwaga do konsultowanego projektu aktu
+              request_to_amend_act: 2.3 wniosek o zmianę aktu
+              request_to_prepare_act: 2.4 wniosek o sporządenie aktu
+            section_3: 3. Rodzaj aktu planowania przestrzennego
+            urban_planning_act_type:
+              community_general_plan: 3.1 plan ogólny gminy
+              local_development_or_revitalisation_plan: 3.2 miejscowy plan zagospodarowania przestrzennego, tym zintegrowany plan inwestycyjny lub miejscowy plan rewitalizacji
+              resolution_establishing_rules: 3.3 uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury, tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje materiałów budowlanych, z jakich mogą być wykonane
+              landscape_audit: 3.4 audyt krajobrazowy
+              voivodship_development_plan: 3.5 plan zagospodarowania przestrzennego województwa
+            section_4: 4. Dane składającego pismo
+            submitter_data_role: Osoba fizyczna / Jednostka organizacyjna
+            submitter_role_person: Osoba fizyczna
+            submitter_role_organization: Jednostka organizacyjna
+            submitter_data_first_name: Imię
+            submitter_data_last_name: Nazwisko
+            submitter_data_org_name: Nazwa
+            submitter_data_country: Kraj
+            submitter_data_voivodeship: Województwo
+            submitter_data_county: Powiat
+            submitter_data_community: Gmina
+            submitter_data_street: Ulica
+            submitter_data_street_number: Nr domu
+            submitter_data_flat_number: Nr lokalu
+            submitter_data_city: Miasto
+            submitter_data_zip_code: Kod pocztowy
+            submitter_data_email: Email
+            submitter_data_phone_number: Nr telefonu
+            submitter_data_epuap_delivery_address: Adres skrytki ePUAP / Adres do doręczeń elektronicznych
+            perpetual_owner_of_the_property: Właściciel / Użytkownik wieczysty nieruchomości
+            section_5: 5. Adres do korespondencji składającego pismo
+            mailing_address_data_voivodeship: Województwo
+            mailing_address_data_county: Powiat
+            mailing_address_data_community: Gmina
+            mailing_address_data_street: Ulica
+            mailing_address_data_street_number: Numer
+            mailing_address_data_flat_number: Numer mieszkania
+            mailing_address_data_city: Miasto
+            mailing_address_data_zip_code: Kod pocztowy
+            section_6: 6. Dane pełnomocnika
+            attorney_data_role: Pełnomocnik / Pełnomocnik do doręczeń
+            attorney_role_all: Pełnomocnik
+            attorney_role_delivery: Pełnomocnik do doręczeń
+            attorney_data_first_name: "Imię"
+            attorney_data_last_name: "Nazwisko"
+            attorney_data_country: "Kraj"
+            attorney_data_voivodeship: "Województwo"
+            attorney_data_county: "Powiat"
+            attorney_data_community: "Gmina"
+            attorney_data_street: "Ulica"
+            attorney_data_street_number: "Numer"
+            attorney_data_flat_number: "Numer mieszkania"
+            attorney_data_city: Miasto
+            attorney_data_zip_code: Kod pocztowy
+            attorney_data_email: Email
+            attorney_data_phone_number: Numer telefonu
+            attorney_data_epuap_delivery_address: Adres skrytki ePUAP / Adres do doręczeń elektronicznych
+            section_7: 7. Treść pisma
+            request_body: Treść wniosku
+            request_body_content_details: 7.2. Szczegółowe informacje dotyczące treści wniosku w odniesieniu do działek ewidencyjnych
+            request_body_content_details_name: Nazwa aktu planowania przestrzennego
+            request_body_content_details_name_value: Plan ogólny gminy
+            request_body_content_details_parcel_id: Identyfikator działki lub działek ewidencyjnych
+            request_body_content_details_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            request_body_content_details_body: Treść
+            no_request_body_content_details: Brak informacji dot. treści wniosku w odniesieniu do działek ewidencyjnych
+            details_land_parcels_with_parameters: 7.3. Szczegółowe informacje dotyczące działek ewidencyjnych oraz niektórych parametrów
+            no_details_land_parcels_with_parameters: Brak informacji dot. działek ewidencyjnych oraz niektórych parametrów
+            details_land_parcels_with_parameters_name: Nazwa planu ogólnego gminy lub miejscowego planu zagospodarowania przestrzennego
+            details_land_parcels_with_parameters_name_value: Plan ogólny m.st. Warszawy
+            details_land_parcels_with_parameters_parcel_id: Identyfikator działki lub działek ewidencyjnych
+            details_land_parcels_with_parameters_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            details_land_parcels_with_parameters_area_class_name: Nazwa lub nazwy klasy przeznaczenia terenu (albo symbol lub symbole klasy przeznaczenia terenu)
+            details_land_parcels_with_parameters_max_percent_area: Maksymalny udział powierzchni zabudowy (%)
+            details_land_parcels_with_parameters_max_height_building: Maksymalna wysokość zabudowy (w metrach)
+            details_land_parcels_with_parameters_min_percent_bio: Minimalny udział powierzchni biologicznie czynnej (%)
+            section_8: 8. Oświadczenie w sprawie korespondencji elektronicznej
+            declaration_remote_correspondence: Zgoda na doręczanie korespondencji za pomocą środków komunikacji elektronicznej
+            section_9: 9. Załączniki
+            download_file: Pobierz plik
+            attorney_power_represent_applicant_or_for_service: Pełnomocnictwo
+            attorney_power_payment_stamp_duty_confirm: Potwierdzenie
+            parcel_site_boundary: Granice terenu w formie graficznej
+            file: Inny plik
+            file_filename: Nazwa pliku
+            additional_section: Sekcja dodatkowa
+            optional_confirmation_request: Potwierdzenie złożenia wniosku na adres e-mail
+            email_confirmation_request: Potwierdzenie na e-mail
+            last_confirmations: Ostatnie potwierdzenia
+            confirm_read_process_description: Zapoznanie z opisem konsultacji
+            confirm_process_personal_data: Potwierdzenie przetwarzania danych os.
+            option_yes: Tak
+            option_no: Nie
+          index:
+            title: Wnioski do planu ogólnego
+          table:
+            submitter_role_person: Osoba fizyczna
+            submitter_role_organization: Jednostka organizacyjna
+      export:
+        general_plan_request:
+          lp: Lp.
+          id: ID wniosku
+          authority_name_which_letter_is_addressed: Organ, do którego jest składane pismo
+          letter_type: Rodzaj pisma
+          letter_type_enum:
+            project_act_request: "2.1 wniosek do projektu aktu"
+            consulted_act_project_remark: "2.2 uwaga do konsultowanego projektu aktu"
+            request_to_amend_act: "2.3 wniosek o zmianę aktu"
+            request_to_prepare_act: "2.4 wniosek o sporządzenie aktu"
+          urban_planning_act_type: Rodzaj aktu planowania przestrzennego
+          urban_planning_act_type_enum:
+            community_general_plan: "3.1 plan ogólny gminy"
+            local_development_or_revitalisation_plan: "3.2 miejscowy plan zagospodarowania przestrzennego, tym zintegrowany plan inwestycyjny lub miejscowy plan rewitalizacji"
+            resolution_establishing_rules: "3.3 uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury, tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje materiałów budowlanych, z jakich mogą być wykonane"
+            landscape_audit: "3.4 audyt krajobrazowy"
+            voivodship_development_plan: "3.5 plan zagospodarowania przestrzennego województwa"
+          submitter_data_role: Wnioskodawca - Osoba fizyczna czy organizacja
+          submitter_role_person: Osoba fizyczna
+          submitter_role_organization: Organizacja
+          submitter_data_first_name: Wnioskodawca - Imię
+          submitter_data_last_name: Wnioskodawca - Nazwisko
+          submitter_data_org_name: Wnioskodawca - Nazwa
+          submitter_data_country: Wnioskodawca - Kraj
+          submitter_data_voivodeship: Wnioskodawca - Województwo
+          submitter_data_county: Wnioskodawca - Powiat
+          submitter_data_community: Wnioskodawca - Gmina
+          submitter_data_street: Wnioskodawca - Ulica
+          submitter_data_street_number: Wnioskodawca - Nr domu
+          submitter_data_flat_number: Wnioskodawca - Nr lokalu
+          submitter_data_city: Wnioskodawca - Miasto
+          submitter_data_zip_code: Wnioskodawca - Kod pocztowy
+          submitter_data_email: Wnioskodawca - Email
+          submitter_data_phone_number: Wnioskodawca - Nr telefonu
+          submitter_data_epuap_delivery_address: Wnioskodawca - Adres skrytki ePUAP
+          perpetual_owner_of_the_property: Wnioskodawca - Użytkownik wieczysty nieruchomości
+          mailing_address_data_country: Adres do korespondencji - Kraj
+          mailing_address_data_voivodeship: Adres do korespondencji - Województwo
+          mailing_address_data_county: Adres do korespondencji - Powiat
+          mailing_address_data_community: Adres do korespondencji - Gmina
+          mailing_address_data_street: Adres do korespondencji - Ulica
+          mailing_address_data_street_number: Adres do korespondencji - Numer
+          mailing_address_data_flat_number: Adres do korespondencji - Numer mieszkania
+          mailing_address_data_city: Adres do korespondencji - Miasto
+          mailing_address_data_zip_code: Adres do korespondencji - Kod pocztowy
+          attorney_data_role: Pełnomocnik lub do doręczeń
+          attorney_role_all: Pełnomocnik
+          attorney_role_delivery: Pełnomocnik do doręczeń
+          attorney_data_first_name: Pełnomocnik - Imię
+          attorney_data_last_name: Pełnomocnik - Nazwisko
+          attorney_data_country: Pełnomocnik - Kraj
+          attorney_data_voivodeship: Pełnomocnik - Województwo
+          attorney_data_county: Pełnomocnik - Powiat
+          attorney_data_community: Pełnomocnik - Gmina
+          attorney_data_street: Pełnomocnik - Ulica
+          attorney_data_street_number: Pełnomocnik - Numer
+          attorney_data_flat_number: Pełnomocnik - Numer mieszkania
+          attorney_data_city: Pełnomocnik - Miasto
+          attorney_data_zip_code: Pełnomocnik - Kod pocztowy
+          attorney_data_email: Pełnomocnik - Email
+          attorney_data_phone_number: Pełnomocnik - Nr telefonu
+          attorney_data_epuap_delivery_address: Pełnomocnik - Adres skrytki ePUAP
+          request_body: Treść wniosku
+          content_details_name: Nazwa aktu planowania przestrzennego
+          content_details_parcel_id: Identyfikator działki lub działek ewidencyjnych
+          content_details_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+          content_details_body: Treść
+          details_land_parcels_name: Nazwa planu ogólnego gminy lub miejscowego planu zagospodarowania przestrzennego
+          details_land_parcels_parcel_id: Identyfikator działki lub działek ewidencyjnych
+          details_land_parcels_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+          details_land_parcels_area_class_name: Nazwa lub nazwy klasy przeznaczenia terenu (albo symbol lub symbole klasy przeznaczenia terenu
+          details_land_parcels_max_percent_area: Maksymalny udział powierzchni zabudowy (%)
+          details_land_parcels_max_height_building: Maksymalna wysokość zabudowy (w metrach)
+          details_land_parcels_min_percent_bio: Minimalny udział powierzchni biologicznie czynnej (%)
+          declaration_remote_correspondence: Oświadczenie w sprawie korespondencji elektr.
+          attorney_power_represent_applicant_or_for_service: Pełnomocnictwo reprezentowania lub doręczeń
+          attorney_power_payment_stamp_duty_confirm: Potwierdzenie uiszczenia opłaty
+          parcel_site_boundary: Określenie granic terenu
+          files: Inne załączniki
+          optional_confirmation_request: Potwierdzenie złożenia wniosku
+          email_confirmation_request: Potwierdzenie na e-mail
+          confirm_read_process_description: Zapoznanie z opisem konsultacji
+          confirm_process_personal_data: Potwierdzenie przetwarzania danych os.
+          boolean_yes: Tak
+          boolean_no: Nie
+    components:
+      general_plan_requests:
+        name: Wnioski do planu ogólnego
+        settings:
+          global:
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
+            static_page_slug: Url slug strony bazy wiedzy zawierającej klauzulę informacyjną
+    admin_log:
+      general_plan_request:
+        export_general_plan_requests: "Użytkownik %{user_name} wyeksportował(a) wnioski do planu ogólnego w Edycji: %{space_name}"

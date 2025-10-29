@@ -106,7 +106,18 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Warning - this controller decorater handles with component Pages NOT Static Pages</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -399,8 +410,6 @@
       <pre class="lines">
 
 
-24
-25
 26
 27
 28
@@ -414,10 +423,12 @@
 36
 37
 38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:page</span>
@@ -455,12 +466,12 @@
       <pre class="lines">
 
 
-88
-89
-90</pre>
+90
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 90</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_component'>current_component</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Component</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:component_id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -485,12 +496,12 @@
       <pre class="lines">
 
 
-92
-93
-94</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_participatory_space'>current_participatory_space</span>
   <span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
@@ -515,17 +526,17 @@
       <pre class="lines">
 
 
-65
-66
 67
 68
 69
 70
 71
-72</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:destroy</span><span class='comma'>,</span> <span class='symbol'>:page</span><span class='comma'>,</span> <span class='label'>page:</span> <span class='id identifier rubyid_page'>page</span>
@@ -555,14 +566,14 @@
       <pre class="lines">
 
 
-41
-42
 43
 44
-45</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:page</span>
@@ -589,12 +600,12 @@
       <pre class="lines">
 
 
-14
-15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:page</span>
@@ -619,14 +630,14 @@
       <pre class="lines">
 
 
-18
-19
 20
 21
-22</pre>
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 18</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:page</span>
@@ -653,12 +664,12 @@
       <pre class="lines">
 
 
-100
-101
-102</pre>
+102
+103
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_page'>page</span>
   <span class='ivar'>@page</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Pages.html" title="Decidim::Pages (module)">Pages</a></span></span><span class='op'>::</span><span class='const'>Page</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -683,15 +694,15 @@
       <pre class="lines">
 
 
-96
-97
-98</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 98</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pages'>pages</span>
-  <span class='ivar'>@pages</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Pages.html" title="Decidim::Pages (module)">Pages</a></span></span><span class='op'>::</span><span class='const'>Page</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='label'>title:</span> <span class='symbol'>:asc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
+  <span class='ivar'>@pages</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Pages.html" title="Decidim::Pages (module)">Pages</a></span></span><span class='op'>::</span><span class='const'>Page</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='label'>weight:</span> <span class='symbol'>:asc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -713,8 +724,6 @@
       <pre class="lines">
 
 
-74
-75
 76
 77
 78
@@ -723,10 +732,12 @@
 81
 82
 83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_publish'>publish</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:publish</span><span class='comma'>,</span> <span class='symbol'>:page</span><span class='comma'>,</span> <span class='label'>page:</span> <span class='id identifier rubyid_page'>page</span>
@@ -759,8 +770,6 @@
       <pre class="lines">
 
 
-47
-48
 49
 50
 51
@@ -775,10 +784,12 @@
 60
 61
 62
-63</pre>
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'decidim-pages_extended/app/controllers/decidim/pages_extended/admin/pages_controller.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:page</span>
@@ -807,9 +818,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

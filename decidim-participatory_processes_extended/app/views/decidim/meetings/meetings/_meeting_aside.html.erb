@@ -1,0 +1,58 @@
+<%= render partial: "meeting_poll_actions" %>
+
+<% if meeting.can_be_joined_by?(current_user) || meeting.on_different_platform? %>
+  <section class="layout-aside__section layout-aside__buttons layout-aside__ctas-buttons" data-sticky-buttons>
+    <%= cell "decidim/meetings/join_meeting_button", meeting, show_remaining_slots: true %>
+  </section>
+<% end %>
+
+<% if allowed_to?(:update, :meeting, meeting: meeting) || allowed_to?(:close, :meeting, meeting: meeting) || meeting.withdrawable_by?(current_user) %>
+  <section class="layout-aside__section layout-aside__buttons">
+    <% if allowed_to?(:update, :meeting, meeting: meeting) %>
+      <%= link_to edit_meeting_path(meeting), class: "button button__sm button__transparent-secondary w-full" do %>
+        <span><%= t("edit_meeting", scope: "decidim.meetings.meetings.meeting") %></span>
+        <%= icon "pencil-line" %>
+      <% end %>
+    <% end %>
+
+    <% if allowed_to?(:close, :meeting, meeting: meeting) %>
+      <% caption = meeting.closed? ? t("edit_close_meeting", scope: "decidim.meetings.meetings.meeting") : t("close_meeting", scope: "decidim.meetings.meetings.meeting") %>
+
+      <%= link_to edit_meeting_meeting_close_path(meeting_id: meeting.id, id: meeting.id), class: "button button__sm button__transparent-secondary w-full" do %>
+        <span><%= caption %></span>
+        <%= icon "pencil-line" %>
+      <% end %>
+    <% end %>
+
+    <% if meeting.withdrawable_by?(current_user) %>
+      <%= action_authorized_link_to(
+            :withdraw,
+            withdraw_meeting_path(meeting),
+            method: :put,
+            class: "button button__sm button__transparent-secondary w-full",
+            title: t("withdraw_btn_hint", scope: "decidim.meetings.meetings.show"),
+            data: { confirm: t("withdraw_confirmation_html", scope: "decidim.meetings.meetings.show") }
+          ) do %>
+          <span><%= t("withdraw_meeting", scope:"decidim.meetings.meetings.show") %></span>
+      <% end %>
+    <% end %>
+  </section>
+<% end %>
+
+<section class="layout-aside__section layout-aside__section--meetings actions__secondary">
+  <%= cell "decidim/meetings/cancel_registration_meeting_button", meeting %>
+
+  <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: t(".tooltip_content") } do %>
+    <%= follow_button_for(meeting, nil, { button_classes: "button button__sm button__gray button__follow button__follow--meeting"}) %>
+  <% end %>
+
+  <%= cell "decidim/share_button", nil, button_classes: "button button__lg button__primary button__share" %>
+  
+  <%= link_to nil, 
+      remote: true, 
+      data: { dialog_open: "calendarShare_#{meeting.id}" }, 
+      class: "button button__lg button__primary button__share" do %>
+    <%= t("add_to_calendar", scope: "decidim.meetings.meetings.calendar_modal") %>
+    <%= icon "calendar-line" %>
+  <% end %>
+</section>

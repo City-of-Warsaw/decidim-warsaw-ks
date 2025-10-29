@@ -3,7 +3,7 @@
 module Decidim
   module AdUsersSpace
     # This command is executed when user creates Info Article
-    class CreateForumArticle < Rectify::Command
+    class CreateForumArticle < Decidim::Command
       def initialize(form, user)
         @form = form
         @current_user = user

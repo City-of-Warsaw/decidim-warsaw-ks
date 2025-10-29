@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Decidim::ExpertQuestions::UserQuestionXlsSerializer
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::ExpertQuestions::UserQuestionXlsSerializer";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (U)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span>
+     &raquo; 
+    <span class="title">UserQuestionXlsSerializer</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Decidim::ExpertQuestions::UserQuestionXlsSerializer
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Decidim::ExpertQuestions::UserQuestionXlsSerializer</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd>TranslatableAttributes</dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Serializes a user question to export it in XLS format.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#column_name_translation-instance_method" title="#column_name_translation (instance method)">#<strong>column_name_translation</strong>(column)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#column_width-instance_method" title="#column_width (instance method)">#<strong>column_width</strong>(key)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#columns_definition-instance_method" title="#columns_definition (instance method)">#<strong>columns_definition</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#columns_order-instance_method" title="#columns_order (instance method)">#<strong>columns_order</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Public: Get the order of columns for serializing a user question.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#columns_widths-instance_method" title="#columns_widths (instance method)">#<strong>columns_widths</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#file_url-instance_method" title="#file_url (instance method)">#<strong>file_url</strong>(file, host)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#headers-instance_method" title="#headers (instance method)">#<strong>headers</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; UserQuestionXlsSerializer </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of UserQuestionXlsSerializer.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#ordered_values-instance_method" title="#ordered_values (instance method)">#<strong>ordered_values</strong>(attrs)  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns an array of values from the given attributes hash, in the order specified by the columns_order method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#serialize_all_with_files-instance_method" title="#serialize_all_with_files (instance method)">#<strong>serialize_all_with_files</strong>(user_questions)  &#x21d2; Array </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Public: Serializes an array of user questions into an array of serialized hashes,.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#serialize_for_files-instance_method" title="#serialize_for_files (instance method)">#<strong>serialize_for_files</strong>(user_question, index)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Serializes a user question object into a hash, create additional hash objects for any files.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#user_question_attrs-instance_method" title="#user_question_attrs (instance method)">#<strong>user_question_attrs</strong>(user_question, index)  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Serializes a user question object into a hash, with optional additional attributes.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Decidim::ExpertQuestions::UserQuestionXlsSerializer (class)">UserQuestionXlsSerializer</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of UserQuestionXlsSerializer.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='semicolon'>;</span> <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="column_name_translation-instance_method">
+  
+    #<strong>column_name_translation</strong>(column)  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 108</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='id identifier rubyid_column'>column</span><span class='rparen'>)</span>
+  <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='id identifier rubyid_column'>column</span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>decidim.expert_questions.export.user_question</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="column_width-instance_method">
+  
+    #<strong>column_width</strong>(key)  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 112</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_column_width'>column_width</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_key'>key</span>
+  <span class='kw'>when</span> <span class='symbol'>:auto</span> <span class='kw'>then</span> <span class='kw'>nil</span>
+  <span class='kw'>when</span> <span class='symbol'>:lp</span> <span class='kw'>then</span> <span class='int'>5</span>
+  <span class='kw'>when</span> <span class='symbol'>:body</span> <span class='kw'>then</span> <span class='int'>40</span>
+  <span class='kw'>when</span> <span class='symbol'>:url</span> <span class='kw'>then</span> <span class='int'>70</span>
+  <span class='kw'>else</span>
+    <span class='int'>20</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="columns_definition-instance_method">
+  
+    #<strong>columns_definition</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 23</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_columns_definition'>columns_definition</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>lp:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>lp</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:lp</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:body</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>url:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>url</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:url</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>author_name:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>author_name</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>email:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>email</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>district:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>district</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>age:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>age</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:auto</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>gender:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>gender</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:auto</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>status:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:auto</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>created_at:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>created_at</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:auto</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>answered_at:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>answered_at</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>expert_name:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>expert_name</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>answer_body:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>answer_body</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:body</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>is_published:</span> <span class='lbrace'>{</span> <span class='label'>name:</span> <span class='id identifier rubyid_column_name_translation'>column_name_translation</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>is_published</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>size:</span> <span class='symbol'>:default</span> <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="columns_order-instance_method">
+  
+    #<strong>columns_order</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Public: Get the order of columns for serializing a user question. Returns an Array of symbols representing the column order.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_columns_order'>columns_order</span>
+  <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>lp</span><span class='words_sep'> </span><span class='tstring_content'>body</span><span class='words_sep'> </span><span class='tstring_content'>url</span><span class='words_sep'> </span><span class='tstring_content'>author_name</span><span class='words_sep'> </span><span class='tstring_content'>email</span><span class='words_sep'> </span><span class='tstring_content'>district</span><span class='words_sep'> </span><span class='tstring_content'>age</span><span class='words_sep'> </span><span class='tstring_content'>gender</span><span class='words_sep'> </span><span class='tstring_content'>status</span><span class='words_sep'> </span><span class='tstring_content'>created_at</span><span class='words_sep'> </span><span class='tstring_content'>answered_at</span><span class='words_sep'> </span><span class='tstring_content'>expert_name</span><span class='words_sep'> </span><span class='tstring_content'>answer_body</span><span class='words_sep'> </span><span class='tstring_content'>is_published</span><span class='tstring_end'>]</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="columns_widths-instance_method">
+  
+    #<strong>columns_widths</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 42</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_columns_widths'>columns_widths</span>
+  <span class='id identifier rubyid_columns_order'>columns_order</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_column'>column</span><span class='op'>|</span> <span class='id identifier rubyid_column_width'>column_width</span><span class='lparen'>(</span><span class='id identifier rubyid_columns_definition'>columns_definition</span><span class='lbracket'>[</span><span class='id identifier rubyid_column'>column</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:size</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_url-instance_method">
+  
+    #<strong>file_url</strong>(file, host)  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 123</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_file_url'>file_url</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_host'>host</span><span class='rparen'>)</span>
+  <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_application'>application</span><span class='period'>.</span><span class='id identifier rubyid_routes'>routes</span><span class='period'>.</span><span class='id identifier rubyid_url_helpers'>url_helpers</span><span class='period'>.</span><span class='id identifier rubyid_rails_blob_url'>rails_blob_url</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='label'>host:</span> <span class='id identifier rubyid_host'>host</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="headers-instance_method">
+  
+    #<strong>headers</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 13</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_headers'>headers</span>
+  <span class='id identifier rubyid_columns_order'>columns_order</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_column'>column</span><span class='op'>|</span> <span class='id identifier rubyid_columns_definition'>columns_definition</span><span class='lbracket'>[</span><span class='id identifier rubyid_column'>column</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:name</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="ordered_values-instance_method">
+  
+    #<strong>ordered_values</strong>(attrs)  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns an array of values from the given attributes hash, in the order specified by the columns_order method.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>attrs</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The user_question attributes hash</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>serialized array from user_question attrs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_ordered_values'>ordered_values</span><span class='lparen'>(</span><span class='id identifier rubyid_attrs'>attrs</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_columns_order'>columns_order</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_column'>column</span><span class='op'>|</span> <span class='id identifier rubyid_attrs'>attrs</span><span class='lbracket'>[</span><span class='id identifier rubyid_column'>column</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="serialize_all_with_files-instance_method">
+  
+    #<strong>serialize_all_with_files</strong>(user_questions)  &#x21d2; <tt>Array</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Public: Serializes an array of user questions into an array of serialized hashes,</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>user_questions</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An array of user question objects to serialize.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An array of serialized user question hashes</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 50</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_serialize_all_with_files'>serialize_all_with_files</span><span class='lparen'>(</span><span class='id identifier rubyid_user_questions'>user_questions</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_user_questions'>user_questions</span><span class='period'>.</span><span class='id identifier rubyid_flat_map'>flat_map</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='op'>|</span>
+    <span class='id identifier rubyid_serialize_for_files'>serialize_for_files</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="serialize_for_files-instance_method">
+  
+    #<strong>serialize_for_files</strong>(user_question, index)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Serializes a user question object into a hash, create additional hash objects for any files</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>user_question</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The user question object to serialize.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The index of the user question in the array.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>for serialized user question hash without files, or [Array] of hashes for user question with files</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_serialize_for_files'>serialize_for_files</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span>
+    <span class='id identifier rubyid_user_question_attrs'>user_question_attrs</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='period'>.</span><span class='id identifier rubyid_with_index'>with_index</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_subindex'>subindex</span><span class='op'>|</span>
+      <span class='id identifier rubyid_user_question_attrs'>user_question_attrs</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='comma'>,</span> <span class='id identifier rubyid_subindex'>subindex</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_attrs'>attrs</span><span class='op'>|</span>
+        <span class='id identifier rubyid_attrs'>attrs</span><span class='lbracket'>[</span><span class='symbol'>:url</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_file_url'>file_url</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='comma'>,</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="user_question_attrs-instance_method">
+  
+    #<strong>user_question_attrs</strong>(user_question, index)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Serializes a user question object into a hash, with optional additional attributes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>user_question</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The user question object to serialize.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The index of the user question in the array.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The serialized user question hash.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/services/decidim/expert_questions/user_question_xls_serializer.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user_question_attrs'>user_question_attrs</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='comma'>,</span> <span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>lp:</span> <span class='id identifier rubyid_index'>index</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
+    <span class='label'>url:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>author_name:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>:</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.comments_extended.models.comment.fields.unregistered_author</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>email:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_email'>email</span><span class='comma'>,</span>
+    <span class='label'>district:</span> <span class='id identifier rubyid_translated_attribute'>translated_attribute</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_district'>district</span><span class='op'>&amp;.</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>age:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_age'>age</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>age.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_age'>age</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.comments</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>gender:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_gender'>gender</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>gender.public_post.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_gender'>gender</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.users</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>status:</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>models.user_question.fields.statuses.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.expert_questions</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>created_at:</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_l'>l</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_created_at'>created_at</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:short</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>answered_at:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert_answer'>expert_answer</span> <span class='op'>?</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_l'>l</span><span class='lparen'>(</span><span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert_answer'>expert_answer</span><span class='period'>.</span><span class='id identifier rubyid_created_at'>created_at</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:short</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>expert_name:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_full_name'>full_name</span><span class='comma'>,</span>
+    <span class='label'>answer_body:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert_answer'>expert_answer</span><span class='op'>&amp;.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
+    <span class='label'>is_published:</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_expert_answer'>expert_answer</span><span class='op'>&amp;.</span><span class='id identifier rubyid_published?'>published?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Tak</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Nie</span><span class='tstring_end'>&#39;</span></span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Oct 29 14:41:38 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>

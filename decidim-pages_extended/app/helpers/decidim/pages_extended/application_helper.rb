@@ -50,11 +50,11 @@ module Decidim
       def edit_pages_extended_link(page, current_component)
         case current_component.participatory_space.class.name
         when 'Decidim::ParticipatoryProcess'
-          icon_link_to "pencil", decidim_pages_extended.edit_participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
+          icon_link_to "pencil-line", decidim_pages_extended.edit_participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
         when 'Decidim::Assembly'
-          icon_link_to "pencil", decidim_pages_extended.edit_assembly_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
+          icon_link_to "pencil-line", decidim_pages_extended.edit_assembly_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
         else
-          icon_link_to "pencil", decidim_pages_extended.edit_participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
+          icon_link_to "pencil-line", decidim_pages_extended.edit_participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.edit", scope: "decidim.pages"), class: "action-icon--edit"
         end
       end
 
@@ -73,11 +73,11 @@ module Decidim
       def destroy_pages_extended_link(page, current_component)
         case current_component.participatory_space.class.name
         when 'Decidim::ParticipatoryProcess'
-          icon_link_to "circle-x", decidim_pages_extended.participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
+          icon_link_to "delete-bin-line", decidim_pages_extended.participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
         when 'Decidim::Assembly'
-          icon_link_to "circle-x", decidim_pages_extended.assembly_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
+          icon_link_to "delete-bin-line", decidim_pages_extended.assembly_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
         else
-          icon_link_to "circle-x", decidim_pages_extended.participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
+          icon_link_to "delete-bin-line", decidim_pages_extended.participatory_process_slug_page_path(current_component.participatory_space.slug, current_component, page), t("actions.destroy", scope: "decidim.pages"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.pages") }
         end
       end
 

@@ -5,12 +5,14 @@ module Decidim
     module Admin
       # This controller is responsible for managing Info Articles in Admin Panel
       class InfoArticlesController < Decidim::Admin::ApplicationController
+        include Decidim::Admin::Concerns::HasTabbedMenu
+        include Decidim::Admin::Officializations::Filterable
+
         helper Decidim::ApplicationHelper
-        layout "decidim/admin/info_articles"
 
         def index
           enforce_permission_to :update, :organization
-          @info_articles = collection.page(params[:page]).per(15)
+          @info_articles = filtered_collection
         end
 
         def new
@@ -70,13 +72,15 @@ module Decidim
 
         private
 
+        def tab_menu_name = :admin_info_articles_menu
+
         def info_article
           @info_article ||= collection.find_by(id: params[:id])
         end
 
         def collection
-          InfoArticle.where(decidim_organization_id: current_organization.id)
-          # current_organization.info_articles
+          @collection ||= Decidim::AdUsersSpace::InfoArticle.where(decidim_organization_id: current_organization.id)
+                                                            .sorted_by_weight
         end
       end
     end

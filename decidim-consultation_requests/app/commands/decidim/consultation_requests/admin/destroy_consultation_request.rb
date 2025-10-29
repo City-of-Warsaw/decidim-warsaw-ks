@@ -4,21 +4,20 @@ module Decidim
   module ConsultationRequests
     module Admin
       # This command is executed when user destroys Consultation Requests
-      class DestroyConsultationRequest < Rectify::Command
+      class DestroyConsultationRequest < Decidim::Command
 
         def initialize(consultation_request, user)
           @consultation_request = consultation_request
           @current_user = user
         end
 
-        # Updates the consultation_request if valid.
+        # Executes the command. Broadcasts these events:
         #
-        # Broadcasts :ok if successful, :invalid if consultation_request was already commented.
+        # - :ok when everything is valid.
+        #
+        # Returns nothing.
         def call
-          return broadcast(:invalid) unless consultation_request.destroyable?
-
           destroy_consultation_request!
-
           broadcast(:ok)
         end
 

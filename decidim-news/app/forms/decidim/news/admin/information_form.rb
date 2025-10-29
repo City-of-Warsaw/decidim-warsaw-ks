@@ -3,26 +3,30 @@
 module Decidim
   module News
     module Admin
+      # A form object to create and update Information
       class InformationForm < Form
+        include Decidim::Repository::Admin::GalleryInputAttributes
+        include Decidim::Repository::Admin::GalleriesValidations
+
         attribute :title, String
         attribute :body, String
-        attribute :gallery_id, Integer
-        attribute :users_action_allowed_for_unregister_users, Virtus::Attribute::Boolean
+        attribute :users_action_allowed_for_unregister_users, Decidim::AttributeObject::TypeMap::Boolean
+        attribute :weight, Integer, default: 0
+        attribute :added_on, Date
 
         mimic :information
 
-        validates :title, presence: true
-        validates :body, presence: true
-        validates :users_action_allowed_for_unregister_users, presence: true 
-        validate :gallery_exists
-
-        def gallery_exists
-          return if gallery_id.blank?
-
-          errors.add(:gallery_id, :gallery_not_found) unless Decidim::Repository::Gallery.find_by(id: gallery_id)
-        end
+        validates :title,
+                  :body,
+                  presence: true
+        validates :users_action_allowed_for_unregister_users, inclusion: [true, false]
 
         alias organization current_organization
+
+        def map_model(model)
+          super
+          self.gallery_id = model.gallery_id
+        end
       end
     end
   end

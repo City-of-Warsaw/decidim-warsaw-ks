@@ -1,38 +1,27 @@
-<div class="card__content update-remark" id="editable-remark-<%= remark.id %>">   
+<div class="update-remark" id="editable-remark-<%= remark.id %>">
   <%= decidim_form_for(form_object, url: decidim_participatory_process_remarks.second_step_update_remark_path(remark), method: :patch, remote: true) do |form| %>
-    <div>
-      <p id="email-legend" class="mb-none"><%= t('.email_legend') %></p>
-      <div class="field remark-field--email">
-        <%= form.email_field :email, placeholder: t("email_placeholder", scope: 'decidim.remarks.remarks.form'), label: false %>
-      </div>
-    </div>
-
-    <fieldset class="mt-sm">
+    <div class="flex items-center justify-center flex-col">
       <legend><%= t('.statistics_legend') %></legend>
-      <div class="remark-field--selects"> 
+      <div class="remark-field--selects w-full flex flex-col gap-4 sm:flex-row sm:gap-0 items-center justify-center">
         <%= form.select :gender,
-                        form_object.user_gender_for_select,
+                        form_object.gender_options_for_public_post,
                         { include_blank: t("select_gender", scope: 'decidim.remarks.remarks.form'), label: false },
-                        { multiple: false } %> 
+                        { multiple: false, class: "w-full sm:w-auto" } %>
         <%= form.select :age,
                         form_object.user_age_for_select,
                         { include_blank: t("select_age", scope: 'decidim.remarks.remarks.form'), label: false },
-                        { multiple: false } %> 
+                        { multiple: false, class: "w-full sm:w-auto" } %>
         <%= form.select :district_id,
                         form_object.user_districts_for_select,
                         { include_blank: t("select_district", scope: 'decidim.remarks.remarks.form'), label: false },
-                        { multiple: false } %> 
+                        { multiple: false, class: "w-full sm:w-auto" } %>
       </div>
+    </div>
 
-      <div class="field checkboxed remark-field--rodo rodo-field">
-        <%= form.check_box :rodo, label: t(".rodo"), aria: { describedby: 'email-legend' } %>
-      </div>
-    </fieldset>
-    <div class="row actions">
-      <div class='pull-right'>
-        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
-        <%= form.submit t(".save"), class: "button", data: { disable: true } %>
-      </div>
+    <div class="flex items-center justify-center gap-2 mt-6">   
+      <%= form.button type: "submit", class: "button button__sm button__secondary ml-auto", data: { disable: true } do %>
+        <%= t(".save") %> 
+      <% end %>
     </div>
   <% end %>
 </div>

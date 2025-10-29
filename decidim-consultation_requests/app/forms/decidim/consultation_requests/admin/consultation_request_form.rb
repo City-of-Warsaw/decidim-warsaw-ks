@@ -4,30 +4,23 @@ module Decidim
   module ConsultationRequests
     module Admin
       class ConsultationRequestForm < Form
+        include Decidim::Repository::Admin::GalleryInputAttributes
+        include Decidim::Repository::Admin::GalleriesValidations
+
         attribute :title, String
         attribute :applicant, String
         attribute :body, String
         attribute :date_of_request, Decidim::Attributes::LocalizedDate
-        attribute :comments_allowed, Boolean
-        attribute :gallery_id, Integer
 
         mimic :consultation_request
 
-        validates :title, presence: true
-        validates :applicant, presence: true
-        validates :body, presence: true
-        validate :gallery_exists
-
-        def gallery_exists
-          return if gallery_id.blank?
-
-          errors.add(:gallery_id, :gallery_not_found) unless Decidim::Repository::Gallery.find_by(id: gallery_id)
-        end
+        validates :title, :applicant, :body, presence: true
 
         alias organization current_organization
 
-        def comments_allowed
-          false
+        def map_model(model)
+          super
+          self.gallery_id = model.gallery_id
         end
       end
     end

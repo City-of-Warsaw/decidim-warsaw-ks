@@ -89,6 +89,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd>Admin::Officializations::Filterable</dd>
+  </dl>
+  
   
 
   
@@ -308,6 +313,7 @@
 
 
   
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -328,18 +334,18 @@
       <pre class="lines">
 
 
-82
 83
 84
-85</pre>
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
-  <span class='const'><span class='object_link'><a href="../ConsultationRequest.html" title="Decidim::ConsultationRequests::ConsultationRequest (class)">ConsultationRequest</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='symbol'>:created_at</span><span class='rparen'>)</span>
-  <span class='comment'># current_organization.consultation_requests
-</span><span class='kw'>end</span></pre>
+  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../ConsultationRequests.html" title="Decidim::ConsultationRequests (module)">ConsultationRequests</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationRequest.html" title="Decidim::ConsultationRequests::ConsultationRequest (class)">ConsultationRequest</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+                                                                    <span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='symbol'>:created_at</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -360,12 +366,12 @@
       <pre class="lines">
 
 
-78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 79</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_consultation_request'>consultation_request</span>
   <span class='ivar'>@consultation_request</span> <span class='op'>||=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -390,7 +396,6 @@
       <pre class="lines">
 
 
-21
 22
 23
 24
@@ -405,10 +410,11 @@
 33
 34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
@@ -446,7 +452,6 @@
       <pre class="lines">
 
 
-60
 61
 62
 63
@@ -460,10 +465,11 @@
 71
 72
 73
-74</pre>
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
@@ -500,13 +506,13 @@
       <pre class="lines">
 
 
-38
 39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
@@ -532,17 +538,17 @@
       <pre class="lines">
 
 
-11
 12
 13
-14</pre>
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
-  <span class='ivar'>@consultation_requests</span> <span class='op'>=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
+  <span class='ivar'>@consultation_requests</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -564,13 +570,13 @@
       <pre class="lines">
 
 
-16
 17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 17</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
@@ -596,7 +602,6 @@
       <pre class="lines">
 
 
-43
 44
 45
 46
@@ -611,10 +616,11 @@
 55
 56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_requests/app/controllers/decidim/consultation_requests/admin/consultation_requests_controller.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
@@ -642,9 +648,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

@@ -1,0 +1,17 @@
+<%= link_to resource_path, id: dom_id(resource), class: "card__search" do %>
+  <%= content_tag title_tag, class: "h4 card__search-title" do %>
+     <%= title %>
+  <% end %>
+  <%= content_tag "description", class: "card__search-description editor-content" do %>
+    <%= description %>
+  <% end %>
+  <% if model.is_a?(Decidim::Pages::Page) %>
+    <%= content_tag :div, class: "card__search-process-name" do %>
+      <%= participatory_space_class_name %>
+      &nbsp;
+      <%= content_tag :span, class: "text-[var(--primary)]" do %>
+        <%= participatory_space_title %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

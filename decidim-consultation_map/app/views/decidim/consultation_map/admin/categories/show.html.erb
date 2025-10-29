@@ -1,0 +1,29 @@
+<div class="component__show">
+  <div class="card">
+    <div class="item_show__header">
+      <h1 class="item_show__header-title">
+        Podgląd kategorii / <%= category.name %>
+        <%= link_to t("actions.edit", scope: "decidim.admin"), edit_category_path(category), class: "button button__sm button__secondary" %>
+      </h1>
+    </div>
+      <div class="card-section svg_color">
+        <div class="row column">
+          <strong>Nazwa:</strong> <%= category.name %>
+        </div> 
+        <div class="row column">
+          <strong>Wyswietlana ikona:</strong>             
+          <div style="background-color:<%= category.color %>;" class="mt-2 w-12 h-12 rounded-full flex items-center justify-center *:w-7 *:h-7 *:invert">
+            <% if category.file_id.present? %>
+                <%= raw category.inline_svg(category.file) %>
+            <% end %>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="item__edit-sticky">
+    <div class="item__edit-sticky-container">
+      <%= link_to "Powrót do listy kategorii", categories_path, class: 'button button__sm' %>
+    </div>
+  </div>
+</div>
+<%= append_javascript_pack_tag "color_svg" %>

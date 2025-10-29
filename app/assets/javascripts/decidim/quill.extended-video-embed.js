@@ -7,7 +7,7 @@ function sanitize(url, protocols) {
   return protocols.indexOf(protocol) > -1;
 }
 
-class ExtendedVideo extends Quill.import("blots/block/embed") {
+export class ExtendedVideo extends Quill.import("blots/block/embed") {
   static create(value) {
     let node = super.create(value);
     node.setAttribute("contenteditable", false);
@@ -123,4 +123,4 @@ class ExtendedVideo extends Quill.import("blots/block/embed") {
 }
 ExtendedVideo.blotName = "extended-video";
 ExtendedVideo.className = "video-js";
-ExtendedVideo.tagName = "VIDEO"; 
+ExtendedVideo.tagName = "VIDEO";

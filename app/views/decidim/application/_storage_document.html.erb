@@ -1,22 +1,22 @@
-<div class="card--list__item">
-  <div class="card--list__text">
+<div class="documents__container custom-container-wrapper mt-4 min-h-[86px] flex justify-center flex-col">
+  <div class="card--list__text" id="attachment_<%= file.id %>">
     <div>
-      <a href="<%= decidim_repository.blob_path(file.file.signed_id, filename: file.file.filename, disposition: "attachment") %>" class="card__link" target="_blank">
-        <h4 class="card--list__heading heading6">
+      <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true) %>" class="card__link" target="_blank">
+        <span class="card--list__text">
           <%= file.name %>
-          <span class="show-for-sr"> otwiera się w nowej karcie</span>
-        </h4>
+        </span>
       </a><br />
 
       <small>
-        <%= file.file.filename.extension_without_delimiter.upcase %>, 
+        <%= file.file.filename.extension_without_delimiter.upcase %>,
         <%= '%.2f' % ((file.file.byte_size / 1024000.0).ceil(2)) %> MB
       </small>
     </div>
-  </div>
-  <div class="card--list__data">
-    <%= link_to decidim_repository.blob_path(file.file.signed_id, filename: file.file.filename, disposition: "attachment"), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("download", scope: 'decidim.application.document') do %>
-      <%= image_tag 'download-icon.png' %>
-    <% end %>
+    <div class="card--list__data">
+      <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("download", scope: 'decidim.application.document'), data: { "external-link": "false" } do %>
+        <span class="show-for-sr"><%= file.name %> otwiera się w nowej karcie</span>
+        <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+      <% end %>
+    </div>
   </div>
 </div>

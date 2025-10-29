@@ -5,6 +5,26 @@
 # Decorator implements additional functionalities to the Command
 # and changes existing methods.
 Decidim::Meetings::Admin::UpdateMeeting.class_eval do
+  include Decidim::Repository::Admin::GalleriesHelper
+
+  # overwrite method
+  # rebuild the method
+  # add create gallery
+  # remove schedule upcoming meeting notification
+  # add our notification system
+  def call
+    return broadcast(:invalid) if form.invalid?
+
+    transaction do
+      update_meeting!
+      send_notification if should_notify_followers? && meeting.component.published?
+      update_services!
+    end
+    add_gallery(@meeting)
+
+    broadcast(:ok, meeting)
+  end
+
   private
 
   def update_meeting!
@@ -18,12 +38,14 @@ Decidim::Meetings::Admin::UpdateMeeting.class_eval do
       category: form.category,
       title: parsed_title,
       description: parsed_description,
+      title_description: form.title_description,
+      title_services: form.title_services,
       end_time: form.end_time,
       start_time: form.start_time,
       online_meeting_url: form.online_meeting_url,
       registration_type: form.registration_type,
       registration_url: form.registration_url,
-      available_slots: form.available_slots,
+      registrations_enabled: form.registrations_enabled,
       type_of_meeting: form.clean_type_of_meeting,
       # address: form.address,
       # latitude: form.latitude,
@@ -32,10 +54,15 @@ Decidim::Meetings::Admin::UpdateMeeting.class_eval do
       location_hints: form.location_hints,
       private_meeting: form.private_meeting,
       transparent: form.transparent,
+      iframe_embed_type: form.iframe_embed_type,
+      comments_enabled: form.comments_enabled,
+      comments_start_time: form.comments_start_time,
+      comments_end_time: form.comments_end_time,
+      iframe_access_level: form.iframe_access_level,
       # custom overwritten
-      address: location_param_parsed('display_name'),
-      latitude: location_param_parsed('lat'),
-      longitude: location_param_parsed('lng'),
+      address: location_param_parsed("display_name"),
+      latitude: location_param_parsed("lat"),
+      longitude: location_param_parsed("lng"),
       locations: form.locations_data,
       gallery_id: form.gallery_id
     )
@@ -45,27 +72,13 @@ Decidim::Meetings::Admin::UpdateMeeting.class_eval do
     form.locations_data.any? ? form.parse_locations[param] : nil
   end
 
-  # OVERWRITTEN DECIDIM METHOD
+  # overwritten method
+  # use our notification system
   #
-  # Method was creating Notification AND email in one method.
-  # Notification is being send via Decidim method.
-  # Custom email is send instead of default one
-  #
-  # NOTE! Method is fired after method should_notify_followers? returns true
+  # NOTE! Method is fired:
+  # - after method should_notify_followers? returns true
+  # - only if it is published
   def send_notification
-    Decidim::NotificationGenerator.new(
-      "decidim.events.meetings.meeting_updated",
-      Decidim::Meetings::UpdateMeetingEvent,
-      meeting,
-      meeting.followers, # followers
-      Decidim::User.none, # affected_users
-      {}
-    ).generate
-    # Custom email
-    Decidim::CoreExtended::TemplatedMailerJob.perform_later('meeting_updated',
-                                                          {
-                                                            resource: meeting,
-                                                            consultation: meeting.participatory_space
-                                                          })
+    Decidim::CoreExtended::TemplatedMailerJob.perform_later("meeting_updated", { resource: meeting })
   end
 end

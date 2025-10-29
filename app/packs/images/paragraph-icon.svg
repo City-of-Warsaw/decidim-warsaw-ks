@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57.034" height="57.034" viewBox="0 0 57.034 57.034">
+    <g id="Group_638" data-name="Group 638" transform="translate(-1036 -1064.482)">
+        <g id="Ellipse_122" data-name="Ellipse 122" transform="translate(1036 1064.482)" fill="none" stroke="#1c7c97"
+            stroke-width="2">
+            <circle cx="28.517" cy="28.517" r="28.517" stroke="none" />
+            <circle cx="28.517" cy="28.517" r="27.517" fill="none" />
+        </g>
+        <g id="Group_484" data-name="Group 484" transform="translate(6.813 27.273)">
+            <line id="Line_150" data-name="Line 150" x2="25.757" transform="translate(1044.998 1058.5)" fill="none"
+                stroke="#1c7c97" stroke-linecap="round" stroke-width="4" />
+            <line id="Line_151" data-name="Line 151" x2="4.737" transform="translate(1045.243 1065.728)" fill="none"
+                stroke="#1c7c97" stroke-linecap="round" stroke-width="4" />
+            <line id="Line_153" data-name="Line 153" x2="4.957" transform="translate(1070.755 1072.963) rotate(180)"
+                fill="none" stroke="#1c7c97" stroke-linecap="round" stroke-width="4" />
+            <line id="Line_152" data-name="Line 152" x2="15.068" transform="translate(1055.687 1065.732)" fill="none"
+                stroke="#1c7c97" stroke-linecap="round" stroke-width="4" />
+            <line id="Line_154" data-name="Line 154" x1="13.689" transform="translate(1044.998 1072.963)" fill="none"
+                stroke="#1c7c97" stroke-linecap="round" stroke-width="4" />
+        </g>
+    </g>
+</svg>

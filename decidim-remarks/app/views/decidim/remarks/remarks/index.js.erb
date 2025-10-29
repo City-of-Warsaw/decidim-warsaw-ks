@@ -2,8 +2,95 @@ var $remarks = $('#remarks');
 var $remarksCount = $('#remarks-count');
 // var $orderFilterInput = $('.order_filter');
 
+function initReplyPanels(context = document) {
+  $(context).find('.button[data-controls^="panel-comment"]').each(function () {
+    const $button = $(this);
+    const panelId = $button.attr('data-controls');
+    const $panel = $('#' + panelId);
+    const $grid = $button.closest('.remarks__footer-grid');
+
+    // Reset i przypięcie listenera
+    $button.off('click.replyToggle');
+
+    $panel.hide();
+    $button.attr('aria-expanded', 'false');
+    $button.find('svg:last').hide();
+    $button.find('span:last').hide();
+
+    $button.on('click.replyToggle', function () {
+      const isExpanded = $button.attr('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        $panel.slideUp(200);
+        $grid.removeClass('reply-open');
+      } else {
+        $panel.slideDown(200);
+        $grid.addClass('reply-open');
+      }
+
+      $button.attr('aria-expanded', String(!isExpanded));
+
+      const $icons = $button.find('svg');
+      const $texts = $button.find('span');
+
+      if (!isExpanded) {
+        $icons.first().hide();
+        $texts.first().hide();
+        $icons.last().show();
+        $texts.last().show();
+      } else {
+        $icons.first().show();
+        $texts.first().show();
+        $icons.last().hide();
+        $texts.last().hide();
+      }
+    });
+  });
+}
+
+
 $remarks.html('<%= j(render partial: "remarks").strip.html_safe %>');
+initReplyPanels();
 $remarksCount.html('<%= t(".remarks_count", count: remarks.count).html_safe %>');
+
+$("[data-decidim-comments]").each(function (_i, el) {
+    var $el = $(el);
+    var comments = new Decidim.CommentsComponent($el, $el.data("decidim-comments"));
+    comments.mountComponent();
+    $(el).data("comments", comments);
+});
+
+
+$('#remarks .comment-field--body textarea').each(function () {
+    $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));
+});
+
+$("#remarks input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+    max: 5,
+    STRING: {
+    remove: 'usuń',
+    denied: 'Ten format pliku $ext jest niedozwolony.',
+    file: '$file',
+    selected: 'Wybrany plik: $file',
+    duplicate: 'Ten plik już został wybrany:\n$file',
+    toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+    toomany: 'Niedozwolona liczba plików (maks: $max)',
+    toobig: '$file ma za duży rozmiar (maks: $size)'
+    },
+});
+
+$("#remarks .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+    e.preventDefault();
+
+    $(this).addClass("AttachmentButton-applied");
+
+    var target_id = $(this).data("target");
+    $(this).closest("form").find(target_id + " > input")
+        .last()
+        .click();
+});
+
+$remarks.foundation();
 
 // var $dropdownMenu = $('.dropdown.menu', $remarks);
 // $dropdownMenu.foundation();

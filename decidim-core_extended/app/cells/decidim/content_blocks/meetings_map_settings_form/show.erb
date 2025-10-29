@@ -1,0 +1,53 @@
+<% form.fields_for :settings, form.object.settings do |settings_fields| %>
+  <div class="meetings-selection-js">
+    <%= settings_fields.radio_button :meetings_selection,
+                                     "all_meetings",
+                                     checked: true,
+                                     label: "Wyświetlenie wszystkich nadchodzących spotkań"
+    %>
+
+    <br>
+
+    <%= settings_fields.radio_button :meetings_selection,
+                                    "five_meetings",
+                                    label: "Ustawienia dla wyświetlania pięciu wybranych spotkań"
+    %>
+  </div>
+
+  <div class="five-meetings-selection-js">
+    <%= settings_fields.select :first_meeting,
+                              meetings_from_published_spaces,
+                              prompt: "",
+                              label: "Wybór pierwszego spotkania",
+                              include_blank: "-- Puste --"
+    %>
+
+    <%= settings_fields.select :second_meeting,
+                              meetings_from_published_spaces,
+                              prompt: "",
+                              label: "Wybór drugiego spotkania",
+                              include_blank: "-- Puste --"
+    %>
+
+    <%= settings_fields.select :third_meeting,
+                              meetings_from_published_spaces,
+                              prompt: "",
+                              label: "Wybór trzeciego spotkania",
+                              include_blank: "-- Puste --"
+    %>
+
+    <%= settings_fields.select :fourth_meeting,
+                              meetings_from_published_spaces,
+                              prompt: "",
+                              label: "Wybór czwartego spotkania",
+                              include_blank: "-- Puste --"
+    %>
+
+    <%= settings_fields.select :fifth_meeting,
+                              meetings_from_published_spaces,
+                              prompt: "",
+                              label: "Wybór piątego spotkania",
+                              include_blank: "-- Puste --"
+    %>
+  </div>
+<% end %>

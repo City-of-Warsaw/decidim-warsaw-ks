@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::AdUsersSpace::Admin::DestroyInfoArticle</li>
           
@@ -208,7 +208,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates the info_article if valid.</p>
+<p>Executes the command.</p>
 </div></span>
   
 </li>
@@ -345,12 +345,12 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_current_user'>current_user</span>
   <span class='ivar'>@current_user</span>
@@ -388,12 +388,12 @@
       <pre class="lines">
 
 
-24
-25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info_article'>info_article</span>
   <span class='ivar'>@info_article</span>
@@ -422,9 +422,12 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates the info_article if valid.</p>
+<p>Executes the command. Broadcasts these events:</p>
+<ul><li>
+<p>:ok when everything is valid.</p>
+</li></ul>
 
-<p>Broadcasts :ok if successful, :invalid otherwise.</p>
+<p>Returns nothing.</p>
 
 
   </div>
@@ -438,14 +441,14 @@
       <pre class="lines">
 
 
-16
-17
 18
 19
-20</pre>
+20
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='id identifier rubyid_destroy_info_article!'>destroy_info_article!</span>
@@ -472,18 +475,18 @@
       <pre class="lines">
 
 
-26
-27
 28
 29
 30
 31
 32
 33
-34</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/commands/decidim/ad_users_space/admin/destroy_info_article.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy_info_article!'>destroy_info_article!</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_perform_action!'>perform_action!</span><span class='lparen'>(</span>
@@ -504,9 +507,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:17 2023 by
+  Generated on Wed Oct 29 14:41:36 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

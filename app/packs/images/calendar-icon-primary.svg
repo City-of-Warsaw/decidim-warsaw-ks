@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27.431" viewBox="0 0 27 27.431">
+  <g id="Component_112_16" data-name="Component 112 – 16" transform="translate(0 1.5)">
+    <rect id="Rectangle_1318" data-name="Rectangle 1318" width="27" height="24.158" rx="3" transform="translate(0 1.773)" fill="#1c7c97"/>
+    <g id="Rectangle_1320" data-name="Rectangle 1320" transform="translate(0 1.773)" fill="none" stroke="#1c7c97" stroke-width="2">
+      <rect width="27" height="24.158" rx="3" stroke="none"/>
+      <rect x="1" y="1" width="25" height="22.158" rx="2" fill="none"/>
+    </g>
+    <line id="Line_175" data-name="Line 175" y2="5.291" transform="translate(6.446)" fill="none" stroke="#1c7c97" stroke-linecap="round" stroke-width="3"/>
+    <line id="Line_176" data-name="Line 176" y2="5.291" transform="translate(20.554)" fill="none" stroke="#1c7c97" stroke-linecap="round" stroke-width="3"/>
+    <rect id="Rectangle_1319" data-name="Rectangle 1319" width="25" height="16.474" rx="3" transform="translate(1 8.457)" fill="#fff"/>
+    <ellipse id="Ellipse_160" data-name="Ellipse 160" cx="2.132" cy="2.132" rx="2.132" ry="2.132" transform="translate(11.368 11.299)" fill="#1c7c97"/>
+    <ellipse id="Ellipse_164" data-name="Ellipse 164" cx="2.132" cy="2.132" rx="2.132" ry="2.132" transform="translate(11.368 18.404)" fill="#1c7c97"/>
+    <circle id="Ellipse_161" data-name="Ellipse 161" cx="2.132" cy="2.132" r="2.132" transform="translate(4.263 11.299)" fill="#1c7c97"/>
+    <ellipse id="Ellipse_165" data-name="Ellipse 165" cx="2.132" cy="2.132" rx="2.132" ry="2.132" transform="translate(4.263 18.404)" fill="#1c7c97"/>
+    <ellipse id="Ellipse_162" data-name="Ellipse 162" cx="2.132" cy="2.132" rx="2.132" ry="2.132" transform="translate(18.474 11.299)" fill="#1c7c97"/>
+  </g>
+</svg>

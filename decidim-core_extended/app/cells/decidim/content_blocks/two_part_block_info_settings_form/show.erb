@@ -1,0 +1,9 @@
+<% form.fields_for :settings, form.object.settings do |settings_fields| %>
+  <%= settings_fields.text_field :left_title, label: "Lewy tytuł" %>
+  <%= settings_fields.editor :left_description, toolbar: :full, label: "Lewa treść" %>
+  <%= settings_fields.text_field :left_block_url, label: "Lewy URL bloku" %>
+
+  <%= settings_fields.text_field :right_title, label: "Prawy tytuł" %>
+  <%= settings_fields.editor :right_description, toolbar: :full, label: "Prawa treść" %>
+  <%= settings_fields.text_field :right_block_url, label: "Prawy URL bloku" %>
+<% end %>

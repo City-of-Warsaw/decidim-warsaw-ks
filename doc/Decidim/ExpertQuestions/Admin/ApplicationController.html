@@ -106,7 +106,7 @@
     
 <p>This controller is the abstract class from which all other controllers of this engine inherit.</p>
 
-<p>Note that it inherits from `Decidim::Admin::Components::BaseController`, which override its layout and provide all kinds of useful methods.</p>
+<p>Note that it inherits from ‘Decidim::Admin::Components::BaseController`, which override its layout and provide all kinds of useful methods.</p>
 
 
   </div>
@@ -202,12 +202,12 @@
       <pre class="lines">
 
 
-19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/application_controller.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/application_controller.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert'>expert</span>
   <span class='ivar'>@expert</span> <span class='op'>||=</span> <span class='id identifier rubyid_experts'>experts</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
@@ -232,12 +232,12 @@
       <pre class="lines">
 
 
-15
 16
-17</pre>
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/application_controller.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/controllers/decidim/expert_questions/admin/application_controller.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_experts'>experts</span>
   <span class='ivar'>@experts</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='label'>start_time:</span> <span class='symbol'>:desc</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
@@ -252,9 +252,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

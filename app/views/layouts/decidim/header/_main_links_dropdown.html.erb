@@ -1,0 +1,21 @@
+<% unread_data ||= current_user_unread_data %>
+<li>
+  <%= link_to decidim.account_path, class: "dropdown__item" do %>
+    <%= icon "user-smile-line" %>
+    <span class="text-secondary"><%= t("layouts.decidim.user_menu.profile") %></span>
+  <% end %>
+</li>
+<% if allowed_to? :read, :admin_dashboard %>
+  <li>
+    <%= link_to decidim_admin.root_path, class: "dropdown__item" do %>
+      <%= icon "dashboard-line" %>
+      <span class="text-secondary"><%= t("layouts.decidim.user_menu.admin_dashboard") %></span>
+    <% end %>
+  </li>
+<% end %>
+<li>
+  <%= link_to decidim.destroy_user_session_path, method: :delete, class: "dropdown__item" do %>
+    <%= icon "logout-box-r-line" %>
+    <span class="text-secondary"><%= t("layouts.decidim.user_menu.log_out") %></span>
+  <% end %>
+</li>

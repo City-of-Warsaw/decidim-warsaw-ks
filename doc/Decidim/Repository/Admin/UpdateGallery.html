@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::Repository::Admin::UpdateGallery</li>
           
@@ -574,30 +574,30 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
 
-  <span class='comment'># aktualizacja opisow zdjec w galerii
+  <span class='comment'># update images descriptions in the gallery
 </span>  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_gi_form'>gi_form</span><span class='op'>|</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid__destroy'>_destroy</span>
       <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../GalleryImage.html" title="Decidim::Repository::GalleryImage (class)">GalleryImage</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
     <span class='kw'>else</span>
       <span class='ivar'>@gallery</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_gi'>gi</span><span class='op'>|</span>
-        <span class='kw'>if</span> <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
-          <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
-          <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span>
-          <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span>
-          <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
-        <span class='kw'>end</span>
+        <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>==</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+
+        <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+        <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_description'>description</span>
+        <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span> <span class='op'>=</span> <span class='id identifier rubyid_gi_form'>gi_form</span><span class='period'>.</span><span class='id identifier rubyid_alt'>alt</span>
+        <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
 
-  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_image'>image</span><span class='op'>|</span>
+  <span class='ivar'>@form</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_compact_blank'>compact_blank</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_image'>image</span><span class='op'>|</span>
     <span class='id identifier rubyid_file'>file</span> <span class='op'>=</span> <span class='ivar'>@gallery</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
       <span class='label'>name:</span> <span class='id identifier rubyid_image'>image</span><span class='period'>.</span><span class='id identifier rubyid_original_filename'>original_filename</span><span class='comma'>,</span>
       <span class='label'>file:</span> <span class='id identifier rubyid_image'>image</span><span class='comma'>,</span>
       <span class='label'>creator:</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
       <span class='label'>organization:</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span>
     <span class='rparen'>)</span>
-    <span class='ivar'>@gallery</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span> <span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+    <span class='ivar'>@gallery</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>file:</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 
   <span class='id identifier rubyid_update_gallery!'>update_gallery!</span>
@@ -688,9 +688,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:20 2023 by
+  Generated on Wed Oct 29 14:41:39 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

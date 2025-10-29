@@ -12,12 +12,17 @@ module Decidim
                      border-radius: 50%;
                      -o-object-fit: cover;
                      object-fit: cover;'
-        if expert.user.avatar.present?
-          image_tag expert.avatar.url, style: img_style, alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.name}"
-        elsif expert.avatar.present?
-          image_tag expert.avatar.url, style: img_style, alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.name}"
+        if expert.avatar.present?
+          image_tag(
+            Rails.application.routes.url_helpers.rails_representation_path(
+              expert.avatar.variant(resize: "100x100^").processed,
+              only_path: true,
+              style: img_style,
+              alt: "#{t("activemodel.attributes.expert.avatar")} - #{expert.full_name}"
+            )
+          )
         else
-          image_tag asset_path("decidim/default-avatar.svg"), style: img_style, alt: "#{expert.name}"
+          image_pack_tag("media/images/default-avatar.svg", style: img_style, alt: "#{expert.full_name}")
         end
       end
     end

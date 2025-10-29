@@ -1,9 +1,33 @@
+<div class="row column mb-2">
 <fieldset class="">
-  <legend class="click-on-map">
-    <%= t('.click_on_map').html_safe %>
-  </legend>
+  <span class="help-text"><%= t('.click_on_map').html_safe %></span>
 
-  <div id="map" class="map"></div>
+  <div class="area-map-wrapper">
+    <div class="auto-search-wrapper">
+      <input type="text"
+            autocomplete="off"
+            id="area-search"
+            class="full-width <%= @form.errors[:locations_json].present? ? 'is-invalid-input' : nil %>"
+            placeholder="Wpisz adres, aby przybliżyć (min. 5 znaków)"
+            aria-describedby="location-with-toggle">
+    </div>
+
+    <div id="area-map-custom" class="map"></div>
+
+    <div class="map-settings"> 
+      <button id="add_geojson_area" class="button button__primary" type="button">Wyznacz obszar z pliku (GEOJSON)</button>
+ 
+      <span id="file_name"></span>
+      <p>
+        Aby wyznaczyć obszar na mapie za pomocą pliku, należy wybrać plik GEOJSON zawierający tylko jeden polygon.
+      </p>
+      <input class="hidden" type="file" id="geojson_preview_file" accept=".json,.geojson" />
+
+      
+      <button id="clear_map" class="small button hollow" type="button">Wyczyść mapę</button>
+    </div>
+  </div>
+
   <div class="field mt-s locations locations-list">
     <%#= form.hidden_field :locations_json, id: 'all_locations' %>
     <input type="hidden" value="<%= @form.custom_settings["locations"] %>" name="component[custom_settings][locations]" id="coordinates">
@@ -16,20 +40,13 @@
     </span>
   <% end %>
 
-  <div class="auto-search-wrapper">
-    <input type="text"
-           autocomplete="off"
-           id="search"
-           class="full-width <%= @form.errors[:locations_json].present? ? 'is-invalid-input' : nil %>"
-           placeholder="Wpisz adres (min. 5 znaków)"
-           aria-describedby="location-with-toggle">
-  </div>
-
   <% if @form.errors[:locations_json].present? %>
     <span class="form-error is-visible">
       <%= @form.errors[:locations_json][0] %>
     </span>
   <% end %>
 
-  <%= javascript_include_tag "area-map/area-map" %>
+  <%= append_javascript_pack_tag "autocomplete" %> 
+  <%= append_javascript_pack_tag "geojson_area_map" %>
 </fieldset>
+</div>

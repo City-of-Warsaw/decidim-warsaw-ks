@@ -1,0 +1,47 @@
+<%# Images %>
+<% if model.respond_to?(:gallery) && model.gallery && model.gallery.images.any? %>
+  <div class="row gallery flex items-center justify-center">
+    <div class="columns mediumlarge-12 large-12 w-full">
+      <% unless result_class?(model) || processs_class?(model) %>
+        <h2 class="h2 decorator mt-4">Galeria</h2>
+      <% end %>
+
+      <ul role="list" class="repository-gallery-box ul-reset custom-repository-gallery-box gallery-container">
+        <% model.gallery.images.each do |image| %>
+          <% next unless image.thumbnail_500 %>
+          <li>
+            <%= link_to main_app.rails_representation_path(image.thumbnail_900), name: "link", role: "button", class: 'swipebox', rel: "gallery-attachments" do %>
+              <%= image_tag(main_app.rails_representation_path(image.thumbnail_500), class: 'thumbnail', alt: image.alt ? 'Powiększ obraz: ' + image.alt : "") %>
+              <%= image_pack_tag("media/images/zoom-icon.svg", alt: '', class: 'zoom-icon') %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+<% end %>
+
+<%# Files %>
+<% if model.respond_to?(:gallery) && model.gallery && model.gallery.files.not_images.any? %>
+  <div class="row gallery">
+    <div class="columns mediumlarge-12 large-12">
+      <div class="mb-5">
+      <% unless result_class?(model) || processs_class?(model) %>
+          <h2 class="h2 decorator mt-4">Materiały</h2>
+        <% end %>
+
+        <div class="card--list photos-list py-6">
+          <% model.gallery.files.not_images.each do |file| %>
+            <%= render 'decidim/application/storage_document', file: file %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<% if model.respond_to?(:file) && model.file %>
+  <div class="repository-single-file fix-swipebox">
+    <%= image_tag(decidim_repository.blob_path(model.file.file.signed_id, filename: model.file.file.filename, disposition: "attachment", class: 'thumbnail'), alt: model.file.alt ? "Powiększ obraz: " + model.file.alt : "") %>
+  </div>
+<% end %>

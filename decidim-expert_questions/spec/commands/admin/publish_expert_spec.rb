@@ -51,39 +51,5 @@ module Decidim::ExpertQuestions
       expect(action_log.version).to be_present
       expect(action_log.visibility).to eq('all')
     end
-
-    it "fires an event" do
-      create :follow, followable: current_component.participatory_space, user: current_user
-
-      expect(Decidim::EventsManager)
-        .to receive(:publish)
-        .with(
-          event: "decidim.events.experts.expert_published",
-          event_class: Decidim::ExpertQuestions::ExpertPublishedEvent,
-          resource: expert,
-          followers: [current_user]
-        )
-
-      subject.call
-    end
-
-    context 'if component is not published' do
-      let(:published_at) { nil }
-
-      it "does not fire an event" do
-        create :follow, followable: current_component.participatory_space, user: current_user
-
-        expect(Decidim::EventsManager)
-          .not_to receive(:publish)
-          .with(
-            event: "decidim.events.experts.expert_published",
-            event_class: Decidim::ExpertQuestions::ExpertPublishedEvent,
-            resource: expert,
-            followers: [current_user]
-          )
-
-        subject.call
-      end
-    end
   end
 end

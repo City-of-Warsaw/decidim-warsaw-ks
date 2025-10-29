@@ -1,15 +1,29 @@
-<div class="row column">
-  <%= form.translated :text_field, :name %>
-</div>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <div class="row column">
+        <%= form.translated :text_field, :name, aria: { label: :name } %>
+      </div>
 
-<div class="row">
-  <div class="columns large-6">
-    <%= form.color_field :color, value: area&.color.presence || current_organization.colors["primary"] %>
-  </div>
-</div>
+      <div class="row">
+        <div class="columns">
+          <%= form.color_field :color, value: area&.color.presence || current_organization.colors["primary"] %>
+        </div>
+      </div>
 
-<div class="row">
-  <div class="columns large-6">
-    <%= form.color_field :text_color, value: area&.text_color.presence ||'#ffffff', help_text: t('.text_color').html_safe %>
+      <div class="row">
+        <div class="columns">
+          <%= form.color_field :text_color,
+                               value: area&.text_color.presence || '#ffffff',
+                               help_text: t('.text_color_html').html_safe %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="columns">
+          <%= form.collection_select :area_type_id, organization_area_types, :id, :name %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

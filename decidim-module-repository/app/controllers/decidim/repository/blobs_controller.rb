@@ -11,8 +11,11 @@ module Decidim
       end
 
       def show
-        expires_in ActiveStorage::Blob.service.url_expires_in
-        redirect_to @blob.service_url(disposition: params[:disposition])
+        expires_in ActiveStorage.service_urls_expire_in
+        redirect_to  Rails.application.routes.url_helpers.rails_blob_url(
+          @blob, disposition: params[:disposition] || "inline",
+          host: Rails.env.development? ? request.base_url : "https://#{request.host_with_port}"
+        )
       end
     end
   end

@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-# OVERWRITTEN DECIDIM MODEL
-# Model has been expanded with:
-# - associations: to department, to gallery, has tags through
-# - scopes - addictional filtering & sorting
-# - changes existing methods mentioned above
 Decidim::ParticipatoryProcess.class_eval do
+  # opublikowanie raportu lub efektu konsultacji powoduje zmiane statusu konsultacji
+  CONSULTATION_STATUSES = %w(report effects).freeze
+
   belongs_to :department,
              foreign_key: "decidim_department_id",
              class_name: "Decidim::AdminExtended::Department",
@@ -26,20 +24,40 @@ Decidim::ParticipatoryProcess.class_eval do
            class_name: "Decidim::AdminExtended::Tag",
            source: :tag
 
-  has_one :main_page_process,
-          class_name: "Decidim::ParticipatoryProcessesExtended::MainPageProcess",
-          foreign_key: "decidim_participatory_process_id",
-          dependent: :destroy
+  has_many :process_scopes,
+           class_name: "Decidim::ParticipatoryProcessesExtended::ProcessScope",
+           foreign_key: :decidim_participatory_process_id,
+           dependent: :destroy,
+           inverse_of: :participatory_process
+
+  # scopes sa nadpisywane, wiec :selected_scopes to wybrane dzielnice dla procesu
+  has_many :selected_scopes,
+           through: :process_scopes,
+           class_name: "Decidim::Scope",
+           source: :scope
 
   has_many :email_follows,
            as: :followable,
            foreign_key: "decidim_followable_id",
            foreign_type: "decidim_followable_type",
-           class_name: "Decidim::CoreExtended::EmailFollow"
+           class_name: "Decidim::CoreExtended::EmailFollow",
+           dependent: :destroy
 
   has_many_attached :report_files
 
+  has_many :participatory_process_report_files,
+           dependent: :destroy,
+           class_name: "Decidim::ParticipatoryProcessesExtended::ParticipatoryProcessReportFile",
+           foreign_key: :decidim_participatory_process_id
+
+  has_many :results,
+           dependent: :destroy,
+           class_name: "Decidim::ParticipatoryProcessesExtended::Result",
+           foreign_key: :decidim_participatory_space_id
+
   geocoded_by :address
+
+  validates :consultation_status, inclusion: { in: CONSULTATION_STATUSES }, if: proc { |attr| attr[:consultation_status].present? }
 
   scope :sorted_by_name, -> { order(name: :asc) }
   scope :active, -> { where(arel_table[:start_date].lteq(Date.current).and(arel_table[:end_date].gteq(Date.current))) }
@@ -48,12 +66,12 @@ Decidim::ParticipatoryProcess.class_eval do
   scope :not_on_main_page, -> { where(show_on_main_page: false) }
   scope :order_for_main_page, -> { order(:main_page_weight) }
 
-  # Public: method that returns year of process start for the search engine.
+  # Public: method that returns year of published process start for the search engine.
   # Years are user
   #
   # returns: Integer
   def self.years
-    all.where.not(start_date: nil).order(start_date: :desc).map { |pp| pp.start_date&.year }.uniq
+    published.where.not(start_date: nil).order(start_date: :desc).map { |pp| pp.start_date&.year }.uniq
   end
 
   # Search processes in distance range. If process has blank lat and lng it is searching for his scope (district)
@@ -75,6 +93,73 @@ Decidim::ParticipatoryProcess.class_eval do
     )
   end
 
+  scope :with_any_recipients, lambda { |*recipients_ids|
+    recipients_ids = recipients_ids.compact_blank
+    return self if recipients_ids.none? || recipients_ids.count >= 2
+
+    return where(recipients: %w(ngo mix)) if recipients_ids.include?("ngo")
+    where(recipients: %w(citizens mix)) if recipients_ids.include?("citizens")
+  }
+
+  # Redefine the with_any_scope method for using with additional scope list table
+  scope :with_any_scope, lambda { |*scope_ids|
+    clean_scope_ids = scope_ids.flatten
+    return self if clean_scope_ids.include?("all")
+
+    joins(:process_scopes).where(process_scopes:{decidim_scope_id: clean_scope_ids.uniq.compact_blank})
+  }
+
+  scope :with_any_tag, lambda { |*tags|
+    tags = tags.compact_blank
+    return self unless tags.any?
+    return self if tags.include?("all")
+
+    joins(:process_tags).where("decidim_participatory_processes_extended_process_tags.decidim_admin_extended_tag_id": tags).distinct
+  }
+
+  scope :with_any_department, lambda { |*departments_ids|
+    departments_ids = departments_ids.compact_blank
+    return self unless departments_ids.any?
+    return self if departments_ids.include?("all")
+
+    includes(:department).where(decidim_department_id: departments_ids)
+  }
+
+  scope :with_any_year, lambda { |*years|
+    years = years.compact_blank
+    return self unless years.any?
+
+    where("cast(decidim_participatory_processes.start_date AS varchar) ~ :text", text: years.join("|"))
+  }
+  scope :with_any_date, lambda { |*dates|
+    processed_date = dates.reject { |c| c.blank? || c == "report" || c == "effects" }
+    processed_status = dates.reject { |c| c.blank? || c == "active" || c == "past" }
+
+    date_query = if processed_date.size == 1
+                   case processed_date[0]
+                   when "active"
+                     active
+                   when "past"
+                     past
+                   else
+                     self
+                   end
+                 else
+                   self
+                 end
+
+    status_query = if processed_status.empty?
+                     date_query
+                   else
+                     date_query.where("decidim_participatory_processes.consultation_status": processed_status)
+                   end
+    status_query
+  }
+
+  def self.ransackable_scopes(_auth_object = nil)
+    [:with_any_date, :with_any_recipients, :with_any_department, :with_any_year, :with_any_scope, :with_any_tag]
+  end
+
   # Public: checking if location data is available in
   # location searching tree.
   #
@@ -88,26 +173,33 @@ Decidim::ParticipatoryProcess.class_eval do
     false
   end
 
-  # return users to notify
-  # notifications_from_neighbourhood - z obszaru zainteresowac, w tym tez z okolicy
-  # return Relation
   def find_possible_followers
-    # TODO: dla maili:
-    # .where(email_on_notification: true)
-    followers.not_blocked.confirmed
+    (followers.not_blocked.confirmed.where(email_on_notification: true).to_a) + email_follows.to_a
   end
 
   # users to notify when process is publish only, filter based on interest
-  # return Relation
-  # TODO: brakuje wszystkich zainteresowan tagow z procesu, jest tylko pierwszy
-  # TODO: brakuje wyszukiwania po zip_code
+  # return an Array
   def find_published_process_followers
-    users = []
-    users << Decidim::User.where(follow_ngo: true).pluck(:id) if recipients.in? ['ngo', 'mix']
-    users << Decidim::User.where(notifications_from_neighbourhood: true).where("extended_data->'interested_scopes' @> :scope_id ", scope_id: scope.id.to_s).pluck(:id)
-    tag_id = tag_ids.first # TODO: dodac wybranie wszystkich tagow
-    users << Decidim::User.where(notifications_from_neighbourhood: true).where("extended_data->'interested_tags' @> :tag_id", tag_id: tag_id.to_s).pluck(:id) if tag_id
+    ids = []
 
-    Decidim::User.not_blocked.confirmed.where(id: users.flatten.uniq)
+    ids.concat Decidim::User.where(follow_ngo: true).pluck(:id) if recipients.in?(%w(ngo mix))
+
+    ids.concat(
+      Decidim::User.where(notifications_from_neighbourhood: true)
+                   .where("extended_data->'interested_scopes' @> :scope_id", scope_id: selected_scope_ids.to_s)
+                   .pluck(:id)
+    )
+
+    ids.concat(
+      Decidim::User.where(notifications_from_neighbourhood: true)
+                   .where("extended_data->'interested_tags' @> :tag_id", tag_id: tag_ids.to_s)
+                   .pluck(:id)
+    )
+
+    Decidim::User.not_blocked.confirmed.where(id: ids.uniq).to_a
+  end
+
+  def not_for_citizens?
+    recipients.present? && recipients != "citizens"
   end
 end

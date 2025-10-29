@@ -1,399 +1,979 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style type="text/css">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <style type="text/css">
       body {
-        margin: 0;
-        padding: 0;
-
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 14px;
-      }
-
-      .page {
-        /* page-break-after: always !important; */
+          margin: 0;
+          padding: 0;
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+          overflow-wrap: break-word;
+          word-break: break-word;
       }
 
       h1 {
-        padding-top: 12px;
-        font-size: 25px;
-        text-align: center;
+          padding-top: 12px;
+          font-size: 25px;
+          text-align: center;
+      }
+
+      i {
+          padding-bottom: 12px;
+          font-size: 18px;
+          text-align: center;
+          display: block;
       }
 
       h2 {
-        margin: 0;
-        padding: 4px 0;
-        font-size: 22px;
+          margin: 0;
+          padding: 4px 0;
+          font-size: 22px;
       }
 
       h3 {
-        margin: 0;
-        padding: 4px 0;
-        font-size: 16px;
+          margin: 0;
+          padding: 4px 0;
+          font-size: 16px;
       }
 
       h3 span {
-        font-weight: normal;
+          font-weight: normal;
       }
 
       p {
-        margin: 0;
-        padding: 0;
+          margin: 0;
+          padding: 0;
       }
 
       .caption {
-        font-size: 120%;
+          font-size: 120%;
       }
 
       .center {
-        text-align: center;
-      }
-      .text-right {
-        text-align: right;
+          text-align: center;
       }
 
-      .version {
-        padding: 24px 0;
-        text-align: right;
+      .text-right {
+          text-align: right;
       }
+
+      .header-container {
+          position: relative;
+          height: 129px;
+      }
+
+      .document-details {
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: auto;
+          font-weight: bold;
+          font-size: 1rem;
+          text-align: left;
+          white-space: nowrap;
+      }
+
 
       .section {
-        padding-top: 16px;
+          padding-top: 16px;
+      }
+
+      .avoid {
+          page-break-inside: avoid !important;
       }
 
       .fill {
-        position: relative;
-        padding: 8px;
-        min-height: 21px;
-        border: 1px solid;
-        font-size: 130%;
+          position: relative;
+          padding: 8px;
+          min-height: 21px;
+          border: 1px solid;
+          font-size: 130%;
+          overflow-wrap: break-word;
       }
 
       .additional-info {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        padding: 8px;
-        border-top: 1px solid #000;
-        border-left: 1px solid #000;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          padding: 8px;
+          border-top: 1px solid #000;
+          border-left: 1px solid #000;
       }
 
       div.fill {
-        margin: 4px 0;
+          margin: 4px 0;
       }
 
       .fill.price {
-        margin-top: 8px;
-        padding: 16px 0;
-        text-align: center;
-        font-size: 400%;
-        line-height: 1;
+          margin-top: 8px;
+          padding: 16px 0;
+          text-align: center;
+          font-size: 400%;
+          line-height: 1;
       }
 
       .mh50 {
-        min-height: 50px;
+          min-height: 50px;
       }
+
       .mh100 {
-        min-height: 100px;
+          min-height: 100px;
       }
+
       .mh200 {
-        min-height: 200px;
+          min-height: 200px;
       }
+
+      .mh250 {
+          min-height: 250px;
+      }
+
       .mw20 {
-        min-width: 20%;
+          min-width: 20%;
       }
+
       .mw40 {
-        min-width: 40%;
+          min-width: 40%;
       }
+
       .w5 {
-        width: 5%;
+          width: 5%;
       }
+
       .w10 {
-        width: 10%;
+          width: 10%;
       }
+
       .w15 {
-        width: 15%;
+          width: 15%;
       }
+
       .w125 {
-        width: 12.5%;
+          width: 12.5%;
       }
+
       .w20 {
-        width: 20%;
+          width: 20%;
       }
+
       .w25 {
-        width: 25%;
+          width: 25%;
       }
+
       .w30 {
-        width: 30%;
+          width: 30%;
       }
+
       .w40 {
-        width: 40%;
+          width: 40%;
       }
+
       .w50 {
-        width: 50%;
+          width: 50%;
       }
+
       .w60 {
-        width: 60%;
+          width: 60%;
       }
+
       .w70 {
-        width: 70%;
+          width: 70%;
       }
+
       .w75 {
-        width: 75%;
+          width: 75%;
       }
+
       .w90 {
-        width: 90%;
+          width: 90%;
       }
+
       .w95 {
-        width: 95%;
+          width: 95%;
       }
+
       .w100 {
-        width: 100%;
+          width: 100%;
+      }
+
+      .text-center {
+          text-align: center;
+      }
+
+      .text-justify {
+          text-align: justify;
       }
 
       .msg-info {
-        text-align: center;
-        color: #ff0000;
-        font-size: 110%;
+          text-align: center;
+          color: #ff0000;
+          font-size: 110%;
       }
 
       .msg-info.large {
-        font-size: 130%;
+          font-size: 130%;
       }
 
+      .mt-2 {
+          margin-top: 8px;
+      }
+
+
       table td {
-        padding: 0;
+          padding: 0;
       }
+
       table.collapse td {
-        padding: 4px 0;
+          padding: 4px 0;
       }
+
       table td:first-child {
-        padding-right: 8px;
+          padding-right: 8px;
       }
+
       table.collapse td.w125 {
-        padding-left: 10px;
+          padding-left: 10px;
       }
+
       table.pt12 {
-        padding-top: 12px;
+          padding-top: 12px;
       }
+
       table.pb12 {
-        padding-bottom: 12px;
+          padding-bottom: 12px;
       }
 
       table.agreements {
-        font-size: 120%;
+          font-size: 120%;
       }
+
       table.agreements td {
-        padding: 8px 0;
+          padding: 8px 0;
       }
 
       .checkbox {
+          margin-bottom: 6px;
+          line-height: 120%;
       }
 
       .checkbox.large {
-        font-size: 140%;
-        line-height: 100%;
+          font-size: 140%;
+          line-height: 100%;
       }
 
       .checkbox::before {
-        margin-right: 8px;
-        display: inline-block;
-        content: "";
-        width: 16px;
-        height: 16px;
-        border: #000 1px solid;
-        vertical-align: middle;
+          margin-right: 8px;
+          display: inline-block;
+          content: "";
+          width: 12px;
+          height: 12px;
+          border: #000 1px solid;
+          position: relative;
+          top: -2px;
+          vertical-align: middle;
+      }
+
+      li.checkbox {
+          margin-left: 20px;
+          position: relative;
+          font-size: 0.875rem;
+      }
+
+      li.checkbox::before {
+          left: -32px;
+          top: 2px;
+          width: 8px;
+          height: 8px;
+          margin-right: 0px;
+          position: absolute;
       }
 
       .checkbox.large::before {
-        width: 20px;
-        height: 20px;
+          width: 20px;
+          height: 20px;
       }
 
       .checkbox.checked::before {
-        background: #000;
+          background: #000;
       }
 
       .signature {
-        padding-top: 96px;
-        text-align: right;
-        font-size: 100%;
+          padding-top: 96px;
+          text-align: right;
+          font-size: 100%;
       }
 
       .signature span {
-        color: #ff0000;
+          color: #ff0000;
       }
 
       .postcode {
       }
 
       .postcode * {
-        display: inline-block;
-        vertical-align: middle;
+          display: inline-block;
+          vertical-align: middle;
       }
 
-      .postcode span {
-        padding: 8px;
-        min-width: 12px;
-        min-height: 21px;
-        border: 1px solid;
-        font-size: 130%;
+      .container {
+          width: 94%;
+          margin: auto;
       }
 
-      .postcode strong {
-        padding-left: 24px;
-        font-size: 20px;
-        line-height: 1;
-      }
-      
-      #map {
-        width: 900px;
-        height: 400px; 
+      .section {
+          /* margin-bottom: 10px; */
       }
 
-      .leaflet-marker-icon { 
-        background-image: <%= "url(#{wicked_pdf_asset_path("geojson-map/images/marker-icon.png")})" %>;
-        background-repeat: no-repeat;
-        background-size: contain;
+      .container-title {
+          font-size: 25px;
+          font-weight: bold;
+          background-color: #d9d9d9;
+          text-align: center;
+          padding: 4px 12px 2px;
+          line-height: 1;
       }
 
-      .leaflet-marker-shadow { 
-        background-image: <%= "url(#{wicked_pdf_asset_path("geojson-map/images/marker-shadow.png")})" %>;
-        background-repeat: no-repeat;
-        background-size: contain;
+      .section-title {
+          font-size: 21px;
+          font-weight: bold;
+          background-color: #d9d9d9;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+          padding: 6px 12px 2px;
+          line-height: 1;
       }
-    </style>
 
-    <%= wicked_pdf_stylesheet_link_tag "leaflet" %> 
-    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/leaflet-src.1.8.0.modCS" %>
-    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/leaflet.draw.modCS" %> 
-  </head>
-  <body>
-    <!--
-      -------------------
-      STRONA 1
-      -------------------
-    -->
-    <div class="page">
-      <p class="version"> ID zgłoszenia: <%= study_note.id %>
-        <br>
-        <%= l study_note.created_at, format: "%d.%m.%Y" %>
-      </p>
-      <p class="center">
-        <!-- <img src="logo.svg" width="376" height="108" alt="Logo" /> -->
-        <img src="<%= wicked_pdf_asset_path('warsaw_logo.png') %>" width="137" height="80" alt="Logo" />
+      .content {
+          font-size: 17px;
+          line-height: 1.45;
+      }
 
-      </p>
-      <h1>
-        Potwierdzenie zgłoszenia uwagi do studium
-      </h1>
+      .checkbox-group > * {
+          display: block;
+      }
 
-      <!-- Nazwa projektu -->
-      <h2>Tytuł konsultacji</h2>
-      <div class="section">
-        <div class="fill">
-          <p><%= translated_attribute study_note.component.participatory_space.title %></p>
+      .checkbox-group.half > * {
+          display: inline-block;
+          width: 45%;
+      }
+
+      table {
+          width: 98%;
+          border-collapse: collapse;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          margin-left: 10px;
+          page-break-inside: avoid !important;
+      }
+
+      table,
+      th,
+      td {
+          border: 1px solid black;
+      }
+
+      th,
+      td {
+          padding: 8px 6px !important; 
+          text-align: left;
+          font-weight: normal;
+          font-size: 12.4px; 
+          verical-align: top;
+          min-width: 35px;
+      }
+
+      td { 
+          min-width: 50px;
+      }
+
+      th { 
+          font-weight: bold;
+          width: 30%;
+      }
+
+      .footnotes {
+          font-size: 12px;
+          margin-top: 20px;
+      }
+
+      hr {
+          border: 0px;
+          background-color: black;
+          margin: 80px 0;
+          height: 1px;
+          width: 30%;
+      }
+
+      .value-line {
+          page-break-inside: avoid !important;
+          display: block;
+          padding-bottom: 4px;
+      }
+
+      .key {
+          width: 39%;
+          display: inline-block;
+          vertical-align: top;
+      }
+
+      .value {
+          width: 60%;
+          display: inline-block;
+          text-align: justify;
+          text-indent: 0px;
+      }
+
+      .multiline {
+          break-word: break-all;
+          white-space: pre-line;
+          max-width: 94%;
+          margin: 12px 10px 24px;
+      }
+
+      td > .mutliline {
+          margin: 10px;
+      }
+
+      .underline {
+          top: 5px;
+          position: relative;
+      }
+
+      label {
+          display: inline-block;
+      }
+
+      .textarea {
+          width: 100%;
+          padding: 12px;
+          font-size: 14px;
+          line-height: 1.45;
+      }
+
+      .inner-paragraph {
+          margin: 12px 0 8px 12px;
+      }
+
+      ol {
+          counter-reset: list;
+          padding-left: 25px;
+      }
+
+      ol > li {
+          list-style: none;
+          position: relative;
+          margin-top: 6px;
+          text-align: justify;
+      }
+
+      ol > li:before {
+          counter-increment: list;
+          content: counter(list, decimal) ") ";
+          position: absolute;
+          font-size: 0.5rem;
+          left: -1.4em;
+      }
+  </style>
+  <%# TODO: do poprawy generowanie JS i CSS na finalnej wersji komponentu %>
+  <%#= wicked_pdf_javascript_include_tag "jsbarcode.code128.min" %>
+</head>
+<body>
+<div class="container">
+  <% if study_note.persisted? %>
+    <div class="header-container">
+      <% if study_note.signum_barcode.present? %>
+        <div>
+          <h3>Nr kancelaryjny: <%= study_note.signum_nr_kancelaryjny %></h3>
+          <br>
+          <svg id="barcode"></svg>
+          <br>
+          <br>
         </div>
-      </div>
+      <% end %>
 
-      <!-- Dane projektodawców -->
-      <div class="section">
-        <h2>Dane zgłoszenia</h2>
-        <table class="w100 collapse pt12 pb12">
-          <tbody>
-          <tr>
-            <td class="w30">
-              <p class="checkbox large <% if study_note.organization_name.blank? %>checked<% end %>">Osoba fizyczna</p>
-            </td>
-            <td class="w70">
-              <p class="checkbox large <% if study_note.organization_name.present? %>checked<% end %>">Jednostka organizacyjna</p>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-        <table class="w100 collapse">
-          <tbody>
-          <% if study_note.organization_name.present? %>
-            <!-- Pokazujemy tylko gdy ktos wybral jednostke organizycjna -->
-            <tr>
-              <td class="w25">
-                <p>Nazwa organizacji</p>
-              </td>
-              <td class="w75" colspan="3">
-                <p class="fill"><%= study_note.organization_name %></p>
-              </td>
-            </tr>
-          <% else %>
-            <!-- Pokazujemy tylko gdy ktos wybral osobe fizyczna -->
-            <tr>
-              <td class="w25">
-                <p>Imię i nazwisko</p>
-              </td>
-              <td class="w75" colspan="3">
-                <p class="fill"><%= study_note.full_name %></p>
-              </td>
-            </tr>
-          <% end %>
-          <tr>
-            <td class="w25">
-              <p><%= study_note.organization_name.present? ? "Adres siedziby" : "Adres zamieszkania" %></p>
-            </td>
-            <td class="w75" colspan="3">
-              <p class="fill"><%= study_note.address %></p>
-            </td>
-          </tr>
-          <tr>
-            <td class="w25">
-              <p>Adres e-mail</p>
-            </td>
-            <td class="w75" colspan="3">
-              <p class="fill"><%= study_note.email %></p>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="section">
-        <h3>Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga</h3>
-        <div class="fill mh100">
-          <p><%= study_note.location_specification %></p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Treść uwagi</h3>
-        <div class="fill mh200">
-          <p><%= decidim_sanitize study_note.body %></p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Kategoria</h3>
-        <div class="fill">
-          <p><%= study_note.category&.name %></p>
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>Załączniki:</h3>
-        <% unless study_note.files.any? %>
-          <div class="fill"></div>
-        <% end %>
-        <% study_note.files.each_with_index do |file, index| %>
-          <div class="fill"><%= index + 1 %>. <%= file.blob.filename %></div>
-        <% end %>
-      </div>
-
-      <div class="section">
-        <h3>Oznaczenia na mapie</h3>
-        
-        <input type="hidden" name="locations" value="<%= study_note.locations %>" />
-        <div id="map"></div>
+      <div class="document-details">
+        <p>ID zgłoszenia: <%= study_note.id %></p>
+        <p>Data wpływu: <%= l(study_note.created_at, format: :decidim_short_cut_zero) %></p>
       </div>
     </div>
-    
-    <%= wicked_pdf_javascript_include_tag "decidim/study_notes/admin/geojson-map.js.erb" %>
-  </body>
+  <% end %>
+</div>
+
+<div class="container-title">Pismo dotyczące aktu planowania przestrzennego</div>
+<div class="section avoid">
+  <div class="section-title">1. ORGAN, DO KTÓREGO JEST SKŁADANE PISMO</div>
+  <div class="content">
+    Nazwa:
+    <span class="value">Prezydent m.st. Warszawy</span>
+  </div>
+</div>
+<div class="section avoid">
+  <div class="section-title">2. RODZAJ PISMA<sup>1)</sup></div>
+  <div class="content checkbox-group half">
+    <label class="checkbox "> 2.1. wniosek do projektu aktu</label>
+    <label class="checkbox checked"> 2.2. uwaga do konsultowanego projektu aktu<sup>2)</sup></label>
+    <label class="checkbox "> 2.3. wniosek o zmianę aktu<sup>3)</sup></label>
+    <label class="checkbox"> 2.4. wniosek o sporządzenie aktu<sup>3)</sup></label>
+  </div>
+</div>
+<div class="section avoid">
+  <div class="section-title">3. RODZAJ AKTU PLANOWANIA PRZESTRZENNEGO<sup>1)</sup></div>
+  <div class="content checkbox-group">
+    <label class="checkbox checked"> 3.1. plan ogólny gminy</label>
+    <label class="checkbox"> 3.2. miejscowy plan zagospodarowania przestrzennego, w tym zintegrowany plan
+      inwestycyjny lub miejscowy plan rewitalizacji</label>
+    <label class="checkbox"> 3.3. uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury,
+      tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje
+      materiałów budowlanych, z jakich mogą być wykonane</label>
+    <label class="checkbox"> 3.4. audyt krajobrazowy</label>
+    <label class="checkbox"> 3.5. plan zagospodarowania przestrzennego województwa</label>
+  </div>
+</div>
+<div class="section avoid">
+  <div class="section-title">4. DANE SKŁADAJĄCEGO PISMO<sup>4)</sup></div>
+  <% full_name_or_name = study_note.submitter_data_role == 0 ? "#{study_note.submitter_data_first_name} #{study_note.submitter_data_last_name}" : study_note.submitter_data_org_name %>
+  <div class="content">
+    <div class="value-line">
+      <span class="key">Imię i nazwisko lub nazwa:</span>
+      <span class="value"><%= full_name_or_name %></span>
+    </div>
+    <div class="value-line">
+      <span class="key">Kraj: </span>
+      <span class="value">
+        <%= study_note.submitter_data_country %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Województwo: </span>
+      <span class="value">
+        <%= study_note.submitter_data_voivodeship %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Powiat: </span>
+      <span class="value">
+        <%= study_note.submitter_data_county %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Gmina: </span>
+      <span class="value">
+        <%= study_note.submitter_data_community %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Ulica: </span>
+      <span class="value">
+        <%= study_note.submitter_data_street %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Nr domu: </span>
+      <span class="value">
+        <%= study_note.submitter_data_street_number %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Nr lokalu: </span>
+      <span class="value">
+        <%= study_note.submitter_data_flat_number %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Miejscowość: </span>
+      <span class="value">
+        <%= study_note.submitter_data_city %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Kod pocztowy: </span>
+      <span class="value">
+        <%= study_note.submitter_data_zip_code %>
+      </span>
+    </div>
+    <div class="value-line">
+      E-mail (w przypadku gdy składający pismo posiada adres e-mail):
+      <span class="value">
+        <%= study_note.submitter_data_email %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Nr tel. (nieobowiązkowo):</span>
+      <span class="value">
+        <%= study_note.submitter_data_phone_number %>
+      </span>
+    </div>
+    <div class="value-line">
+      Adres skrytki ePUAP lub adres do doręczeń elektronicznych<sup>5)</sup>:
+      <span class="value">
+        <%= study_note.submitter_data_epuap_delivery_address %>
+      </span>
+    </div>
+    4.1. Czy składający pismo jest właścicielem lub użytkownikiem wieczystym nieruchomości objętej wnioskiem lub
+    uwagą?<br>
+    <label class="checkbox w10 <%= " checked" if study_note.perpetual_owner_of_the_property %>"> tak</label>
+    <label class="checkbox w10 <%= " checked" if !study_note.perpetual_owner_of_the_property %>"> nie</label>
+  </div>
+</div>
+<div class="section avoid">
+  <div class="section-title">5. ADRES DO KORESPONDENCJI SKŁADAJĄCEGO PISMO<sup>4)</sup></div>
+  <div class="content">
+    (Nieobowiązkowo)
+    <div class="value-line">
+      <span class="key">Kraj:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_country %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Województwo:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_voivodeship %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Powiat:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_county %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Gmina:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_community %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Ulica: </span>
+      <span class="value">
+        <%= study_note.mailing_address_data_street %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Nr domu: </span>
+      <span class="value">
+        <%= study_note.mailing_address_data_street_number %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Nr lokalu: </span>
+      <span class="value">
+        <%= study_note.mailing_address_data_flat_number %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Miejscowość:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_city %>
+      </span>
+    </div>
+    <div class="value-line">
+      <span class="key">Kod pocztowy:</span>
+      <span class="value">
+        <%= study_note.mailing_address_data_zip_code %>
+      </span>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">6. DANE PEŁNOMOCNIKA<sup>4)</sup></div>
+    <div class="content">
+      (Nieobowiązkowo) <br>
+      <label class="checkbox w30 <%= " checked" if study_note.attorney_data_role == 0 %>">
+        pełnomocnik</label>
+      <label class="checkbox w30 <%= " checked" if study_note.attorney_data_role == 1 %>"> pełnomocnik do
+        doręczeń</label> <br>
+      <div class="value-line">
+        <span class="key">Imię i nazwisko lub nazwa: </span>
+        <span class="value">
+          <%= "#{study_note.attorney_data_first_name} #{study_note.attorney_data_last_name}" %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Kraj: </span>
+        <span class="value">
+          <%= study_note.attorney_data_country %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Województwo:</span>
+        <span class="value">
+          <%= study_note.attorney_data_voivodeship %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Powiat:</span>
+        <span class="value">
+          <%= study_note.attorney_data_county %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Gmina:</span>
+        <span class="value">
+          <%= study_note.attorney_data_community %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Ulica: </span>
+        <span class="value">
+          <%= study_note.attorney_data_street %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Nr domu: </span>
+        <span class="value">
+          <%= study_note.attorney_data_street_number %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Nr lokalu:</span>
+        <span class="value">
+          <%= study_note.attorney_data_flat_number %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Miejscowość:</span>
+        <span class="value">
+          <%= study_note.attorney_data_city %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Kod pocztowy:</span>
+        <span class="value">
+          <%= study_note.attorney_data_zip_code %>
+        </span>
+      </div>
+      <div class="value-line">
+        E-mail (w przypadku gdy składający pismo posiada adres e-mail):
+        <span class="value">
+          <%= study_note.attorney_data_email %>
+        </span>
+      </div>
+      <div class="value-line">
+        <span class="key">Nr tel. (nieobowiązkowo):</span>
+        <span class="value">
+          <%= study_note.attorney_data_phone_number %>
+        </span>
+      </div>
+      <div class="value-line">
+        Adres skrytki ePUAP lub adres do doręczeń elektronicznych<sup>5)</sup>:
+        <span class="value">
+          <%= study_note.attorney_data_epuap_delivery_address %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-title">7. TREŚĆ PISMA</div>
+    <div class="content">
+      7a. Szczegółowe uwagi
+      <ul>
+        <% if study_note.detailed_notes.present? && study_note.detailed_notes.length > 0 %>
+          <% JSON.parse(study_note.detailed_notes).each_with_index do |detailed_note, index| %>
+            <li>
+              <strong>TEREN <%= index + 1 %></strong>
+              
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Lokalizacja</th>
+                    <td><%= detailed_note["parcel_ids"] %></td>
+                  </tr>
+                  <tr>
+                    <th>Czy uwaga dotyczy całej działki lub działek ewidencyjnych?</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["is_record_area_included"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["is_record_area_included"] != "true" %>"> nie</label>
+                    </td>
+                  </tr>
+                  <% if detailed_note["parcel_site_boundary"].present? %>
+                    <tr>
+                      <th>Określenie granic terenu</th>
+                      <td>Załączono</td>
+                    </tr>
+                  <% end %>
+                  <tr>
+                    <th>Chcę złożyć uwagę dotyczącą strefy planistycznej i jej profilu funkcjonalnego</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["functional_profile"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["functional_profile"] != "true" %>"> nie</label>
+                      <% if detailed_note["functional_profile"] == "true" %>
+                      <br>Strefa: <%= detailed_note["functional_profile_area_id"] %>
+                      <br>Klasa: <%= detailed_note["functional_profile_area_class"] %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Chcę złożyć uwagę dotyczącą wskaźników zabudowy i zagospodarowania terenu</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["area_parameters"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["area_parameters"] != "true" %>"> nie</label>
+                      <% if detailed_note["area_parameters"] == "true" %>
+                        <% if detailed_note["max_height_intensity"] %>
+                          <br>Maksymalna intensywność zabudowy: <%= detailed_note["max_height_intensity"] %>
+                        <% end %>
+                        <% if detailed_note["max_height_building"] %>
+                          <br>Maksymalna wysokość zabudowy: <%= detailed_note["max_height_building"] %>
+                        <% end %>
+                        <% if detailed_note["max_percent_area"] %>
+                          <br>Maksymalny procent zabudowy: <%= detailed_note["max_percent_area"] %>
+                        <% end %>
+                        <% if detailed_note["min_percent_bio"] %>
+                          <br>Minimalny procent powierzchni biologicznie czynnej: <%= detailed_note["min_percent_bio"] %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Chcę złożyć uwagę dotyczącą obszaru uzupełnienia zabudowy</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["infill_development"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["infill_development"] != "true" %>"> nie</label>
+                      <% if detailed_note["infill_development"] == "true" %>
+                        <br><%= detailed_note["infill_development_include"] == "true" ? "Proszę objąć teren obszarem uzupełnienia zabudowy" : "Proszę wyłączyć teren z obszaru uzupełnienia zabudowy" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Chcę złożyć uwagę dotyczącą obszaru zabudowy śródmiejskiej</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["inner_city_development"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["inner_city_development"] != "true" %>"> nie</label>
+                      <% if detailed_note["inner_city_development"] == "true" %>
+                        <br><%= detailed_note["inner_city_development_include"] == "true" ? "Proszę objąć teren obszarem zabudowy śródmiejskiej" : "Proszę wyłączyć teren z obszaru zabudowy śródmiejskiej" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Chcę złożyć uwagę dotyczącą standardów dostępności infrastruktury społecznej</th>
+                    <td>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["detailed_notes_social_infrastructure_accessibility"] == "true" %>"> tak</label>
+                      <label class="checkbox w10 <%= " checked" if detailed_note["detailed_notes_social_infrastructure_accessibility"] != "true" %>"> nie</label>
+                      <% if detailed_note["detailed_notes_social_infrastructure_accessibility"] == "true" && detailed_note["social_infrastructure_accessibility_body"].present? %>
+                        <br><%= detailed_note["social_infrastructure_accessibility_body"] %>
+                      <% end %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+
+      7b. Uwagi ogólne/inne
+      <div class="multiline"><%= study_note.request_body %></div> 
+    </div>
+  </div>
+  <div class="section avoid">
+    <div class="section-title">8. OŚWIADCZENIE W SPRAWIE KORESPONDENCJI ELEKTRONICZNEJ</div>
+    <div class="content">
+      <div class="text-center">
+        <label class="checkbox w25 <%= " checked" if study_note.declaration_remote_correspondence %>">
+          Wyrażam zgodę</label>
+        <label class="checkbox w25 <%= " checked" if !study_note.declaration_remote_correspondence %>">
+          Nie wyrażam zgody</label>
+      </div>
+      <p class="text-justify">na doręczanie korespondencji w niniejszej sprawie za pomocą środków komunikacji
+        elektronicznej w&nbsp;rozumieniu art. 2 pkt 5 ustawy z dnia 18 lipca 2002 r. o świadczeniu usług drogą
+        elektroniczną (Dz. U. z&nbsp;2020&nbsp;r.&nbsp;poz.&nbsp;344).
+      </p>
+    </div>
+  </div>
+  <div class="section avoid">
+    <div class="section-title">9. ZAŁĄCZNIKI</div>
+    <ul class="content checkbox-group">
+      <li class="checkbox small
+              <%= " checked" if file_present?(study_note.attorney_power_represent_applicant_or_for_service) %>">
+        Pełnomocnictwo do reprezentowania składającego pismo lub pełnomocnictwo do doręczeń
+        (zgodnie z ustawą z dnia 16 listopada 2006 r. o opłacie skarbowej (Dz. U. z 2023 r. poz. 2111)) –
+        jeżeli składający pismo działa przez pełnomocnika.
+      </li>
+      <li class="checkbox small
+              <%= " checked" if file_present?(study_note.attorney_power_payment_stamp_duty_confirm) %>">
+        Potwierdzenie uiszczenia opłaty skarbowej od pełnomocnictwa –
+        jeżeli obowiązek uiszczenia takiej opłaty wynika z ustawy z dnia 16 listopada 2006 r. o opłacie skarbowej.
+      </li>
+      <li class="checkbox small
+              <%= " checked" if file_present?(study_note.parcel_site_boundary) %>">
+        (Nieobowiązkowo). Określenie granic terenu w formie graficznej w przypadku wskazania terenu objętego pismem
+        jako części działki ewidencyjnej lub działek ewidencyjnych.
+      </li>
+      <li class="checkbox small <%= " checked" if study_note.files&.any? %>">
+        (Nieobowiązkowo). Inne załączniki – w przypadku zaznaczenia pola należy podać nazwy
+        załączników.<sup>9)</sup><br>
+        <span class="underline"><span class="value">
+          <%= [
+                study_note.files_filename_one,
+                study_note.files_filename_two
+              ].join(", ") if study_note.files.any? %></span>……………………………………………………………………………………………………………….</span>
+      </li>
+    </ul>
+  </div>
+  <div class="section avoid">
+    <div class="section-title">10. PODPIS SKŁADAJĄCEGO PISMO (PEŁNOMOCNIKA) I DATA PODPISU</div>
+    <div class="content">
+      <small>Podpis powinien być czytelny. Podpis i datę podpisu umieszcza się w przypadku składania pisma
+        w postaci papierowej.</small>
+      <br>
+      <br>
+      <br>
+      Podpis: <span
+      class="underline">…………………………………………………………………</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Data:
+      <span class="underline">……………………………</span>
+    </div>
+  </div>
+  <hr>
+  <ol class="footnotes">
+    <li>Można zaznaczyć więcej niż jedno pole. W ramach jednego pisma można wybrać tylko te akty, w przypadku
+      których pismo będzie wysyłane do tego samego organu wskazanego w pkt 1. W przypadku gdy treść wniosku lub
+      uwagi związana jest z dokumentem powiązanym z aktem planowania przestrzennego (np. sporządzanej w toku
+      procedowania aktu, w ramach strategicznej oceny oddziaływania na środowisko, prognozy oddziaływania na
+      środowisko), należy w pkt 3 wybrać rodzaj aktu planowania przestrzennego, którego ten dokument dotyczy, po
+      czym wprowadzić treść wniosku lub uwagi w pkt 7.1 lub 7.2.
+    </li>
+    <li>Nie dotyczy planu zagospodarowania przestrzennego województwa.</li>
+    <li>Nie dotyczy planu zagospodarowania przestrzennego województwa i audytu krajobrazowego.</li>
+    <li>W pkt 4 należy podać adres zamieszkania albo siedziby składającego pismo. W przypadku wypełnienia pkt 5
+      podaje się adres do korespondencji składającego pismo, jeżeli jest inny niż adres podany w pkt 4. W przypadku
+      wypełnienia pkt 6 podaje się adres zamieszkania albo siedziby pełnomocnika. W przypadku większej liczby
+      składających pismo lub pełnomocników dane kolejnych składających pismo lub pełnomocników dodaje się w
+      formularzu albo zamieszcza na osobnych stronach i dołącza do formularza.
+    </li>
+    <li>Adres skrytki ePUAP lub adres do doręczeń elektronicznych wskazuje się w przypadku wyrażenia zgody na
+      doręczanie korespondencji za pomocą środków komunikacji elektronicznej, z zastrzeżeniem przypadków, w których
+      organ, zgodnie z przepisami ustawy z dnia 18 listopada 2020 r. o doręczeniach elektronicznych (Dz. U. z 2023
+      r. poz. 285, z późn. zm.), ma obowiązek doręczenia korespondencji na adres do doręczeń elektronicznych.
+    </li>
+    <li>Maksymalna liczba znaków w pkt 7.1 wynosi 1000, natomiast w przypadku pkt 7.2.4 wartość ta odnosi się do
+      pojedynczego wiersza. W przypadku potrzeby dodatkowego uzasadnienia, które wykracza poza wskazany limit
+      znaków, uzasadnienie zamieszcza się na osobnych stronach i dołącza do formularza. W przypadku większej liczby
+      wierszy w pkt 7.2.4 kolejne wiersze dodaje się w formularzu albo zamieszcza na osobnych stronach i dołącza do
+      formularza.
+    </li>
+    <li>W przypadku zaznaczenia pola „nie” (wskazania terenu objętego pismem jako części działki ewidencyjnej lub
+      działek ewidencyjnych) można dodać załącznik z określeniem granic terenu w formie graficznej.
+    </li>
+    <li>Podaje się nazwę lub symbol klasy przeznaczenia terenu zgodnie ze standardami określonymi w przepisach
+      wykonawczych wydanych na podstawie art. 16 ust. 2 ustawy z dnia 27 marca 2003 r. o planowaniu i
+      zagospodarowaniu przestrzennym (Dz. U. z 2023 r. poz. 977, z późn. zm.).
+    </li>
+    <li>W przypadku dołączenia do pisma załączników zawierających dane osobowe, inne niż wymienione w pkt 4, 5 i 6,
+      załączniki te należy zanonimizować, tj. ukryć dane osobowe.
+    </li>
+  </ol>
+</div>
+
+<% if study_note.persisted? && study_note.signum_barcode.present? %>
+  <script type="text/javascript">
+      JsBarcode("#barcode", "<%= study_note.signum_barcode %>", {
+          width: 1.9,
+          height: 50,
+          margin: 0,
+          fontSize: 16
+      });
+  </script>
+<% end %>
+</div>
+</body>
 </html>

@@ -138,7 +138,7 @@ module Decidim
 
           expect { banned_word.to decrement { Decidim::AdminExtended::BannedWord.count } }
           expect(flash[:notice]).to eq(I18n.t("banned_words.destroy.success", scope: "decidim.admin_extended"))
-          expect(response).to redirect_to(banned_word_path)
+          expect(response).to redirect_to(banned_words_path)
         end
       end
     end

@@ -5,8 +5,10 @@ module Decidim
     module Admin
       # This command is executed when the user changes a Page from the admin
       # panel.
-      class CreatePage < Rectify::Command
+      class CreatePage < Decidim::Command
         include Decidim::PagesExtended::ApplicationHelper
+        include Decidim::Repository::Admin::GalleriesHelper
+
         # Initializes a UpdatePage Command.
         #
         # form - The form from which to get the data.
@@ -23,6 +25,8 @@ module Decidim
           return broadcast(:invalid) if @form.invalid?
 
           create_page
+          add_gallery(@post)
+
           broadcast(:ok)
         end
 
@@ -32,6 +36,7 @@ module Decidim
           attributes = {
             title: @form.title,
             body: @form.body,
+            weight: @form.weight,
             gallery_id: @form.gallery_id,
             component: @form.current_component
           }

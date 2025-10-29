@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating statistic.
-    class UpdateStatistic < Rectify::Command
+    class UpdateStatistic < Decidim::Command
       # Public: Initializes the command.
       #
       # statistic - The Statistic to update
@@ -42,7 +42,8 @@ module Decidim
         {
           name: form.name,
           weight: form.weight,
-          visibility: form.visibility
+          visibility: form.visibility,
+          additional_statistic_number: form.additional_statistic_number
         }
       end
     end

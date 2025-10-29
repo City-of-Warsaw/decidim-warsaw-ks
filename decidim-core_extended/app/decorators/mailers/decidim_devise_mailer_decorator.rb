@@ -4,7 +4,6 @@ Decidim::DecidimDeviseMailer.class_eval do
 
   include Devise::Controllers::UrlHelpers
 
-  # TODO: Mail powitalny po założeniu konta ?
   # activation_success
 
   def confirmation_instructions(record, token, opts = {})

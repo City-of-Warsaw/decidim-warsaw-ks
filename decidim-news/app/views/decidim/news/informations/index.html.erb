@@ -1,22 +1,22 @@
-<% provide(:title, t("decidim.informations.index.title")) %>
+<% provide(:title, hero_section_public.title) %>
 
-<% add_decidim_meta_tags({
-  title: t("decidim.informations.index.title"),
-  description: t("decidim.informations.index.description"),
-  url: decidim_news.informations_url
-}) %>
+<% add_decidim_meta_tags(
+     {
+       title: hero_section_public.title,
+       description: hero_section_public.description.presence || "Strona z informacjami dotyczącymi Konsultacji społecznych w Warszawie",
+       url: decidim_news.informations_url
+     }) %>
 
-<%
-  edit_link(
-    decidim_news.informations_path,
-    :update,
-    :organization,
-    organization: current_organization
-  )
-%>
+<% edit_link(
+     decidim_news.informations_path,
+     :index,
+     :information
+   ) %>
 
-<div class="row column">
-  <div id="news" class="columns medium-12 mediumlarge-12 card-grid">
+<main class="layout-1col cols-10 py-10">
+  <div id="news" class="card-grid <%= "first-page" if params[:page].blank? || params[:page] == "1" %>">
     <%= render partial: "informations" %>
   </div>
-</div>
+
+  <%= decidim_paginate @collection %>
+</main>

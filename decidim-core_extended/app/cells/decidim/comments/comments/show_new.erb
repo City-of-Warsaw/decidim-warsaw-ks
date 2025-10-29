@@ -1,0 +1,53 @@
+<%= content_tag :div, id: node_id, data: { decidim_comments: comments_data } do %>
+  <div id="comments">
+    <div class="comments">
+      <div class="comments__header">
+        <h2 class="h4">
+          <% if single_comment? %>
+            <%= t("decidim.components.comments.comment_details_title") %>
+          <% elsif component_is_remarks_or_exp_questions? %>
+          <% else %>
+            <%= icon "chat-1-line", class: "fill-tertiary w-6 h-6 inline-block align-middle" %>
+            <span class="comments-count inline-block align-middle">
+              <%= t("decidim.components.comments.title", count: comments_count) %>
+            </span>
+          <% end %>
+        </h2>
+        <% unless component_is_remarks_or_exp_questions? %>
+          <%= render :order_control %>
+        <% end %>
+      </div>
+      <%= single_comment_warning %>
+      <%= blocked_comments_warning %>
+
+      <% if component_is_remarks_or_exp_questions? %>
+        <% if model.user_allowed_to_comment?(current_user) %>
+          <div class="comment__actions">
+            <button class="button button__sm button__text-secondary" data-controls="panel-<%= "comment#{model.id}-reply" %>" id="panel-<%= "comment#{model.id}-reply" %>-trigger" id="panel-comment<%= model.id %>-reply-trigger">
+              <%= icon "chat-1-line" %>
+              <span class="font-normal"><%= t("decidim.components.comment.reply") %></span>
+              <%= icon "close-circle-line" %>
+              <span class="font-normal"><%= t("decidim.components.comment.cancel_reply") %></span>
+            </button>
+          </div>
+          <div id="panel-comment<%= model.id %>-reply">
+            <%= add_comment %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <div class="comment-threads" id="<%= threads_node_id %>" aria-live="polite">
+        <%= comments_loading %>
+        <% comments.each do |comment| %>
+          <%= cell("decidim/comments/comment_thread", comment, order:) %>
+        <% end %>
+      </div>
+
+      <% unless component_is_remarks_or_exp_questions? %>
+        <%= add_comment %>
+        <%= user_comments_blocked_warning %>
+      <% end %>
+    </div>
+    <%= cell("decidim/announcement", t("decidim.components.comments.loading"), callout_class: "primary loading-comments hidden") %>
+  </div>
+<% end %>

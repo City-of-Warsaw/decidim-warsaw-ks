@@ -1,0 +1,45 @@
+
+<div class="table-scroll">
+  <table class="table-list">
+    <thead>
+    <th>ID zgłoszenia</th>
+    <th>Typ</th>
+    <th>Zgłaszający</th>
+    <th>Data zgłoszenia</th>
+    <th>Nr kancelaryjny</th>
+    <th class="actions"><%= t("actions.title", scope: "decidim.consultation_map.admin") %></th>
+    </thead>
+    <tbody>
+    <% @gpr.each do |general_plan_request| %>
+      <tr data-id="<%= general_plan_request.id %>">
+        <td>
+          <%= link_to general_plan_request.id, general_plan_request %>
+        </td>
+
+        <% if general_plan_request.submitter_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::INDIVIDUAL %>
+          <td>
+            <%= t(".submitter_role_person") %>
+          </td>
+        <% else %>
+          <td>
+            <%= t(".submitter_role_organization") %>
+          </td>
+        <% end %>
+
+        <td>
+          <%= general_plan_request.submitter_name %>
+        </td>
+        <td>
+          <%= l general_plan_request.created_at, format: "%d/%m/%Y - %H:%M" %>
+        </td>
+        <td><%= general_plan_request.signum_nr_kancelaryjny.presence || '-' %></td>
+        <td class="table-list__actions">
+          <%= icon_link_to "eye-line", general_plan_request, t("actions.preview", scope: "decidim.study_notes.admin"), class: "action-icon--preview" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= paginate @gpr, theme: "decidim" %>
+</div>
+

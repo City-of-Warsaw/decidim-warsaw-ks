@@ -1,40 +1,50 @@
-<%= filter_form_for filter do |form| %>
+<%= filter_form_for filter, remarks_path, id: "remarks_filters_form", class: "flex flex-grow max-md:contents", remote: true do |form| %>
   <a class="skip" href="#remarks"></a>
-  <div class="filters__section">
-    <div class="filters__search">
-      <div class="input-group">
-        <%= form.search_field :search_text, label: false, class: "input-group-field", placeholder: t(".search"), title: t(".search"), data: { disable_dynamic_change: true } %>
-        <div class="input-group-button">
-          <button type="submit" class="button" aria-controls="user_questions">
-            <%= icon "magnifying-glass", aria_label: t(".search"), role: "img" %>
-          </button>
-        </div>
+
+  <div class="flex flex-grow gap-4 max-md:contents"> 
+    <% if @categories.any? %>
+      <div class="flex-grow-[2] max-w-[300px] max-md:max-w-full max-md:w-full">
+        <label for="search" class="show-for-sr"><%= t('.select_category') %></label>
+        <%= form.select :with_any_category,
+            @categories.map{ |cat| ["<span style='background-color: #{cat.color};'>#{raw(cat.inline_svg(cat.file))}</span>#{translated_attribute(cat.name)}", cat.id]},
+            { label: false, include_blank: false },
+            { multiple: true, class: "remarks-categories-select-js", "data-class": "map-remarks__category-select", "data-placeholder": t('.select_category') } %>
       </div>
-    </div>
-    <div class="auto-search-wrapper map">
+    <% end %> 
+
+    <div class="auto-search-wrapper flex-grow-[3] max-w-[500px]">
       <label for="search" class="show-for-sr"><%= t('.search_map_for_address') %></label>
       <input type="text"
              autocomplete="off"
              id="search"
-             class="input-group-field"
+             class="input--remarks"
              aria-label="<%= t('.search_map_for_address') %>"
              placeholder="<%= t('.search_map_for_address') %>">
+             
+      <%= show_svg("map-search-icon.svg") %>
     </div>
-
-    <% if current_participatory_space.categories.any? %>
-      <div class="auto-search-wrapper pull-right">
-        <label for="search" class="show-for-sr"><%= t('.select_category') %></label>
-          <%= form.select :decidim_category_id,
-                          current_participatory_space.categories.map{ |cat| [translated_attribute(cat.name), cat.id]},
-                          { label: false, include_blank: t(".select_category") },
-                          { multiple: false } %>
-      </div>
-    <% end %>
-
-    <div class="clearfix"></div>
-    <div class="share-map">
-      <%= render "decidim/shared/share_modal" %>
-    </div>
-    <div class="clearfix"></div>
   </div>
+<% end %>
+
+<% content_for(:js_content) do %>
+  <%= nonced_javascript_tag do %>
+    $(".remarks-categories-select-js").multiselect({
+      columns: 1,
+      search: false,
+      selectAll: false,
+      submitForm: false,
+      placeholder: "Wybierz",
+      showCheckbox: true,
+      texts: {
+        search: "Szukaj",
+        selectedOptions: " wybrano",
+        selectAll: "Zaznacz wszystkie",
+        unselectAll: "Odznacz wszystkie",
+        noneSelected: "Nie zaznaczono",
+      }, 
+      onOptionClick: function () {
+        Rails.fire($("#remarks_filters_form")[0], "submit");
+      }
+    }); 
+  <% end %>
 <% end %>

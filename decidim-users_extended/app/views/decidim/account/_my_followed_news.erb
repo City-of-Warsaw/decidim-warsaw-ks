@@ -1,0 +1,9 @@
+<div class="my_followed_news">
+  <div class="title"><a href="<%= resource_url(page) %>"><%= translated_attribute page.title %></a></div>
+  <div class="description"><%= decidim_sanitize(translated_attribute(page.body), strip_tags: true).truncate(100) %></div>
+  <div class="ending-date">
+    <% if page.added_on %>
+      <%= l(page.added_on, format: :decidim_short_cut_zero) %>
+    <% end %>
+  </div>
+</div>

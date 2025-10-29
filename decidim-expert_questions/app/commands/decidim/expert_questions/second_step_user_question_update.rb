@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Decidim
   module ExpertQuestions
     # This Command is used EXCLUSIVELY by Unregistered users, to save statistics data fot the second step of adding new User Question
@@ -7,14 +8,13 @@ module Decidim
     #
     # Attributes that are saved through this command:
     # - signature
-    # - email
     # - district_id
     # - age
     # - gender
     #
     # In this case Boolean field 'edited' has default value of false, as this Command is used only in one specific moment:
     # right after creation to gather statistical data
-    class SecondStepUserQuestionUpdate < Rectify::Command
+    class SecondStepUserQuestionUpdate < Decidim::Command
       # Initializes an Update User Question Command
       #
       # form - The form from which to get the data
@@ -26,11 +26,13 @@ module Decidim
         @component = form.component
         @author = unregistered_author
       end
+
       # Updates the user question if valid
       #
       # Broadcasts :ok if successful, :invalid otherwise
       def call
         return broadcast(:invalid) if @form.invalid?
+
         update_user_question_stats
         broadcast(:ok, @user_question)
       end
@@ -42,8 +44,7 @@ module Decidim
       end
 
       def user_question_attributes
-        { 
-          email: @form.email,
+        {
           district_id: @form.district_id,
           age: @form.age,
           gender: @form.gender
@@ -51,7 +52,7 @@ module Decidim
       end
 
       def unregistered_author
-        Decidim::CommentsExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        Decidim::CoreExtended::UnregisteredAuthor.where(organization: @current_organization).first
       end
     end
   end

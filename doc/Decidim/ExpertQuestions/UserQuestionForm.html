@@ -109,7 +109,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This class holds a Form to create/update translatable meetings from Decidim&#39;s admin panel.</p>
+<p>This class holds a Form to create single user question for process component.</p>
 
 
   </div>
@@ -267,28 +267,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#scope_exists-instance_method" title="#scope_exists (instance method)">#<strong>scope_exists</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#user_belongs_to_organizations-instance_method" title="#user_belongs_to_organizations (instance method)">#<strong>user_belongs_to_organizations</strong>  &#x21d2; Object </a>
     
 
@@ -321,7 +299,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../UserProfilableCollections.html" title="Decidim::UserProfilableCollections (module)">UserProfilableCollections</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../UserProfilableCollections.html#user_age_for_select-instance_method" title="Decidim::UserProfilableCollections#user_age_for_select (method)">#user_age_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_districts_for_select-instance_method" title="Decidim::UserProfilableCollections#user_districts_for_select (method)">#user_districts_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_gender_for_select-instance_method" title="Decidim::UserProfilableCollections#user_gender_for_select (method)">#user_gender_for_select</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../UserProfilableCollections.html#gender_options_for_profile-instance_method" title="Decidim::UserProfilableCollections#gender_options_for_profile (method)">#gender_options_for_profile</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#gender_options_for_public_post-instance_method" title="Decidim::UserProfilableCollections#gender_options_for_public_post (method)">#gender_options_for_public_post</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_age_for_select-instance_method" title="Decidim::UserProfilableCollections#user_age_for_select (method)">#user_age_for_select</a></span>, <span class='object_link'><a href="../UserProfilableCollections.html#user_districts_for_select-instance_method" title="Decidim::UserProfilableCollections#user_districts_for_select (method)">#user_districts_for_select</a></span></p>
 
   
   
@@ -345,12 +323,12 @@
       <pre class="lines">
 
 
-67
-68
-69</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 67</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert'>expert</span>
   <span class='ivar'>@expert</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Expert.html" title="Decidim::ExpertQuestions::Expert (class)">Expert</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_expert_id'>expert_id</span><span class='rparen'>)</span>
@@ -375,19 +353,19 @@
       <pre class="lines">
 
 
-42
 43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_exists'>expert_exists</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert_id'>expert_id</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert'>expert</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert'>expert</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -409,19 +387,19 @@
       <pre class="lines">
 
 
-54
-55
-56
-57
-58</pre>
+49
+50
+51
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_expert_is_public'>expert_is_public</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert'>expert</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_published?'>published?</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_expert'>expert</span><span class='period'>.</span><span class='id identifier rubyid_published?'>published?</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -443,15 +421,15 @@
       <pre class="lines">
 
 
-81
-82
-83</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_max_characters'>max_characters</span>
-  <span class='int'>4000</span>
+  <span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_comments_max_length'>comments_max_length</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_presence'>presence</span> <span class='op'>||</span> <span class='int'>15_000</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -473,12 +451,12 @@
       <pre class="lines">
 
 
-77
-78
-79</pre>
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_organization'>organization</span>
   <span class='id identifier rubyid_expert'>expert</span><span class='op'>&amp;.</span><span class='id identifier rubyid_organization'>organization</span>
@@ -503,53 +481,19 @@
       <pre class="lines">
 
 
-71
-72
-73
-74
-75</pre>
+66
+67
+68
+69
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_scope'>scope</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_organization'>organization</span>
 
   <span class='ivar'>@scope</span> <span class='op'>||=</span> <span class='id identifier rubyid_organization'>organization</span><span class='period'>.</span><span class='id identifier rubyid_scopes'>scopes</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_district_id'>district_id</span><span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="scope_exists-instance_method">
-  
-    #<strong>scope_exists</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-48
-49
-50
-51
-52</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 48</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_scope_exists'>scope_exists</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_district_id'>district_id</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:district_id</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jest niepoprawna</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_scope'>scope</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -571,21 +515,21 @@
       <pre class="lines">
 
 
-60
-61
-62
-63
-64
-65</pre>
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/forms/decidim/expert_questions/user_question_form.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_belongs_to_organizations'>user_belongs_to_organizations</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_organization'>organization</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_user'>current_user</span>
 
-  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span> <span class='op'>==</span> <span class='id identifier rubyid_organization'>organization</span>
+  <span class='id identifier rubyid_errors'>errors</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Coś poszło nie tak, spróbuj ponownie</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='period'>.</span><span class='id identifier rubyid_organization'>organization</span> <span class='op'>==</span> <span class='id identifier rubyid_organization'>organization</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -597,9 +541,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

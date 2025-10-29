@@ -1,0 +1,15 @@
+<ul class="flex flex-col gap-6 md:flex-row md:gap-10 text-sm text-white [&_a]:underline">
+  <li><a target="_blank" rel="nofollow" href="https://um.warszawa.pl">m st. Warszawa<!--  <span class="show-for-sr"> otwiera się w nowej karcie</span>--></a></li>
+  <li><a target="_blank" rel="nofollow" href="https://bip.um.warszawa.pl">BIP<!-- <span class="show-for-sr"> otwiera się w nowej karcie</span>--></a></li>
+  <li><a target="_blank" rel="nofollow" href="https://warszawa19115.pl">Warszawa 19115<!-- <span class="show-for-sr"> otwiera się w nowej karcie</span>--></a></li>
+  <!--  # TODO: upgrade v029! POPRAWIENIE WCAG DLA TYCH LINKOW-->
+  <li>
+    <%= link_to t("layouts.decidim.footer.terms_of_service"), decidim.page_path("terms-of-service") %>
+  </li>
+  <li>
+    <a href="#" role="button" data-dialog-open="dc-modal"><%= t("layouts.decidim.footer.data_consent_settings") %></a>
+  </li>
+  <li>
+    <%= link_to t("layouts.decidim.footer.privacy_policy"), decidim.page_path("polityka-prywatnosci") %>
+  </li>
+</ul>

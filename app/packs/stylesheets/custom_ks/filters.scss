@@ -1,0 +1,55 @@
+#panel-dropdown-menu-address {
+  position: relative;
+}
+
+.auto-results-wrapper {
+  background-color: #fff;
+  border: 1px solid #858585;
+  border-top: none;
+  box-sizing: border-box;
+  display: none;
+  overflow: hidden;
+}
+
+.auto-results-wrapper ul>.loupe {
+  padding-left: 40px;
+  margin-bottom: 1rem;
+}
+
+.auto-results-wrapper.auto-is-active {
+  display: block;
+  margin-top: -1px;
+  position: absolute;
+  width: 100%;
+  z-index: 99999;
+  top: 42px;
+  left: 0;
+}
+
+.loupe.auto-selected {
+  margin-bottom: 1rem;
+}
+
+.filter_address {
+  position: relative;
+  margin: 0 0 1rem;
+  background-color: #fff;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem !important;
+  color: #1a181d;
+  transition: box-shadow 0.5s, border-color 0.25s ease-in-out;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  border-radius: .25rem;
+  border-width: 1px;
+  border-color: #6b7280cc;
+  --tw-bg-opacity: 1;
+  background-color: #fafbfc;
+  font-weight: 400;
+  --tw-text-opacity: 1;
+  color: #020203;
+}

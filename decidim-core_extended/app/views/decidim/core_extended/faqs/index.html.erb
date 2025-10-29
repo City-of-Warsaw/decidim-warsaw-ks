@@ -1,0 +1,73 @@
+<% provide(:title, hero_section_public.title) %>
+
+<% add_decidim_meta_tags(
+     {
+       title: hero_section_public.title,
+       description: hero_section_public.description.presence || "",
+       url: faqs_url
+     }) %>
+
+<% edit_link(
+     decidim_admin_extended.faqs_path,
+     :update,
+     :organization,
+     organization: current_organization
+   ) %>
+
+<main class="layout-1col cols-10">
+  <div class="vertical-tabs">
+    <% if faq_groups.any? %>
+      <nav>
+        <ul id="dropdown-menu-pages" class="vertical-tabs__list" role="menu">
+          <% faq_groups.each do |faq_group| %>
+            <li class="<%= 'is-active' if params[:anchor] == "temat-#{faq_group.id}" %>" role="menuitem">
+              <a href="#" class="vertical-tab-link" data-target="temat-<%= faq_group.id %>"><%= translated_attribute faq_group.title %></a>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+      <div class="wrapper wrapper--knowledge-base">
+        <% if faq_groups.any? %>
+          <div class="row">
+            <% faq_groups.each do |faq_group| %>
+              <% if faq_group.faqs.any? %>
+                <div class="column">
+                  <div class="topic" data-section-id="temat-<%= faq_group.id %>">
+                    <% if faq_group.subtitle.present? %>
+                      <p class="topic__description">
+                        <div class="editor-content custom-text"><%= quill_sanitize faq_group.subtitle %></div>
+                      </p>
+                    <% end %>
+
+                    <div class="topic__articles">
+                      <% faq_group.faqs.published.sorted_by_weight.each do |faq| %>
+                        <div class="article" id="article-<%= faq.id %>">
+                          <div class="card__title" data-url="<%= faq.id %>" id="<%= faq.id %>">
+                            <h3 class="section-title"><%= faq.title %></h3>
+                            <button aria-controls="<%= faq.id %>-content" class="card__title custom-button_card__title" data-url="<%= faq.id %>" id="<%= faq.id %>" aria-expanded="false">
+                              <img src="<%= asset_pack_path('media/images/arrow-down-s-line.svg') %>" width="32" height="32" alt="" class="toggle-button" />
+                            </button>
+                          </div>
+
+                          <div class="card__content">
+                            <div class="editor-content card__content_custom custom-text">
+                              <%= quill_sanitize faq.content %>
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</main>
+
+
+<%= append_javascript_pack_tag "core_extended_pages" %>
+<%= append_javascript_pack_tag "knowledge_base" %>

@@ -1,10 +1,5 @@
 # frozen_string_literal: true
 
-# OVERWRITTEN DECIDIM MODEL
-# Model has been expanded with:
-# - associations: to gallery
-# - validation
-# - searchable
 Decidim::Pages::Page.class_eval do
   include Decidim::Publicable
   include Decidim::Searchable
@@ -23,7 +18,13 @@ Decidim::Pages::Page.class_eval do
                       index_on_create: ->(page) { page.visible? },
                       index_on_update: ->(page) { page.visible? })
 
+  # overwritten method
+  # read attr
   def title
+    read_attribute(:title)
+  end
+
+  def name
     read_attribute(:title)
   end
 

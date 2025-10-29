@@ -1,7 +1,23 @@
-<div id="<%= dom_id(model, :follow) %>">
-  <% if current_user %>
-    <%= follow_for_registered_user %>
-  <% else %>
-    <%= follow_for_unregistered_user %>
+<% if current_user.present? %>
+  <%= link_to(
+        path,
+        class: button_classes,
+        title: text,
+        method:,
+        remote:,
+        id: dom_id(model, id_option)
+      ) do %>
+    <%= render :content_new %>
   <% end %>
-</div>
+<% else %>
+  <button class="<%= button_classes %>" 
+          data-dialog-open="followModal"
+          aria-haspopup="true"
+          type="button">
+    <%= render :content_new %>
+  </button> 
+
+  <%= decidim_modal id: "followModal" do %>
+    <%= render :email_follow_form %>
+  <% end %>
+<% end %>

@@ -1,0 +1,18 @@
+<% if organization %>
+  <%= link_to decidim.root_url(host: organization.host), "aria-label": t("front_page_link", scope: "decidim.accessibility") do %>
+    <%# dodane logo dla wesji mobilnej w svg %>
+    <% if organization.logo.attached? %>
+      <% if File.extname(organization.attached_uploader(:logo).path) == ".svg" %>
+        <%= display_inline_logo(organization) %>
+      <% else %>
+        <%= image_tag organization.attached_uploader(:logo).variant_url(:medium), alt: t("logo", scope: "decidim.accessibility", organization: current_organization_name) %>
+      <% end %>
+    <% elsif organization.favicon.attached? %>
+      <%= image_tag organization.attached_uploader(:favicon).variant_path(:medium), alt: t("logo", scope: "decidim.accessibility", organization: current_organization_name) %>
+    <% else %>
+      <span><%= current_organization_name %></span>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= Decidim.application_name %>
+<% end %>

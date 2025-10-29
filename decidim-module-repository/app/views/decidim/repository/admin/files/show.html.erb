@@ -1,19 +1,25 @@
-<%= javascript_include_tag "decidim/repository/admin/video.min" %>
-<%= javascript_include_tag "decidim/repository/admin/video-js-pl.js" %>
-<%= stylesheet_link_tag "decidim/repository/admin/video-js.css" %>
+<!--TODO: wrócić tutaj i posprząć lub nowy widok nadać-->
+<%= append_javascript_pack_tag "repository_video_min" %>
+<%= append_javascript_pack_tag "repository_video_js_pl" %>
+<%= append_stylesheet_pack_tag "repository_video_js" %>
 
-
-<div class="card" id="consultation_requests">
-  <div class="card-divider">
-    <h2 class="card-title">
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
       <%= t "decidim.admin.titles.files" %> / <%= @file.name %>
-      <%= link_to t("actions.edit", scope: "decidim.admin"), decidim_repository.edit_admin_file_path(@file), class: "button tiny button--title new" %>
-    </h2>
+      <%= link_to t("actions.edit", scope: "decidim.admin"), decidim_repository.edit_admin_file_path(@file), class: "button button__sm button__secondary" %>
+    </h1>
   </div>
   <div class="card-section">
 
     <% if @file.image? %>
-      <%= image_tag(decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment")) %>
+      <% if @file.file.filename.extension == "svg" %>
+        <object type="image/svg+xml" data="<%= main_app.rails_blob_path(@file.file, disposition: 'inline', only_path: true) %>">
+          Twoja przeglądarka nie wspiera SVG.
+        </object>
+      <% else %>
+        <%= image_tag(decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment")) %>
+      <% end %>
     <% elsif @file.media? %>
       <video
         id="my-video"
@@ -30,7 +36,10 @@
 
     <div class="row column">
       <p>
-        <strong>Link do pliku:</strong> <%= link_to @file.file.filename, decidim_repository.blob_path(@file.file.signed_id, filename: @file.file.filename, disposition: "attachment"), target: '_blank' %>
+        <strong>Link do pliku:</strong>
+        <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(@file.file, only_path: true) %>" class="card__link" target="_blank">
+          <%= @file.name %>
+        </a>
       </p>
       <p>
         <% if @file.audio_description.attached? %>
@@ -74,11 +83,10 @@
       <strong><%= t("activemodel.attributes.file.creator") %>:</strong> <%= @file.creator&.name %>
     </div>
     <div class="row column">
-      <strong><%= t("models.file.fields.created_at", scope: "decidim.admin") %>:</strong> <%= l @file.created_at, format: :decidim_short %>
+      <strong><%= t("models.file.fields.created_at", scope: "decidim.admin") %>:</strong> <%= l @file.created_at, format: :decidim_short_cut_zero %>
     </div>
     <div class="row column">
-      <strong><%= t("models.file.fields.updated_at", scope: "decidim.admin") %>:</strong> <%= l @file.updated_at, format: :decidim_short %>
+      <strong><%= t("models.file.fields.updated_at", scope: "decidim.admin") %>:</strong> <%= l @file.updated_at, format: :decidim_short_cut_zero %>
     </div>
-
   </div>
 </div>

@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating a Banned Word.
-    class UpdateBannedWord < Rectify::Command
+    class UpdateBannedWord < Decidim::Command
       # Public: Initializes the command.
       #
       # banned_word - The Banned Word to update

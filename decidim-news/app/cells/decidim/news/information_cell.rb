@@ -6,7 +6,7 @@ module Decidim
     # the default size is the Medium Card (:m)
     class InformationCell < Decidim::ViewModel
       include Cell::ViewModel::Partial
-      
+
       def show
         cell card_size, model, options
       end
@@ -14,7 +14,7 @@ module Decidim
       private
 
       def card_size
-        "decidim/news/information_m"
+        "decidim/news/information_g"
       end
     end
   end

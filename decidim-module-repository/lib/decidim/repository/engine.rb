@@ -37,27 +37,40 @@ module Decidim
 
       initializer "decidim.user_menu" do
         Decidim.menu :admin_menu do |menu|
-          menu.item I18n.t("menu.repository", scope: "decidim.admin"),
-                    decidim_repository.admin_files_path,
-                    icon_name: "camera-slr",
-                    position: 6.2,
-                    active: is_active_link?(decidim_repository.admin_files_path, :inclusive) ||
-                      is_active_link?(decidim_repository.admin_folders_path, :inclusive) ||
-                      is_active_link?(decidim_repository.admin_galleries_path, :inclusive),
-                    if: (!!current_user&.has_ad_role? && !current_user&.ad_expert?)
+          menu.add_item :repository,
+                        I18n.t("menu.repository", scope: "decidim.admin"),
+                        decidim_repository.admin_files_path,
+                        icon_name: "image-line",
+                        position: 6.2,
+                        active: is_active_link?(decidim_repository.admin_files_path, :inclusive) ||
+                          is_active_link?(decidim_repository.admin_folders_path, :inclusive) ||
+                          is_active_link?(decidim_repository.admin_galleries_path, :inclusive),
+                        if: (!!current_user&.has_ad_role? && !current_user&.ad_expert?)
         end
-      end
 
-      initializer "decidim_repository.assets" do |app|
-        app.config.assets.precompile += %w[decidim_repository_manifest.js
-                                          decidim_repository_manifest.css
-                                          decidim/repository/admin/jquery.MultiFile.js
-                                          decidim/repository/admin/image-editor.1.0.0.js
-                                          decidim/repository/admin/image-editor.1.1.0.js
-                                          decidim/repository/admin/image-editor.1.2.1.js
-                                          decidim/repository/admin/video.min.js
-                                          decidim/repository/admin/video-js.css
-                                          decidim/repository/admin/video-js-pl.js]
+        Decidim.menu :admin_repository_menu do |menu|
+          menu.add_item :repository_galleries,
+                        I18n.t("galleries.index.title", scope: "decidim.repository.admin"),
+                        decidim_repository.admin_galleries_path,
+                        position: 1,
+                        icon_name: "image-line",
+                        if: true,
+                        active: is_active_link?(decidim_repository.admin_galleries_path)
+          menu.add_item :folders_galleries,
+                        I18n.t("folders.index.title", scope: "decidim.repository.admin"),
+                        decidim_repository.admin_folders_path,
+                        position: 1,
+                        icon_name: "folder-open-line",
+                        if: true,
+                        active: is_active_link?(decidim_repository.admin_folders_path)
+          menu.add_item :files_galleries,
+                        I18n.t("files.index.title", scope: "decidim.repository.admin"),
+                        decidim_repository.admin_files_path,
+                        position: 1,
+                        icon_name: "folder-line",
+                        if: true,
+                        active: is_active_link?(decidim_repository.admin_files_path)
+        end
       end
     end
   end

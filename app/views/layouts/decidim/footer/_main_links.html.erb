@@ -1,0 +1,33 @@
+<%= footer_menu.render %>
+<% footer_pages = Decidim::StaticPage.where(show_in_footer: true)
+                                     .where
+                                     .not(slug: "polityka-prywatnosci")
+                                     .to_a %>
+
+<nav role="navigation" aria-label="<%= t("layouts.decidim.user_menu.profile") %>">
+  <h2 class="h4 mb-4"><%= t("layouts.decidim.user_menu.profile") %></h2>
+  <ul class="space-y-4 break-inside-avoid">
+    <% if current_user %>
+      <li class="font-semibold underline"><%= link_to t("layouts.decidim.user_menu.configuration"), decidim.account_path %></li>
+      <li class="font-semibold underline"><%= link_to t("layouts.decidim.user_menu.user_interests"), decidim.user_interests_path %></li>
+    <% else %>
+      <% if current_organization.sign_up_enabled? %>
+        <li class="font-semibold underline"><%= link_to t("layouts.decidim.footer.sign_up"), decidim.new_user_registration_path %></li>
+      <% end %>
+      <li class="font-semibold underline"><%= link_to t("layouts.decidim.footer.log_in"), decidim.new_user_session_path %></li>
+    <% end %>
+  </ul>
+</nav>
+
+<nav role="navigation" aria-label="<%= t("layouts.decidim.footer.help") %>">
+  <h2 class="h4 mb-4"><%= t("layouts.decidim.footer.help") %></h2>
+  <ul class="space-y-4 break-inside-avoid">
+    <% footer_pages.each do |page| %>
+      <li class="font-semibold underline">
+        <%= link_to translated_attribute(page.title), decidim.page_url(page, host: current_organization.host) %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
+<%#= cell("decidim/footer_topics", nil) %>

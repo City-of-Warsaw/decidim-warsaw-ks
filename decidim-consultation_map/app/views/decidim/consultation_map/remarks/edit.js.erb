@@ -1,31 +1,55 @@
 (function() {
-    let remark = $('#remark_' + <%= @remark.id %> + ' .card__content');
-    remark.replaceWith("<%= escape_javascript(render 'decidim/consultation_map/remarks/full_edit', form_object: @form, remark: @remark) %>")
+  let remark = $('#remark_' + <%= @remark.id %> + ' .card__content.remark__body');
+  remark.replaceWith("<%= escape_javascript(render 'decidim/consultation_map/remarks/full_edit', form_object: @form, remark: @remark) %>")
+ 
+  document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $('#remark_' + <%= @remark.id %> + ' .card__header')[0] }));
 
-    $('#remark_' + <%= @remark.id %> + " input[type=file].multifile").not(".MultiFile-applied").MultiFile({
-        max: 5,
-        STRING: {
-          remove: 'usuń',
-          denied: 'Ten format pliku $ext jest niedozwolony.',
-          file: '$file',
-          selected: 'Wybrany plik: $file',
-          duplicate: 'Ten plik już został wybrany:\n$file',
-          toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
-          toomany: 'Niedozwolona liczba plików (maks: $max)',
-          toobig: '$file ma za duży rozmiar (maks: $size)'
-        }, 
-      });
-    
-    $('#remark_' + <%= @remark.id %> + ' .card__content .remark-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('#remark_' + <%= @remark.id %> + ' .card__content .remark-field--body textarea'))); 
-
-    $('#remark_' + <%= @remark.id %> + " .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
-        e.preventDefault(); 
-        
-        $(this).addClass("AttachmentButton-applied");
-
-        var target_id = $(this).data("target"); 
-        $(this).closest("div").find(target_id + " > input")
-            .last()
-            .click();
+  $('#remark_' + <%= @remark.id %> + " input[type=file].multifile").not(".MultiFile-applied").MultiFile({
+      max: 5,
+      STRING: {
+        remove: 'usuń',
+        denied: 'Ten format pliku $ext jest niedozwolony.',
+        file: '$file',
+        selected: 'Wybrany plik: $file',
+        duplicate: 'Ten plik już został wybrany:\n$file',
+        toomuch: 'Łączny rozmiar plików przekracza limit ($size)',
+        toomany: 'Niedozwolona liczba plików (maks: $max)',
+        toobig: '$file ma za duży rozmiar (maks: $size)'
+      }, 
     });
+  
+  $('#remark_' + <%= @remark.id %> + ' .card__content .remark-field--body textarea').data("remaining-characters-counter", new Decidim.InputCharacterCounter($('#remark_' + <%= @remark.id %> + ' .card__content .remark-field--body textarea'))); 
+
+  $('#remark_' + <%= @remark.id %> + " .attachment-button-js").not(".AttachmentButton-applied").click(function (e) {
+      e.preventDefault(); 
+      
+      $(this).addClass("AttachmentButton-applied");
+
+      var target_id = $(this).data("target"); 
+      $(this).closest("div").find(target_id + " > input")
+          .last()
+          .click();
+  });  
+  
+  $('#new_remark .close-button').click(function() {
+    $('#new_remark').html('');  
+  });
+
+  $(".remark-category-select-js").multiselect({
+    columns: 1,
+    max: 1,
+    search: false,
+    selectAll: false,
+    submitForm: false,
+    placeholder: "Wybierz",
+    showCheckbox: false, 
+    texts: {
+      search: "Szukaj",
+      selectedOptions: " wybrano",
+      selectAll: "Zaznacz wszystkie",
+      unselectAll: "Odznacz wszystkie",
+      noneSelected: "Nie zaznaczono",
+    }, 
+  }); 
+
 }());

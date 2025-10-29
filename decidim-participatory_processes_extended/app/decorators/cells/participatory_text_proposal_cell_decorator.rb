@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # require "cell/partial"
-# require "cells/decidim/card_m_cell"
 
 Decidim::Proposals::ParticipatoryTextProposalCell.class_eval do
   include Decidim::Comments::CommentsHelper

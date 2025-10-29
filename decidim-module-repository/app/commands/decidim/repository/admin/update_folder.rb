@@ -4,7 +4,7 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user updates folder
-      class UpdateFolder < Rectify::Command
+      class UpdateFolder < Decidim::Command
         def initialize(folder, form, user)
           @folder = folder
           @form = form

@@ -1,48 +1,52 @@
 # frozen_string_literal: true
 
 Decidim::Meetings::MeetingsController.class_eval do
-  helper_method :meetings_help_section
+  include Decidim::CoreExtended::CommentTokenCookie
 
-  def index
-    return unless search.results.blank? && params.dig("filter", "date") != %w(past)
-
-    @past_meetings = search_klass.new(search_params.merge(date: %w(past)))
-
-    if @past_meetings.results.present?
-      params[:filter] ||= {}
-      params[:filter][:date] = %w(past)
-      @forced_past_meetings = true
-      @search = @past_meetings
-    end
+  # overwritten method action
+  # remove permission can visit meeting
+  # add calendar
+  def show
+    raise ActionController::RoutingError, "Not Found" unless meeting
 
     respond_to do |format|
       format.html
-      format.js
+      format.ics do
+        calendar = Icalendar::Calendar.new
+        converter = Decidim::Meetings::Calendar::MeetingToEvent.new(meeting)
+        calendar.add_event(converter.event)
+
+        send_data calendar.to_ical,
+                  type: "text/calendar",
+                  disposition: "attachment",
+                  filename: "#{meeting.title["pl"]}.ics"
+      end
     end
   end
 
   private
 
-  # overwritten - change sor from desc to asc
-  def meetings
-    @meetings ||= paginate(search.results.order(start_time: :asc))
-  end
-
+  # overwritten method
+  # it comes from decidim-meetings-0.29.3/app/controllers/concerns/decidim/meetings/component_filterable.rb
+  # replace upcoming with blank, meaning -> all
   def default_filter_params
     {
-      search_text: "",
-      date: "",
+      search_text_cont: "",
+      with_any_date: "",
       activity: "all",
-      scope_id: default_filter_scope_params,
-      category_id: default_filter_category_params,
-      origin: default_filter_origin_params,
-      type: default_filter_type_params
+      with_availability: "",
+      with_any_scope: nil,
+      with_any_category: nil,
+      with_any_state: nil,
+      with_any_origin: nil,
+      with_any_type: nil
     }
   end
 
-  def meetings_help_section
-    current_component.settings[:help_section]
+  # overwritten method
+  # newest first
+  def meetings
+    is_past_meetings = params.dig("filter", "with_any_date")&.include?("past")
+    @meetings ||= paginate(search.result.order(start_time: is_past_meetings ? :asc : :desc))
   end
 end
-
-

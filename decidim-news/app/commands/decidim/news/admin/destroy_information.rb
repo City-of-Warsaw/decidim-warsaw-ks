@@ -3,15 +3,21 @@
 module Decidim
   module News
     module Admin
-      # This command is executed when user creates Information
-      class DestroyInformation < Rectify::Command
+      # A command with all the business logic to destroy Information
+      class DestroyInformation < Decidim::Command
+        # Public: Initializes the command.
+        #
+        # information - The Information to destroy
         def initialize(information)
           @information = information
         end
 
-        # Destroys the information if it exists.
+        # Executes the command. Broadcasts these events:
         #
-        # Broadcasts :ok if successful, :invalid otherwise.
+        # - :ok when everything is valid.
+        # - :invalid if no information and we couldn't proceed.
+        #
+        # Returns nothing.
         def call
           return broadcast(:invalid) unless information
 

@@ -111,7 +111,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This job is used to queue all the mails that are using templates defined in admin panel.</p>
+<p>This job is used to queue nearly all the mails that are using templates defined in admin panel.</p>
 
 
   </div>
@@ -152,7 +152,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>method takes parameters: action_name - Symbol - to determine receivers and later MailTemplate additional_data - Hash - holding all the data needed for mapping:   - consultation - ParticipatoryProcess   - step - ParticipatoryProcessStep   - resource - ParticipatoryProcess, Meeting, Remark, etc   - system elements: activation_link, password_reset_link.</p>
+<p>method takes parameters: action_name - Symbol - to determine receivers and later MailTemplate additional_data - Hash - holding all the data needed for mapping.</p>
 </div></span>
   
 </li>
@@ -175,9 +175,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p></p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -221,13 +219,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>method takes parameters: action_name - Symbol - to determine receivers and later MailTemplate additional_data - Hash - holding all the data needed for mapping:</p>
-
-<pre class="code ruby"><code class="ruby">- consultation - ParticipatoryProcess
-- step - ParticipatoryProcessStep
-- resource - ParticipatoryProcess, Meeting, Remark, etc
-- system elements: activation_link, password_reset_link
-</code></pre>
+<p>method takes parameters: action_name - Symbol - to determine receivers and later MailTemplate additional_data - Hash - holding all the data needed for mapping</p>
 
 
   </div>
@@ -241,6 +233,10 @@
       <pre class="lines">
 
 
+14
+15
+16
+17
 18
 19
 20
@@ -259,61 +255,9 @@
 33
 34
 35
-36</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/jobs/decidim/core_extended/templated_mailer_job.rb', line 18</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_perform'>perform</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_resource'>resource</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:resource</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_receivers'>receivers</span> <span class='op'>=</span> <span class='id identifier rubyid_receivers'>receivers</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='rparen'>)</span>
-
-  <span class='id identifier rubyid_receivers'>receivers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_receiver'>receiver</span><span class='op'>|</span>
-    <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify_about_consultation'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#notify_about_consultation-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#notify_about_consultation (method)">notify_about_consultation</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_now'>deliver_now</span>
-
-    <span class='kw'>elsif</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcessStep</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify_about_step'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#notify_about_step-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#notify_about_step (method)">notify_about_step</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_now'>deliver_now</span>
-
-    <span class='kw'>elsif</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions/UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='rparen'>)</span>
-      <span class='comment'># no followers mailer - only mail for author
-</span>    <span class='kw'>elsif</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Meetings</span><span class='op'>::</span><span class='const'>Meeting</span><span class='rparen'>)</span>
-      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/MeetingMailer.html" title="Decidim::ParticipatoryProcessesExtended::MeetingMailer (class)">MeetingMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="../ParticipatoryProcessesExtended/MeetingMailer.html#notify-instance_method" title="Decidim::ParticipatoryProcessesExtended::MeetingMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_now'>deliver_now</span>
-    <span class='kw'>end</span>
-  <span class='kw'>end</span>
-
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="receivers-instance_method">
-  
-    #<strong>receivers</strong>(action_name, resource, additional_data = {})  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p></p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
+36
+37
+38
 39
 40
 41
@@ -338,34 +282,659 @@
 60
 61
 62
-63</pre>
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/jobs/decidim/core_extended/templated_mailer_job.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/jobs/decidim/core_extended/templated_mailer_job.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_perform'>perform</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] init perform</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_resource'>resource</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:resource</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_receivers'>receivers</span> <span class='op'>=</span> <span class='id identifier rubyid_receivers'>receivers</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_receivers'>receivers</span>
+
+  <span class='id identifier rubyid_receivers'>receivers</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_receiver'>receiver</span><span class='op'>|</span>
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] iterate receivers: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_receivers'>receivers</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'>, resource: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+    <span class='id identifier rubyid_email'>email</span> <span class='op'>=</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:email</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='period'>.</span><span class='id identifier rubyid_email'>email</span> <span class='op'>:</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='lbracket'>[</span><span class='symbol'>:email</span><span class='rbracket'>]</span>
+
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] Receiver </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_receiver'>receiver</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Email: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_email'>email</span><span class='embexpr_end'>}</span><span class='tstring_content'> - Valid? </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_valid_email?'>valid_email?</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+    <span class='kw'>next</span> <span class='kw'>unless</span> <span class='id identifier rubyid_valid_email?'>valid_email?</span><span class='lparen'>(</span><span class='id identifier rubyid_email'>email</span><span class='rparen'>)</span>
+
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] before case-when-switch</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+
+    <span class='kw'>case</span> <span class='id identifier rubyid_resource'>resource</span>
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - new_process_created_by_coordinator
+</span>      <span class='comment'># - process_updated_by_admin
+</span>      <span class='comment'># - new_process_published
+</span>      <span class='comment'># - published_process_updated
+</span>      <span class='comment'># - report_published
+</span>      <span class='comment'># - notification_about_process_results
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when ParticipatoryProcess before init ProcessMailer.notify_about_consultation</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify_about_consultation'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#notify_about_consultation-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#notify_about_consultation (method)">notify_about_consultation</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcessStep</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - process_step_activation
+</span>      <span class='comment'># - process_step_changed
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when ParticipatoryProcessStep before init ProcessMailer.notify_about_step</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify_about_step'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#notify_about_step-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#notify_about_step (method)">notify_about_step</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Component</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - component_published
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Component before init ProcessMailer.component_published</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_component_published'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#component_published-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#component_published (method)">component_published</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Attachment</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - attachment_created
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Attachment before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_attached_to'>attached_to</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span>
+                       <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_attached_to'>attached_to</span>
+                     <span class='kw'>else</span>
+                       <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_attached_to'>attached_to</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+                     <span class='kw'>end</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TemplatedMailer.html" title="Decidim::CoreExtended::TemplatedMailer (class)">TemplatedMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="TemplatedMailer.html#notify-instance_method" title="Decidim::CoreExtended::TemplatedMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>attached_to:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_attached_to'>attached_to</span><span class='comma'>,</span> <span class='label'>consultation:</span> <span class='rbrace'>}</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>StudyNotes</span><span class='op'>::</span><span class='const'>StudyNote</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - create_study_note_confirmation
+</span>      <span class='comment'># - create_study_note_confirmation_to_submitter
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when StudyNote before init ProcessMailer.confirmation_about_study_note_user</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_confirmation_about_study_note_user'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#confirmation_about_study_note_user-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#confirmation_about_study_note_user (method)">confirmation_about_study_note_user</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_now'>deliver_now</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>GeneralPlanRequests</span><span class='op'>::</span><span class='const'>GeneralPlanRequest</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - create_general_plan_request_confirmation_to_admin
+</span>      <span class='comment'># - create_general_plan_request_confirmation_to_submitter
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when GeneralPlanRequest before init ProcessMailer.confirmation_about_general_plan_request</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer (class)">ProcessMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_confirmation_about_general_plan_request'><span class='object_link'><a href="../ParticipatoryProcessesExtended/ProcessMailer.html#confirmation_about_general_plan_request-instance_method" title="Decidim::ParticipatoryProcessesExtended::ProcessMailer#confirmation_about_general_plan_request (method)">confirmation_about_general_plan_request</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:anonymize_pdf</span><span class='rbracket'>]</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Meetings</span><span class='op'>::</span><span class='const'>Meeting</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - meeting_updated
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Meeting before init MeetingMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended.html" title="Decidim::ParticipatoryProcessesExtended (module)">ParticipatoryProcessesExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ParticipatoryProcessesExtended/MeetingMailer.html" title="Decidim::ParticipatoryProcessesExtended::MeetingMailer (class)">MeetingMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="../ParticipatoryProcessesExtended/MeetingMailer.html#notify-instance_method" title="Decidim::ParticipatoryProcessesExtended::MeetingMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Comments.html" title="Decidim::Comments (module)">Comments</a></span></span><span class='op'>::</span><span class='const'>Comment</span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - new_comment_to_meeting
+</span>      <span class='comment'># - new_comment_to_custom_proposal
+</span>      <span class='comment'># - new_comment_to_information
+</span>      <span class='comment'># - new_comment_to_remark
+</span>      <span class='comment'># - new_comment_to_map_remark
+</span>      <span class='comment'># - new_comment_to_user_question
+</span>      <span class='comment'># - new_reply_to_comment
+</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Comment before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_commentable'>commentable</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_commentable'>commentable</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:component</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TemplatedMailer.html" title="Decidim::CoreExtended::TemplatedMailer (class)">TemplatedMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="TemplatedMailer.html#notify-instance_method" title="Decidim::CoreExtended::TemplatedMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>comment:</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='label'>resource:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_commentable'>commentable</span><span class='comma'>,</span> <span class='label'>consultation:</span> <span class='rbrace'>}</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>CustomProposals</span><span class='op'>::</span><span class='const'>CustomProposal</span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News/Information.html" title="Decidim::News::Information (class)">Information</a></span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks/Remark.html" title="Decidim::Remarks::Remark (class)">Remark</a></span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions/UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='comma'>,</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap.html" title="Decidim::ConsultationMap (module)">ConsultationMap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap/Remark.html" title="Decidim::ConsultationMap::Remark (class)">Remark</a></span></span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - information_updated
+</span>      <span class='comment'># - new_remark
+</span>      <span class='comment'># - new_user_question
+</span>      <span class='comment'># - new_map_remark
+</span>
+      <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:component</span><span class='rparen'>)</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_remark_body'>remark_body</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:remark_body</span><span class='rbracket'>]</span>
+
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when CustomProposal before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>CustomProposals</span><span class='op'>::</span><span class='const'>CustomProposal</span><span class='rparen'>)</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Information before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../News/Information.html" title="Decidim::News::Information (class)">Information</a></span></span><span class='rparen'>)</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Remark before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks/Remark.html" title="Decidim::Remarks::Remark (class)">Remark</a></span></span><span class='rparen'>)</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when UserQuestion before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions/UserQuestion.html" title="Decidim::ExpertQuestions::UserQuestion (class)">UserQuestion</a></span></span><span class='rparen'>)</span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when Map Remark before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap.html" title="Decidim::ConsultationMap (module)">ConsultationMap</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ConsultationMap/Remark.html" title="Decidim::ConsultationMap::Remark (class)">Remark</a></span></span><span class='rparen'>)</span>
+
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TemplatedMailer.html" title="Decidim::CoreExtended::TemplatedMailer (class)">TemplatedMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="TemplatedMailer.html#notify-instance_method" title="Decidim::CoreExtended::TemplatedMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>resource:</span><span class='comma'>,</span> <span class='label'>consultation:</span><span class='comma'>,</span> <span class='label'>remark_body:</span> <span class='rbrace'>}</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions.html" title="Decidim::ExpertQuestions (module)">ExpertQuestions</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ExpertQuestions/ExpertAnswer.html" title="Decidim::ExpertQuestions::ExpertAnswer (class)">ExpertAnswer</a></span></span>
+      <span class='comment'># action names:
+</span>      <span class='comment'># - experts_answer_to_user_question
+</span>
+      <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when ExpertAnswer before init TemplatedMailer.notify</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TemplatedMailer.html" title="Decidim::CoreExtended::TemplatedMailer (class)">TemplatedMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="TemplatedMailer.html#notify-instance_method" title="Decidim::CoreExtended::TemplatedMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span>
+        <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span>
+          <span class='label'>user_question:</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:user_question</span><span class='rbracket'>]</span><span class='comma'>,</span>
+          <span class='label'>resource:</span><span class='comma'>,</span> <span class='label'>expert:</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:expert</span><span class='rbracket'>]</span><span class='comma'>,</span>
+          <span class='label'>consultation:</span>
+        <span class='rbrace'>}</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+    <span class='kw'>when</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Forms.html" title="Decidim::Forms (module)">Forms</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Forms/QuestionnairesUserData.html" title="Decidim::Forms::QuestionnairesUserData (class)">QuestionnairesUserData</a></span></span>
+      <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] when user reponse for questionnaire</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+      <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="TemplatedMailer.html" title="Decidim::CoreExtended::TemplatedMailer (class)">TemplatedMailer</a></span></span><span class='period'>.</span><span class='id identifier rubyid_notify'><span class='object_link'><a href="TemplatedMailer.html#notify-instance_method" title="Decidim::CoreExtended::TemplatedMailer#notify (method)">notify</a></span></span><span class='lparen'>(</span>
+        <span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span>
+        <span class='label'>questionnaires_user_data:</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span>
+        <span class='label'>consultation:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_questionnaire'>questionnaire</span><span class='period'>.</span><span class='id identifier rubyid_questionnaire_for'>questionnaire_for</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+      <span class='rbrace'>}</span>
+      <span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_deliver_later'>deliver_later</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>rescue</span> <span class='const'>ActiveSupport</span><span class='op'>::</span><span class='const'>MessageEncryptor</span><span class='op'>::</span><span class='const'>InvalidMessage</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_warn'>warn</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] Skipped invalid encrypted message for receiver </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_receiver'>receiver</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unknown</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='const'>StandardError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] Unexpected error for receiver </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_receiver'>receiver</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>unknown</span><span class='tstring_end'>&quot;</span></span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='embexpr_end'>}</span><span class='tstring_content'> - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='kw'>rescue</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_error'>error</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>[TemplatedMailerJob] Mail sending failed for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_email'>email</span><span class='embexpr_end'>}</span><span class='tstring_content'>: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="receivers-instance_method">
+  
+    #<strong>receivers</strong>(action_name, resource, additional_data = {})  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/jobs/decidim/core_extended/templated_mailer_job.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_receivers'>receivers</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_additional_data'>additional_data</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action_name'>action_name</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>new_process_published</span><span class='tstring_end'>&#39;</span></span>
-    <span class='comment'># Resource is freshly published ParticipatoryProcess
-</span>    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_find_possible_followers'>find_possible_followers</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>process_updated</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>report_published</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>two_days_till_consultations_end</span><span class='tstring_end'>&#39;</span></span>
-    <span class='comment'># Resource is ParticipatoryProcess
-</span>    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
- <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>meeting_updated</span><span class='tstring_end'>&#39;</span></span>
-    <span class='comment'># Resource is ComponentResource with it&#39;s own followers: Meeting
-</span>    <span class='comment'># Info for resource followers
-</span>    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
- <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>new_meeting</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>meeting_in_two_days</span><span class='tstring_end'>&#39;</span></span>
-    <span class='comment'># Resource is ComponentResource: UserQuestion, Meeting, Survey
-</span>    <span class='comment'># Info for all Space followers
-</span>    <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:consultation</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_consultation'>consultation</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>process_step_activation</span><span class='tstring_end'>&#39;</span></span>
-    <span class='comment'># Resource is Decidim::ParticipatoryProcessStep
-</span>    <span class='id identifier rubyid_consultation'>consultation</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:consultation</span><span class='rbracket'>]</span>
-    <span class='id identifier rubyid_consultation'>consultation</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
+    <span class='comment'># THE PROCESS RECEIVERS
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_process_created_by_coordinator</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>process_updated_by_admin</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_ad_users'>ad_users</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_admins'>admins</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_ad_users'>ad_users</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+    <span class='id identifier rubyid_ad_users'>ad_users</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_process_published</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_find_published_process_followers'>find_published_process_followers</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>published_process_updated</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>report_published</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>notification_about_process_results</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>two_days_till_consultations_end</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_find_possible_followers'>find_possible_followers</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>process_step_activation</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>process_step_changed</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>component_published</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_process'>process</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_process'>process</span>
+
+    <span class='id identifier rubyid_process'>process</span><span class='period'>.</span><span class='id identifier rubyid_find_possible_followers'>find_possible_followers</span>
+
+  <span class='comment'># CURRENTLY ATTACHMENT IS ONLY USED FOR PROCESS
+</span>  <span class='comment'># THE RESOURCE.ATTACHED_TO&#39;S RECEIVERS
+</span>  <span class='comment'># WHEN resource.attached_to == Decidim::ParticipatoryProcess
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>attachment_created</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_attached_to'>attached_to</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_attached_to'>attached_to</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_attached_to'>attached_to</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_attached_to'>attached_to</span><span class='period'>.</span><span class='id identifier rubyid_find_possible_followers'>find_possible_followers</span>
+
+  <span class='comment'># THE STUDY NOTE&#39;S RECEIVERS - STUDY NOTE&#39;S EMAIL AND EMAIL STORED IN STUDY NOTE&#39;S COMPONENT
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>create_study_note_confirmation</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>email:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_admin_email'>admin_email</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+
+    <span class='comment'># THE STUDY NOTE REQUEST&#39;S RECEIVER
+</span>    <span class='comment'># STUDY NOTE REQUEST EMAIL STORED IN SINGLE STUDY NOTE ITEM
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>create_study_note_confirmation_to_submitter</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_valid_email?'>valid_email?</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_confirmation_request'>email_confirmation_request</span><span class='rparen'>)</span>
+
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>email:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_confirmation_request'>email_confirmation_request</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+    <span class='comment'># THE GENERAL PLAN REQUEST&#39;S RECEIVER
+</span>    <span class='comment'># GENERAL PLAN REQUEST EMAIL STORED IN GENERAL PLAN REQUEST&#39;S COMPONENT
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>create_general_plan_request_confirmation_to_admin</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>email:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_admin_email'>admin_email</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+
+    <span class='comment'># THE GENERAL PLAN REQUEST&#39;S RECEIVER
+</span>    <span class='comment'># GENERAL PLAN REQUEST&#39;S EMAIL
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>create_general_plan_request_confirmation_to_submitter</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>email:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_confirmation_request'>email_confirmation_request</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+
+    <span class='comment'># THE MEETING&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Meetings::Meeting
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>meeting_updated</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE MEETING&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Comments::Comment
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_meeting</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_meeting'>meeting</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:meeting</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_meeting'>meeting</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_meeting'>meeting</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_meeting'>meeting</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE CUSTOM PROPOSAL&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Comments::Comment
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_custom_proposal</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_custom_proposal'>custom_proposal</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:custom_proposal</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_custom_proposal'>custom_proposal</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_custom_proposal'>custom_proposal</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_custom_proposal'>custom_proposal</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE INFORMATION&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::News::Information
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>information_updated</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE INFORMATION&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Comments::Comment
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_information</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_information'>information</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:information</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_information'>information</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_information'>information</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_information'>information</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE REMARK&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Remarks::Remark
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_remark</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE REMARK&#39;S AUTHOR / THE USER QUESTION&#39;S AUTHOR / THE MAP REMARK&#39;S AUTHOR
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::Remarks::Remark /
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::ExpertQuestion::UserQuestion /
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::ConsultationMap::Remark
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_remark</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_user_question</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_comment_to_map_remark</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_root_commentable'>root_commentable</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='op'>&amp;.</span><span class='id identifier rubyid_root_commentable'>root_commentable</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_root_commentable'>root_commentable</span><span class='op'>&amp;.</span><span class='id identifier rubyid_author'>author</span>
+
+    <span class='id identifier rubyid_author'>author</span> <span class='op'>=</span> <span class='id identifier rubyid_root_commentable'>root_commentable</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_confirmed?'>confirmed?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_email_on_notification?'>email_on_notification?</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_blocked?'>blocked?</span>
+
+    <span class='lbracket'>[</span><span class='id identifier rubyid_author'>author</span><span class='rbracket'>]</span>
+
+    <span class='comment'># THE MAP REMARK&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::ConsultationMap::Remark
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_map_remark</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># THE USER QUESTION&#39;S FOLLOWERS
+</span>    <span class='comment'># WHEN RESOURCE == Decidim::ExpertQuestion::UserQuestion
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_user_question</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
+
+    <span class='comment'># AUTHOR OF THE USER QUESTION ANSWERED
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>experts_answer_to_user_question</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_user_question'>user_question</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:user_question</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_user_question'>user_question</span>
+
+    <span class='id identifier rubyid_author'>author</span> <span class='op'>=</span> <span class='id identifier rubyid_user_question'>user_question</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_confirmed?'>confirmed?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_email_on_notification?'>email_on_notification?</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_blocked?'>blocked?</span>
+
+    <span class='lbracket'>[</span><span class='id identifier rubyid_author'>author</span><span class='rbracket'>]</span>
+
+    <span class='comment'># AUTHOR OF THE COMMENT REPLIED TO
+</span>  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>answer_questionnaire_confirmation_to_public_user</span><span class='tstring_end'>&quot;</span></span>
+    <span class='lbracket'>[</span><span class='id identifier rubyid_resource'>resource</span><span class='rbracket'>]</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_reply_to_comment</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_parent_of_reply'>parent_of_reply</span> <span class='op'>=</span> <span class='id identifier rubyid_additional_data'>additional_data</span><span class='lbracket'>[</span><span class='symbol'>:parent_of_reply</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_parent_of_reply'>parent_of_reply</span>
+
+    <span class='id identifier rubyid_author'>author</span> <span class='op'>=</span> <span class='id identifier rubyid_parent_of_reply'>parent_of_reply</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_confirmed?'>confirmed?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_email_on_notification?'>email_on_notification?</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_blocked?'>blocked?</span>
+
+    <span class='lbracket'>[</span><span class='id identifier rubyid_author'>author</span><span class='rbracket'>]</span>
   <span class='kw'>else</span>
-    <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span>
+    <span class='kw'>return</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_resource'>resource</span>
+
+    <span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_followers'>followers</span><span class='period'>.</span><span class='id identifier rubyid_not_blocked'>not_blocked</span><span class='period'>.</span><span class='id identifier rubyid_confirmed'>confirmed</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>email_on_notification:</span> <span class='kw'>true</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span><span class='rparen'>)</span> <span class='op'>+</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_email_follows'>email_follows</span><span class='period'>.</span><span class='id identifier rubyid_to_a'>to_a</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -378,9 +947,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:35 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

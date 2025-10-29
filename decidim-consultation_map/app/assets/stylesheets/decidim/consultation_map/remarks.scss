@@ -21,14 +21,13 @@
   width: auto;
   height: 100%;
   top: 0;
-  right: 0;
+  right: -10px;
   z-index: 10;
   overflow-y: scroll;
   max-width: 100%;
 
-
   .card--remark {
-    margin-right: 5px;
+    margin-right: 0px;
   }
 
   #new-remark-box {
@@ -37,7 +36,7 @@
     .card {
       min-height: 100%;
       margin-top: 0px;
-      margin-right: 5px;
+      margin-right: 0px;
 
       display: flex;
       flex-direction: column;
@@ -49,7 +48,7 @@
         flex-direction: column;
         justify-content: space-between;
 
-        .remark-field--selects>* {
+        .remark-field--selects > * {
           flex-basis: 30%;
         }
       }
@@ -57,12 +56,12 @@
   }
 
   .update-remark {
-    .remark-field--selects>* {
+    .remark-field--selects > * {
       flex-basis: 30%;
     }
   }
 
-  &>.column {
+  & > .column {
     width: 500px;
     padding: 0;
     max-width: 100%;

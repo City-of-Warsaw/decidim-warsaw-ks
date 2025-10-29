@@ -1,0 +1,16 @@
+<nav role="navigation" aria-label="<%= I18n.t("layouts.decidim.navigation.aria_label", title: translated_attribute(page.topic.title)) %>">
+  <button id="dropdown-trigger-pages" data-component="dropdown" data-target="dropdown-menu-pages" data-open-md="true" data-auto-close="true">
+    <span>
+      <%= translated_attribute(page.topic.title) %>
+    </span>
+    <%= icon "arrow-down-s-line" %>
+    <%= icon "arrow-up-s-line" %>
+  </button>
+  <ul id="dropdown-menu-pages" class="vertical-tabs__list" role="menu">
+    <% pages.each do |sibling, i| %> 
+      <li class="<%= "is-active" if page == sibling %>" role="menuitem">
+        <%= link_to translated_attribute(sibling.title), page_path(sibling.slug), "aria-current": (page == sibling).to_s %>
+      </li> 
+    <% end %> 
+  </ul>
+</nav>

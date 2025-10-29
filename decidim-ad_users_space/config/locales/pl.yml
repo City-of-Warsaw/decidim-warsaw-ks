@@ -5,9 +5,11 @@ pl:
       article_category:
         description: Opis
         name: Nazwa
+        weight: Kolejność na stronie
       info_article:
         body: Treść
         title: Tytuł
+        weight: Kolejność na stronie
         article_category_id: Kategoria
       forum_article:
         body: Treść
@@ -26,21 +28,13 @@ pl:
         title: Forum Użytkowników Wewnętrznych
     admin_log:
       article_category:
-        create: "%{user_name} utworzył(a) kategorię Bazy Wiedzy %{resource_name}"
-        delete: "%{user_name} usunął/ęła Kategorie Bazy Wiedzy %{resource_name}"
-        update: "%{user_name} zaktualizował(a) kategorię Bazy Wiedzy %{resource_name}"
+        create: "%{user_name} utworzył(a) kategorię w Strefie Koordynatora Konsultacji %{resource_name}"
+        delete: "%{user_name} usunął/ęła kategorie z Strefy Koordynatora Konsultacji %{resource_name}"
+        update: "%{user_name} zaktualizował(a) kategorię w Strefie Koordynatora Konsultacji %{resource_name}"
       info_article:
-        create: "%{user_name} utworzył(a) wpis w Bazie Wiedzy %{resource_name}"
-        delete: "%{user_name} usunął/ęła wpis z Bazy Wiedzy %{resource_name}"
-        update: "%{user_name} zaktualizował(a) wpis w Bazie Wiedzy %{resource_name}"
-    info_articles:
-      index:
-        description: Baza wiedzy
-        title: Baza wiedzy
-    info_article:
-      hero:
-        sub_header: Materiały dla koordynatorów konsultacji społecznych
-        header: Strefa koordynatora
+        create: "%{user_name} utworzył(a) wpis w Strefie Koordynatora Konsultacji %{resource_name}"
+        delete: "%{user_name} usunął/ęła wpis z Strefy Koordynatora Konsultacji %{resource_name}"
+        update: "%{user_name} zaktualizował(a) wpis w Strefie Koordynatora Konsultacji %{resource_name}"
     ad_users_space:
       forum_article_m:
         official_author: Administrator
@@ -89,10 +83,10 @@ pl:
             select_category: Wybierz kategorię
           edit:
             update: Aktualizuj
-            title: Edytuj wpis z Bazy Wiedzy
+            title: Edytuj wpis w Strefie koordynatora konsultacji
           new:
             create: Utwórz
-            title: Nowy wpis do Bazy Wiedzy
+            title: Nowy wpis w Strefie koordynatora konsultacji
         forum_articles:
           new:
             create: Utwórz
@@ -101,7 +95,7 @@ pl:
       article_categories:
         create:
           error: Nie udało się utworzyć kategorii
-          success: Utworzono kategorię Bazy Wiedzy
+          success: Utworzono kategorię w Strefie koordynatora konsultacji
         destroy:
           error: Nie udało się usunąć kategorii
           success: Kategoria została usunięta
@@ -111,8 +105,12 @@ pl:
           create: Nowa kategoria
         update:
           error: Nie udało się zaktualizować kategorii
-          success: Zaktualizowano kategorię Bazy Wiedzy
+          success: Zaktualizowano kategorię w Strefie koordynatora konsultacji
       models:
+        user:
+          fields:
+            office_name: Dzielnica/ jednostka/ biuro
+            ad_access_deactivate_date: Data dezaktywacji AD
         article_category:
           fields:
             articles_count: Liczba wpisów
@@ -129,20 +127,25 @@ pl:
           success: Wpis został usunięty
         update:
           error: Nie udało się zaktualizować wpisu
-          success: Zaktualizowano wpis z Bazy Wiedzy
+          success: Zaktualizowano wpis w Strefie koordynatora konsultacji
         create:
           error: Nie udało się utworzyć wpisu
-          success: Utworzono nowy wpis w Bazie Wiedzy
+          success: Utworzono nowy wpis w Strefie koordynatora konsultacji
         new:
           create: Nowy wpis
         no_info_articles: Brak wpisów do wyświetlenia
       titles:
-        article_categories: Kategorie Bazy Wiedzy
-        info_articles: Baza wiedzy
+        article_categories: Kategorie
+        info_articles: Strefa koordynatora konsultacji
       menu:
         forum: Forum użytkowników wewnętrznych
         info: Strefa koordynatora konsultacji
-    menu:
-      ad_users_space: Strefa koordynatora konsultacji
-      forum: Forum koordynatora konsultacji
-      info: Strefa koordynatora konsultacji
+      filters:
+        ad_role_eq:
+          label: Rola AD
+          values:
+            Decidim_ks_admin: Administrator
+            Decidim_ks_koordynator: Koordynator
+            Decidim_ks_moderator: Moderator
+        search_placeholder:
+          name_or_nickname_or_email_or_ad_role_or_editorial_cont: Przeszukaj %{collection} według roli AD, nazwy użytkownika, adresu e-mail lub redakcji.

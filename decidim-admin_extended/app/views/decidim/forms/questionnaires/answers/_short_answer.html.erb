@@ -1,0 +1,9 @@
+<div>
+  <%= answer_form.text_field :body,
+                             label: false,
+                             value: answer.body || responses_for_current_question_body(answer),
+                             id: field_id,
+                             disabled:,
+                             maxlength:,
+                             class: "w-full" %>
+</div>

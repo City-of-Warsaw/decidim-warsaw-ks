@@ -3,7 +3,7 @@
 module Decidim
   module AdminExtended
     # A command with all the business logic when updating an department.
-    class UpdateDepartment < Rectify::Command
+    class UpdateDepartment < Decidim::Command
       # Public: Initializes the command.
       #
       # department - The Department to update

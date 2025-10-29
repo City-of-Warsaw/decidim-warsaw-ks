@@ -69,12 +69,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Admin::ApplicationController</span>
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Admin::ApplicationController</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></li>
           
             <li class="next">Decidim::Repository::Admin::FoldersController</li>
           
@@ -104,7 +106,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This controller is responsible for managing galleries in Admin Panel</p>
+<p>This controller is responsible for managing folders in Admin Panel</p>
 
 
   </div>
@@ -144,7 +146,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>returns collection for view handle by Decidim::Admin::Filterable.</p>
+</div></span>
   
 </li>
 
@@ -237,6 +241,30 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#folders-instance_method" title="#folders (instance method)">#<strong>folders</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>returns base collection used for raw data aggregation.</p>
+</div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -303,6 +331,28 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#tab_menu_name-instance_method" title="#tab_menu_name (instance method)">#<strong>tab_menu_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -330,6 +380,20 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -344,21 +408,40 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns collection for view handle by Decidim::Admin::Filterable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-81
-82
-83</pre>
+83
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
-  <span class='const'><span class='object_link'><a href="../Folder.html" title="Decidim::Repository::Folder (class)">Folder</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
+  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='kw'>if</span> <span class='id identifier rubyid_action_name'>action_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span>
+                    <span class='id identifier rubyid_folder'>folder</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
+                  <span class='kw'>else</span>
+                    <span class='id identifier rubyid_folders'>folders</span>
+                  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -380,6 +463,7 @@
       <pre class="lines">
 
 
+23
 24
 25
 26
@@ -394,11 +478,10 @@
 35
 36
 37
-38
-39</pre>
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -436,29 +519,21 @@
       <pre class="lines">
 
 
+62
 63
 64
 65
 66
-67
-68
-69
-70
-71
-72</pre>
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='comment'># if folder.published?
-</span>  <span class='comment'>#   flash[:alert] = &quot;Nie można usunąć opublikowanego ...&quot;
-</span>  <span class='comment'># else
-</span>    <span class='id identifier rubyid_folder'>folder</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
-    <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>folders.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='comment'># end
-</span>  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_admin_folders_path'>admin_folders_path</span>
+  <span class='id identifier rubyid_folder'>folder</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+  <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>folders.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_admin_folders_path'>admin_folders_path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -480,13 +555,13 @@
       <pre class="lines">
 
 
+40
 41
 42
-43
-44</pre>
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -512,15 +587,56 @@
       <pre class="lines">
 
 
-77
 78
-79</pre>
+79
+80</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 78</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_folder'>folder</span>
-  <span class='ivar'>@folder</span> <span class='op'>||=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@folder</span> <span class='op'>||=</span> <span class='id identifier rubyid_folders'>folders</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="folders-instance_method">
+  
+    #<strong>folders</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns base collection used for raw data aggregation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 74</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_folders'>folders</span>
+  <span class='ivar'>@folders</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Folder.html" title="Decidim::Repository::Folder (class)">Folder</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -542,17 +658,17 @@
       <pre class="lines">
 
 
+8
 9
 10
-11
-12</pre>
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 9</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@folders</span> <span class='op'>=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
+  <span class='ivar'>@folders</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -574,13 +690,13 @@
       <pre class="lines">
 
 
+18
 19
 20
-21
-22</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -606,18 +722,44 @@
       <pre class="lines">
 
 
+13
 14
 15
-16
-17</pre>
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_folder'>folder</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
+  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tab_menu_name-instance_method">
+  
+    #<strong>tab_menu_name</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tab_menu_name'>tab_menu_name</span> <span class='op'>=</span> <span class='symbol'>:admin_repository_menu</span></pre>
     </td>
   </tr>
 </table>
@@ -638,6 +780,7 @@
       <pre class="lines">
 
 
+45
 46
 47
 48
@@ -652,11 +795,10 @@
 57
 58
 59
-60
-61</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/folders_controller.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -684,9 +826,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:20 2023 by
+  Generated on Wed Oct 29 14:41:39 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

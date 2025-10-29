@@ -1,0 +1,24 @@
+<% add_decidim_page_title(t("additional_translation.title", scope: "decidim.admin")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("additional_translation.title", scope: "decidim.admin") %>
+    </h1>
+  </div>
+
+  <div class="table-scroll">
+    <table class="table-list">
+      <thead>
+      <tr>
+        <th><%= t(".headers.key") %></th>
+        <th><%= t(".headers.value") %></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+        <%= render partial: "additional_translation", collection: @items.order('key ASC') %>
+      </tbody>
+    </table>
+  </div>
+</div>

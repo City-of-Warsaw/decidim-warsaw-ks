@@ -1,0 +1,15 @@
+<% add_decidim_page_title(t("my_comment", scope: "layouts.decidim.user_menu")) %>
+<% content_for(:subtitle) { t("my_comment", scope: "layouts.decidim.user_menu") } %>
+
+<%= render layout: "layouts/decidim/shared/layout_user_profile" do %>
+  <div class="mb-10">
+    <strong class="text-sm md:text-[16px]">Twoje uwagi i komentarze zamieszczone na stronie</strong>
+    <p class="text-sm md:text-[16px]">Wszystkie twoje wpisy w jednym miejscu</p>
+  </div>
+  <% my_comments_list.each do |opinion| %>
+    <%= render partial: "decidim/account/my_comment",locals: {opinion: opinion} %>
+  <% end %>
+  <% my_remarks_list.each do |remark| %>
+    <%= render partial: "decidim/account/my_remark",locals: {remark: remark} %>
+  <% end %>
+<% end %>

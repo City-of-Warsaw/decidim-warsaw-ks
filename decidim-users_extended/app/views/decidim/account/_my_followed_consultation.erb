@@ -1,0 +1,27 @@
+<div class="my-followed-consultation">
+  <div class="title"><a href="<%= resource_url(process) %>"><%= translated_attribute process.title %></a></div>
+  <div class="description"><%= decidim_sanitize(translated_attribute(process.description), strip_tags: true).truncate(200) %></div>
+  <div class="process__details flex flex-wrap items-center justify-between mt-20 gap-3">
+    <div class="process-areas">
+      <%= areas(process) %>
+    </div>
+    <% if process.not_for_citizens? %>
+      <div class="process-recipients">
+        <%= t(process.recipients, scope: 'activemodel.attributes.participatory_process.recipients_type') %>
+      </div>
+    <% end %>
+    <div class="process-time inline-flex items-center">
+      <% if process.end_date.present? && process.end_date >= Time.current.to_date %>
+        <span class="process-status__circle process-status__circle--active mr-2"></span>
+        <%= t(".till", ending_date: l(process.end_date.to_date, format: :decidim_short_cut_zero)) %>
+      <% else %>
+        <% if process.consultation_status.present? %>
+          <strong><%= t("consultation_statuses.#{process.consultation_status}", scope: 'activemodel.attributes.participatory_process') %></strong>
+        <% else %>
+          <span class="process-status__circle process-status__circle--inactive"></span>
+          <span class="ml-2">Zakończona</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

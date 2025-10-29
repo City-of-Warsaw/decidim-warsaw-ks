@@ -9,14 +9,21 @@ module Decidim::ConsultationMap
 
     invisible_captcha on_spam: :spam_detected
 
-    helper_method :remarks, :remark, :paginated_remarks, :all_locations,
-                  :remarks_help_section, :remark_token, :created_remark
+    helper_method :remarks,
+                  :remark,
+                  :paginated_remarks,
+                  :all_locations,
+                  :remark_token,
+                  :created_remark,
+                  :first_followable_remark
 
     before_action :verify_users_action_availability, only: [:new, :edit]
 
     def index
       enforce_permission_to :read, :remark
       @form = new_remark_form
+      @categories = categories
+      @map_backgrounds = map_backgrounds
 
       respond_to do |format|
         format.html
@@ -28,6 +35,11 @@ module Decidim::ConsultationMap
       enforce_permission_to :read, :remark
       @remarks = remarks.where(id: params[:id])
       @remark = remarks.find_by(id: params[:id])
+      @categories = categories
+      @map_backgrounds = map_backgrounds
+
+      raise ActionController::RoutingError, "Not Found" unless @remark
+
       # add premissions to see hidden modearate
       respond_to do |format|
         format.html { render :index }
@@ -101,7 +113,7 @@ module Decidim::ConsultationMap
 
       if @remark
         @form = form(Decidim::ConsultationMap::RemarkForm)
-                .from_params(params.merge(body: @remark.body, category: @remark.category, signature: @remark.signature, images: @remark.images))
+                .from_params(params.merge(body: @remark.body, category: @remark.category, signature: @remark.signature))
                 .with_context(current_component: current_component, current_user: current_user)
 
         Decidim::ConsultationMap::SecondStepRemarkUpdate.call(@form, @remark) do
@@ -134,9 +146,8 @@ module Decidim::ConsultationMap
                   Decidim::ConsultationMap::Remark.find_by(token: session[:remark_token])
                 end
       if @remark
-        @form = form(Decidim::ConsultationMap::RemarkForm)
-                .from_params(params.merge(rodo: true)) # passing rodo for validation pass
-                .with_context(current_component: current_component, current_user: current_user)
+        @form = form(Decidim::ConsultationMap::RemarkForm).from_params(params)
+                                                          .with_context(current_component: current_component, current_user: current_user)
 
         Decidim::ConsultationMap::UpdateRemark.call(@form, @remark, current_user) do
           on(:ok) do
@@ -163,7 +174,7 @@ module Decidim::ConsultationMap
     private
 
     def remarks
-      @remarks ||= search.results.with_attached_images
+      @remarks ||= search.result.where(component: current_component).without_system_hidden
     end
 
     # def remark
@@ -196,8 +207,8 @@ module Decidim::ConsultationMap
       @paginated_remarks ||= paginate(remarks)
     end
 
-    def search_klass
-      Decidim::ConsultationMap::RemarkSearch
+    def search_collection
+      Decidim::ConsultationMap::Remark.not_hidden
     end
 
     def default_search_params
@@ -210,7 +221,7 @@ module Decidim::ConsultationMap
     def default_filter_params
       {
         search_text: "",
-        decidim_category_id: ""
+        with_any_category: ""
       }
     end
 
@@ -219,14 +230,30 @@ module Decidim::ConsultationMap
       redirect_to remarks_path
     end
 
-    def remarks_help_section
-      current_component.settings[:help_section]
-    end
-
     def verify_users_action_availability
       if current_component.users_action_disallowed? && !(current_user && current_user.has_ad_role?)
         redirect_to remarks_path, alert: current_component.end_date_message
       end
+    end
+
+    # Returns the first map remark in the database that belongs to current component
+    # Thanks to the `create_system_followable_map_remark` method in:
+    # `decidim-admin_extended/app/decorators/commands/publish_component_decorator.rb`,
+    # there will always be at least one map remark available for users to follow.
+    def first_followable_remark
+      return nil unless current_component&.published?
+
+      @first_followable_remark ||= Decidim::ConsultationMap::Remark.where(body: "system_generated_hidden_map_remark", component: current_component)
+                                                                   .order(:created_at)
+                                                                   .first
+    end
+
+    def categories
+      @categories ||= Decidim::ConsultationMap::Category.where(component: current_component).sorted
+    end
+
+    def map_backgrounds
+      @map_backgrounds ||= Decidim::ConsultationMap::MapBackground.where(component: current_component).sorted
     end
   end
 end

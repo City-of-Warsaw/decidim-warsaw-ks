@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OldModels::OldFile
-  include Virtus.model
+  include Decidim::AttributeObject::Model
 
   attribute :alt, String
   attribute :description, String

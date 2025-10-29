@@ -1,0 +1,74 @@
+---
+pl:
+  activemodel:
+    attributes:
+      custom_proposal:
+        title: Tytuł
+        body: Treść
+        published: Publiczny *
+        weight: Kolejność na stronie
+  activerecord:
+    models:
+      decidim/custom_proposals/custom_proposal:
+        one: Uwagi do dokumentu
+        few: Uwagi do dokumentu
+        many: Uwagi do dokumentu
+        other: Uwagi do dokumentu
+  decidim:
+    admin_log:
+      custom_proposal:
+        create: "%{user_name} stworzył(a) fragment dokumentu %{resource_name} w przestrzeni %{space_name}"
+        delete: "%{user_name} usunął/usunęła fragment dokumentu %{resource_name} z %{space_name}"
+        update: "%{user_name} zaktualizował(a) fragment dokumentu %{resource_name} w przestrzeni %{space_name}"
+    admin:
+      custom_proposals:
+        create:
+          success: Fragment dokumentu został dodany
+          errors: Nie udało się dodać Fragmentu dokumentu
+        update:
+          success: Fragment dokumentu został zaktualizowany
+          errors: Nie udało się zaktualizować Fragmentu dokumentu
+        destroy:
+          success: Fragment dokumentu został usunięty
+    custom_proposals:
+      admin:
+        custom_proposals:
+          edit:
+            title: Edycja fragmentu dokumentu
+            update: Aktualizuj
+          new:
+            title: Nowy fragment dokumentu
+            create: Zapisz
+          actions:
+            edit: Edytuj
+            destroy: Usuń
+          form:
+            published_no: Nie
+            published_yes: Tak
+          index:
+            title: Uwagi do dokumentu
+            weight: Kolejność na stronie
+            proposal_title: Tytuł
+            published: Publiczny
+            created_at: Data utworzenia
+            published_yes: Tak
+            published_no: Nie
+      custom_proposals:
+        index:
+          follow_document: Obserwuj zmiany wprowadzane w tym dokumencie
+          tooltip_content: <p>Obserwuj, żeby dostać e-mail, gdy ktoś doda nową uwagę.</p>
+    components:
+      custom_proposals:
+        name: Uwagi do dokumentu
+        settings:
+          global:
+            comments_enabled: Komentarze włączone
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
+            announcement: Ogłoszenie
+          step:
+            announcement: Ogłoszenie
+            comments_blocked: Komentarze zablokowane

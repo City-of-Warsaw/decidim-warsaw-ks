@@ -1,0 +1,33 @@
+<% if settings_name == :global && manifest.settings(:custom).attributes.any? %>
+  <%= render "decidim/#{manifest.name}/admin/custom_settings", form: form %>
+<% end %>
+
+<% manifest.settings(settings_name).attributes.each do |field_name, settings_attribute| %>
+  <div class="row column mb-2">
+    <% if manifest.name == :surveys && field_name == :ends_at %>
+      <% if form.object.ends_at.present? %>
+        <%= form.date_field :ends_at, value: form.object.ends_at.to_date, label: t('decidim.components.surveys.settings.global.ends_at') %>
+      <% else %>
+        <%= form.date_field :ends_at, label: t('decidim.components.surveys.settings.global.ends_at') %>
+      <% end %>
+    <% else %>
+      <%= settings_attribute_input(
+            form,
+            settings_attribute,
+            field_name,
+            "decidim.components.#{manifest.name}.settings.#{settings_name}",
+            tabs_prefix:,
+            readonly: settings_attribute.readonly?(component: @component),
+            editor: settings_attribute.editor?(component: @component),
+            lines: 10
+          ) %>
+    <% end %>
+
+    <!-- render error presence specifically for: settings.attribute :help_section_title -->
+    <% if field_name == :help_section_title && @form.errors[:settings].present? %>
+      <span class="form-error is-visible">
+        <%= @form.errors[:settings][0] if field_name == :help_section_title %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

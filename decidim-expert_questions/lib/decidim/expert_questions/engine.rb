@@ -17,20 +17,11 @@ module Decidim
         root to: "user_questions#index"
       end
 
-      # decorators
-      config.autoload_paths << File.join(
-        Decidim::ExpertQuestions::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::ExpertQuestions::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
-      end
-
-      initializer "decidim_expert_questions.assets" do |app|
-        app.config.assets.precompile += %w[decidim_expert_questions_manifest.js decidim_expert_questions_manifest.css]
       end
 
       initializer "decidim_expert_questions.add_cells_view_paths" do

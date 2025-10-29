@@ -41,6 +41,7 @@ public/uploads
 config/database.yml
 config/secrets.yml
 .idea
+.vscode
 
 # Ignore unnecessary test files
 .rspec-failures
@@ -60,3 +61,16 @@ files_to_migrate.tar.gz
 # local fiels
 ad_test.rb
 decidim-module-przemad
+
+/public/packs
+/public/packs-test
+/public/decidim-packs
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+public/sw.js
+public/sw.js.map
+tailwind.config.js
+tests_results

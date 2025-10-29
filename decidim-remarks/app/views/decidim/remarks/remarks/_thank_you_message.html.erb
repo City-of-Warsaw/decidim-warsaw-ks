@@ -1,14 +1,15 @@
-<div class="row" id="new-remark-box">
-  <div class="columns mediumlarge-12 large-12">
-    <div class="column">
-      <div class="card card--remark_form add-comment">
-        <div class="card__header">
-          <h2 id="new-remark-header" class="section-heading"></h2>
-        </div>
-        <div class="card__content">
-          <p class="remark-success">Dziękujemy za dodanie komentarza!</p>
-        </div>
-      </div>
-    </div>
+<div id="new-remark-box" class="card card--remark_form add-comment">
+  <button class="close-button close-second-step-new-remark-button-js" data-close="" aria-label="zamknij" type="button">
+    <span aria-hidden="true">×</span>
+  </button>
+
+  <div class="card__content grow flex flex-col justify-center items-center">
+    <h4 class="h4 text-center">
+      <%= t('decidim.remarks.remarks.full_edit.header') %>
+    </h4>
+
+    <p class="mt-4 text-center">
+      <%= t('decidim.remarks.remarks.full_edit.note').html_safe %>
+    </p>
   </div>
 </div>

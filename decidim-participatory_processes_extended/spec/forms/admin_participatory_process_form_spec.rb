@@ -21,6 +21,8 @@ module Decidim::ParticipatoryProcesses::Admin
     let(:start_date) { Date.current }
     let(:end_date) { Date.current + 1.year }
     let(:area) { create(:area, organization: current_organization) }
+    let(:recipients) { 'ngo' }
+    let(:selected_scope) { create(:scope, organization: current_organization) }
 
     let(:fb_url) { Faker::Internet.url(host: 'facebook', scheme: 'https') }
 
@@ -43,7 +45,9 @@ module Decidim::ParticipatoryProcesses::Admin
           "promoted" => false,
           "scopes_enabled" => false,
           "area_id" => area.id,
-          "fb_url" => fb_url
+          "recipients" => recipients,
+          "selected_scope_ids" => selected_scope.id,
+          "users_action_allowed_for_unregister_users" => true
         }
       }
     end
@@ -100,12 +104,12 @@ module Decidim::ParticipatoryProcesses::Admin
     context "form is not valid" do
       it "without http" do
         subject.fb_url = 'www.fb.com'
-        is_expected.not_to be_invalid
+        is_expected.to be_invalid
       end
 
       it "with wrong " do
         subject.fb_url = 'http://www'
-        is_expected.not_to be_invalid
+        is_expected.to be_invalid
       end
 
       it "with invalid string provided for recipients" do

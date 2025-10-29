@@ -1,0 +1,1 @@
+import "src/area-map/geojson-area-map.js";

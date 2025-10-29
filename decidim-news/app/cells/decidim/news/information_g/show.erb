@@ -1,0 +1,12 @@
+<%= link_to resource_path, class: [classes[:default], "card card--information" ], id: resource_id do %>
+  <div class="<%= classes[:text] %>">
+    <%= content_tag title_tag, title, class: title_class %>
+    <div class="editor-content">
+      <%= description %>
+    </div>
+  </div>
+
+  <div class="card--information__footer">
+    <%= ending_date %>
+  </div>
+<% end %>

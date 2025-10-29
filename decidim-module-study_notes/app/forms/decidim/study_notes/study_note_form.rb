@@ -2,88 +2,374 @@
 
 require "valid_email2"
 require 'obscenity/active_model'
+require_dependency 'file_form_validator'
 
 module Decidim
   module StudyNotes
     # This class holds a Form to create single study note for process component.
     class StudyNoteForm < Decidim::Form
+      include ActionView::Helpers::UrlHelper
+      include Decidim::StudyNotes::StudyNotesHelper
+
       mimic :study_note
 
-      attribute :first_name, String
-      attribute :last_name, String
-      attribute :organization_name, String
-      attribute :email, String
-      attribute :body, String
-      attribute :category_id, Integer
-      attribute :author_type, String
-      attribute :location_specification, String
-      attribute :rodo, GraphQL::Types::Boolean
-      attribute :files, [String]
-      attribute :locations
-      attribute :acknowledged
-      attribute :street, String
-      attribute :street_number, String
-      attribute :flat_number, String
-      attribute :zip_code, String
-      attribute :city, String
-      attribute :map_background_id, Integer
+      # ATTRIBUTES:
 
-      validates :body, presence: true, obscenity: { message: :banned_word }
-      validates :street, presence: true
-      validates :street_number, presence: true
-      validates :city, presence: true
-      validates :rodo, acceptance: { message: I18n.t('errors.rodo.accept_with_email') }, if: proc { |attrs| attrs[:email].present? }
-      validates :email, 'valid_email_2/email': { disposable: true }, if: -> (form) { form.email.present? }
-      validate :category_exists
-      validate :category_was_picked
-      validate :acceptable_files, if: proc { |attrs| attrs[:files].any? }
-      validates :zip_code, presence: true, length: { maximum: 12 }
+      # attrs for sections 1, 2, 3
+      attribute :authority_name_which_letter_is_addressed, String, default: 'Prezydent m.st. Warszawy'
+      attribute :letter_type, Integer, default: 1
+      attribute :urban_planning_act_type, Integer, default: 0
 
-      def acceptable_files
-        errors.add(:files, "Dozwolona liczba załączników wynosi maksymalnie 2") if files.count > 2
-        files.each do |file|
-          errors.add(:files, "Maksymalny rozmiar pliku to 5MB") if file.size > 5.megabyte
+      # attrs for section 4 - submitter data
+      attribute :submitter_data_role, Integer # 0 - osoba fizyczna / 1 - jednostka organizacyjna
+      attribute :submitter_data_first_name, String
+      attribute :submitter_data_last_name, String
+      attribute :submitter_data_org_name, String
+      attribute :submitter_data_country, String
+      attribute :submitter_data_voivodeship, String
+      attribute :submitter_data_county, String
+      attribute :submitter_data_community, String
+      attribute :submitter_data_street, String
+      attribute :submitter_data_street_number, String
+      attribute :submitter_data_flat_number, String
+      attribute :submitter_data_city, String
+      attribute :submitter_data_zip_code, String
+      attribute :submitter_data_email, String
+      attribute :submitter_data_phone_number, String
+      attribute :submitter_data_epuap_delivery_address, String
+      attribute :perpetual_owner_of_the_property, Boolean
 
-          acceptable_types = %w[
-            image/jpg image/png application/pdf application/doc application/docx application/odt application/rtf
+      # attrs for section 5 - mailing address data
+      attribute :mailing_address_data_country, String
+      attribute :mailing_address_data_voivodeship, String
+      attribute :mailing_address_data_county, String
+      attribute :mailing_address_data_community, String
+      attribute :mailing_address_data_street, String
+      attribute :mailing_address_data_street_number, String
+      attribute :mailing_address_data_flat_number, String
+      attribute :mailing_address_data_city, String
+      attribute :mailing_address_data_zip_code, String
+
+      # attrs for section 6 - attorney data
+      attribute :attorney_data_role, Integer # 0 - pełnomocnik / 1 - pełnomocnik do doręczeń
+      attribute :attorney_data_first_name, String
+      attribute :attorney_data_last_name, String
+      attribute :attorney_data_country, String
+      attribute :attorney_data_voivodeship, String
+      attribute :attorney_data_county, String
+      attribute :attorney_data_community, String
+      attribute :attorney_data_street, String
+      attribute :attorney_data_street_number, String
+      attribute :attorney_data_flat_number, String
+      attribute :attorney_data_city, String
+      attribute :attorney_data_zip_code, String
+      attribute :attorney_data_email, String
+      attribute :attorney_data_phone_number, String
+      attribute :attorney_data_epuap_delivery_address, String
+      attribute :attorney_power_represent_applicant_or_for_service
+      attribute :attorney_power_payment_stamp_duty_confirm
+
+      # attrs for section 7 - letter content
+      # attrs for sub-section 7.1
+      attribute :detailed_notes, Hash, default: nil
+
+      # attrs for sub-section 7.2
+      attribute :request_body, String
+
+      # attrs for section 8 - declaration remote correspondence
+      attribute :declaration_remote_correspondence, Boolean
+
+      # attrs for section 9 - attachments
+      attribute :files
+      attribute :parcel_site_boundary
+      attribute :files_filename_one, String # also migrated
+      attribute :files_filename_two, String # also migrated
+
+      # attrs for additional section - optional email confirmation request
+      attribute :optional_confirmation_request, Boolean
+      attribute :email_confirmation_request, String
+
+      # last attrs
+      attribute :confirm_read_process_description, Boolean
+      attribute :confirm_process_personal_data, Boolean, default: false
+
+      # VALIDATIONS 
+      # validations for section 4 - submitter data
+      validates :submitter_data_role, presence: true
+      validates :submitter_data_first_name,
+                presence: true,
+                if: ->(form) {
+                  form.submitter_data_role.to_s == Decidim::StudyNotes::StudyNote::INDIVIDUAL
+                }
+      validates :submitter_data_last_name,
+                presence: true,
+                if: ->(form) {
+                  form.submitter_data_role.to_s == Decidim::StudyNotes::StudyNote::INDIVIDUAL
+                }
+      validates :submitter_data_org_name,
+                presence: true,
+                if: ->(form) {
+                  form.submitter_data_role.to_s == Decidim::StudyNotes::StudyNote::ORGANIZATION
+                }
+      validate :submitter_full_name_or_org_name
+      validates :submitter_data_country,
+                :submitter_data_voivodeship,
+                :submitter_data_county,
+                :submitter_data_community,
+                :submitter_data_street,
+                :submitter_data_street_number,
+                :submitter_data_city,
+                :submitter_data_zip_code,
+                presence: true
+      validates :submitter_data_org_name, length: { maximum: 300 }
+      validates :submitter_data_first_name,
+                :submitter_data_last_name,
+                :submitter_data_country,
+                :submitter_data_voivodeship,
+                :submitter_data_county,
+                :submitter_data_community,
+                :submitter_data_street,
+                :submitter_data_city,
+                :submitter_data_zip_code,
+                :submitter_data_email,
+                :submitter_data_epuap_delivery_address,
+                length: { maximum: 100 }
+      validates :submitter_data_street_number,
+                :submitter_data_flat_number,
+                length: { maximum: 20 }
+      validates :submitter_data_phone_number, length: { maximum: 30 }
+      validates :submitter_data_email,
+                'valid_email_2/email': { disposable: false },
+                if: ->(form) { form.submitter_data_email.present? }
+      validates :perpetual_owner_of_the_property, inclusion: { in: [true, false] }
+
+      # validations for section 5 - mailing address data
+      validates :mailing_address_data_country,
+                :mailing_address_data_voivodeship,
+                :mailing_address_data_county,
+                :mailing_address_data_community,
+                :mailing_address_data_street,
+                :mailing_address_data_city,
+                :mailing_address_data_zip_code,
+                length: { maximum: 100 }
+      validates :mailing_address_data_street_number,
+                :mailing_address_data_flat_number,
+                length: { maximum: 20 }
+      validate :mailing_address_data_incomplete?
+
+      # validations for section 6 - attorney data
+      validates :attorney_data_first_name,
+                :attorney_data_last_name,
+                :attorney_data_country,
+                :attorney_data_voivodeship,
+                :attorney_data_county,
+                :attorney_data_community,
+                :attorney_data_street,
+                :attorney_data_city,
+                :attorney_data_zip_code,
+                :attorney_data_email,
+                :attorney_data_epuap_delivery_address,
+                length: { maximum: 100 }
+      validates :attorney_data_street_number,
+                :attorney_data_flat_number,
+                length: { maximum: 20 }
+      validates :attorney_data_phone_number, length: { maximum: 30 }
+      validate :attorney_data_incomplete?
+      validates :attorney_data_email,
+                'valid_email_2/email': { disposable: false },
+                if: ->(form) { form.attorney_data_email.present? }
+
+      # validations for sub-section 7a
+      validate :detailed_notes_length
+      validate :detailed_notes_valid_json
+
+      # validations for sub-section 7b
+      validate :request_body_length
+
+      # validations for section 8 - declaration remote correspondence
+      validates :declaration_remote_correspondence, inclusion: { in: [true, false] }
+
+      # validations for section 9 - attachments
+      validates :attorney_power_represent_applicant_or_for_service, presence: true, if: :attorney_data?
+      validates :attorney_power_represent_applicant_or_for_service, file_form: {
+        max_size: 5.megabytes,
+        acceptable_types: %w[
+          image/jpg
+          image/jpeg
+          application/pdf
+        ]
+      }
+
+      validates :attorney_power_payment_stamp_duty_confirm, file_form: {
+        max_size: 5.megabytes,
+        acceptable_types: %w[
+          image/jpg
+          image/jpeg
+          application/pdf
+        ]
+      }
+
+      validates :parcel_site_boundary, file_form: {
+        max_size: 5.megabytes,
+        acceptable_types: %w[
+          image/jpg
+          image/jpeg
+          application/pdf
+        ]
+      }
+
+      validates :files, file_form: {
+        count: 2,
+        max_size: 5.megabytes,
+        acceptable_types:
+          %w[
+            image/jpg
+            image/jpeg
+            application/pdf
+            application/msword
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document
+            application/vnd.oasis.opendocument.text
+            text/rtf
+            application/vnd.ms-excel
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+            application/vnd.ms-powerpoint
+            application/vnd.openxmlformats-officedocument.presentationml.presentation
           ]
-          unless acceptable_types.include?(file.content_type)
-            errors.add(:files, "Dozwolne rozszerzenia plików: pdf jpg png doc docx odt rtf")
+      }
+
+      # validations for additional section - optional email confirmation request
+      validates :optional_confirmation_request, inclusion: { in: [true, false] }
+      validates :email_confirmation_request,
+                presence: true,
+                'valid_email_2/email': { disposable: false },
+                if: ->(form) { form.optional_confirmation_request? }
+
+
+      # validations for last attrs
+      validates :confirm_read_process_description, inclusion: { in: [true], message: 'Musi być zaznaczony' }
+
+      private
+
+      def submitter_full_name_or_org_name
+        if submitter_data_role.to_s == Decidim::StudyNotes::StudyNote::INDIVIDUAL
+          self.submitter_data_org_name = ''
+        else
+          self.submitter_data_first_name = ''
+          self.submitter_data_last_name = ''
+        end
+      end
+
+      def mailing_address_data_incomplete?
+        mailing_address_attrs = [
+          mailing_address_data_country,
+          mailing_address_data_voivodeship,
+          mailing_address_data_county,
+          mailing_address_data_community,
+          mailing_address_data_street,
+          mailing_address_data_street_number,
+          mailing_address_data_city,
+          mailing_address_data_zip_code
+        ]
+
+        # Check if any of the attributes are present
+        if mailing_address_attrs.any?(&:present?)
+          # Ensure all attributes are present
+          mailing_address_attrs.each_with_index do |attr, index|
+            next unless attr.blank?
+
+            errors.add(
+              :base,
+              'Wszystkie pola sekcji 5 dotyczącej adresu do korespondencji muszą zostać wypełnione,
+                      jeśli zostało wypełnione choć jedno spośród tych pól'
+            )
+            break
           end
         end
       end
 
-      def category_exists
-        errors.add(:category_id, 'Kategoria jest niepoprawna') unless category
+      def attorney_data_incomplete?
+        attorney_attrs = [
+          attorney_data_role,
+          attorney_data_first_name,
+          attorney_data_last_name,
+          attorney_data_country,
+          attorney_data_voivodeship,
+          attorney_data_county,
+          attorney_data_community,
+          attorney_data_street,
+          attorney_data_street_number,
+          attorney_data_city,
+          attorney_data_zip_code
+        ]
+
+        # Check if any of the attributes are present
+        if attorney_attrs.any?(&:present?)
+          # Ensure all attributes are present
+          attorney_attrs.each_with_index do |attr, index|
+            next unless attr.blank?
+
+            errors.add(
+              :base,
+              'Wszystkie pola sekcji 6 dotyczących danych pełnomocnika muszą zostać wypełnione,
+                      jeśli zostało wypełnione choć jedno spośród tych pól'
+            )
+            break
+          end
+        end
       end
 
-      def category_was_picked
-        return if categories.none?
-        return if category_id.present?
-
-        errors.add(:category_id, 'Wybierz kategorię swojej uwagi')
+      def attorney_data?
+        attorney_data_role &&
+          attorney_data_first_name &&
+          attorney_data_last_name &&
+          attorney_data_country &&
+          attorney_data_voivodeship &&
+          attorney_data_county &&
+          attorney_data_community &&
+          attorney_data_street &&
+          attorney_data_street_number &&
+          attorney_data_flat_number &&
+          attorney_data_city &&
+          attorney_data_zip_code
       end
 
-      def category
-        return unless current_component
+      def request_body_length
+        # count a new line as 1 char instead of 2
+        return unless request_body.gsub(/\r\n/, "\n").length > 1000
 
-        @category ||= categories.find_by(id: category_id)
+        errors.add(
+          :request_body,
+          'jest za długie (maksymalnie 1000 znaków)'
+        )
       end
 
-      def categories
-        @categories ||= Decidim::StudyNotes::Category.where(component: current_component).order(name: :asc)
-      end
+      def detailed_notes_length
+        return if detailed_notes.blank?
 
-      def categories_select
-        categories.map { |cat| [cat.name, cat.id] }
-      end
+        begin
+          details = JSON.parse(detailed_notes)
 
-      def map_backgrounds_raster
-        @map_backgrounds_raster ||= Decidim::StudyNotes::MapBackground.where(component: current_component).raster_file_type
-      end
+          details.each.with_index(1) do |entry, index|
+            if entry['social_infrastructure_accessibility_body'].present? && entry['social_infrastructure_accessibility_body'].gsub(/\r\n/, "\n").length > 1000
 
-      def max_characters
-        4000
+            errors.add(
+              :base,
+              "#{I18n.t('activemodel.attributes.study_note.detailed_notes_social_infrastructure_accessibility_body')}
+                w pozycji #{index} przekracza maksymalną długość 1000 znaków."
+            )
+          end
+        end
+
+        rescue JSON::ParserError => e
+          errors.add(
+            :base,
+            'nie jest prawidłowym formatem danych'
+          )
+        end
+      end 
+
+      def detailed_notes_valid_json
+        self.detailed_notes = '' if detailed_notes == '[]'
       end
     end
   end

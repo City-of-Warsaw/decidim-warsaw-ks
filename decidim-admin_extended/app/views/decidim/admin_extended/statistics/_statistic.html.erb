@@ -3,24 +3,45 @@
     <%= statistic.name %>
   </td>
   <td>
-    <%= t("sys_name.#{statistic.sys_name}", scope: "decidim.admin_extended.statistics") %>
+    <%= t("sys_name.#{statistic.sys_name}", scope: "decidim.admin_extended.statistics") if statistic.sys_name.present? %>
   </td>
   <td>
     <span class="success">
       <%= statistic.visibility ?
-            icon('circle-check', class: 'action-icon highlighted' )
-            : icon('circle-x', class: 'action-icon action-icon--remove') %>
+            icon('check-line', class: 'action-icon highlighted' )
+            : icon('close-line', class: 'action-icon action-icon--remove') %>
     </span>
   </td>
   <td>
     <%= statistic.count %>
   </td>
   <td>
+    <%= statistic.additional_statistic_number %>
+  </td>
+  <td>
+    <%= statistic.sum_of_count_and_additional_number %>
+  </td>
+  <td>
     <%= statistic.weight %>
   </td>
   <td class="table-list__actions">
-    <% if allowed_to? :update, :organization, organization: current_organization %>
-      <%= icon_link_to "pencil", edit_statistic_path(statistic), t("actions.edit", scope: "decidim.admin_extended.statistics"), class: "action-icon--edit" %>
+    <%= icon_link_to "folder-line",
+                     statistic_path(statistic),
+                     "Archiwum",
+                     class: "action-icon--preview" %>
+    <% if allowed_to? :update, :statistics, statistic: statistic %>
+      <%= icon_link_to "pencil-line",
+                       [:edit, statistic],
+                       t("actions.edit", scope: "decidim.admin_extended.statistics"),
+                       class: "action-icon--edit" %>
+    <% end %>
+    <% if allowed_to? :delete, :statistics, statistic: statistic  %>
+      <%= icon_link_to "delete-bin-line",
+                       [statistic],
+                       t("actions.destroy", scope: "decidim.admin_extended.statistics"),
+                       class: "action-icon--edit",
+                       method: :delete,
+                       data: { confirm: t("actions.confirm_destroy_contact_info_position", scope: "decidim.admin_extended.contact_info_positions")} %>
     <% end %>
   </td>
 </tr>

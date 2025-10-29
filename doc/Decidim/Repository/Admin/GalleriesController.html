@@ -69,12 +69,14 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Admin::ApplicationController</span>
+      <span class="inheritName"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></span>
       
         <ul class="fullTree">
           <li>Object</li>
           
             <li class="next">Admin::ApplicationController</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationController.html" title="Decidim::Repository::Admin::ApplicationController (class)">ApplicationController</a></span></li>
           
             <li class="next">Decidim::Repository::Admin::GalleriesController</li>
           
@@ -144,7 +146,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>returns collection for view handle by Decidim::Admin::Filterable.</p>
+</div></span>
   
 </li>
 
@@ -218,6 +222,30 @@
         <li class="private ">
   <span class="summary_signature">
     
+      <a href="#galleries-instance_method" title="#galleries (instance method)">#<strong>galleries</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>returns base collection used for raw data aggregation.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
       <a href="#gallery-instance_method" title="#gallery (instance method)">#<strong>gallery</strong>  &#x21d2; Object </a>
     
 
@@ -281,6 +309,28 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#search_field_predicate-instance_method" title="#search_field_predicate (instance method)">#<strong>search_field_predicate</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -325,6 +375,28 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#tab_menu_name-instance_method" title="#tab_menu_name (instance method)">#<strong>tab_menu_name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -352,6 +424,20 @@
 
 
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -366,21 +452,40 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns collection for view handle by Decidim::Admin::Filterable</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-88
-89
-90</pre>
+94
+95
+96
+97
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 88</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection'>collection</span>
-  <span class='const'><span class='object_link'><a href="../Gallery.html" title="Decidim::Repository::Gallery (class)">Gallery</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
+  <span class='ivar'>@collection</span> <span class='op'>||=</span> <span class='kw'>if</span> <span class='id identifier rubyid_action_name'>action_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span>
+                    <span class='id identifier rubyid_gallery'>gallery</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
+                  <span class='kw'>else</span>
+                    <span class='id identifier rubyid_galleries'>galleries</span>
+                  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -402,6 +507,8 @@
       <pre class="lines">
 
 
+23
+24
 25
 26
 27
@@ -415,12 +522,10 @@
 35
 36
 37
-38
-39
-40</pre>
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -458,29 +563,27 @@
       <pre class="lines">
 
 
+62
+63
 64
 65
 66
 67
 68
 69
-70
-71
-72
-73</pre>
+70</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy'>destroy</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='comment'># if gallery.published?
-</span>  <span class='comment'>#   flash[:alert] = &quot;Nie można usunąć opublikowanego ...&quot;
-</span>  <span class='comment'># else
-</span>  <span class='id identifier rubyid_gallery'>gallery</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
-  <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>galleries.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
-  <span class='comment'># end
-</span>  <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_admin_galleries_path'>admin_galleries_path</span>
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::Repository::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="DestroyGallery.html" title="Decidim::Repository::Admin::DestroyGallery (class)">DestroyGallery</a></span></span><span class='period'>.</span><span class='id identifier rubyid_call'><span class='object_link'><a href="DestroyGallery.html#call-instance_method" title="Decidim::Repository::Admin::DestroyGallery#call (method)">call</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_gallery'>gallery</span><span class='comma'>,</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='kw'>do</span>
+    <span class='id identifier rubyid_on'>on</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='rparen'>)</span> <span class='kw'>do</span>
+      <span class='id identifier rubyid_flash'>flash</span><span class='lbracket'>[</span><span class='symbol'>:notice</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>I18n</span><span class='period'>.</span><span class='id identifier rubyid_t'>t</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>galleries.destroy.success</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.repository.admin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_redirect_to'>redirect_to</span> <span class='id identifier rubyid_admin_galleries_path'>admin_galleries_path</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -502,17 +605,60 @@
       <pre class="lines">
 
 
+40
+41
 42
-43
-44
-45</pre>
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 42</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::Repository::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="GalleryForm.html" title="Decidim::Repository::Admin::GalleryForm (class)">GalleryForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_model'>from_model</span><span class='lparen'>(</span><span class='id identifier rubyid_gallery'>gallery</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="galleries-instance_method">
+  
+    #<strong>galleries</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns base collection used for raw data aggregation</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 84</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_galleries'>galleries</span>
+  <span class='ivar'>@galleries</span> <span class='op'>||=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Gallery.html" title="Decidim::Repository::Gallery (class)">Gallery</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>decidim_organization_id:</span> <span class='id identifier rubyid_current_organization'>current_organization</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
+                                             <span class='period'>.</span><span class='id identifier rubyid_latest_first'>latest_first</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -534,15 +680,15 @@
       <pre class="lines">
 
 
-84
-85
-86</pre>
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 89</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_gallery'>gallery</span>
-  <span class='ivar'>@gallery</span> <span class='op'>||=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='ivar'>@gallery</span> <span class='op'>||=</span> <span class='id identifier rubyid_galleries'>galleries</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -564,17 +710,17 @@
       <pre class="lines">
 
 
+8
+9
 10
-11
-12
-13</pre>
+11</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@galleries</span> <span class='op'>=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_page'>page</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:page</span><span class='rbracket'>]</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_per'>per</span><span class='lparen'>(</span><span class='int'>15</span><span class='rparen'>)</span>
+  <span class='ivar'>@galleries</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -596,17 +742,59 @@
       <pre class="lines">
 
 
+18
+19
 20
-21
-22
-23</pre>
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../Repository.html" title="Decidim::Repository (module)">Repository</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Admin.html" title="Decidim::Repository::Admin (module)">Admin</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="GalleryForm.html" title="Decidim::Repository::Admin::GalleryForm (class)">GalleryForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_instance'>instance</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="search_field_predicate-instance_method">
+  
+    #<strong>search_field_predicate</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+102
+103
+104
+105
+106
+107
+108
+109
+110</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 102</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_search_field_predicate'>search_field_predicate</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_action_name'>action_name</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>show</span><span class='tstring_end'>&quot;</span></span>
+    <span class='comment'># for gallery files, use the same search just as for index files
+</span>    <span class='symbol'>:name_or_description_cont</span>
+  <span class='kw'>else</span>
+    <span class='comment'># for gallery, its own search
+</span>    <span class='symbol'>:name_cont</span>
+  <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -628,17 +816,17 @@
       <pre class="lines">
 
 
+13
+14
 15
-16
-17
-18</pre>
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
-  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_gallery'>gallery</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_permitted_for_user'>permitted_for_user</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
+  <span class='ivar'>@files</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -660,15 +848,15 @@
       <pre class="lines">
 
 
+72
+73
+74
 75
 76
-77
-78
-79
-80</pre>
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 72</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sort'>sort</span>
   <span class='id identifier rubyid_gallery'>gallery</span><span class='period'>.</span><span class='id identifier rubyid_gallery_images'>gallery_images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_gi'>gi</span><span class='op'>|</span>
@@ -676,6 +864,32 @@
     <span class='id identifier rubyid_gi'>gi</span><span class='period'>.</span><span class='id identifier rubyid_update_column'>update_column</span><span class='lparen'>(</span><span class='symbol'>:position</span><span class='comma'>,</span> <span class='id identifier rubyid_new_position'>new_position</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="tab_menu_name-instance_method">
+  
+    #<strong>tab_menu_name</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+81</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 81</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_tab_menu_name'>tab_menu_name</span> <span class='op'>=</span> <span class='symbol'>:admin_repository_menu</span></pre>
     </td>
   </tr>
 </table>
@@ -696,6 +910,8 @@
       <pre class="lines">
 
 
+45
+46
 47
 48
 49
@@ -709,12 +925,10 @@
 57
 58
 59
-60
-61
-62</pre>
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-repository/app/controllers/decidim/repository/admin/galleries_controller.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:manage</span><span class='comma'>,</span> <span class='symbol'>:repository</span>
@@ -742,9 +956,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:20 2023 by
+  Generated on Wed Oct 29 14:41:39 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

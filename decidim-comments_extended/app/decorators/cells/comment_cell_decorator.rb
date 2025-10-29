@@ -96,7 +96,6 @@ Decidim::Comments::CommentCell.class_eval do
 
   # method checkes if a root commentable is one of custom elements from outside space
   def unscoped_element?
-    # TODO: dodac pozostale
     root_commentable.is_a?(Decidim::News::Information) ||
       root_commentable.is_a?(Decidim::ConsultationRequests::ConsultationRequest)
   end
@@ -104,7 +103,6 @@ Decidim::Comments::CommentCell.class_eval do
   # method sets custom routes for elements from outside space
   # possible to move out to a new locator presenter
   def unscoped_locator(params)
-    # TODO: dodac pozostale
     case root_commentable.class.name
     when "Decidim::News::Information"
       decidim_news.information_path(root_commentable)

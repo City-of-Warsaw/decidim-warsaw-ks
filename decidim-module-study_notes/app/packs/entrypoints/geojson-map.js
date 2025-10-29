@@ -1,0 +1,1 @@
+import "src/decidim/study_notes/admin/geojson-map.js";

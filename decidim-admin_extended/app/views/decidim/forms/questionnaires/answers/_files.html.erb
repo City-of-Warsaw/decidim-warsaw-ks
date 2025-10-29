@@ -1,0 +1,7 @@
+<% if responses_for_current_question_files(answer).nil? || !responses_for_current_question_files(answer).any? %>
+  <%= answer_form.file_field :add_documents, label: false, multiple: true, id: field_id, disabled:, button_class: "button button__lg button__transparent-secondary w-full" %>
+<% else %>
+  <% responses_for_current_question_files(answer).flatten.each do |file_name| %>
+    <p>Plik: <%= file_name %></p>
+  <% end %>
+<% end %>

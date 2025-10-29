@@ -6,6 +6,7 @@ module Decidim
       class ArticleCategoryForm < Form
         attribute :name, String
         attribute :description, String
+        attribute :weight, Integer
 
         validates :name, presence: true
 

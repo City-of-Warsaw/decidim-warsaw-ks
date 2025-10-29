@@ -12,13 +12,20 @@ module Decidim
       end
     end
 
-    def user_gender_for_select
-      Decidim::User::GENDERS.map do |g|
-        [
-          I18n.t("gender.#{g}", scope: "decidim.users"),
-          g
-        ]
-      end
+    # it used for:
+    # - my account
+    # - registration new user
+    def gender_options_for_profile
+      Decidim::User::GENDERS.map { |g| [I18n.t("decidim.users.gender.profile.#{g}"), g] }
+    end
+
+    # it used for:
+    # - comment
+    # - remark
+    # - remark on map
+    # - user question
+    def gender_options_for_public_post
+      Decidim::User::GENDERS.map { |g| [I18n.t("decidim.users.gender.public_post.#{g}"), g] }
     end
 
     def user_districts_for_select

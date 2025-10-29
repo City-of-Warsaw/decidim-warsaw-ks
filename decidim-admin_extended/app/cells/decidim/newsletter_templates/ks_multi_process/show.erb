@@ -1,0 +1,105 @@
+<% if organization_primary_color %>
+<style>
+  .editor-content h2 {
+    border-left: 5px solid <%= organization_primary_color %>;
+    padding-left: 16px;
+  }
+</style>
+<% end %> 
+
+<table class="ks-custom-container">
+  <tr>
+    <td class="decidim-bar">
+      <table class="row collapse" style="width: 100%">
+        <tr style="vertical-align: middle;">
+          <th class="columns decidim-bar" style="width: 100%; background-color: #ffffff;">
+            <div style="text-align: center;">
+              <%= logo_or_name_link %>
+            </div>
+          </th> 
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr class="gray-halved-bg">
+    <td class="real-content">
+      <% if has_main_image? %>
+        <table class="row content image">
+          <tr>
+            <th class="small-12 first columns relative">
+              <div class="relative z-1">
+                <div class="shadowed"><%= main_image %></div>
+                <div class="consultation-decor">
+                  <%= image_pack_tag "media/images/mail-header-bottom-transparent.png", alt: "", style: "width: 100%;" %>
+                </div>
+              </div>
+              
+              <div class="gray-background-element-image"></div>
+            </th>
+            <th class="expander"></th>
+          </tr>
+        </table>
+      <% end %>
+    </tr>
+  </td>
+
+  <tr class="gray-bg">
+    <td class="real-content">
+      <table class="row content <%= has_main_image? ? "has-image" : "no-image" %>">
+        <tr>
+          <th class="small-12 first columns">
+            <div class="lead">
+              <div class="editor-content">
+                <%= lead %>
+              </div> 
+            </div>
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+    </tr>
+  </td>
+      
+  <tr>
+    <td class="real-content pt-8">
+      <table class="row content">
+        <tr>
+          <th class="small-12 first columns">
+            <span class="introduction editor-content"><%= introduction %></span> 
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+    </td>
+  </tr> 
+
+  <tr class="gray-bg">
+    <td class="real-content">
+      <table class="row content mt-8">
+        <tr>
+          <th class="small-12 first columns"> 
+            <div class="editor-content">
+              <%= body %>
+            </div>  
+          </th>
+          <th class="expander"></th>
+        </tr>
+      </table>
+    </td>
+  </tr> 
+
+  <tr class="gray-bg">
+    <td class="real-content">
+      <table class="row">
+        <tr>
+          <th class="expander"></th>
+          <th class="small-12 first columns cityhall-bar">
+            <div class="decidim-logo" style="float: right; text-align: right; padding-right: 16px">
+            </div>
+          </th>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,5 +1,11 @@
-<ul class="row small-up-12 medium-up-12 card-grid ul-reset-minimum" role="list">
-  <%= render paginated_user_questions %>
-</ul>
+<% if request.path =~ /user_questions\/\d+/ %>
+  <div class="callout secondary">
+    <h5>Wyświetlasz teraz pojedyncze pytanie</h5>
+    <p>
+      <a href="<%= main_component_path(current_component) %>#subcontent">Zobacz pozostałe pytania</a>.
+    </p>
+  </div>
+<% end %>
 
+<%= render paginated_user_questions %>
 <%= decidim_paginate paginated_user_questions %>

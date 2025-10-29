@@ -3,8 +3,6 @@
 module Decidim
   module ExpertQuestions
     class UserQuestionCell < Decidim::ViewModel
-      include Cell::ViewModel::Partial
-
       def show
         cell card_size, model, options
       end
@@ -12,7 +10,12 @@ module Decidim
       private
 
       def card_size
-        "decidim/expert_questions/user_question_m"
+        case @options[:size]
+        when :l
+          "decidim/expert_questions/user_question_l"
+        else
+          "decidim/expert_questions/user_question_s"
+        end
       end
     end
   end

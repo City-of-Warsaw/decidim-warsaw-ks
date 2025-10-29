@@ -1,0 +1,7 @@
+var $emailFollowResource = $("#followModal");
+morphdom($emailFollowResource[0], "<%= j(button_cell.to_s.strip.html_safe) %>");
+
+var $followersCount = $("#<%= dom_id(resource, :followers_count) %>");
+if ($followersCount.length > 0) {
+    $followersCount[0].innerText = <%= button_cell.followers_count %>;
+}

@@ -6,16 +6,20 @@ module Decidim::ExpertQuestions
     include Decidim::FilterResource
     include Decidim::Paginable
     include Decidim::Flaggable
+    include Decidim::CoreExtended::CommentTokenCookie
 
-    helper_method :experts, :expert, :user_questions, :user_question, :paginated_user_questions,
-                  :questions_help_section, :user_question_token, :created_user_question
-
-    before_action :verify_users_action_availability, only: [:new, :edit]
+    helper_method :experts,
+                  :expert,
+                  :user_questions,
+                  :user_question,
+                  :paginated_user_questions,
+                  :user_question_token,
+                  :created_user_question,
+                  :first_followable_user_question,
+                  :user_allowed_to_add_user_question?
 
     def index
       enforce_permission_to :read, :user_question
-
-      # @form = new_user_question_form
 
       respond_to do |format|
         format.html
@@ -27,7 +31,9 @@ module Decidim::ExpertQuestions
       enforce_permission_to :read, :user_question
       @user_questions = user_questions.where(id: params[:id])
       @user_question = user_questions.find_by(id: params[:id])
-      # add premissions to see hidden modearate
+
+      raise ActionController::RoutingError, "Not Found" unless @user_question
+
       respond_to do |format|
         format.html { render :index }
         format.js
@@ -55,7 +61,7 @@ module Decidim::ExpertQuestions
 
         on(:invalid) do
           respond_to do |format|
-            format.js { render :new }
+            format.js { render :create_error }
             format.html { render :new, alert: I18n.t("user_questions.create.invalid", scope: "decidim.expert_questions") }
           end
         end
@@ -77,7 +83,7 @@ module Decidim::ExpertQuestions
         end
       else
         respond_to do |format|
-          format.html { redirect_to user_questions_path, alert: 'Cos poszło nie tak' }
+          format.html { redirect_to user_questions_path, alert: "Cos poszło nie tak" }
           format.js { render js: "window.location.href='#{user_questions_path}'" }
         end
       end
@@ -103,7 +109,7 @@ module Decidim::ExpertQuestions
         end
       else
         respond_to do |format|
-          format.html { redirect_to user_questions_path, alert: 'Coś poszło nie tak' }
+          format.html { redirect_to user_questions_path, alert: "Coś poszło nie tak" }
           format.js { render js: "window.location.href='#{user_questions_path}'" }
         end
       end
@@ -112,13 +118,12 @@ module Decidim::ExpertQuestions
     # PATCH Action for full update
     def update
       @user_question = if current_user
-                  Decidim::ExpertQuestions::UserQuestion.user_user_questions(current_user.id).find_by(id: params[:id])
-                elsif session[:user_question_token].present?
-                  Decidim::ExpertQuestions::UserQuestion.find_by(token: session[:user_question_token])
-                end
+                         Decidim::ExpertQuestions::UserQuestion.user_user_questions(current_user.id).find_by(id: params[:id])
+                       elsif session[:user_question_token].present?
+                         Decidim::ExpertQuestions::UserQuestion.find_by(token: session[:user_question_token])
+                       end
       if @user_question
-        @form = form(Decidim::ExpertQuestions::UserQuestionForm)
-                .from_params(params.merge(rodo: true)) # passing rodo for validation pass
+        @form = form(Decidim::ExpertQuestions::UserQuestionForm).from_params(params)
         Decidim::ExpertQuestions::UpdateUserQuestion.call(@form, @user_question, current_user) do
           on(:ok) do
             respond_to do |format|
@@ -134,7 +139,7 @@ module Decidim::ExpertQuestions
         end
       else
         respond_to do |format|
-          format.html { redirect_to user_questions_path, alert: 'Cos poszło nie tak' }
+          format.html { redirect_to user_questions_path, alert: "Cos poszło nie tak" }
           format.js { render js: "window.location.href='#{user_questions_path}'" }
         end
       end
@@ -152,31 +157,27 @@ module Decidim::ExpertQuestions
                   elsif params[:user_question] && params[:user_question][:expert_id]
                     experts.find_by(id: params[:user_question][:expert_id])
                   end
-
-      @expert ? @expert : (redirect_to(user_questions_path, alert: I18n.t("user_questions.new.expert_not_found", scope: "decidim.expert_questions")) and return)
+      @expert || (redirect_to(user_questions_path, alert: I18n.t("user_questions.new.expert_not_found", scope: "decidim.expert_questions")) && (nil))
     end
 
     def user_questions
-      # @user_questions ||= Decidim::ExpertQuestions::UserQuestion.where(component: current_component).page(params[:page]).per(15)
-
-      @user_questions ||= if params[:filter].blank?
-                            search.results.order(:id)
-                          elsif params[:filter][:sort] == "latest_first"
-                            search.results.latest_first
-                          else
-                            search.results.order(:id)
+      @user_questions ||= begin
+                            questions = searched_user_questions.without_system_hidden
+                            if params.dig(:filter, :sort) == "latest_first"
+                              questions.latest_first
+                            else
+                              questions.order(:id)
+                            end
                           end
+    end
+
+    def searched_user_questions
+      Decidim::ExpertQuestions::UserQuestionSearch.new(current_component, params[:filter], current_user).search
     end
 
     def user_question
       @user_question ||= user_questions.find(params[:user_question_id])
     end
-
-    # def new_user_question_form
-    #   form(Decidim::ExpertQuestions::UserQuestionForm)
-    #     .from_params(expert_id: expert.id)
-    #     .with_context(current_component: current_component, current_user: current_user)
-    # end
 
     def created_user_question
       if current_user
@@ -194,35 +195,46 @@ module Decidim::ExpertQuestions
       @paginated_user_questions ||= paginate(user_questions).includes(:expert)
     end
 
-    def search_klass
-      Decidim::ExpertQuestions::UserQuestionSearch
-    end
-
-    def default_search_params
-      {
-        page: params[:page],
-        per_page: 12
-      }
-    end
-
     def default_filter_params
       {
         search_text: "",
         activity: "all",
         sort: "all",
-        state: 'all',
-        expert: ""
+        state: "all",
+        expert: []
       }
     end
 
-    def questions_help_section
-      current_component.settings[:help_section]
+    # Returns the first user question in the database that belongs to current component
+    # Thanks to the `create_system_followable_user_question` method in:
+    # `decidim-admin_extended/app/decorators/commands/publish_component_decorator.rb`,
+    # there will always be at least one user question available for users to follow.
+    def first_followable_user_question
+      return nil unless current_components_first_expert&.published?
+
+      @first_followable_user_question ||= Decidim::ExpertQuestions::UserQuestion.where(
+        expert: current_components_first_expert,
+        body: "system_generated_hidden_user_question"
+      ).order(:created_at).first
     end
 
-    def verify_users_action_availability
-      if current_component.users_action_disallowed?
-        redirect_to user_questions_path, alert: current_component.end_date_message
-      end
+    def current_components_first_expert
+      @current_components_first_expert ||= Decidim::ExpertQuestions::Expert.published
+                                                                           .where(component: current_component)
+                                                                           .first
+    end
+
+    # user question's component settings be set in admin panel, to disallow to comment:
+    # - if time set in the user question's component settings of the users_action_end_date field has passed
+    # - participatory_space setting field: users_action_allowed_for_unregister_users
+    def user_allowed_to_add_user_question?(user)
+      # scenario when component is closed
+      return false if current_component.users_action_end_date&.past?
+      # scenario when registered user is present
+      return true if user.present?
+
+      # scenario when unregistered author is present
+      current_component.participatory_space.users_action_allowed_for_unregister_users?
     end
   end
 end

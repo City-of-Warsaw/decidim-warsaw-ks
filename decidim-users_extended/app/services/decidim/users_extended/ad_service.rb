@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# Grupy w AD maja nazwy:
-# [
-
 module Decidim
   module UsersExtended
     class AdService
@@ -33,7 +30,12 @@ module Decidim
 
       def test_connection
         ldap_con = initialize_ldap_con
-        ldap_con.open {}
+        begin
+          ldap_con.open {}
+          { result: true, message: nil }
+        rescue StandardError => e
+          { result: false, message: e.message }
+        end
       end
 
       def get_ad_user(login)
@@ -60,10 +62,8 @@ module Decidim
         ldap_con = initialize_ldap_con
         base_filter = Net::LDAP::Filter.eq("objectClass", "user")
         search_filter = base_filter & Net::LDAP::Filter.eq(@attr_login, login)
-        # results = []
-        result_attrs = ['dn', @attr_login, @attr_firstname, @attr_lastname, @attr_mail, "memberof", 'objectClass']
         attrs = nil
-        ldap_con.search(:base => @base_dn, :filter => search_filter, :attributes => result_attrs) do |entry|
+        ldap_con.search(:base => @base_dn, :filter => search_filter, :attributes => user_info_attrs) do |entry|
           attrs = entry
         end
         attrs
@@ -81,6 +81,20 @@ module Decidim
           attrs << entry
         end
         attrs
+      end
+
+      def user_info_attrs
+        [
+          'dn',
+          @attr_login, @attr_firstname, @attr_lastname, @attr_mail,
+          'memberof',
+          'objectClass',
+          'company',
+          'physicalDeliveryOfficeName',
+          'department',
+          'title',
+          'manager'
+        ]
       end
 
       def import_all_groups

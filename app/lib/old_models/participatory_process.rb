@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OldModels::ParticipatoryProcess
-  include Virtus.model
+  include Decidim::AttributeObject::Model
 
   attribute :id, Integer
   attribute :name, String

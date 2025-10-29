@@ -3,25 +3,21 @@
 module Decidim
   module ExpertQuestions
     module Admin
-      # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class PublishExpert < Rectify::Command
-        # Initializes a PublishExpert Command.
-        #
-        # form - The form from which to get the data.
-        # current_user - The current instance of the expert to be updated.
+      class PublishExpert < Decidim::Command
         def initialize(expert, current_user)
           @expert = expert
           @current_user = current_user
         end
 
-        # Updates the expert if valid.
+        # Publish the expert if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call
+          return broadcast(:invalid) unless expert.component.published?
           return broadcast(:invalid) if expert.published?
 
           publish_expert
-          publish_event if expert.component.published?
+          create_system_followable_user_question
           broadcast(:ok)
         end
 
@@ -41,25 +37,18 @@ module Decidim
           end
         end
 
-        def publish_event
-          # Old event
-          # Decidim::EventsManager.publish(
-          #   event: "decidim.events.experts.expert_published",
-          #   event_class: Decidim::ExpertQuestions::ExpertPublishedEvent,
-          #   resource: expert,
-          #   followers: expert.participatory_space.followers
-          # )
-          # TODO: wylaczyc powiadomienia dla tych co nie chca miec powiadomien
-          Decidim::NotificationGeneratorJob.perform_later(
-            "decidim.events.experts.expert_published",
-            "Decidim::ExpertQuestions::ExpertPublishedEvent",
-            expert,
-            expert.participatory_space.find_possible_followers.uniq.compact, # followers
-            [], # affected_users
-            {}
-          )
+        # Private method
+        # This method ensures that at least one user question exists for the expert,
+        # allowing users to follow user questions even when no user-created user questions exist.
+        # It creates a hidden system user question that serves as a followable entity.
+        def create_system_followable_user_question
+          return if Decidim::ExpertQuestions::UserQuestion.exists?(body: "system_generated_hidden_user_question", expert:)
 
-          Decidim::CoreExtended::TemplatedMailerJob.perform_later('expert_published', { resource: expert })
+          Decidim::ExpertQuestions::UserQuestion.create!(
+            author: Decidim::User.first,
+            body: "system_generated_hidden_user_question",
+            expert:
+          )
         end
       end
     end

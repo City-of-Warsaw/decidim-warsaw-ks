@@ -7,11 +7,12 @@ require "decidim/core_extended/version"
 Gem::Specification.new do |spec|
   spec.name        = "decidim-core_extended"
   spec.version     = Decidim::CoreExtended.version
+  spec.authors     = [""]
+  spec.email       = []
 	spec.summary     = "Summary of Decidim::CoreExtended."
 	spec.description = "Description of Decidim::CoreExtended."
 	spec.license     = "MIT"
-  spec.authors = [""]
-  spec.email = []
+
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
   # if spec.respond_to?(:metadata)
@@ -23,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "decidim-core", '0.24.3'
+  spec.add_dependency "decidim-core", '0.29.3'
 
   spec.add_development_dependency "sqlite3"
 end

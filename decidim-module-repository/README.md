@@ -1,6 +1,6 @@
 # Decidim::Repository
 
-Adds media and files management.
+Repository for files and images gallery.
 
 ## Usage
 

@@ -101,7 +101,25 @@
   
 </div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This class holds the logic to present a ‘Decidim::News::Information` for the `AdminLog` log.</p>
 
+<p>Usage should be automatic and you shouldn’t need to call this class directly, but here’s an example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_action_log'>action_log</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ActionLog</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
+<span class='id identifier rubyid_view_helpers'>view_helpers</span> <span class='comment'># =&gt; this comes from the views
+</span><span class='const'>InformationPresenter</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_action_log'>action_log</span><span class='comma'>,</span> <span class='id identifier rubyid_view_helpers'>view_helpers</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_present'>present</span>
+</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -229,21 +247,31 @@
       <pre class="lines">
 
 
-17
-18
-19
-20
-21
-22
-23
-24</pre>
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_string'>action_string</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action'>action</span>
-  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>create</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>delete</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>update</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>create</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>delete</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>update</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>publish</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+       <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>unpublish</span><span class='tstring_end'>&#39;</span></span>
+
     <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>decidim.admin_log.information.</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_action'>action</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
   <span class='kw'>else</span>
     <span class='kw'>super</span>
@@ -269,15 +297,15 @@
       <pre class="lines">
 
 
-30
-31
-32</pre>
+45
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_diff_actions'>diff_actions</span>
-  <span class='kw'>super</span> <span class='op'>+</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>delete</span><span class='tstring_end'>)</span></span>
+  <span class='kw'>super</span> <span class='op'>+</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>delete</span><span class='tstring_end'>]</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -299,20 +327,24 @@
       <pre class="lines">
 
 
-10
-11
-12
-13
-14
-15</pre>
+18
+19
+20
+21
+22
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_diff_fields_mapping'>diff_fields_mapping</span>
   <span class='lbrace'>{</span>
     <span class='label'>title:</span> <span class='symbol'>:string</span><span class='comma'>,</span>
-    <span class='label'>body:</span> <span class='symbol'>:text</span>
+    <span class='label'>body:</span> <span class='symbol'>:text</span><span class='comma'>,</span>
+    <span class='label'>weight:</span> <span class='symbol'>:integer</span><span class='comma'>,</span>
+    <span class='label'>added_on:</span> <span class='symbol'>:date</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -335,15 +367,15 @@
       <pre class="lines">
 
 
-26
-27
-28</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 26</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_i18n_labels_scope'>i18n_labels_scope</span>
-  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>activemodel.attributes.information</span><span class='tstring_end'>&quot;</span></span>
+  <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>activemodel.attributes.information</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -355,9 +387,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

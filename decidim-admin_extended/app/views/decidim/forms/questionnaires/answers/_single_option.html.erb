@@ -1,0 +1,34 @@
+<div class="answer-questionnaire__single-option js-radio-button-collection">
+  <% choice = answer.choices.first %>
+  <% user_response = responses_for_current_question(answer.question) %>
+
+  <% answers = answer.question.random_order ? answer.question.answer_options.shuffle : answer.question.answer_options %>
+  <% answers.each_with_index do |answer_option, idx| %>
+    <% choice_id = "#{field_id}_choices_#{idx}" %>
+
+    <div class="js-collection-input">
+      <%= label_tag "#{choice_id}_body" do %>
+        <%= radio_button_tag "questionnaire[responses][#{answer_idx}][choices][][body]",
+                             translated_attribute(answer_option.body),
+                             user_response.pluck(:decidim_answer_option_id).include?(answer_option.id) || answer_option.id == choice.try(:answer_option_id),
+                             id: "#{choice_id}_body", disabled: %>
+
+        <%= translated_attribute(answer_option.body) %>
+
+        <%= hidden_field_tag "questionnaire[responses][#{answer_idx}][choices][][answer_option_id]",
+                             answer_option.id,
+                             id: "#{choice_id}_answer_option",
+                             disabled: true %>
+      <% end %>
+
+      <% if answer_option.free_text %>
+        <%= text_field_tag "questionnaire[responses][#{answer_idx}][choices][][custom_body]",
+                           choice.try(:custom_body) || user_response.select {|e| e.decidim_answer_option_id == answer_option.id}&.first&.custom_body,
+                           id: "#{choice_id}_custom_body",
+                           disabled: true,
+                           maxlength:,
+                           class: "w-full" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

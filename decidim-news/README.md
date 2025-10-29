@@ -1,5 +1,5 @@
 # Decidim::News
-Adds new type of content: News.
+Short description and motivation.
 
 ## Usage
 How to use my plugin.

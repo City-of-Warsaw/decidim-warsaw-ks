@@ -12,21 +12,13 @@
  *
  *= require_tree .
  *= require_self
+ *= require "decidim/users_extended/cropper.min"
  */
 
 /* .password-rule-success {
     color: #008000;
     font-weight: bold;
 } */
-
-.passwordConfirmationMsg {
-  display: block;
-  margin-top: -0.5rem;
-  margin-bottom: 1rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #008000;
-}
 
 .password-rules {
   font-size: 14px;
@@ -71,4 +63,18 @@
   color: #1a181d;
   margin: 5px 0 10px 0;
   font-style: normal;
+}
+
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
+}
+
+.cropper-view-box {
+  outline: 0;
+  box-shadow: 0 0 0 1px #39f;
+}
+
+.target-image {
+  min-height: 50vh;
 }

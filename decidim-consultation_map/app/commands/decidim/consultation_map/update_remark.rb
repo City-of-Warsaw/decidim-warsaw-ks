@@ -5,12 +5,11 @@ module Decidim
     # This class holds logic to full update of Remarks
     # After initially added, Remark data can be edited by the author which is unregistered user:
     # - signature
-    # - email
     # - district_id
     # - age
     # - gender
     # In both cases Boolean field 'edited' is marked as true
-    class UpdateRemark < Rectify::Command
+    class UpdateRemark < Decidim::Command
       # Initializes a UpdateRemark Command.
       #
       # form - The form from which to get the data.
@@ -36,35 +35,41 @@ module Decidim
       private
 
       def update_remark
-        params = if @author.is_a?(Decidim::User)
-                    remark_attributes
-                  else
-                    remark_attributes.merge(unregistered_user_attributes)
-                  end
-
-        @remark.update(params)
+        @remark.update(base_attributes)
       end
 
-      def remark_attributes
-        {
-          body: @form.body, 
-          category: @form.category,  
-          images: @form.images
+      def base_attributes
+        attrs = {
+          body: @form.body,
+          category: @form.category,
+          files: merged_files
         }
+        unless @author.is_a?(Decidim::User)
+          # for unregistered author
+          attrs.merge!(
+            signature: @form.signature,
+            district_id: @form.district_id,
+            age: @form.age,
+            gender: @form.gender
+          )
+        end
+        attrs
       end
 
-      def unregistered_user_attributes
-        { 
-          signature: @form.signature,
-          email: @form.email,
-          district_id: @form.district_id,
-          age: @form.age,
-          gender: @form.gender
-        }
-      end
-
+      # Private method
+      # returns special object that serves as Author for remarks created by unregistered users
       def unregistered_author
-        Decidim::CommentsExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
+      end
+
+      # Private method
+      # returns updated files list with current/new/removed ones
+      def merged_files
+        to_remove_ids = @form.remove_files.map(&:to_i)
+        existing_blobs = @remark.files.reject { |f| to_remove_ids.include?(f.id) }.map(&:blob)
+        new_files = Array(@form.files)
+
+        existing_blobs + new_files
       end
     end
   end

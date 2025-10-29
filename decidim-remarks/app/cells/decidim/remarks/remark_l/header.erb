@@ -1,0 +1,57 @@
+<div class="card__header card__header--remark">
+  <span class="font-bold">
+    <%== cell("decidim/author", author_presenter) %>
+  </span>
+  <span class="text-gray-2 text-sm">
+    <%= time_tag model.created_at, l(model.created_at, format: :decidim_short_cut_zero) %>
+  </span>
+  <% if model.edited? %>
+    <span class="label">
+      <%= t("decidim.components.comment.edited") %>
+    </span>
+  <% end %> 
+  <div class="relative ml-auto">
+    <button class="!block text-primary font-bold text-sm leading-5 -mt-1" id="dropdown-trigger-<%= model.id %>" data-component="dropdown" data-target="dropdown-menu-<%= model.id %>" aria-label="<%= t("decidim.components.comment.controls_label") %>">
+      &#8230;
+    </button>
+
+    <div id="dropdown-menu-<%= model.id %>" aria-hidden="true">
+      <ul class="dropdown dropdown__bottom divide-y divide-gray-3 px-4">
+        <li>
+          <%= cell("decidim/report_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse", modal_id: "flagModalRemark#{model.id}") %>
+        </li>  
+
+        <li>
+          <%= link_to "#{remarks_path}/#{model.id}", target: "_blank", data: { "external-link": "text-only" }, class: "dropdown__item", title: t("decidim.components.comment.single_comment_link_title") do %>
+            <%= icon "share-line" %>
+            <span><%= t("decidim.components.comment.single_comment_link_title") %></span>
+          <% end %>
+        </li>
+
+        <% if !user_signed_in? && model.author == Decidim::CoreExtended::UnregisteredAuthor.first && model.allow_edition?(remark_token) %>
+          <li>
+            <%= link_to edit_link,
+              class: 'dropdown__item',
+              remote: true,
+              data: { id: model.id, } do %> 
+              <%= icon "edit-line" %>
+              <span><%= t("decidim.components.comment.edit") %></span>
+            <% end %>
+          </li>
+        <% end %> 
+
+        <% if model.authored_by?(current_user) %>
+          <li>
+            <%= link_to edit_link,
+              class: 'dropdown__item',
+              remote: true,
+              data: { id: model.id } do %> 
+              <%= icon "edit-line" %>
+              <span><%= t("decidim.components.comment.edit") %></span>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,38 +1,48 @@
-<fieldset>
-  <div class="row column">
-    <%= form.text_field :name %>
-  </div>
-  <div class="row column">
-    <%= form.text_field :system_name, disabled: true, value: mail_template.system_name %>
-  </div>
-  <div class="row column">
-    <%= form.text_field :subject %>
-  </div>
-  <div class="row column">
-    <%= form.editor :body, rows: 3 %>
-  </div>
-  <div class="row column">
-    <%= form.check_box :active, label: 'Aktywny' %>
-    <p class="help-text">Nie ma wpływu na wysyłanie powiadomień systemowych np. przypomnienia hasła</p>
-  </div>
-  <div class="row column">
-    <legend style="background-color: #eeeeee; padding: 4px;">
-      <b>Dostępne zmienne używane w temacie i treści wiadomości:</b>
-      <ul>
-        <li>%{user_name} - Publiczna nazwa użytkownika (w mianowniku)</li>
-        <li>%{expert_name} - Imię i nazwisko eksperta (w mianowniku)</li>
-        <li>%{resource_title} - Element, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)</li>
-        <li>%{resource_link} - Link do elementu, którego dotyczy powiadomienie (np. Spotkanie, Uwaga, jeśli dotyczy)</li>
-        <li>%{consultation_title} - Konsultacje, do których należy element (jeśli dotyczy - Jeśli elementem powiadomienia są konsultacje, to można uzywać obydwu zmiennych: 'resource' i 'consultation')</li>
-        <li>%{consultation_link} - Link do konsultacji, do których należy element (jeśli dotyczy)</li>
-        <li>%{step_name} - Nazwę etapu (jeśli dotyczy)</li>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="row column">
+      <%= form.text_field :name, disabled: true %>
+    </div>
+    <div class="row column">
+      <%= form.text_field :subject %>
+    </div>
+    <div class="row column">
+      <%= form.editor :body, rows: 3 %>
+    </div>
 
-        <li>%{activation_link} - Link aktywacyjny dla nowego konta</li>
-        <li>%{password_reset_link} - Link do stworzenia nowego hasła</li>
-      </ul>
-      <p>
-        <i>Uwaga! Nie wszystkie zmienne są używane w każdym szablonie!</i>
-      </p>
-    </legend>
+    <div class="row column">
+     <%= form.editor :footer, rows: 2 %>
+     <p class="help-text">Jesli pole jest puste stopka bedzie domyślna<br>
+      Dostępna zmienna: %{unsubscribe_link} w stopce, aby wyświetlić url linku do wypisywania sie z newslettera</p>
+    </div>
+    <div class="row column">
+      <%= form.check_box :active, label: 'Aktywny' %>
+      <p class="help-text">Nie ma wpływu na wysyłanie powiadomień systemowych np. przypomnienia hasła</p>
+    </div>
+    <div class="row column">
+      <div class="flash flex-col " data-announcement="">
+        <div class="flash__message">
+          <b>Dostępne zmienne używane w temacie:</b>
+          <ul>
+            <% @form.permitted_helpers_for_topic(mail_template).each do |helper_name| %>
+              <li>%{<%= helper_name %>} - <%= I18n.t(helper_name, scope: 'decidim.admin_extended.mail_templates.helpers') %></li>
+            <% end %>
+          </ul>
+          <p>
+            <i>Uwaga! Nie wszystkie zmienne są używane w każdym szablonie!</i>
+          </p>
+          <br>
+          <b>Dostępne zmienne używane w treści wiadomości:</b>
+          <ul>
+            <% mail_template.helpers.each do |helper_name| %>
+              <li>%{<%= helper_name %>} - <%= I18n.t(helper_name, scope: 'decidim.admin_extended.mail_templates.helpers') %></li>
+            <% end %>
+          </ul>
+          <p>
+            <i>Uwaga! Nie wszystkie zmienne są używane w każdym szablonie!</i>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-</fieldset>
+</div>

@@ -16,21 +16,6 @@ module Decidim::ExpertQuestions
     let(:description) { ::Faker::Lorem.paragraph }
     let(:weight) { 7 }
 
-    context 'when there is position' do
-      it 'shows proper position_and_name' do
-        position_and_name = "#{position} #{expert_user.name}"
-        expect(expert.position_and_name).to eq(position_and_name)
-      end
-    end
-
-    context 'when there is no position' do
-      let(:position) { '' }
-
-      it 'shows proper position_and_name if position is filled' do
-        expect(expert.position_and_name).to eq(expert_user.name)
-      end
-    end
-
     context "default scope sorts " do
       let(:experts) do
         2.times { |index| create :expert, component: component, weight: index * 8 }

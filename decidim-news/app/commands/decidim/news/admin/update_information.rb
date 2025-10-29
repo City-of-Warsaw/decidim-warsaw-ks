@@ -3,20 +3,31 @@
 module Decidim
   module News
     module Admin
-      # This command is executed when user updates Information
-      class UpdateInformation < Rectify::Command
+      # A command with all the business logic to update Information
+      class UpdateInformation < Decidim::Command
+        include Decidim::Repository::Admin::GalleriesHelper
+
+        # Public: Initializes the command.
+        #
+        # form - A form object with the params.
+        # information - The Information to destroy
         def initialize(information, form)
           @form = form
           @information = information
         end
 
-        # Creates the information if valid.
+        # Executes the command. Broadcasts these events:
         #
-        # Broadcasts :ok if successful, :invalid otherwise.
+        # - :ok when everything is valid.
+        # - :invalid if the form wasn't valid and we couldn't proceed.
+        #
+        # Returns nothing.
         def call
           return broadcast(:invalid) if form.invalid?
 
           update_information!
+          add_gallery(information)
+          send_notification if information.published?
 
           broadcast(:ok, information)
         end
@@ -29,18 +40,26 @@ module Decidim
           Decidim.traceability.update!(
             information,
             form.current_user,
-            information_params,
-            visibility: "admin-only"
+            attributes,
+            visibility: 'admin-only'
           )
         end
 
-        def information_params
+        def attributes
           {
             title: form.title,
             body: form.body,
             gallery_id: form.gallery_id,
-            users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users
+            users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users,
+            weight: form.weight,
+            added_on: form.added_on
           }
+        end
+
+        # NOTE! Method is fired:
+        # - only if it is published
+        def send_notification
+          Decidim::CoreExtended::TemplatedMailerJob.perform_later('information_updated', { resource: information })
         end
       end
     end

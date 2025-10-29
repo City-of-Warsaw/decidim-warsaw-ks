@@ -4,58 +4,282 @@ pl:
     attributes:
       category:
         name: Nazwa
-        position: Kolejność
+        weight: Kolejność na stronie
       map_background:
         name: Nazwa
         file: Plik
         file_type: Typ podkładu
-        position: Kolejność
+        weight: Kolejność na stronie
         x_latitude: "Szerokość geograficzna (w formacie: 52.342687)"
         x_longitude: "Długość geograficzna (w formacie: 21.000695)"
         y_latitude: "Szerokość geograficzna (w formacie: 52.256425)"
         y_longitude: "Długość geograficzna (w formacie: 21.200775)"
       study_note:
-        first_name: Imię
-        last_name: Nazwisko
+        authority_name_which_letter_is_addressed: "Nazwa:"
+        letter_type: "2.2. uwaga do konsultowanego projektu aktu"
+        urban_planning_act_type: "3.1. plan ogólny gminy"
+        submitter_data_role: "<strong>Zaznacz, czy składasz wniosek jako osoba fizyczna, czy jako jednostka organizacyjna</strong> (instytucja, przedsiębiorstwo itp.):"
+        submitter_data_first_name: Imię
+        submitter_data_last_name: Nazwisko
+        submitter_data_org_name: Nazwa
+        submitter_data_country: Kraj
+        submitter_data_voivodeship: Województwo
+        submitter_data_county: Powiat
+        submitter_data_community: Gmina
+        submitter_data_street: Ulica
+        submitter_data_street_number: Nr domu
+        submitter_data_flat_number: Nr lokalu
+        submitter_data_city: Miejscowość
+        submitter_data_zip_code: Kod pocztowy
+        submitter_data_email: E-mail
+        submitter_data_phone_number: Nr telefonu
+        submitter_data_epuap_delivery_address: Adres skrytki ePUAP lub adres do doręczeń elektronicznych
+        perpetual_owner_of_the_property: Czy jesteś (lub osoba, w imieniu której składasz wniosek) właścicielem lub użytkownikiem wieczystym nieruchomości objętej wnioskiem?
+        mailing_address_data_country: Kraj
+        mailing_address_data_voivodeship: Województwo
+        mailing_address_data_county: Powiat
+        mailing_address_data_community: Gmina
+        mailing_address_data_street: Ulica
+        mailing_address_data_street_number: Nr domu
+        mailing_address_data_flat_number: Nr lokalu
+        mailing_address_data_city: Miejscowość
+        mailing_address_data_zip_code: Kod pocztowy
+        attorney_data_first_name: Imię
+        attorney_data_last_name: Nazwisko
+        attorney_data_country: Kraj
+        attorney_data_voivodeship: Województwo
+        attorney_data_county: Powiat
+        attorney_data_community: Gmina
+        attorney_data_street: Ulica
+        attorney_data_street_number: Nr domu
+        attorney_data_flat_number: Nr lokalu
+        attorney_data_city: Miejscowość
+        attorney_data_zip_code: Kod pocztowy
+        attorney_data_email: E-mail
+        attorney_data_phone_number: Nr telefonu
+        attorney_data_epuap_delivery_address: Adres skrytki ePUAP lub adres do doręczeń elektronicznych
+        detailed_notes: 7a. Szczegółowe uwagi
+        detailed_notes_parcel_ids: Wpisz lokalizację lub
+        detailed_notes_parcel_ids_find_on_map: Znajdź na mapie
+        detailed_notes_is_record_area_included: Czy uwaga dotyczy całej działki lub działek ewidencyjnych?
+        detailed_notes_is_record_area_file: Dodaj załącznik z granicami terenu w formie graficznej
+        detailed_notes_functional_profile: Chcę złożyć uwagę dotyczącą strefy planistycznej i jej profilu funkcjonalnego
+        detailed_notes_functional_profile_area: Wybierz strefę planistyczną, jaką postulujesz
+        detailed_notes_functional_profile_area_classes: Zaznacz, jakie klasy przeznaczenia terenu postulujesz w jej profilu dodatkowym
+        detailed_notes_area_parameters: Chcę złożyć uwagę dotyczącą wskaźników zabudowy i zagospodarowania terenu
+        detailed_notes_area_parameters_max_height_intensity: Maksymalna nadziemna intensywność zabudowy
+        detailed_notes_area_parameters_max_height_building: Maksymalna wysokość zabudowy (m)
+        detailed_notes_area_parameters_max_percent_area: Maksymalny udział powierzchni zabudowy (%)
+        detailed_notes_area_parameters_min_percent_bio: Minimalny udział powierzchni biologicznie czynnej (%)
+        detailed_notes_infill_development: Chcę złożyć uwagę dotyczącą obszaru uzupełnienia zabudowy
+        detailed_notes_infill_development_include: Proszę objąć teren obszarem uzupełnienia zabudowy
+        detailed_notes_infill_development_exclude: Proszę wyłączyć teren z obszaru uzupełnienia zabudowy
+        detailed_notes_inner_city_development: Chcę złożyć uwagę dotyczącą obszaru zabudowy śródmiejskiej
+        detailed_notes_inner_city_development_include: Proszę objąć teren obszarem zabudowy śródmiejskiej
+        detailed_notes_inner_city_development_exclude: Proszę wyłączyć teren z obszaru zabudowy śródmiejskiej
+        detailed_notes_social_infrastructure_accessibility: Chcę złożyć uwagę dotyczącą standardów dostępności infrastruktury społecznej
+        detailed_notes_social_infrastructure_accessibility_body: Wpisz, jaki jest Twój postulat dotyczący standardów dostępności infrastruktury społecznej dla podanego terenu
+        detailed_notes_parcel_id: Identyfikator działki lub działek ewidencyjnych
+        request_body: 7b. Uwagi ogólne/inne
+        attorney_power_represent_applicant_or_for_service: Jeśli jesteś pełnomocnikiem - załącz pełnomocnictwo do reprezentowania składającego pismo lub pełnomocnictwo do doręczeń (zgodnie z ustawą z dnia 16 listopada 2006 r. o opłacie skarbowej (Dz. U. z 2023 r. poz. 2111))
+        attorney_power_payment_stamp_duty_confirm: Jeśli załączasz pełnomocnictwo - załącz potwierdzenie uiszczenia opłaty skarbowej od pełnomocnictwa (jeżeli obowiązek uiszczenia takiej opłaty wynika z ustawy z dnia 16 listopada 2006 r. o opłacie skarbowej)
+        parcel_site_boundary: Określenie granic terenu w formie graficznej w przypadku wskazania terenu objętego pismem jako części działki ewidencyjnej lub działek ewidencyjnych.
+        files: Inne załączniki
+        files_filename_one: Nazwa załącznika
+        files_filename_two: Nazwa załącznika
+        optional_confirmation_request: Czy chcesz otrzymać potwierdzenie złożenia wniosku na adres e-mail?
+        email_confirmation_request: Adres e-mail
+        confirm_process_personal_data: |-
+          Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia wniosku oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+        confirm_read_process_description: |-
+          Zapoznałam/em się z zamieszczonym na górze strony opisem składania wniosku przez formularz.*
         full_name: Imię i nazwisko
-        organization_name: Nazwa jednostki organizacyjnej
-        email: Adres e-mail (na ten adres e-mail wyślemy potwierdzenie zgłoszenia)
-        location_specification: Oznaczenie nieruchomości lub obszaru, których dotyczy uwaga
-        body: Treść uwagi
-        street: Ulica
-        street_number: Numer budynku
-        flat_number: Numer lokalu
-        zip_code: Kod pocztowy
-        city: Miejscowość
       legend_item:
         name: Nazwa
-        position: Kolejność
+        weight: Kolejność na stronie
         file: Plik
         legend_item_img_alt: Opis alternatywny (ALT) dla pliku
         map_background_id: Podkład mapowy
+      sequential_number:
+        sequential_number: Podaj liczbę, od której ma zacząć się nadawanie numeracji
   activerecord:
     attributes:
+      decidim/study_notes/study_note:
+        id: ID Decidim
+        created_at: Data
       decidim/study_notes/category:
         name: Nazwa
-        position: Kolejność
-
+        weight: Kolejność na stronie
   decidim:
+    admin:
+      filters:
+        search_placeholder:
+           id_string_or_sequential_number_string_or_submitter_data_first_name_or_submitter_data_last_name_or_submitter_data_org_name_or_signum_nr_kancelaryjny_cont: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
+           text: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
+        notes:
+          submitter_data_role_eq:
+            label: "Typ zgłaszającego"
+            values:
+              0: "Osoba fizyczna"
+              1: "Jednostka organizacyjna"      
+    consultation_map:
+      admin:
+        categories:
+          edit:
+            title: Edytuj kategorię
+            update: Aktualizuj
+          new:
+            title: Dodaj nową kategorię
+            create: Utwórz
+          index:
+            title: Kategorie lokalne
     study_notes:
+      export:
+        study_note:
+          lp: Lp.
+          id: ID Decidim
+          sequential_number: Numer wewnętrzny
+          sequence: Nr porządkowy w obrębie uwagi
+          created_at: Data wpływu
+          submitter_data_role: Typ wnioskodawcy
+          submitter_role_person: Osoba fizyczna
+          submitter_role_organization: Jednostka organizacyjna
+          submitter_data_first_name: Imię
+          submitter_data_last_name: Nazwisko
+          submitter_data_org_name: Nazwa
+          submitter_data_street: Ulica
+          submitter_data_street_number: Nr domu
+          submitter_data_flat_number: Nr lokalu
+          submitter_data_city: Miejscowość
+          submitter_data_zip_code: Kod pocztowy
+          perpetual_owner_of_the_property: Właściciel lub użytkownik wieczysty nieruchomości
+          attorney_role_all: Pełnomocnik
+          attorney_role_delivery: Pełnomocnik do doręczeń
+          attorney_data_first_name: Pełnomocnik - Imię
+          attorney_data_last_name: Pełnomocnik - Nazwisko
+          detailed_notes_parcel_ids: Lokalizacja
+          detailed_notes_is_record_area_included: Czy uwaga dot. całej działki/działek
+          detailed_note_functional_profile_area: Strefa planistyczna
+          detailed_note_functional_profile_area_class: Profil dodatkowy
+          detailed_notes_area_parameters_max_height_intensity: Max. nadziemna intensywność zabudowy
+          detailed_notes_area_parameters_max_height_building: Max. wysokość zabudowy
+          detailed_notes_area_parameters_max_percent_area: Max. udział powierzchni zabudowy
+          detailed_notes_area_parameters_min_percent_bio: Min. udział PBC
+          detailed_notes_infill_development: Obszar uzupełnienia zabudowy
+          detailed_notes_inner_city_development: Obszar zabudowy śródmiejskiej
+          detailed_notes_social_infrastructure_accessibility_body: Standardy dostępności infrastruktury społecznej
+          request_body: Uwagi ogólne
+          attorney_power_represent_applicant_or_for_service_attachment: Załącznik 1
+          attorney_power_payment_stamp_duty_confirm_attachment: Załącznik 2
+          detailed_notes_parcel_site_boundary_attachment: Załącznik 3
+          files_file_one: Załącznik 4
+          files_file_two: Załącznik 5
+          boolean_yes: Tak
+          boolean_no: Nie
+          detailed_notes_development:
+            boolean_yes: Objąć teren
+            boolean_no: Wyłączyć teren
       study_notes:
         index:
+          form_title: Złóż uwagę do planu ogólnego m.st. Warszawy
+          submission_date: "Data zgłoszenia:"
+          section_1: "1. Organ, do którego jest składane pismo"
+          section_2: "2. Rodzaj pisma"
+          letter_type_1: 2.1. wniosek do projektu aktu
+          letter_type_3: 2.3. wniosek o zmianę aktu
+          letter_type_4: 2.4. wniosek o sporządzenie aktu
+          section_3: "3. Rodzaj aktu planowania przestrzennego"
+          urban_planning_act_type_2: 3.2. miejscowy plan zagospodarowania przestrzennego, w tym zintegrowany plan inwestycyjny lub miejscowy plan rewitalizacji
+          urban_planning_act_type_3: 3.3. uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury, tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje materiałów budowlanych, z jakich mogą być wykonane
+          urban_planning_act_type_4: 3.4. audyt krajobrazowy
+          urban_planning_act_type_5: 3.5. plan zagospodarowania przestrzennego województwa
+          section_4: 4. Dane składającego pismo
+          section_4_description: |
+            <ul>
+              <li>Jeśli składasz wniosek we własnym imieniu – wypełnij tę część własnymi danymi.</li>
+              <li>Jeśli składasz wniosek w imieniu innej osoby lub w imieniu instytucji – wypełnij tę część danymi tej osoby lub instytucji. </li>
+              <li>Jeśli składasz wniosek w imieniu swoim i innych osób – wypełnij tę część swoimi danymi, a dane pozostałych osób załącz w osobnym pliku (załącznik dodasz w ostatniej części formularza).</li>
+            </ul>
+          submitter_role_person: Osoba fizyczna
+          submitter_role_organization: Jednostka organizacyjna
+          epuap_delivery_address_description: Wpisz taki adres, jeśli go posiadasz i chcesz, żeby korespondencję w sprawie wniosku doręczać Ci za pomocą środków komunikacji elektronicznej.
+          option_yes: Tak
+          option_no: Nie
+          section_5: 5. Adres do korespondencji składającego pismo
+          section_5_description: Wypełnij tę część, jeśli Twój adres do korespondencji (lub adres do korespondencji osoby, w imieniu której składasz wniosek) jest inny, niż adres zamieszkania lub siedziby.
+          section_6: 6. Dane pełnomocnika
+          section_6_description: Wypełnij tę część, jeśli chcesz ustanowić pełnomocnika lub jeśli jesteś pełnomocnikiem i składasz wniosek w imieniu innej osoby.
+          attorney_role_all: Pełnomocnik
+          attorney_role_delivery: Pełnomocnik do doręczeń
+          section_7: 7. Treść pisma
+          detailed_notes_description: |
+            W tej części wprowadzisz uwagi dla konkretnych lokalizacji. Jeśli chcesz złożyć uwagi <strong>wspólne</strong> dla jednej lub wielu lokalizacji (np. dla jednej działki, dla kilku działek, dla konkretnej strefy planistycznej), to wypełnij pola w części TEREN 1. Jeśli masz <strong>różne</strong> uwagi dla wielu lokalizacji, to po wypełnieniu części TEREN 1 dodaj kolejne tereny i wypełnij pola w każdym z nich. <br /><br /> Jeśli masz uwagi dotyczące tematu ogólnego, bez wskazywania konkretnych lokalizacji, to pomiń tę część i przejdź do sekcji 7b.
+          detailed_notes_parcel_ids_description: |
+            Możesz samodzielnie wpisać lokalizację (np. identyfikator działki lub działek ewidencyjnych, oznaczenie strefy planistycznej z projektu planu ogólnego) albo znaleźć i zaznaczyć działki ewidencyjne na mapie. Identyfikatory zatwierdzonych działek automatycznie wpiszą się w polu poniżej.
+          add_item: DODAJ KOLEJNY TEREN, dla którego chcesz złożyć uwagę
+          section_8: 8. Oświadczenie w sprawie korespondencji elektronicznej
+          declaration_remote_correspondence_true: Wyrażam zgodę
+          declaration_remote_correspondence_false: Nie wyrażam zgody
+          declaration_remote_correspondence_description: na doręczanie korespondencji w niniejszej sprawie za pomocą środków komunikacji elektronicznej w rozumieniu art. 2 pkt 5 ustawy z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną (Dz. U. z 2020 r. poz. 344).*
+          section_9: 9. Inne załączniki
+          add_attachment: Dodaj załącznik
+          attorney_power_represent_applicant_or_for_service_description: |
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF.
+          attorney_power_payment_stamp_duty_confirm_description: |
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF.
+          parcel_site_boundary_description: |
+            Możesz dodać plik o maksymalnym rozmiarze 5 MB.<br />
+            Dopuszczalne formaty plików to: JPG, PDF.
+          files_description: |
+            Jeśli masz taką potrzebę, możesz dodać załączniki inne niż już dodane w poprzednich częściach formularza. <br /><br />
+            Możesz dodać maksymalnie 2 załączniki, o maksymalnym rozmiarze 5 MB każdy.<br />
+            Dopuszczalne formaty plików to: JPG, PDF, DOCX, ODT, RTF.<br /><br />
+            W przypadku dołączenia do pisma załączników zawierających dane osobowe, inne niż w punktach 4, 5, 6, załączniki te należy zanonimizować, tj. ukryć dane osobowe.
+          optional_confirmation_request_description: Jeśli tak, podaj adres email.*
+          required_fields: "* Pola oznaczone gwiazdką są obowiązkowe"
+          is_record_area_included_description: |
+            Jeśli zaznaczysz „nie”, możesz dodać załącznik graficzny i wskazać w nim granice terenu.
+          tos_agreement: "Twoje dane przetwarzane są zgodnie z <strong>%{link}</strong>."
+          terms: Klauzulą o przetwarzaniu danych osobowych
+          clear: Wyczyść
+          preview: Podgląd
+          create: Wyślij
+          prefilled: (uzupełnione)
+          expand: (rozwiń)
+          collapse: (zwiń)
+          position: Pozycja
+          area: TEREN
+          delete_item: Usuń teren
           rodo: |-
             Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia uwagi oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
           acknowledged: |-
             Zapoznałem się z zamieszczonym na górze strony opisem składania uwagi przez powyższy formularz.*
           category: Kategoria
           select_category: Wybierz kategorię
-          create: Wyślij
-          clear: Wyczyść
-          tos_agreement: "Twoje dane przetwarzane są zgodnie z <strong>%{link}</strong>."
-          terms: Klauzulą informacyjną o przetwarzaniu danych osobowych
         create:
-          invalid: "Nie udało się dodać uwagi do studium"
+          invalid: "Nie udało się dodać uwagi do planu ogólnego"
+        parcel_deletion_modal:
+          title: Usuń działkę z terenu
+          cancel: Anuluj
+          delete: Usuń
+        parcel_selection_modal:
+          title: Dodaj działkę do terenu
+          label: Wybierz teren
+          cancel: Anuluj
+          add: Dodaj
+        show:
+          heading: Uwaga do planu ogólnego została wysłana
+          thank_you: Dziękujemy za zgłoszenie.
+          back: Powrót
+          email_sent: System automatycznie wysłał potwierdzenie na podany adres e-mail.
+          download_pdf: Pobierz potwierdzenie PDF
+          send_new: Wyślij kolejną uwagę do planu ogólnego
       admin:
+        legend_item:
+          create:
+            error: Nie udało się utworzyć pozycji legendy
         actions:
           preview: Podgląd
           title: Działania
@@ -92,21 +316,141 @@ pl:
         custom_settings:
           click_on_map: |-
             <ul>
-            <li>Kliknij na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
-            <li>Po dodniu minimum 3 punktów, pierwszy punkt zmienia kolor na zielony, należy go kliknąć, by dane poligonu zostału zapisane.</li>
-            <li>Po kliknieciu w zielony punkt, poligon nadal można edytować, przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
+            <li>Kliknij ikonę pięciokąta na mapie, żeby ustawić granice obszaru objętego konsultacją.</li>
+            <li>Po dodaniu minimum 3 punktów, należy kliknąć pierwszy punkt, by dane poligonu zostały zapisane.</li>
+            <li>Po zapisaniu poligonu, poligon nadal można edytować, klikając w przycisk Edytuj znaczniki i przesuwając punkty już dodane, lub poprzez złapanie i przesunięcie wyszarzonego punktu w połowie krawędzi dodawać nowe wierzchołki poligonu.</li>
             </ul>
             <strong>UWAGA! Dodanie poligonu jest wymagane</strong>
         study_notes:
+          sequential_numbers:
+            save: Nadaj numery wewnętrzne
+            title: Nadawanie numerów wewnętrznych
+          table:
+            submitter_role_person: Osoba fizyczna
+            submitter_role_organization: Jednostka organizacyjna
           index:
-            title: Uwagi do studium
+            title: Uwagi do planu ogólnego
+            excel: Uwagi (Excel)
+            zip: Uwagi (ZIP)
+            zip_with_attachments: Uwagi z załącznikami (ZIP)
+            zip_anonymized: Zanonimizowane uwagi (ZIP)
+            zip_anonymized_with_attachments: Zanonimizowane uwagi z załącznikami (ZIP)
+            zip_normalized: Znormalizowane uwagi (ZIP)
+            zip_normalized_anonymized: Znormalizowane zanonimizowane uwagi (ZIP)
+            zip_normalized_anonymized_with_attachments: Znormalizowane zanonimizowane uwagi z załącznikami (ZIP)
+          map:
+            title: Uwagi do planu ogólnego
           show:
-            title: Podgląd uwagi do studium
+            ordinal_number: Lp.
+            section_1: 1. Organ, do którego jest składane pismo
+            section_2: 2. Rodzaj pisma
+            letter_type:
+              project_act_request: 2.1 wniosek do projektu aktu
+              consulted_act_project_remark: 2.2 uwaga do konsultowanego projektu aktu
+              request_to_amend_act: 2.3 wniosek o zmianę aktu
+              request_to_prepare_act: 2.4 wniosek o sporządenie aktu
+            section_3: 3. Rodzaj aktu planowania przestrzennego
+            urban_planning_act_type:
+              community_general_plan: 3.1 plan ogólny gminy
+              local_development_or_revitalisation_plan: 3.2 miejscowy plan zagospodarowania przestrzennego, tym zintegrowany plan inwestycyjny lub miejscowy plan rewitalizacji
+              resolution_establishing_rules: 3.3 uchwała ustalająca zasady i warunki sytuowania obiektów małej architektury, tablic reklamowych i urządzeń reklamowych oraz ogrodzeń, ich gabaryty, standardy jakościowe oraz rodzaje materiałów budowlanych, z jakich mogą być wykonane
+              landscape_audit: 3.4 audyt krajobrazowy
+              voivodship_development_plan: 3.5 plan zagospodarowania przestrzennego województwa
+            section_4: 4. Dane składającego pismo
+            submitter_data_role: Osoba fizyczna / Jednostka organizacyjna
+            submitter_role_person: Osoba fizyczna
+            submitter_role_organization: Jednostka organizacyjna
+            submitter_data_first_name: Imię
+            submitter_data_last_name: Nazwisko
+            submitter_data_org_name: Nazwa
+            submitter_data_country: Kraj
+            submitter_data_voivodeship: Województwo
+            submitter_data_county: Powiat
+            submitter_data_community: Gmina
+            submitter_data_street: Ulica
+            submitter_data_street_number: Nr domu
+            submitter_data_flat_number: Nr lokalu
+            submitter_data_city: Miasto
+            submitter_data_zip_code: Kod pocztowy
+            submitter_data_email: Email
+            submitter_data_phone_number: Nr telefonu
+            submitter_data_epuap_delivery_address: Adres skrytki ePUAP / Adres do doręczeń elektronicznych
+            perpetual_owner_of_the_property: Właściciel / Użytkownik wieczysty nieruchomości
+            section_5: 5. Adres do korespondencji składającego pismo
+            mailing_address_data_voivodeship: Województwo
+            mailing_address_data_county: Powiat
+            mailing_address_data_community: Gmina
+            mailing_address_data_street: Ulica
+            mailing_address_data_street_number: Numer
+            mailing_address_data_flat_number: Numer mieszkania
+            mailing_address_data_city: Miasto
+            mailing_address_data_zip_code: Kod pocztowy
+            section_6: 6. Dane pełnomocnika
+            attorney_data_role: Pełnomocnik / Pełnomocnik do doręczeń
+            attorney_role_all: Pełnomocnik
+            attorney_role_delivery: Pełnomocnik do doręczeń
+            attorney_data_first_name: "Imię"
+            attorney_data_last_name: "Nazwisko"
+            attorney_data_country: "Kraj"
+            attorney_data_voivodeship: "Województwo"
+            attorney_data_county: "Powiat"
+            attorney_data_community: "Gmina"
+            attorney_data_street: "Ulica"
+            attorney_data_street_number: "Numer"
+            attorney_data_flat_number: "Numer mieszkania"
+            attorney_data_city: Miasto
+            attorney_data_zip_code: Kod pocztowy
+            attorney_data_email: Email
+            attorney_data_phone_number: Numer telefonu
+            attorney_data_epuap_delivery_address: Adres skrytki ePUAP / Adres do doręczeń elektronicznych
+            section_7: 7. Treść pisma
+            section_7b: 7b. Uwagi ogólne/inne
+            section_7a: 7a. Szczegółowe uwagi
+            request_body_content_details: 7.2. Szczegółowe informacje dotyczące treści wniosku w odniesieniu do działek ewidencyjnych
+            request_body_content_details_name: Nazwa aktu planowania przestrzennego
+            request_body_content_details_name_value: Plan ogólny gminy
+            request_body_content_details_parcel_id: Identyfikator działki lub działek ewidencyjnych
+            request_body_content_details_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            request_body_content_details_body: Treść
+            no_request_body_content_details: Brak informacji dot. treści wniosku w odniesieniu do działek ewidencyjnych
+            details_land_parcels_with_parameters: 7.3. Szczegółowe informacje dotyczące działek ewidencyjnych oraz niektórych parametrów
+            no_details_land_parcels_with_parameters: Brak informacji dot. działek ewidencyjnych oraz niektórych parametrów
+            details_land_parcels_with_parameters_name: Nazwa planu ogólnego gminy lub miejscowego planu zagospodarowania przestrzennego
+            details_land_parcels_with_parameters_name_value: Plan ogólny m.st. Warszawy
+            details_land_parcels_with_parameters_parcel_id: Identyfikator działki lub działek ewidencyjnych
+            details_land_parcels_with_parameters_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            details_land_parcels_with_parameters_area_class_name: Nazwa lub nazwy klasy przeznaczenia terenu (albo symbol lub symbole klasy przeznaczenia terenu)
+            details_land_parcels_with_parameters_max_percent_area: Maksymalny udział powierzchni zabudowy (%)
+            details_land_parcels_with_parameters_max_height_building: Maksymalna wysokość zabudowy (w metrach)
+            details_land_parcels_with_parameters_min_percent_bio: Minimalny udział powierzchni biologicznie czynnej (%)
+            section_8: 8. Oświadczenie w sprawie korespondencji elektronicznej
+            declaration_remote_correspondence: Zgoda na doręczanie korespondencji za pomocą środków komunikacji elektronicznej
+            section_9: 9. Inne załączniki
+            download_file: Pobierz plik
+            attorney_power_represent_applicant_or_for_service: Pełnomocnictwo
+            attorney_power_payment_stamp_duty_confirm: Potwierdzenie
+            parcel_site_boundary: Granice terenu w formie graficznej
+            file: Inny plik
+            file_filename: Nazwa pliku
+            additional_section: Sekcja dodatkowa
+            optional_confirmation_request: Potwierdzenie złożenia wniosku na adres e-mail
+            email_confirmation_request: Potwierdzenie na e-mail
+            last_confirmations: Ostatnie potwierdzenia
+            confirm_read_process_description: Zapoznanie z opisem konsultacji
+            confirm_process_personal_data: Potwierdzenie przetwarzania danych os.
+            option_yes: Tak
+            option_no: Nie
+            title: Podgląd uwagi do planu ogólnego
     components:
       study_notes:
-        name: Uwagi do studium
+        name: Uwagi do planu ogólnego
         settings:
           step:
             announcement: Ogłoszenie
           global:
+            help_section: Opis nad komponentem
+            help_section_visibility: Dodaj opis nad komponentem
+            help_section_title: Tytuł *
+            help_section_subtitle: Podtytuł
+            help_section_description: Opis
             block_comments: Aktywność (testowe)

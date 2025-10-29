@@ -3,11 +3,11 @@
 
     <div class="field remark-field--body">
       <%= form.text_area(
-            :body,
-            id: 'add+remark',
+            :body, 
             rows: 4,
             maxlength: form_object.max_characters,
             required: true,
+            class: "w-full",
             placeholder: t('activemodel.attributes.remark.body'),
             label: false,
             data: { remaining_characters: "#ask_question-remaining-characters-" + remark.id.to_s },
@@ -15,58 +15,67 @@
           ) %>
       <span id="ask_question-remaining-characters-<%= remark.id %>" class="remaining-character-count keep-low"></span>
     </div>
-    
+
+    <% if remark.files.any? %>
+      <ul class="space-y-2 mt-4">
+        <% remark.files.each do |file| %>
+          <% next unless file.present? %>
+          <li class="flex items-center justify-between pb-1 custom-modal-item">
+            <a href="<%= Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true) %>" target="_blank" rel="noopener" class="custom-link flex-1 max-w-[700px] overflow-hidden whitespace-nowrap text-ellipsis underline text-link">
+              <%= file.filename.to_s %>
+            </a>
+                        
+            <button type="button" class="flex-shrink-0 text-sm text-red-500 cursor-pointer remove-file-btn">
+              Usuń
+            </button>
+            
+            <%= check_box_tag 'remark[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %> 
+
     <div class="field file-field remark-field--files position-relative">
       <%= form.file_field :files,
-            label: false, 
-            class: 'multifile hidden',
-            accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
-            multiple: true,
-            id: "remark_files_" + remark.id.to_s
-      %> 
-
+                          label: false,
+                          class: 'multifile hidden', 
+                          id: "remark_files_#{remark.id}",
+                          accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
+                          multiple: true %> 
       <button type="button" class="remark-file-button attachment-button-js" data-target="#remark_files_<%= remark.id %>">Dodaj załącznik</button>
     </div>
-      
+
     <% unless current_user %>
       <div class="field remark-field--signature">
         <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
-        <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
+        <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature'), aria: { label: "Twój e-mail" } %>
       </div>
     <% end %>
 
     <% unless current_user %>
-      <fieldset class="mt-sm">
-        <legend id="email-legend"><%= t('.email_legend') %></legend>
-        <div class="field remark-field--email">
-          <%= form.email_field :email, placeholder: t("email_placeholder", scope: 'decidim.remarks.remarks.form'), label: false %>
-        </div>
-      </fieldset>
-
-      <fieldset>
+      <fieldset class="my-4">
         <legend><%= t('.statistics_legend') %></legend>
-        <div class="remark-field--selects"> 
+        <div class="remark-field--selects">
           <%= form.select :gender,
-                          form_object.user_gender_for_select,
+                          form_object.gender_options_for_public_post,
                           { include_blank: t("select_gender", scope: 'decidim.remarks.remarks.form'), label: false },
-                          { multiple: false } %> 
+                          { multiple: false } %>
           <%= form.select :age,
                           form_object.user_age_for_select,
                           { include_blank: t("select_age", scope: 'decidim.remarks.remarks.form'), label: false },
-                          { multiple: false } %> 
+                          { multiple: false } %>
           <%= form.select :district_id,
                           form_object.user_districts_for_select,
                           { include_blank: t("select_district", scope: 'decidim.remarks.remarks.form'), label: false },
-                          { multiple: false } %> 
-        </div> 
+                          { multiple: false } %>
+        </div>
       </fieldset>
     <% end %>
 
-    <div class="row actions">
-      <div class='pull-right'>
-        <%= form.submit t(".clear"), type: 'reset', class: "clear-link" %>
-        <%= form.submit t(".save"), class: "button", data: { disable: true } %>
-      </div>
+    <div class="flex items-center justify-end gap-2">   
+      <%= form.button type: "submit", class: "button button__sm button__secondary ml-auto", data: { disable: true } do %>
+        <%= t(".save") %> 
+      <% end %>
     </div>
   <% end %>
 </div>

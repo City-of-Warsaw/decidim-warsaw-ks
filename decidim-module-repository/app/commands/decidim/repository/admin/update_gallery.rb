@@ -4,7 +4,7 @@ module Decidim
   module Repository
     module Admin
       # This command is executed when user updates gallery
-      class UpdateGallery < Rectify::Command
+      class UpdateGallery < Decidim::Command
         def initialize(gallery, form, user)
           @gallery = gallery
           @form = form
@@ -17,30 +17,30 @@ module Decidim
         def call
           return broadcast(:invalid) if form.invalid?
 
-          # aktualizacja opisow zdjec w galerii
+          # update images descriptions in the gallery
           @form.gallery_images.each do |gi_form|
             if gi_form._destroy
               Decidim::Repository::GalleryImage.find(gi_form.id).destroy
             else
               @gallery.gallery_images.each do |gi|
-                if gi.id == gi_form.id
-                  gi.name = gi_form.name
-                  gi.description = gi_form.description
-                  gi.alt = gi_form.alt
-                  gi.save
-                end
+                next unless gi.id == gi_form.id
+
+                gi.name = gi_form.name
+                gi.description = gi_form.description
+                gi.alt = gi_form.alt
+                gi.save
               end
             end
           end
 
-          @form.images.each do |image|
+          @form.images.compact_blank.each do |image|
             file = @gallery.files.new(
               name: image.original_filename,
               file: image,
               creator: current_user,
               organization: current_user.organization
             )
-            @gallery.gallery_images.new(file: file)
+            @gallery.gallery_images.new(file:)
           end
 
           update_gallery!

@@ -1,17 +1,14 @@
 <% add_decidim_page_title(t("devise.sessions.new.sign_in")) %>
+<h2 class="h3"><%= t("decidim.users_extended.admin.sessions.new.sign_in") %></h2>
 
-<h2 class="text-center pt-s mb-m"><%= t("decidim.users_extended.admin.sessions.new.sign_in") %></h2>
+<%= decidim_form_for(@form, namespace: "session", url: adlogin_path) do |f| %>
+  <div class="form__wrapper">
+    <%= f.text_field :nickname, autofocus: true, label: t('nickname', scope: "decidim.users_extended.admin.sessions.new") %>
 
-<%= decidim_form_for(@form, namespace: "session", url: login_path, html: { class: "register-form new_user" }) do |f| %>
-  <div>
-    <div class="field">
-      <%= f.text_field :nickname, label: t('nickname', scope: "decidim.users_extended.admin.sessions.new") %>
-    </div>
-    <div class="field">
-      <%= f.password_field :password, autocomplete: "off", label: t('password', scope: "decidim.users_extended.admin.sessions.new") %>
-    </div>
-    <div class="field text-center">
-      <%= f.submit t('submit', scope: "decidim.users_extended.admin.sessions.new") %>
-    </div>
+    <%= f.password_field :password, autocomplete: "off", label: t('password', scope: "decidim.users_extended.admin.sessions.new") %>
+  </div>
+
+  <div class="form__wrapper-block">
+    <%= f.submit t('submit', scope: "decidim.users_extended.admin.sessions.new"), class: "button button__sm md:button__lg md:button__lg button__secondary" %>
   </div>
 <% end %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "valid_email2"
 require 'obscenity/active_model'
+require_dependency 'file_form_validator'
 
 module Decidim
   module ConsultationMap
@@ -14,33 +14,34 @@ module Decidim
       attribute :id # used to determine if model was persisted
       attribute :body, String
       attribute :decidim_category_id, Integer
-      # attributes for non registered
       attribute :signature, String
-      attribute :email, String
       attribute :gender, String
       attribute :age, String
       attribute :district_id, String
-      attribute :rodo, GraphQL::Types::Boolean
-      attribute :images, [String]
+      attribute :files, [ActionDispatch::Http::UploadedFile]
+      attribute :remove_files, Array
       attribute :locations
       attribute :latitude
       attribute :longitude
-      attribute :rodo, GraphQL::Types::Boolean
 
       validates :signature, length: { maximum: 40 }, obscenity: { message: :banned_word_in_name }, if: proc { |attrs| attrs[:signature].present? }
       validates :body, presence: true, obscenity: { message: :banned_word }
       validates :current_component, presence: true
-
-      validates :rodo, acceptance: { message: I18n.t('errors.rodo.accept_with_email') }, if: proc { |attrs| attrs[:email].present? }
       validates :gender, inclusion: { in: Decidim::User::GENDERS }, if: -> (form) { form.gender.present? }
       validates :age, inclusion: { in: Decidim::User::AGE_RANGES }, if: -> (form) { form.age.present? }
-      validates :email, 'valid_email_2/email': { disposable: true }, if: -> (form) { form.email.present? }
+      validates :files, file_form: {
+        max_size: 50.megabytes,
+        acceptable_types:
+          %w(
+            image/jpg image/jpeg image/gif image/png image/bmp
+            application/pdf application/msword application/vnd.openxmlformats-officedocument.wordprocessingml.document
+          )
+      }
 
       validate :user_belongs_to_organizations
       validate :scope_exists
       validate :category_exists
-      validate :category_was_picked
-
+      # validate :category_was_picked
 
       alias component current_component
       alias user current_user
@@ -88,11 +89,11 @@ module Decidim
       end
 
       def categories
-        @categories ||= component.participatory_space.categories
-      end
+        @categories ||= Decidim::ConsultationMap::Category.where(component: current_component).sorted
+      end 
 
       def categories_select
-        categories.map { |cat| [translated_attribute(cat.name), cat.id] }
+        categories.map { |cat| [cat.name, cat.id] }
       end
 
       def max_characters

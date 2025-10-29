@@ -10,6 +10,8 @@ module Decidim
       paths["lib/tasks"] = nil
 
       routes do
+        resources :categories
+        resources :map_backgrounds, except: :show
         # Add admin engine routes here
         resources :remarks, only: [:index, :edit, :update] do
           get :export, on: :collection

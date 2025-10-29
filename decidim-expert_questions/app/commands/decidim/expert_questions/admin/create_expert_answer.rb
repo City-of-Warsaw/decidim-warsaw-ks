@@ -3,12 +3,8 @@
 module Decidim
   module ExpertQuestions
     module Admin
-      # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class CreateExpertAnswer < Rectify::Command
+      class CreateExpertAnswer < Decidim::Command
         # Initializes a CreateExpertAnswer Command.
-        #
-        # form - The form from which to get the data.
-        # current_user - The current instance of the expert to be updated.
         def initialize(form)
           @form = form
           @current_user = form.current_user
@@ -16,7 +12,7 @@ module Decidim
           @expert = form.expert
         end
 
-        # Updates the expert if valid.
+        # Creates the expert answer if valid.
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call
@@ -49,10 +45,6 @@ module Decidim
 
         def log_info
           {
-            # resource: {
-            #   # title: "Eksperta - #{Decidim::User.find(@form.decidim_user_id).name}"
-            #   title: Decidim::User.find(@form.decidim_user_id).name
-            # },
             participatory_space: {
               title: @user_question.participatory_space.title
             }
@@ -60,7 +52,7 @@ module Decidim
         end
 
         def set_user_question_status_as_answered
-          @user_question.update_column('status', 'answered')
+          @user_question.update_column(:status, "answered")
         end
       end
     end

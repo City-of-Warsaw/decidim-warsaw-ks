@@ -1,29 +1,164 @@
-wb =  xlsx_package.workbook
+# frozen_string_literal: true
+
+# this export containts a lot variants that depends from comments presence
+# and attached files to remarks and comments
+
+wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista") do |sheet|
+  # Defined a text wrapping style for columns:
+  # - 'Treść uwagi lub komentarza',
+  # - 'URL załącznika'
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+
+  # specified width columns:
+  # - 'Treść uwagi lub komentarza',
+  # - 'URL załącznika'
+  col_widths = [nil, 40, nil, nil, nil, nil, nil, 70, nil]
+
   sheet.add_row [
-                  'Lp.',
-                  'Autor',
-                  'Treść',
-                  'Liczba komentarzy',
-                  'Podpis',
-                  'E-mail',
-                  'Dzielnica',
-                  'Wiek',
-                  'Płeć',
-                  'Data utworzenia'
-                ]
+    'Lp.',
+    'Treść uwagi lub komentarza',
+    'Podpis uwagi lub komentarza',
+    'E-mail',
+    'Dzielnica',
+    'Wiek',
+    'Płeć',
+    'URL załącznika uwagi lub komentarza',
+    'Data utworzenia uwagi lub komentarza'
+  ]
+
+  # first: iteration on remarks
+
   @remarks.each_with_index do |remark, index|
-    sheet.add_row [
-                    index + 1,
-                    remark.author.name,
-                    remark.body,
-                    remark.comments_count,
-                    remark.author_signature,
-                    remark.author_email,
-                    translated_attribute(remark.author_district),
-                    remark.author_age,
-                    remark.author_gender,
-                    l(remark.created_at, format: :short)
-                  ]
+
+    # remark variation without its comments
+
+    if remark.comments.count == 0
+
+      remark_urls = links_to_files_array(remark.files)
+
+      # two remark variants - with urls or not
+
+      if remark_urls.empty?
+
+        sheet.add_row [
+          index + 1,
+          remark.body,
+          remark.author_signature,
+          remark.author_email,
+          translated_attribute(remark.author_district),
+          remark.author_age,
+          remark.author_gender,
+          '',
+          l(remark.created_at, format: :short),
+        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+      else
+
+        remark_urls.each_with_index do |url, url_index|
+
+          sheet.add_row [
+            "#{index + 1}.#{url_index + 1}",
+            remark.body,
+            remark.author_signature,
+            remark.author_email,
+            translated_attribute(remark.author_district),
+            remark.author_age,
+            remark.author_gender,
+            url,
+            l(remark.created_at, format: :short),
+        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+          sheet.add_hyperlink location: url, ref: "H#{sheet.rows.size}"
+        end
+      end
+
+    # remark variation with its comments
+
+    else
+
+      remark_urls = links_to_files_array(remark.files)
+
+      # two remark variants - with urls or not
+
+      if remark_urls.empty?
+
+        sheet.add_row [
+          index + 1,
+          remark.body,
+          remark.author_signature,
+          remark.author_email,
+          translated_attribute(remark.author_district),
+          remark.author_age,
+          remark.author_gender,
+          '',
+          l(remark.created_at, format: :short),
+        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+      else
+
+        remark_urls.each_with_index do |url, url_index|
+          sheet.add_row [
+            "#{index + 1}.#{url_index + 1}",
+            remark.body,
+            remark.author_signature,
+            remark.author_email,
+            translated_attribute(remark.author_district),
+            remark.author_age,
+            remark.author_gender,
+            url,
+            l(remark.created_at, format: :short),
+        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+          sheet.add_hyperlink location: url, ref: "H#{sheet.rows.size}"
+        end
+      end
+
+      # second: iteration on remark comments
+
+      remark.comments.each do |comment|
+
+        comment_urls = links_to_files_array(comment.files)
+
+        # two remark's comment variants - with urls or not
+
+        if comment_urls.empty?
+
+          sheet.add_row [
+            index + 1,
+            comment.body.values[0],
+            comment.signature,
+            comment.email,
+            comment.district.present? ? comment.district.name.values[0] : '',
+            comment.age.present? ? I18n.t("decidim.comments.age.#{comment.age}") : '',
+            comment.gender.present? ? I18n.t("decidim.users.gender.public_post.#{comment.gender}") : '',
+            '',
+            l(comment.created_at, format: :short),
+          ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+        else
+
+          comment_urls.each_with_index do |url, url_index|
+
+            sheet.add_row [
+              "#{index + 1}.#{url_index + 1}",
+              comment.body.values[0],
+              comment.signature,
+              comment.email,
+              comment.district.present? ? comment.district.name.values[0] : '',
+              comment.age.present? ? I18n.t("decidim.comments.age.#{comment.age}") : '',
+              comment.gender.present? ? I18n.t("decidim.users.gender.public_post.#{comment.gender}") : '',
+              url,
+              l(comment.created_at, format: :short),
+            ], style: [nil, wrap_text, nil, nil, nil, nil, nil, wrap_text, nil]
+
+            sheet.add_hyperlink location: url, ref: "H#{sheet.rows.size}"
+          end
+        end
+      end
+    end
   end
+
+  # set defined width columns:
+  sheet.column_widths *col_widths
 end

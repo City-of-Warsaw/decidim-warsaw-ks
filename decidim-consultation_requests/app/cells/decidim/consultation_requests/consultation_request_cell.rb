@@ -2,8 +2,7 @@
 
 module Decidim
   module ConsultationRequests
-    # This cell renders the card for an instance of a Information
-    # the default size is the Medium Card (:m)
+    # This cell renders the consultation request card for an instance of a Consultation Request
     class ConsultationRequestCell < Decidim::ViewModel
       include Cell::ViewModel::Partial
 
@@ -14,7 +13,7 @@ module Decidim
       private
 
       def card_size
-        "decidim/consultation_requests/consultation_request_m"
+        "decidim/consultation_requests/consultation_request_s"
       end
     end
   end

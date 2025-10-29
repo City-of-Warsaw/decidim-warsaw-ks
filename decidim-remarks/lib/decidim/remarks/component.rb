@@ -17,8 +17,12 @@ Decidim.register_component(:remarks) do |component|
   # component.actions = %w()
 
   component.settings(:global) do |settings|
+    settings.attribute :help_section_visibility, type: :boolean
+    settings.attribute :help_section_title, type: :string
+    settings.attribute :help_section_subtitle, type: :string
+    settings.attribute :help_section_description, type: :text, editor: true
     settings.attribute :announcement, type: :text, translated: true, editor: true
-    settings.attribute :help_section, type: :text, editor: true
+    settings.attribute :comments_enabled, type: :boolean, default: true
   #   # Add your global settings
   #   # Available types: :integer, :boolean
   #   # settings.attribute :vote_limit, type: :integer, default: 0
@@ -26,6 +30,7 @@ Decidim.register_component(:remarks) do |component|
 
   component.settings(:step) do |settings|
     settings.attribute :announcement, type: :text, translated: true, editor: true
+    settings.attribute :comments_blocked, type: :boolean, default: false
   end
 
   component.register_resource(:remark) do |resource|

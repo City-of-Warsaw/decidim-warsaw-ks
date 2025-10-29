@@ -1,0 +1,59 @@
+/******************  Participatory text  ******************/
+
+.participatory-text-index {
+  .callout.secondary {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .collapsable-header {
+    background-color: #f8f8f8;
+    padding: 20px 50px 20px 20px;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background-image: url("images/caret-primary-mini.png");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-position: calc(100% - 20px) center;
+
+    > h3 {
+      font-size: 20px;
+      margin-bottom: 0;
+      color: #3d393c;
+    }
+
+    &[aria-expanded="true"] {
+      background-color: transparent;
+      background-image: url("images/caret-primary-mini-up.png");
+      border-left: 1px solid #dbdbdb;
+      border-top: 1px solid #dbdbdb;
+      border-right: 1px solid #dbdbdb;
+    }
+  }
+
+  .participatory-text-content {
+    padding: 0 20px 20px 20px;
+    border-left: 1px solid #dbdbdb;
+    border-bottom: 1px solid #dbdbdb;
+    border-right: 1px solid #dbdbdb;
+  }
+
+  .participatory-space {
+    background-color: #f8f8f8;
+    margin-left: -4rem;
+    margin-right: -4rem;
+    margin-bottom: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-bottom: 4rem;
+
+    .button_to button {
+      width: 277px;
+    }
+  }
+}

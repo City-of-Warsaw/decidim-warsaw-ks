@@ -17,16 +17,13 @@ module Decidim
       def diff_fields_mapping
         {
           title: :string,
-          subtitle: :string,
-          banner_img_alt: :string
+          description: :text,
         }
       end
 
       def action_string
         case action
         when "update"
-          "decidim.admin_log.hero_section.#{action}"
-        when "update_banner_img"
           "decidim.admin_log.hero_section.#{action}"
         else
           super

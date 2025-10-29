@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Decidim::SignumService
+  
+    &mdash; Dokumentacja Decidim KS
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Decidim::SignumService";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (S)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span>
+     &raquo; 
+    <span class="title">SignumService</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Decidim::SignumService
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Decidim::SignumService</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>decidim-core_extended/app/services/decidim/signum_service.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_document_to_signum-instance_method" title="#add_document_to_signum (instance method)">#<strong>add_document_to_signum</strong>(urz_id:, temat:, author:, historia:, rodzaj_przesylki:, informacja_dodatkowa:, files: [])  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>rejestruje przychodzace pismo w SIGNUM return response: {   :error=&gt;nil,   :lista_pism=&gt;{     :pismo_do_signum_out=&gt;{       :@spr_id=&gt;“5023080213245146138”,       :@pis_id=&gt;“5023080213245150840”,       :@znak_sprawy=&gt;“”,       :@nr_kancelaryjny=&gt;“AM-KO/25/23”,       :@kor_id=&gt;“5023080213223910224”,       :@error=&gt;“”,       :@informacja_dodatkowa=&gt;“Nr identyfikacyjny DECIDIM: 4” }}}.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_case-instance_method" title="#create_case (instance method)">#<strong>create_case</strong>(urz_id:, spr_id:, kor_id:, jrwa:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Tworzy sprawe do wprowadzonego juz pisma @return: {   :@spr_id=&gt;“5023080213245146138”,   :@pis_id=&gt;“5023080213245150840”,   :@znak_sprawy=&gt;“AM.0632.4.2.2023.DKS”,   :@nr_kancelaryjny=&gt;“”, :@kor_id=&gt;“5023080213223910224”,   :@error=&gt;“”, :@informacja_dodatkowa=&gt;“” }.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_login_ad_in_signum-instance_method" title="#find_login_ad_in_signum (instance method)">#<strong>find_login_ad_in_signum</strong>(login_ad)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>return urz_id or nil.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#find_user_in_signum-instance_method" title="#find_user_in_signum (instance method)">#<strong>find_user_in_signum</strong>(user, dev_test = true)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<h1 id="label-3E+urz_id+-3D-3E+5022060908280639785+return+urz_id+or+nil.">&gt; urz_id =&gt; 5022060908280639785 return urz_id or nil.</h1>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_all_documents-instance_method" title="#get_all_documents (instance method)">#<strong>get_all_documents</strong>(urz_id:, spr_id:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Metoda sluzy do pobrania wszystkich pism dotyczących w sprawie.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>  &#x21d2; SignumService </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of SignumService.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#operations-instance_method" title="#operations (instance method)">#<strong>operations</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Zwraca liste dostepnych operacji w WebService.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register_general_plan_request_to_signum-instance_method" title="#register_general_plan_request_to_signum (instance method)">#<strong>register_general_plan_request_to_signum</strong>(general_plan_request:, user:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register_project_to_signum-instance_method" title="#register_project_to_signum (instance method)">#<strong>register_project_to_signum</strong>(urz_id:, project:, user:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register_study_note_to_signum-instance_method" title="#register_study_note_to_signum (instance method)">#<strong>register_study_note_to_signum</strong>(study_note:, user:)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>  &#x21d2; <tt><span class='object_link'><a href="" title="Decidim::SignumService (class)">SignumService</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of SignumService.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
+  <span class='ivar'>@login</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WS_SIGNUM_LOGIN</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@password</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WS_SIGNUM_PASSWORD</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@client</span> <span class='op'>=</span> <span class='const'>Savon</span><span class='period'>.</span><span class='id identifier rubyid_client'>client</span><span class='lparen'>(</span>
+    <span class='label'>wsdl:</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WS_SIGNUM_WSDL</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>adapter:</span> <span class='symbol'>:net_http</span><span class='comma'>,</span>
+    <span class='comment'># Lower timeouts so these specs don&#39;t take forever when the service is not available.
+</span>    <span class='label'>open_timeout:</span> <span class='int'>10</span><span class='comma'>,</span>
+    <span class='label'>read_timeout:</span> <span class='int'>10</span><span class='comma'>,</span>
+    <span class='label'>log:</span> <span class='kw'>true</span>
+  <span class='rparen'>)</span>
+  <span class='ivar'>@client</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="add_document_to_signum-instance_method">
+  
+    #<strong>add_document_to_signum</strong>(urz_id:, temat:, author:, historia:, rodzaj_przesylki:, informacja_dodatkowa:, files: [])  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>rejestruje przychodzace pismo w SIGNUM return response: 
+<pre class="code ruby"><code class="ruby">:error=&gt;nil,
+:lista_pism=&gt;{
+  :pismo_do_signum_out=&gt;{
+    :@spr_id=&gt;&quot;5023080213245146138&quot;,
+    :@pis_id=&gt;&quot;5023080213245150840&quot;,
+    :@znak_sprawy=&gt;&quot;&quot;,
+    :@nr_kancelaryjny=&gt;&quot;AM-KO/25/23&quot;,
+    :@kor_id=&gt;&quot;5023080213223910224&quot;,
+    :@error=&gt;&quot;&quot;,
+    :@informacja_dodatkowa=&gt;&quot;Nr identyfikacyjny DECIDIM: 4&quot;
+</code></pre>
+
+<p>}}</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_document_to_signum'>add_document_to_signum</span><span class='lparen'>(</span><span class='label'>urz_id:</span><span class='comma'>,</span> <span class='label'>temat:</span><span class='comma'>,</span> <span class='label'>author:</span><span class='comma'>,</span> <span class='label'>historia:</span><span class='comma'>,</span> <span class='label'>rodzaj_przesylki:</span><span class='comma'>,</span> <span class='label'>informacja_dodatkowa:</span><span class='comma'>,</span> <span class='label'>files:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dataWplywu'>dataWplywu</span> <span class='op'>=</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_to_date'>to_date</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%F</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='comment'># dataWplywu = &quot;2022-09-28&quot;
+</span>
+  <span class='id identifier rubyid_sXML'>sXML</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
+      &lt;signumWS&gt;
+          &lt;pismoDoSignum login=&#39;&#39; urz_id=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_urz_id'>urz_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; spr_id=&#39;&#39; znakSprawy=&#39;&#39; pis_id=&#39;&#39; addSprIfNotExists=&#39;&#39; jrwa=&#39;&#39; gdzieMaTrafic=&#39;przychodzace&#39;
+      rodzajPrzesylki=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_rodzaj_przesylki'>rodzaj_przesylki</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; wyslane=&#39;&#39; nadajNrKancelaryjny=&#39;1&#39; barcode=&#39;&#39; dataWplywu=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dataWplywu'>dataWplywu</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; pot_numer=&#39;&#39; nrPisma=&#39;&#39; znakBezInicjalow=&#39;&#39;&gt;
+              &lt;temat&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_temat'>temat</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/temat&gt;
+              &lt;historia&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_historia'>historia</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/historia&gt;
+              &lt;informacjaDodatkowa&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_informacja_dodatkowa'>informacja_dodatkowa</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/informacjaDodatkowa&gt;</span><span class='tstring_end'>&quot;</span></span>
+
+  <span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span> <span class='symbol'>:download</span>
+      <span class='comment'># ActiveStorage::Attachment
+</span>      <span class='id identifier rubyid_base64_encoded'>base64_encoded</span> <span class='op'>=</span> <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_encode64'>strict_encode64</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_download'>download</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_sXML'>sXML</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;zalacznik nazwaPliku=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_filename'>filename</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base64_encoded'>base64_encoded</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/zalacznik&gt;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>else</span>
+      <span class='comment'># WickedPdfTempfile
+</span>      <span class='id identifier rubyid_base64_encoded'>base64_encoded</span> <span class='op'>=</span> <span class='const'>Base64</span><span class='period'>.</span><span class='id identifier rubyid_strict_encode64'>strict_encode64</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
+      <span class='id identifier rubyid_sXML'>sXML</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;zalacznik nazwaPliku=&#39;potwierdzenie.pdf&#39;&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_base64_encoded'>base64_encoded</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/zalacznik&gt;</span><span class='tstring_end'>&quot;</span></span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_sXML'>sXML</span> <span class='op'>+=</span>    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;korespondent kor_id=&#39;&#39;&gt;
+                &lt;nazwisko&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_last_name'>last_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/nazwisko&gt;
+                &lt;imie&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_first_name'>first_name</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/imie&gt;
+                &lt;nazwaFirmy/&gt;
+                &lt;miasto&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_city'>city</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/miasto&gt;
+                &lt;kod&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_zip_code'>zip_code</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/kod&gt;
+                &lt;ulica&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_street'>street</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/ulica&gt;
+                &lt;dom&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_street_number'>street_number</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/dom&gt;
+                &lt;lokal&gt;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_flat_number'>flat_number</span><span class='embexpr_end'>}</span><span class='tstring_content'>&lt;/lokal&gt;
+                &lt;regon/&gt;
+                &lt;nip/&gt;
+              &lt;/korespondent&gt;
+          &lt;/pismoDoSignum&gt;
+      &lt;/signumWS&gt;
+    </span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>sXML:</span> <span class='id identifier rubyid_sXML'>sXML</span><span class='comma'>,</span>
+    <span class='label'>login:</span> <span class='ivar'>@login</span><span class='comma'>,</span>
+    <span class='label'>haslo:</span> <span class='ivar'>@password</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:pismo_do_signum2</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='comment'># response.body[:pismo_do_signum2_response][:signum_ws_out][:error]
+</span>  <span class='comment'># response.body[:pismo_do_signum2_response][:signum_ws_out][:lista_pism][:pismo_do_signum_out]
+</span>  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum2_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:signum_ws_out</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_case-instance_method">
+  
+    #<strong>create_case</strong>(urz_id:, spr_id:, kor_id:, jrwa:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Tworzy sprawe do wprowadzonego juz pisma @return: 
+<pre class="code ruby"><code class="ruby">:@spr_id=&gt;&quot;5023080213245146138&quot;,
+:@pis_id=&gt;&quot;5023080213245150840&quot;,
+:@znak_sprawy=&gt;&quot;AM.0632.4.2.2023.DKS&quot;,
+:@nr_kancelaryjny=&gt;&quot;&quot;, :@kor_id=&gt;&quot;5023080213223910224&quot;,
+:@error=&gt;&quot;&quot;, :@informacja_dodatkowa=&gt;&quot;&quot;
+</code></pre>
+
+<p></p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 132</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_case'>create_case</span><span class='lparen'>(</span><span class='label'>urz_id:</span><span class='comma'>,</span> <span class='label'>spr_id:</span><span class='comma'>,</span> <span class='label'>kor_id:</span><span class='comma'>,</span> <span class='label'>jrwa:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>sXML:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>
+      &lt;signumWS&gt;
+        &lt;pismoDoSignum login=&#39;&#39; urz_id=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_urz_id'>urz_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; spr_id=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_spr_id'>spr_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; znakSprawy=&#39;&#39;
+            pis_id=&#39;&#39; addSprIfNotExists=&#39;&#39; jrwa=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_jrwa'>jrwa</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39; gdzieMaTrafic=&#39;wrealizacji&#39; rodzajPrzesylki=&#39;&#39; wyslane=&#39;&#39;
+            nadajNrKancelaryjny=&#39;&#39; barcode=&#39;&#39; dataWplywu=&#39;&#39; nrKancelaryjny=&#39;&#39; pot_numer=&#39;4&#39; nrPisma=&#39;&#39; znakBezInicjalow=&#39;&#39;&gt;
+          &lt;temat&gt;&lt;/temat&gt;
+          &lt;historia&gt;Założenie sprawy z pisma przychodzącego&lt;/historia&gt;
+          &lt;informacjaDodatkowa&gt;&lt;/informacjaDodatkowa&gt;
+          &lt;korespondent kor_id=&#39;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_kor_id'>kor_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>&#39;&gt;&lt;/korespondent&gt;
+        &lt;/pismoDoSignum&gt;
+      &lt;/signumWS&gt;
+    </span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>login:</span> <span class='ivar'>@login</span><span class='comma'>,</span>
+    <span class='label'>haslo:</span> <span class='ivar'>@password</span>
+  <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:pismo_do_signum2</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='comment'># response.body[:pismo_do_signum2_response][:signum_ws_out][:error]
+</span>  <span class='comment'># response.body[:pismo_do_signum2_response][:signum_ws_out][:lista_pism][:pismo_do_signum_out]
+</span>  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum2_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:signum_ws_out</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_login_ad_in_signum-instance_method">
+  
+    #<strong>find_login_ad_in_signum</strong>(login_ad)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>return urz_id or nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_login_ad_in_signum'>find_login_ad_in_signum</span><span class='lparen'>(</span><span class='id identifier rubyid_login_ad'>login_ad</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_login_ad'>login_ad</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+  <span class='id identifier rubyid_ap'>ap</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SZUKAM loginu find_login_ad_in_signum(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_login_ad'>login_ad</span><span class='embexpr_end'>}</span><span class='tstring_content'>)</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>login:</span> <span class='ivar'>@login</span><span class='comma'>,</span> <span class='label'>haslo:</span> <span class='ivar'>@password</span><span class='comma'>,</span> <span class='label'>loginAD:</span> <span class='id identifier rubyid_login_ad'>login_ad</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:pobierz_dane_uzytkownika</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='comment'># ap response
+</span>  <span class='id identifier rubyid_result'>result</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:pobierz_dane_uzytkownika_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pobierz_dane_uzytkownika_result</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_ap'>ap</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>result:</span><span class='tstring_end'>&#39;</span></span>
+  <span class='id identifier rubyid_ap'>ap</span> <span class='id identifier rubyid_result'>result</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='symbol'>:status</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>ERR</span><span class='tstring_end'>&#39;</span></span>
+    <span class='kw'>nil</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_dane_uzytkownika'>dane_uzytkownika</span> <span class='op'>=</span> <span class='id identifier rubyid_result'>result</span><span class='lbracket'>[</span><span class='symbol'>:content</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:dane_uzytkownika</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_signum_user'>signum_user</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_dane_uzytkownika'>dane_uzytkownika</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Hash</span>
+                    <span class='id identifier rubyid_dane_uzytkownika'>dane_uzytkownika</span>
+                  <span class='kw'>else</span>
+                    <span class='id identifier rubyid_dane_uzytkownika'>dane_uzytkownika</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_e'>e</span><span class='op'>|</span> <span class='id identifier rubyid_e'>e</span><span class='lbracket'>[</span><span class='symbol'>:wygaszony</span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='kw'>false</span> <span class='rbrace'>}</span>
+                  <span class='kw'>end</span>
+    <span class='id identifier rubyid_signum_user'>signum_user</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span>
+  <span class='kw'>end</span>
+<span class='kw'>rescue</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>ReadTimeout</span>
+  <span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Brak polaczenia</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="find_user_in_signum-instance_method">
+  
+    #<strong>find_user_in_signum</strong>(user, dev_test = true)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<h1 id="label-3E+urz_id+-3D-3E+5022060908280639785">&gt; urz_id =&gt; 5022060908280639785</h1>
+
+<p>return urz_id or nil</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_find_user_in_signum'>find_user_in_signum</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_dev_test'>dev_test</span> <span class='op'>=</span> <span class='kw'>true</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_name'>ad_name</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
+
+  <span class='id identifier rubyid_login_ad'>login_ad</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BZMW\\</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_name'>ad_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_login_ad'>login_ad</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BZMW\ext.skovalchuk</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_env'>env</span><span class='period'>.</span><span class='id identifier rubyid_development?'>development?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_dev_test'>dev_test</span>
+
+  <span class='id identifier rubyid_find_login_ad_in_signum'>find_login_ad_in_signum</span><span class='lparen'>(</span><span class='id identifier rubyid_login_ad'>login_ad</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_all_documents-instance_method">
+  
+    #<strong>get_all_documents</strong>(urz_id:, spr_id:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Metoda sluzy do pobrania wszystkich pism dotyczących w sprawie</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>idUrzednika</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul><li>
+<p>który posiada daną sprawę</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>idSprawy</span>
+      
+      
+        <span class='type'></span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul><li>
+<p>id szukanej sprawy urzednika</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 158</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_all_documents'>get_all_documents</span><span class='lparen'>(</span><span class='label'>urz_id:</span><span class='comma'>,</span> <span class='label'>spr_id:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>login:</span> <span class='ivar'>@login</span><span class='comma'>,</span>
+    <span class='label'>haslo:</span> <span class='ivar'>@password</span><span class='comma'>,</span>
+    <span class='label'>loginUrzednika:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>idUrzednika:</span> <span class='id identifier rubyid_urz_id'>urz_id</span><span class='comma'>,</span>
+    <span class='label'>idSprawy:</span> <span class='id identifier rubyid_spr_id'>spr_id</span><span class='comma'>,</span>
+    <span class='label'>znakSprawy:</span> <span class='kw'>nil</span>
+  <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:pobierz_pisma_w_sprawie_z_signum2</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:pobierz_pisma_w_sprawie_z_signum2_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pobierz_pisma_w_sprawie_z_signum2_result</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="operations-instance_method">
+  
+    #<strong>operations</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Zwraca liste dostepnych operacji w WebService</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+173
+174
+175</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 173</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_operations'>operations</span>
+  <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_operations'>operations</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register_general_plan_request_to_signum-instance_method">
+  
+    #<strong>register_general_plan_request_to_signum</strong>(general_plan_request:, user:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 277</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_register_general_plan_request_to_signum'>register_general_plan_request_to_signum</span><span class='lparen'>(</span><span class='label'>general_plan_request:</span><span class='comma'>,</span> <span class='label'>user:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_urz_id'>urz_id</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WS_GENERAL_PLAN_REQUEST_URZ_ID</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_author'>author</span> <span class='op'>=</span> <span class='const'>OpenStruct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='label'>first_name:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_first_name'>submitter_data_first_name</span><span class='comma'>,</span>
+    <span class='label'>last_name:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_last_name'>submitter_data_last_name</span><span class='comma'>,</span>
+    <span class='label'>organization_name:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_org_name'>submitter_data_org_name</span><span class='comma'>,</span>
+    <span class='label'>country:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_country'>submitter_data_country</span><span class='comma'>,</span> <span class='comment'># tego nie ma w Signum
+</span>    <span class='label'>street:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_street'>submitter_data_street</span><span class='comma'>,</span>
+    <span class='label'>street_number:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_street_number'>submitter_data_street_number</span><span class='comma'>,</span>
+    <span class='label'>flat_number:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_flat_number'>submitter_data_flat_number</span><span class='comma'>,</span>
+    <span class='label'>city:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_city'>submitter_data_city</span><span class='comma'>,</span>
+    <span class='label'>zip_code:</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_zip_code'>submitter_data_zip_code</span>
+  <span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_file'>file</span> <span class='rbrace'>}</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_represent_applicant_or_for_service'>attorney_power_represent_applicant_or_for_service</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+    <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_represent_applicant_or_for_service'>attorney_power_represent_applicant_or_for_service</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_payment_stamp_duty_confirm'>attorney_power_payment_stamp_duty_confirm</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+    <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_payment_stamp_duty_confirm'>attorney_power_payment_stamp_duty_confirm</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_parcel_site_boundary'>parcel_site_boundary</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+    <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_parcel_site_boundary'>parcel_site_boundary</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='const'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>PdfGeneratorService</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_save_to_pdf'>save_to_pdf</span><span class='lparen'>(</span><span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_add_document_to_signum'>add_document_to_signum</span><span class='lparen'>(</span>
+    <span class='label'>urz_id:</span> <span class='id identifier rubyid_urz_id'>urz_id</span><span class='comma'>,</span>
+    <span class='label'>temat:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Wniosek do planu ogólnego Decidim – </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>author:</span> <span class='id identifier rubyid_author'>author</span><span class='comma'>,</span>
+    <span class='label'>historia:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Złożenie nowego wniosku do planu ogólnego</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='label'>rodzaj_przesylki:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>66</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># systemy dziedzinowe
+</span>    <span class='label'>informacja_dodatkowa:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nr identyfikacyjny DECIDIM: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>files:</span> <span class='id identifier rubyid_all_attachments'>all_attachments</span>
+  <span class='rparen'>)</span>
+
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='comment'># =&gt; nil to ok, nie przetwazamy dalej jesli jes terror
+</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:lista_pism</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum_out</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_spr_id'>spr_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@spr_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_pis_id'>pis_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@pis_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@nr_kancelaryjny</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_kor_id'>kor_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@kor_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_barcode'>barcode</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pis_id'>pis_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># w Signum barcode jest tworzone automatycznie o ile nie bylo przekazane w parametrach
+</span>
+  <span class='comment'># nie rejestrujemy sprawy do pisma, zeby nie bylo znaku sprawy,
+</span>  <span class='comment'># urzednicy sami beda rejestrowac wszystkie uwagi do tego samej sprawy
+</span>  <span class='comment'># response = create_case(urz_id: urz_id, spr_id: spr_id, kor_id: kor_id, jrwa: &#39;0632&#39;)
+</span>  <span class='comment'># # response[:error] =&gt; nil
+</span>  <span class='comment'># data = response[:lista_pism][:pismo_do_signum_out]
+</span>  <span class='comment'># znak_sprawy = data[:@znak_sprawy]
+</span>
+  <span class='id identifier rubyid_general_plan_request'>general_plan_request</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span>
+    <span class='label'>signum_barcode:</span> <span class='id identifier rubyid_barcode'>barcode</span><span class='comma'>,</span>
+    <span class='label'>signum_spr_id:</span> <span class='id identifier rubyid_spr_id'>spr_id</span><span class='comma'>,</span>
+    <span class='label'>signum_kor_id:</span> <span class='id identifier rubyid_kor_id'>kor_id</span><span class='comma'>,</span>
+    <span class='label'>signum_nr_kancelaryjny:</span> <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span><span class='comma'>,</span>
+    <span class='label'>signum_znak_sprawy:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_at:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_by_user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register_project_to_signum-instance_method">
+  
+    #<strong>register_project_to_signum</strong>(urz_id:, project:, user:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 177</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_register_project_to_signum'>register_project_to_signum</span><span class='lparen'>(</span><span class='label'>urz_id:</span><span class='comma'>,</span> <span class='label'>project:</span><span class='comma'>,</span> <span class='label'>user:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_add_document_to_signum'>add_document_to_signum</span><span class='lparen'>(</span>
+    <span class='label'>urz_id:</span> <span class='id identifier rubyid_urz_id'>urz_id</span><span class='comma'>,</span>
+    <span class='label'>temat:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project'>project</span><span class='period'>.</span><span class='id identifier rubyid_esog_number'>esog_number</span><span class='embexpr_end'>}</span><span class='tstring_content'> - </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project'>project</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>author:</span> <span class='id identifier rubyid_project'>project</span><span class='period'>.</span><span class='id identifier rubyid_creator_author'>creator_author</span><span class='comma'>,</span>
+    <span class='label'>historia:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Rejestracja pisma inicjującego</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>rodzaj_przesylki:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>27</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='label'>informacja_dodatkowa:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nr identyfikacyjny DECIDIM: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_project'>project</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='comment'># =&gt; nil to ok, nie przetwazamy dalej jesli jes terror
+</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:lista_pism</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum_out</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_spr_id'>spr_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@spr_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@nr_kancelaryjny</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_kor_id'>kor_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@kor_id</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_create_case'>create_case</span><span class='lparen'>(</span><span class='label'>urz_id:</span> <span class='id identifier rubyid_urz_id'>urz_id</span><span class='comma'>,</span> <span class='label'>spr_id:</span> <span class='id identifier rubyid_spr_id'>spr_id</span><span class='comma'>,</span> <span class='label'>kor_id:</span> <span class='id identifier rubyid_kor_id'>kor_id</span><span class='comma'>,</span> <span class='label'>jrwa:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>0632</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='comment'># response[:error] =&gt; nil
+</span>  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:lista_pism</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum_out</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_znak_sprawy'>znak_sprawy</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@znak_sprawy</span><span class='rbracket'>]</span>
+
+  <span class='id identifier rubyid_project'>project</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span>
+    <span class='label'>signum_spr_id:</span> <span class='id identifier rubyid_spr_id'>spr_id</span><span class='comma'>,</span>
+    <span class='label'>signum_kor_id:</span> <span class='id identifier rubyid_kor_id'>kor_id</span><span class='comma'>,</span>
+    <span class='label'>signum_nr_kancelaryjny:</span> <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span><span class='comma'>,</span>
+    <span class='label'>signum_znak_sprawy:</span> <span class='id identifier rubyid_znak_sprawy'>znak_sprawy</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_at:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_by_user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register_study_note_to_signum-instance_method">
+  
+    #<strong>register_study_note_to_signum</strong>(study_note:, user:)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-core_extended/app/services/decidim/signum_service.rb', line 208</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_register_study_note_to_signum'>register_study_note_to_signum</span><span class='lparen'>(</span><span class='label'>study_note:</span><span class='comma'>,</span> <span class='label'>user:</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_urz_id'>urz_id</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>WS_SIGNUM_STUDY_NOTE_URZ_ID</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_author'>author</span> <span class='op'>=</span> <span class='const'>OpenStruct</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span>
+    <span class='label'>first_name:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_first_name'>submitter_data_first_name</span><span class='comma'>,</span>
+    <span class='label'>last_name:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_last_name'>submitter_data_last_name</span><span class='comma'>,</span>
+    <span class='label'>organization_name:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_org_name'>submitter_data_org_name</span><span class='comma'>,</span>
+    <span class='label'>city:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_city'>submitter_data_city</span><span class='comma'>,</span>
+    <span class='label'>zip_code:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_zip_code'>submitter_data_zip_code</span><span class='comma'>,</span>
+    <span class='label'>street:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_street'>submitter_data_street</span><span class='comma'>,</span>
+    <span class='label'>street_number:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_street_number'>submitter_data_street_number</span><span class='comma'>,</span>
+    <span class='label'>flat_number:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_submitter_data_flat_number'>submitter_data_flat_number</span>
+  <span class='rparen'>)</span>
+
+  <span class='comment'>#
+</span>  <span class='comment'># has_one_attached :attorney_power_represent_applicant_or_for_service
+</span>  <span class='comment'># has_one_attached :attorney_power_payment_stamp_duty_confirm
+</span>  <span class='comment'># has_many_attached :parcel_site_boundary
+</span>  <span class='comment'>#
+</span>  <span class='comment'># has_many_attached :files
+</span>  <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_file'>file</span> <span class='rbrace'>}</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_represent_applicant_or_for_service'>attorney_power_represent_applicant_or_for_service</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+    <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_represent_applicant_or_for_service'>attorney_power_represent_applicant_or_for_service</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_payment_stamp_duty_confirm'>attorney_power_payment_stamp_duty_confirm</span><span class='period'>.</span><span class='id identifier rubyid_attached?'>attached?</span>
+    <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_attorney_power_payment_stamp_duty_confirm'>attorney_power_payment_stamp_duty_confirm</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_parcel_site_boundary'>parcel_site_boundary</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_file'>file</span><span class='op'>|</span> <span class='id identifier rubyid_all_attachments'>all_attachments</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_file'>file</span> <span class='rbrace'>}</span>
+
+  <span class='comment'># all_attachments &lt;&lt; Decidim::PdfGeneratorService.new.save_to_pdf(study_note)
+</span>  <span class='comment'># TODO: Generate pdf with study_note
+</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_add_document_to_signum'>add_document_to_signum</span><span class='lparen'>(</span>
+    <span class='label'>urz_id:</span> <span class='id identifier rubyid_urz_id'>urz_id</span><span class='comma'>,</span>
+    <span class='label'>temat:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Uwaga do planu ogólnego Decidim – </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>author:</span> <span class='id identifier rubyid_author'>author</span><span class='comma'>,</span>
+    <span class='label'>historia:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Złożenie nowej uwagi do planu ogólnego</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>rodzaj_przesylki:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>66</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='comment'># systemy dziedzinowe
+</span>    <span class='label'>informacja_dodatkowa:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Nr identyfikacyjny DECIDIM: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='label'>files:</span> <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_files'>files</span> <span class='op'>+</span> <span class='lbracket'>[</span><span class='const'><span class='object_link'><a href="../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>PdfGeneratorService</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='period'>.</span><span class='id identifier rubyid_save_to_pdf'>save_to_pdf</span><span class='lparen'>(</span><span class='id identifier rubyid_study_note'>study_note</span><span class='rparen'>)</span><span class='rbracket'>]</span>
+  <span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:error</span><span class='rbracket'>]</span> <span class='comment'># =&gt; nil to ok, nie przetwazamy dalej jesli jes terror
+</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='symbol'>:lista_pism</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:pismo_do_signum_out</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_spr_id'>spr_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@spr_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_pis_id'>pis_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@pis_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@nr_kancelaryjny</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_kor_id'>kor_id</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:@kor_id</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_barcode'>barcode</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_pis_id'>pis_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>0</span><span class='tstring_end'>&quot;</span></span> <span class='comment'># w Signum barcode jest tworzone automatycznie o ile nie bylo przekazane w parametrach
+</span>
+  <span class='comment'># nie rejestrujemy sprawy do pisma, zeby nie bylo znaku sprawy,
+</span>  <span class='comment'># urzednicy sami beda rejestrowac wszystkie uwagi do tego samej sprawy
+</span>  <span class='comment'># response = create_case(urz_id: urz_id, spr_id: spr_id, kor_id: kor_id, jrwa: &#39;0632&#39;)
+</span>  <span class='comment'># # response[:error] =&gt; nil
+</span>  <span class='comment'># data = response[:lista_pism][:pismo_do_signum_out]
+</span>  <span class='comment'># znak_sprawy = data[:@znak_sprawy]
+</span>
+  <span class='id identifier rubyid_study_note'>study_note</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span>
+    <span class='label'>signum_barcode:</span> <span class='id identifier rubyid_barcode'>barcode</span><span class='comma'>,</span>
+    <span class='label'>signum_spr_id:</span> <span class='id identifier rubyid_spr_id'>spr_id</span><span class='comma'>,</span>
+    <span class='label'>signum_kor_id:</span> <span class='id identifier rubyid_kor_id'>kor_id</span><span class='comma'>,</span>
+    <span class='label'>signum_nr_kancelaryjny:</span> <span class='id identifier rubyid_nr_kancelaryjny'>nr_kancelaryjny</span><span class='comma'>,</span>
+    <span class='label'>signum_znak_sprawy:</span> <span class='kw'>nil</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_at:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span>
+    <span class='label'>signum_registered_by_user_id:</span> <span class='id identifier rubyid_user'>user</span><span class='op'>&amp;.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Wed Oct 29 14:41:35 2025 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.37 (ruby-3.2.6).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1 @@
+import "src/decidim/repository/admin/jquery.MultiFile.js";

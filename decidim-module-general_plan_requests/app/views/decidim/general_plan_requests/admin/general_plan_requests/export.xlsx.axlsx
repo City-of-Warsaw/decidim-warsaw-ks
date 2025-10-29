@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Lista") do |sheet|
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+  right_align = wb.styles.add_style(alignment: { horizontal: :right })
+
+  sheet.add_row @xml_serializer.headers
+
+  @xml_serializer.serialize_all_with_json(collection).each_with_index do |row_hash, row_index|
+    sheet.add_row @xml_serializer.ordered_values(row_hash)
+
+    @xml_serializer.columns_order.each_with_index do |column, col_index|
+      cell_ref = "#{col_index_to_column_letter(col_index)}#{row_index + 2}"
+
+      if @xml_serializer.columns_definition[column][:wrap_text]
+        sheet[cell_ref].style = wrap_text
+      end
+
+      if @xml_serializer.url_columns.include?(column)
+        hyperlink_value = row_hash[column]
+        sheet.add_hyperlink location: hyperlink_value, ref: cell_ref if hyperlink_value.present?
+      end
+
+      if @xml_serializer.column_alignment(column) == :right
+        sheet[cell_ref].style = right_align
+      end
+    end
+  end
+
+  sheet.column_widths *@xml_serializer.columns_widths
+end

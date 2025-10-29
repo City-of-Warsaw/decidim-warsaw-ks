@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::News::Admin::CreateInformation</li>
           
@@ -88,6 +88,11 @@
   
   
   
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html" title="Decidim::Repository::Admin::GalleriesHelper (module)">Repository::Admin::GalleriesHelper</a></span></dd>
+  </dl>
   
   
 
@@ -104,7 +109,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This command is executed when user creates Information</p>
+<p>A command with all the business logic to create Information</p>
 
 
   </div>
@@ -190,34 +195,10 @@
 
     <ul class="summary">
       
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Creates the information if valid.</p>
-</div></span>
-  
-</li>
-
-      
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#create_information!-instance_method" title="#create_information! (instance method)">#<strong>create_information!</strong>  &#x21d2; Object </a>
+      <a href="#attributes-instance_method" title="#attributes (instance method)">#<strong>attributes</strong>  &#x21d2; Object </a>
     
 
     
@@ -236,10 +217,34 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#call-instance_method" title="#call (instance method)">#<strong>call</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Executes the command.</p>
+</div></span>
+  
+</li>
+
+      
         <li class="private ">
   <span class="summary_signature">
     
-      <a href="#information_params-instance_method" title="#information_params (instance method)">#<strong>information_params</strong>  &#x21d2; Object </a>
+      <a href="#create_information!-instance_method" title="#create_information! (instance method)">#<strong>create_information!</strong>  &#x21d2; Object </a>
     
 
     
@@ -278,7 +283,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of CreateInformation.</p>
+<p>Public: Initializes the command.</p>
 </div></span>
   
 </li>
@@ -287,6 +292,17 @@
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html" title="Decidim::Repository::Admin::GalleriesHelper (module)">Repository::Admin::GalleriesHelper</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#add_gallery-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#add_gallery (method)">#add_gallery</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#create_gallery_with_images!-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#create_gallery_with_images! (method)">#create_gallery_with_images!</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#new_gallery_params-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#new_gallery_params (method)">#new_gallery_params</a></span>, <span class='object_link'><a href="../../Repository/Admin/GalleriesHelper.html#tiles_view%3F-instance_method" title="Decidim::Repository::Admin::GalleriesHelper#tiles_view? (method)">#tiles_view?</a></span></p>
 
   <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
@@ -303,7 +319,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of CreateInformation.</p>
+<p>Public: Initializes the command.</p>
+
+<p>form - A form object with the params.</p>
 
 
   </div>
@@ -317,12 +335,12 @@
       <pre class="lines">
 
 
-8
-9
-10</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_form'>form</span><span class='rparen'>)</span>
   <span class='ivar'>@form</span> <span class='op'>=</span> <span class='id identifier rubyid_form'>form</span>
@@ -365,12 +383,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@form</span>
@@ -408,12 +426,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_information'>information</span>
   <span class='ivar'>@information</span>
@@ -431,7 +449,53 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="call-instance_method">
+  <h3 class="signature first" id="attributes-instance_method">
+  
+    #<strong>attributes</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_attributes'>attributes</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>title:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span>
+    <span class='label'>body:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
+    <span class='label'>gallery_id:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_gallery_id'>gallery_id</span><span class='comma'>,</span>
+    <span class='label'>organization:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_organization'>current_organization</span><span class='comma'>,</span>
+    <span class='label'>users_action_allowed_for_unregister_users:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_users_action_allowed_for_unregister_users'>users_action_allowed_for_unregister_users</span><span class='comma'>,</span>
+    <span class='label'>weight:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span><span class='comma'>,</span>
+    <span class='label'>added_on:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_added_on'>added_on</span>
+  <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="call-instance_method">
   
     #<strong>call</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -442,9 +506,14 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Creates the information if valid.</p>
+<p>Executes the command. Broadcasts these events:</p>
+<ul><li>
+<p>:ok when everything is valid.</p>
+</li><li>
+<p>:invalid if the form wasn’t valid and we couldn’t proceed.</p>
+</li></ul>
 
-<p>Broadcasts :ok if successful, :invalid otherwise.</p>
+<p>Returns nothing.</p>
 
 
   </div>
@@ -458,21 +527,23 @@
       <pre class="lines">
 
 
-15
-16
-17
-18
-19
-20
-21</pre>
+23
+24
+25
+26
+27
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_invalid?'>invalid?</span>
 
   <span class='id identifier rubyid_create_information!'>create_information!</span>
+  <span class='id identifier rubyid_add_gallery'>add_gallery</span><span class='lparen'>(</span><span class='id identifier rubyid_information'>information</span><span class='rparen'>)</span>
 
   <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='comma'>,</span> <span class='id identifier rubyid_information'>information</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -496,46 +567,6 @@
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
-33
-34</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 27</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_create_information!'>create_information!</span>
-  <span class='ivar'>@information</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span>
-    <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Information.html" title="Decidim::News::Information (class)">Information</a></span></span><span class='comma'>,</span>
-    <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
-    <span class='id identifier rubyid_information_params'>information_params</span><span class='comma'>,</span>
-    <span class='label'>visibility:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>admin-only</span><span class='tstring_end'>&quot;</span></span>
-  <span class='rparen'>)</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="information_params-instance_method">
-  
-    #<strong>information_params</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
 36
 37
 38
@@ -548,13 +579,13 @@
     <td>
       <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 36</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_information_params'>information_params</span>
-  <span class='lbrace'>{</span>
-    <span class='label'>title:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_title'>title</span><span class='comma'>,</span>
-    <span class='label'>body:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span>
-    <span class='label'>gallery_id:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_gallery_id'>gallery_id</span><span class='comma'>,</span>
-    <span class='label'>organization:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_organization'>current_organization</span>
-  <span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_information!'>create_information!</span>
+  <span class='ivar'>@information</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span>
+    <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../News.html" title="Decidim::News (module)">News</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Information.html" title="Decidim::News::Information (class)">Information</a></span></span><span class='comma'>,</span>
+    <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_user'>current_user</span><span class='comma'>,</span>
+    <span class='id identifier rubyid_attributes'>attributes</span><span class='comma'>,</span>
+    <span class='label'>visibility:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>admin-only</span><span class='tstring_end'>&#39;</span></span>
+  <span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -566,9 +597,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

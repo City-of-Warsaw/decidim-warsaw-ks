@@ -119,15 +119,167 @@
 
 
 
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#permitted_helpers_for_topic-instance_method" title="#permitted_helpers_for_topic (instance method)">#<strong>permitted_helpers_for_topic</strong>(template)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
 
   
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#used_helpers_for_topic-instance_method" title="#used_helpers_for_topic (instance method)">#<strong>used_helpers_for_topic</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>the array of that helpers comes from decidim-core_extended/app/services/decidim/core_extended/mail_template_service.rb parse_subject method.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="permitted_helpers_for_topic-instance_method">
+  
+    #<strong>permitted_helpers_for_topic</strong>(template)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/forms/decidim/admin_extended/mail_template_form.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_permitted_helpers_for_topic'>permitted_helpers_for_topic</span><span class='lparen'>(</span><span class='id identifier rubyid_template'>template</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_helpers'>helpers</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_used_helpers_for_topic'>used_helpers_for_topic</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="used_helpers_for_topic-instance_method">
+  
+    #<strong>used_helpers_for_topic</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>the array of that helpers comes from decidim-core_extended/app/services/decidim/core_extended/mail_template_service.rb parse_subject method</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-admin_extended/app/forms/decidim/admin_extended/mail_template_form.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_used_helpers_for_topic'>used_helpers_for_topic</span>
+  <span class='qwords_beg'>%w(</span><span class='words_sep'>
+    </span><span class='tstring_content'>user_name</span><span class='words_sep'>
+    </span><span class='tstring_content'>consultation_title</span><span class='words_sep'>
+    </span><span class='tstring_content'>consultation_link</span><span class='words_sep'>
+    </span><span class='tstring_content'>step_name</span><span class='words_sep'>
+    </span><span class='tstring_content'>resource_title</span><span class='words_sep'>
+    </span><span class='tstring_content'>resource_link</span><span class='words_sep'>
+    </span><span class='tstring_content'>attached_to_title</span><span class='words_sep'>
+    </span><span class='tstring_content'>attached_to_link</span><span class='words_sep'>
+  </span><span class='tstring_end'>)</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:35 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

@@ -1,0 +1,560 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <div>
+      <%= t(".title") %>
+
+      <%= link_to "Pobierz PDF",
+                  general_plan_request_path(general_plan_request, format: :pdf, anonimized: false),
+                  class: "button button__sm " %>
+      <%= link_to "Pobierz zanonimizowany PDF",
+                  general_plan_request_path(general_plan_request, format: :pdf, anonimized: true),
+                  class: "button button__sm" %>
+    </div>
+  </h1>
+</div>
+
+<div class="card-section">
+<div class="card">
+  <div class="card-section">
+    <div class="row column">
+      <p>
+        <strong> ID zgłoszenia: </strong><%= general_plan_request.id %>
+      </p>
+      <p>
+        <strong> Data zgłoszenia: </strong><%= l general_plan_request.created_at, format: "%d/%m/%Y - %H:%M" %>
+      </p>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_1") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <%= general_plan_request.authority_name_which_letter_is_addressed %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_2") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <%= t(".letter_type.#{general_plan_request.letter_type}") %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_3") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <%= t(".urban_planning_act_type.#{general_plan_request.urban_planning_act_type}") %>
+          </p>
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_4") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <% if general_plan_request.submitter_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::INDIVIDUAL %>
+            <p>
+              <strong><%= t(".submitter_data_role") %>: </strong>
+              <%= t(".submitter_role_person") %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_first_name") %>: </strong>
+              <%= general_plan_request.submitter_data_first_name %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_last_name") %>: </strong>
+              <%= general_plan_request.submitter_data_last_name %>
+            </p>
+
+          <% else %>
+
+            <p>
+              <strong><%= t(".submitter_data_role") %>: </strong>
+              <%= t(".submitter_role_organization") %>
+            </p>
+            <p>
+              <strong><%= t(".submitter_data_org_name") %>: </strong>
+              <%= general_plan_request.submitter_data_org_name %>
+            </p>
+          <% end %>
+
+          <p>
+            <strong><%= t(".submitter_data_country") %>: </strong>
+            <%= general_plan_request.submitter_data_country %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_voivodeship") %>: </strong>
+            <%= general_plan_request.submitter_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_county") %>: </strong>
+            <%= general_plan_request.submitter_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_community") %>: </strong>
+            <%= general_plan_request.submitter_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_street") %>: </strong>
+            <%= general_plan_request.submitter_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_street_number") %>: </strong>
+            <%= general_plan_request.submitter_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_flat_number") %>: </strong>
+            <%= general_plan_request.submitter_data_flat_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_city") %>: </strong>
+            <%= general_plan_request.submitter_data_city %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_zip_code") %>: </strong>
+            <%= general_plan_request.submitter_data_zip_code %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_email") %>: </strong>
+            <%= general_plan_request.submitter_data_email %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_phone_number") %>: </strong>
+            <%= general_plan_request.submitter_data_phone_number %>
+          </p>
+          <p>
+            <strong><%= t(".submitter_data_epuap_delivery_address") %>: </strong>
+            <%= general_plan_request.submitter_data_epuap_delivery_address %>
+          <p>
+            <strong><%= t(".perpetual_owner_of_the_property") %>: </strong>
+            <%= general_plan_request.perpetual_owner_of_the_property? ? "Tak" : "Nie" %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_5") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".mailing_address_data_voivodeship") %>: </strong>
+            <%= general_plan_request.mailing_address_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_county") %>: </strong>
+            <%= general_plan_request.mailing_address_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_community") %>: </strong>
+            <%= general_plan_request.mailing_address_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_street") %>: </strong>
+            <%= general_plan_request.mailing_address_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_street_number") %>: </strong>
+            <%= general_plan_request.mailing_address_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_flat_number") %>: </strong>
+            <%= general_plan_request.mailing_address_data_flat_number %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_city") %>: </strong>
+            <%= general_plan_request.mailing_address_data_city %>
+          </p>
+          <p>
+            <strong><%= t(".mailing_address_data_zip_code") %>: </strong>
+            <%= general_plan_request.mailing_address_data_zip_code %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_6") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <% if general_plan_request.attorney_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ATTORNEY %>
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+              <%= t(".attorney_role_all") %>
+            </p>
+          <% elsif general_plan_request.attorney_data_role == Decidim::GeneralPlanRequests::GeneralPlanRequest::ATTORNEY_FOR_SERVICE %>
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+              <%= t(".attorney_role_delivery") %>
+            </p>
+          <% else %>
+
+            <p>
+              <strong><%= t(".attorney_data_role") %>: </strong>
+            </p>
+          <% end %>
+
+          <p>
+            <strong><%= t(".attorney_data_first_name") %>: </strong>
+            <%= general_plan_request.attorney_data_first_name %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_last_name") %>: </strong>
+            <%= general_plan_request.attorney_data_last_name %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_country") %>: </strong>
+            <%= general_plan_request.attorney_data_country %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_voivodeship") %>: </strong>
+            <%= general_plan_request.attorney_data_voivodeship %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_county") %>: </strong>
+            <%= general_plan_request.attorney_data_county %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_community") %>: </strong>
+            <%= general_plan_request.attorney_data_community %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_street") %>: </strong>
+            <%= general_plan_request.attorney_data_street %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_street_number") %>:</strong>
+            <%= general_plan_request.attorney_data_street_number %>
+          </p>
+          <p>
+            <strong><%= t(".attorney_data_flat_number") %>: </strong>
+            <%= general_plan_request.attorney_data_flat_number %></p>
+          <p>
+            <strong><%= t(".attorney_data_city") %>: </strong>
+            <%= general_plan_request.attorney_data_city %></p>
+          <p>
+            <strong><%= t(".attorney_data_zip_code") %>: </strong>
+            <%= general_plan_request.attorney_data_zip_code %></p>
+          <p>
+            <strong><%= t(".attorney_data_email") %>: </strong>
+            <%= general_plan_request.attorney_data_email %></p>
+          <p>
+            <strong><%= t(".attorney_data_phone_number") %>: </strong>
+            <%= general_plan_request.attorney_data_phone_number %></p>
+          <p>
+            <strong><%= t(".attorney_data_epuap_delivery_address") %>: </strong>
+            <%= general_plan_request.attorney_data_epuap_delivery_address %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_7") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".request_body") %>: </strong>
+            <%= decidim_sanitize general_plan_request.request_body %>
+          </p>
+
+          <% if general_plan_request.request_body_content_details.length > 0 %>
+            <p>
+              <strong><%= t(".request_body_content_details") %>: </strong>
+            </p>
+
+            <table border="1">
+              <thead style="color: black;">
+                <tr>
+                  <th><%= t(".ordinal_number") %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.request_body_content_details_name') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.request_body_content_details_parcel_id') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.request_body_content_details_is_record_area_included') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.request_body_content_details_body') %></th>
+                </tr>
+              </thead>
+              <tbody> 
+                <% JSON.parse(general_plan_request.request_body_content_details).each_with_index do |content_details,index| %>
+                  <tr>
+                    <td>
+                      <%= index + 1 %>
+                    </td>
+                    <td>
+                      <%= t('activemodel.attributes.general_plan_request.request_body_content_details_name_value') %>
+                    </td>
+                    <td>
+                      <%= content_details["parcel_id"] %>
+                    </td>
+                    <td>
+                      <%= content_details["is_record_area_included"] ? t(".option_yes") : t(".option_no") %>
+                    </td>
+                    <td>
+                      <%= content_details["body"] %>
+                    </td>
+                  </tr>
+                <% end %> 
+              </tbody>
+            </table>
+          <% end %>
+
+          <% if general_plan_request.details_land_parcels_with_parameters.length > 0 %>
+            <p>
+              <strong><%= t(".details_land_parcels_with_parameters") %>: </strong>
+            </p>
+
+
+            <table border="1">
+              <thead style="color: black;">
+                <tr>
+                  <th><%= t(".ordinal_number") %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_name') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_parcel_id') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_is_record_area_included') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_area_class_name') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_max_percent_area') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_max_height_building') %></th>
+                  <th><%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_min_percent_bio') %></th>
+                </tr>
+              </thead>
+              <tbody> 
+                <% JSON.parse(general_plan_request.details_land_parcels_with_parameters).each_with_index do |land_parcel, index| %>
+                  <tr>
+                    <td>
+                      <%= index + 1 %>
+                    </td>
+                    <td>
+                      <%= t('activemodel.attributes.general_plan_request.details_land_parcels_with_parameters_name_value') %>
+                    </td>
+                    <td>
+                      <%= land_parcel["parcel_id"] %>
+                    </td>
+                    <td>
+                      <%= land_parcel["is_record_area_included"] ? t(".option_yes") : t(".option_no") %>
+                    </td>
+                    <td>
+                      <%= land_parcel["area_class_name"] %>
+                    </td>
+                    <td>
+                      <%= land_parcel["max_percent_area"] %>
+                    </td>
+                    <td>
+                      <%= land_parcel["max_height_building"] %>
+                    </td>
+                    <td>
+                      <%= land_parcel["min_percent_bio"] %>
+                    </td>
+                  </tr> 
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_8") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".declaration_remote_correspondence") %>: </strong>
+            <%= general_plan_request.declaration_remote_correspondence? ? "Tak" : "Nie" %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".section_9") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".attorney_power_represent_applicant_or_for_service") %>: </strong>
+              <% if general_plan_request.attorney_power_represent_applicant_or_for_service.attached? %>
+                <%= general_plan_request.attorney_power_represent_applicant_or_for_service.filename %>
+                <%= icon_link_to "data-transfer-download",
+                                 main_app.rails_blob_path(general_plan_request.attorney_power_represent_applicant_or_for_service,
+                                                          disposition: "attachment"),
+                                 t(".download_file"),
+                                 class: "action-icon--data-transfer-download" %>
+              <% end %>
+          </p>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".attorney_power_payment_stamp_duty_confirm") %>: </strong>
+              <% if general_plan_request.attorney_power_payment_stamp_duty_confirm.attached? %>
+                <%= general_plan_request.attorney_power_payment_stamp_duty_confirm.filename %>
+                <%= icon_link_to "data-transfer-download",
+                                 main_app.rails_blob_path(general_plan_request.attorney_power_payment_stamp_duty_confirm,
+                                                          disposition: "attachment"),
+                                 t(".download_file"),
+                                 class: "action-icon--data-transfer-download" %>
+              <% end %>
+          </p>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".parcel_site_boundary") %>: </strong>
+              <% if general_plan_request.parcel_site_boundary.attached? %>
+                <%= general_plan_request.parcel_site_boundary.filename %>
+                <%= icon_link_to "data-transfer-download",
+                                 main_app.rails_blob_path(general_plan_request.parcel_site_boundary,
+                                                          disposition: "attachment"),
+                                 t(".download_file"),
+                                 class: "action-icon--data-transfer-download" %>
+              <% end %>
+          </p>
+        </div>
+
+        <div class="card-section">
+          <%= display_other_files(general_plan_request) %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".additional_section") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".optional_confirmation_request") %>: </strong>
+            <%= general_plan_request.optional_confirmation_request ? t(".option_yes") : t(".option_no") %>
+          </p>
+
+          <p>
+            <strong><%= t(".email_confirmation_request") %>: </strong>
+            <%= general_plan_request.email_confirmation_request %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            <%= t(".last_confirmations") %>
+          </h2>
+        </div>
+
+        <div class="card-section">
+          <p>
+            <strong><%= t(".confirm_read_process_description") %>: </strong>
+            <%= general_plan_request.confirm_read_process_description ? t(".option_yes") : "" %>
+          </p>
+
+          <p>
+            <strong><%= t(".confirm_process_personal_data") %>: </strong>
+            <%= general_plan_request.confirm_process_personal_data ? t(".option_yes") : t(".option_no") %>
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-divider">
+          <h2 class="card-title">
+            Dane z Signum
+          </h2>
+        </div>
+        <div class="card-section">
+          <% if general_plan_request.registered_to_signum? %>
+
+            <div class="row column">
+              <strong>Znak sprawy:</strong> <%= general_plan_request.signum_znak_sprawy %>
+            </div>
+
+            <div class="row column">
+              <strong>Barcode:</strong> <%= general_plan_request.signum_barcode %>
+            </div>
+
+            <div class="row column">
+              <strong>Nr kancelaryjny:</strong> <%= general_plan_request.signum_nr_kancelaryjny %>
+            </div>
+
+            <div class="row column">
+              <strong>ID korespondenta:</strong> <%= general_plan_request.signum_kor_id %>
+            </div>
+
+            <div class="row column">
+              <strong>ID sprawy:</strong> <%= general_plan_request.signum_spr_id %>
+            </div>
+
+            <% if general_plan_request.signum_registered_by_user_id %>
+
+              <div class="row column">
+                <strong>Wprowadził:</strong> <%= Decidim::User.find(general_plan_request.signum_registered_by_user_id).ad_full_name %>
+              </div>
+            <% end %>
+
+            <div class="row column">
+              <strong>Data rejestracji:</strong>
+              <%= l general_plan_request.signum_registered_at, format: :decidim_short_cut_zero %>
+            </div>
+
+          <% else %>
+
+            Projekt jeszcze nie został przesłany do Signum
+            <br>
+            <% if allowed_to? :register_to_signum, :general_plan_request, general_plan_request: general_plan_request %>
+              <%= link_to 'Zarejestruj w Signum', [:register_to_signum, general_plan_request], method: :post, class: 'button' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+     </div>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="item__edit-sticky">
+  <div class="item__edit-sticky-container">
+    <div class="button--double form-general-submit">
+      <%= link_to t("decidim.admin.actions.back"), general_plan_requests_path, class: "button button__sm button__secondary" %>
+    </div>
+  </div>
+</div>

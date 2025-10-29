@@ -8,44 +8,50 @@
 #     from: participatory_process_form.rb
 #     to: admin_participatory_process_form_decorator.rb
 # - changes existing methods
-# - new attributes: fb_url, department_id, recipients, tags, consultation_status, address, latitude, longitude, locations_json
-# gallery_id, report_description, report_publication_date, report_notification_send, report_change_status,report_files_input
-# - added new methods
+# - new attrs
+# - new methods
 Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
+  include Decidim::Repository::Admin::GalleryInputAttributes
+  include Decidim::Repository::Admin::GalleriesValidations
+
   RECIPIENTS = %w(citizens ngo mix).freeze
-  CONSULTATION_STATUSES = %w(report effects).freeze
 
   attribute :fb_url, String
   attribute :department_id, Integer
   attribute :recipients, String
   attribute :consultation_status, String
-  # attribute :address, String
-  # attribute :latitude, Float
-  # attribute :longitude, Float
-  attribute :locations_json, Hash
-  attribute :gallery_id, Integer
+  attribute :locations_json, Hash, default: '{}'
   attribute :report_description, String
   attribute :report_publication_date, Decidim::Attributes::LocalizedDate
-  attribute :report_notification_send, Virtus::Attribute::Boolean
-  attribute :report_change_status, Virtus::Attribute::Boolean # this field is only for Form it does not exist in process
+  attribute :report_notification_send, Decidim::AttributeObject::TypeMap::Boolean
   attribute :tag_ids, Array
   attribute :hero_image_alt, String
-  attribute :report_files, [String]
-  attribute :remove_report_ids, [Integer]
-  attribute :users_action_allowed_for_unregister_users, Virtus::Attribute::Boolean
+  attribute :hero_image_cache, String
+  attribute :users_action_allowed_for_unregister_users, Decidim::AttributeObject::TypeMap::Boolean
+  attribute :selected_scope_ids, Array[Integer]
 
   attribute :report_files_input, [String]
 
+  attribute :area_map_coordinates
+
   validate :address_was_geocoded, if: proc { |attr| locations_data.any? }
   validate :fb_url_is_facebook_event, if: proc { |attr| fb_url.present? }
+  validate :name_if_images
   validates :recipients, presence: true, inclusion: { in: RECIPIENTS }
-  validates :consultation_status, inclusion: { in: CONSULTATION_STATUSES }, if: proc { |attr| attr[:consultation_status].present? }
-  validates :scope_id, presence: true
+  validate :selected_scope_is_required
   validates :area_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
-  validates :hero_image, presence: true
-  validates :users_action_allowed_for_unregister_users, presence: true
+  validates :users_action_allowed_for_unregister_users, inclusion: [true, false]
+
+  def hero_image_or_cache
+    errors.add(:hero_image, 'Nie może być puste') if hero_image.blank? && hero_image_cache.blank?
+  end
+
+  # Consultation needs to have at least one district
+  def selected_scope_is_required
+    errors.add(:selected_scope_ids, 'Należy wybrać co najmniej jedną dzielnicę') if selected_scope_ids.reject { |c| c.blank? }.empty?
+  end
 
   # Public validation function that checks if address was provided and with proper data.
   # It adds Error message on address field
@@ -75,6 +81,8 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
   #
   # returns Hash
   def locations_data
+    return {} if locations_json.blank?
+
     JSON.parse(locations_json)
   end
 
@@ -91,7 +99,7 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
     self.related_process_ids = model.linked_participatory_space_resources(:participatory_process, 'related_processes').pluck(:id)
     self.locations_json = model.locations.to_json
     self.hero_image_alt = model.hero_image_alt
-    self.report_files = model.report_files
+    self.gallery_id = model.gallery_id
     @processes = Decidim::ParticipatoryProcess.where(organization: model.organization).where.not(id: model.id)
   end
 
@@ -103,18 +111,6 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
       [
         I18n.t("recipients_type.#{recipient}", scope: 'decidim.participatory_processes'),
         recipient
-      ]
-    end
-  end
-
-  # Public: returns mapped list of consultation_statuses for form.
-  #
-  # returns: Array
-  def consultation_statuses
-    CONSULTATION_STATUSES.map do |status|
-      [
-        I18n.t("consultation_statuses.#{status}", scope: 'decidim.participatory_processes'),
-        status
       ]
     end
   end
@@ -165,7 +161,7 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
   # end
 
   def department
-    current_organization.departments.find_by(id: department_id)
+    @department ||= Decidim::AdminExtended::Department.all.find_by(id: department_id)
   end
 
   # Public method that overwrites subtitle with title value.

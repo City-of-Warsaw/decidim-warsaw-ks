@@ -1,0 +1,3 @@
+<span><%= t(id, scope: label_scope) %></span>
+<% data_checkboxes_tree_id = "#{method}-#{id}-#{collection.leaf.value}" %>
+<%= form.dropdown_label(collection, method, check_boxes_tree_id:, parent_id: nil) %>

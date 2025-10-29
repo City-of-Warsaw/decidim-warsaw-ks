@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <%= stylesheet_pack_tag "email" %>
+</head>
+
+<body>
+<%= decidim_sanitize_newsletter cell.to_s %>
+
+<table class="body">
+  <tr>
+    <td class="float-center" align="center" valign="top">
+      <center>
+        <table class="container">
+          <tr>
+            <td>
+              <table class="row">
+                <th class="expander"></th>
+                <th class="small-12 first last columns">
+                  <center>
+                    <% content_for :note do %>
+                      <%== t ".note", organization_name: organization_name(@organization), link: decidim.notifications_settings_url(host: @organization.host) %>
+                    <% end %>
+
+                    <% content_for :unsubscribe do %>
+                      <% if @preview %>
+                        <%== t ".unsubscribe", link: "#"%>
+                      <% else %>
+                        <%== t ".unsubscribe", link: decidim.unsubscribe_newsletters_url(host: @organization.host, u: @encrypted_token ) %>
+                      <% end %>
+                    <% end %>
+
+                    <% content_for :see_on_website do %>
+                      <center style="display: none">
+                        <%== CGI.unescapeHTML truncate(cell.body, max_length: 50) %>
+                      </center>
+                      <%== t ".see_on_website", link: @newsletter.url %>
+                    <% end %>
+                  </center>
+                </th>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

@@ -4,7 +4,7 @@ module Decidim
   module Remarks
     module Admin
       # # This command is executed when user updates Remark
-      class UpdateRemark < Rectify::Command
+      class UpdateRemark < Decidim::Command
         def initialize(remark, form)
           @remark = remark
           @form = form

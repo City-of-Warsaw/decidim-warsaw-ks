@@ -4,15 +4,17 @@ module Decidim
   module AdUsersSpace
     module Admin
       # This command is executed when user destroys Info Article
-      class DestroyInfoArticle < Rectify::Command
+      class DestroyInfoArticle < Decidim::Command
         def initialize(info_article, user)
           @info_article = info_article
           @current_user = user
         end
 
-        # Creates the info_article if valid.
+        # Executes the command. Broadcasts these events:
         #
-        # Broadcasts :ok if successful, :invalid otherwise.
+        # - :ok when everything is valid.
+        #
+        # Returns nothing.
         def call
           destroy_info_article!
 

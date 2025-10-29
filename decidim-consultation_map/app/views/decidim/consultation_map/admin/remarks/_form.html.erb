@@ -1,3 +1,21 @@
-<div class="row column">
-  <%= form.text_field :alt %>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <% remark.files.each do |file| %>
+        <% if file.image? %>
+          <div class="row column">
+            <%= link_to Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox' do %>
+              <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), class: 'thumbnail') %>
+            <% end %>
+          </div>
+
+          <div class="row column">
+            <%= text_field_tag "remark[image_alts][#{file.id}]",
+                               file.blob.metadata['alt'],
+                               placeholder: "Opis alternatywny (ALT) dla dodanego obrazu" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

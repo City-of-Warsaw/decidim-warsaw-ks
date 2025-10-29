@@ -11,10 +11,13 @@ module Decidim
 
       component = Decidim.find_component_manifest('pages')
       # component.admin_engine = Decidim::Pages::AdminEngine
-      component.data_portable_entities = ["Decidim::Pages::Page"]
+      # component.data_portable_entities = ["Decidim::Pages::Page"]
       component.permissions_class_name = "Decidim::PagesExtended::Permissions"
       component.settings(:global) do |settings|
-        settings.attribute :help_section, type: :text, translated: true, editor: true
+        settings.attribute :help_section_visibility, type: :boolean
+        settings.attribute :help_section_title, type: :string
+        settings.attribute :help_section_subtitle, type: :string
+        settings.attribute :help_section_description, type: :text, editor: true
       end
 
       resource = Decidim.find_resource_manifest('page')
@@ -59,19 +62,10 @@ module Decidim
         end
       end
 
-      # assets
-      initializer "decidim_pages_extended.assets.precompile" do |app|
-        app.config.assets.precompile += %w(decidim/pages_extended/admin/destroy_page_alert.js)
-      end
-
-      config.autoload_paths << File.join(
-        Decidim::PagesExtended::Engine.root, "app", "decorators", "{**}"
-      )
-
       # make decorators available to applications that use this Engine
       config.to_prepare do
         Dir.glob(Decidim::PagesExtended::Engine.root + "app/decorators/**/*_decorator*.rb").each do |c|
-          require_dependency(c)
+          load c
         end
       end
 

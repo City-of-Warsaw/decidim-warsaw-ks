@@ -1,0 +1,23 @@
+<%= form_for(@form, remote: true) do |form| %>
+  <%= render partial: "form", locals: { form: form, form_object: @form } %> 
+
+  <div class="flex items-center w-full justify-between">
+    <% unless current_user %>
+      <ul class='pull-left ul-reset ul-contents' role="list">
+        <li>
+          <%= link_to "Zaloguj się", decidim.new_user_session_path, class: 'link'%>
+          <span> / </span>
+        </li>
+
+        <li><%= link_to "Zarejestruj się", decidim.new_user_registration_path, class: 'link'%></li>
+      </ul>
+    <% end %>
+
+    <div class="flex items-center ml-auto gap-2">  
+      <%= form.button type: "submit", class: "button button__sm button__secondary ml-auto", data: { disable: true } do %>
+        <%= t(".create") %>
+        <%= icon "chat-1-line" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

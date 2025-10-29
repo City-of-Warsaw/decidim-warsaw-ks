@@ -1,0 +1,101 @@
+<div class="header">
+  <%= link_to organization.official_url do %>
+    <%= image_pack_tag "media/images/mail-header-top.png", alt: "", style: "width: 100%;" %>
+  <% end %>
+</div>
+
+<table class="body">
+  <tr>
+    <td class="float-center" align="center" valign="top">
+      <center>
+        <table class="header-image" bgcolor="#f5f6f7">
+          <tr>
+            <td>
+              <%= image_pack_tag "media/images/mail-header-bottom.png", alt: "", style: "width: 100%;" %>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="float-center" align="center" valign="top">
+      <center>
+        <table class="main container" bgcolor="#f5f6f7">
+          <tr>
+            <td>
+              <table class="spacer">
+                <tbody>
+                <tr>
+                  <td height="30px" style="font-size:30px;line-height:30px;"> </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="row">
+                <tbody>
+                <tr>
+                  <p class="disclaimer">Wiadomość wygenerowana automatycznie. Prosimy na nią nie odpowiadać.</p>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="spacer">
+                <tbody>
+                <tr>
+                  <td height="30px" style="font-size:30px;line-height:30px;"> </td>
+                </tr>
+                </tbody>
+              </table>
+
+              <table class="row content">
+                <tr>
+                  <th class="small-12 first columns">
+                    <table class="row content">
+                      <tr>
+                        <th class="small-12 first columns">
+                          <div class="editor-content">
+                            <%= body %>
+                          </div>
+                        </th>
+                        <th class="expander"></th>
+                      </tr>
+                    </table>
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+
+              <table class="row">
+                <tr>
+                  <th class="small-12 first columns">
+                    <hr />
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+
+              <table class="row">
+                <tr>
+                  <th class="small-12 first columns">
+                    <center>
+                      <p class="footer">
+                        <%= link_to organization.official_url do %>
+                          m&#46;st&#46; Warszawa&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;BIP&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;Warszawa 19115
+                        <% end %>
+                        <br />
+                        Urząd m&#46;st&#46; Warszawy
+                      </p>
+                    </center>
+                  </th>
+                  <th class="expander"></th>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </center>
+    </td>
+  </tr>
+</table>

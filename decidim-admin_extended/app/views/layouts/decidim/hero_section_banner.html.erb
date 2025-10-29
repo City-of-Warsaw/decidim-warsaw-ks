@@ -1,0 +1,17 @@
+<%= render "layouts/decidim/application" do %>
+  <% if hero_section_public %>
+    <%= render partial: "layouts/decidim/#{banner_partial_name(hero_section_public)}", locals: { hero_section_public: hero_section_public } %>
+  <% end %>
+
+  <%= cell "decidim/translation_bar", current_organization %>
+  <%= yield %>
+  <% if content_for? :expanded %>
+    <div class="expanded" style="display: none;">
+      <div class="wrapper wrapper--inner custom-wrapper-inner">
+        <div class="custom-row">
+          <%= yield :expanded %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

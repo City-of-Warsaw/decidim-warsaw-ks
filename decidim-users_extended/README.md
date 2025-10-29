@@ -1,6 +1,5 @@
 # Decidim::UsersExtended
-
-Extended to develop custom features.
+Short description and motivation.
 
 ## Usage
 How to use my plugin.

@@ -1,6 +1,6 @@
 # Decidim::StudyNotes
 
-Adds new participatory process component that allows users to send comments on planning documents, including maps.
+Component for marks for study on map.
 
 ## Usage
 

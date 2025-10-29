@@ -1,39 +1,30 @@
-<% provide(:title, t("decidim.consultation_requests.index.title")) %>
+<% provide(:title, hero_section_public.title) %>
 
-<% add_decidim_meta_tags({
-  title: t("decidim.consultation_requests.index.title"),
-  description: t("decidim.consultation_requests.index.description"),
-  url: decidim_consultation_requests.consultation_requests_url
-}) %>
+<% add_decidim_meta_tags(
+     {
+       title: hero_section_public.title,
+       description: hero_section_public.description.presence || "Lista złożonych wniosków o konsultacje społeczne",
+       url: decidim_consultation_requests.consultation_requests_url
+     }) %>
 
-<%
-  edit_link(
-    decidim_consultation_requests.admin_consultation_requests_path,
-    :update,
-    :organization,
-    organization: current_organization
-  )
-%>
+<% edit_link(
+     decidim_consultation_requests.admin_consultation_requests_path,
+     :update,
+     :organization,
+     organization: current_organization
+   ) %>
+ 
 
-<% if help_section.present? %>
-  <div class="help-section help-section--knowledge-base">
-    <div class="row column"> 
-      <div class="ql-editor">
-        <%= quill_sanitize translated_attribute(help_section) %> 
-      </div> 
-    </div>
-  </div>  
-<% end %>
-
-<div class="wrapper">
-  <div class="row column">
-  <!--  <div class="columns medium-8 mediumlarge-8"></div>-->
-    <ul id="consultation_requests" class="columns medium-12 mediumlarge-12 card-grid ul-reset" role="list">
+<main class="layout-1col cols-10 py-10"> 
+  <section class="consultation-requests">  
+    <h2 class="show-for-sr">Złożone wnioski</h2>
+    
+    <div id="consultation_requests" class="consultation-requests__list" role="list">
       <% @consultation_requests.each do |consultation_request| %>
-        <%= cell "decidim/consultation_requests/consultation_request", consultation_request %>
+        <%= cell "decidim/consultation_requests/consultation_request", consultation_request, {length: 250} %>
       <% end %>
-  
-      <%= decidim_paginate @consultation_requests %> 
-    </ul>
-  </div>
-</div>
+    </div>
+
+    <%= decidim_paginate @consultation_requests %> 
+  </section>
+</main>

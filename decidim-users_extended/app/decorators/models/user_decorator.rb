@@ -1,15 +1,31 @@
 # frozen_string_literal: true
 
 Decidim::User.class_eval do
+  # overwritten validation:
+  # validates :name, format: { with: REGEXP_NAME }
+  # remove this validation
+  # user can type name with any special chars
+  clear_validators!
 
   Decidim::User.const_set("AD_ROLES", %w(admin koordynator moderator ekspert).freeze)
-  Decidim::User.const_set("GENDERS", %w(male female other).freeze)
+  Decidim::User.const_set("GENDERS", %w(female male other no_answer).freeze)
   Decidim::User.const_set("AGE_RANGES", %w(under_20 between_21_30 between_31_40 between_41_50 over_50).freeze)
 
   belongs_to :district, foreign_key: :main_scope_id, class_name: "Decidim::Scope", optional: true
-
+  has_many :participatory_process_user_roles, foreign_key: "decidim_user_id", class_name: "Decidim::ParticipatoryProcessUserRole", dependent: :destroy
+  scope :with_ad_name,      -> { where.not(ad_name: nil) }
+  scope :without_ad_access, -> { with_ad_name.where.not(ad_access_deactivate_date: nil) }
+  scope :with_ad_access, -> { with_ad_name.where(ad_access_deactivate_date: nil) }
+  
   scope :with_ad_role,     -> { where.not(ad_role: nil) }
   scope :admins,           -> { where("ad_role LIKE ?", '%admin') }
+  scope :ad_active_eq, lambda { |*access|
+    if access.include?("inactive")
+      without_ad_access
+    else
+      with_ad_access
+    end
+  }
 
   # devise configuration
   def self.allow_unconfirmed_access_for
@@ -82,4 +98,32 @@ Decidim::User.class_eval do
   def accepts_conversation?(user)
     false
   end
+
+  def self.ransackable_scopes(_auth_object = nil)
+    [:ad_active_eq]
+  end
+
+  def age_range
+    return if birth_year.blank?
+
+    current_year = Time.zone.now.year
+    age = current_year - birth_year
+    case age
+    when 0..20
+      'under_20'
+    when 21..30
+      'between_21_30'
+    when 31..40
+      'between_31_40'
+    when 41..50
+      'between_41_50'
+    else
+      'over_50'
+    end
+  end
+
+  def name_and_surname
+    [first_name.presence, last_name.presence].compact.join(' ')
+  end
+
 end

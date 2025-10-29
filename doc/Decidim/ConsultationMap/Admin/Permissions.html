@@ -119,6 +119,50 @@
         <li class="private ">
   <span class="summary_signature">
     
+      <a href="#allowed_manage_remark_background_maps_action%3F-instance_method" title="#allowed_manage_remark_background_maps_action? (instance method)">#<strong>allowed_manage_remark_background_maps_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#allowed_manage_remark_categories_action%3F-instance_method" title="#allowed_manage_remark_categories_action? (instance method)">#<strong>allowed_manage_remark_categories_action?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
       <a href="#allowed_publishing_action%3F-instance_method" title="#allowed_publishing_action? (instance method)">#<strong>allowed_publishing_action?</strong>  &#x21d2; Boolean </a>
     
 
@@ -215,7 +259,123 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="allowed_publishing_action?-instance_method">
+  <h3 class="signature first" id="allowed_manage_remark_background_maps_action?-instance_method">
+  
+    #<strong>allowed_manage_remark_background_maps_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_manage_remark_background_maps_action?'>allowed_manage_remark_background_maps_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:map_remark_map_background</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:manage</span>
+
+  <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_coordinator?'>ad_coordinator?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_manage_remark_categories_action?-instance_method">
+  
+    #<strong>allowed_manage_remark_categories_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36
+37
+38
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_allowed_manage_remark_categories_action?'>allowed_manage_remark_categories_action?</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:map_remark_category</span>
+  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:manage</span>
+
+  <span class='id identifier rubyid_toggle_allow'>toggle_allow</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_admin?'>ad_admin?</span> <span class='op'>||</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_coordinator?'>ad_coordinator?</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="allowed_publishing_action?-instance_method">
   
     #<strong>allowed_publishing_action?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
   
@@ -251,14 +411,14 @@
       <pre class="lines">
 
 
-32
-33
-34
-35
-36</pre>
+47
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allowed_publishing_action?'>allowed_publishing_action?</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span> <span class='op'>==</span> <span class='symbol'>:publish</span>
@@ -307,15 +467,15 @@
       <pre class="lines">
 
 
-25
-26
 27
 28
 29
-30</pre>
+30
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 27</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allowed_remark_action?'>allowed_remark_action?</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_permission_action'>permission_action</span><span class='period'>.</span><span class='id identifier rubyid_subject'>subject</span> <span class='op'>==</span> <span class='symbol'>:map_remark</span>
@@ -353,7 +513,9 @@
 14
 15
 16
-17</pre>
+17
+18
+19</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 7</span>
@@ -364,6 +526,8 @@
 
   <span class='comment'># allowed_component_action?
 </span>  <span class='id identifier rubyid_allowed_remark_action?'>allowed_remark_action?</span>
+  <span class='id identifier rubyid_allowed_manage_remark_categories_action?'>allowed_manage_remark_categories_action?</span>
+  <span class='id identifier rubyid_allowed_manage_remark_background_maps_action?'>allowed_manage_remark_background_maps_action?</span>
 
   <span class='id identifier rubyid_allowed_publishing_action?'>allowed_publishing_action?</span> <span class='comment'># not used currently
 </span>
@@ -389,12 +553,12 @@
       <pre class="lines">
 
 
-21
-22
-23</pre>
+23
+24
+25</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'decidim-consultation_map/app/permissions/decidim/consultation_map/admin/permissions.rb', line 23</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remark'>remark</span>
   <span class='ivar'>@remark</span> <span class='op'>||=</span> <span class='id identifier rubyid_context'>context</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='symbol'>:remark</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
@@ -409,9 +573,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:18 2023 by
+  Generated on Wed Oct 29 14:41:37 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

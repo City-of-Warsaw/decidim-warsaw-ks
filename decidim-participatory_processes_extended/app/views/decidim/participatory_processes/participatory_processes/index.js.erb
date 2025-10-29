@@ -1,0 +1,4 @@
+<%# CHANGED: hide promoted collection if user use filters for processes %>
+$('#highlighted-processes').hide();
+
+$('#processes-grid').html('<%= j(render(partial: "collection")).strip.html_safe %>');

@@ -1,4 +1,9 @@
 (function() {
-    let remark_form_box = $("#new-remark-box");
-    remark_form_box.replaceWith("<%== escape_javascript(render 'decidim/consultation_map/remarks/thank_you_message') %>");
+    var newMarkers = '<%= j(all_locations).strip.html_safe %>';
+    $('#markersMap').val(newMarkers).trigger('change');
+
+    var $newRemarkBox = $('#new_remark');
+    $newRemarkBox.text("");
+
+    $('#remark_success').show();
 }());

@@ -69,12 +69,12 @@
   <dl>
     <dt>Inherits:</dt>
     <dd>
-      <span class="inheritName">Rectify::Command</span>
+      <span class="inheritName">Command</span>
       
         <ul class="fullTree">
           <li>Object</li>
           
-            <li class="next">Rectify::Command</li>
+            <li class="next">Command</li>
           
             <li class="next">Decidim::News::Admin::DestroyInformation</li>
           
@@ -104,7 +104,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This command is executed when user creates Information</p>
+<p>A command with all the business logic to destroy Information</p>
 
 
   </div>
@@ -179,7 +179,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Destroys the information if it exists.</p>
+<p>Executes the command.</p>
 </div></span>
   
 </li>
@@ -227,7 +227,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of DestroyInformation.</p>
+<p>Public: Initializes the command.</p>
 </div></span>
   
 </li>
@@ -252,7 +252,9 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns a new instance of DestroyInformation.</p>
+<p>Public: Initializes the command.</p>
+
+<p>information - The Information to destroy</p>
 
 
   </div>
@@ -266,12 +268,12 @@
       <pre class="lines">
 
 
-8
-9
-10</pre>
+11
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_information'>information</span><span class='rparen'>)</span>
   <span class='ivar'>@information</span> <span class='op'>=</span> <span class='id identifier rubyid_information'>information</span>
@@ -314,12 +316,12 @@
       <pre class="lines">
 
 
-25
-26
-27</pre>
+31
+32
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_information'>information</span>
   <span class='ivar'>@information</span>
@@ -348,9 +350,14 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Destroys the information if it exists.</p>
+<p>Executes the command. Broadcasts these events:</p>
+<ul><li>
+<p>:ok when everything is valid.</p>
+</li><li>
+<p>:invalid if no information and we couldn’t proceed.</p>
+</li></ul>
 
-<p>Broadcasts :ok if successful, :invalid otherwise.</p>
+<p>Returns nothing.</p>
 
 
   </div>
@@ -364,16 +371,16 @@
       <pre class="lines">
 
 
-15
-16
-17
-18
-19
-20
-21</pre>
+21
+22
+23
+24
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 15</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span>
   <span class='kw'>return</span> <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:invalid</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_information'>information</span>
@@ -402,18 +409,18 @@
       <pre class="lines">
 
 
-27
-28
-29
-30
-31
-32
 33
 34
-35</pre>
+35
+36
+37
+38
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/destroy_information.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_destroy_information!'>destroy_information!</span>
   <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_perform_action!'>perform_action!</span><span class='lparen'>(</span>
@@ -434,9 +441,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:19 2023 by
+  Generated on Wed Oct 29 14:41:38 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

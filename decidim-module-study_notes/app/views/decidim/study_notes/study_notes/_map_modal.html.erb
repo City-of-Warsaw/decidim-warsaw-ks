@@ -1,0 +1,129 @@
+<div id="mapModal" data-map-dialog="mapModal" role="dialog" tabindex="-1" aria-hidden="true" aria-modal="true">
+  <div id="mapModal-content" class="!max-w-screen-2xl overflow-visible">
+    <button type="button" data-dialog-close="mapModal" data-dialog-closable aria-label="Zamknij okno">×</button>
+    <div data-dialog-container>  
+      <div>
+        <section class="study-note-wrapper"> 
+          <div class="settings">
+            <div class="address-search-wrapper">
+              <div class="address-sn-tooltip">
+                <div class="address-sn-tooltip__content">
+                  Jeśli chcesz przybliżyć się do konkretnej lokalizacji, w odpowiednich polach wpisz:
+                  <ol class="list-disc pl-5">
+                    <li>Adres tej lokalizacji, albo</li>
+                    <li>Numer obrębu w formacie XXXXX oraz numer działki</li>
+                  </ol>
+                </div>
+
+                <div class="address-sn-tooltip__hint">?</div>
+              </div>
+
+              <div class="auto-search-wrapper">
+                <input type="text"
+                      autocomplete="off"
+                      id="search"
+                      class="full-width"
+                      placeholder="Wpisz adres, żeby przybliżyć mapę"
+                      aria-label="wpisz adres, żeby przybliżyć mapę, po wpisaniu 5 znaków wybierz z opcji poniżej">
+              </div>
+            </div>
+
+            <div class="obr-dz-wrapper">
+              <div class="obr-dz-wrapper__input">
+                <input type="text"
+                      autocomplete="off"
+                      id="nrObr"
+                      class="full-width"
+                      placeholder="Wpisz nr obrębu">
+              </div>
+
+              <div class="obr-dz-wrapper__input">
+                <input type="text"
+                      autocomplete="off"
+                      id="nrDz"
+                      class="full-width" 
+                      placeholder="Wpisz nr działki">
+
+                <button class="auto-clear" type="button" aria-label="Wyczyść pole do wpisania numeru działki"></button>
+
+                <button id="obr-dz-button" type="button" class="button">
+                  <%= icon "search-line", role: "img" %>
+                </button>
+              </div>
+
+              <span id="obr-dz-error" class="obr-dz-wrapper__error"></span>
+            </div>
+          </div>
+        </section>
+
+        <% content_for(:js_content) do %>
+          <%= nonced_javascript_tag do %>
+            let rasters = [];
+            let vectors = [];
+
+            <% backgrounds.each do |map_bg| %>
+              <% if map_bg.raster_file_type? %>
+                rasters[`<%= map_bg.id %>,<%= map_bg.name %>`] = L.imageOverlay("<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>", [
+                      [<%= map_bg.x_latitude || 0 %>, <%= map_bg.x_longitude || 0 %>],
+                      [<%= map_bg.y_latitude || 0  %>, <%= map_bg.y_longitude || 0 %>],
+                    ]);
+              <% end %>
+
+              <% if map_bg.vector_file_type? %>
+                  vectors[`<%= map_bg.id %>,<%= map_bg.name %>`] = "<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>";
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <section class="study-note-map" id="floating-helper-map">
+          <div id="study-note-map__map"></div>
+
+          <% if legends.present? %>
+            <div class="study-note-map__legends study-note-map__legends--desktop">
+              <% legends.each do |id, items| %>
+                <div class="study-note-map__legend" data-map-background-id="<%= id %>">
+                  <% items.each do |item| %>
+                    <div class="study-note-map__legend-item">
+                      <div class="study-note-map__legend-header">
+                        <h5><%= item.name %>:</h5>
+                      </div>
+
+                      <div class="study-note-map__legend-image">
+                        <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
+                      </div>
+                    </div>
+                  <% end %> 
+                </div>
+              <% end %>
+
+              <div class="study-note-map__heading">Legenda</div>
+            </div>
+
+            <div class="study-note-map__legends study-note-map__legends--mobile">
+              <% legends.each do |id, items| %>
+                <div class="study-note-map__legend" data-map-background-id="<%= id %>">
+                  <% items.each do |item| %>
+                    <div class="study-note-map__legend-item">
+                      <div class="study-note-map__legend-header">
+                        <h5><%= item.name %>:</h5>
+                      </div>
+
+                      <div class="study-note-map__legend-image">
+                        <img src="<%= decidim_repository.blob_path(item.file.signed_id, filename: item.file.filename) %>" />
+                      </div>
+                    </div>
+                  <% end %> 
+                </div>
+              <% end %>
+
+              <div class="study-note-map__heading">Legenda:</div>
+            </div>
+          <% end %>
+        </section>
+    
+        <%= append_javascript_pack_tag "geojson_map" %>
+      </div>
+    </div> 
+  </div>
+</div>

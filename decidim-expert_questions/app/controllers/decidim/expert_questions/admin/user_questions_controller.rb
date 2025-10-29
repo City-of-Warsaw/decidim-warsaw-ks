@@ -12,6 +12,8 @@ module Decidim::ExpertQuestions
     def export
       enforce_permission_to :read, :user_questions, expert: expert
 
+      @xml_serializer = Decidim::ExpertQuestions::UserQuestionXlsSerializer.new
+
       # create_log(current_user, 'experts_export')
       respond_to do |format|
         format.xlsx
@@ -21,10 +23,13 @@ module Decidim::ExpertQuestions
     private
 
     def user_questions
-      @user_questions ||= if current_user.ad_admin? || current_user.ad_coordinator?
-                            expert.user_questions.latest_first.joins(:expert).where('decidim_expert_questions_experts.decidim_component_id': current_component.id).page(params[:page]).per(15)
-                          elsif current_user.ad_expert? && expert && expert.user == current_user
-                            expert.user_questions.latest_first.joins(:expert).where('decidim_expert_questions_experts.decidim_component_id': current_component.id).page(params[:page]).per(15)
+      @user_questions ||= if current_user.ad_admin? || current_user.ad_coordinator? || (current_user.ad_expert? && expert && expert.user == current_user)
+                            expert.user_questions
+                                  .latest_first
+                                  .joins(:expert)
+                                  .where("decidim_expert_questions_experts.decidim_component_id": current_component.id)
+                                  .without_system_hidden
+                                  .page(params[:page]).per(15)
                           end
     end
 

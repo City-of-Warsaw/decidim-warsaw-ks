@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1c7c97;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path id="Icon_awesome-plus-circle" data-name="Icon awesome-plus-circle" class="cls-1" d="m13.82,5.51c.24.24.24.64,0,.88-4.39,4.31-3.12,3.09-6.32,6.32-2.69-2.55-1.99-1.84-6.32-6.32-.24-.24-.24-.64,0-.88l2.06-2.06c.24-.24.64-.24.88,0l3.38,3.38,3.38-3.38c.24-.24.64-.24.88,0l2.06,2.06Z"/>
+</svg>

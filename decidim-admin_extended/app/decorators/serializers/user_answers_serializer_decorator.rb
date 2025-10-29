@@ -14,9 +14,10 @@ Decidim::Forms::UserAnswersSerializer.class_eval do
         answer_translated_attribute_name(:ip_hash) => answer.ip_hash,
         answer_translated_attribute_name(:user_status) => answer_translated_attribute_name(answer.decidim_user_id.present? ? "registered" : "unregistered"),
         "#{idx + 1}. #{translated_attribute(answer.question.body)}" => normalize_body(answer),
-        answer_translated_attribute_name(:gender) => answer.user&.gender ? I18n.t("gender.#{answer.user.gender}", scope: "decidim.users") : '',
+        answer_translated_attribute_name(:gender) => answer.user&.gender ? I18n.t("gender.public_post.#{answer.user.gender}", scope: "decidim.users") : '',
         answer_translated_attribute_name(:birth_year) => answer.decidim_user_id.present? ? answer.user.birth_year : '',
-        answer_translated_attribute_name(:district) => answer.user&.district ? translated_attribute(answer.user.district.name) : ''
+        answer_translated_attribute_name(:district) => answer.user&.district ? translated_attribute(answer.user.district.name) : '',
+        "Adres email" => answer.questionnaire.emails_by_session_token[answer.session_token]
       )
     end
   end

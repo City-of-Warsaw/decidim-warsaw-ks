@@ -1,0 +1,32 @@
+<%= render layout: "layouts/decidim/shared/layout_center" do %>
+
+  <div class="flex justify-center">
+    <h1 class="title-decorator my-12"><%= t("devise.passwords.edit.title") %></h1>
+  </div>
+
+  <%= decidim_form_for(resource, namespace: "password", as: resource_name, url: @send_path || password_path(resource_name), html: { method: :put, class: "register-form new_user" }) do |f| %>
+    <%= form_required_explanation %>
+
+    <div class="form__wrapper form__wrapper--edit-password">
+      <%= f.hidden_field :reset_password_token %>
+
+      <%= render partial: "decidim/account/password_fields", locals: { form: f, user: current_user || params["reset_password_token"], show_help_text: true } %>
+      <%= render partial: "decidim/devise/registrations/password_fields", locals: { form: f, user: :user } %>
+    </div>
+
+    <div class="form__wrapper-block">
+      <button type="submit" class="button button__lg button__secondary">
+        <%= t("devise.passwords.edit.change_my_password") %>
+        <%= icon "arrow-right-line", class: "fill-current" %>
+      </button>
+    </div>
+    <% unless current_user %>
+      <div class="login__links">
+        <%= render "decidim/devise/shared/links" %>
+      </div>
+    <% end %>
+  <% end %>
+
+<% end %>
+
+<%= append_javascript_pack_tag "users_extended_registrations" %>

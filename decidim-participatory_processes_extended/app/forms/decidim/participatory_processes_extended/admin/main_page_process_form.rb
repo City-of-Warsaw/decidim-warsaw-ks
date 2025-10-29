@@ -9,8 +9,6 @@ module Decidim
         attribute :process_id, Integer
         attribute :weight, Integer
 
-        validates :weight, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-
         def map_model(model)
           super
           self.process = model

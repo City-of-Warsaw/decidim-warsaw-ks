@@ -1,6 +1,6 @@
 module Decidim
   module CoreExtended
-    class ApplicationController < ActionController::Base
+    class ApplicationController < Decidim::ApplicationController
       protect_from_forgery with: :exception
     end
   end

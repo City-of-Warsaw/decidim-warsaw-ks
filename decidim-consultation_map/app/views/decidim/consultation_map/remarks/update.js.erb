@@ -40,5 +40,7 @@ $('#new_remark' + " [data-decidim-comments]").each(function (_i, el) {
 });
 
 $('#new_remark .close-button').click(function() {
-    $('#new_remark').html('');  
- });
+  $('#new_remark').html('');  
+});
+
+document.dispatchEvent(new CustomEvent("ajax:loaded", { detail: $newRemarkBox[0] }));

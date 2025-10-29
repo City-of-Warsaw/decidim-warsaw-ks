@@ -1,0 +1,23 @@
+(function() {
+  var remarkId = <%= remark.id.to_json %>;
+  var upVotes = <%= remark.up_votes.count.to_json %>;
+  var downVotes = <%= remark.down_votes.count.to_json %>;
+  var $remark = $("#remark_" + remarkId);
+  var $votes = $(".remarks__footer-grid .remark__votes", $remark);
+  var $upVote = $(".js-remark__votes--up", $votes);
+  var $downVote = $(".js-remark__votes--down", $votes);
+
+  $("span", $upVote).text(upVotes);
+  $("span", $downVote).text(downVotes);
+
+  $upVote.removeClass("is-vote-selected is-vote-notselected").removeAttr("disabled");
+  $downVote.removeClass("is-vote-selected is-vote-notselected").removeAttr("disabled");
+
+<% if remark.up_voted_by?(current_user) %>
+  $upVote.addClass("is-vote-selected");
+  $downVote.addClass("is-vote-notselected").attr("disabled", "disabled");
+<% elsif remark.down_voted_by?(current_user) %>
+  $upVote.addClass("is-vote-notselected").attr("disabled", "disabled");
+  $downVote.addClass("is-vote-selected");
+<% end %>
+}());

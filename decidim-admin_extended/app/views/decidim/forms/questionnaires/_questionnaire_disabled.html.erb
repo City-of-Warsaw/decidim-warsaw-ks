@@ -1,0 +1,45 @@
+<%= decidim_form_for(@form, url: update_url, method: :post, html: { multipart: true, class: "form answer-questionnaire answer-questionnaire--disabled" }, data: { "safe-path" => form_path }) do |form| %>
+  <%= invisible_captcha %>
+  <% answer_idx = 0 %>
+  <% cleaned_answer_idx = 1 %>
+  <% @form.responses_by_step.each_with_index do |step_answers, step_index| %>
+    <div id="step-<%= step_index %>" class="answer-questionnaire__step">
+      <% current_bg_class = '' %>
+      <% step_answers.each do |answer| %>
+
+        <% if !(answer.question.separator? || answer.question.title_and_description?) %>
+          <% if answer.question.display_conditions.any? %>
+            <% bg_class = current_bg_class %>
+          <% else %>
+            <% bg_class = cycle('bg-odd', 'bg-even') %>
+            <% current_bg_class = bg_class %>
+          <% end %>
+        <% else %>
+          <% bg_class = '' %>
+        <% end %>
+        <div class="answer question <%= bg_class %>" data-max-choices="<%= answer.question.max_choices %>" data-conditioned="<%= answer.question.display_conditions.any? %>" data-question-id="<%= answer.question.id %>">
+          <% answer.question.display_conditions.each do |display_condition| %>
+            <%= content_tag :div, nil, class: "display-condition", data: display_condition.to_html_data %>
+          <% end %>
+
+          <%= fields_for "questionnaire[responses][#{answer_idx}]", answer do |answer_form| %>
+            <%= render(
+              "decidim/forms/questionnaires/answer",
+              answer_form:,
+              answer:,
+              answer_idx:,
+              cleaned_answer_idx:,
+              disabled: true
+            ) %>
+          <% end %>
+        </div>
+
+        <% if !(answer.question.separator? || answer.question.title_and_description?) %>
+          <% cleaned_answer_idx += 1 %>
+        <% end %>
+
+        <% answer_idx += 1 %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

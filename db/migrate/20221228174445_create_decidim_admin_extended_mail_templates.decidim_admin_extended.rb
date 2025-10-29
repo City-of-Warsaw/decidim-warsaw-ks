@@ -10,6 +10,5 @@ class CreateDecidimAdminExtendedMailTemplates < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    Decidim::AdminExtended::MailTemplatesGenerator.new.load
   end
 end

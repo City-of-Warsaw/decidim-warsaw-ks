@@ -1,0 +1,5 @@
+<% if tiles_view? %>
+  <%= link_to 'lista', { view_type: nil }, class: "button button__sm button__secondary" %>
+<% else %>
+  <%= link_to 'kafelki', { view_type: 'tiles' }, class: "button button__sm button__secondary" %>
+<% end %>

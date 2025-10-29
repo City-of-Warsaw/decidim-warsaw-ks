@@ -4,7 +4,7 @@ module Decidim
   module ExpertQuestions
     module Admin
       # This class holds a Form to create/update translatable meetings from Decidim's admin panel.
-      class CreateExpert < Rectify::Command
+      class CreateExpert < Decidim::Command
         # Initializes a CreateExpert Command.
         #
         # form - The form from which to get the data.
@@ -28,48 +28,44 @@ module Decidim
 
         private
 
-        def create_expert
-          @expert = Decidim.traceability.create!(
-            Decidim::ExpertQuestions::Expert,
-            @current_user,
-            expert_attributes,
-            log_info
+        def temp_expert
+          @temp_expert ||= build_temp_expert
+        end
+
+        def build_temp_expert
+          Decidim::ExpertQuestions::Expert.new(
+            component: @form.current_component,
+            avatar: @form.avatar,
+            avatar_cache: @form.avatar_cache,
+            remove_avatar: @form.remove_avatar
           )
         end
 
-        def expert_attributes
-          {
-            position: @form.position,
+        def create_expert
+          @expert = Decidim::ExpertQuestions::Expert.new(
+            component: @form.current_component,
+            avatar: @form.avatar,
+            full_name: @form.full_name,
             affiliation: @form.affiliation,
             description: @form.description,
-            avatar: @form.avatar,
-            decidim_user_id: @form.decidim_user_id,
-            weight: @form.weight,
-            component: @form.current_component
-          }
+            weight: @form.weight
+          )
+          Decidim.traceability.perform_action!(:create, @expert, @current_user, log_info) do
+            @expert.save!
+          end
         end
 
         def log_info
           {
             # visibility: "admin-only",
             resource: {
-              # title: "Eksperta - #{Decidim::User.find(@form.decidim_user_id).name}"
-              title: Decidim::User.find(@form.decidim_user_id).name
+              title: @form.full_name
             },
             participatory_space: {
               title: @form.current_component.participatory_space.title
             }
           }
         end
-
-        # def publish_event
-        #   Decidim::EventsManager.publish(
-        #     event: "decidim.events.experts.expert_published",
-        #     event_class: Decidim::ExpertPublishedEvent,
-        #     resource: @expert,
-        #     followers: @expert.component.participatory_space.followers
-        #   )
-        # end
       end
     end
   end

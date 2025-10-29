@@ -1,5 +1,11 @@
-<div class="row small-up-12 medium-up-12 card-grid">
-  <%= render paginated_remarks %>
-</div>
+<% if request.path =~ /remarks\/\d+/ && request.request_method === "GET" %>
+  <div class="callout secondary">
+    <h5>Wyświetlasz teraz pojedynczą uwagę</h5>
+    <p>
+      Resztę uwag możesz sprawdzić <a href="<%= main_component_path(current_component) %>#subcontent">tutaj</a>.
+    </p>
+  </div>
+<% end %>
 
+<%= render paginated_remarks %>
 <%= decidim_paginate paginated_remarks %>

@@ -3,6 +3,7 @@
 module Decidim::Remarks::Admin
   class RemarksController < Decidim::Remarks::Admin::ApplicationController
     helper Decidim::ApplicationHelper
+    helper Decidim::PaginateHelper
     helper_method :remark
 
     def index
@@ -15,7 +16,6 @@ module Decidim::Remarks::Admin
       enforce_permission_to :read, :remark
 
       @remarks = collection
-      # TODO: create_log(current_user, 'remarks_export')
       respond_to do |format|
         format.xlsx
       end

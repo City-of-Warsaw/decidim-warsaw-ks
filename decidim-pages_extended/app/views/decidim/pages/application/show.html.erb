@@ -4,27 +4,21 @@
   url: page_url(@page)
 ) %>
 
-<% if pages_help_section.present? && translated_attribute(pages_help_section).present? %>
-  <div class="help-section">
-    <div class="row column"> 
-      <div class="ql-editor">
-      <%= quill_sanitize translated_attribute(pages_help_section) %> 
-      </div> 
-    </div>
-  </div>
-<% end %>
+<main class="layout-1col cols-10">
+  <%= render partial: 'decidim/shared/component_settings_help_section' %>
 
-<% if @pages && @pages.count > 1 %>
-  <%= render partial: "decidim/pages_extended/tabbed", locals: {
-    title: translated_attribute(@page.component.name),
-    description: nil,
-    page: @page,
-    pages: @pages
-  } %>
-<% else %>
-  <%= render partial: "decidim/pages_extended/standalone", locals: {
-    title: translated_attribute(@page.title),
-    description: nil,
-    page: @page
-  } %>
-<% end %>
+  <% if @pages && @pages.count > 1 %>
+    <%= render partial: "decidim/pages_extended/tabbed", locals: {
+      title: translated_attribute(@page.component.name),
+      description: nil,
+      page: @page,
+      pages: @pages
+    } %>
+  <% else %>
+    <%= render partial: "decidim/pages_extended/standalone", locals: {
+      title: translated_attribute(@page.title),
+      description: nil,
+      page: @page
+    } %>
+  <% end %>
+</main>

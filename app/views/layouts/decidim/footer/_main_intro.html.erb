@@ -1,0 +1,12 @@
+<% if current_organization.official_img_footer.attached? %>
+  <%= link_to current_organization.official_url, class: "block mb-6" do %>
+    <%= image_tag current_organization.attached_uploader(:official_img_footer).url, alt: current_organization_name, class: "max-w-20" %>
+  <% end %>
+<% end %>
+<div class="text-sm text-white prose ">
+  <address class="address-field not-italic">
+    <strong class="not-prose not-italic">Urząd m.st. Warszawy</strong><br>
+    pl. Bankowy 3/5<br>
+    00-950 Warszawa
+  </address>
+</div>

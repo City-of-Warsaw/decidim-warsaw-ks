@@ -10,24 +10,38 @@ module Decidim
       include ActionView::Helpers::UrlHelper
       include Decidim::TranslatableAttributes
 
+      #  Needed for author_cell
+      def name
+        full_name
+      end
+
       #
       # nickname presented in a twitter-like style
       #
       def nickname
-        "@#{__getobj__.position_and_name}"
+        "@#{__getobj__.full_name}"
       end
 
       def badge
         ""
       end
 
-      delegate :url, to: :avatar, prefix: true
-
-      def direct_messages_enabled?(context)
-        false
+      def avatar
+        attached_uploader(:avatar)
       end
 
-      def can_follow?
+      def avatar_url(variant = nil)
+        return default_avatar_url
+        return default_avatar_url unless avatar.attached?
+
+        avatar.path(variant: variant)
+      end
+
+      def default_avatar_url
+        avatar.default_url
+      end
+
+      def direct_messages_enabled?(context)
         false
       end
 

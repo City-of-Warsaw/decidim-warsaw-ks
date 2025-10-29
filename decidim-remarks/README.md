@@ -1,6 +1,6 @@
 # Decidim::Remarks
 
-Adds new participatory process component that allows users to send remarks.
+Component for adding Remarks.
 
 ## Usage
 

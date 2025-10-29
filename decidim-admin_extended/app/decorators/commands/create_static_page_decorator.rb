@@ -4,6 +4,19 @@
 # A create object used to create StaticPage
 # Class has been provided with attributes for adding more data to the object
 Decidim::Admin::CreateStaticPage.class_eval do
+  include Decidim::Repository::Admin::GalleriesHelper
+
+  # overwritten method
+  # added methods when creating a new gallery
+  def call
+    return broadcast(:invalid) if form.invalid?
+
+    create_page
+    @page.update_organization_tos_version
+    add_gallery(@page)
+
+    broadcast(:ok)
+  end
 
   private
 
@@ -23,8 +36,6 @@ Decidim::Admin::CreateStaticPage.class_eval do
       organization: form.organization,
       allow_public_access: form.allow_public_access,
       # added custom attributes:
-      # gallery id - allows to choose parent
-      # show_on_help_page - allows to choose if object should be visible in # TODO terminology for KS
       gallery_id: form.gallery_id,
       show_on_help_page: form.show_on_help_page
     )

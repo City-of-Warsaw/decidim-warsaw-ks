@@ -1,0 +1,230 @@
+.custom-user-avatar {
+  position: relative;
+  border-radius: 2px;
+  border: 1px solid #eaeaea;
+  padding: 1rem;
+  display: flex;
+  height: 195px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  margin-bottom: 2rem;
+  align-content: flex-start;
+
+  &::after {
+    position: absolute;
+    content: "";
+    background-color: #f5f6f7;
+    border-top: 1px solid #eaeaea;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+    z-index: 0;
+  }
+
+  #user_avatar_button {
+    display: none;
+  }
+
+  a {
+    position: relative;
+    order: 1;
+    height: 150px;
+    width: 150px;
+    margin-left: 1rem;
+    margin-right: 2rem;
+    overflow: hidden;
+    border-radius: 50%;
+
+    img {
+      z-index: 1;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .help-text {
+    z-index: 1;
+    position: relative;
+    order: 2;
+    width: 65%;
+
+    p {
+      display: none;
+    }
+
+    li {
+      font-style: normal;
+    }
+  }
+
+  .upload-container-for-avatar {
+    span {
+      display: none;
+    }
+
+    .actions-wrapper + strong {
+      display: none;
+    }
+  }
+
+  .avatar-file-controls {
+    position: relative;
+    z-index: 1;
+    order: 3;
+    display: flex;
+    align-items: center;
+
+    [type="checkbox"] {
+      border: 1px solid #707070;
+      width: 18px;
+      height: 18px;
+      margin-top: unset;
+      margin-bottom: unset;
+    }
+
+    label {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-right: 1.5rem;
+      font-weight: 400;
+    }
+
+    .avatar-filename {
+      margin-right: 1rem;
+      max-width: 200px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &:empty {
+        margin-right: unset;
+      }
+    }
+
+    .custom_user_avatar_button {
+      background-color: var(--primary);
+      color: #fff;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.9rem;
+      margin-right: 1rem;
+      cursor: pointer;
+
+      &:hover {
+        filter: brightness(0.95);
+      }
+    }
+
+    .field.checkboxed {
+      display: flex;
+      align-items: center;
+      margin: 0;
+
+      .styled-label {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}
+
+.account-password {
+  border: 1px solid #eaeaea;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  margin-bottom: 1rem;
+
+  p {
+    margin-bottom: unset;
+  }
+
+  .change-password {
+    font-weight: bold;
+  }
+
+  #passwordChange {
+    margin-top: 1rem;
+  }
+}
+
+.edit_user {
+  button[type="submit"] {
+    text-transform: uppercase;
+    font-weight: bold;
+    min-width: 250px;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  .equal-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+
+    > * {
+      flex-grow: 1;
+    }
+  }
+
+  .switch.tiny {
+    height: auto;
+
+    .switch-label {
+      padding: 5px 0;
+    }
+  }
+}
+
+.main-container:not(.tabbed-container) {
+  border: unset;
+
+  .side-panel {
+    border: 1px solid #e8e8e8;
+  }
+
+  .side-panel__tabs .tabs-title.is-active > [role="tab"],
+  .side-panel__tabs .tabs-title.is-active > a {
+    font-weight: bold;
+    color: black;
+  }
+
+  .tabs-title > a {
+    padding: 1rem 1.5rem;
+  }
+
+  .main-container__content {
+    padding: 0 0 0 4rem;
+  }
+}
+
+#registration_user_name,
+#user_name {
+  padding-left: 50px;
+}
+
+#registration_user_name_characters {
+  margin-top: -10px;
+}
+
+#user_name_characters {
+  text-align: right;
+  margin-bottom: -18px;
+  margin-top: -12px;
+  font-weight: normal;
+}
+
+#user_zip_code_characters {
+  display: none;
+}
+
+.user-header {
+  display: none;
+}

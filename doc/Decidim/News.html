@@ -79,7 +79,7 @@
   <dl>
     <dt>Defined in:</dt>
     <dd>decidim-news/lib/decidim/news.rb<span class="defines">,<br />
-  decidim-news/lib/decidim/news/engine.rb,<br /> decidim-news/lib/decidim/news/version.rb,<br /> decidim-news/spec/models/information_spec.rb,<br /> decidim-news/app/models/decidim/news/information.rb,<br /> decidim-news/app/jobs/decidim/news/application_job.rb,<br /> decidim-news/app/cells/decidim/news/information_cell.rb,<br /> decidim-news/app/cells/decidim/news/information_m_cell.rb,<br /> decidim-news/app/models/decidim/news/application_record.rb,<br /> decidim-news/app/helpers/decidim/news/application_helper.rb,<br /> decidim-news/app/mailers/decidim/news/application_mailer.rb,<br /> decidim-news/app/forms/decidim/news/admin/information_form.rb,<br /> decidim-news/spec/controllers/informations_controller_spec.rb,<br /> decidim-news/app/commands/decidim/news/admin/create_information.rb,<br /> decidim-news/app/commands/decidim/news/admin/update_information.rb,<br /> decidim-news/app/commands/decidim/news/admin/destroy_information.rb,<br /> decidim-news/app/controllers/decidim/news/application_controller.rb,<br /> decidim-news/spec/controllers/admin/informations_controller_spec.rb,<br /> decidim-news/app/controllers/decidim/news/informations_controller.rb,<br /> decidim-news/app/controllers/decidim/news/admin/application_controller.rb,<br /> decidim-news/app/controllers/decidim/news/admin/attachments_controller.rb,<br /> decidim-news/app/controllers/decidim/news/admin/informations_controller.rb,<br /> decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb,<br /> decidim-news/app/controllers/decidim/news/admin/attachment_collections_controller.rb</span>
+  decidim-news/lib/decidim/news/engine.rb,<br /> decidim-news/lib/decidim/news/version.rb,<br /> decidim-news/spec/models/information_spec.rb,<br /> decidim-news/app/helpers/decidim/news/url_helper.rb,<br /> decidim-news/app/models/decidim/news/information.rb,<br /> decidim-news/app/cells/decidim/news/information_cell.rb,<br /> decidim-news/app/permissions/decidim/news/permissions.rb,<br /> decidim-news/app/cells/decidim/news/information_g_cell.rb,<br /> decidim-news/app/cells/decidim/news/information_l_cell.rb,<br /> decidim-news/app/cells/decidim/news/information_s_cell.rb,<br /> decidim-news/app/models/decidim/news/application_record.rb,<br /> decidim-news/app/helpers/decidim/news/application_helper.rb,<br /> decidim-news/app/forms/decidim/news/admin/information_form.rb,<br /> decidim-news/spec/controllers/informations_controller_spec.rb,<br /> decidim-news/app/permissions/decidim/news/admin/permissions.rb,<br /> decidim-news/app/commands/decidim/news/admin/create_information.rb,<br /> decidim-news/app/commands/decidim/news/admin/update_information.rb,<br /> decidim-news/app/commands/decidim/news/admin/destroy_information.rb,<br /> decidim-news/app/commands/decidim/news/admin/publish_information.rb,<br /> decidim-news/app/controllers/decidim/news/application_controller.rb,<br /> decidim-news/spec/controllers/admin/informations_controller_spec.rb,<br /> decidim-news/app/controllers/decidim/news/informations_controller.rb,<br /> decidim-news/app/commands/decidim/news/admin/unpublish_information.rb,<br /> decidim-news/app/controllers/decidim/news/admin/application_controller.rb,<br /> decidim-news/app/controllers/decidim/news/admin/informations_controller.rb,<br /> decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb</span>
 </dd>
   </dl>
   
@@ -88,7 +88,7 @@
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
     
-<p>This namespace holds the logic of the `Informations`. It allows ad users to menage informations in service.</p>
+<p>This namespace holds the logic of the ‘Informations`. It allows ad users to menage informations in service.</p>
 
 
   </div>
@@ -100,11 +100,11 @@
 <p class="children">
   
     
-      <strong class="modules">Modules:</strong> <span class='object_link'><a href="News/Admin.html" title="Decidim::News::Admin (module)">Admin</a></span>, <span class='object_link'><a href="News/AdminLog.html" title="Decidim::News::AdminLog (module)">AdminLog</a></span>, <span class='object_link'><a href="News/ApplicationHelper.html" title="Decidim::News::ApplicationHelper (module)">ApplicationHelper</a></span>
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="News/Admin.html" title="Decidim::News::Admin (module)">Admin</a></span>, <span class='object_link'><a href="News/AdminLog.html" title="Decidim::News::AdminLog (module)">AdminLog</a></span>, <span class='object_link'><a href="News/ApplicationHelper.html" title="Decidim::News::ApplicationHelper (module)">ApplicationHelper</a></span>, <span class='object_link'><a href="News/UrlHelper.html" title="Decidim::News::UrlHelper (module)">UrlHelper</a></span>
     
   
     
-      <strong class="classes">Classes:</strong> <span class='object_link'><a href="News/ApplicationController.html" title="Decidim::News::ApplicationController (class)">ApplicationController</a></span>, <span class='object_link'><a href="News/ApplicationJob.html" title="Decidim::News::ApplicationJob (class)">ApplicationJob</a></span>, <span class='object_link'><a href="News/ApplicationMailer.html" title="Decidim::News::ApplicationMailer (class)">ApplicationMailer</a></span>, <span class='object_link'><a href="News/ApplicationRecord.html" title="Decidim::News::ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="News/Engine.html" title="Decidim::News::Engine (class)">Engine</a></span>, <span class='object_link'><a href="News/Information.html" title="Decidim::News::Information (class)">Information</a></span>, <span class='object_link'><a href="News/InformationCell.html" title="Decidim::News::InformationCell (class)">InformationCell</a></span>, <span class='object_link'><a href="News/InformationMCell.html" title="Decidim::News::InformationMCell (class)">InformationMCell</a></span>, <span class='object_link'><a href="News/InformationsController.html" title="Decidim::News::InformationsController (class)">InformationsController</a></span>
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="News/ApplicationController.html" title="Decidim::News::ApplicationController (class)">ApplicationController</a></span>, <span class='object_link'><a href="News/ApplicationRecord.html" title="Decidim::News::ApplicationRecord (class)">ApplicationRecord</a></span>, <span class='object_link'><a href="News/Engine.html" title="Decidim::News::Engine (class)">Engine</a></span>, <span class='object_link'><a href="News/Information.html" title="Decidim::News::Information (class)">Information</a></span>, <span class='object_link'><a href="News/InformationCell.html" title="Decidim::News::InformationCell (class)">InformationCell</a></span>, <span class='object_link'><a href="News/InformationGCell.html" title="Decidim::News::InformationGCell (class)">InformationGCell</a></span>, <span class='object_link'><a href="News/InformationLCell.html" title="Decidim::News::InformationLCell (class)">InformationLCell</a></span>, <span class='object_link'><a href="News/InformationSCell.html" title="Decidim::News::InformationSCell (class)">InformationSCell</a></span>, <span class='object_link'><a href="News/InformationsController.html" title="Decidim::News::InformationsController (class)">InformationsController</a></span>, <span class='object_link'><a href="News/Permissions.html" title="Decidim::News::Permissions (class)">Permissions</a></span>
     
   
 </p>
@@ -202,9 +202,9 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Feb 27 19:18:16 2023 by
+  Generated on Wed Oct 29 14:41:34 2025 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.28 (ruby-2.7.5).
+  0.9.37 (ruby-3.2.6).
 </div>
 
     </div>

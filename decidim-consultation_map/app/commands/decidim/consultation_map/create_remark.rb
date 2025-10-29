@@ -5,11 +5,11 @@ module Decidim
     # This class holds logic for creating Remarks
     # Attributes updated by unregistered user:
     # - signature
-    # - email
     # - district_id
     # - age
     # - gender
-    class CreateRemark < Rectify::Command
+    class CreateRemark < Decidim::Command
+      include Decidim::CoreExtended::RegisteredUserHelper
       # Initializes a CreateUserQuestion Command.
       #
       # form - The form from which to get the data.
@@ -28,6 +28,7 @@ module Decidim
         return broadcast(:invalid) if @form.invalid?
 
         create_remark
+        notify_followers_about_new_remark
         broadcast(:ok)
       end
 
@@ -40,6 +41,8 @@ module Decidim
           remark_attributes,
           visibility: "public-only"
         )
+
+        @remark.update(second_step_params) unless @author == unregistered_author
       end
 
       def remark_attributes
@@ -47,15 +50,15 @@ module Decidim
           body: @form.body,
           author: @author,
           component: @component,
-          # custom
-          images: @form.images,
           category: @form.category,
           locations: prepared_locations,
           latitude: prepared_locations[:latitude],
           longitude: prepared_locations[:longitude],
           signature: @form.signature,
-          token: generate_token
-        }
+          token: generate_token,
+        }.tap do |attr|
+          attr[:files] = @form.files if @form.files.present?
+        end
       end
 
       # Public method parsing locations data in form
@@ -73,17 +76,27 @@ module Decidim
         }
       end
 
-      # Public method setting dummy author instance for current organization.
-      # Method is used when remark is left by unregistered author, to be saved as
-      # Remark author association
-      #
-      # returns Object
+      # Private method
+      # returns special object that serves as Author for remarks created by unregistered users
       def unregistered_author
-        Decidim::CommentsExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
       end
 
       def generate_token
-        @author.is_a?(Decidim::CommentsExtended::UnregisteredAuthor) ? SecureRandom.hex(rand(59)) : nil
+        @author.is_a?(Decidim::CoreExtended::UnregisteredAuthor) ? SecureRandom.hex(rand(59)) : nil
+      end
+
+      # use first map remark of that component as resource
+      # that map remark is followed by users
+      def notify_followers_about_new_remark
+        system_remark = Decidim::ConsultationMap::Remark.where(
+          body: "system_generated_hidden_map_remark",
+          component: @component
+        ).order(:created_at).first
+
+        return unless system_remark
+
+        Decidim::CoreExtended::TemplatedMailerJob.perform_later('new_map_remark', { resource: system_remark })
       end
     end
   end

@@ -1,53 +1,33 @@
 # frozen_string_literal: true
 
 wb = xlsx_package.workbook
-wb.add_worksheet(name: 'Lista') do |sheet|
-  sheet.add_row [
-    'Lp.',
-    'ID zgłoszenia',
-    'Typ',
-    'Zgłaszający',
-    'Email',
-    'Ulica',
-    'Numer budynku',
-    'Numer lokalu',
-    'Kod pocztowy',
-    'Miejscowość',
-    'Kategoria',
-    'Podkład mapowy',
-    'Data zgłoszenia',
-    'Oznaczenie nieruchomośći lub obszaru',
-    'Treść uwagi',
-    'Załączniki'
+wb.add_worksheet(name: "Lista") do |sheet|
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+  right_align = wb.styles.add_style(alignment: { horizontal: :right })
 
-  ]
+  sheet.add_row @xml_serializer.headers
 
-  @notes.each_with_index do |note, index|
-    if note.files.any?
-      files_list = []
-      note.files.each do |file|
-        files_list << main_app.url_for(file)
+  @xml_serializer.serialize_all_with_json(@notes).each.with_index(1) do |row_hash, lp|
+    row_hash[:lp] = lp
+    sheet.add_row @xml_serializer.ordered_values(row_hash)
+
+    @xml_serializer.columns_order.each_with_index do |column, col_index|
+      cell_ref = "#{col_index_to_column_letter(col_index)}#{lp + 1}"
+
+      if @xml_serializer.columns_definition[column][:wrap_text]
+        sheet[cell_ref].style = wrap_text
       end
-      note_files = files_list.join(', ')
-    end
 
-    sheet.add_row [
-      index + 1,
-      note.id,
-      note.organization_name.present? ? 'Jednostka organizacyjna' : 'Osoba fizyczna',
-      note.name,
-      note.email,
-      note.street,
-      note.street_number,
-      note.flat_number,
-      note.zip_code,
-      note.city,
-      note.category&.name,
-      note.map_background&.name,
-      l(note.created_at, format: '%d/%m/%Y - %H:%M'),
-      decidim_sanitize(note.location_specification),
-      decidim_sanitize(note.body),
-      note_files
-    ]
+      if @xml_serializer.url_columns.include?(column)
+        hyperlink_value = row_hash[column]
+        sheet.add_hyperlink location: hyperlink_value, ref: cell_ref if hyperlink_value.present?
+      end
+
+      if @xml_serializer.column_alignment(column) == :right
+        sheet[cell_ref].style = right_align
+      end
+    end
   end
+
+  sheet.column_widths *@xml_serializer.columns_widths
 end

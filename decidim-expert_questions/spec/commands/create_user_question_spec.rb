@@ -7,7 +7,7 @@ module Decidim::ExpertQuestions
     subject { described_class.new(form, current_user, current_organization) }
 
     let(:organization) { create(:organization) }
-    let!(:default_author) { Decidim::CommentsExtended::UnregisteredAuthor.find_by(organization_id: organization.id) }
+    let!(:default_author) { Decidim::CoreExtended::UnregisteredAuthor.find_by(organization_id: organization.id) }
     let(:other_organization) { create(:organization) }
     let(:user) { create :user, :confirmed, organization: organization }
     let(:follower_user) { create :user, :confirmed, organization: organization }

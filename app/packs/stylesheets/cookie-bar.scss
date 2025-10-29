@@ -1,0 +1,34 @@
+.cookie-warning {
+  background: #e8e8e8;
+  padding: 0.5em 1em;
+  text-align: center;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+
+  a {
+    // TODO: upgrade v028! poprawic lub usunac
+    //color: darken($anchor-color, 10%);
+
+    .external-link-indicator {
+      display: none;
+    }
+  }
+
+  &__action {
+    text-align: center;
+
+    .button {
+      margin: 0.5em 0;
+    }
+
+    // TODO: upgrade v028! poprawic lub usunac
+    //@include breakpoint(mediumlarge) {
+    //  vertical-align: baseline;
+    //
+    //  .button {
+    //    margin: 0 0 1rem;
+    //  }
+    //}
+  }
+}

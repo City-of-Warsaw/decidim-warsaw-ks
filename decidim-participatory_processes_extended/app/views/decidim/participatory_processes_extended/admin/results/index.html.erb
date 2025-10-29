@@ -1,0 +1,70 @@
+<% add_decidim_page_title(t("result", scope: "decidim.admin.titles")) %>
+
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("result", scope: "decidim.admin.titles") %>
+      <%=
+        link_to t("actions.new", scope: "decidim.participatory_processes_extended.admin.results"),
+                decidim_admin_participatory_processes.new_result_path(current_participatory_space),
+                class: "button button__sm button__secondary"
+      %>
+      <% if notification_can_be_sent? %>
+        <%=
+          link_to t("actions.send_notification", scope: "decidim.participatory_processes_extended.admin.results"),
+                  decidim_admin_participatory_processes.send_notification_result_path(current_participatory_space),
+                  method: :post,
+                  data: { confirm: t(".confirm_send") },
+                  class: "button button__sm button__secondary"
+        %>
+      <% end %>
+    </h1>
+  </div>
+
+  <div class="table-scroll">
+    <table class="table-list">
+      <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".created_at") %></th>
+        <th><%= t(".published") %></th>
+        <th><%= t(".weight") %></th>
+        <th class="table-list__actions"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% collection.each do |result| %>
+        <tr>
+          <td><%= result.name %></td>
+          <td><%= l result.created_at, format: :decidim_short_cut_zero %></td>
+          <td><%= result.published? ? "Tak" : "Nie" %></td>
+          <td><%= result.weight %></td>
+          <td class="table-list__actions">
+            <% if allowed_to?(:publish, :result) && !result.published? %>
+              <%= icon_link_to "check-line",
+                               decidim_admin_participatory_processes.publish_result_path(current_participatory_space, result),
+                               t("actions.publish", scope: "decidim.participatory_processes_extended.admin.results"), class: "action-icon--publish",
+                               method: :put %>
+            <% end %>
+
+            <% if allowed_to?(:publish, :result) || !result.published? %>
+              <%= icon_link_to "pencil-line",
+                               decidim_admin_participatory_processes.edit_result_path(current_participatory_space, result),
+                               t("actions.edit", scope: "decidim.participatory_processes_extended.admin.results"),
+                               class: "action-icon--edit" %>
+              <%= icon_link_to "delete-bin-line",
+                               decidim_admin_participatory_processes.destroy_result_path(current_participatory_space, result),
+                               t("actions.destroy", scope: "decidim.participatory_processes_extended.admin.results"),
+                               class: "action-icon--remove",
+                               method: :delete,
+                               data: { confirm: t("actions.confirm_destroy",
+                                                  scope: "decidim.participatory_processes_extended.admin.results") } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%#= paginate collection, theme: "decidim" %>
+  </div>
+</div>

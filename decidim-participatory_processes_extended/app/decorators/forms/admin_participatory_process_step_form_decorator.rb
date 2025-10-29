@@ -7,4 +7,5 @@
 # additional attribute
 Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessStepForm.class_eval do
   attribute :date, String
+  attribute :send_notifications_on_activation, Decidim::AttributeObject::TypeMap::Boolean
 end

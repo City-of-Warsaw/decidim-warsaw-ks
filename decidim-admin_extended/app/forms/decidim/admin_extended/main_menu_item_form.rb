@@ -11,8 +11,7 @@ module Decidim
       mimic :main_menu_item
 
       validates :name, presence: true
-      validates :weight, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-
+      validates :weight, presence: true
     end
   end
 end

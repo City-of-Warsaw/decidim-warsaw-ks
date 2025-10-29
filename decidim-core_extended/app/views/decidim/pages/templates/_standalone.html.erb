@@ -1,21 +1,19 @@
 <%# View for STATIC PAGES (not pages component) - Baza wiedzy %>
 
-<div class="wrapper" id="subcontent">
-  <div class="row column">
+<div class="participatory-space__container max-w-[1200px] my-[80px] mx-auto" id="subcontent">
+  <div class="space-y-8">
     <div class="page-title-wrapper">
-      <h1 class="heading1 page-title">
+      <h1 class="title-decorator inline-block text-left mb-12">
         <%= title %>
       </h1>
     </div>
 
     <% if controller_name == 'pages' && page.show_on_help_page? %>
-      <div class="columns small-12 view-header mb-none">
-        <div class="m-bottom">
-          <%= link_to :pages, class: "small hollow" do %>
-            <%= icon "chevron-left", class: "icon--small", role: "img", "aria-hidden": true %>
-            <span>Powrót do Bazy Wiedzy</span>
-          <% end %>
-        </div>
+      <div class="navigation-wrapper">
+        <%= link_to :pages, class: "back-link" do %>
+          <img src="<%= asset_pack_path('media/images/arrow-left-s-line.svg') %>" width="20" height="20" alt="" />
+          <span>Powrót do Bazy Wiedzy</span>
+        <% end %>
       </div>
     <% end %>
 
@@ -23,10 +21,10 @@
       <div class="columns small-12">
         <%= cell "decidim/tos_page", :announcement %>
 
-        <div class="card">
+        <div>
           <div class="card__content">
-            <div class="ql-editor">
-              <%= decidim_sanitize translated_attribute page.content %>
+            <div class="editor-content fix-swipebox">
+              <%= quill_sanitize translated_attribute page.content %>
             </div>
             <div class="mt-s">
               <%= render 'decidim/shared/gallery_attachments', model: page %>
@@ -34,8 +32,8 @@
           </div>
         </div>
       </div>
- 
-      <%= cell "decidim/tos_page", :form %> 
+
+      <%= cell "decidim/tos_page", :form %>
     </main>
   </div>
 </div>
