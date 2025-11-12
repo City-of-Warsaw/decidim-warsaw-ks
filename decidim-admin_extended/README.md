@@ -2,7 +2,7 @@
 Expanded with custom features such as managing the main menu, notifications, and a dictionary of vulgar words.
 
 ## Usage
-How to use my plugin.
+New extended features will be available in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:

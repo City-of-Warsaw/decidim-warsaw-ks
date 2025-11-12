@@ -1,8 +1,8 @@
 # Decidim::UsersExtended
-Extended user aaccount setup and registration such as interests and notifications.
+Extended user account setup and registration such as interests and notifications.
 
 ## Usage
-How to use my plugin.
+New extended features will be available in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:

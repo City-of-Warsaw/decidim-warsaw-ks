@@ -2,7 +2,7 @@
 Extended core system to custom features such as main system settings, unsubscribing from notifications and newsletters, new templates.
 
 ## Usage
-How to use my plugin.
+New extended features will be available in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:

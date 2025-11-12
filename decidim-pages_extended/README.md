@@ -2,7 +2,7 @@
 Extended to custom features such as special form for contacts, faq, adding attachments and galleries.
 
 ## Usage
-How to use my plugin.
+New extended features will be available in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:

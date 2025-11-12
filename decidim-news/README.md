@@ -2,7 +2,7 @@
 This is a special model with new types of content, such as current news and information. Accessible from the home page or main menu.
 
 ## Usage
-How to use my plugin.
+News will be available in their own section in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:

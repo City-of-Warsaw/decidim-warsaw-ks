@@ -1,7 +1,7 @@
 # Decidim::ParticipatoryProcessesExtended
 Extended process space to custom features such as additional fields in the process description, file attachments, marking the consultation area on the map.
 ## Usage
-How to use my plugin.
+New extended features will be available in the admin and the public site.
 
 ## Installation
 Add this line to your application's Gemfile:
