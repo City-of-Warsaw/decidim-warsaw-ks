@@ -1,6 +1,6 @@
 # Decidim::Remarks
 
-Component for adding Remarks.
+The remarks is a participatory process component that allows users to comment and discuss the topic of the consultation
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

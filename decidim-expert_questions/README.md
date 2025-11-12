@@ -1,6 +1,6 @@
 # Decidim::ExpertQuestions
 
-Component for posting questions for experts in given participatory space.
+The expert question is a participatory process component that allows users to ask designated experts questions
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

@@ -1,5 +1,5 @@
 # Decidim::AdminExtended
-Short description and motivation.
+Expanded with custom features such as managing the main menu, notifications, and a dictionary of vulgar words.
 
 ## Usage
 How to use my plugin.
@@ -22,7 +22,9 @@ $ gem install decidim-admin_extended
 ```
 
 ## Contributing
-Contribution directions go here.
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

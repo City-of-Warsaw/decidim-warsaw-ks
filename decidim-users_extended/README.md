@@ -1,5 +1,5 @@
 # Decidim::UsersExtended
-Short description and motivation.
+Extended user aaccount setup and registration such as interests and notifications.
 
 ## Usage
 How to use my plugin.
@@ -22,7 +22,9 @@ $ gem install decidim-users_extended
 ```
 
 ## Contributing
-Contribution directions go here.
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

@@ -1,6 +1,6 @@
 # Decidim::CustomProposals
 
-Component for comments for document.
+The custom proposals is a simplified version of the Proposals - Participatory texts functionality. The administrator manually adds paragrafs of document commented by users.
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

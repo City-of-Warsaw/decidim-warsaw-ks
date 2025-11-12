@@ -1,5 +1,5 @@
 # Decidim::News
-Short description and motivation.
+This is a special model with new types of content, such as current news and information. Accessible from the home page or main menu.
 
 ## Usage
 How to use my plugin.
@@ -22,7 +22,9 @@ $ gem install decidim-news
 ```
 
 ## Contributing
-Contribution directions go here.
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

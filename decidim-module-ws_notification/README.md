@@ -1,6 +1,6 @@
 # Decidim::WsNotification
 
-.
+Notification management integrated with the city notification system.
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

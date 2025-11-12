@@ -1,7 +1,6 @@
 # Decidim::ConsultationMap
 
-Component that allows to build a map for Participatory Space and allows users to add remarks on it.
-
+The consultation map is an element of the participatory process that allows users to create comments marked on the map in various categories defined by the administrator
 ## Usage
 
 ConsultationMap will be available as a Component for a Participatory
@@ -23,8 +22,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

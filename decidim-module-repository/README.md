@@ -1,6 +1,5 @@
 # Decidim::Repository
-
-Repository for files and images gallery.
+Repository adds the ability media and files management by administarators.
 
 ## Usage
 
@@ -20,11 +19,10 @@ And then execute:
 ```bash
 bundle
 ```
-
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

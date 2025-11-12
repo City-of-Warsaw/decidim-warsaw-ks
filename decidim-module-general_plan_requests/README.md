@@ -1,7 +1,6 @@
 # Decidim::GeneralPlanRequests
 
-Component for adding general plan requests.
-
+General plan request component is a form for collecting comments on the General Plan document (a document in Polish law that is consulted with residents)
 ## Usage
 
 GeneralPlanRequests will be available as a Component for a Participatory
@@ -23,8 +22,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

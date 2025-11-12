@@ -1,6 +1,5 @@
 # Decidim::ParticipatoryProcessesExtended
-Short description and motivation.
-
+Extended process space to custom features such as additional fields in the process description, file attachments, marking the consultation area on the map.
 ## Usage
 How to use my plugin.
 
@@ -22,7 +21,9 @@ $ gem install decidim-participatory_processes_extended
 ```
 
 ## Contributing
-Contribution directions go here.
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

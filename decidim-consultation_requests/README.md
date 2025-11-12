@@ -1,6 +1,6 @@
 # Decidim::ConsultationRequests
 
-Module for managing requests for consultations.
+Consultation request is new type of content to submit requests for public consultations by residents
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

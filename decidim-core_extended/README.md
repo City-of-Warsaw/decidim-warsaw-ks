@@ -1,5 +1,5 @@
 # Decidim::CoreExtended
-Short description and motivation.
+Extended core system to custom features such as main system settings, unsubscribing from notifications and newsletters, new templates.
 
 ## Usage
 How to use my plugin.
@@ -22,7 +22,9 @@ $ gem install decidim-core_extended
 ```
 
 ## Contributing
-Contribution directions go here.
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).

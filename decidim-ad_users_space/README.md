@@ -1,6 +1,6 @@
 # Decidim::AdUsersSpace
 
-Space dedicated fot users with AD permissions.
+Active Directory integration adds the ability authentication internal users and control their activity in the system
 
 ## Usage
 
@@ -23,8 +23,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/decidim/decidim).
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
 
 ## License
 
-This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.
+See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
