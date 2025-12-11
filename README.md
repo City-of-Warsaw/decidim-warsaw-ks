@@ -1,10 +1,10 @@
-# Decidim – consultation platform
+# Decidim KS – public consultation platform
 
-The main objective of the Project is to launch a new digital service by the City of Warsaw in the form of an online Platform, integrated with other selected urban digital solutions, ready to support consultative processes carried out by the City of Warsaw.
+The project's main objective is to launch a new digital service for the City of Warsaw: an online platform integrated with selected urban digital solutions to support the city's consultative processes.
 
-Decidim KS is a platform designed to facilitate public participation and engagement in decision-making processes. Through this system, citizens can actively contribute their opinions, feedback, and ideas on various issues and projects. They can participate in surveys and discussions, providing valuable input to inform policies, plans and initiatives.
+Decidim KS is a platform that facilitates public participation in decision-making. Citizens can submit opinions, feedback, and ideas on projects and issues, take part in surveys and discussions, and provide input to inform policies, plans, and initiatives.
 
-This is the open-source repository for decidim-warsaw-ks, based on [Decidim](https://github.com/decidim/decidim).
+This is the open-source repository for decidim-warsaw-ks, built on [Decidim](https://github.com/decidim/decidim).
 
 ## Modules
 
