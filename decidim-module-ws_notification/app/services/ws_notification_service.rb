@@ -13,10 +13,10 @@ class WsNotificationService
   end
 
   def client
-    return unless ENV.fetch("WS_NOTIFICATION_WSDL", nil)
+    return if ENV.fetch("WS_NOTIFICATION_WSDL", nil).blank?
 
     @client ||= Savon.client(
-      wsdl: ENV.fetch("WS_NOTIFICATION_WSDL", nil),
+      wsdl: ENV.fetch("WS_NOTIFICATION_WSDL"),
       adapter: :net_http,
       # Lower timeouts so these specs don't take forever when the service is not available.
       open_timeout: 10,

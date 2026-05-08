@@ -135,6 +135,7 @@ pl:
         ok: Wyślij
         title: Potwierdź
       follow_modal:
+        register: Zarejestruj
         form_error: Niepoprawny format
         save: Zapisz
         cancel: Anuluj
