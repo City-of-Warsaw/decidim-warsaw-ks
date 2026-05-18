@@ -85,7 +85,8 @@
       </div>
 
       <div class="row column">
-        <%= form.url_field :omnipresent_banner_url %>
+        <%= form.label :omnipresent_banner_url %>
+        <%= form.url_field :omnipresent_banner_url, required: false, label: false %>
       </div>
     </div>
   </div>

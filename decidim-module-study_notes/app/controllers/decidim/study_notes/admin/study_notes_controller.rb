@@ -35,6 +35,7 @@ module Decidim::StudyNotes
                  disposition: "attachment",
                  template: study_note.pdf_template,
                  javascript_delay: 2000,
+                 footer: params[:normalized] ? study_note.pdf_footer : nil,
                  locals: { study_note: }
         end
       end
@@ -47,7 +48,7 @@ module Decidim::StudyNotes
       enforce_permission_to :manage, :study_notes
 
       @xml_serializer = Decidim::StudyNotes::StudyNotesSerializer.new
-      @notes = filtered_collection
+      @notes = collection
 
       respond_to do |format|
         format.xlsx do
@@ -83,11 +84,11 @@ module Decidim::StudyNotes
 
       form = form(Decidim::StudyNotes::Admin::StudyNoteZipForm).from_params(params)
       # show view use the same export zip path there is only 1 record
-      form.study_notes_ids = filtered_collection.pluck(:id) unless params[:q].nil?
+      form.study_notes_ids = filtered_collection.pluck(:id) if params[:q].present?
 
       Decidim::StudyNotes::Admin::LaunchCreatingZipForStudyNotes.call(form, current_component) do
         on(:ok) do
-          flash[:notice] = "Przygotowywanie eksportu zostało rozpoczęte. Zostaniesz poinformowany powiadomieniem wysłanym na Twój adres email o zakończeniu procesu"
+          flash[:notice] = I18n.t("study_notes.export.success", scope: "decidim.study_notes.admin")
           redirect_to study_notes_path
         end
       end
@@ -103,7 +104,7 @@ module Decidim::StudyNotes
 
       Decidim::StudyNotes::Admin::LaunchCreatingZipForStudyNotes.call(form, current_component) do
         on(:ok) do
-          flash[:notice] = "Przygotowywanie eksportu zostało rozpoczęte. Zostaniesz poinformowany powiadomieniem wysłanym na Twój adres email o zakończeniu procesu"
+          flash[:notice] = I18n.t("study_notes.export.success", scope: "decidim.study_notes.admin")
           redirect_to study_notes_path
         end
       end
@@ -121,8 +122,12 @@ module Decidim::StudyNotes
       parts << "znormalizowany" if study_note_zip.normalized
       selected_file_name = "#{parts.join('_')}.zip"
 
-      send_file ActiveStorage::Blob.service.send(:path_for, study_note_zip.file.blob.key),
-                filename: selected_file_name,
+      file_temp = Tempfile.new
+      file_temp.binmode
+      file_temp.write(study_note_zip.file.download)
+      file_temp.rewind
+
+      send_file file_temp.path, filename: selected_file_name,
                 type: study_note_zip.file.blob.content_type,
                 disposition: "attachment"
     end
@@ -145,6 +150,10 @@ module Decidim::StudyNotes
           flash[:alert] = "Projekt nie został zarejestrowany z powodu braku konta '#{current_user.ad_name}' w Signum"
         end
 
+        on(:error) do |error_msg|
+          flash[:alert] = error_msg
+        end
+
         on(:ok) do
           flash[:notice] = "Zarejestrowano projekt w Signum"
         end
@@ -152,16 +161,32 @@ module Decidim::StudyNotes
       redirect_to study_note_path(study_note)
     end
 
+    def register_selected_to_signum
+      enforce_permission_to :manage, :study_notes
+
+      Decidim::StudyNotes::Admin::RegisterSelectedToSignum.call(current_component, current_user, params[:ids]) do
+        on(:registered_already) do
+          flash[:alert] = "Wszystkie uwagi zostały już zarejestrowane w Signum."
+        end
+
+        on(:ok) do
+          flash[:notice] = "Rozpoczęto rejestrowanie uwag w Signum"
+        end
+      end
+      redirect_to study_notes_path
+    end
+
+    # show form for generating sequential numbers
     def sequential_numbers
       enforce_permission_to :manage, :study_notes
 
-      @form = Decidim::StudyNotes::Admin::SequentialNumberForm.new
+      @form = form(Decidim::StudyNotes::Admin::SequentialNumberForm).instance
     end
 
     def generate_sequential_numbers
       enforce_permission_to :manage, :study_notes
 
-      @form = Decidim::StudyNotes::Admin::SequentialNumberForm.from_params(params)
+      @form = form(Decidim::StudyNotes::Admin::SequentialNumberForm).from_params(params)
       Decidim::StudyNotes::Admin::GenerateSequentialNumbers.call(@form, current_component) do
         on(:invalid) do
           flash[:alert] = "Wystąpił błąd"
@@ -178,7 +203,7 @@ module Decidim::StudyNotes
     private
 
     def collection
-      @collection ||= Decidim::StudyNotes::StudyNote.where(component: current_component)
+      @collection ||= Decidim::StudyNotes::StudyNote.where(component: current_component).order(id: :desc)
     end
 
     def study_note

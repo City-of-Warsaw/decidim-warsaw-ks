@@ -9,7 +9,7 @@
 
     <div class="reveal__buttons">
       <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "button warning" %>
-      <%= link_to "", decidim.destroy_user_session_path(translation_suffix: :timed_out), method: :delete, id: "reveal-hidden-sign-out", class: "hide" %>
+      <%= link_to decidim.destroy_user_session_path(translation_suffix: :timed_out), method: :delete, id: "reveal-hidden-sign-out", class: "hide", aria: { label: "Wyloguj się (przekroczenie czasu sesji)" } do %><% end %>
       <%= button_to t(".continue_session"),
         decidim.heartbeat_path,
         id: "continueSession",

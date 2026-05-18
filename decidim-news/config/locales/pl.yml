@@ -7,6 +7,7 @@ pl:
         users_action_allowed_for_unregister_users: Kto może przesyłać komentarze w ramach tej informacji? *
         weight: Kolejność
         added_on: Data dodania
+        comments_enabled: Komentarze włączone
   activerecord:
     models:
       decidim/news/information:

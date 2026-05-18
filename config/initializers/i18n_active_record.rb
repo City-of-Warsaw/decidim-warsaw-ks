@@ -1,3 +1,6 @@
+# pomija inicjalizacje jesli baza ma byc wylaczona
+return if ENV['DISABLE_DATABASE_ENVIRONMENT_CHECK']
+
 require 'i18n/backend/active_record'
 
 Translation = I18n::Backend::ActiveRecord::Translation

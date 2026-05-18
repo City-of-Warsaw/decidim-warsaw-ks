@@ -1,0 +1,3 @@
+window.Decidim.currentDialogs.previewBeforeSubmitModal.open();
+
+$("#previewBeforeSubmitModal iframe").attr("srcdoc", "<%= j render template: "decidim/study_notes/shared/show", disposition: "inline", show_as_html: true, formats: [:pdf], locals: { study_note: @form, is_preview: true } %>");

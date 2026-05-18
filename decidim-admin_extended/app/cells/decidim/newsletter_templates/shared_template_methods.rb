@@ -55,6 +55,9 @@ module Decidim
         return link_to organization.name, decidim.root_url(host: organization.host) unless organization.logo.attached?
 
         if File.extname(organization.attached_uploader(:logo).path) == ".svg"
+          #FIXME: poprawic dla amazon storage
+          return ''
+
           File.open(ActiveStorage::Blob.service.path_for(organization.logo.key), "rb") do |file|
             raw file.read
           end

@@ -120,12 +120,84 @@ module Decidim
               <a href='%{attached_to_link}' class='button'>%{attached_to_title}</a>",
             helpers: %w[attached_to_link attached_to_title consultation_title consultation_link]
           },
+          new_comment_to_meeting_for_process_admin: {
+            name: "Powiadomienie o nowym komentarzu do spotkania dla administratorów konsultacji",
+            subject: "%{consultation_title} – nowy komentarz do spotkania dla administratora konsultacji",
+            body:
+              "<p>Dzień dobry,</p>
+              <p>na stronie konsultacji %{consultation_title} pojawił się nowy komentarz do spotkania <a href='%{commentable_link}' rel='noopener noreferrer' target='_blank'>%{commentable_title}</a>. Kliknij link, żeby zobaczyć szczegóły.</p>
+              <p>Treść komentarza: %{comment_body}</p>
+              <p><br></p>
+              <p>Ustawienia powiadomień możesz w każdej chwili zmienić&nbsp;w&nbsp;<a href='%{notifications_settings_link}' rel='noopener noreferrer'>swoim koncie</a>.</p>",
+            helpers: %w(comment_body commentable_link commentable_title notifications_settings_link consultation_link consultation_title)
+          },
+          new_comment_to_custom_proposal_for_process_admin: {
+            name: "Powiadomienie o nowym komentarzu do uwag do dokumentu dla administratorów konsultacji",
+            subject: "%{consultation_title} – nowy komentarz do fragmetnu dokumentu dla administratora konsultacji",
+            body:
+              "<p>Dzień dobry,</p>
+              <p>na stronie konsultacji %{consultation_title} pojawił się nowy komentarz do spotkania <a href='%{commentable_link}' rel='noopener noreferrer' target='_blank'>%{commentable_title}</a>. Kliknij link, żeby zobaczyć szczegóły.</p>
+              <p>Treść komentarza: %{comment_body}</p>
+              <p><br></p>
+              <p>Ustawienia powiadomień możesz w każdej chwili zmienić&nbsp;w&nbsp;<a href='%{notifications_settings_link}' rel='noopener noreferrer'>swoim koncie</a>.</p>",
+            helpers: %w(comment_body commentable_link commentable_title consultation_link consultation_title)
+          },
+          new_comment_or_remark_for_process_admin: {
+            name: "Powiadomienie o nowym komentarzu lub uwadze dla administratorów konsultacji",
+            subject: "%{consultation_title} – nowy komentarz lub uwaga dla administratora konsultacji",
+            body:
+              "<p>Dzień dobry,</p>
+              <p>na stronie konsultacji %{consultation_title} pojawił(a) się: nowy komentarz lub uwaga o treści:</p>
+              <p><a href='%{remark_or_its_comment_link}' rel='noopener noreferrer' target='_blank'>%{remark_or_its_comment_body}</a></p>
+              <p><br></p>
+              <p>Ustawienia powiadomień możesz w każdej chwili zmienić&nbsp;w&nbsp;<a href='%{notifications_settings_link}' rel='noopener noreferrer'>swoim koncie</a>.</p>",
+            helpers: %w(remark_or_its_comment_link remark_or_its_comment_body notifications_settings_link consultation_link consultation_title)
+          },
+          new_map_remark_for_process_admin: {
+            name: "Powiadomienie o nowej uwadze na mapie dla administratorów konsultacji",
+            subject: "%{consultation_title} – nowa uwaga na mapie dla administratora konsultacji",
+            body:
+              "<p>Dzień dobry,</p>
+              <p>na stronie konsultacji %{consultation_title} pojawił(a) się: nowa uwaga na mapie o treści:</p>
+              <p><a href='%{map_remark_link}' rel='noopener noreferrer' target='_blank'>%{map_remark_body}</a></p>
+              <p><br></p>
+              <p>Ustawienia powiadomień możesz w każdej chwili zmienić&nbsp;w&nbsp;<a href='%{notifications_settings_link}' rel='noopener noreferrer'>swoim koncie</a>.</p>",
+            helpers: %w(map_remark_link map_remark_body notifications_settings_link consultation_link consultation_title)
+          },
+          new_user_question_for_process_admin: {
+            name: "Powiadomienie o nowym pytaniu do eksperta dla administratorów konsultacji",
+            subject: "%{consultation_title} – nowe pytanie do eksperta dla administratora konsultacji",
+            body:
+              "<p>Dzień dobry,</p>
+              <p>na stronie konsultacji %{consultation_title} pojawiło się: nowe pytanie do eksperta o treści:</p>
+              <p><a href='%{user_question_link}' rel='noopener noreferrer' target='_blank'>%{user_question_body}</a></p>
+              <p><br></p>
+              <p>Ustawienia powiadomień możesz w każdej chwili zmienić&nbsp;w&nbsp;<a href='%{notifications_settings_link}' rel='noopener noreferrer'>swoim koncie</a>.</p>",
+            helpers: %w(user_question_link user_question_body notifications_settings_link consultation_link consultation_title)
+          },
 
           # CUSTOM COMPONENT: STUDY NOTE
           create_study_note_confirmation: {
             name: 'Powiadomienie o nowej uwadze do planu ogólnego wysyłane na email z ustawień komponentu',
             subject: 'Info. do administratora komponentu: Uwagi do planu ogólnego o nowej uwadze',
             body: "<p>Dzień dobry,</p><p>otrzymaliśmy kolejną uwagę do planu ogólnego.</p><p>---</p><p>Z pozdrowieniami</p><p>Urząd m.st. Warszawy</p>",
+            helpers: %w[consultation_link consultation_title]
+          },
+          study_note_zip_notification: {
+            name: 'Potwierdzenie dla administratora o wygenerowaniu pliku zip z wnioskami',
+            subject: 'Konsultacje Społeczne - Plik do pobrania jest juz gotowy',
+            body:
+              "<p>Dzień dobry,</p>
+                  <p>Plik z uwagi do planu ogólnego jest juz przygotowany do pobrania</p>
+                  <a href='%{study_note_zip_link}' class='button'>Pobierz klikając tu</a>",
+            helpers: %w[study_note_zip_link consultation_link consultation_title]
+          },
+          generate_sequential_numbers_for_study_notes: {
+            name: 'Potwierdzenie dla administratora o wygenerowaniu numerów wewnętrznych',
+            subject: 'Konsultacje Społeczne - Numery wewnetrzne zostały wygenerowane',
+            body:
+              "<p>Dzień dobry,</p>
+                  <p>Nadawanie numerów wewnętrznych do uwag do planu ogólnego zostało zakończone.</p>",
             helpers: %w[consultation_link consultation_title]
           },
 
@@ -328,34 +400,60 @@ module Decidim
 
           # DECIDIM / CUSTOM: MODERATION
           report_notification_to_moderators: {
-            name: 'Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało zgłoszone do moderacji',
-            subject: 'Konsultacje Społeczne - Zgłoszono wpis do moderacji',
+            name: "Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało zgłoszone do moderacji",
+            subject: "%{consultation_title} – nowy wpis do moderacji",
             body:
-              "<p>Zgłoszono wpis jako naruszajacy regulamin:</p>
-              <a href='%{resource_link}' class='button'>%{resource_title}</a>
-              <p><b>Zgłoszona zawartość:</b></p>
-              <p>%{reported_content}</p>
-              <p><b>Powód:</b></p>
-              <p>%{report_reasons}</p>
-              <p>w konsultacji:</p>
-              <a href='%{consultation_link}' class='button'>%{consultation_title}</a>",
-            helpers: %w[resource_link resource_title consultation_link consultation_title reported_content report_reasons]
+              "<p>Dzień dobry,</p>
+               <p>ktoś zgłosił wpis do moderacji. Zapoznaj się ze zgłoszeniem i podejmij decyzję, co z nim zrobić.</p>
+               <p><strong>Rodzaj zgłoszonej treści: </strong><a target=\"_blank\" class=\"button\" href=\"%{resource_link}\">%{resource_title}</a></p>
+               <p><strong>Zgłoszona zawartość </strong>(nazwa użytkownika, treść uwagi/komentarza, ewentualna redakcja):</p><p>%{reported_content}</p>
+               <p><strong>Powód: </strong>%{report_reasons}</p>
+               <p><strong>W konsultacjach: </strong><a target=\"_blank\" class=\"button\" href=\"%{consultation_link}\">%{consultation_title}</a></p>
+               <p>---</p>
+               <p>Pozdrowienia<br>Urząd Miasta Stołecznego Warszawy</p>",
+            helpers: %w(resource_link resource_title consultation_link consultation_title reported_content report_reasons report_details),
+            footer:
+              "<p class=\"custom-legal-basis\">Tu możesz zrezygnować z takich powiadomień lub zmienić ustawienia:</p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"%{unsubscribe_link}\">Rezygnuję z powiadomień</a></p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"https://konsultacje.um.warszawa.pl/user_interests\">Zmieniam ustawienia profilu</a></p>
+               <hr>
+               <p class=\"custom-legal-basis\" style=\"text-align: center\"><a target=\"_blank\" href=\"https://um.warszawa.pl/\">m.st. Warszawa</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://bip.warszawa.pl/\">BIP</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://warszawa19115.pl/\">Warszawa 19115</a><br>Urząd Miasta Stołecznego Warszawy</p>"
           },
           hide_notification_to_moderators: {
-            name: 'Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora',
-            subject: 'Konsultacje Społeczne - Ukrycie wpisu',
+            name: "Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora",
+            subject: "Ukrycie wpisu",
             body:
-              "<p>Poniższa <a href='%{resource_link}'>zawartość</a> została ukryta.</p>
-              <p><a href='%{manage_moderations_link}'>Zarządzaj moderacjami.</a></p>",
-            helpers: %w[reported_content manage_moderations_link]
+              "<p>Dzień dobry,</p>
+               <p>administrator ukrył poniższy wpis:</p>
+               <p><strong>%{reported_content}</strong></p>
+               <p style=\"text-align: center\"><a target=\"_blank\" href=\"%{manage_moderations_link}\"><a target=\"_blank\" class=\"custom-button\" href=\"%{manage_moderations_link}\">Zarządzaj moderacjami</a></a></p>
+               <p>---<br>Z pozdrowieniami<br>Urząd Miasta Stołecznego Warszawy</p>
+               <p></p>",
+            helpers: %w(reported_content manage_moderations_link report_details),
+            footer:
+              "<p class=\"custom-legal-basis\">Tu możesz zrezygnować z takich powiadomień lub zmienić ustawienia:</p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"%{unsubscribe_link}\">Rezygnuję z powiadomień</a></p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"https://konsultacje.um.warszawa.pl/user_interests\">Zmieniam ustawienia profilu</a></p>
+               <hr>
+               <p class=\"custom-legal-basis\" style=\"text-align: center\"><a target=\"_blank\" href=\"https://um.warszawa.pl/\">m.st. Warszawa</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://bip.warszawa.pl/\">BIP</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://warszawa19115.pl/\">Warszawa 19115</a><br>Urząd Miasta Stołecznego Warszawy</p>"
           },
           hidden_resource_notification_to_author: {
-            name: 'Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora',
-            subject: 'Konsultacje Społeczne - Twój wpis został ukryty',
+            name: "Komentarz / uwaga / uwaga na mapie / pytanie do eksperta - zostało ukryte przez administratora",
+            subject: "Twój wpis został ukryty",
             body:
-              "<p>Administrator ukrył Twój wpis, ponieważ treść została zgłoszona jako %{report_reasons}.</br>
-              <i>%{reported_content}</i></p>",
-            helpers: %w[reported_content report_reasons]
+              "<p>Dzień dobry,</p><p>administrator  ukrył Twój wpis: </p>
+               <p>%{reported_content}</p>
+               <p>Ta treść została zgłoszona jako: %{report_reasons}.</p>
+               <p><span>Przed dodaniem kolejnych uwag zapoznaj się z&nbsp;</span><a target=\"_blank\" href=\"https://konsultacje.um.warszawa.pl/pages/terms-and-conditions#subcontent\" rel=\"noopener noreferrer\"><u>Regulaminem strony</u></a><span>.</span></p>
+               <p>---</p>
+               <p>Z pozdrowieniami<br>Urząd Miasta Stołecznego Warszawy</p>",
+            helpers: %w(reported_content report_reasons report_details),
+            footer:
+              "<p class=\"custom-legal-basis\">Tu możesz zrezygnować z takich powiadomień lub zmienić ustawienia:</p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"%{unsubscribe_link}\">Rezygnuję z powiadomień</a></p>
+               <p class=\"custom-legal-basis\"><a target=\"_blank\" href=\"https://konsultacje.um.warszawa.pl/user_interests\">Zmieniam ustawienia profilu</a></p>
+               <hr>
+               <p class=\"custom-legal-basis\" style=\"text-align: center\"><a target=\"_blank\" href=\"https://um.warszawa.pl/\">m.st. Warszawa</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://bip.warszawa.pl/\">BIP</a>&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;<a target=\"_blank\" href=\"https://warszawa19115.pl/\">Warszawa 19115</a><br>Urząd Miasta Stołecznego Warszawy</p>"
           },
 
           # DECIDIM / CUSTOM: USER:
@@ -399,24 +497,51 @@ module Decidim
                 <a href='%{answer_questionnaire_public_user_link}' class='button'>Link do Twojej odpowiedzi</a>",
             helpers: %w[answer_questionnaire_public_user_link consultation_link consultation_title]
           },
-          # DECIDIM Study note zip file notification
-          study_note_zip_notification: {
-              name: 'Potwierdzenie dla administratora o wygenerowaniu pliku zip z wnioskami',
-              subject: 'Konsultacje Społeczne - Plik do pobrania jest juz gotowy',
-              body:
-                "<p>Dzień dobry,</p>
-                  <p>Plik z uwagi do planu ogólnego jest juz przygotowany do pobrania</p>
-                  <a href='%{study_note_zip_link}' class='button'>Pobierz klikając tu</a>",
-              helpers: %w[study_note_zip_link consultation_link consultation_title]
-            },
-          generate_sequential_numbers_for_study_notes: {
-              name: 'Potwierdzenie dla administratora o wygenerowaniu numerów wewnętrznych',
-              subject: 'Konsultacje Społeczne - Numery wewnetrzne zostały wygenerowane',
-              body:
-                "<p>Dzień dobry,</p>
-                  <p>Nadawanie numerów wewnętrznych do uwag do planu ogólnego zostało zakończone.</p>",
-              helpers: %w[consultation_link consultation_title]
-            }
+
+          # DECIDIM CUSTOM AI FORMS ANSWERS (FROM QUESTIONNAIRE)
+          decidim_forms_answers_export: {
+            name: 'Potwierdzenie dla administratora o wygenerowaniu linku do eksportu uwag kwestionariusza ankiety',
+            subject: 'Konsultacje Społeczne - Link kierujący do eksportu uwag jest juz gotowy',
+            body:
+              "<p>Dzień dobry,</p>
+                  <p>Link z uwagami kwestionariusza ankiety jest juz przygotowany</p>
+                  <a href='%{answers_export_link}' class='button'>Przejdź do, klikając tu</a>",
+            helpers: %w[answers_export_link consultation_link consultation_title]
+          },
+          decidim_forms_answers_accepted: {
+            name: 'Potwierdzenie dla administratora o aktualizacji statusu uwag kwestionariusza ankiety',
+            subject: 'Konsultacje Społeczne - Potwierdzenie aktualizacji statusu uwag',
+            body:
+              "<p>Dzień dobry,</p>
+                <p>Status uwag został zaktualizowany</p>",
+            helpers: %w[consultation_link consultation_title]
+          },
+          decidim_forms_answers_ai_decision_update: {
+            name: 'Potwierdzenie dla administratora o aktualizacji rozstrzygnięcia uwag kwestionariusza ankiety',
+            subject: 'Konsultacje Społeczne - Potwierdzenie aktualizacji rozstrzygnięcia uwag',
+            body:
+              "<p>Dzień dobry,</p>
+                <p>Rozstrzygnięcie uwag zostało zaktualizowane</p>",
+            helpers: %w[consultation_link consultation_title]
+          },
+          decidim_forms_answers_ai_decision_regenerate: {
+            name: 'Potwierdzenie dla administratora o aktualizacji rozstrzygnięć dla uwag kwestionariusza ankiety',
+            subject: 'Konsultacje Społeczne - Potwierdzenie aktualizacji rozstrzygnięcia uwag',
+            body:
+              "<p>Dzień dobry,</p>
+                <p>Rozstrzygnięcia dla uwag o statusie 'Do ustalenia' zostało zaktualizowane</p>",
+            helpers: %w[consultation_link consultation_title]
+          },
+          decidim_forms_answers_import_ai_decision: {
+            name: 'Potwierdzenie dla administratora o ukończonym imporcie uwag kwestionariusza ankiety',
+            subject: 'Konsultacje Społeczne - Potwierdzenie ukończonego importu uwag',
+            body:
+              "<p>Dzień dobry,</p>
+                <p>Import uwag został zakończony.</p>,
+                <p>Poniżej statystyki importu:</p>
+                <p>%{answers_import_summary}</p>",
+            helpers: %w[consultation_link consultation_title answers_import_summary]
+          }
         }
       end
     end

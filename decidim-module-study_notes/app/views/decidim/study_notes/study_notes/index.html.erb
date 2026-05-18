@@ -1,11 +1,24 @@
 <main>
-  <div class="participatory-space__container">     
+  <% if current_component.users_action_disallowed? %>
+    <div class="participatory-space__container">
+      <section class="study-note-wrapper">
+        <%= render partial: 'decidim/shared/users_action_disallowed' %>
+      </section>
+      <section>
+        <%= render partial: 'decidim/shared/component_settings_help_section' %>
+      </section>
+    </div>
+<% else %>
+  <div class="participatory-space__container">
+
     <section> 
       <%= render partial: 'decidim/shared/component_settings_help_section' %>
     </section> 
-
+ 
     <section class="study-note-wrapper">  
-      <%= decidim_form_for(@form) do |form| %> 
+      <%= decidim_form_for(@form, remote: true) do |form| %> 
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+        
         <div class="form-head">
           <h2><%= t(".form_title") %></h2>
 
@@ -65,8 +78,7 @@
           <div id="study_note_form_section_2"  data-toggler="form-section__content--visible" class="form-section__content">
             <div class="form-section__content-checkboxes form-section__content-checkboxes--halves">
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_1") %></label>
+                <label for="study_note_letter_type_1" class="styled-label"><input type="checkbox" disabled id="study_note_letter_type_1" /><%= t(".letter_type_1") %></label>
               </div> 
               
               <div class="checkboxed">
@@ -74,13 +86,11 @@
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_3") %></label>
+                <label for="study_note_letter_type_3" class="styled-label"><input type="checkbox" disabled id="study_note_letter_type_3" /><%= t(".letter_type_3") %></label>
               </div> 
               
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_4") %></label>
+                <label for="study_note_letter_type_4" class="styled-label"><input type="checkbox" disabled id="study_note_letter_type_4" /><%= t(".letter_type_4") %></label>
               </div>
             </div>
           </div>
@@ -111,23 +121,19 @@
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".urban_planning_act_type_2") %></label>
+                <label for="study_note_urban_planning_act_type_2" class="styled-label"><input type="checkbox" disabled id="study_note_urban_planning_act_type_2" /><%= t(".urban_planning_act_type_2") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />               
-                <label class="styled-label"><%= t(".urban_planning_act_type_3") %></label>
+                <label for="study_note_urban_planning_act_type_3" class="styled-label"><input type="checkbox" disabled id="study_note_urban_planning_act_type_3" /><%= t(".urban_planning_act_type_3") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />
-                <label class="styled-label"><%= t(".urban_planning_act_type_4") %></label>
+                <label for="study_note_urban_planning_act_type_4" class="styled-label"><input type="checkbox" disabled id="study_note_urban_planning_act_type_4" /><%= t(".urban_planning_act_type_4") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />
-                <label class="styled-label"><%= t(".urban_planning_act_type_5") %></label>
+                <label for="study_note_urban_planning_act_type_5" class="styled-label"><input type="checkbox" disabled id="study_note_urban_planning_act_type_5" /><%= t(".urban_planning_act_type_5") %></label>
               </div>
             </div>
 
@@ -415,9 +421,12 @@
               <%= t(".section_6_description").html_safe %>
             </div>
 
-            <div class="radio-wrapper">          
+            <div class="radio-wrapper <%= 'is-invalid-input' if form.object.errors[:attorney_data_role].present? %>">
               <%= form.radio_button :attorney_data_role, 0, label: t(".attorney_role_all") %>
-              <%= form.radio_button :attorney_data_role, 1, label: t(".attorney_role_delivery") %>  
+              <%= form.radio_button :attorney_data_role, 1, label: t(".attorney_role_delivery") %>
+              <% if form.object.errors[:attorney_data_role].present? %>
+                <span class="form-error is-visible"><%= form.object.errors[:attorney_data_role].first %></span>
+              <% end %>
             </div>
 
             <div class="submitter-form narrow-part">
@@ -623,11 +632,12 @@
               <%= form.text_area(
                     :request_body, 
                     rows: 8,
-                    maxlength: 1000, 
                     label: false,
-                    data: { remaining_characters: "#request_body-remaining-characters" },
+                    data: { remaining_characters: "#request_body-remaining-characters", validator: "required_if_no_detailed_notes value_below_limit", maxlength: 1000 },
                     aria: { describedby: "request_body-remaining-characters" }
-                  ) %> 
+                  ) %>
+              <span class="form-error" data-form-error-on="required_if_no_detailed_notes"><%= t("decidim.forms.errors.messages.required_if_no_detailed_notes") %></span>
+              <span class="form-error" data-form-error-on="value_below_limit"><%= t("decidim.forms.errors.messages.value_below_limit", count: 1000) %></span>
             </div>
           </div>
         </div>
@@ -684,7 +694,8 @@
                                   label: false,
                                   class: 'multifile hidden multifile--study-note-form',
                                   accept: ".jpg,.jpeg,.pdf,.doc,.docx,.odt,.rtf",
-                                  multiple: true
+                                  multiple: true,
+                                  include_hidden: false
               %>
 
               <button type="button" class="study-note-file-button attachment-button-js" data-target="#study_note_files"><%= t(".add_attachment") %></button>
@@ -733,23 +744,15 @@
             <small class="muted"><%= t(".required_fields") %></small>
           </div>
 
-          <div class='buttons'>
-            <%= form.button t(".preview"),
-                            type: 'input',
-                            name: "subaction",
-                            value: "preview_pdf",
-                            class: "preview-link button button__lg button__transparent-secondary",
-                            formtarget: "_blank" %>
-
-
-            <%= form.submit t(".create"), class: "button button__lg button__primary", data: { disable: true } %>
+          <div class='buttons'> 
+            <%= form.submit t(".continue"), class: "button button__lg button__primary", data: { disable: true } %>
           </div>
         </div>
 
       <% end %>
 
-      <div class="form-disclaimer">
-        <%= t(".tos_agreement", link: link_to((t(".terms")).html_safe, decidim.page_path("rodo-studium"), target: "_blank")).html_safe %>
+      <div class="form-disclaimer [&_a]:underline [&_a]:text-primary">
+        <%= t(".tos_agreement", link: link_to((t(".terms")).html_safe, decidim.page_path("rodo-plan-ogolny"), target: "_blank")).html_safe %>
       </div>
     </section>
   </div>
@@ -757,9 +760,14 @@
   <%= render partial: "parcel_selection_modal" %>
   <%= render partial: "parcel_deletion_modal" %>
   <%= render partial: "map_modal" %>
+  <%= render partial: "preview_before_submit_modal" %>
+
+  <% if current_component.map_guide.present? %>
+    <%= render partial: "map_guide_modal", locals: { map_guide: current_component.map_guide } %>
+  <% end %>
+  <% end %>
 </main>
  
-
 <%= append_javascript_pack_tag "study_notes" %>
 
 <% content_for(:js_content) do %>
@@ -809,7 +817,7 @@
                   <div>
                     <label for="detailed_notes_parcel_ids_item_${
                       item.index
-                    }" ><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids') %> <button type="button" class="underline show-map-modal-js" data-detailed-note-id="${item.index}"><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids_find_on_map') %></button></label>
+                    }" ><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids') %> <button type="button" class="underline font-bold show-map-modal-js text-[#1b7c96]" data-detailed-note-id="${item.index}"><%= t('activemodel.attributes.study_note.detailed_notes_parcel_ids_find_on_map') %></button></label>
 
                     <div class="form-description">
                       <%= t(".detailed_notes_parcel_ids_description").html_safe %>
@@ -817,10 +825,11 @@
 
                     <textarea id="detailed_notes_parcel_ids_item_${
                       item.index
-                    }" type="text" rows="4" data-disable-character-counter="true" data-index="${item.index}" data-key="parcel_ids">${
+                    }" type="text" rows="4" data-disable-character-counter="true" data-index="${item.index}" data-key="parcel_ids" data-validator="required_if_detailed_notes required_if_no_detailed_notes_and_request_body">${
                         item.parcel_ids || ""
                       }</textarea>
-                    <span class="form-error"><%= t("errors.messages.required") %></span>
+                    <span class="form-error" data-form-error-on="required_if_detailed_notes"><%= t("errors.messages.required") %></span>
+                    <span class="form-error" data-form-error-on="required_if_no_detailed_notes_and_request_body"><%= t("decidim.forms.errors.messages.required_if_no_detailed_notes_and_request_body") %></span>
                   </div> 
 
                   <div> 
@@ -839,7 +848,7 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="is_record_area_included" ${
                         item.is_record_area_included === "true" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_is_record_area_included_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -852,9 +861,9 @@
                         item.index
                       }" data-key="is_record_area_included" ${
                         item.is_record_area_included === "false" && "checked"
-                      } data-toggle="detailed_notes_parcel_site_boundary_item_${
+                      } data-toggle-target="detailed_notes_parcel_site_boundary_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_is_record_area_included_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -863,7 +872,9 @@
 
                   <div id="detailed_notes_parcel_site_boundary_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.is_record_area_included !== "false" && "hidden"
+                      } p-4 border-white border-4">
                     <label for="study_note_detailed_notes_parcel_site_boundary_${
                       item.index
                     }"><%= t("activemodel.attributes.study_note.parcel_site_boundary") %></label>
@@ -871,6 +882,12 @@
                     <div class="form-description">
                       <%= t(".parcel_site_boundary_description").html_safe %>
                     </div>
+
+                    <input type="hidden" id="detailed_notes_is_parcel_site_boundary_included_item_${
+                        item.index
+                      }_false" data-index="${
+                        item.index
+                      }" data-key="is_parcel_site_boundary_included" value="false" />
 
                     <input type="file" name="study_note[parcel_site_boundary][]" id="study_note_detailed_notes_parcel_site_boundary_${
                       item.index
@@ -893,9 +910,9 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="functional_profile" ${
                         item.functional_profile === "true" && "checked"
-                      } data-toggle="detailed_notes_functional_profile_details_item_${
+                      } data-toggle-target="detailed_notes_functional_profile_details_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_functional_profile_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -908,7 +925,7 @@
                         item.index
                       }" data-key="functional_profile" ${
                         item.functional_profile === "false" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_functional_profile_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -917,31 +934,35 @@
 
                   <div id="detailed_notes_functional_profile_details_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.functional_profile !== "true" && "hidden"
+                      } p-4 border-white border-4">
                     <div class="flex flex-col gap-4">
                       <div>
                         <label for="study_note_detailed_notes_functional_profile_area_${
                           item.index
                         }"><%= t("activemodel.attributes.study_note.detailed_notes_functional_profile_area") %></label>
 
-                        <select data-index="${item.index}" data-key="functional_profile_area_id" value="${item.functional_profile_area_id}"> 
-                          <option value="Strefa 1">Strefa 1</option>
-                          <option value="Strefa 2">Strefa 2</option>
-                          <option value="Strefa 3">Strefa 3</option>
+                        <select id="study_note_detailed_notes_functional_profile_area_${
+                          item.index
+                        }" data-index="${item.index}" data-key="functional_profile_area_id" value="${item.functional_profile_area_id || ''}" data-toggle-input="study_note_detailed_notes_functional_profile_area_classes_${item.index}_wrapper"> 
+                          <option value>Wybierz strefę</option>  
+                          <% t("activemodel.attributes.study_note.functional_profile_areas").each do |id, area| %>
+                            <option value="<%= id %>" ${item.functional_profile_area_id === "<%= id %>" && "selected"}><%= area %></option>
+                          <% end %>
                         </select>
+
+                        <div class="help-text mt-2 empty:hidden" data-index="${item.index}" data-key="functional_profile_area_id"></div>
                       </div>
 
-                      <div>
-                        <label for="study_note_detailed_notes_functional_profile_area__classes${
+                      <div id="study_note_detailed_notes_functional_profile_area_classes_${item.index}_wrapper" class="hidden">
+                        <label for="study_note_detailed_notes_functional_profile_area_classes_${
                           item.index
                         }"><%= t("activemodel.attributes.study_note.detailed_notes_functional_profile_area_classes") %></label>
 
-                        <select data-index="${item.index}" data-key="functional_profile_area_class" value="${item.functional_profile_area_class}"> 
-                          <option value="Klasa 1">Klasa 1</option>
-                          <option value="Klasa 2">Klasa 2</option>
-                          <option value="Klasa 3">Klasa 3</option>
-                          <option value="Nie chcę, aby strefa miała profil dodatkowy">Nie chcę, aby strefa miała profil dodatkowy</option>
-                        </select>
+                        <div class="checkboxed !flex flex-col gap-1 empty:hidden" id="study_note_detailed_notes_functional_profile_area_classes_${
+                          item.index
+                        }"></div>
                       </div>
                     </div>
                   </div> 
@@ -958,9 +979,9 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="area_parameters" ${
                         item.area_parameters === "true" && "checked"
-                      } data-toggle="detailed_notes_area_parameters_details_item_${
+                      } data-toggle-target="detailed_notes_area_parameters_details_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_area_parameters_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -973,7 +994,7 @@
                         item.index
                       }" data-key="area_parameters" ${
                         item.area_parameters === "false" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_area_parameters_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -982,7 +1003,9 @@
                   
                   <div id="detailed_notes_area_parameters_details_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.area_parameters !== "true" && "hidden"
+                      } p-4 border-white border-4">
                     <div class="flex flex-col gap-4">
                       <div>
                         <div class="checkboxed !mt-0">
@@ -993,7 +1016,7 @@
                               item.index
                               }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_height_intensity" data-toggle-input="detailed_notes_area_parameters_max_height_intensity_item_${
                                 item.index
-                              }" ${item.detailed_notes_area_parameters_max_height_intensity && "checked"} />
+                              }" ${item.detailed_notes_area_parameters_max_height_intensity ? "checked" : ""} />
 
                             <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_height_intensity") %>
                           </label>
@@ -1005,8 +1028,9 @@
                             item.max_height_intensity || ""
                           }" data-index="${
                             item.index
-                          }" data-key="max_height_intensity" min="0" max="9999" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_height_intensity ? "" : "disabled"} />  
+                          }" data-key="max_height_intensity" min="0" max="9999" data-validator="value_in_range fractional_part_max_length" maxlength="8" data-disable-character-counter="true" ${item.detailed_notes_area_parameters_max_height_intensity ? "" : "disabled"} />  
                         <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="fractional_part_max_length"><%= t("errors.messages.fractional_part_max_length") %></span>
                         <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
                       </div>
 
@@ -1019,7 +1043,7 @@
                               item.index
                               }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_height_building" data-toggle-input="detailed_notes_area_parameters_max_height_building_item_${
                                 item.index
-                              }" ${item.detailed_notes_area_parameters_max_height_building && "checked"} />
+                              }" ${item.detailed_notes_area_parameters_max_height_building ? "checked" : ""} />
 
                             <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_height_building") %>
                           </label>
@@ -1031,8 +1055,9 @@
                             item.max_height_building || ""
                           }" data-index="${
                             item.index
-                          }" data-key="max_height_building" min="0" max="9999" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_height_building ? "" : "disabled"} />  
+                          }" data-key="max_height_building" min="0" max="9999" data-validator="value_in_range fractional_part_max_length" maxlength="8" data-disable-character-counter="true" ${item.detailed_notes_area_parameters_max_height_building ? "" : "disabled"} />  
                         <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="fractional_part_max_length"><%= t("errors.messages.fractional_part_max_length") %></span>
                         <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
                       </div>
 
@@ -1045,7 +1070,7 @@
                               item.index
                               }" data-index="${item.index}" data-key="detailed_notes_area_parameters_max_percent_area" data-toggle-input="detailed_notes_area_parameters_max_percent_area_item_${
                                 item.index
-                              }" ${item.detailed_notes_area_parameters_max_percent_area && "checked"} />
+                              }" ${item.detailed_notes_area_parameters_max_percent_area ? "checked" : ""} />
 
                             <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_max_percent_area") %>
                           </label>
@@ -1057,8 +1082,9 @@
                             item.max_percent_area || ""
                           }" data-index="${
                             item.index
-                          }" data-key="max_percent_area" min="0" max="100" data-validator="value_in_range" ${item.detailed_notes_area_parameters_max_percent_area ? "" : "disabled"} />  
+                          }" data-key="max_percent_area" min="0" max="100" data-validator="value_in_range fractional_part_max_length" maxlength="8" data-disable-character-counter="true" ${item.detailed_notes_area_parameters_max_percent_area ? "" : "disabled"} />  
                         <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="fractional_part_max_length"><%= t("errors.messages.fractional_part_max_length") %></span>
                         <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
                       </div>
 
@@ -1071,7 +1097,7 @@
                               item.index
                               }" data-index="${item.index}" data-key="detailed_notes_area_parameters_min_percent_bio" data-toggle-input="detailed_notes_area_parameters_min_percent_bio_item_${
                                 item.index
-                              }" ${item.detailed_notes_area_parameters_min_percent_bio && "checked"} />
+                              }" ${item.detailed_notes_area_parameters_min_percent_bio ? "checked" : ""} />
 
                             <%= t("activemodel.attributes.study_note.detailed_notes_area_parameters_min_percent_bio") %>
                           </label>
@@ -1083,8 +1109,9 @@
                             item.min_percent_bio || ""
                           }" data-index="${
                             item.index
-                          }" data-key="min_percent_bio" min="0" max="100" data-validator="value_in_range" ${item.detailed_notes_area_parameters_min_percent_bio ? "" : "disabled"} />  
+                          }" data-key="min_percent_bio" min="0" max="100" data-validator="value_in_range fractional_part_max_length" maxlength="8" data-disable-character-counter="true" ${item.detailed_notes_area_parameters_min_percent_bio ? "" : "disabled"} />  
                         <span class="form-error" data-form-error-on="value_in_range"><%= t("errors.messages.not_in_range") %></span>
+                        <span class="form-error" data-form-error-on="fractional_part_max_length"><%= t("errors.messages.fractional_part_max_length") %></span>
                         <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
                       </div>
                     </div>
@@ -1102,9 +1129,9 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="infill_development" ${
                         item.infill_development === "true" && "checked"
-                      } data-toggle="detailed_notes_infill_development_details_item_${
+                      } data-toggle-target="detailed_notes_infill_development_details_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_infill_development_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -1117,7 +1144,7 @@
                         item.index
                       }" data-key="infill_development" ${
                         item.infill_development === "false" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_infill_development_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -1126,7 +1153,9 @@
                   
                   <div id="detailed_notes_infill_development_details_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.infill_development !== "true" && "hidden"
+                      } p-4 border-white border-4">
                     <div class="flex flex-col">
                       <div class="radio-wrapper radio-wrapper--single">
                         <input type="radio" value="true" name="detailed_notes_infill_development_include_item_${
@@ -1135,7 +1164,7 @@
                           item.index
                         }_true" data-index="${item.index}" data-key="infill_development_include" ${
                           item.infill_development_include === "true" && "checked"
-                        } data-toggle="detailed_notes_infill_development_include_details_item_${
+                        } data-toggle-target="detailed_notes_infill_development_include_details_item_${
                           item.index
                         }">
                         <label for="detailed_notes_infill_development_include_item_${
@@ -1172,9 +1201,9 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="inner_city_development" ${
                         item.inner_city_development === "true" && "checked"
-                      } data-toggle="detailed_notes_inner_city_development_details_item_${
+                      } data-toggle-target="detailed_notes_inner_city_development_details_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_inner_city_development_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -1187,7 +1216,7 @@
                         item.index
                       }" data-key="inner_city_development" ${
                         item.inner_city_development === "false" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_inner_city_development_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -1196,7 +1225,9 @@
                   
                   <div id="detailed_notes_inner_city_development_details_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.inner_city_development !== "true" && "hidden"
+                      } p-4 border-white border-4">
                     <div class="flex flex-col">
                       <div class="radio-wrapper radio-wrapper--single">
                         <input type="radio" value="true" name="detailed_notes_inner_city_development_include_item_${
@@ -1205,7 +1236,7 @@
                           item.index
                         }_true" data-index="${item.index}" data-key="inner_city_development_include" ${
                           item.inner_city_development_include === "true" && "checked"
-                        } data-toggle="detailed_notes_inner_city_development_include_details_item_${
+                        } data-toggle-target="detailed_notes_inner_city_development_include_details_item_${
                           item.index
                         }">
                         <label for="detailed_notes_inner_city_development_include_item_${
@@ -1242,9 +1273,9 @@
                         item.index
                       }_true" data-index="${item.index}" data-key="detailed_notes_social_infrastructure_accessibility" ${
                         item.detailed_notes_social_infrastructure_accessibility === "true" && "checked"
-                      } data-toggle="detailed_notes_social_infrastructure_accessibility_details_item_${
+                      } data-toggle-target="detailed_notes_social_infrastructure_accessibility_details_item_${
                         item.index
-                      }">
+                      }" data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_social_infrastructure_accessibility_item_${
                         item.index
                       }_true"><%= t(".option_yes") %></label>
@@ -1257,7 +1288,7 @@
                         item.index
                       }" data-key="detailed_notes_social_infrastructure_accessibility" ${
                         item.detailed_notes_social_infrastructure_accessibility === "false" && "checked"
-                      }>
+                      } data-validator="required_if_detailed_notes">
                       <label for="detailed_notes_social_infrastructure_accessibility_item_${
                         item.index
                       }_false"><%= t(".option_no") %></label>
@@ -1266,12 +1297,14 @@
                   
                   <div id="detailed_notes_social_infrastructure_accessibility_details_item_${
                     item.index
-                  }" data-toggler=".hidden" class="field file-field relative hidden p-4 border-white border-4">
+                  }" data-toggler=".hidden" class="field file-field relative ${
+                        item.detailed_notes_social_infrastructure_accessibility !== "true" && "hidden"
+                      } p-4 border-white border-4">
                     <div>
                       <label for="detailed_notes_social_infrastructure_accessibility_body_item_${
                         item.index
                       }" ><%= t('activemodel.attributes.study_note.detailed_notes_social_infrastructure_accessibility_body') %></label>
-                      <textarea maxlength="1000" id="detailed_notes_social_infrastructure_accessibility_body_item_${
+                      <textarea data-maxlength="1000" data-validator="value_below_limit" id="detailed_notes_social_infrastructure_accessibility_body_item_${
                         item.index
                       }" rows="8" data-remaining-characters="#detailed_notes_social_infrastructure_accessibility_body_item_${
                         item.index
@@ -1280,7 +1313,8 @@
                       }-characters" data-index="${item.index}" data-key="social_infrastructure_accessibility_body">${
                         item.social_infrastructure_accessibility_body || ""
                       }</textarea>
-                      <span class="form-error"><%= t("errors.messages.required") %></span>
+                      <span class="form-error" data-form-error-on="required"><%= t("errors.messages.required") %></span>
+                      <span class="form-error" data-form-error-on="value_below_limit"><%= t("decidim.forms.errors.messages.value_below_limit", count: 1000) %></span>
                     </div>
                   </div>
 
@@ -1310,41 +1344,131 @@
           "#detailed_notes .multiple-hash-input__items > li:last-of-type"
         ).foundation();
         $(
-          "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea"
+          "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea[data-maxlength]"
         ).data(
           "remaining-characters-counter",
           new Decidim.InputCharacterCounter(
             $(
-              "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea"
+              "#detailed_notes .multiple-hash-input__items > li:last-of-type textarea[data-maxlength]"
             )
           )
-        );        
-
-        $(".attachment-button-js")
-          .not(".AttachmentButton-applied")
-          .click(function (e) {
-            e.preventDefault();
-
-            $(this).addClass("AttachmentButton-applied");
-
-            var target_id = $(this).data("target");
-            $(this)
-              .closest("div")
-              .find(target_id + " > input")
-              .last()
-              .click();
-          });
+        );     
       } else {
         $(
           "#detailed_notes .multiple-hash-input__items"
         ).foundation(); 
+        $(
+          "#detailed_notes .multiple-hash-input__items textarea[data-maxlength]"
+        ).data(
+          "remaining-characters-counter",
+          new Decidim.InputCharacterCounter(
+            $(
+              "#detailed_notes .multiple-hash-input__items textarea[data-maxlength]"
+            )
+          )
+        );  
       }
+
+      renderFunctionalProfileAreaInfo();
+    }
+
+    function renderFunctionalProfileAreaInfo() {
+      var detailedNotes = JSON.parse(
+        $("#study_note_detailed_notes").val() ||
+          `[{"index": "0", "name": "Plan ogólny gminy"}]`
+      );
+
+      detailedNotes.forEach(function (item) {
+        const index = item.index;
+        const value = item.functional_profile_area_id;
+        const selectedClasses = item.functional_profile_area_classes || []; 
+
+        let helpText = "";
+        let checkboxesHtml = "";
+
+        <% t("activemodel.attributes.study_note.functional_profile_areas_main_profile").each do |id, text| %>
+          if(value == "<%= id %>") {
+            $(`#study_note_detailed_notes_functional_profile_area_classes_${index}_wrapper`).removeClass("hidden");
+            $(`#study_note_detailed_notes_functional_profile_area_classes_${index}_wrapper`).removeAttr("hidden");            
+
+            helpText = `Profil podstawowy strefy <%= id %>: <%= j text %>`;
+
+            const toggleCheckboxes = `<%= t("activemodel.attributes.study_note.functional_profile_area_classes." + id.to_s).split(",").each_with_index.map { |item, index| "study_note_detailed_notes_functional_profile_area_classes_${index}_#{index}" }.join(", ") %>`.replace(/\$\{index\}/g, index);
+
+            checkboxesHtml = `
+              <% t("activemodel.attributes.study_note.functional_profile_area_classes." + id.to_s).split(",").each_with_index do |class_name, class_id| %>
+                <div>
+                  <label for="study_note_detailed_notes_functional_profile_area_classes_${index}_<%= class_id %>">
+                    <input type="checkbox" id="study_note_detailed_notes_functional_profile_area_classes_${index}_<%= class_id %>" name="study_note_detailed_notes_functional_profile_area_classes_${index}" data-index="${index}" data-key="functional_profile_area_classes" value="<%= class_name %>" data-mode="multiple" ${selectedClasses.includes("<%= class_name %>") && "checked"} ${selectedClasses.includes("nie chcę, aby strefa miała profil dodatkowy") && "disabled"} />
+                    <%= class_name %>
+                  </label>
+                </div>
+              <% end %>
+
+              <div>
+                <label for="study_note_detailed_notes_functional_profile_area_classes_${index}_null">
+                  <input type="checkbox" id="study_note_detailed_notes_functional_profile_area_classes_${index}_null" name="study_note_detailed_notes_functional_profile_area_classes_${index}" required data-index="${index}" data-key="functional_profile_area_classes" value="nie chcę, aby strefa miała profil dodatkowy" data-toggle-input="${toggleCheckboxes}" data-mode="multiple" ${selectedClasses.includes("nie chcę, aby strefa miała profil dodatkowy") && "checked"} />
+                  nie chcę, aby strefa miała profil dodatkowy
+                </label>
+              </div>
+            `;
+          }
+        <% end %>
+
+        $(
+          `div.help-text[data-index='${index}'][data-key='functional_profile_area_id']`
+        ).html(helpText);
+
+        $(`#study_note_detailed_notes_functional_profile_area_classes_${index}`).html(checkboxesHtml);
+
+        $(`#study_note_detailed_notes_functional_profile_area_classes_${index}`).find("input[type=checkbox]").each(function() {
+          $(this).on("change", function(event) {
+            var detailedNotes = JSON.parse(
+              $("#study_note_detailed_notes").val() ||
+                `[{"index": "0", "name": "Plan ogólny gminy"}]`
+            );
+            var index = parseInt($(this).data("index"));
+            var key = $(this).data("key");
+            var mode = $(this).data("mode");
+
+            var value = event.target.value;  
+
+            if(mode === "multiple") {
+              var existingValues = detailedNotes[index][key] || [];
+              
+              if(value === "nie chcę, aby strefa miała profil dodatkowy") {
+                if($(this).is(":checked")) {
+                  existingValues = ["nie chcę, aby strefa miała profil dodatkowy"]; 
+                } else {
+                  existingValues = existingValues.filter(function(item) {
+                    return item !== value;
+                  });
+                }
+              } else {
+                if($(this).is(":checked")) {
+                  existingValues.push(value);
+                } else {
+                  existingValues = existingValues.filter(function(item) {
+                    return item !== value;
+                  });
+                }
+              } 
+
+              detailedNotes[index][key] = [...new Set(existingValues)]; 
+            } else {
+              detailedNotes[index][key] = value;
+            }
+
+            $("#study_note_detailed_notes").val(
+              JSON.stringify(detailedNotes)
+            );
+          });
+        });
+      });
 
       Foundation.reInit("abide");
     }
 
-    renderDetailedNotes();
-    initDetailedNotesChangeEvents();
 
     function initDetailedNotesChangeEvents() {
       $(
@@ -1356,14 +1480,50 @@
         );
         var index = parseInt($(this).data("index"));
         var key = $(this).data("key");
-        var value = event.target.value;
+        var mode = $(this).data("mode");
 
-        detailedNotes[index][key] = value;
+        var value = event.target.value; 
+
+        if(mode === "multiple") {
+          var existingValues = detailedNotes[index][key] || [];
+          
+          if(value === "nie chcę, aby strefa miała profil dodatkowy") {
+            if($(this).is(":checked")) {
+              existingValues = ["nie chcę, aby strefa miała profil dodatkowy"]; 
+            } else {
+              existingValues = existingValues.filter(function(item) {
+                return item !== value;
+              });
+            }
+          } else {
+            if($(this).is(":checked")) {
+              existingValues.push(value);
+            } else {
+              existingValues = existingValues.filter(function(item) {
+                return item !== value;
+              });
+            }
+          } 
+
+          detailedNotes[index][key] = [...new Set(existingValues)];
+        } else {
+          detailedNotes[index][key] = value;
+        }
+
+        if(key === "functional_profile_area_id") { 
+          detailedNotes[index]["functional_profile_area_classes"] = [];
+        }
+
         $("#study_note_detailed_notes").val(
           JSON.stringify(detailedNotes)
         );
+
+        if (key === "functional_profile_area_id") {
+          renderFunctionalProfileAreaInfo();
+        }
       });
 
+      $("#detailed_notes .multiple-hash-input__delete-button-js").off("click");
       $(
         "#detailed_notes .multiple-hash-input__delete-button-js"
       ).on("click", function () {
@@ -1375,6 +1535,14 @@
         detailedNotes = detailedNotes.filter(function (item) {
           return item.index != index;
         });
+
+        detailedNotes = detailedNotes.map(function(item, newIndex) {
+          return {
+            ...item,
+            index: newIndex
+          };
+        });
+
         $("#study_note_detailed_notes").val(
           JSON.stringify(detailedNotes)
         );
@@ -1440,27 +1608,102 @@
       $("#detailed_notes").on("change", "input[type=radio]", function(event) { 
         const name = $(this).attr("name");
         const radioGroup = $(`input[type=radio][name="${name}"]`);
+
+        if (name.includes("detailed_notes_functional_profile")) {
+          renderFunctionalProfileAreaInfo();
+        };
         
-        radioGroup.filter("[data-toggle]").each(function() {
-          const targetElement = $(`#${$(this).data("toggle")}`); 
+        radioGroup.filter("[data-toggle-target]").each(function() {
+          const targetElement = $(`#${$(this).data("toggle-target")}`); 
 
           if ($(this).is(":checked")) {
-            targetElement.removeClass("hidden");
+            targetElement.removeClass("hidden"); 
             targetElement.removeAttr("hidden");
+
+            targetElement.find("input, textarea, select").not("[type=file], [type=checkbox], [type=number]").each(function() { 
+              $(this).removeAttr("disabled"); 
+              $(this).attr("required", "required");
+
+              if($(this).is("[type=radio]")) return;
+              
+              const label = $("label[for='" + this.id + "']"); 
+
+              label.find("span.asterisk").remove();
+              label.append('<span class="asterisk">*</span>');
+            }); 
+
+            targetElement.find("input[type=checkbox], input[type=number], input[type=radio]").each(function() {
+              $(this).removeAttr("data-abide-ignore")
+            });
           } else {
             targetElement.addClass("hidden");
             targetElement.attr("hidden", "");
+            
+            targetElement.find("input, textarea, select").not("[type=file], [type=checkbox], [type=number]").each(function() {
+              $(this).attr("disabled", ""); 
+              $(this).removeAttr("required"); 
+
+              if($(this).is("[type=radio]")) return;
+
+              const label = $("label[for='" + this.id + "']"); 
+            
+              label.find("span.asterisk").remove();
+
+              $("#new_study_note_").foundation("removeErrorClasses", $(this));
+            }); 
+
+            targetElement.find("input[type=checkbox], input[type=number], input[type=radio]").each(function() {
+              $(this).attr("data-abide-ignore", "");
+              $('#new_study_note_').foundation('removeErrorClasses', $(this));
+            });
           }
         });
       });
 
       $("#detailed_notes").on("change", "input[type=checkbox][data-toggle-input]", function(event) { 
+        if ($(this).data("toggle-input").includes(",")) {
+          const targetIds = $(this).data("toggle-input").split(",");
+
+          targetIds.forEach(function(targetId) {
+            const targetElement = $(`#${targetId.trim()}`); 
+
+            if ($(this).is(":checked")) { 
+              targetElement.attr("disabled", ""); 
+              targetElement.prop("checked", false); 
+            } else { 
+              targetElement.removeAttr("disabled"); 
+            } 
+          }.bind(this));
+        } else {
+          const targetElement = $(`#${$(this).data("toggle-input")}`); 
+          const label = $("label[for='" + targetElement.attr("id") + "']");
+
+          if ($(this).is(":checked")) { 
+            targetElement.removeAttr("disabled");
+            targetElement.attr("required", "required");
+
+            label.find("span.asterisk").remove();
+            label.append('<span class="asterisk">*</span>');
+          } else { 
+            targetElement.attr("disabled", "");
+            targetElement.removeAttr("required");
+
+            label.find("span.asterisk").remove();
+
+            $("#new_study_note_").foundation("removeErrorClasses", targetElement);
+          }
+        }
+      });
+
+      $("#detailed_notes").on("change", "select[data-toggle-input]", function(event) { 
         const targetElement = $(`#${$(this).data("toggle-input")}`); 
 
-        if ($(this).is(":checked")) { 
-          targetElement.removeAttr("disabled");
+        if ($(this).val().length > 0) { 
+          targetElement.removeClass("hidden");
+          targetElement.removeAttr("hidden");
         } else { 
-          targetElement.attr("disabled", "");
+          targetElement.addClass("hidden");
+          targetElement.attr("hidden", "");
         } 
       });
       
@@ -1481,28 +1724,49 @@
           afterFileAppend: function (element, value, master_element) {
             if (master_element.files.length >= 1) {
               $(this).parent().find(".attachment-button-js").hide();
+              $(this).parent().find("[id^=detailed_notes_is_parcel_site_boundary_included]").val(true);
+              $(this).parent().find("[id^=detailed_notes_is_parcel_site_boundary_included]").trigger("change");
             }
           },
           afterFileRemove: function (element, value, master_element) {
             if (master_element.files.length < 1) {
               $(this).parent().find(".attachment-button-js").show();
+              $(this).parent().find("[id^=detailed_notes_is_parcel_site_boundary_included]").val(false);
+              $(this).parent().find("[id^=detailed_notes_is_parcel_site_boundary_included]").trigger("change");
             }
           },
         });
 
-        $(".show-map-modal-js").click(function(e) {
-          e.preventDefault();
-          const id = $(this).data("detailed-note-id");
-          
-          if(id !== window.Decidim.currentDetailedNoteId){
-            window.Decidim.currentDetailedNoteId = id;
+      $(".show-map-modal-js").click(function(e) {
+        e.preventDefault();
+        const id = $(this).data("detailed-note-id");
+        
+        if(id !== window.Decidim.currentDetailedNoteId){
+          window.Decidim.currentDetailedNoteId = id;
 
-            if (window.Decidim.studyNoteMap){
-              window.Decidim.studyNoteMapRefreshParcelsLayer(window.Decidim.studyNoteMap);
-            }
+          if (window.Decidim.studyNoteMap){
+            window.Decidim.studyNoteMapRefreshParcelsLayer(window.Decidim.studyNoteMap);
           }
-          
-          window.Decidim.currentDialogs.mapModal.open();
+        }
+        
+        window.Decidim.currentDialogs.mapModal.open(e.currentTarget);
+      });
+
+      
+      $(".attachment-button-js")
+        .not(".AttachmentButton-applied")
+        .each(function () {
+          $(this).addClass("AttachmentButton-applied");
+        })
+        .click(function (e) {
+          e.preventDefault(); 
+
+          var target_id = $(this).data("target");
+          $(this)
+            .closest("div")
+            .find(target_id + " > input")
+            .last()
+            .click();
         });
     }
 
@@ -1633,6 +1897,11 @@
             $(this).parent().find(".attachment-button-js").show();
           }
         },
+      });
+
+      $(document).ready(function () {
+        renderDetailedNotes();
+        initDetailedNotesChangeEvents();
       });
   <% end %>
 <% end %>

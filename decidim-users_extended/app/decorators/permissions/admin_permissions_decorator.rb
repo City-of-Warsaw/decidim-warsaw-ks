@@ -30,6 +30,7 @@ Decidim::Admin::Permissions.class_eval do
     can_use_image_editor?
     components_actions?
     read_component_action?
+    manage_ai_component_action?
     read_admin_dashboard_action?
     publish_components_action?
     apply_newsletter_permissions_for_admin!
@@ -59,7 +60,7 @@ Decidim::Admin::Permissions.class_eval do
 
       allow! if permission_action.subject == :category
       allow! if permission_action.subject == :participatory_process_reports
-      allow! if permission_action.subject == :component
+      # allow! if permission_action.subject == :component # All actions are checked separately for component permission
       allow! if permission_action.subject == :admin_user && !permission_action.action.in?([:create,:destroy])
       allow! if permission_action.subject == :attachment
       allow! if permission_action.subject == :attachment_collection
@@ -141,6 +142,7 @@ Decidim::Admin::Permissions.class_eval do
     if permission_action.action == :manage
       toggle_allow(user.has_ad_role? && !user.ad_expert?)
     elsif permission_action.action == :update
+      # TODO: uzupelnic, tylko odpowiednio oznaczone pliki mozna aktualizowac
       toggle_allow(user.has_ad_role? && !user.ad_expert?)
     end
   end
@@ -237,6 +239,14 @@ Decidim::Admin::Permissions.class_eval do
                   permission_action.action == :read
 
     toggle_allow(user.ad_admin? || has_role_in_space?(:admin) || is_user_this_space_expert?)
+  end
+
+  def manage_ai_component_action?
+    component = context.fetch(:component, nil)
+    return unless permission_action.subject == :component &&
+                  permission_action.action == :manage_ai_functions && component.present?
+
+    toggle_allow((user.ad_admin? || user.ad_coordinator?) && allowed_ai_features_for_component?(component.manifest_name))
   end
 
   def manage_expert_questions_action?
@@ -340,6 +350,10 @@ Decidim::Admin::Permissions.class_eval do
     else
       true
     end
+  end
+
+  def allowed_ai_features_for_component?(manifest_name)
+    ["surveys"].include?(manifest_name)
   end
 
   def disallowed_user_action?

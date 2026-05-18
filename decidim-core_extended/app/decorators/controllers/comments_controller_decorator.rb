@@ -4,6 +4,7 @@ Decidim::Comments::CommentsController.class_eval do
   include Decidim::CoreExtended::CommentTokenCookie
 
   skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :ensure_commentable!, only: :second_step_update
 
   # overwritten method
   # turn off enforce permission
@@ -33,6 +34,33 @@ Decidim::Comments::CommentsController.class_eval do
       on(:invalid) do
         respond_to do |format|
           format.js { render :update_error }
+        end
+      end
+    end
+  end
+
+  def second_step_update
+    set_comment
+    set_commentable
+    authorize_edit_token!(comment)
+    @form = Decidim::Comments::CommentForm.from_params(params.merge(commentable: comment.commentable))
+                                          .with_context(
+                                            current_user: unregistered_author,
+                                            current_organization:,
+                                            current_component:
+                                          )
+    Decidim::CoreExtended::SecondStepUpdateComment.call(@form, comment) do
+      on(:ok) do
+        respond_to do |format|
+          format.js do
+            if reload?
+              render :reload
+            else
+              render :index
+            end
+          end
+          # This makes sure bots are not causing unnecessary log entries.
+          format.html { redirect_to commentable_path }
         end
       end
     end
@@ -84,7 +112,7 @@ Decidim::Comments::CommentsController.class_eval do
   end
 
   def authorize_edit_token!(comment)
-    token = params.dig(:comment, :token)
+    token = params.dig(:comment, :token) || params[:token]
     # Allow if logged-in user is the author
     return if current_user.present? && current_user == comment.author
 

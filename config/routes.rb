@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Checkin health of applicaiton
+  get '/health', to: proc { |env| [200, { 'Content-Type' => 'text/plain' }, ['success']] }
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
@@ -6,9 +9,12 @@ Rails.application.routes.draw do
   get '/conversations', to: redirect('/', status: 302)
   get '/conversations/:id', to: redirect('/', status: 302)
   get "pages", to: redirect('/baza-wiedzy', status: 301)
+  get "pages/rozegraj-miasto", to: redirect('/baza-wiedzy#rozegraj-miasto', status: 301)
   get "pages/kontakt", to: redirect('/kontakt', status: 301)
   get "pages/regulamin", to: redirect('/regulamin', status: 301)
-  get "pages/dostepnosc", to: redirect('/dostepnosc', status: 301)
+  # get "pages/dostepnosc", to: redirect('/dostepnosc', status: 301)
+
+  # get "pages/:name", to: redirect { |params| "/baza-wiedzy##{params[:name]}" }
 
   mount Decidim::Core::Engine => '/'
 

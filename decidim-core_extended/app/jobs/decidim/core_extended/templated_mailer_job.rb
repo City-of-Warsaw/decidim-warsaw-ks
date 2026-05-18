@@ -108,17 +108,31 @@ module Decidim
           when Decidim::Comments::Comment
             # action names:
             # - new_comment_to_meeting
+            # - new_comment_to_meeting_for_process_admin
             # - new_comment_to_custom_proposal
+            # - new_comment_to_custom_proposal_for_process_admin
             # - new_comment_to_information
             # - new_comment_to_remark
             # - new_comment_to_map_remark
             # - new_comment_to_user_question
             # - new_reply_to_comment
+            # - new_comment_or_remark_for_process_admin
 
             Rails.logger.debug { "[TemplatedMailerJob] when Comment before init TemplatedMailer.notify" }
             consultation = (resource.commentable.component.participatory_space if resource.commentable.respond_to?(:component))
+            remark_or_its_comment_body = additional_data[:remark_or_its_comment_body]
+            remark_or_its_comment_link = additional_data[:remark_or_its_comment_link]
+
             Decidim::CoreExtended::TemplatedMailer.notify(
-              action_name, receiver, { comment: resource, resource: resource.commentable, consultation: }
+              action_name,
+              receiver,
+              {
+                comment: resource,
+                resource: resource.commentable,
+                consultation:,
+                remark_or_its_comment_body:,
+                remark_or_its_comment_link:
+              }
             ).deliver_later
 
           when Decidim::CustomProposals::CustomProposal,
@@ -131,9 +145,18 @@ module Decidim
             # - new_remark
             # - new_user_question
             # - new_map_remark
+            # - new_comment_or_remark_for_process_admin
+            # - new_map_remark_for_process_admin
+            # - new_user_question_for_process_admin
 
             consultation = (resource.component.participatory_space if resource.respond_to?(:component))
             remark_body = additional_data[:remark_body]
+            remark_or_its_comment_body = additional_data[:remark_or_its_comment_body]
+            remark_or_its_comment_link = additional_data[:remark_or_its_comment_link]
+            map_remark_body = additional_data[:map_remark_body]
+            map_remark_link = additional_data[:map_remark_link]
+            user_question_body = additional_data[:user_question_body]
+            user_question_link = additional_data[:user_question_link]
 
             Rails.logger.debug { "[TemplatedMailerJob] when CustomProposal before init TemplatedMailer.notify" } if resource.is_a?(Decidim::CustomProposals::CustomProposal)
             Rails.logger.debug { "[TemplatedMailerJob] when Information before init TemplatedMailer.notify" } if resource.is_a?(Decidim::News::Information)
@@ -142,7 +165,19 @@ module Decidim
             Rails.logger.debug { "[TemplatedMailerJob] when Map Remark before init TemplatedMailer.notify" } if resource.is_a?(Decidim::ConsultationMap::Remark)
 
             Decidim::CoreExtended::TemplatedMailer.notify(
-              action_name, receiver, { resource:, consultation:, remark_body: }
+              action_name,
+              receiver,
+              {
+                resource:,
+                consultation:,
+                remark_body:,
+                remark_or_its_comment_body:,
+                remark_or_its_comment_link:,
+                map_remark_body:,
+                map_remark_link:,
+                user_question_body:,
+                user_question_link:
+              }
             ).deliver_later
 
           when Decidim::ExpertQuestions::ExpertAnswer
@@ -208,6 +243,16 @@ module Decidim
           return [] unless process
 
           process.find_possible_followers
+
+        when "new_comment_to_meeting_for_process_admin",
+          "new_comment_to_custom_proposal_for_process_admin",
+          "new_comment_or_remark_for_process_admin",
+          "new_map_remark_for_process_admin",
+          "new_user_question_for_process_admin"
+          process = additional_data[:process]
+          return [] unless process
+
+          process.user_roles.map(&:user).select { |user| user.confirmed? && !user.blocked? }
 
         # CURRENTLY ATTACHMENT IS ONLY USED FOR PROCESS
         # THE RESOURCE.ATTACHED_TO'S RECEIVERS

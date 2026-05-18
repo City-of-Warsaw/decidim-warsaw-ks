@@ -1,0 +1,59 @@
+<div class="card card--remark_form !text-[#020203]">
+  <p class="close-icon">
+    <%= icon "close-line" %>
+  </p>
+
+  <div class="card__header mt-4 !mb-0">
+    <h4 class="h4 text-center">Dziękujemy, Twój komentarz został opublikowany!</h4>
+      <%# .editor-content class overrides Tailwind font-size due to complex nestin - that's why inline style is used %>
+      <p class="mt-4 text-center" style="font-size: 16px !important">Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?<br />
+      Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.
+      </p>
+  </div>
+
+  <div class="card__content">
+    <div class="update-remark">
+      <%= form_with(
+        url: decidim_comments.second_step_update_comment_path(comment),
+        method: :patch,
+        remote: true,
+        html: { class: "comment-form second-step-form", id: form_id },
+        data: { type: :js }
+      ) do |form| %>
+
+        <%= form.hidden_field(:token, value: token) %>
+
+        <div class="flex items-center justify-center flex-col">
+          <legend style="font-size: 16px !important">Prosimy, powiedz nam więcej o sobie — zbieramy te dane do celów statystycznych</legend>
+
+          <div class="remark-field--selects w-full flex flex-col gap-4 sm:flex-row sm:gap-0 items-center justify-center">
+            <%= form.select :gender,
+              form_object.gender_options_for_public_post,
+              { include_blank: t("select_gender", scope: 'decidim.components.add_comment_form.form'), label: false },
+              { multiple: false, id: form_id, class: "w-full" } %>
+
+            <%= form.select :age,
+              form_object.user_age_for_select,
+              { include_blank: t("select_age", scope: 'decidim.components.add_comment_form.form'), label: false },
+              { multiple: false, id: form_id, class: "w-full" } %>
+
+            <%= form.select :district_id,
+              form_object.user_districts_for_select,
+              { include_blank: t("select_district", scope: 'decidim.components.add_comment_form.form'), label: false },
+              { multiple: false, id: form_id, class: "w-full" } %>
+          </div>
+        </div>
+
+        <div class="comment__form-submit mt-4">
+          <button class="button button__sm button__secondary ml-auto" type="submit">
+            <span>
+              <%= t("decidim.components.add_comment_form.form.submit_root_comment") %>
+            </span>
+            <%= icon "chat-1-line" %>
+          </button>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

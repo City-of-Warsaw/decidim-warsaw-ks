@@ -37,12 +37,26 @@
                           </small>
                         </div>
                       </div>
-                      <div class="single-file__data">
-                        <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-                          <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
-                        <% end %>
+                      <div class="single-file__data flex items-center gap-8">
+                        <div class="flex justify-center tooltip-wrapper">
+                          <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: t("decidim.components.component.share_report") } do %>
+                            <button type="button" class="card--list__data__icon" data-dialog-open="shareReportModal-<%= file.id %>" aria-label="<%= t("decidim.components.component.share_report") %>">
+                              <%= icon "share-line", class: "w-8 h-6 text-primary fill-current", role: "img", "aria-hidden": true %>
+                            </button>
+                          <% end %>
+                        </div>
+
+                        <div class="flex justify-center tooltip-wrapper">
+                          <%= render layout: 'decidim/shared/tooltip', locals: { tooltip_content: t("decidim.components.component.download_file") } do %>
+                            <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, "aria-label": t("decidim.components.component.download_file") do %>
+                              <%= icon "download-2-line" %>
+                            <% end %>
+                          <% end %>
+                        </div>
                       </div>
-                    </div> 
+                    </div>
+
+                    <%= render "decidim/shared/share_link_modal", modal_id: "shareReportModal-#{file.id}", modal_title: t("decidim.components.component.share_report"), share_url: Rails.application.routes.url_helpers.rails_blob_url(file.file, host: current_organization.host) %>
                   <% end %> 
                 <% end %>
               </div>

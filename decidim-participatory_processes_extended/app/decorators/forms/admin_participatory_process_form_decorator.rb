@@ -21,16 +21,11 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
   attribute :recipients, String
   attribute :consultation_status, String
   attribute :locations_json, Hash, default: '{}'
-  attribute :report_description, String
-  attribute :report_publication_date, Decidim::Attributes::LocalizedDate
-  attribute :report_notification_send, Decidim::AttributeObject::TypeMap::Boolean
   attribute :tag_ids, Array
   attribute :hero_image_alt, String
   attribute :hero_image_cache, String
   attribute :users_action_allowed_for_unregister_users, Decidim::AttributeObject::TypeMap::Boolean
   attribute :selected_scope_ids, Array[Integer]
-
-  attribute :report_files_input, [String]
 
   attribute :area_map_coordinates
 
@@ -42,6 +37,8 @@ Decidim::ParticipatoryProcesses::Admin::ParticipatoryProcessForm.class_eval do
   validates :area_id, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
+  # TODO: upgrade v025! poprawic lub usunac - hero_image_or_cache - sprawdzic czy mozna jakos
+  # validate :hero_image_or_cache
   validates :users_action_allowed_for_unregister_users, inclusion: [true, false]
 
   def hero_image_or_cache

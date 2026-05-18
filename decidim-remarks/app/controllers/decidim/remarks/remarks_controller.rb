@@ -16,7 +16,8 @@ module Decidim::Remarks
                   :new_remark_form,
                   :created_remark,
                   :first_followable_remark,
-                  :user_allowed_to_add_remark?
+                  :user_allowed_to_add_remark?,
+                  :remarks_with_comments_count
 
     def index
       enforce_permission_to :read, :remark
@@ -253,11 +254,22 @@ module Decidim::Remarks
     def user_allowed_to_add_remark?(user)
       # scenario when component is closed
       return false if current_component.users_action_end_date&.past?
-      # scenario when registered user is present
-      return true if user.present?
 
+      # scenario when registered user is present
+      # return true if user.present?
+      true
       # scenario when unregistered author is present
-      current_component.participatory_space.users_action_allowed_for_unregister_users?
+      # this is checked in _new.html.erb partial
+      # current_component.participatory_space.users_action_allowed_for_unregister_users?
+    end
+
+    # Returns total count of not hidden remarks and all their not hidden comments (including nested)
+    def remarks_with_comments_count
+      return 0 if remarks.none?
+
+      count = remarks.not_hidden.count
+      count += remarks.map { |remark| remark.comments.not_hidden.count }.sum
+      count
     end
   end
 end

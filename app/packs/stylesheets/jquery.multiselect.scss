@@ -328,13 +328,28 @@
 
     .dropdown-header {
       border-bottom: 1px solid #e4e4e4;
-      padding-bottom: 18px;
+      padding-bottom: 14px;
       display: flex;
-      justify-content: flex-end;
+      gap: 4px;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      .dropdown-label {
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        display: flex;
+        flex-direction: column;
+
+        @media only screen and (min-width: 640px) {
+          flex-direction: row;
+          gap: 4px;
+        }
+      }
 
       a {
         font-size: 14px;
-        color: var(--primary);
+        color: #1b7c96;
+        text-align: right;
       }
     }
 

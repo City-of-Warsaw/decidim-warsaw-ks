@@ -219,30 +219,6 @@
 
     <ul class="summary">
       
-        <li class="private ">
-  <span class="summary_signature">
-    
-      <a href="#attributes-instance_method" title="#attributes (instance method)">#<strong>attributes</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  <span class="note title private">private</span>
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Private: Hash of main page process attributes.</p>
-</div></span>
-  
-</li>
-
-      
         <li class="public ">
   <span class="summary_signature">
     
@@ -511,52 +487,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="attributes-instance_method">
-  
-    #<strong>attributes</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Private: Hash of main page process attributes</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-47
-48
-49
-50
-51</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/commands/decidim/participatory_processes_extended/admin/publish_participatory_process_report.rb', line 47</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_attributes'>attributes</span>
-  <span class='lbrace'>{</span>
-    <span class='label'>consultation_status:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>report</span><span class='tstring_end'>&#39;</span></span>
-  <span class='rbrace'>}</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="call-instance_method">
+  <h3 class="signature first" id="call-instance_method">
   
     #<strong>call</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -632,7 +563,8 @@
 40
 41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/commands/decidim/participatory_processes_extended/admin/publish_participatory_process_report.rb', line 35</span>
@@ -643,7 +575,8 @@
     <span class='id identifier rubyid_participatory_process'>participatory_process</span><span class='comma'>,</span>
     <span class='id identifier rubyid_current_user'>current_user</span>
   <span class='rparen'>)</span> <span class='kw'>do</span>
-    <span class='id identifier rubyid_participatory_process'>participatory_process</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_attributes'>attributes</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_participatory_process'>participatory_process</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='label'>report_published:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_participatory_process'>participatory_process</span><span class='period'>.</span><span class='id identifier rubyid_set_consultation_status'>set_consultation_status</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -656,7 +589,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:36 2025 by
+  Generated on Mon May 18 15:09:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

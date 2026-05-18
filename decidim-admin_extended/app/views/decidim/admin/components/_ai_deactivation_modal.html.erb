@@ -1,0 +1,29 @@
+<%= decidim_modal id: "aiDeactivationModalComponent#{component_id}" do %>
+  <% form_with(url: disable_path, method: "patch") do %> 
+    <div data-dialog-container>
+      <%= icon "ai-slash" %>
+      <h3 class="h3">Zdeaktywuj funkcje AI</h3>
+
+      <div class="mt-4 flex flex-col gap-4">
+        <p>     
+          Czy na pewno chcesz zdeaktywować funkcje AI dla tego komponentu? Po dezaktywacji wszystkie funkcje oparte na AI przestaną działać.
+        </p>
+ 
+        <div class="flex items-center gap-2 border border-alert bg-alert/10 p-4 rounded">
+          <input type="checkbox" id="confirm-deactivation-<%= component_id %>" required value="false" />
+          <label for="confirm-deactivation-<%= component_id %>">Potwierdzam dezaktywację funkcji AI</label>
+        </div>
+      </div>
+    </div> 
+
+    <div data-dialog-actions>
+      <button type="button" class="button button__lg button__transparent-secondary" data-dialog-close="<%= "aiDeactivationModalComponent#{component_id}" %>" >
+        Anuluj
+      </button>
+
+      <button type="submit" class="button button__lg button__primary">
+        Zdeaktywuj
+      </button> 
+    </div>
+  <% end %>
+<% end %>

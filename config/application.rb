@@ -23,9 +23,12 @@ module DecidimWarszawaKs
     # Defaults from Rails 7
     config.active_storage.variable_content_types = %w(image/png image/gif image/jpeg image/tiff image/bmp image/vnd.adobe.photoshop image/vnd.microsoft.icon image/webp image/avif image/heic image/heif)
 
-    config.after_initialize do
-      if ActiveRecord::Base.connection.table_exists? 'decidim_admin_extended_banned_words'
-        Obscenity::Base.blacklist = Decidim::AdminExtended::BannedWord.pluck(:name)
+    # pomija inicjalizacje jesli baza ma byc wylaczona
+    unless ENV['DISABLE_DATABASE_ENVIRONMENT_CHECK']
+      config.after_initialize do
+        if ActiveRecord::Base.connection.table_exists? 'decidim_admin_extended_banned_words'
+          Obscenity::Base.blacklist = Decidim::AdminExtended::BannedWord.pluck(:name)
+        end
       end
     end
   end

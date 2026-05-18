@@ -51,14 +51,14 @@
             <% end %>
           </td>
           <td>
-            <% if %w(report effects).include?(current_participatory_space.consultation_status) %>
+            <% if current_participatory_space.report_published? %>
               <span>TAK</span>
             <% else %>
               NIE
             <% end %>
           </td>
           <td class="table-list__actions">
-            <% if current_participatory_space.consultation_status == 'report' %>
+            <% if current_participatory_space.report_published? %>
               <%= icon_link_to "close-line", participatory_processes_reports_list_unpublish_path(current_participatory_space), t(".unpublish"), method: :post, class: "action-icon--unpublish icon" %>
             <% else %>
               <%= icon_link_to "check-line", participatory_processes_reports_list_publish_path(current_participatory_space), t(".publish"), method: :post, class: "action-icon--publish icon" %>

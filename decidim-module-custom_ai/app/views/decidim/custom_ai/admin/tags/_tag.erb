@@ -1,0 +1,9 @@
+<tr data-id="<%= tag.id %>">
+  <td>
+    <%= tag.name %>
+  </td>
+  <td class="table-list__actions">
+      <%= icon_link_to "pencil-line", decidim_custom_ai_admin.edit_tag_path(participatory_process_slug: current_participatory_space.slug,id: tag.id), t("actions.edit", scope: "decidim.admin_extended.tags"), class: "action-icon--edit" %>
+      <%= icon_link_to "delete-bin-line", decidim_custom_ai_admin.tag_path(participatory_process_slug: current_participatory_space.slug,id: tag.id), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+  </td>
+</tr>

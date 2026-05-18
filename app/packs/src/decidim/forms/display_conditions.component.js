@@ -1,5 +1,7 @@
 /*
- * File overritten to prevent editing of conditional question inputs on questionnaire summary screen
+ * File overwritten:
+ * - to prevent editing of conditional question inputs on questionnaire summary screen
+ * - prevent disabling hidden fields for dependant questions (answer.question_id)
  */
 
 /* eslint-disable no-plusplus, require-jsdoc */
@@ -219,6 +221,8 @@ class DisplayConditionsComponent {
     }
 
     this.wrapperField.find("input, textarea").prop("disabled", "disabled");
+    // hidden fields for dependant answer.question_id should not be disabled
+    this.wrapperField.find(".dont-disabled").prop("disabled", false);
   }
 }
 

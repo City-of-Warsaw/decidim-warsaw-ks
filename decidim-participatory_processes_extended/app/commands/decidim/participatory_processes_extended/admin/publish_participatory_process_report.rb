@@ -38,16 +38,9 @@ module Decidim
             participatory_process,
             current_user
           ) do
-            participatory_process.update(attributes)
+            participatory_process.update(report_published: true)
+            participatory_process.set_consultation_status
           end
-        end
-
-        # Private: Hash of main page process attributes
-
-        def attributes
-          {
-            consultation_status: 'report'
-          }
         end
       end
     end

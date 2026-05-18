@@ -36,14 +36,14 @@ Decidim::System::CreateOrganization.class_eval do
 
     Decidim::ScopeType.create(
       organization: @organization,
-      name: { "pl": 'Dzielnicowy' },
-      plural: { "pl": 'Dzielnicowy' }
+      name: { "pl": 'dzielnicowy' },
+      plural: { "pl": 'dzielnicowe' }
     )
 
     scope_type = Decidim::ScopeType.create(
       organization: @organization,
-      name: { "pl": 'Ogólnomiejski' },
-      plural: { "pl": 'Ogólnomiejskie' }
+      name: { "pl": 'ogólnomiejski' },
+      plural: { "pl": 'ogólnomiejskie' }
     )
 
 

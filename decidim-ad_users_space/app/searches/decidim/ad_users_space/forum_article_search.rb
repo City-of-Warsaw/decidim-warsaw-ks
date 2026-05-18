@@ -3,6 +3,7 @@
 module Decidim
   module AdUsersSpace
     # Service that encapsulates all logic related to filtering participatory processes.
+    # TODO: upgrade v025! poprawic lub usunac zaleznosc Searchlight
     class ForumArticleSearch
     # class ForumArticleSearch < Searchlight::Search
 

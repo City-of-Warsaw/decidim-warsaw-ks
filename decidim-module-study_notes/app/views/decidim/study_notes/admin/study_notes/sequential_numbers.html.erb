@@ -12,10 +12,31 @@
       <div class="form__wrapper">
         <div class="card pt-4">
           <div class="card-section">
-            <div class="row column">
+            <label>
+              Podaj zakres ID Decidim, dla których ma byc nadany numer wewnetrzny
+            </label>
+            <div class="grid grid-cols-2 gap-2 sequential-numbers-inputs">
+              <div class="row column sequential-number-from">
+                <%= f.number_field :id_from, min: 1, max: 9_999_999 %>
+              </div>
 
-              <%= f.number_field :sequential_number,min: 0,max: 9999999, help_text: "Nadawanie numeracji rozpocznie się chronologicznie od pierwszej dodanej uwagi." %>
+              <div class="row column sequential-number-to">
+                <%= f.number_field :id_to, min: 1, max: 9_999_999 %>
+              </div>
             </div>
+
+            <div class="row column">
+              <%= f.number_field :sequential_number,
+                                 min: 0,
+                                 max: 9_999_999,
+                                 help_text: "Nadawanie numeracji rozpocznie się chronologicznie od pierwszej dodanej uwagi." %>
+            </div>
+
+            <% if @form.errors.any? %>
+              <div class="row column">
+                <%= f.check_box :force_override %>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

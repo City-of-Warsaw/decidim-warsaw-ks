@@ -7,8 +7,8 @@
         <%= render :header %>
 
         <div class="card__text mb-4">
-          <div class="card__text--paragraph  editor-content editor-content--remark"> 
-            <%= description %> 
+          <div class="card__text--paragraph  editor-content editor-content--remark">
+            <%= description %>
           </div>
         </div>
 
@@ -16,7 +16,7 @@
           <% if file.variable? %>
             <div class="single-image">
               <%= link_to Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "900x900").processed, only_path: true), name: "link", class: 'swipebox', rel: dom_id(model) do %>
-                <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), class: 'thumbnail') %>
+                <%= image_tag(Rails.application.routes.url_helpers.rails_representation_path(file.variant(resize: "200x200^").processed, only_path: true), class: 'thumbnail', alt: file.filename.to_s) %>
                 <%= image_pack_tag "media/images/zoom-icon.svg", alt: '', class: 'zoom-icon' %>
               <% end %>
             </div>
@@ -38,7 +38,7 @@
               </div>
               <div class="single-file__data">
                 <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-                  <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+                  <%= icon "download-2-line" %>
                 <% end %>
               </div>
             </div>
@@ -46,20 +46,27 @@
         <% end %>
       </div>
 
-      <div class="remarks__footer-grid">
-        <div class="<%= "mt-4" if !model.component.users_action_disallowed? && model.user_allowed_to_comment?(current_user) %> absolute right-4">
+      <div class="remarks__footer-grid<%= " min-h-4" unless model.can_participate?(current_user) %>">
+        <div class="absolute right-4">
           <%= render :votes %>
-        </div>
-        <div class="w-full">
-          <%= comments_for model %>
         </div>
       </div>
     <% end %>
+
+    <div class="remarks__footer-grid">
+      <div class="w-full">
+        <%= comments_for model %>
+      </div>
+    </div>
   </div>
 </div>
 
 <% if current_user.present? %>
   <%= cell("decidim/report_button", model, modal_id: "flagModalRemark#{model.id}").flag_modal %>
+<% end %>
+
+<% if frontend_administrable? %>
+  <%= cell("decidim/hide_button", model, modal_id: "flagHideModalComment#{model.id}").flag_modal %>
 <% end %>
 
 <%= append_javascript_pack_tag "comments" %>

@@ -44,12 +44,11 @@ pl:
             errors: 'Popraw błędy w formularzu'
     notifications_settings:
       show:
-        notifications_from_neighbourhood: Chcę otrzymywać e-maile, kiedy rozpoczną się konsultacje z obszaru moich zainteresowań
         administrators: Administratorzy
         allow_public_contact: Każdy może wysłać mi prywatną wiadomość, nawet jeśli go nie obserwuję
         direct_messages: Przyjmuj prywatne wiadomości od każdego
         email_on_moderations: Chcę otrzymywać e-mail za każdym razem, gdy coś jest zgłaszane do moderacji
-        email_on_notification: Powiadamiaj mnie o reakacjach na moje wpisy/komentarze
+        email_on_notification: Powiadamiaj mnie o reakcjach na moje wpisy/komentarze
         everything_followed: Dotyczące konsultacji i innych wpisów, które obserwuję
         newsletter_notifications: Chcę otrzymywać newsletter
         newsletters: Newslettery

@@ -18,8 +18,9 @@ module Decidim
         return broadcast(:invalid) if form.invalid?
 
         study_note = create_study_note
-        # register_to_signum(study_note) unless Rails.env.development?
         send_notification(study_note)
+        register_to_signum(study_note) unless Rails.env.development?
+
         broadcast(:ok, study_note)
       end
 
@@ -156,8 +157,9 @@ module Decidim
       end
 
       # Rejestruje pismo korzystajac ze stalego urz_id
+      # dla uzytkownikow zewnetrznych nie jest ustawiany user
       def register_to_signum(study_note)
-        Decidim::SignumService.new.register_study_note_to_signum(study_note:, user: current_user)
+        Decidim::StudyNote::RegisterToSignumJob.perform_later(study_note, nil)
       end
 
       def send_notification(study_note)
@@ -171,7 +173,8 @@ module Decidim
             resource: study_note
           }
         )
-    end
+        study_note.mark_submitter_confirmation_send
+      end
     end
   end
 end

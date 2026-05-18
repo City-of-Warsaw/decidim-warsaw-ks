@@ -91,7 +91,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd>Decidim::Admin::Concerns::HasTabbedMenu, Decidim::Admin::Officializations::Filterable</dd>
+      <dd>Decidim::Admin::Concerns::HasTabbedMenu</dd>
   </dl>
   
   
@@ -336,7 +336,6 @@
 
   
   
-  
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
@@ -521,17 +520,19 @@
       <pre class="lines">
 
 
+12
 13
 14
 15
 16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/info_articles_controller.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'decidim-ad_users_space/app/controllers/decidim/ad_users_space/admin/info_articles_controller.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:update</span><span class='comma'>,</span> <span class='symbol'>:organization</span>
-  <span class='ivar'>@info_articles</span> <span class='op'>=</span> <span class='id identifier rubyid_filtered_collection'>filtered_collection</span>
+  <span class='ivar'>@article_categories</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../../AdUsersSpace.html" title="Decidim::AdUsersSpace (module)">AdUsersSpace</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../ArticleCategory.html" title="Decidim::AdUsersSpace::ArticleCategory (class)">ArticleCategory</a></span></span><span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span>
+  <span class='ivar'>@orphan_articles</span> <span class='op'>=</span> <span class='id identifier rubyid_collection'>collection</span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>article_category_id:</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -687,7 +688,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:36 2025 by
+  Generated on Mon May 18 15:09:13 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

@@ -4,12 +4,9 @@ module Decidim
   module GeneralPlanRequests
     class GeneralPlanRequestSerializer < Decidim::Exporters::Serializer
       include Decidim::GeneralPlanRequests::GeneralPlanRequestHelper
+      include Decidim::CoreExtended::SerializerExportHelper
 
       def initialize; end
-
-      def headers
-        columns_order.map { |column| columns_definition[column][:name] }
-      end
 
       # Public: Get the order of columns for serializing a general plan request.
       # Returns an Array of symbols representing the column order.
@@ -211,23 +208,6 @@ module Decidim
         }
       end
 
-      def columns_widths
-        columns_order.map { |column| column_width(columns_definition[column][:size]) }
-      end
-
-      def wrap_text_columns
-        columns_order.map { |column| columns_definition[column][:wrap_text] ? true : false }
-      end
-
-      def url_columns
-        @url_columns ||= columns_order.select { |column| columns_definition[column][:hyperlink] == true }
-      end
-
-      def column_alignment(column)
-        columns_definition[column][:alignment]
-      end
-
-
       # Public: Serializes an array of general plan requests into an array of serialized hashes,
       #
       # @param gpr [Array] An array of general plan request objects to serialize.
@@ -396,15 +376,6 @@ module Decidim
           confirm_read_process_description: confirm_read_process_description?(gpr),
           confirm_process_personal_data: confirm_process_personal_data?(gpr)
         }
-      end
-
-      # Returns an array of values from the given attributes hash,
-      # in the order specified by the columns_order method.
-      #
-      # @param attrs [Hash] The general_plan_request attributes hash
-      # @return [Array] serialized array from general_plan_request attrs
-      def ordered_values(attrs)
-        columns_order.map { |column| attrs[column] }
       end
 
       private

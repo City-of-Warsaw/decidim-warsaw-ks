@@ -51,6 +51,7 @@ pl:
           select_category: Kategoria
           wcag_category_label: "<span class='show-for-sr'>Kategoria</span>"
           search_map_for_address: Wpisz adres, by przybliżyć mapę
+          skip_to_remarks: Przejdź do uwag
         filters_small_view:
           close_modal: Zamknij okno
           filter: Filtr
@@ -72,7 +73,7 @@ pl:
           tos_agreement: "Publikując treść, akceptujesz <strong>%{link}</strong>."
           terms: regulamin
           title: Dodaj uwagę
-          anonymous_user_message: <a href="%{sign_in_link}">Zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>, żeby dodać uwagę
+          anonymous_user_message: <a href="%{sign_in_link}" class="link">Zaloguj się</a> lub <a href="%{sign_up_link}" class="link">zarejestruj</a>, żeby dodać uwagę
         create:
           header: Dziękujemy za dodanie komentarza!
           invalid: Podczas dodawania uwagi wystąpił błąd
@@ -81,6 +82,7 @@ pl:
           new_remark: Dodaj uwagę
           remarks_count: Liczba uwag na mapie %{count}
           help: Pomoc
+          fullscreen: Pełny ekran
           add_marker: Dodaj
           cancel_marker: Anuluj
           tooltip_content: Obserwuj, żeby dostać e-mail, gdy ktoś doda nową uwagę.
@@ -162,6 +164,20 @@ pl:
       remark_l:
         edited: (Edytowany)
         edit: Edytuj
+      export:
+        remark:
+          lp: Lp
+          body: Treść
+          comments_count: Liczba komentarzy
+          signature: Podpis
+          email: E-mail
+          district: Dzielnica
+          age: Wiek
+          gender: Płeć
+          created_at: Data dodania komentarza
+          file_url: URL załącznika
+          resource_url: Link do uwagi
+          address: Lokalizacja pinezki
     components:
       consultation_map:
         settings:

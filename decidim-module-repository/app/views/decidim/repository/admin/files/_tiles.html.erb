@@ -30,11 +30,13 @@
 
       if (type === 'image') {
         var alt = this.getAttribute("data-alt");
+        var description = this.getAttribute("data-description");
 
         window.parent.postMessage({
           type: 'image',
           url: url,
-          alt: alt
+          alt: alt,
+          description: description
         },
         '*');
 

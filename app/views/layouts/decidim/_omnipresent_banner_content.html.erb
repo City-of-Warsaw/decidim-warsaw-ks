@@ -1,0 +1,13 @@
+<span class="omnipresent-banner-title">
+  <%= translated_attribute current_organization.omnipresent_banner_title %>
+</span>
+
+<% if translated_attribute(current_organization.omnipresent_banner_short_description).present? %>
+  -
+  <span class="omnipresent-banner-short-description">
+    <%= translated_attribute current_organization.omnipresent_banner_short_description %>
+  </span>
+  <% if current_organization.omnipresent_banner_url.present? %>
+    <%= icon "play-fill" %>
+  <% end %>
+<% end %>

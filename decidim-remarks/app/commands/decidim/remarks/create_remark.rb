@@ -4,11 +4,16 @@ module Decidim
   module Remarks
     # This class holds logic for creating Remarks
     class CreateRemark < Decidim::Command
-      include Decidim::CoreExtended::RegisteredUserHelper
-      # Initializes a CreateUserQuestion Command.
+      include Decidim::ResourceHelper
+      include Decidim::CoreExtended::AuthorParamsBuilder
+      include Decidim::CoreExtended::GenerateTokenHelper
+
+      # Initializes a CreateRemark Command.
       #
-      # form - The form from which to get the data.
-      # current_user - The current instance of the remark to be updated.
+      # form - A form object with the params.
+      # current_organization - A current organization object
+      # component - A current component object
+      # author - registered user or not registered
       def initialize(form, author)
         @form = form
         @current_organization = form.current_organization
@@ -16,7 +21,7 @@ module Decidim
         @author = author || unregistered_author
       end
 
-      # Updates the remark if valid.
+      # Creates the remark if valid.
       #
       # Broadcasts :ok if successful, :invalid otherwise.
       def call
@@ -24,6 +29,7 @@ module Decidim
 
         create_remark
         notify_followers_about_new_remark
+        notify_process_admins
         broadcast(:ok, @remark)
       end
 
@@ -37,29 +43,19 @@ module Decidim
           visibility: "public-only"
         )
 
-        @remark.update(second_step_params) unless @author == unregistered_author
+        @remark.update(author_second_step_params)
       end
 
       def remark_attributes
         {
           body: @form.body,
+          signature: signature_or_editorial,
           author: @author,
           component: @component,
-          signature: @form.signature,
           token: generate_token
         }.tap do |attr|
           attr[:files] = @form.files if @form.files.present?
         end
-      end
-
-      # Private method
-      # returns special object that serves as Author for remarks created by unregistered users
-      def unregistered_author
-        @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
-      end
-
-      def generate_token
-        @author.is_a?(Decidim::CoreExtended::UnregisteredAuthor) ? SecureRandom.hex(rand(59)) : nil
       end
 
       # use first remark of that component as resource
@@ -73,6 +69,22 @@ module Decidim
         return unless system_remark
 
         Decidim::CoreExtended::TemplatedMailerJob.perform_later('new_remark', { resource: system_remark, remark_body: @remark.body })
+      end
+
+      def extract_participatory_process(resource)
+        return resource.participatory_space if resource.respond_to?(:participatory_space)
+
+        resource.component.participatory_space if resource.respond_to?(:component)
+      end
+
+      def notify_process_admins
+        Decidim::CoreExtended::TemplatedMailerJob.perform_later(
+          "new_comment_or_remark_for_process_admin",
+          resource: @remark,
+          process: extract_participatory_process(@remark),
+          remark_or_its_comment_body: @remark.body,
+          remark_or_its_comment_link: resource_locator(@remark).url
+        )
       end
     end
   end

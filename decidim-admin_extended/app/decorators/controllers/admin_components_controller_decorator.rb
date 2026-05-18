@@ -5,6 +5,30 @@ module Decidim
     ComponentsController.class_eval do
       helper_method :with_survey_export?, :survey_export_path
 
+      def enable_ai
+        @component = query_scope.find(params[:component_id])
+        enforce_permission_to :manage_ai_functions, :component, component: @component
+
+        Decidim::AdminExtended::EnableAiInComponent.call(@component, current_user) do
+          on(:ok) do
+            flash[:notice] = I18n.t("components.ai_enabled.success", scope: "decidim.admin")
+            redirect_to action: :index
+          end
+        end
+      end
+
+      def disable_ai
+        @component = query_scope.find(params[:component_id])
+        enforce_permission_to :manage_ai_functions, :component, component: @component
+
+        Decidim::AdminExtended::DisableAiInComponent.call(@component, current_user) do
+          on(:ok) do
+            flash[:notice] = I18n.t("components.ai_disabled.success", scope: "decidim.admin")
+            redirect_to action: :index
+          end
+        end
+      end
+
       private
 
       # Determines if a component has a survey with exported answers.

@@ -79,6 +79,9 @@ pl:
             create: Utwórz
             title: Nowa kategoria
         info_articles:
+          article_category:
+            without_category: Artykuł bez kategorii
+            empty: Nie ma artykułów w tym temacie
           form:
             select_category: Wybierz kategorię
           edit:

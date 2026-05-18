@@ -15,6 +15,7 @@ module Decidim
       include Decidim::Followable
       include Decidim::Resourceable
       include Decidim::Publicable
+      include Decidim::CoreExtended::AuthorParamsBuilder
 
       component_manifest_name "remarks"
 
@@ -85,34 +86,6 @@ module Decidim
         token == remark_token
       end
 
-      def author_age
-        author_age_range
-      end
-
-      def author_district
-        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
-          district&.name
-        else
-          author.district&.name
-        end
-      end
-
-      def author_email
-        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
-          email
-        else
-          author&.email
-        end
-      end
-
-      def author_gender
-        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
-          gender.present? ? I18n.t("gender.public_post.#{gender}", scope: "decidim.users") : nil
-        else
-          author.gender.present? ? I18n.t("gender.public_post.#{author.gender}", scope: "decidim.users") : nil
-        end
-      end
-
       def author_signature
         if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
           signature.presence || I18n.t('decidim.comments_extended.models.comment.fields.unregistered_author')
@@ -137,22 +110,7 @@ module Decidim
 
       # Public: Overrides the `reported_attributes` Reportable concern method.
       def reported_attributes
-        [:body, :signature]
-      end
-
-      # Public: Overrides the `reported_searchable_content_extras` Reportable concern method.
-      def reported_searchable_content_extras
-        [normalized_author.name]
-      end
-
-      # Na warsztatach ustaliliśmy przedziały wiekowe oraz to, że mieszkaniec zalogowany powinien podawać
-      # w swoim koncie rok urodzenia - ale prezentować miał się ten wiek w przedziałach.
-      def author_age_range
-        if author.is_a?(Decidim::CoreExtended::UnregisteredAuthor)
-          age.present? ? I18n.t("age.#{age}", scope: "decidim.comments") : nil
-        else
-          author.age_range.present? ? I18n.t("age.#{author.age_range}", scope: "decidim.comments") : nil
-        end
+        [:body]
       end
 
       def title
@@ -176,15 +134,21 @@ module Decidim
         Decidim.find_participatory_space_manifest(Decidim::ParticipatoryProcess.name.demodulize.underscore.pluralize)
       end
 
-      # overwritten method
-      # remark's component settings be set in admin panel, to disallow to comment:
-      # - if time set in the remark's component settings of the users_action_end_date field has passed
-      # - participatory_space setting field: users_action_allowed_for_unregister_users
-      def user_allowed_to_comment?(user)
+      # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+      # add visible?
+      # add published?
+      # add component.users_action_end_date&.past?
+      def accepts_new_comments?
         return false unless visible?
         return false unless published?
-        # scenario when component is closed
         return false if component.users_action_end_date&.past?
+
+        commentable? && !component.current_settings.comments_blocked
+      end
+
+      # allow to scenario where unregister users can comment
+      def can_participate?(user)
+        return false unless accepts_new_comments?
         # scenario when registered user is present
         return true if user.present?
 

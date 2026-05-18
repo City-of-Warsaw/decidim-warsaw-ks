@@ -112,8 +112,7 @@ html.swipebox-html.swipebox-no-touch {
   background: url("images/swipebox/swipebox-loader.gif") no-repeat center center;
 }
 
-#swipebox-bottom-bar,
-#swipebox-top-bar {
+#swipebox-bottom-bar {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   position: absolute;
@@ -125,15 +124,6 @@ html.swipebox-html.swipebox-no-touch {
 
 #swipebox-bottom-bar {
   bottom: 50%;
-}
-
-#swipebox-top-bar {
-  top: -50px;
-}
-
-#swipebox-top-bar.visible-bars {
-  -webkit-transform: translate3d(0, 50px, 0);
-  transform: translate3d(0, 50px, 0);
 }
 
 #swipebox-title {
@@ -174,10 +164,10 @@ html.swipebox-html.swipebox-no-touch {
 }
 
 #swipebox-close {
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 5px;
   position: absolute;
-  z-index: 9999;
+  z-index: 10000;
   background-position: 15px 12px;
 }
 
@@ -307,15 +297,51 @@ html.swipebox-html.swipebox-no-touch {
   background: rgba($color: #000000, $alpha: 0.4);
 }
 
-#swipebox-bottom-bar,
-#swipebox-top-bar {
-  text-shadow: 1px 1px 1px black;
-  opacity: 0.95;
-}
-
 #swipebox-top-bar {
   color: white !important;
-  font-size: 15px;
-  line-height: 43px;
+  bottom: 20px;
+  top: unset;
+  text-shadow: unset;
+  background: rgba(0, 0, 0, 0.8);
+  line-height: 1;
+  height: auto;
+  width: auto;
+  padding: 12px 20px;
+  border-radius: 8px;
+  left: 50%;
+  line-height: 120%;
+  transform: translateX(-50%);
   font-family: Helvetica, Arial, sans-serif;
+  position: absolute;
+  z-index: 999;
+  max-width: min(90%, 560px);
+  width: max-content;
+}
+
+.swipebox[data-description]::after {
+  content: attr(data-description);
+  font-size: 15px;
+  line-height: 1.25;
+  text-align: left;
+  width: 100%;
+  display: block;
+  margin-top: -40px;
+  color: #374151;
+  font-family: Source Sans Pro, ui-sans-serif, system-ui, sans-serif;
+}
+
+.swipebox[data-description] {
+  text-decoration: unset;
+}
+
+.swipebox[data-description] img {
+  margin-bottom: 3rem;
+}
+
+#swipebox-title {
+  font-family: Source Sans Pro, ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: left;
 }

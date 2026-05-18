@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <%= decidim_sanitize_newsletter cell.to_s %> 
+    <%= decidim_sanitize_newsletter cell.to_s %>  
 
     <table class="body <%= "gray-bg" unless cell.model.manifest_name == "basic_only_text" %>">
       <tr>
@@ -23,7 +23,7 @@
                 <td>
                   <table class="row">
                     <th class="expander"></th>
-                    <th class="small-12 first last columns" style="text-align: left;">
+                    <th class="small-12 first last columns">
                       <center>
                         <% if cell.model.settings.respond_to?(:footer) && cell.model.settings.footer.present? %>
                           <%= raw cell.footer %>
@@ -39,6 +39,13 @@
                               <%== t ".unsubscribe", link: decidim.unsubscribe_newsletters_url(host: @organization.host, u: @encrypted_token ) %>
                             <% end %>
                           <% end %>
+                        <% end %>
+
+                        <% content_for :see_on_website do %>
+                          <center style="display: none">
+                            <%== CGI.unescapeHTML truncate(cell.body, max_length: 50) %>
+                          </center>
+                          <%== t ".see_on_website", link: @newsletter.url %>
                         <% end %>
                       </center>
                     </th>

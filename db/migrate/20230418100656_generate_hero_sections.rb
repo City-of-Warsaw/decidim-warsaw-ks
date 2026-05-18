@@ -2,7 +2,7 @@ class GenerateHeroSections < ActiveRecord::Migration[5.2]
   def change
     unless Decidim::AdminExtended::HeroSection.find_by(system_name: 'news')
       Decidim::AdminExtended::HeroSection.create(
-        title: 'Aktualności',
+        title: 'Informacje',
         subtitle: 'Podtytuł ogólny Konsultacji Społecznych',
         banner_img_alt: 'Baner strony głównej reprezentujący Konsultacje Społeczne',
         system_name: 'news'

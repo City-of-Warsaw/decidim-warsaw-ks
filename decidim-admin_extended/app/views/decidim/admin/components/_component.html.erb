@@ -55,6 +55,16 @@
       <% else %>
         <span class="action-space icon"></span>
       <% end %>
+      <% if allowed_to? :manage_ai_functions, :component, component: component %>
+        <% if component.ai_enabled? %>
+          <%= icon_link_to "ai-slash", "#aiDeactivationModalComponent#{component.id}", t("actions.disable_ai", scope: "decidim.admin"), class: "action-icon--disable_ai", data: { "dialog-open": "aiDeactivationModalComponent#{component.id}" }%>
+
+          <%= render partial: "decidim/admin/components/ai_deactivation_modal", locals: { component_id: component.id, disable_path: disable_ai_component_path(component_id: component) } %>
+          <%= icon_link_to "arrow-right-line", decidim_custom_ai_admin.answers_path(component_id: component.id), "Przeglądanie uwag" %>
+        <% else %>
+          <%= icon_link_to "ai", enable_ai_component_path(component_id: component), t("actions.enable_ai", scope: "decidim.admin"), class: "action-icon--enable_ai", method: :patch %>
+        <% end %>
+      <% end %>
     </td>
   </tr>
 <% end %>

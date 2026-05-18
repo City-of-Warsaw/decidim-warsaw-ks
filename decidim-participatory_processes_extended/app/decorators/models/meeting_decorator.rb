@@ -133,13 +133,24 @@ Decidim::Meetings::Meeting.class_eval do
     latitude.present? && longitude.present? && !latitude&.nan? && !longitude&.nan?
   end
 
-  # overwritten method
-  # - used decidim particular meetings method
-  # - participatory_space setting field: users_action_allowed_for_unregister_users
-  def user_allowed_to_comment?(user)
+  # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+  # add visible?
+  # add published?
+  # add component.users_action_end_date&.past?
+  def accepts_new_comments?
     return false unless visible?
     return false unless published?
-    return false unless accepts_new_comments?
+    return false if component.users_action_end_date&.past?
+
+    commentable? && !component.current_settings.comments_blocked && comments_allowed?
+  end
+
+  # overwritten decidim meeting method
+  # allow to scenario where unregister users can comment
+  # remove meeting method can_participate_in_space
+  # remove meeting method can_participate_in_meeting
+  # add our method participatory_space setting field: users_action_allowed_for_unregister_users
+  def can_participate?(user)
     # scenario when registered user is present
     return true if user.present?
 

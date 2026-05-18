@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             hiddenField.setAttribute("dz-added-file", file.upload.uuid);
             hiddenField.name = "attachments[files][]";
 
-            document.querySelector(".edit_attachment").appendChild(hiddenField);  
+            file.previewElement.appendChild(hiddenField);  
           }
 
           $(submitButton).removeAttr("disabled");

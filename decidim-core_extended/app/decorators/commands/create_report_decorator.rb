@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 Decidim::CreateReport.class_eval do
+  # overwritten method
+  # add context to tool
+  def initialize(form, reportable)
+    @form = form
+    @reportable = reportable
+    @tool = Decidim::ModerationTools.new(reportable, current_user, context: { details: form.details })
+  end
+
   private
 
   # overwritten method

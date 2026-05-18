@@ -4,19 +4,19 @@
 
     <div class="flex items-center justify-center flex-col">
       <legend><%= t('.statistics_legend') %></legend>
-      <div class="remark-field--selects w-full flex items-center justify-center">
+      <div class="remark-field--selects w-full flex flex-col gap-4 sm:flex-row sm:gap-0 items-center justify-center">
         <%= form.select :gender,
                         form_object.gender_options_for_public_post,
                         { include_blank: t("select_gender", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                        { multiple: false } %>
+                        { multiple: false, class: "w-full sm:w-auto" } %>
         <%= form.select :age,
                         form_object.user_age_for_select,
                         { include_blank: t("select_age", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                        { multiple: false } %>
+                        { multiple: false, class: "w-full sm:w-auto" } %>
         <%= form.select :district_id,
                         form_object.user_districts_for_select,
                         { include_blank: t("select_district", scope: 'decidim.expert_questions.user_questions.form'), label: false },
-                        { multiple: false } %>
+                        { multiple: false, class: "w-full sm:w-auto" } %>
       </div>
     </div>
 

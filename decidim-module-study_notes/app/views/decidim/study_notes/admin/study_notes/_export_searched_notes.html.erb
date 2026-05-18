@@ -23,11 +23,15 @@
     </li>
     <li class="exports--format--xlsx exports--xlsx">
       <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_anonymized_with_attachments"),
-                  export_zip_study_notes_path(q: params[:q], normalized: true, with_attachments: true) %>
+                  export_zip_study_notes_path(q: params[:q], anonymized: true, with_attachments: true) %>
     </li>
     <li class="exports--format--xlsx exports--xlsx">
       <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized"),
                   export_zip_study_notes_path(q: params[:q], normalized: true) %>
+    </li>
+    <li class="exports--format--xlsx exports--xlsx">
+      <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized_with_attachments"),
+                  export_zip_study_notes_path(q: params[:q], normalized: true, with_attachments: true) %>
     </li>
     <li class="exports--format--xlsx exports--xlsx">
       <%= link_to t("decidim.study_notes.admin.study_notes.index.zip_normalized_anonymized"),

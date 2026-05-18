@@ -14,7 +14,13 @@
             <ul class="dropdown dropdown__bottom divide-y divide-gray-3 px-4">
               <li>
                 <%= cell("decidim/report_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse", modal_id: "flagModalRemark#{model.id}") %>
-              </li>  
+              </li>
+
+              <% if frontend_administrable? %>
+                <li>
+                  <%= cell("decidim/hide_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse", modal_id: "flagHideModalComment#{model.id}") %>
+                </li>
+              <% end %>
 
               <li>
                 <%= link_to "#{remarks_path}?remarkId=#{model.id}", target: "_blank", data: { "external-link": "text-only" }, class: "dropdown__item", title: t("decidim.components.comment.single_comment_link_title") do %>
@@ -86,7 +92,7 @@
           </div>
           <div class="single-file__data">
             <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-              <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+              <%= icon "download-2-line" %>
             <% end %>
           </div>
         </div>
@@ -99,6 +105,10 @@
 
 <% if current_user.present? %>
   <%= cell("decidim/report_button", model, modal_id: "flagModalRemark#{model.id}").flag_modal %>
+<% end %>
+
+<% if frontend_administrable? %>
+  <%= cell("decidim/hide_button", model, modal_id: "flagHideModalComment#{model.id}").flag_modal %>
 <% end %>
 
 <div class="remark-box__category" style="background-color: <%= model.category&.color %>;">

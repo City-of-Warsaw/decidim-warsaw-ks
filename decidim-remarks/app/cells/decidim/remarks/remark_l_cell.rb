@@ -15,6 +15,12 @@ module Decidim
         render :show
       end
 
+      def frontend_administrable?
+        user_entity? &&
+          model.can_be_administered_by?(current_user) &&
+          (model.respond_to?(:official?) && !model.official?)
+      end
+
       # Public method to pair remark with comment element
       def node_id
         "comments-for-Remark-#{model.id}-response"
@@ -32,6 +38,7 @@ module Decidim
         model.author.is_a?(Decidim::User) && model.author.has_ad_role?
       end
 
+      # TODO: needs refactoring
       # helpers loose component_id
       def edit_link
         "/processes/#{model.participatory_space.slug}/f/#{model.component.id}/remarks/#{model.id}/edit"
@@ -103,6 +110,11 @@ module Decidim
         return button_to(path, params, &) unless current_component
 
         action_authorized_button_to(:vote_remark, path, params, &)
+      end
+
+      def user_entity?
+        (model.respond_to?(:creator_author) && model.creator_author.respond_to?(:nickname)) ||
+          (model.respond_to?(:author) && model.author.respond_to?(:nickname))
       end
     end
   end

@@ -87,7 +87,7 @@
 
     $remarks.html('<%= j(render partial: "remarks").strip.html_safe %>');
     initReplyPanels();
-    $remarksCount.html('<%= t("decidim.remarks.remarks.index.remarks_count", count: remarks.count).html_safe %>');
+    $remarksCount.html('<%= t("decidim.remarks.remarks.index.remarks_count", count: remarks_with_comments_count).html_safe %>');
 
     $('#remarks .comment-field--body textarea').each(function () {
         $(this).data("remaining-characters-counter", new Decidim.InputCharacterCounter($(this)));

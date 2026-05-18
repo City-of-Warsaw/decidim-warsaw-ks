@@ -33,6 +33,16 @@
       <div class="row column">
         <%= form.number_field :y_longitude %>
       </div>
+
+      <div class="row column">
+        <%= form.check_box :visible_on_load %>
+      </div>
+
+      <div class="row column">
+        <%= form.select :min_zoom_level,
+                        options_for_select((10..19).map { |i| [i.zero? ? "brak" : i, i] }, form.object.min_zoom_level),
+                        {} %>
+      </div>
     </div>
   </div>
 </div>

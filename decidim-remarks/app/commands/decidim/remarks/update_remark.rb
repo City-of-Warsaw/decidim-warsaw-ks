@@ -13,10 +13,16 @@ module Decidim
     # - gender
     # In both cases Boolean field 'edited' is marked as true
     class UpdateRemark < Decidim::Command
+      include Decidim::CoreExtended::AuthorParamsBuilder
+      include Decidim::CoreExtended::GenerateTokenHelper
+
       # Initializes a UpdateRemark Command.
       #
-      # form - The form from which to get the data.
-      # current_user - The current instance of the remark to be updated.
+      # form - A form object with the params.
+      # remark - A remark object with the params.
+      # current_organization - A current organization object
+      # component - A current component object
+      # author - registered user or not registered
       def initialize(form, remark, author)
         @form = form
         @remark = remark
@@ -40,31 +46,17 @@ module Decidim
       attr_reader :form, :remark, :author
 
       def update_remark
-        remark.update(base_attributes)
+        remark.update(attributes)
+        remark.update(author_second_step_params)
       end
 
-      def base_attributes
-        attrs = {
+      def attributes
+        {
           body: form.body,
           edited: true,
-          files: merged_files
+          files: merged_files,
+          signature: signature_or_editorial
         }
-        unless author.is_a?(Decidim::User)
-          # for unregistered author
-          attrs.merge!(
-            signature: form.signature,
-            district_id: form.district_id,
-            age: form.age,
-            gender: form.gender
-          )
-        end
-        attrs
-      end
-
-      # Private method
-      # returns special object that serves as Author for remarks created by unregistered users
-      def unregistered_author
-        @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
       end
 
       # Private method

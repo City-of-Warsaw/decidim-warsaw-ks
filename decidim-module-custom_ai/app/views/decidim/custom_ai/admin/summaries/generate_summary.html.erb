@@ -1,0 +1,87 @@
+<% add_decidim_page_title(t(".title", name: t("#{current_component.manifest.name}.name", scope: "decidim.components"))) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t(".title", name: t("#{current_component.manifest.name}.name", scope: "decidim.components")) %>
+
+    <%= render partial: "decidim/custom_ai/admin/custom_ai/ai_functions_dropdown" %>
+  </h1>
+</div>
+
+<div class="item__edit item__edit-1col">
+  <div class="item__edit-form flex flex-col gap-4">
+    <div class="card">
+      <div class="card-section form form-defaults">
+        <div class="form__wrapper">
+          <div class="card pt-4">
+            <div class="row column"> 
+              <textarea
+                type="text" 
+                placeholder="Wpisz instrukcję do wygenerowania podsumowania..."
+                id="summary-input"
+                class="!h-auto"
+                rows="3"></textarea>
+
+              <button
+                type="button"
+                class="button button__sm button__primary shrink-0 whitespace-nowrap h-10 generate-with-ai-js">
+                <%= icon "sparkling-2-fill", class: "icon-idle-js" %>
+                <%= icon "loader-4-line", class: "animate-spin hidden icon-loading-js" %>
+                Wygeneruj
+              </button> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-section form form-defaults">
+        <div class="form__wrapper">
+          <div class="card pt-4">
+            <div class="row column"> 
+              <label for="summary-output">
+                Wygenerowane podsumowanie
+              </label>
+              
+              <textarea
+                id="summary-output"
+                rows="28"
+                class="w-full"
+                disabled
+              ></textarea>  
+              
+              <button
+                type="button"
+                class="button button__sm button__transparent-secondary copy-output-js mt-1" 
+                disabled
+              >
+                <%= icon "file-copy-line", class: "icon-idle-js" %>
+                <%= icon "check-line", class: "hidden icon-success-js" %>
+
+                Skopiuj do schowka
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item__edit-sticky">
+      <div class="item__edit-sticky-container">
+      </div>
+    </div>
+  </div>
+</div>
+
+<%
+  js_configs = {
+    processAiEndpoint: "/admin/participatory_processes/#{current_participatory_space.slug}/components/#{current_component.id}/ai_api",
+    componentId: current_component.id
+  }
+%>
+
+<%= nonced_javascript_tag do %>
+  window.Decidim.config.set(<%== js_configs.to_json %>);
+<% end %>
+
+<%= append_javascript_pack_tag "ai_summary" %>

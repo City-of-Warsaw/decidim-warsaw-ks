@@ -2,11 +2,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const master = document.querySelector(".js-check-all");
   const checkboxes = document.querySelectorAll(".js-study-note-checkbox");
   const exportDropdownBtn = document.querySelector("[data-toggle='export-selected-dropdown']");
+  const registerSelectedToSignumBtn = document.querySelector(".js-register-selected-btn");
 
   const toggleExportDropdown = () => {
     if (!exportDropdownBtn) return;
+
     const anyChecked = Array.from(checkboxes).some(c => c.checked);
     exportDropdownBtn.style.display = anyChecked ? "inline-block" : "none";
+  };
+
+  const toggleRegisterSelectedToSignumBtn = () => {
+    if (!registerSelectedToSignumBtn) return;
+
+    const anyChecked = Array.from(checkboxes).some(c => c.checked);
+    registerSelectedToSignumBtn.style.display = anyChecked ? "inline-block" : "none";
   };
 
   if (master) {
@@ -15,12 +24,30 @@ document.addEventListener("DOMContentLoaded", () => {
         c.checked = e.target.checked;
       });
       toggleExportDropdown();
+      toggleRegisterSelectedToSignumBtn();
     });
   }
 
   checkboxes.forEach(cb => cb.addEventListener("change", toggleExportDropdown));
+  checkboxes.forEach(cb => cb.addEventListener("change", toggleRegisterSelectedToSignumBtn));
 
   toggleExportDropdown();
+  toggleRegisterSelectedToSignumBtn();
+
+  registerSelectedToSignumBtn.addEventListener("click", e => {
+    e.preventDefault();
+    const ids = Array.from(document.querySelectorAll(".js-study-note-checkbox:checked")).map(c => parseInt(c.value));
+    if (!ids.length) { alert("Nie zaznaczono żadnych uwag."); return; }
+
+    const url = registerSelectedToSignumBtn.dataset.url;
+    const params = new URLSearchParams();
+    ids.forEach(id => params.append("ids[]", id));
+
+    const fullUrl = new URL(url, window.location.origin);
+    params.forEach((value, key) => fullUrl.searchParams.append(key, value));
+
+    window.location.assign(fullUrl.toString());
+  });
 
   document.querySelectorAll(".js-export-selected").forEach(link => {
     link.addEventListener("click", e => {

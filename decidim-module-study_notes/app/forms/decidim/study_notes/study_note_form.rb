@@ -10,6 +10,7 @@ module Decidim
     class StudyNoteForm < Decidim::Form
       include ActionView::Helpers::UrlHelper
       include Decidim::StudyNotes::StudyNotesHelper
+      include ActiveModel::Validations::Callbacks
 
       mimic :study_note
 
@@ -93,6 +94,8 @@ module Decidim
       attribute :confirm_read_process_description, Boolean
       attribute :confirm_process_personal_data, Boolean, default: false
 
+      before_validation :sanitize_detailed_notes
+
       # VALIDATIONS 
       # validations for section 4 - submitter data
       validates :submitter_data_role, presence: true
@@ -121,22 +124,21 @@ module Decidim
                 :submitter_data_city,
                 :submitter_data_zip_code,
                 presence: true
-      validates :submitter_data_org_name, length: { maximum: 300 }
-      validates :submitter_data_first_name,
-                :submitter_data_last_name,
-                :submitter_data_country,
+      validates :submitter_data_first_name, length: { maximum: 30 }
+      validates :submitter_data_last_name, length: { maximum: 80 }
+      validates :submitter_data_org_name, length: { maximum: 150 }
+      validates :submitter_data_street, length: { maximum: 65 }
+      validates :submitter_data_street_number, length: { maximum: 10 }
+      validates :submitter_data_flat_number, length: { maximum: 10 }
+      validates :submitter_data_city, length: { maximum: 56 }
+      validates :submitter_data_zip_code, length: { maximum: 6 }
+      validates :submitter_data_country,
                 :submitter_data_voivodeship,
                 :submitter_data_county,
                 :submitter_data_community,
-                :submitter_data_street,
-                :submitter_data_city,
-                :submitter_data_zip_code,
                 :submitter_data_email,
                 :submitter_data_epuap_delivery_address,
                 length: { maximum: 100 }
-      validates :submitter_data_street_number,
-                :submitter_data_flat_number,
-                length: { maximum: 20 }
       validates :submitter_data_phone_number, length: { maximum: 30 }
       validates :submitter_data_email,
                 'valid_email_2/email': { disposable: false },
@@ -144,37 +146,35 @@ module Decidim
       validates :perpetual_owner_of_the_property, inclusion: { in: [true, false] }
 
       # validations for section 5 - mailing address data
+      validates :mailing_address_data_street, length: { maximum: 65 }
+      validates :mailing_address_data_street_number, length: { maximum: 10 }
+      validates :mailing_address_data_flat_number, length: { maximum: 10 }
+      validates :mailing_address_data_city, length: { maximum: 56 }
+      validates :mailing_address_data_zip_code, length: { maximum: 6 }
       validates :mailing_address_data_country,
                 :mailing_address_data_voivodeship,
                 :mailing_address_data_county,
                 :mailing_address_data_community,
-                :mailing_address_data_street,
-                :mailing_address_data_city,
-                :mailing_address_data_zip_code,
                 length: { maximum: 100 }
-      validates :mailing_address_data_street_number,
-                :mailing_address_data_flat_number,
-                length: { maximum: 20 }
       validate :mailing_address_data_incomplete?
 
       # validations for section 6 - attorney data
-      validates :attorney_data_first_name,
-                :attorney_data_last_name,
-                :attorney_data_country,
+      validates :attorney_data_first_name, length: { maximum: 30 }
+      validates :attorney_data_last_name, length: { maximum: 80 }
+      validates :attorney_data_street, length: { maximum: 65 }
+      validates :attorney_data_street_number, length: { maximum: 10 }
+      validates :attorney_data_flat_number, length: { maximum: 10 }
+      validates :attorney_data_city, length: { maximum: 56 }
+      validates :attorney_data_zip_code, length: { maximum: 6 }
+      validates :attorney_data_country,
                 :attorney_data_voivodeship,
                 :attorney_data_county,
                 :attorney_data_community,
-                :attorney_data_street,
-                :attorney_data_city,
-                :attorney_data_zip_code,
                 :attorney_data_email,
                 :attorney_data_epuap_delivery_address,
                 length: { maximum: 100 }
-      validates :attorney_data_street_number,
-                :attorney_data_flat_number,
-                length: { maximum: 20 }
       validates :attorney_data_phone_number, length: { maximum: 30 }
-      validate :attorney_data_incomplete?
+      validate :attorney_data_completeness
       validates :attorney_data_email,
                 'valid_email_2/email': { disposable: false },
                 if: ->(form) { form.attorney_data_email.present? }
@@ -287,9 +287,8 @@ module Decidim
         end
       end
 
-      def attorney_data_incomplete?
+      def attorney_data_completeness
         attorney_attrs = [
-          attorney_data_role,
           attorney_data_first_name,
           attorney_data_last_name,
           attorney_data_country,
@@ -303,19 +302,18 @@ module Decidim
         ]
 
         # Check if any of the attributes are present
-        if attorney_attrs.any?(&:present?)
-          # Ensure all attributes are present
-          attorney_attrs.each_with_index do |attr, index|
-            next unless attr.blank?
+        return unless attorney_attrs.any?(&:present?) || attorney_data_role.present?
 
-            errors.add(
-              :base,
-              'Wszystkie pola sekcji 6 dotyczących danych pełnomocnika muszą zostać wypełnione,
-                      jeśli zostało wypełnione choć jedno spośród tych pól'
-            )
-            break
-          end
+        # Ensure all attributes are present
+        if attorney_attrs.any?(&:blank?)
+          errors.add(
+            :base,
+            "Wszystkie pola sekcji 6 oznaczone gwiazdką muszą zostać wypełnione, jeśli zostało wypełnione choć jedno z pól dotyczących pełnomocnika."
+          )
         end
+
+        # Ensure radio data role
+        errors.add(:attorney_data_role, "Musisz wybrać rolę pełnomocnika.") if attorney_data_role.blank?
       end
 
       def attorney_data?
@@ -370,6 +368,35 @@ module Decidim
 
       def detailed_notes_valid_json
         self.detailed_notes = '' if detailed_notes == '[]'
+      end
+
+      def sanitize_detailed_notes
+        return if detailed_notes.blank?
+
+        details = JSON.parse(detailed_notes)
+        details.each do |entry|
+          if entry["functional_profile"].to_s != "true"
+            entry["functional_profile_area_id"] = nil
+            entry["functional_profile_area_classes"] = []
+          end
+
+          if entry["area_parameters"].to_s != "true"
+            entry["detailed_notes_area_parameters_max_height_intensity"] = nil
+            entry["max_height_intensity"] = nil
+            entry["detailed_notes_area_parameters_max_height_building"] = nil
+            entry["max_height_building"] = nil
+            entry["detailed_notes_area_parameters_max_percent_area"] = nil
+            entry["max_percent_area"] = nil
+            entry["detailed_notes_area_parameters_min_percent_bio"] = nil
+            entry["min_percent_bio"] = nil
+          end
+
+          entry["infill_development_include"] = "false" if entry["infill_development"].to_s != "true"
+          entry["inner_city_development_include"] = "false" if entry["inner_city_development"].to_s != "true"
+          entry["social_infrastructure_accessibility_body"] = nil if entry["detailed_notes_social_infrastructure_accessibility"].to_s != "true"
+        end
+
+        self.detailed_notes = details.to_json
       end
     end
   end

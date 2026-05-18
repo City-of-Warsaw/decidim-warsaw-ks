@@ -6,19 +6,19 @@ module Decidim
     # It uses update method, as data is additional to the required body part of the model.
     # This command is not used in any other moment.
     #
-    # Attributes that are saved through this command:
-    # - signature
-    # - district_id
-    # - age
-    # - gender
-    #
     # In this case Boolean field 'edited' has default value of false, as this Command is used only in one specific moment:
     # right after creation to gather statistical data
     class SecondStepRemarkUpdate < Decidim::Command
-      # Initializes a UpdateRemark Command.
+      include Decidim::CoreExtended::AuthorParamsBuilder
+      include Decidim::CoreExtended::GenerateTokenHelper
+
+      # Initializes a SecondStepRemarkUpdate Command.
       #
-      # form - The form from which to get the data.
-      # current_user - The current instance of the remark to be updated.
+      # form - A form object with the params.
+      # remark - A remark object with the params.
+      # current_organization - A current organization object
+      # component - A current component object
+      # author - not registered user
       def initialize(form, remark)
         @form = form
         @remark = remark
@@ -40,19 +40,7 @@ module Decidim
       private
 
       def update_remark_stats
-        @remark.update(remark_attributes)
-      end
-
-      def remark_attributes
-        {
-          district_id: @form.district_id,
-          age: @form.age,
-          gender: @form.gender
-        }
-      end
-
-      def unregistered_author
-        Decidim::CoreExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        @remark.update(author_second_step_params)
       end
     end
   end

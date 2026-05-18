@@ -12,4 +12,18 @@ Decidim::Forms::StepNavigationCell.class_eval do
       "step-#{current_step_index - 1}"
     end
   end
+
+  def form_object
+    options[:form_object]
+  end
+
+  def ai_enabled?
+    options[:ai_enabled]
+  end
+
+  def show_ai_verification?
+    false
+    # ai_enabled? && form_object.errors.none?
+    # temporary disabled
+  end
 end

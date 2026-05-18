@@ -9,8 +9,15 @@ Decidim::Comments::CommentCell.class_eval do
     render :show_new
   end
 
+  def frontend_administrable?
+    user_entity? &&
+      model.can_be_administered_by?(current_user) &&
+      (model.respond_to?(:official?) && !model.official?)
+  end
+
   # overwritten method
   # kill caching
+  # TODO: PO UKOŃCZONYCH TESTACH KLIENTA V29 rollback - cofnąć to nadpisanie
   def perform_caching?
     false
   end
@@ -21,6 +28,14 @@ Decidim::Comments::CommentCell.class_eval do
     classes << "admin-response" if author_is_admin?
 
     classes.join(" ")
+  end
+
+  def can_edit_comment?(model, token)
+    (current_user.present? && model.authored_by?(current_user)) || (token.present? && token == model.token)
+  end
+
+  def can_delete_comment?(model)
+    current_user.present? && model.authored_by?(current_user)
   end
 
   private
@@ -66,7 +81,13 @@ Decidim::Comments::CommentCell.class_eval do
 
   # overwritten method
   # make it nil
+  # TODO: PO UKOŃCZONYCH TESTACH KLIENTA V29 rollback - cofnąć to nadpisanie
   def cache_hash
     nil
+  end
+
+  def user_entity?
+    (model.respond_to?(:creator_author) && model.creator_author.respond_to?(:nickname)) ||
+      (model.respond_to?(:author) && model.author.respond_to?(:nickname))
   end
 end

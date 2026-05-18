@@ -244,6 +244,30 @@
         <li class="private ">
   <span class="summary_signature">
     
+      <a href="#create_follow!-instance_method" title="#create_follow! (instance method)">#<strong>create_follow!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>the author of this information is following this information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
       <a href="#create_information!-instance_method" title="#create_information! (instance method)">#<strong>create_information!</strong>  &#x21d2; Object </a>
     
 
@@ -383,12 +407,12 @@
       <pre class="lines">
 
 
-34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_form'>form</span>
   <span class='ivar'>@form</span>
@@ -426,12 +450,12 @@
       <pre class="lines">
 
 
-34
 35
-36</pre>
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_information'>information</span>
   <span class='ivar'>@information</span>
@@ -463,20 +487,21 @@
       <pre class="lines">
 
 
-45
-46
-47
-48
-49
-50
 51
 52
 53
 54
-55</pre>
+55
+56
+57
+58
+59
+60
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_attributes'>attributes</span>
   <span class='lbrace'>{</span>
@@ -486,7 +511,8 @@
     <span class='label'>organization:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_current_organization'>current_organization</span><span class='comma'>,</span>
     <span class='label'>users_action_allowed_for_unregister_users:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_users_action_allowed_for_unregister_users'>users_action_allowed_for_unregister_users</span><span class='comma'>,</span>
     <span class='label'>weight:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_weight'>weight</span><span class='comma'>,</span>
-    <span class='label'>added_on:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_added_on'>added_on</span>
+    <span class='label'>added_on:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_added_on'>added_on</span><span class='comma'>,</span>
+    <span class='label'>comments_enabled:</span> <span class='id identifier rubyid_form'>form</span><span class='period'>.</span><span class='id identifier rubyid_comments_enabled'>comments_enabled</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -534,7 +560,8 @@
 27
 28
 29
-30</pre>
+30
+31</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 23</span>
@@ -544,8 +571,50 @@
 
   <span class='id identifier rubyid_create_information!'>create_information!</span>
   <span class='id identifier rubyid_add_gallery'>add_gallery</span><span class='lparen'>(</span><span class='id identifier rubyid_information'>information</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_create_follow!'>create_follow!</span>
 
   <span class='id identifier rubyid_broadcast'>broadcast</span><span class='lparen'>(</span><span class='symbol'>:ok</span><span class='comma'>,</span> <span class='id identifier rubyid_information'>information</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_follow!-instance_method">
+  
+    #<strong>create_follow!</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>the author of this information is following this information</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47
+48
+49</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 47</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_follow!'>create_follow!</span>
+  <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>Follow</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span><span class='label'>followable:</span> <span class='id identifier rubyid_information'>information</span><span class='comma'>,</span> <span class='label'>user:</span> <span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -567,17 +636,17 @@
       <pre class="lines">
 
 
-36
 37
 38
 39
 40
 41
 42
-43</pre>
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/commands/decidim/news/admin/create_information.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_information!'>create_information!</span>
   <span class='ivar'>@information</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_traceability'>traceability</span><span class='period'>.</span><span class='id identifier rubyid_create!'>create!</span><span class='lparen'>(</span>
@@ -597,7 +666,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:38 2025 by
+  Generated on Mon May 18 15:09:14 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

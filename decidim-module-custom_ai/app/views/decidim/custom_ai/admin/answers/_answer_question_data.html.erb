@@ -1,0 +1,28 @@
+<div class="card" data-component="accordion" id="accordion-question-title">
+  <div class="card-divider">
+    <button class="card-divider-button" data-open="true" data-controls="panel-question-title" type="button">
+      <%= icon "arrow-right-s-line" %>
+      <h2 class="card-title">
+        Pytanie
+      </h2>
+    </button>
+  </div>
+
+  <div id="panel-question-title" class="card-section">
+    <div class="row column">
+      <p>
+        <strong class="font-semibold">Pytanie:</strong>
+        <span data-question><%= decidim_sanitize answer.question.body['pl'] %></span>
+      </p> 
+      <p>
+        <strong class="font-semibold">Opis pytania: </strong>
+        <% pl_desc = answer.question.description["pl"] rescue nil %>
+        <% if pl_desc.present? %>
+          <%= decidim_sanitize html_truncate(pl_desc, separator: "..."), strip_tags: %w[img video] %>
+        <% else %>
+          brak
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>  

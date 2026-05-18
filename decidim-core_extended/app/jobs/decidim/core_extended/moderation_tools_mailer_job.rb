@@ -9,7 +9,7 @@ module Decidim
 
       queue_as :events
 
-      def perform(action_name, resource, receiver)
+      def perform(action_name, resource, receiver, form_details)
         Rails.logger.debug { "[ModerationToolsMailerJob] init perform" }
         Rails.logger.debug { "[ModerationToolsMailerJob] receiver: #{receiver.inspect}, resource: #{resource.inspect}" }
 
@@ -23,7 +23,7 @@ module Decidim
 
         Rails.logger.debug { "[ModerationToolsMailerJob] init TemplatedMailer.notify" }
         Decidim::CoreExtended::TemplatedMailer.notify(
-          action_name, receiver, { resource:, report_reasons:, reported_content: }
+          action_name, receiver, { resource:, report_reasons:, reported_content:, report_details: [form_details] }
         ).deliver_later
       end
     end

@@ -41,7 +41,151 @@ function valueInRange($el, required, parent) {
   return true;
 }
 
+function fractionalPartMaxLength($el, required, parent) {
+  if (!$el.val()) return true;
+
+  var value = parseFloat($el.val());
+  if (isNaN(value)) return false;
+
+  var fractionalPart = $el.val().split(".")[1];
+  if (fractionalPart && fractionalPart.length > 3) return false;
+
+  var fractionalPart = $el.val().split(",")[1];
+  if (fractionalPart && fractionalPart.length > 3) return false;
+
+  return true;
+}
+
+function requiredIfDetailedNotes($el, required, parent) {
+  if ($el.attr("type") === "radio") {
+    if (
+      $el.parents("form").find("input[name='" + $el.attr("name") + "']:checked")
+        .length
+    ) {
+      return true;
+    }
+  } else {
+    if ($el.val()) return true;
+  }
+
+  const index = $el.data("index");
+
+  const detailedNotesInput = $el
+    .parents("form")
+    .find("#study_note_detailed_notes");
+
+  if (!detailedNotesInput.val()) return true;
+
+  const detailedNotes = JSON.parse(detailedNotesInput.val() || "[]");
+
+  const detailedNote = detailedNotes.find(function (note) {
+    return String(note.index) === String(index);
+  });
+
+  let isValid = true;
+
+  Object.keys(detailedNote).forEach(function (key) {
+    if (
+      key !== "index" &&
+      key !== "name" &&
+      detailedNote[key] &&
+      detailedNote[key].toString().length > 0
+    ) {
+      isValid = false;
+      return false;
+    }
+  });
+
+  return isValid;
+}
+
+function requiredIfNoDetailedNotes($el, required, parent) {
+  if ($el.val()) return true;
+
+  const detailedNotesInput = $el
+    .parents("form")
+    .find("#study_note_detailed_notes");
+
+  if (!detailedNotesInput.val()) return false;
+
+  const detailedNotes = JSON.parse(detailedNotesInput.val() || "[]");
+
+  let isValid = false;
+
+  detailedNotes.forEach(function (detailedNote) {
+    Object.keys(detailedNote).forEach(function (key) {
+      if (
+        key !== "index" &&
+        key !== "name" &&
+        detailedNote[key] &&
+        detailedNote[key].toString().length > 0
+      ) {
+        isValid = true;
+        return true;
+      }
+    });
+  });
+
+  return isValid;
+}
+
+function requiredIfNoDetailedNotesAndRequestBody($el, required, parent) {
+  if ($el.val()) return true;
+
+  const detailedNotesInput = $el
+    .parents("form")
+    .find("#study_note_detailed_notes");
+
+  const requestBodyInput = $el.parents("form").find("#study_note_request_body");
+
+  if (!detailedNotesInput.val() && !requestBodyInput.val()) return false;
+
+  const detailedNotes = JSON.parse(detailedNotesInput.val() || "[]");
+
+  let isValid = false;
+
+  detailedNotes.forEach(function (detailedNote) {
+    Object.keys(detailedNote).forEach(function (key) {
+      if (
+        key !== "index" &&
+        key !== "name" &&
+        detailedNote[key] &&
+        detailedNote[key].toString().length > 0
+      ) {
+        isValid = true;
+        return true;
+      }
+    });
+  });
+
+  if (isValid) return true;
+  if (requestBodyInput.val()) return true;
+
+  return false;
+}
+
+function valueBelowLimit($el, required, parent) {
+  if (!$el.val()) return true;
+
+  var length = $el.val().length;
+  var limit = parseFloat($el.data("maxlength"));
+
+  if (!isNaN(limit) && length > limit) return false;
+
+  return true;
+}
+
 Foundation.Abide.defaults.validators["value_in_range"] = valueInRange;
+Foundation.Abide.defaults.validators["fractional_part_max_length"] =
+  fractionalPartMaxLength;
+Foundation.Abide.defaults.validators["required_if_detailed_notes"] =
+  requiredIfDetailedNotes;
+Foundation.Abide.defaults.validators["required_if_no_detailed_notes"] =
+  requiredIfNoDetailedNotes;
+Foundation.Abide.defaults.validators[
+  "required_if_no_detailed_notes_and_request_body"
+] = requiredIfNoDetailedNotesAndRequestBody;
+Foundation.Abide.defaults.validators["value_below_limit"] = valueBelowLimit;
 
 $(function () {
   $("input#submitter_role_person, input#submitter_role_organization").change(
@@ -51,13 +195,31 @@ $(function () {
         $(".person-form").show();
 
         $(".organization-form input").removeAttr("required");
+        $(".organization-form input").attr("data-abide-ignore", "");
+        $("#new_study_note_").foundation(
+          "removeErrorClasses",
+          $(".organization-form input")
+        );
+
         $(".person-form input").attr("required", "required");
+        $(".person-form input").removeAttr("data-abide-ignore");
       } else if (this.value === "1") {
         $(".person-form").hide();
         $(".organization-form").show();
 
         $(".person-form input").removeAttr("required");
+        $(".person-form input").attr("data-abide-ignore", "");
+        $("#new_study_note_").foundation(
+          "removeErrorClasses",
+          $(".person-form input").first()
+        );
+        $("#new_study_note_").foundation(
+          "removeErrorClasses",
+          $(".person-form input").last()
+        );
+
         $(".organization-form input").attr("required", "required");
+        $(".organization-form input").removeAttr("data-abide-ignore");
       }
     }
   );
@@ -81,6 +243,8 @@ $(function () {
 
       confirmProcessPersonalData.attr("required", "required");
       confirmProcessPersonalData.removeAttr("disabled");
+      confirmProcessPersonalData.removeAttr("data-abide-ignore");
+
       $("label[for=study_note_confirm_process_personal_data]").append(
         '<span class="asterisk">*</span>'
       );
@@ -95,6 +259,12 @@ $(function () {
       confirmProcessPersonalData.prop("checked", false);
       confirmProcessPersonalData.attr("disabled", "disabled");
       confirmProcessPersonalData.removeClass("is-invalid-input");
+      confirmProcessPersonalData.attr("data-abide-ignore", "");
+      $("#new_study_note_").foundation(
+        "removeErrorClasses",
+        confirmProcessPersonalData
+      );
+
       $("label[for=study_note_confirm_process_personal_data]").removeClass(
         "is-invalid-label"
       );
@@ -173,7 +343,7 @@ $(function () {
     .filter(function () {
       return this.id.match(/study_note_mailing_address_data_/);
     })
-    .on("change", function (event) {
+    .on("change blur", function (event) {
       const inputs = $("input").filter(function () {
         return this.id.match(/study_note_mailing_address_data_/);
       });
@@ -214,7 +384,7 @@ $(function () {
     .filter(function () {
       return this.id.match(/study_note_attorney_data/);
     })
-    .on("change", function (event) {
+    .on("change blur", function (event) {
       const inputs = $("input:not([type=radio])").filter(function () {
         return this.id.match(/study_note_attorney_data/);
       });
@@ -224,12 +394,16 @@ $(function () {
         );
       });
 
-      if (event.target.value.length > 0 && event.target.checked !== false) {
+      if (event.target.value.length > 0 || event.target.checked !== false) {
         requiredInputs.attr("required", "required");
         requiredInputs.each(function () {
           const label = $("label[for='" + this.id + "']");
           label.find("span.asterisk").remove();
           $(label).find("input").before('<span class="asterisk">*</span>');
+
+          $("input[name='study_note[attorney_data_role]']").each(function () {
+            $(this).attr("required", "required");
+          });
         });
       } else {
         const emptyInputs = $("input:not([type=radio])").filter(function () {
@@ -243,6 +417,10 @@ $(function () {
 
             const label = $("label[for='" + this.id + "']");
             label.find("span.asterisk").remove();
+          });
+
+          $("input[name='study_note[attorney_data_role]']").each(function () {
+            $(this).removeAttr("required");
           });
         }
       }
@@ -273,7 +451,7 @@ $(function () {
 
   $("label")
     .filter(function () {
-      return ($(this).attr("for") || "").match(/study_note_attorney_data/);
+      return ($(this).attr("for") || "").match(/study_note_attorney_data_role/);
     })
     .click(function (event) {
       var $radio = $("#" + $(this).attr("for"));
@@ -320,6 +498,10 @@ $(function () {
         const label = $("label[for='" + this.id + "']");
         label.find("span.asterisk").remove();
       });
+
+      $("input[name='study_note[attorney_data_role]']").each(function () {
+        $(this).removeAttr("required");
+      });
     }
   });
 
@@ -330,27 +512,59 @@ $(function () {
     ) {
       $(".form-section")
         .find(".is-invalid-input")
-        .closest(".form-section")
+        .parents(".form-section")
         .each(function () {
-          if (
-            !$(this)
-              .find(".form-section__content")
-              .hasClass("form-section__content--visible")
-          ) {
-            $(this).find(".form-section__content").foundation("toggle");
+          $(this)
+            .find(".form-section__content")
+            .each(function () {
+              if (!$(this).hasClass("form-section__content--visible")) {
+                $(this).foundation("toggle");
+              }
+            });
+        });
+
+      $(".form-section")
+        .find(".form-error.is-visible")
+        .parents(".multiple-hash-input__item-content")
+        .each(function () {
+          if (!$(this).hasClass("multiple-hash-input__item-content--visible")) {
+            $(this).foundation("toggle");
           }
         });
     }
   }
 
+  function addMissingRadioInputErrorClasses() {
+    const $form = $("#new_study_note_");
+    const $radios = $('input[type="radio"].is-invalid-input').each(function () {
+      const name = $(this).attr("name");
+      const valid =
+        $form.find('input[type="radio"][name="' + name + '"]:checked').length >
+        0;
+      const $group = $('input[type="radio"][name="' + name + '"]');
+
+      $group.each(function (index, element) {
+        if (!valid) {
+          if ($(element).hasClass("is-invalid-input")) return;
+
+          $form.foundation("addErrorClasses", $(element), ["required"]);
+        }
+      });
+
+      if (valid) {
+        $form.foundation("removeRadioErrorClasses", name);
+      }
+    });
+  }
+
   $(document).on("forminvalid.zf.abide", expandSectionsWithErrors);
+  $(document).on("forminvalid.zf.abide", addMissingRadioInputErrorClasses);
 
   expandSectionsWithErrors();
+  addMissingRadioInputErrorClasses();
 
-  $(".preview-link").click(function () {
-    setTimeout(
-      () => $("#new_study_note_ button[type=submit]").removeAttr("disabled"),
-      1000
-    );
+  $("#previewBeforeSubmitModal [data-action=submit-form]").click(function () {
+    $("#previewBeforeSubmitModal [data-action=submit-form]").html('Wysyłam..')
+    $("#new_study_note_")[0].submit();
   });
 });

@@ -45,10 +45,14 @@ Decidim::NewslettersController.class_eval do
 
       source = source.participatory_space if "Decidim::Component" == source_message_type.to_s
 
-      unless source_message_type.nil? && source_message_id.nil? && source.nil?
-        user = resource.find_by(id: resource_id)
-        Decidim::Follow.find_by(user:, followable: source).destroy! if user && user.follows?(source)
-        source.email_follows.find_by(email: user.email).destroy! if source.email_follows.find_by(email: user.email)
+      if ["Decidim::CoreExtended::UnregisteredAuthor", "Decidim::CoreExtended::EmailFollow"].include?(resource_type)
+        resource.find_by(id: resource_id).destroy
+      else
+        unless source_message_type.nil? && source_message_id.nil? && source.nil?
+          user = resource.find_by(id: resource_id)
+          Decidim::Follow.find_by(user:, followable: source).destroy! if user && user.follows?(source)
+          source.email_follows.find_by(email: user.email).destroy! if source.email_follows.find_by(email: user.email)
+        end
       end
     end
 

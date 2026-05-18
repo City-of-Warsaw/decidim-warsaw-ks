@@ -26,7 +26,8 @@
         <div class="attachment-details" data-attachment-id="<%= attachment.id %>" data-title="<%= title_for(attachment) %>" data-filename="<%= file_name_for(attachment) %>" data-state="uploaded">
           <% if file_attachment_path(attachment) && blob(attachment).image? %>
             <% if  attachment.filename.extension_without_delimiter == "svg" %>
-              <%= display_inline_svg(attachment) %>
+              <%#FIXME: poprawic dla amazon storage %>
+              <%#= display_inline_svg(attachment) %>
               <% else %>
             <div><%= image_tag(file_attachment_path(attachment), alt: title_for(attachment) || file_name_for(attachment)) %></div>
             <% end %>

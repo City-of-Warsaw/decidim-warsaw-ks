@@ -1,3 +1,15 @@
 <div class="add-comment">
-  <%== cell("decidim/comments/comment_form", model, root_depth:) %>
+  <% if model.can_participate?(current_user) %>
+    <%== cell("decidim/comments/comment_form", model, root_depth:) %>
+  <% else %>
+    <p>
+      <span>
+        <%== t(
+               "decidim.components.add_comment_form.account_message",
+               sign_in_url: decidim.new_user_session_path,
+               sign_up_url: decidim.new_user_registration_path
+             ) %>
+      </span>
+    </p>
+  <% end %>
 </div>

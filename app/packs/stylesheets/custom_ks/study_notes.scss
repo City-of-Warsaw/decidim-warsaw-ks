@@ -209,8 +209,19 @@
 
     .form-section:has(.is-invalid-label) h3,
     .form-section:has(.is-invalid-label) h4,
+    .form-section:has(.is-invalid-label) [class$="__trigger"] label,
+    .multiple-hash-input__items
+      > li:has(.is-invalid-label)
+      [class$="__trigger"]
+      strong,
+    div:has(> .radio-wrapper > [type="radio"].is-invalid-input) > label,
     .form-section:has(.form-error.is-visible) h3,
-    .form-section:has(.form-error.is-visible) h4 {
+    .form-section:has(.form-error.is-visible) h4,
+    .form-section:has(.form-error.is-visible) [class$="__trigger"] label,
+    .multiple-hash-input__items
+      > li:has(.form-error.is-visible)
+      [class$="__trigger"]
+      strong {
       color: #d11c28;
     }
 
@@ -606,7 +617,7 @@
       }
 
       &__add-button {
-        color: var(--primary);
+        color: #1b7c96;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -975,14 +986,22 @@
 
         .pdf-link {
           text-decoration: none;
+          align-items: center;
 
           &:hover {
             text-decoration: underline;
           }
 
-          img {
+          img,
+          svg {
             height: 18px;
             margin-left: 8px;
+            vertical-align: middle;
+          }
+
+          svg {
+            color: black;
+            fill: currentColor;
           }
 
           .external-link-indicator {
@@ -1322,8 +1341,15 @@
 }
 
 #parcelSelectionModal,
-#parcelDeletionModal {
+#parcelDeletionModal,
+#previewBeforeSubmitModal {
   z-index: 1001;
+}
+
+#previewBeforeSubmitModal {
+  iframe {
+    height: 70vh;
+  }
 }
 
 @media only screen and (max-width: 1000px) {

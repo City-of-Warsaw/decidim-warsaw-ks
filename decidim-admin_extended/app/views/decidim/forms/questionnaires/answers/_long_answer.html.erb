@@ -6,5 +6,17 @@
                             rows: 10,
                             disabled:,
                             maxlength:,
+                            data: { question_id: answer.question.id, question_body: translated_attribute(answer.question.body), validate_with_ai: current_component.ai_enabled? },
                             class: "w-full" %>
+
+  <% if current_component.ai_enabled? %>
+    <div class="text-sm <%= maxlength ? "mt-8" : "mt-2" %> hidden" data-ai-decision role="alert">
+      <span class="font-bold flex items-center rounded-tl rounded-tr bg-warning gap-2 p-2" data-ai-decision-label>
+        <%= icon "sparkling-2-fill", class: "w-4 h-4" %>
+        Sugestia AI
+      </span>
+
+      <span class="block p-2 rounded-bl rounded-br bg-warning/10" data-ai-decision-text></span>
+    </div> 
+  <% end %>
 </div>

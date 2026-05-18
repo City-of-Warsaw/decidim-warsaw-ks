@@ -14,6 +14,7 @@ base_path = File.expand_path("..", __dir__)
 Decidim::Webpacker.register_path("#{base_path}/app/packs")
 Decidim::Webpacker.register_entrypoints(
   repository_video_js: "#{base_path}/app/packs/entrypoints/video_js.css",
+  # TODO: upgrade v025! poprawic lub usunac - generuja blady w asetach
   image_editor: "#{base_path}/app/packs/entrypoints/image-editor.js",
   repository_video_js_pl: "#{base_path}/app/packs/entrypoints/video-js-pl.js",
   repository_video_min: "#{base_path}/app/packs/entrypoints/video.min.js",

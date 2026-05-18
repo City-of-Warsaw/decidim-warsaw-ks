@@ -27,7 +27,7 @@
         </div>
         <div class="single-file__data">
           <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-            <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+            <%= icon "download-2-line" %>
           <% end %>
         </div>
       </div>

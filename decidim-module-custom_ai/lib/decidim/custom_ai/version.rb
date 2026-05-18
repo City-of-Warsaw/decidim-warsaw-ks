@@ -1,0 +1,10 @@
+# frozen_string_literal: true
+
+module Decidim
+  # This holds the decidim-meetings version.
+  module CustomAi
+    def self.version
+      "0.29.3"
+    end
+  end
+end

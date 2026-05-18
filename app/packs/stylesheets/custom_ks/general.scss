@@ -275,7 +275,7 @@
   }
 
   a {
-    color: var(--primary);
+    color: #1b7c96;
   }
 }
 
@@ -317,11 +317,16 @@ span[data-external-link="true"] {
 
 // links
 
+.link {
+  color: #1b7c96;
+  text-decoration: underline;
+}
+
 .back-link {
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  color: var(--primary);
+  color: #1b7c96;
   font-size: 18px;
 
   svg {
@@ -434,8 +439,49 @@ span[data-external-link="true"] {
 }
 
 // default position of help tile cover the process title on mobile
+
 @media only screen and (max-width: 938px) {
   #floating-helper-tip {
     top: 6px !important;
+  }
+}
+
+// decorator line for headings
+
+.decorator {
+  &::after {
+    height: 3px;
+    width: 61px;
+    border-radius: 2px;
+  }
+}
+
+// top bar
+
+.omnipresent-banner {
+  background-color: #ffc837;
+  color: #000;
+  text-decoration: none !important;
+  padding: 16px 0;
+
+  a span {
+    text-decoration: underline;
+  }
+
+  svg {
+    fill: #000;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: #ffc837;
+  }
+}
+
+// form disclaimer link
+
+.form-disclaimer {
+  a {
+    color: #1b7c96 !important;
   }
 }

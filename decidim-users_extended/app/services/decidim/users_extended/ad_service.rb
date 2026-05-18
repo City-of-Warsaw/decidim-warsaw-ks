@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
+# Grupy w AD maja nazwy:
+# [
+#   [ 0] "CN=decidim_bo_bem_koord,OU=Decidim_BO,OU=.SecurityGroups,OU=.Konta Specjalne,OU=Urzad Miasta Warszawy,DC=bzmw,DC=gov,DC=pl",
+#   [ 1] "CN=Decidim_ks_koordynator,OU=Decidim_KS,OU=.SecurityGroups,OU=.Konta Specjalne,OU=Urzad Miasta Warszawy,DC=bzmw,DC=gov,DC=pl",
+
 module Decidim
   module UsersExtended
     class AdService
 
       def initialize
-        @ldap_host = ENV['AD_HOST']
         @ldap_port = ENV['AD_PORT']
+        @ldap_hosts = ENV['AD_HOSTS'].split(',').map { |addr| [addr, @ldap_port] }
         @ldap_user = ENV['AD_USER']
         @ldap_password = ENV['AD_PASSWORD']
         @base_dn = ENV['AD_BASE_DN']
@@ -45,14 +50,15 @@ module Decidim
 
       def initialize_ldap_con(ldap_user=@ldap_user, ldap_password=@ldap_password)
         options = {
-          :host => @ldap_host, :port => @ldap_port,
+          hosts: @ldap_hosts,
           encryption: {
-            :method => :simple_tls,
-            :tls_options => { :verify_mode => OpenSSL::SSL::VERIFY_NONE }},
-          :auth => {
-            :method => :simple,
-            :username => ldap_user,
-            :password => ldap_password
+            method: :simple_tls,
+            tls_options: { verify_mode: OpenSSL::SSL::VERIFY_NONE }
+          },
+          auth: {
+            method: :simple,
+            username: ldap_user,
+            password: ldap_password
           }
         }
         Net::LDAP.new options
@@ -62,6 +68,9 @@ module Decidim
         ldap_con = initialize_ldap_con
         base_filter = Net::LDAP::Filter.eq("objectClass", "user")
         search_filter = base_filter & Net::LDAP::Filter.eq(@attr_login, login)
+        # search_filter = base_filter & Net::LDAP::Filter.begins(auth.attr_login, q) & Net::LDAP::Filter.begins('memberof', 'decidim_bo*')
+        # search_filter = base_filter & Net::LDAP::Filter.begins('memberof', 'CN=decidim_bo_bem_koord,OU=Decidim_BO,OU=.SecurityGroups,OU=.Konta Specjalne,OU=Urzad Miasta Warszawy,DC=bzmw,DC=gov,DC=pl')
+        # results = []
         attrs = nil
         ldap_con.search(:base => @base_dn, :filter => search_filter, :attributes => user_info_attrs) do |entry|
           attrs = entry
@@ -88,12 +97,12 @@ module Decidim
           'dn',
           @attr_login, @attr_firstname, @attr_lastname, @attr_mail,
           'memberof',
-          'objectClass',
-          'company',
-          'physicalDeliveryOfficeName',
-          'department',
-          'title',
-          'manager'
+          'objectClass', # ["top", "person", "organizationalPerson", "user"]
+          'company', # ["URZĄD M.ST. WARSZAWY"]
+          'physicalDeliveryOfficeName', # Biuro / Dzielnica => ["Biuro Informatyki (IT)"] albo ["Centrum Komunikacji Społecznej (CK)"]
+          'department', # Wydział => ["Wydział Budżetu Obywatelskiego"]
+          'title',      # tytuł => ["Naczelniczka wydziału w biurze"]
+          'manager'     # przełożony
         ]
       end
 

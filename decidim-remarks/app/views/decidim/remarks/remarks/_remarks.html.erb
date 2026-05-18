@@ -1,8 +1,8 @@
 <% if request.path =~ /remarks\/\d+/ && request.request_method === "GET" %>
-  <div class="callout secondary">
-    <h5>Wyświetlasz teraz pojedynczą uwagę</h5>
+  <div class="callout secondary rounded-none !border-l-4 !bg-[#F3F8FA]">
+    <h5 class="font-semibold">Wyświetlasz teraz pojedynczą uwagę</h5>
     <p>
-      Resztę uwag możesz sprawdzić <a href="<%= main_component_path(current_component) %>#subcontent">tutaj</a>.
+      <a href="<%= main_component_path(current_component) %>#subcontent" class="!text-[#020203] underline">Zobacz wszystkie uwagi</a>
     </p>
   </div>
 <% end %>

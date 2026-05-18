@@ -35,7 +35,6 @@ module Decidim
             get '/:participatory_process_slug/report/file/:report_file_id', to: 'admin/participatory_process_report_files#edit',as: :participatory_processes_reports_list_edit_file
             patch '/:participatory_process_slug/report/file/:report_file_id', to: 'admin/participatory_process_report_files#update',as: :participatory_processes_reports_list_save_file
             delete '/:participatory_process_slug/report/file/:report_file_id', to: 'admin/participatory_process_report_files#delete',as: :participatory_processes_reports_list_delete_file
-
           end
         end
       end
@@ -57,6 +56,8 @@ module Decidim
             put 'results/:id' => '/decidim/participatory_processes_extended/admin/results#publish', as: :publish_result
             delete 'results/:id' => '/decidim/participatory_processes_extended/admin/results#destroy', as: :destroy_result
             post 'results/send_notification' => '/decidim/participatory_processes_extended/admin/results#send_notification', as: :send_notification_result
+            patch 'components/:component_id/enable_ai', to: 'components#enable_ai', as: :enable_ai_component
+            patch 'components/:component_id/disable_ai', to: 'components#disable_ai', as: :disable_ai_component
           end
         end
 

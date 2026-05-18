@@ -83,8 +83,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-
-    min-height: 306px;
+    min-height: fit-content;
 
     .ul-reset.ul-contents li a {
       font-weight: 600;
@@ -102,6 +101,13 @@
         display: flex;
         align-items: center;
         gap: 8px;
+      }
+    }
+
+    .card__content {
+      a {
+        color: var(--primary);
+        text-decoration: underline;
       }
     }
   }

@@ -12,10 +12,30 @@ Decidim::LayoutHelper.module_eval do
   end
 
   def display_inline_svg(file)
-    File.open(ActiveStorage::Blob.service.path_for(file.key), "rb") do |file|
-      raw file.read
+    raw file.download
+  rescue ActiveStorage::FileNotFoundError, Aws::S3::Errors::NoSuchKey
+    ''
+  end
+
+  # overwritten method
+  # replace asset pack with updated iconset
+  def icon(name, options = {})
+    name = Decidim.icons.find(name)["icon"] unless options[:ignore_missing]
+
+    default_html_properties = {
+      "width" => "1em",
+      "height" => "1em",
+      "role" => "img",
+      "aria-hidden" => "true"
+    }
+
+    html_properties = options.with_indifferent_access.transform_keys(&:dasherize).slice("width", "height", "aria-label", "role", "aria-hidden", "class", "style")
+    html_properties = default_html_properties.merge(html_properties)
+
+    href = Decidim.cors_enabled ? "" : asset_pack_path("media/images/remixicon.symbol.modCS.svg")
+
+    content_tag :svg, html_properties do
+      content_tag :use, nil, "href" => "#{href}#ri-#{name}"
     end
-  rescue Errno::ENOENT
-    'brak pliku'
   end
 end

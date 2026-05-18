@@ -6,9 +6,11 @@
     <%= render partial: "meeting_poll_actions", locals: { mobile: true } %>
 
   <section class="layout-main__section">
-    <div class="editor-content meeting__short-description">
-     <h3><%= meeting.title_description %></h3>
-    </div>
+    <% if meeting.title_description.present? %>
+      <div class="editor-content meeting__short-description">
+       <h3><%= meeting.title_description %></h3>
+      </div>
+    <% end %>
   </section>
 
   <% if strip_tags(@meeting.description["pl"]).present? %>
@@ -61,7 +63,9 @@
         <% end %>
 
         <% if meeting.services.any? %>
-          <h3 class="h3 text-[22.5px]"><%= meeting.title_services %></h3>
+          <div class="editor-content">
+            <h3 class="h3 text-[22.5px]"><%= meeting.title_services %></h3>
+          </div>
           <% meeting.services.order(:id).each do |service| %>
             <%= render layout: "decidim/meetings/layouts/aside_block", locals: { emoji: "star-line" } do %>
               <h4 class="meeting__aside-block__title"><%= translated_attribute(service["title"]) %></h4>

@@ -1,0 +1,12 @@
+<tr data-id="<%= file.id %>">
+  <td><%= link_to file.file.filename, Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true), target: '_blank' %></td>
+  <td>
+    <%= file.description %>
+  </td>
+  <td>
+    <%= l file.created_at, format: "%d/%m/%Y - %H:%M" %>
+  </td>
+  <td class="table-list__actions">
+    <%= icon_link_to "delete-bin-line", decidim_custom_ai_admin.file_path(participatory_process_slug: current_participatory_space.slug,id: file.id), t("actions.destroy", scope: "decidim.admin"), class: "action-icon--remove", method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+  </td>
+</tr>

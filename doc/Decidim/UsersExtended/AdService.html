@@ -401,8 +401,8 @@
       <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span>
-  <span class='ivar'>@ldap_host</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_HOST</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@ldap_port</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_PORT</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='ivar'>@ldap_hosts</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_HOSTS</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>,</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_addr'>addr</span><span class='op'>|</span> <span class='lbracket'>[</span><span class='id identifier rubyid_addr'>addr</span><span class='comma'>,</span> <span class='ivar'>@ldap_port</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
   <span class='ivar'>@ldap_user</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_USER</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@ldap_password</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_PASSWORD</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
   <span class='ivar'>@base_dn</span> <span class='op'>=</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>AD_BASE_DN</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -557,7 +557,6 @@
       <pre class="lines">
 
 
-80
 81
 82
 83
@@ -569,10 +568,11 @@
 89
 90
 91
-92</pre>
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 81</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_all_groups'>get_all_groups</span>
   <span class='id identifier rubyid_ldap_con'>ldap_con</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span>
@@ -607,7 +607,6 @@
       <pre class="lines">
 
 
-66
 67
 68
 69
@@ -619,10 +618,11 @@
 75
 76
 77
-78</pre>
+78
+79</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 66</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_user_info'>get_user_info</span><span class='lparen'>(</span><span class='id identifier rubyid_login'>login</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_ldap_con'>ldap_con</span> <span class='op'>=</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span>
@@ -657,7 +657,6 @@
       <pre class="lines">
 
 
-108
 109
 110
 111
@@ -681,10 +680,11 @@
 129
 130
 131
-132</pre>
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_import_all_groups'>import_all_groups</span>
   <span class='id identifier rubyid_ad_service'>ad_service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../UsersExtended.html" title="Decidim::UsersExtended (module)">UsersExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="" title="Decidim::UsersExtended::AdService (class)">AdService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="Decidim::UsersExtended::AdService#initialize (method)">new</a></span></span>
@@ -744,21 +744,23 @@
 61
 62
 63
-64</pre>
+64
+65</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize_ldap_con'>initialize_ldap_con</span><span class='lparen'>(</span><span class='id identifier rubyid_ldap_user'>ldap_user</span><span class='op'>=</span><span class='ivar'>@ldap_user</span><span class='comma'>,</span> <span class='id identifier rubyid_ldap_password'>ldap_password</span><span class='op'>=</span><span class='ivar'>@ldap_password</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
-    <span class='symbol'>:host</span> <span class='op'>=&gt;</span> <span class='ivar'>@ldap_host</span><span class='comma'>,</span> <span class='symbol'>:port</span> <span class='op'>=&gt;</span> <span class='ivar'>@ldap_port</span><span class='comma'>,</span>
+    <span class='label'>hosts:</span> <span class='ivar'>@ldap_hosts</span><span class='comma'>,</span>
     <span class='label'>encryption:</span> <span class='lbrace'>{</span>
-      <span class='symbol'>:method</span> <span class='op'>=&gt;</span> <span class='symbol'>:simple_tls</span><span class='comma'>,</span>
-      <span class='symbol'>:tls_options</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span> <span class='symbol'>:verify_mode</span> <span class='op'>=&gt;</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>SSL</span><span class='op'>::</span><span class='const'>VERIFY_NONE</span> <span class='rbrace'>}</span><span class='rbrace'>}</span><span class='comma'>,</span>
-    <span class='symbol'>:auth</span> <span class='op'>=&gt;</span> <span class='lbrace'>{</span>
-      <span class='symbol'>:method</span> <span class='op'>=&gt;</span> <span class='symbol'>:simple</span><span class='comma'>,</span>
-      <span class='symbol'>:username</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ldap_user'>ldap_user</span><span class='comma'>,</span>
-      <span class='symbol'>:password</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ldap_password'>ldap_password</span>
+      <span class='label'>method:</span> <span class='symbol'>:simple_tls</span><span class='comma'>,</span>
+      <span class='label'>tls_options:</span> <span class='lbrace'>{</span> <span class='label'>verify_mode:</span> <span class='const'>OpenSSL</span><span class='op'>::</span><span class='const'>SSL</span><span class='op'>::</span><span class='const'>VERIFY_NONE</span> <span class='rbrace'>}</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>auth:</span> <span class='lbrace'>{</span>
+      <span class='label'>method:</span> <span class='symbol'>:simple</span><span class='comma'>,</span>
+      <span class='label'>username:</span> <span class='id identifier rubyid_ldap_user'>ldap_user</span><span class='comma'>,</span>
+      <span class='label'>password:</span> <span class='id identifier rubyid_ldap_password'>ldap_password</span>
     <span class='rbrace'>}</span>
   <span class='rbrace'>}</span>
   <span class='const'>Net</span><span class='op'>::</span><span class='const'>LDAP</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='id identifier rubyid_options'>options</span>
@@ -825,7 +827,6 @@
       <pre class="lines">
 
 
-94
 95
 96
 97
@@ -837,10 +838,11 @@
 103
 104
 105
-106</pre>
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'decidim-users_extended/app/services/decidim/users_extended/ad_service.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_info_attrs'>user_info_attrs</span>
   <span class='lbracket'>[</span>
@@ -865,7 +867,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:36 2025 by
+  Generated on Mon May 18 15:09:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

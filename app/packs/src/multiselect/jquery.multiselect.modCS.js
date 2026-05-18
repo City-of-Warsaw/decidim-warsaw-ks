@@ -51,6 +51,7 @@
       selectAll: "Select all", // select all text
       unselectAll: "Unselect all", // unselect all text
       noneSelected: "None Selected", // None selected text
+      dropdownLabel: "", // text to show in dropdown header
     },
 
     // general options
@@ -133,6 +134,12 @@
     /* LOAD CUSTOM MULTISELECT DOM/ACTIONS */
     load: function () {
       var instance = this;
+
+      // Read dropdown-label from data attribute after options are set
+      var dropdownLabel = instance.element.getAttribute("data-dropdown-label");
+      if (dropdownLabel) {
+        instance.options.texts.dropdownLabel = dropdownLabel;
+      }
 
       // make sure this is a select list and not loaded
       if (
@@ -1027,6 +1034,19 @@
       optionsList.after('<div class="dropdown-header"></div>');
       var headerContainer = optionsWrap.find(".dropdown-header");
 
+      // add dropdown label if specified
+      if (instance.options.texts.dropdownLabel) {
+        var sanitizedLabel = instance.options.texts.dropdownLabel.replace(
+          /<(?!\/?(br|span)\b)[^>]*>/gi,
+          ""
+        );
+
+        var labelDiv = $('<div class="dropdown-label"></div>').html(
+          sanitizedLabel
+        );
+        headerContainer.append(labelDiv);
+      }
+
       // add global select all options to header
       if (instance.options.selectAll) {
         headerContainer.append(
@@ -1133,7 +1153,11 @@
 
       var instance = this;
       var select = $(instance.element);
-      var selectVals = select.val() ? !select.attr("multiple") ? [select.val()] : select.val() : [];
+      var selectVals = select.val()
+        ? !select.attr("multiple")
+          ? [select.val()]
+          : select.val()
+        : [];
       var placeholder = select
         .siblings("#ms-list-" + instance.listNumber + ".ms-options-wrap")
         .find("> button:first-child");

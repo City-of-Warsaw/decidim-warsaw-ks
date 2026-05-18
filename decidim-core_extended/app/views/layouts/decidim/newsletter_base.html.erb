@@ -6,7 +6,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width">
-    <%= stylesheet_pack_tag "decidim_email" %>
+     <%= stylesheet_pack_tag "email" %>
+
+    <% unless @newsletter.template.manifest_name == "basic_only_text" %>
+      <%= stylesheet_pack_tag "email_ks_templates" %>
+    <% end %>
   </head>
 
   <body <%= @preview ? "class=preview" : nil %>>

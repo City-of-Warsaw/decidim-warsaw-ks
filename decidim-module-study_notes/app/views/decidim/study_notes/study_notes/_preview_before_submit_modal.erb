@@ -1,0 +1,21 @@
+<%= decidim_modal id: "previewBeforeSubmitModal", class: "max-w-full" do %>
+  <div data-dialog-container>
+    <%= icon "information-line" %>
+    <h3 class="h3"><%= t(".title") %></h3>
+ 
+    <div> 
+      <iframe class="w-full border-0 mt-4" data-consent-ignore="true"></iframe>
+    </div> 
+  </div>
+
+  <div data-dialog-actions>
+     <button type="button" class="button button__lg button__transparent-secondary" data-dialog-close="previewBeforeSubmitModal">
+      <%= t(".back") %>
+    </button>
+
+    <button type="button" class="button button__lg button__primary" data-dialog-close="parcelDeletionModal" data-action="submit-form">
+      <%= t(".submit") %>
+    </button>
+  </div>
+<% end %>
+

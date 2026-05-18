@@ -16,5 +16,13 @@ Decidim::Forms::Questionnaire.class_eval do
   def emails_by_session_token
     @emails_by_session_token ||= user_data.pluck(:session_token, :email).to_h
   end
+
+  def organization
+    Decidim::Organization.first
+  end
+
+  def attachment_context
+    :admin
+  end
 end
 

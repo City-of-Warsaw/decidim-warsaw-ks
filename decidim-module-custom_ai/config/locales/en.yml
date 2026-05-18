@@ -1,0 +1,6 @@
+---
+en:
+  decidim:
+    components:
+      custom_ai:
+        name: CustomAi

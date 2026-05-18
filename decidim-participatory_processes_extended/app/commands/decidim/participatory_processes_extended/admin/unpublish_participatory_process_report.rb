@@ -3,7 +3,7 @@
 module Decidim
   module ParticipatoryProcessesExtended
     module Admin
-      # A command with all the business logic to publish report for participatory process
+      # A command with all the business logic to unpublish report for participatory process
       class UnpublishParticipatoryProcessReport < Decidim::Command
         # Public: Initializes the command.
         #
@@ -17,12 +17,9 @@ module Decidim
         # Executes the command. Broadcasts these events:
         #
         # - :ok when everything is valid.
-        # - :invalid if the form wasn't valid and we couldn't proceed.
         #
         # Returns nothing.
         def call
-          return broadcast(:no_report_added) if @no_report_added
-
           unpublish_process_report
           broadcast(:ok)
         end
@@ -37,17 +34,9 @@ module Decidim
             participatory_process,
             current_user
           ) do
-            participatory_process.update(attributes)
+            participatory_process.update(report_published: false, report_notification_send: false)
+            participatory_process.set_consultation_status
           end
-        end
-
-        # Private: Hash of main page process attributes
-
-        def attributes
-          {
-            report_notification_send: false,
-            consultation_status: ''
-          }
         end
       end
     end

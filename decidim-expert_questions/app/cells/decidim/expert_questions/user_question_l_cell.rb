@@ -16,6 +16,12 @@ module Decidim
         render :show
       end
 
+      def frontend_administrable?
+        user_entity? &&
+          model.can_be_administered_by?(current_user) &&
+          (model.respond_to?(:official?) && !model.official?)
+      end
+
       def has_answer?
         model.expert_answer&.published?
       end
@@ -32,6 +38,7 @@ module Decidim
         model.author.is_a?(Decidim::User) && model.author.has_ad_role?
       end
 
+      # TODO: needs refactoring
       # helpers loose component_id
       def edit_link
         "/processes/#{model.participatory_space.slug}/f/#{model.component.id}/user_questions/#{model.id}/edit"
@@ -89,6 +96,11 @@ module Decidim
         classes = []
         classes << "admin-response" if author_is_admin?
         classes.join(" ")
+      end
+
+      def user_entity?
+        (model.respond_to?(:creator_author) && model.creator_author.respond_to?(:nickname)) ||
+          (model.respond_to?(:author) && model.author.respond_to?(:nickname))
       end
     end
   end

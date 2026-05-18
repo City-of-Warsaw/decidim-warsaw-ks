@@ -1,0 +1,65 @@
+<div class="table-scroll">
+  <table class="table-list">
+    <thead>
+    <th><%= check_box_tag "answers_bulk", "all", false, class: "js-check-all" %></th>
+    <th><%= sort_link(query, :id, "ID", default_order: :desc) %></th>
+    <%= @grouping == 1 ? ( raw "<th> #{sort_link(query, :similar_group_id, "Grupa", default_order: :desc)}</th>") : "" %>
+    <%= @grouping == 2 ? ( raw"<th> #{sort_link(query, :incorrect_group_id, "Grupa", default_order: :desc)}</th>") : "" %>
+    <th>Pytanie</th>
+    <th>Odpowiedz</th>
+    <th>Błędy na etapie składania</th>
+    <th><%= sort_link(query, :ai_decision_status, "Rozstrzygnięcie", default_order: :desc) %></th>
+    <th><%= sort_link(query, :status, "Status", default_order: :desc) %></th>
+    <th><%= sort_link(query, :created_at, "Data utworzenia", default_order: :desc) %></th>
+    <th></th>
+    <th class="actions"></th>
+    </thead>
+    <tbody>
+    <% @answers.each do |answer| %>
+      <tr data-id="<%= answer.id %>">
+        <td>
+          <%= check_box_tag "answer_ids[]",
+                            answer.id,
+                            false,
+                            class: "js-answer-checkbox" %>
+        </td>
+        <td>
+          <%= answer.id %>
+        </td>
+        <%= @grouping == 1 ? ( raw "<td>Grupa #{answer.similar_group_id}</td>") : "" %>
+        <%= @grouping == 2 ? ( raw"<td>Grupa #{answer.incorrect_group_id}</td>") : "" %>
+        <td>
+          <%= decidim_sanitize answer.question.body['pl'] %>
+        </td>
+        <td>
+          <%= truncate(answer.body,length: 250, separator: "...") %>
+        </td>
+        <td>
+          <%= t("booleans.#{answer.ai_suggestion_body.present?}") %>
+        </td>
+        <td>
+          <%= decidim_sanitize html_truncate(answer.ai_decision_body, length: 50, separator: "..."), strip_tags: %w[img video] %>
+        </td>
+        <td>
+          <%= t("enums.decidim.forms.answer.status.#{answer.status}") if answer.status.present? %>
+        </td>
+        <td>
+          <%= l answer.created_at, format: "%d/%m/%Y - %H:%M" %>
+        </td>
+        <td class="table-list__actions">
+          <%= icon_link_to "eye-line",
+                           decidim_custom_ai_admin.answer_path(id: answer.id),
+                           t("actions.preview", scope: "decidim.admin"),
+                           class: "action-icon--preview" %>
+          <%= icon_link_to "pencil-line",
+                           decidim_custom_ai_admin.edit_answer_path(id: answer.id),
+                           t("actions.edit", scope: "decidim.admin"),
+                           class: "action-icon--edit",
+                           method: :get,
+                           data: {} %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

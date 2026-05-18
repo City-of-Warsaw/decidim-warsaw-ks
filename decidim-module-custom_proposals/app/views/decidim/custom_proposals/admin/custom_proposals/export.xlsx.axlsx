@@ -2,72 +2,31 @@
 
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista") do |sheet|
-  # Defined a text wrapping style for columns: 
-  # - 'Treść komentarza',
-  # - 'URL załącznika'
-  wrap_text = wb.styles.add_style(alignment: { wrap_text: true } )
+  wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+  right_align = wb.styles.add_style(alignment: { horizontal: :right })
 
-  # specified width for columns:
-  # - 'Treść komentarza',
-  # - 'URL załącznika'
-  col_widths = [nil, nil, nil, nil, 40, nil, nil, nil, nil, nil, 70]
+  sheet.add_row @xml_serializer.headers
 
-  sheet.add_row [
-    'Lp.',
-    'Kolejność fragmentu',
-    'Nazwa fragmentu',
-    'Podpis komentarza',
-    'Treść komentarza',
-    'Data dodania komentarza',
-    'E-mail',
-    'Dzielnica',
-    'Wiek',
-    'Płeć',
-    'URL załącznika'
-  ]
+  @xml_serializer.serialize_all(@comments).each.with_index(1) do |row_hash, lp|
+    sheet.add_row @xml_serializer.ordered_values(row_hash)
 
-  @comments.each_with_index do |comment, index|
-    urls = links_to_files_array(comment.files)
+    @xml_serializer.columns_order.each_with_index do |column, col_index|
+      cell_ref = "#{col_index_to_column_letter(col_index)}#{lp + 1}"
 
-    if urls.empty?
+      if @xml_serializer.columns_definition[column][:wrap_text]
+        sheet[cell_ref].style = wrap_text
+      end
 
-      sheet.add_row [
-        index + 1,
-        comment.root_commentable.weight,
-        comment.root_commentable.title,
-        comment.signature,
-        comment.body.values[0],
-        l(comment.created_at, format: :short),
-        comment.email,
-        comment.district.present? ? comment.district.name.values[0] : '',
-        comment.age.present? ? I18n.t(comment.age, scope: 'decidim.comments.age', default: '') : '',
-        comment.gender.present? ? I18n.t(comment.gender, scope: 'decidim.comments.gender', default: '') : '',
-        ''
-      ], style: [nil, nil, nil, nil, wrap_text, nil, nil, nil, nil, nil, wrap_text]
+      if @xml_serializer.url_columns.include?(column)
+        hyperlink_value = row_hash[column]
+        sheet.add_hyperlink location: hyperlink_value, ref: cell_ref if hyperlink_value.present?
+      end
 
-    else
-
-      urls.each_with_index do |url, url_index|
-
-        sheet.add_row [
-          "#{index + 1}.#{url_index + 1}",
-          comment.root_commentable.weight,
-          comment.root_commentable.title,
-          comment.signature,
-          comment.body.values[0],
-          l(comment.created_at, format: :short),
-          comment.email,
-          comment.district.present? ? comment.district.name.values[0] : '',
-          comment.age.present? ? I18n.t(comment.age, scope: 'decidim.comments.age', default: '') : '',
-          comment.gender.present? ? I18n.t(comment.gender, scope: 'decidim.comments.gender', default: '') : '',
-          url
-        ], style: [nil, nil, nil, nil, wrap_text, nil, nil, nil, nil, nil, wrap_text]
-
-        sheet.add_hyperlink location: url, ref: "K#{sheet.rows.size}"
+      if @xml_serializer.column_alignment(column) == :right
+        sheet[cell_ref].style = right_align
       end
     end
   end
 
-  # set defined width columns:
-  sheet.column_widths *col_widths
+  sheet.column_widths *@xml_serializer.columns_widths
 end

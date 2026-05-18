@@ -6,19 +6,19 @@ module Decidim
     # It uses update method, as data is additional to the required body part of the model
     # This command is not used in any other moment
     #
-    # Attributes that are saved through this command:
-    # - signature
-    # - district_id
-    # - age
-    # - gender
-    #
     # In this case Boolean field 'edited' has default value of false, as this Command is used only in one specific moment:
     # right after creation to gather statistical data
     class SecondStepUserQuestionUpdate < Decidim::Command
-      # Initializes an Update User Question Command
+      include Decidim::CoreExtended::AuthorParamsBuilder
+      include Decidim::CoreExtended::GenerateTokenHelper
+
+      # Initializes a SecondStepUserQuestionUpdate Command.
       #
-      # form - The form from which to get the data
-      # current_user - The current instance of the user question to be updated
+      # form - A form object with the params.
+      # user_question - A user question to expert object with the params.
+      # current_organization - A current organization object
+      # component - A current component object
+      # author - not registered user
       def initialize(form, user_question)
         @form = form
         @user_question = user_question
@@ -40,19 +40,7 @@ module Decidim
       private
 
       def update_user_question_stats
-        @user_question.update(user_question_attributes)
-      end
-
-      def user_question_attributes
-        {
-          district_id: @form.district_id,
-          age: @form.age,
-          gender: @form.gender
-        }
-      end
-
-      def unregistered_author
-        Decidim::CoreExtended::UnregisteredAuthor.where(organization: @current_organization).first
+        @user_question.update(author_second_step_params)
       end
     end
   end

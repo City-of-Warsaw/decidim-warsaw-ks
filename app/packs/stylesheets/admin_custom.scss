@@ -273,10 +273,6 @@ input + span.help-text {
   width: 800px !important;
 }
 
-.item__edit-sticky {
-  z-index: 1000;
-}
-
 .area-map-wrapper .map-settings {
   width: 25%;
   padding: 0px 16px 16px;
@@ -443,12 +439,11 @@ body > main > div > div.layout-nav > div > div.secondary-nav__title {
   }
 
   a {
-    color: var(--primary);
+    color: #1b7c96;
   }
 }
 
 // overwritten knowledge base table columns width
-
 .static-pages-table {
   .table-scroll {
     .table-list {
@@ -478,4 +473,29 @@ body > main > div > div.layout-nav > div > div.secondary-nav__title {
       }
     }
   }
+}
+
+// newsletter form
+#newsletter_settings_introduction_pl,
+#newsletter_settings_body_pl,
+#newsletter_settings_footer,
+.new_newsletter .upload-modal__files-container.upload-container-for-main_image {
+  margin-top: 1rem;
+}
+
+.flash__message:has(> .specific_link) {
+  flex-direction: row !important;
+  gap: 4px;
+}
+
+.fake-link {
+  color: rgb(var(--secondary-rgb) / var(--tw-text-opacity, 1));
+  text-decoration: underline;
+  font-weight: 400 !important;
+}
+
+// align inputs for internal numbers in the sequential numbers form when validation error occurs
+.sequential-numbers-inputs:has(.sequential-number-from label.is-invalid-label)
+  .sequential-number-to {
+  margin-top: 26px;
 }

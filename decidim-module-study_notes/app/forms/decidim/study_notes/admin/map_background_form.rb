@@ -13,12 +13,17 @@ module Decidim::StudyNotes
     attribute :x_longitude, Float
     attribute :y_latitude, Float
     attribute :y_longitude, Float
+    attribute :visible_on_load, Boolean, default: false
+    attribute :min_zoom_level, Integer, default: 0
 
     validates :name, presence: true
     validates :position, presence: true
     validates :file_type, presence: true
     validates :file, presence: { if: proc { |attrs| attrs[:id].blank? }} # only on create
     validate :lat_and_long_for_raster_file
+    validates :min_zoom_level,
+              numericality: { only_integer: true, greater_than_or_equal_to: 10, less_than_or_equal_to: 18 },
+              allow_nil: true
 
     def lat_and_long_for_raster_file
       if file_type.present? && file_type == 'raster' &&

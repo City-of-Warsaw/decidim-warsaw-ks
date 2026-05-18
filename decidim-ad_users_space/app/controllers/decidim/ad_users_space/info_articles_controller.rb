@@ -10,6 +10,9 @@ module Decidim::AdUsersSpace
     include Decidim::SanitizeHelper
 
     helper Decidim::SanitizeHelper
+    # helper Decidim::FollowableHelper
+    # helper Decidim::Comments::CommentsHelper
+    # helper Decidim::AttachmentsHelper
 
     helper_method :info_article, :info_articles, :article_categories, :orphan_articles, :hero_section_public,
                   :banner_partial_name, :pages_or_info_articles?

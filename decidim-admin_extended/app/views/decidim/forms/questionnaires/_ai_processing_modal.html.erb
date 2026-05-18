@@ -1,0 +1,32 @@
+<%= decidim_modal id: "aiProcessingModal" do %>
+  <div data-dialog-container>      
+    <%= icon "loader-4-line", class: "animate-spin w-8 h-8 icon-loading-js" %>
+    <%= icon "ai-lighbulb", class: "hidden w-8 h-8 icon-finished-js" %> 
+    
+    <h3 class="h3">Trwa analiza</h3>
+
+    <div class="mt-4 flex flex-col gap-4">
+      <p>     
+        Analiza jest wykonywana za pomocą narzędzia AI, które zwróci ewentualne sugestie do wprowadzonych treści w&nbsp;formularzu. Proces ten może potrwać kilka minut. 
+      </p> 
+    </div>
+  </div> 
+
+  <div data-dialog-actions>
+    <button type="button" class="button button__lg button__transparent-secondary" data-dialog-close="aiProcessingModal">
+      Anuluj
+    </button>
+
+    <button type="submit" class="button button__lg button__primary" data-dialog-close="aiProcessingModal" data-action="abort-and-submit-form">
+      Przerwij i wyślij
+    </button>
+
+    <button type="button" class="button button__lg button__primary hidden" data-dialog-close="aiProcessingModal" data-action="review-ai-suggestions">
+      Przejrzyj sugestie
+    </button>
+
+    <button type="button" class="button button__lg button__primary hidden" data-dialog-close="aiProcessingModal" data-action="submit-form">
+      Wyślij formularz
+    </button>
+  </div>
+<% end %>

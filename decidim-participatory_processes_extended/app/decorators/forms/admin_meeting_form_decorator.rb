@@ -9,23 +9,23 @@ Decidim::Meetings::Admin::MeetingForm.class_eval do
   attribute :title_services, String
 
   # overwritten validations
-  # use our approach
-  clear_validators!
+  # remove standard validators - customer do not want them
+  _validators[:description].clear
+  _validators[:location].clear
+  _validators[:comments_start_time].clear
+  _validators[:comments_end_time].clear
 
-  validates :title, translatable_presence: true
-  validates :registration_type, presence: true
-  validates :registration_url, presence: true, url: true, if: ->(form) { form.on_different_platform? }
-  validates :type_of_meeting, presence: true
-  validates :address, presence: true, if: ->(form) { form.needs_address? }
-  validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? && form.needs_address? }
-  validates :online_meeting_url, presence: true, if: ->(form) { form.online_meeting? || form.hybrid_meeting? }
-  validates :start_time, presence: true, date: { before: :end_time }
-  validates :end_time, presence: true, date: { after: :start_time }
-  validates :current_component, presence: true
-  validates :category, presence: true, if: ->(form) { form.decidim_category_id.present? }
-  validates :scope, presence: true, if: ->(form) { form.decidim_scope_id.present? }
-  validates :decidim_scope_id, scope_belongs_to_component: true, if: ->(form) { form.decidim_scope_id.present? }
-  validates :clean_type_of_meeting, presence: true
+  # overwritten validations
+  # remove validator callbacks - customer do not want them
+  _validate_callbacks.each do |callback|
+    filter = callback.filter
+
+    filter.attributes.delete(:description) if filter.is_a?(TranslatablePresenceValidator)
+    filter.attributes.delete(:location) if filter.is_a?(TranslatablePresenceValidator)
+    filter.attributes.delete(:comments_start_time) if filter.is_a?(ActiveModel::Validations::DateValidator)
+    filter.attributes.delete(:comments_end_time) if filter.is_a?(ActiveModel::Validations::DateValidator)
+  end
+
   validate :address_was_geocoded
   validate :location_was_filled
 

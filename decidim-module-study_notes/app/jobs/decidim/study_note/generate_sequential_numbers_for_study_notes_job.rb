@@ -6,16 +6,19 @@ module Decidim
       queue_as :events
       include Decidim::EmailChecker
 
-      def perform(start_number, component, user)
-        generate_sequence_numbers(start_number, component)
+      def perform(start_number, id_from, id_to, component, user)
+        generate_sequence_numbers(start_number, id_from, id_to, component)
         send_notification(user)
       end
 
       private
 
-      def generate_sequence_numbers(start_number, component)
-        Decidim::StudyNotes::StudyNote.where(component:).order(:created_at).each do |study_note|
-          study_note.update(sequential_number: start_number)
+      def generate_sequence_numbers(start_number, id_from, id_to, component)
+        Decidim::StudyNotes::StudyNote.where(id: id_from..id_to)
+                                      .where(component:)
+                                      .order(:created_at)
+                                      .each do |study_note|
+          study_note.update_column(:sequential_number, start_number)
           start_number += 1
         end
       end

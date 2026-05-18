@@ -6,9 +6,10 @@ module Decidim::CustomProposals
   class Admin::CustomProposalsController < Decidim::CustomProposals::Admin::ApplicationController
     include Decidim::TranslatableAttributes
     include Decidim::SanitizeHelper
+    include Decidim::CoreExtended::SerializerExportHelper
 
     helper Decidim::ApplicationHelper
-    helper_method :custom_proposals
+    helper_method :custom_proposals, :col_index_to_column_letter
 
     def index
       enforce_permission_to :read, :custom_proposal
@@ -18,6 +19,7 @@ module Decidim::CustomProposals
     def export
       enforce_permission_to :read, :custom_proposal
 
+      @xml_serializer = Decidim::CustomProposals::CustomProposalCommentsSerializer.new
       @comments = export_comments
       respond_to do |format|
         format.xlsx
@@ -89,8 +91,10 @@ module Decidim::CustomProposals
     end
 
     def export_comments
-      comments = Decidim::Comments::Comment.where(root_commentable: custom_proposals)
-      comments.sort_by { |comment| comment.root_commentable.weight }
+      Decidim::Comments::Comment.where(root_commentable: custom_proposals)
+                                .not_hidden
+                                .not_deleted
+                                .sort_by { |comment| comment.root_commentable.weight }
     end
   end
 end

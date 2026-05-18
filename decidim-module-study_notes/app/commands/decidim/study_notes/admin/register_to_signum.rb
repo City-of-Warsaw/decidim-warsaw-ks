@@ -27,9 +27,11 @@ module Decidim
         def call
           return broadcast(:registered_already) if study_note.registered_to_signum?
 
-          register_to_signum
-
-          broadcast(:ok, study_note)
+          if register_to_signum
+           broadcast(:ok, study_note)
+          else
+           broadcast(:error, "Wystąpił błąd rejestracji w SIGNUM")
+          end
         end
 
         private

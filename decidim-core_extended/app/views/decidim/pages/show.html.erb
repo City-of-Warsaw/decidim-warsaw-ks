@@ -15,14 +15,8 @@
   )
 %>
 
-<!-- condition displaying the "accessibility_declaration" template has been added temporarily,
-until the application is updated to version 0.29, because quill in version 0.24 does not support
-the HTML tags needed there-->
-
 <%= render layout:"layouts/decidim/shared/layout_center", locals: { columns: 10 } do %>
-  <% if @page.slug == "dostepnosc" %>
-      <%= render "decidim/pages/templates/accessibility_declaration" %>
-  <% elsif @topic %> 
+  <% if @topic %> 
       <% unless @page.show_on_help_page? %>
         <%= render partial: "header", locals: {
           topic: translated_attribute(@topic.title),

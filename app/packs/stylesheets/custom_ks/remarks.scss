@@ -29,6 +29,18 @@
 
 [id^="comments-for-Remark-"] > #comments {
   margin: 0;
+
+  .flash {
+    gap: 0;
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__message.editor-content p {
+      margin: 8px 0 0 !important;
+    }
+  }
 }
 
 .remarks {
@@ -45,7 +57,7 @@
     flex-direction: column;
 
     &.card--remark_form {
-      min-height: 306px;
+      min-height: fit-content;
 
       .ul-reset.ul-contents li a {
         font-weight: 600;
@@ -222,6 +234,11 @@
 
   .card__content {
     padding: 0;
+
+    a {
+      color: #1b7c96;
+      text-decoration: underline;
+    }
 
     .form-error {
       margin-top: 0.25rem;

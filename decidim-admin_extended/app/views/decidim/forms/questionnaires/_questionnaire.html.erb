@@ -6,7 +6,7 @@
   <%= cell("decidim/announcement", { title: t("decidim.forms.questionnaires.show.questionnaire_for_private_users.title"), body: t("decidim.forms.questionnaires.show.questionnaire_for_private_users.body") }, callout_class: "alert") %>
 <% end %>
 
-<%= decidim_form_for(@form, url: update_url, method: :post, html: { multipart: true, class: "form answer-questionnaire" }, data: { "safe-path" => form_path }) do |form| %>
+<%= decidim_form_for(@form, url: update_url, method: :post, html: { multipart: true, class: "form answer-questionnaire" }, data: { "safe-path" => form_path, component_id: current_component.id }) do |form| %> 
 
   <%= invisible_captcha %>
   <% answer_idx = 0 %>
@@ -99,7 +99,9 @@
             step_index,
             total_steps: @form.total_steps,
             button_disabled: !current_participatory_space.can_participate?(current_user),
-            form:
+            form:,
+            form_object: @form,
+            ai_enabled: current_component.ai_enabled?
           ) %>
         <% end %>
       </div>

@@ -20,6 +20,10 @@ const DEFAULT_MESSAGES = {
     one: `pozostało ${COUNT_KEY} znaków`,
     other: `pozostało ${COUNT_KEY} znaków`,
   },
+  overLimit: {
+    one: `Przekroczono limit o ${COUNT_KEY} znak`,
+    other: `Przekroczono limit o ${COUNT_KEY} znaków`,
+  },
 };
 let MESSAGES = DEFAULT_MESSAGES;
 
@@ -36,7 +40,9 @@ export default class InputCharacterCounter {
     this.$input = input;
     this.$target = $(this.$input.data("remaining-characters"));
     this.minCharacters = parseInt(this.$input.attr("minlength"), 10);
-    this.maxCharacters = parseInt(this.$input.attr("maxlength"), 10);
+    this.maxCharacters = this.$input.data("maxlength")
+      ? parseInt(this.$input.data("maxlength"), 10)
+      : parseInt(this.$input.attr("maxlength"), 10);
     this.describeByCounter =
       this.$input.attr("type") !== "hidden" &&
       typeof this.$input.attr("aria-describedby") === "undefined";
@@ -89,7 +95,7 @@ export default class InputCharacterCounter {
 
         // The form errors need to be in the same container with the field they
         // belong to for Foundation Abide to show them automatically.
-        this.$input.next(".form-error").addBack().wrapAll(wrapper);
+        this.$input.siblings(".form-error").addBack().wrapAll(wrapper);
         this.$input.after(container);
       }
     }
@@ -285,21 +291,39 @@ export default class InputCharacterCounter {
     if (this.maxCharacters > 0) {
       const remaining = this.maxCharacters - inputLength;
       let message = MESSAGES.charactersLeft.other;
+
       if (remaining === 1) {
         message = MESSAGES.charactersLeft.one;
       }
+
+      if (remaining < 0) {
+        message = MESSAGES.overLimit.other;
+        if (Math.abs(remaining) === 1) {
+          message = MESSAGES.overLimit.one;
+        }
+      }
+
       this.$userInput[0].dispatchEvent(
         new CustomEvent("characterCounter", {
           detail: { remaining: remaining },
         })
       );
-      showMessages.push(message.replace(COUNT_KEY, remaining));
+      showMessages.push(message.replace(COUNT_KEY, Math.abs(remaining)));
     }
 
     return showMessages;
   }
 
   updateStatus() {
+    if (this.maxCharacters > 0) {
+      const remaining = this.maxCharacters - this.getInputLength();
+      if (remaining < 0) {
+        this.$target.addClass("text-[#ed1c24]");
+      } else {
+        this.$target.removeClass("text-[#ed1c24]");
+      }
+    }
+
     this.$target.text(this.getMessages().join(", "));
   }
 

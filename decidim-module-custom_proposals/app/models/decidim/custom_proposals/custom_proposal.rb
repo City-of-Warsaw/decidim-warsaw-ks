@@ -77,15 +77,20 @@ module Decidim
         true
       end
 
-      # overwritten method
-      # custom proposal's component settings be set in admin panel, to disallow to comment:
-      # - if time set in the custom proposal's component settings of the users_action_end_date field has passed
-      # - participatory_space setting field: users_action_allowed_for_unregister_users
-      def user_allowed_to_comment?(user)
+      # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+      # add visible?
+      # add published?
+      # add component.users_action_end_date&.past?
+      def accepts_new_comments?
         return false unless visible?
         return false unless published?
-        # scenario when component is closed
         return false if component.users_action_end_date&.past?
+
+        commentable? && !component.current_settings.comments_blocked
+      end
+
+      # allow to scenario where unregister users can comment
+      def can_participate?(user)
         # scenario when registered user is present
         return true if user.present?
 

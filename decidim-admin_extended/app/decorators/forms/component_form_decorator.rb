@@ -44,6 +44,6 @@ Decidim::Admin::ComponentForm.class_eval do
   def with_users_action_disallowed_date?
     return false unless current_user.ad_admin? || current_user.ad_coordinator?
 
-    [:expert_questions, :consultation_map, :remarks, :custom_proposals].include?(manifest.name)
+    [:expert_questions, :consultation_map, :remarks, :custom_proposals, :study_notes].include?(manifest.name)
   end
 end

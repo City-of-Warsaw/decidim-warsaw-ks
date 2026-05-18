@@ -151,11 +151,6 @@
         padding: 6px;
       }
 
-      ul {
-        order: 1;
-        flex-basis: 100%;
-      }
-
       > a {
         border-width: 1px !important;
         font-size: 14px !important;
@@ -183,18 +178,27 @@
       }
 
       ul {
+        order: 1;
+        flex-basis: 100%;
+
+        input[type="checkbox"] {
+          top: 11px;
+          cursor: pointer;
+        }
+
         li.selected label,
         label:hover {
           background-color: var(--primary);
           color: white;
-          font-weight: bold;
+          font-weight: 600;
           border-radius: 4px;
+          cursor: pointer;
         }
 
         label {
           display: flex;
           align-items: center;
-          font-size: 14px;
+          font-size: 16px;
           padding: 4px 4px 4px 23px;
 
           span:first-of-type {
@@ -495,7 +499,7 @@
             ul {
               li {
                 a {
-                  color: var(--primary);
+                  color: #1b7c96;
                   font-weight: 600;
                   text-decoration: none;
                 }
@@ -529,7 +533,7 @@
           padding: 20px;
 
           a {
-            color: var(--primary);
+            color: #1b7c96;
           }
         }
 

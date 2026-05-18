@@ -41,6 +41,9 @@ gem 'caxlsx_rails'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
+# Import from Excel
+gem "roo", "~> 2.10.0"
+
 # sending notifications when errors occur
 gem 'exception_notification'
 
@@ -106,6 +109,7 @@ gem 'decidim-repository', path: 'decidim-module-repository'
 gem 'decidim-study_notes', path: 'decidim-module-study_notes'
 gem 'decidim-custom_proposals', path: 'decidim-module-custom_proposals'
 gem 'decidim-general_plan_requests', path: 'decidim-module-general_plan_requests'
+gem 'decidim-custom_ai', path: 'decidim-module-custom_ai'
 
 # Rest API
 gem 'active_model_serializers'

@@ -5,10 +5,10 @@
 
   <% if !current_participatory_space.users_action_allowed_for_unregister_users && !current_user %>
     <div class="card__content">
-      <strong>
+      <span>
         <%= t(".anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
-      </strong>
-    </div>
+      </span>
+   </div>
   <% else %>
     <div class="card__content">
       <%= form_for(form_object, remote: true) do |form| %>

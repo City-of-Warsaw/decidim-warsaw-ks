@@ -1,4 +1,7 @@
 <div class="answer-questionnaire__single-option js-radio-button-collection">
+  <small class="form-error is-visible w-full is-invalid-input">
+    <%= answer_form.object.errors[:selected_choices].join(", ") %>
+  </small>
   <% choice = answer.choices.first %>
   <% user_response = responses_for_current_question(answer.question) %>
 

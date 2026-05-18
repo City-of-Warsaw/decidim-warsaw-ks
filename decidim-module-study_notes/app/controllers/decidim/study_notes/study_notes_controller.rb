@@ -14,22 +14,22 @@ module Decidim::StudyNotes
 
     def create
       @form = form(Decidim::StudyNotes::StudyNoteForm).from_params(params)
-      if params[:subaction] == "preview_pdf"
-        # Handle PDF preview without saving the record
-        render pdf: "podgląd wniosku",
-               template: "decidim/study_notes/shared/show",
-               disposition: "inline",
-               formats: [:pdf],
-               locals: { study_note: @form }
-      else
-        Decidim::StudyNotes::CreateStudyNote.call(@form) do
-          on(:ok) do |study_note|
-            redirect_to study_note_path(study_note, uuid: study_note.uuid, anchor: "subcontent")
-          end
 
-          on(:invalid) do
-            flash.now[:alert] = t("study_notes.create.invalid", scope: "decidim.study_notes")
-            render :index
+      respond_to do |format|
+        format.js do 
+          render :preview
+        end
+
+        format.html do
+          Decidim::StudyNotes::CreateStudyNote.call(@form) do
+            on(:ok) do |study_note|
+              redirect_to study_note_path(study_note, uuid: study_note.uuid, anchor: "subcontent")
+            end
+
+            on(:invalid) do
+              flash.now[:alert] = t("study_notes.create.invalid", scope: "decidim.study_notes")
+              render :index
+            end
           end
         end
       end

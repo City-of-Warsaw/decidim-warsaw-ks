@@ -5,3 +5,11 @@
 .card--list__text div a span svg {
   display: none !important;
 }
+
+.card--list__data__icon svg {
+  width: 30px !important;
+  height: 24px !important;
+  color: var(--secondary, #0b7bc4) !important;
+  fill: currentColor !important;
+  display: block !important;
+}

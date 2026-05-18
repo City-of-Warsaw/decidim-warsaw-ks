@@ -5,6 +5,7 @@
 # Class was extended to support two additional image versions:
 # default and square
 Decidim::ImageUploader.class_eval do
+  # TODO: upgrade v029! poprawic lub usunac - problem z wszystkimi content typeami
   def content_type_allowlist
     %w[
       image/icon

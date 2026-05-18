@@ -7,7 +7,6 @@
       </h2>
     </div>
 
-
     <div class="form__wrapper gap-2 w-full">
       <label class="text-gray-2" for="<%= form_id %>">
         <%= t("decidim.components.edit_comment_modal_form.form.body.label") %>
@@ -40,7 +39,7 @@
                 Usuń
               </button>
 
-              <%= check_box_tag 'comment[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %> 
+              <%= check_box_tag 'comment[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden", aria: { label: "Usuń #{file.filename}" } %> 
             </li>
           <% end %>
         </ul>
@@ -51,6 +50,7 @@
                             label: false,
                             class: 'multifile hidden',
                             id: "comment_files_#{form_id}",
+                            aria: { label: 'Dodaj załącznik' },
                             accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
                             multiple: true %>
         <button type="button" class="comment-file-button attachment-button-js" data-target="#comment_files_<%= form_id %>">Dodaj załącznik</button>
@@ -58,7 +58,6 @@
 
       <%= form.hidden_field(:token, value: token) %>
     </div>
-
   </div>
   <div data-dialog-actions>
     <button type="submit" data-dialog-close="editCommentModal<%#= model.id %>" class="button button__sm md:button__lg button__secondary">

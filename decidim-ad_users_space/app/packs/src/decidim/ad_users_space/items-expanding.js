@@ -5,12 +5,15 @@ $(document).ready(function () {
 
     $(this).parent().toggleClass("article--expanded");
     $(this).attr("aria-expanded", (_, attr) =>
-      attr == "true" ? "false" : "true"
+      attr == "true" ? "false" : "true",
     );
   });
 
   if (window.location.hash) {
-    $(window.location.hash).parent().toggleClass("article--expanded");
-    $(window.location.hash).attr("aria-expanded", true);
+    var $target = $(window.location.hash);
+    if ($target.length && !$target.parent().hasClass("article--expanded")) {
+      $target.parent().addClass("article--expanded");
+      $target.attr("aria-expanded", "true");
+    }
   }
 });

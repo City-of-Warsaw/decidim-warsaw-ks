@@ -24,7 +24,7 @@ every 1.day, at: '6:00 am' do
   runner "Decidim::ParticipatoryProcessesExtended::NotifyFollowersBeforeMeetingJob.perform_now"
 end
 
-# proces do aktywacji odpowiedniego etapu w procesie
+# nasz proces do aktywacji odpowiedniego etapu w procesie
 every 15.minutes do
   rake "decidim_participatory_processes:check_steps"
 end

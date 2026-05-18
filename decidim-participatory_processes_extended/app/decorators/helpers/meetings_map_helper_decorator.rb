@@ -54,7 +54,9 @@ Decidim::Meetings::MapHelper.module_eval do
               icon += content_tag :span, '', class: 'meeting-icon-circle', role: 'img'
               icon
             else
+              # TODO: upgrade v028! poprawic lub usunac
               'ico'
+              # icon('meetings', width: 40, height: 70, remove_icon_class: true)
             end,
       location: translated_attribute(meeting.location),
       locationDetails: if meeting.online?

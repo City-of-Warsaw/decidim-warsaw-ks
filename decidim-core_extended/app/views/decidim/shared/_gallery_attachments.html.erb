@@ -10,7 +10,15 @@
         <% model.gallery.images.each do |image| %>
           <% next unless image.thumbnail_500 %>
           <li>
-            <%= link_to main_app.rails_representation_path(image.thumbnail_900), name: "link", role: "button", class: 'swipebox', rel: "gallery-attachments" do %>
+            <% title_parts = [] %>
+            <% title_parts << image.description if image.description.present? %>
+            <% title_parts << "Fot. #{image.author}" if image.author.present? %>
+            <%= link_to main_app.rails_representation_path(image.thumbnail_900), 
+                name: "link", 
+                role: "button", 
+                class: 'swipebox', 
+                rel: "gallery-attachments",
+                title: title_parts.join(' | ').presence do %>
               <%= image_tag(main_app.rails_representation_path(image.thumbnail_500), class: 'thumbnail', alt: image.alt ? 'Powiększ obraz: ' + image.alt : "") %>
               <%= image_pack_tag("media/images/zoom-icon.svg", alt: '', class: 'zoom-icon') %>
             <% end %>

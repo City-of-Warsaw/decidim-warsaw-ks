@@ -7,6 +7,136 @@ import beautify from "js-beautify";
 export default Extension.create({
   name: "html",
 
+  // Preserve common accessibility attributes (ARIA, role, tabindex, lang)
+  // for common node types so HTML roundtrip retains a11y attributes.
+  addGlobalAttributes() {
+    const a11yAttributes = {
+      role: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("role"),
+        renderHTML: (attrs) => (attrs.role ? { role: attrs.role } : {}),
+      },
+      tabindex: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("tabindex"),
+        renderHTML: (attrs) =>
+          attrs.tabindex ? { tabindex: attrs.tabindex } : {},
+      },
+      lang: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("lang"),
+        renderHTML: (attrs) => (attrs.lang ? { lang: attrs.lang } : {}),
+      },
+      ariaLabel: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-label"),
+        renderHTML: (attrs) =>
+          attrs.ariaLabel ? { "aria-label": attrs.ariaLabel } : {},
+      },
+      ariaHidden: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-hidden"),
+        renderHTML: (attrs) =>
+          attrs.ariaHidden ? { "aria-hidden": attrs.ariaHidden } : {},
+      },
+      ariaDescribedby: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-describedby"),
+        renderHTML: (attrs) =>
+          attrs.ariaDescribedby
+            ? { "aria-describedby": attrs.ariaDescribedby }
+            : {},
+      },
+      ariaLabelledby: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-labelledby"),
+        renderHTML: (attrs) =>
+          attrs.ariaLabelledby
+            ? { "aria-labelledby": attrs.ariaLabelledby }
+            : {},
+      },
+      ariaControls: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-controls"),
+        renderHTML: (attrs) =>
+          attrs.ariaControls ? { "aria-controls": attrs.ariaControls } : {},
+      },
+      ariaExpanded: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-expanded"),
+        renderHTML: (attrs) =>
+          attrs.ariaExpanded ? { "aria-expanded": attrs.ariaExpanded } : {},
+      },
+      ariaLive: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-live"),
+        renderHTML: (attrs) =>
+          attrs.ariaLive ? { "aria-live": attrs.ariaLive } : {},
+      },
+      ariaPressed: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-pressed"),
+        renderHTML: (attrs) =>
+          attrs.ariaPressed ? { "aria-pressed": attrs.ariaPressed } : {},
+      },
+      ariaRoledescription: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-roledescription"),
+        renderHTML: (attrs) =>
+          attrs.ariaRoledescription
+            ? { "aria-roledescription": attrs.ariaRoledescription }
+            : {},
+      },
+      ariaValuemin: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-valuemin"),
+        renderHTML: (attrs) =>
+          attrs.ariaValuemin ? { "aria-valuemin": attrs.ariaValuemin } : {},
+      },
+      ariaValuemax: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-valuemax"),
+        renderHTML: (attrs) =>
+          attrs.ariaValuemax ? { "aria-valuemax": attrs.ariaValuemax } : {},
+      },
+      ariaValuenow: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-valuenow"),
+        renderHTML: (attrs) =>
+          attrs.ariaValuenow ? { "aria-valuenow": attrs.ariaValuenow } : {},
+      },
+      ariaValuetext: {
+        default: null,
+        parseHTML: (el) => el.getAttribute("aria-valuetext"),
+        renderHTML: (attrs) =>
+          attrs.ariaValuetext ? { "aria-valuetext": attrs.ariaValuetext } : {},
+      },
+    };
+
+    // Apply to common block/inline node types provided by starter-kit and table extensions.
+    const types = [
+      "paragraph",
+      "heading",
+      "blockquote",
+      "listItem",
+      "bulletList",
+      "orderedList",
+      "codeBlock",
+      "image",
+      "table",
+      "tableRow",
+      "tableHeader",
+      "tableCell",
+      "link",
+    ];
+
+    return [
+      {
+        types,
+        attributes: a11yAttributes,
+      },
+    ];
+  },
   addCommands() {
     const i18n = getDictionary("editor.extensions.html");
 

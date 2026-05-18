@@ -1,3 +1,4 @@
+
 pl:
   activemodel:
     attributes:
@@ -14,7 +15,7 @@ pl:
           mandatory: Odpowiedź wymagana
           max_characters: Limit znaków (zostaw 0, jeśli nie chcesz ustawiać limitu)
       report:
-        details: "Dodatkowe uwagi lub inny powód:"
+        details: 'W polu poniżej możesz dopisać dodatkowe wyjaśnienie zgłoszenia:'
       page:
         new_gallery_name: Nazwa
         new_gallery_images: Obrazki
@@ -64,23 +65,23 @@ pl:
         answer:
           attributes:
             add_documents:
-              blank: jest wymagany
-              missing: jest wymagany
+              blank: Plik jest wymagany
+              missing: Plik jest wymagany
               needs_to_be_reattached: Plik jest wymagany
             body:
-              blank: nie może byc puste
-              too_long: jest zbyt długie
+              blank: Odpowiedź nie może byc pusta
+              too_long: Odpowiedź jest zbyt długa. Zmniejsz liczbę znaków
             choices:
-              blank: nie zostały zaznaczone
-              missing: nie zostały zaznaczone
+              blank: Odpowiedzi nie zostały zaznaczone
+              missing: Odpowiedzi nie zostały zaznaczone
               too_many:
                 one: "Maksymalny wybór opcji: %{count}"
                 few: "Maksymalny wybór opcji: %{count}"
                 many: "Maksymalny wybór opcji: %{count}"
                 other: "Maksymalny wybór opcji: %{count}"
             selected_choices:
-              blank: nie zostały zaznaczone
-              missing: nie zostały zaznaczone
+              blank: Wybrane opcje nie zostały zaznaczone
+              missing: Wybrane opcje nie zostały zaznaczone
           questionnaire:
             request_invalid: Podczas przetwarzania formularza wystąpił błąd. Proszę spróbować ponownie.
   activerecord:
@@ -114,15 +115,21 @@ pl:
       flag_modal:
         already_reported: Ta treść została już zgłoszona i zostanie ona sprawdzona przez administratora.
         close: Zamknij
-        description: Dlaczego ta wypowiedź narusza nasz <a href='/pages/terms-and-conditions#subcontent'>Regulamin</a>?
-        does_not_belong: Wprowadza w błąd
+        description: Dlaczego narusza nasz
+        description_terms_url: "<a href=\"%{terms_url}\" style=\"color: rgb(var(--secondary-rgb)); text-decoration: underline; font-weight: 600 !important;\">Regulamin</a>?"
+        does_not_belong: wprowadza w błąd
         hide: Ukryj
         hide_content: Ukryj tę treść
-        offensive: Jest obraźliwa lub agresywna
-        reason: Powód
+        offensive: jest obraźliwa lub agresywna
+        reason: Zaznacz jedną z odpowiedzi
         report: Zgłoś
-        spam: Jest spamem
+        spam: to spam
         title: Zgłoś nieodpowiednią wypowiedź
+        subtitle: Ukryj nieodpowiednią wypowiedź
+        parent_hidden: Zawartość nadrzędna została ukryta
+        other: inny powód
+        hidden_by_admin: Zawartość została ukryta przez admina
+        details_for_hide: 'W polu poniżej możesz dopisać dodatkowe wyjaśnienie ukrycia:'
       participatory_space_filters:
         filters:
           scope: Dzielnica
@@ -191,6 +198,9 @@ pl:
       meetings:
         show:
           back: Powrót
+          link_closed: Transmisja online będzie dostępna w tym miejscu tuż przed rozpoczęciem spotkania.
+          live_event: Spotkanie już się rozpoczęło.
+          micro_camera_permissions_warning: Oglądaj poniżej lub bezpośrednio na YouTube.
         filters:
           type_values:
             in_person: Na żywo
@@ -307,25 +317,25 @@ pl:
           all_types: Wszystkie typy
           counters:
             active:
-              one: 1 aktualna konsultacja
-              few: "%{count} aktualne konsultacje"
-              many: "%{count} aktualnych konsultacji"
-              other: "%{count} aktualnych konsultacji"
+              one: "Liczba konsultacji: 1"
+              few: "Liczba konsultacji: %{count}"
+              many: "Liczba konsultacji: %{count}"
+              other: "Liczba konsultacji: %{count}"
             all:
-              one: 1 konsultacja
-              few: "%{count} konsultacje"
-              many: "%{count} konsultacji"
-              other: "%{count} konsultacje"
+              one: "Liczba konsultacji: 1"
+              few: "Liczba konsultacji: %{count}"
+              many: "Liczba konsultacji: %{count}"
+              other: "Liczba konsultacji: %{count}"
             past:
-              one: 1 przeszła konsultacja
-              few: "%{count} przeszłe konsultacje"
-              many: "%{count} przeszłych konsultacje"
-              other: "%{count} przeszłych konsultacji"
+              one: "Liczba konsultacji: 1"
+              few: "Liczba konsultacji: %{count}"
+              many: "Liczba konsultacji: %{count}"
+              other: "Liczba konsultacji: %{count}"
             upcoming:
-              one: 1 nadchodzące konsultacje
-              few: "%{count} nadchodzących konsultacji"
-              many: "%{count} nadchodzących konsultacji"
-              other: "%{count} nadchodzących konsultacji"
+              one: "Liczba konsultacji: 1"
+              few: "Liczba konsultacji: %{count}"
+              many: "Liczba konsultacji: %{count}"
+              other: "Liczba konsultacji: %{count}"
       pages:
         home:
           highlighted_processes:
@@ -568,14 +578,21 @@ pl:
       surveys:
         answer:
           success: |
-            Dziękujemy, Twoje odpowiedzi zostały zapisane!<br/><br/>
-            <span style="font-weight: normal;">Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?</span><br/>
-            <span style="font-weight: normal;">Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.</span>
+            <p data-alert-center>Dziękujemy, Twoje odpowiedzi zostały zapisane! Chcesz otrzymać e-mail z linkiem do raportu po zakończeniu konsultacji?<br/>
+            <span class="mt-3 block">Wróć do <strong>opisu konsultacji</strong> → Wybierz przycisk <strong>Obserwuj</strong> → Podaj adres e-mail → <strong>Zapisz</strong>.</span></p>
     templates:
       admin:
         questionnaire_templates:
           preview:
             tos_agreement: Wypełniając ankietę, akceptujesz regulamin
+    links:
+      warning:
+        body_1: Za chwilę opuścisz stronę konsultacje.um.warszawa.pl.<br/>
+        body_2: |
+            Zanim klikniesz „Dalej”, upewnij się, że ufasz stronie zewnętrznej i że wygląda ona bezpiecznie.<br/><br/>
+            Link, który chcesz otworzyć:
+        title: Otwierasz link zewnętrzny
+    templates:
   devise:
     confirmations:
       confirmed: Zweryfikowaliśmy pomyślnie Twój adres e-mail
@@ -600,6 +617,7 @@ pl:
       required: To pole jest wymagane
       invalid: Nieprawidłowy format
       not_in_range: Wartość poza dozwolonym zakresem
+      fractional_part_max_length: Zbyt wiele cyfr po przecinku (maksymalnie 3)
   layouts:
     decidim:
       data_consent:
@@ -644,6 +662,8 @@ pl:
           consent_required: "🍪 Nie możesz zobaczyć tej treści, bo wyłączyłaś/eś dodatkowe ciasteczka."
       shared:
         layout_center:
+          answer_questionnaire:
+            anonymous_user_message: Aby udzielić odpowiedzi w ankiecie, <a href="%{sign_in_link}" class="link">zaloguj się</a> lub <a href="%{sign_up_link}" class="link">zarejestruj</a>.
           select_gender: Wybierz płeć
           select_district: Wybierz dzielnicę
       admin:

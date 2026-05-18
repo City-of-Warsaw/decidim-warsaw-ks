@@ -1,0 +1,46 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t ".title" %> (ID: <%= answer.id %>)
+  </h1>
+</div>
+<div class="item__edit item__edit-1col">
+  <div class="item__edit-form form__wrapper">
+    <%= render partial: 'answer_question_data' %>
+
+    <div class="card" data-component="accordion" id="accordion-answer-title">
+      <div class="card-divider">
+        <button class="card-divider-button" data-open="true" data-controls="panel-answer-title" type="button">
+          <%= icon "arrow-right-s-line" %>
+          <h2 class="card-title">
+            Odpowiedź
+          </h2>
+        </button>
+      </div>
+
+      <div id="panel-answer-title" class="card-section">
+        <div class="row column">
+          <p>
+            <strong class="font-semibold">Odpowiedź: </strong><br />
+            <span data-answer><%= decidim_sanitize answer.body %></span>
+          </p> 
+        </div>
+      </div>
+    </div>  
+
+    <% url = decidim_custom_ai_admin.answer_path(@form) %>
+    <%= decidim_form_for(@form, url:, html: { autocomplete: 'off', class: 'form-defaults form' }) do |f| %>
+      <%= render partial: "form", object: f %>
+
+      <div class="item__edit-sticky">
+        <div class="item__edit-sticky-container">
+          <%= link_to t("actions.cancel", scope: "decidim.admin"),
+                      decidim_custom_ai_admin.answers_path,
+                      class: 'button button__sm button__secondary' %>
+          <%= f.submit t("actions.update", scope: "decidim.admin"),
+                       class: "button button__sm button__secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

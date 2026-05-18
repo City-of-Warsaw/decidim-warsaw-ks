@@ -1,5 +1,8 @@
 <% answers_rows = answer.question.random_order? ? answer.question.matrix_rows.shuffle(random: Random.new()) : answer.question.matrix_rows.by_position %>
 <div class="answer-questionnaire__single-matrix">
+  <small class="form-error is-visible w-full is-invalid-input">
+    <%= answer_form.object.errors[:choices].join(", ") %>
+  </small>
   <table>
     <thead>
       <tr>

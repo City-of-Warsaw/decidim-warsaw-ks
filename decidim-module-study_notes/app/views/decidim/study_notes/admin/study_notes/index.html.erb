@@ -8,6 +8,11 @@
       <%= render partial: "export_searched_notes" %>
       <%= render partial: "export_chosen_notes" %>
 
+      <%= link_to 'Zarejestruj w Signum', '',
+                  id: 'js-register-selected-btn',
+                  class: "button button__sm button__secondary hidden js-register-selected-btn",
+                  data: { url: register_selected_to_signum_study_notes_path } %>
+
       <%= link_to 'Pozycje legendy', legend_items_path, class: "button button__sm button__secondary" %>
       <%= link_to 'Podkłady mapowe', map_backgrounds_path, class: "button button__sm button__secondary" %>
     </h1>

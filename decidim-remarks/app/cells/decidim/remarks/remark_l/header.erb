@@ -19,7 +19,13 @@
       <ul class="dropdown dropdown__bottom divide-y divide-gray-3 px-4">
         <li>
           <%= cell("decidim/report_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse", modal_id: "flagModalRemark#{model.id}") %>
-        </li>  
+        </li>
+
+        <% if frontend_administrable? %>
+          <li>
+            <%= cell("decidim/hide_button", model, only_button: true, button_classes: "dropdown__item flex-row-reverse", modal_id: "flagHideModalComment#{model.id}") %>
+          </li>
+        <% end %>
 
         <li>
           <%= link_to "#{remarks_path}/#{model.id}", target: "_blank", data: { "external-link": "text-only" }, class: "dropdown__item", title: t("decidim.components.comment.single_comment_link_title") do %>

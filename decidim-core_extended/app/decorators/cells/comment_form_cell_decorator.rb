@@ -9,6 +9,7 @@ Decidim::Comments::CommentFormCell.class_eval do
 
   # overwritten method
   # kill caching
+  # TODO: PO UKOŃCZONYCH TESTACH KLIENTA V29 rollback - cofnąć to nadpisanie
   def perform_caching?
     false
   end
@@ -40,6 +41,7 @@ Decidim::Comments::CommentFormCell.class_eval do
 
   # overwritten method
   # make it nil
+  # TODO: PO UKOŃCZONYCH TESTACH KLIENTA V29 rollback - cofnąć to nadpisanie
   def cache_hash
     nil
   end

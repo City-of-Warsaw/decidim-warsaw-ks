@@ -18,8 +18,8 @@ Decidim::Surveys::CreateSurvey.class_eval do
     tos_url = static_page ? decidim.page_url(static_page, host: @component.organization.host) : ""
 
     {
-      en: "Wypełniając ankietę, akceptujesz <a href='#{tos_url}'>regulamin</a>.",
-      pl: "Wypełniając ankietę, akceptujesz <a href='#{tos_url}'>regulamin</a>."
+      en: "Wypełniając ankietę, akceptujesz <a target='_blank' href='#{tos_url}'>regulamin</a>.",
+      pl: "Wypełniając ankietę, akceptujesz <a target='_blank' href='#{tos_url}'>regulamin</a>."
     }
   end
 end

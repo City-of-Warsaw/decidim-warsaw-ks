@@ -52,7 +52,7 @@ module Decidim::StudyNotes
     end
 
     def destroy
-      enforce_permission_to :manage, :legend_item
+      enforce_permission_to :manage, :legend_items
       legend_item.destroy
       redirect_to legend_items_path, notice: 'Pozycja legendy została usunięta'
     end

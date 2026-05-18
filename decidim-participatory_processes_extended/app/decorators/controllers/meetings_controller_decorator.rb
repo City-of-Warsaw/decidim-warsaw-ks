@@ -42,11 +42,4 @@ Decidim::Meetings::MeetingsController.class_eval do
       with_any_type: nil
     }
   end
-
-  # overwritten method
-  # newest first
-  def meetings
-    is_past_meetings = params.dig("filter", "with_any_date")&.include?("past")
-    @meetings ||= paginate(search.result.order(start_time: is_past_meetings ? :asc : :desc))
-  end
 end

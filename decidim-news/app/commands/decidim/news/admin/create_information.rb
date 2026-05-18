@@ -25,6 +25,7 @@ module Decidim
 
           create_information!
           add_gallery(information)
+          create_follow!
 
           broadcast(:ok, information)
         end
@@ -42,6 +43,11 @@ module Decidim
           )
         end
 
+        # the author of this information is following this information
+        def create_follow!
+          Decidim::Follow.create!(followable: information, user: current_user)
+        end
+
         def attributes
           {
             title: form.title,
@@ -50,7 +56,8 @@ module Decidim
             organization: form.current_organization,
             users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users,
             weight: form.weight,
-            added_on: form.added_on
+            added_on: form.added_on,
+            comments_enabled: form.comments_enabled
           }
         end
       end

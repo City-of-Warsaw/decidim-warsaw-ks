@@ -15,7 +15,7 @@
     <div class="card--list__data">
       <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file.file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", title: t("download", scope: 'decidim.application.document'), data: { "external-link": "false" } do %>
         <span class="show-for-sr"><%= file.name %> otwiera się w nowej karcie</span>
-        <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+        <%= icon "download-2-line" %>
       <% end %>
     </div>
   </div>

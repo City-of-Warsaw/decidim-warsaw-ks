@@ -2,13 +2,10 @@
 
 Decidim::ParticipatoryProcesses::ParticipatoryProcessHelper.module_eval do
   # overwritten method
-  # add to array:
-  # - Efekty Konsultacji
-  # - Raport Konsultacji
+  # swap variable components with nav_items
+  # add to array Raport Konsultacji and/or Efekty Konsultacji
   def process_nav_items(participatory_space)
-    components = participatory_space.components.published.or(
-      Decidim::Component.where(id: try(:current_component))
-    )
+    components = participatory_space.components.published.or(Decidim::Component.where(id: try(:current_component)))
 
     nav_items = components.map do |component|
       {
@@ -18,11 +15,12 @@ Decidim::ParticipatoryProcesses::ParticipatoryProcessHelper.module_eval do
       }
     end
 
-    case participatory_space.consultation_status.to_s
-    when "report"
+    # prepend in reverse order
+    if %w(report effects).include?(participatory_space.consultation_status) && participatory_space.report_published?
       nav_items.unshift(process_report_nav_item(participatory_space))
-    when "effects"
-      nav_items.unshift(process_report_nav_item(participatory_space))
+    end
+
+    if %w(effects).include?(participatory_space.consultation_status) && participatory_space.published_first_result?
       nav_items.unshift(process_effects_nav_item(participatory_space))
     end
 

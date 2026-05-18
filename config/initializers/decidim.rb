@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: problem z ustawieniem rack_attack
 # https://docs.decidim.org/en/configure/environment_variables/
 # Decidim.throttling_max_requests # => 2500
 # {"requests by ip"=>#<Rack::Attack::Throttle:0x0000000007d11e68 @name="requests by ip", @block=#<Proc:0x000000000335c1b0(&:ip)>, @limit=100, @period=60, @type=:throttle>, "limit logins per email"=>#<Rack::Attack::Throttle:0x00000000033f0a40 @name="limit logins per email", @block=#<Proc:0x00000000033f0838 /var/www/decidim/shared/vendor/bundle/ruby/2.7.0/gems/decidim-core-0.24.3/config/initializers/rack_attack.rb:27>, @limit=5, @period=60, @type=:throttle>, "limit password recovery attempts per email"=>#<Rack::Attack::Throttle:0x0000000003403988 @name="limit password recovery attempts per email", @block=#<Proc:0x0000000003403870 /var/www/decidim/shared/vendor/bundle/ruby/2.7.0/gems/decidim-core-0.24.3/config/initializers/rack_attack.rb:33>, @limit=5, @period=60, @type=:throttle>}
@@ -21,8 +20,7 @@ Decidim.configure do |config|
   config.application_name = Rails.application.secrets.decidim[:application_name]
 
   # The email that will be used as sender in all emails from Decidim
-  # config.mailer_sender = Rails.application.secrets.decidim[:mailer_sender]
-  config.mailer_sender = ENV["SMTP_FROM"].presence || "test@konsultacje.warszawa.pl"
+  config.mailer_sender = Rails.application.secrets.decidim[:mailer_sender]
 
   # Sets the list of available locales for the whole application.
   #

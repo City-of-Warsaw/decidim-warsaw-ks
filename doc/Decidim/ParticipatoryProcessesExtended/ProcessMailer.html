@@ -206,9 +206,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>Actions: - two_days_till_consultations_end.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -283,6 +281,12 @@
       <pre class="lines">
 
 
+34
+35
+36
+37
+38
+39
 40
 41
 42
@@ -290,16 +294,10 @@
 44
 45
 46
-47
-48
-49
-50
-51
-52
-53</pre>
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_component_published'>component_published</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_service'>service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html" title="Decidim::CoreExtended::MailTemplateService (class)">MailTemplateService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html#initialize-instance_method" title="Decidim::CoreExtended::MailTemplateService#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='label'>resource:</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='label'>consultation:</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span> <span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -335,6 +333,12 @@
       <pre class="lines">
 
 
+64
+65
+66
+67
+68
+69
 70
 71
 72
@@ -351,16 +355,10 @@
 83
 84
 85
-86
-87
-88
-89
-90
-91
-92</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_confirmation_about_general_plan_request'>confirmation_about_general_plan_request</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='id identifier rubyid_anonymize_pdf'>anonymize_pdf</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_service'>service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html" title="Decidim::CoreExtended::MailTemplateService (class)">MailTemplateService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html#initialize-instance_method" title="Decidim::CoreExtended::MailTemplateService#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -405,6 +403,12 @@
       <pre class="lines">
 
 
+49
+50
+51
+52
+53
+54
 55
 56
 57
@@ -412,16 +416,10 @@
 59
 60
 61
-62
-63
-64
-65
-66
-67
-68</pre>
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_confirmation_about_study_note_user'>confirmation_about_study_note_user</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_service'>service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html" title="Decidim::CoreExtended::MailTemplateService (class)">MailTemplateService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html#initialize-instance_method" title="Decidim::CoreExtended::MailTemplateService#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -451,26 +449,14 @@
   
 
   
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Actions:</p>
-<ul><li>
-<p>two_days_till_consultations_end</p>
-</li></ul>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
+</h3><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+9
+10
 11
 12
 13
@@ -490,30 +476,20 @@
 27
 28
 29
-30
-31
-32
-33
-34
-35
-36</pre>
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 11</span>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 9</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_notify_about_consultation'>notify_about_consultation</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_passed_data'>passed_data</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>resource:</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='label'>consultation:</span> <span class='id identifier rubyid_resource'>resource</span> <span class='rbrace'>}</span>
-
-  <span class='comment'># Add result body only if there is published effect
-</span>  <span class='id identifier rubyid_first_published_result'>first_published_result</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_published'>published</span><span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
-  <span class='id identifier rubyid_passed_data'>passed_data</span><span class='lbracket'>[</span><span class='symbol'>:result_body</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_first_published_result'>first_published_result</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='kw'>if</span> <span class='id identifier rubyid_first_published_result'>first_published_result</span><span class='op'>&amp;.</span><span class='id identifier rubyid_body'>body</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
-
-  <span class='comment'># Add report_description only if there are published effects or report
-</span>  <span class='comment'># Effects are always after the report - therefore report will be present if there will be effects
-</span>  <span class='kw'>if</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>report</span><span class='words_sep'> </span><span class='tstring_content'>effects</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_consultation_status'>consultation_status</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_passed_data'>passed_data</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>resource:</span><span class='comma'>,</span> <span class='label'>consultation:</span> <span class='id identifier rubyid_resource'>resource</span> <span class='rbrace'>}</span>
+  <span class='kw'>if</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>report</span><span class='words_sep'> </span><span class='tstring_content'>effects</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_consultation_status'>consultation_status</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_report_published?'>report_published?</span>
     <span class='id identifier rubyid_passed_data'>passed_data</span><span class='lbracket'>[</span><span class='symbol'>:report_description</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_report_description'>report_description</span>
   <span class='kw'>end</span>
-  
+  <span class='kw'>if</span> <span class='qwords_beg'>%w(</span><span class='tstring_content'>effects</span><span class='tstring_end'>)</span></span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_consultation_status'>consultation_status</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_published_first_result?'>published_first_result?</span>
+    <span class='id identifier rubyid_passed_data'>passed_data</span><span class='lbracket'>[</span><span class='symbol'>:result_body</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_resource'>resource</span><span class='period'>.</span><span class='id identifier rubyid_results'>results</span><span class='period'>.</span><span class='id identifier rubyid_published'>published</span><span class='period'>.</span><span class='id identifier rubyid_sorted_by_weight'>sorted_by_weight</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='kw'>end</span>
+
   <span class='id identifier rubyid_service'>service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html" title="Decidim::CoreExtended::MailTemplateService (class)">MailTemplateService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html#initialize-instance_method" title="Decidim::CoreExtended::MailTemplateService#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='comma'>,</span> <span class='id identifier rubyid_passed_data'>passed_data</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='kw'>unless</span> <span class='id identifier rubyid_service'>service</span><span class='period'>.</span><span class='id identifier rubyid_active?'>active?</span>
 
@@ -547,6 +523,12 @@
       <pre class="lines">
 
 
+88
+89
+90
+91
+92
+93
 94
 95
 96
@@ -559,16 +541,10 @@
 103
 104
 105
-106
-107
-108
-109
-110
-111
-112</pre>
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'decidim-participatory_processes_extended/app/mailers/decidim/participatory_processes_extended/process_mailer.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_notify_about_step'>notify_about_step</span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span> <span class='id identifier rubyid_resource'>resource</span><span class='comma'>,</span> <span class='id identifier rubyid_receiver'>receiver</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_service'>service</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html" title="Decidim::CoreExtended::MailTemplateService (class)">MailTemplateService</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../CoreExtended/MailTemplateService.html#initialize-instance_method" title="Decidim::CoreExtended::MailTemplateService#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_action_name'>action_name</span><span class='comma'>,</span>
@@ -599,7 +575,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:36 2025 by
+  Generated on Mon May 18 15:09:12 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

@@ -247,9 +247,6 @@
       <pre class="lines">
 
 
-27
-28
-29
 30
 31
 32
@@ -259,10 +256,13 @@
 36
 37
 38
-39</pre>
+39
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_action_string'>action_string</span>
   <span class='kw'>case</span> <span class='id identifier rubyid_action'>action</span>
@@ -297,12 +297,12 @@
       <pre class="lines">
 
 
-45
-46
-47</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 48</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_diff_actions'>diff_actions</span>
   <span class='kw'>super</span> <span class='op'>+</span> <span class='qwords_beg'>%w[</span><span class='tstring_content'>delete</span><span class='tstring_end'>]</span></span>
@@ -334,7 +334,10 @@
 22
 23
 24
-25</pre>
+25
+26
+27
+28</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 18</span>
@@ -343,8 +346,11 @@
   <span class='lbrace'>{</span>
     <span class='label'>title:</span> <span class='symbol'>:string</span><span class='comma'>,</span>
     <span class='label'>body:</span> <span class='symbol'>:text</span><span class='comma'>,</span>
+    <span class='label'>gallery_id:</span> <span class='symbol'>:integer</span><span class='comma'>,</span>
+    <span class='label'>users_action_allowed_for_unregister_users:</span> <span class='symbol'>:boolean</span><span class='comma'>,</span>
     <span class='label'>weight:</span> <span class='symbol'>:integer</span><span class='comma'>,</span>
-    <span class='label'>added_on:</span> <span class='symbol'>:date</span>
+    <span class='label'>added_on:</span> <span class='symbol'>:date</span><span class='comma'>,</span>
+    <span class='label'>comments_enabled:</span> <span class='symbol'>:boolean</span>
   <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -367,12 +373,12 @@
       <pre class="lines">
 
 
-41
-42
-43</pre>
+44
+45
+46</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'decidim-news/app/presenters/decidim/news/admin_log/information_presenter.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_i18n_labels_scope'>i18n_labels_scope</span>
   <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>activemodel.attributes.information</span><span class='tstring_end'>&#39;</span></span>
@@ -387,7 +393,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:38 2025 by
+  Generated on Mon May 18 15:09:14 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

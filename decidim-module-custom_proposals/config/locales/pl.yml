@@ -53,6 +53,19 @@ pl:
             created_at: Data utworzenia
             published_yes: Tak
             published_no: Nie
+      export:
+        comment:
+          lp: Lp
+          custom_proposal_weight: Kolejność fragmentu
+          custom_proposal_title: Nazwa fragmentu
+          signature: Podpis komentarza
+          body: Treść komentarza
+          created_at: Data dodania komentarza
+          email: E-mail
+          district: Dzielnica
+          age: Wiek
+          gender: Płeć
+          url: URL załącznika
       custom_proposals:
         index:
           follow_document: Obserwuj zmiany wprowadzane w tym dokumencie

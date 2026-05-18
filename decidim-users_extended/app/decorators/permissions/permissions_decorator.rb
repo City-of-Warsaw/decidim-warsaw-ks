@@ -32,6 +32,13 @@ Decidim::Permissions.class_eval do
 
   private
 
+  def user_can_preview_component?
+    return false if user.nil? || component.participatory_space.nil?
+    return false unless component.manifest_name == "surveys" || component.manifest_name == "study_notes"
+
+    return component.participatory_space.user_roles(:admin).pluck(:decidim_user_id).include?(user.id)
+  end
+
   def moderation_action?
     return false unless permission_action.subject == :moderation
     return false unless permission_action.action == :create

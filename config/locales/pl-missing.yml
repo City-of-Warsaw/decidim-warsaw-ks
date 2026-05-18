@@ -96,6 +96,7 @@ pl:
     components:
       component:
         download_file: Pobierz plik
+        share_report: Udostępnij raport
       comment:
         hide_replies:
           one: Ukryj odpowiedź
@@ -107,6 +108,12 @@ pl:
       home:
         hero:
           participate_title: Weź udział w procesie
+    reports:
+      create:
+        success: Utworzyliśmy zgłoszenie. Teraz zweryfikuje je administrator.
+        success_hide: Komentarz został ukryty
+      parent_hidden:
+        report_details: Zasób nadrzędny został ukryty
     reported_mailer:
       hide:
         content: Zgłoszenia treść
@@ -132,6 +139,7 @@ pl:
     admin:
       actions:
         cancel: Anuluj
+        update: Zaktualizuj
       filters:
         moderations:
           reportable_type_string_eq:
@@ -142,7 +150,9 @@ pl:
       moderations:
         report:
           reasons:
+            other: Inny powód
             parent_hidden: Zawartość nadrzędna została ukryta
+            hidden_by_admin: Zawartość została ukryta przez admina
   forms:
     length_validator:
       minimum:

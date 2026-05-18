@@ -33,7 +33,7 @@
       <%= invisible_captcha %>
 
       <div class="form__wrapper">
-        <%= f.text_field :name, autocomplete: "name" %>
+        <%= f.text_field :name, autocomplete: "name", help_text: "Nazwa użytkownika będzie widoczna dla wszystkich i będzie służyć jako Twój podpis" %>
 
         <%= f.email_field :email, autocomplete: "email" %>
 

@@ -1,19 +1,17 @@
 <%= filter_form_for filter, remarks_path, id: "remarks_filters_form", class: "flex flex-grow max-md:contents", remote: true do |form| %>
-  <a class="skip" href="#remarks"></a>
-
   <div class="flex flex-grow gap-4 max-md:contents"> 
-    <% if @categories.any? %>
+    <% if @categories.any? && @categories.length > 1 %>
       <div class="flex-grow-[2] max-w-[300px] max-md:max-w-full max-md:w-full">
-        <label for="search" class="show-for-sr"><%= t('.select_category') %></label>
+        <label for="remarks_category_select" class="sr-only"><%= t('.select_category') %></label>
         <%= form.select :with_any_category,
             @categories.map{ |cat| ["<span style='background-color: #{cat.color};'>#{raw(cat.inline_svg(cat.file))}</span>#{translated_attribute(cat.name)}", cat.id]},
             { label: false, include_blank: false },
-            { multiple: true, class: "remarks-categories-select-js", "data-class": "map-remarks__category-select", "data-placeholder": t('.select_category') } %>
+            { multiple: true, id: "remarks_category_select", class: "remarks-categories-select-js", "data-class": "map-remarks__category-select", "data-placeholder": t('.select_category'), "aria-label": t('.select_category') } %>
       </div>
     <% end %> 
 
     <div class="auto-search-wrapper flex-grow-[3] max-w-[500px]">
-      <label for="search" class="show-for-sr"><%= t('.search_map_for_address') %></label>
+      <label for="search" class="sr-only"><%= t('.search_map_for_address') %></label>
       <input type="text"
              autocomplete="off"
              id="search"

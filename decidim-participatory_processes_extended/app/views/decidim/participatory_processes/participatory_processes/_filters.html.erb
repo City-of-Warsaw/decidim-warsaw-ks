@@ -35,26 +35,8 @@
         <%= form.collection_filter(**f) %>
       <% end %>
 
-
-      <div class="filter-container" role="menuitem">
-        <button id="trigger-menu-address" data-controls="panel-dropdown-menu-address" data-open="true" data-open-md="true" role="button" tabindex="0" aria-controls="panel-dropdown-menu-address" aria-expanded="true" aria-disabled="false">
-          <svg width="1em" height="1em" role="img" aria-hidden="true"><use href="/decidim-packs/media/images/remixicon.symbol-e643e553623ffcd49f94.svg#ri-arrow-down-s-line"></use></svg>
-          <svg width="1em" height="1em" role="img" aria-hidden="true"><use href="/decidim-packs/media/images/remixicon.symbol-e643e553623ffcd49f94.svg#ri-arrow-up-s-line"></use></svg>
-          <span>Wyszukaj po adresie</span>
-        </button>
-        <div id="panel-dropdown-menu-address" role="address" tabindex="-1" aria-labelledby="trigger-menu-address" aria-hidden="false">
-
-          <%= form.hidden_field :address_lat, id: "filter_address_lat", class: "filter_address_lat" %>
-          <%= form.hidden_field :address_lng, id: "filter_address_lng", class: "filter_address_lng"  %>
-          <%= form.text_field :address, label:false, placeholder: t('.address').html_safe, id: "filter_address", class: "filter_address" %>
-          <p class="filter-help">(np. plac Bankowy 3/5), żeby zobaczyć wszystkie trwające i zakończone konsultacje w odległości 2 km od tego miejsca</p>
-        </div>
-      </div>
       <%= yield %>
     </div>
 
   <% end %>
 <% end %>
-
-<%= append_javascript_pack_tag "autocomplete" %>
-<%= append_javascript_pack_tag "address_search" %>

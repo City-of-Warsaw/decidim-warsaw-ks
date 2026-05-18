@@ -23,6 +23,7 @@ module Decidim
           post :generate_sequential_numbers, on: :collection
           get :map, on: :collection
           post :register_to_signum, on: :member
+          get :register_selected_to_signum, on: :collection
         end
         resources :legend_items, except: :show
         root to: "study_notes#index"

@@ -31,6 +31,10 @@
   &:has(input[value="separator"]) {
     display: none;
   }
+
+  small.form-error.is-visible:has(+ [id^="questionnaire_responses_"], + table) {
+    margin-bottom: 16px;
+  }
 }
 
 .answer-questionnaire__step,

@@ -10,9 +10,9 @@ Decidim::SanitizeHelper.class_eval do
   # Returns an HTML-safe String.
   def quill_sanitize(html, options = {})
     if options[:strip_tags]
-      strip_tags sanitize(html, scrubber: Decidim::QuillScrubber.new)
+      strip_tags sanitize(html, scrubber: Decidim::AdminInputScrubber.new)
     else
-      sanitize(html, scrubber: Decidim::QuillScrubber.new)
+      sanitize(html, scrubber: Decidim::AdminInputScrubber.new)
     end
   end
 end

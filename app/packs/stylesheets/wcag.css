@@ -85,7 +85,7 @@ input[type="radio"]:focus-visible {
 
 /* cookies */
 .cookie-warning a {
-  color: var(--primary);
+  color: #1b7c96;
   text-decoration: underline;
 }
 

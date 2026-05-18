@@ -55,6 +55,9 @@ Decidim::ParticipatoryProcesses::Admin::CreateParticipatoryProcess.class_eval do
       announcement: form.announcement,
       # custom attributes added
       hero_image_alt: form.hero_image_alt,
+      # TODO: upgrade v025! poprawic lub usunac - hero_image_cache - sprawdzic czy mozna jakos
+      #   cachowac obrazek czy wywalic ten attr
+      # hero_image_cache: form.hero_image_cache, #
       selected_scope_ids: form.selected_scope_ids,
       fb_url: form.fb_url,
       gallery_id: form.gallery_id,

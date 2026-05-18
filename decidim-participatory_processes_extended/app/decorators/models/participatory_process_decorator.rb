@@ -1,7 +1,15 @@
 # frozen_string_literal: true
 
 Decidim::ParticipatoryProcess.class_eval do
-  # opublikowanie raportu lub efektu konsultacji powoduje zmiane statusu konsultacji
+  # Consultation status logic:
+  # "Effects" — when at least 1 result is published, regardless of whether a report exists.
+  # "Report" — when a report is published, but no effects have been published yet.
+  # Status precedence rules:
+  # - If effects are published first and a report is added later, the status remains "Effects".
+  # - If effects are removed:
+  #   - and a report exists → status falls back to "Report"
+  #   - and no report exists → status falls back to "Completed"
+  # "Completed" means no consultation status is set (blank '').
   CONSULTATION_STATUSES = %w(report effects).freeze
 
   belongs_to :department,
@@ -185,14 +193,12 @@ Decidim::ParticipatoryProcess.class_eval do
     ids.concat Decidim::User.where(follow_ngo: true).pluck(:id) if recipients.in?(%w(ngo mix))
 
     ids.concat(
-      Decidim::User.where(notifications_from_neighbourhood: true)
-                   .where("extended_data->'interested_scopes' @> :scope_id", scope_id: selected_scope_ids.to_s)
+      Decidim::User.where("extended_data->'interested_scopes' @> :scope_id", scope_id: selected_scope_ids.to_s)
                    .pluck(:id)
     )
 
     ids.concat(
-      Decidim::User.where(notifications_from_neighbourhood: true)
-                   .where("extended_data->'interested_tags' @> :tag_id", tag_id: tag_ids.to_s)
+      Decidim::User.where("extended_data->'interested_tags' @> :tag_id", tag_id: tag_ids.to_s)
                    .pluck(:id)
     )
 
@@ -201,5 +207,29 @@ Decidim::ParticipatoryProcess.class_eval do
 
   def not_for_citizens?
     recipients.present? && recipients != "citizens"
+  end
+
+  # Consultation status logic:
+  # "Effects" — when at least 1 result is published, regardless of whether a report exists.
+  # "Report" — when a report is published, but no effects have been published yet.
+  # Status precedence rules:
+  # - If effects are published first and a report is added later, the status remains "Effects".
+  # - If effects are removed:
+  #   - and a report exists → status falls back to "Report"
+  #   - and no report exists → status falls back to "Completed"
+  # "Completed" means no consultation status is set (blank '').
+  def set_consultation_status
+    consultation_status = if published_first_result?
+                            "effects"
+                          elsif report_published?
+                            "report"
+                          else
+                            ""
+                          end
+    update(consultation_status:)
+  end
+
+  def published_first_result?
+    results.published.any?(&:body)
   end
 end

@@ -157,6 +157,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#accepts_new_comments%3F-instance_method" title="#accepts_new_comments? (instance method)">#<strong>accepts_new_comments?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Public: Overrides the ‘accepts_new_comments?` Commentable concern method.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#admins-instance_method" title="#admins (instance method)">#<strong>admins</strong>  &#x21d2; Object </a>
     
 
@@ -381,6 +405,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#can_participate%3F-instance_method" title="#can_participate? (instance method)">#<strong>can_participate?</strong>(user)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>warning! this method applies to only comment question by AD user not to ask an expert with question only AD users can comment a question.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#comments_have_votes%3F-instance_method" title="#comments_have_votes? (instance method)">#<strong>comments_have_votes?</strong>  &#x21d2; Boolean </a>
     
 
@@ -563,30 +611,6 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#reported_searchable_content_extras-instance_method" title="#reported_searchable_content_extras (instance method)">#<strong>reported_searchable_content_extras</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Public: Overrides the ‘reported_searchable_content_extras` Reportable concern method.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
       <a href="#show_answer%3F-instance_method" title="#show_answer? (instance method)">#<strong>show_answer?</strong>  &#x21d2; Boolean </a>
     
 
@@ -624,30 +648,6 @@
 
   
     <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#user_allowed_to_comment%3F-instance_method" title="#user_allowed_to_comment? (instance method)">#<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; Boolean </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Overwritten method.</p>
-</div></span>
   
 </li>
 
@@ -715,12 +715,12 @@
       <pre class="lines">
 
 
-127
-128
-129</pre>
+122
+123
+124</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 122</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space_manifest'>participatory_space_manifest</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_participatory_space_manifest'>find_participatory_space_manifest</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>ParticipatoryProcess</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_demodulize'>demodulize</span><span class='period'>.</span><span class='id identifier rubyid_underscore'>underscore</span><span class='period'>.</span><span class='id identifier rubyid_pluralize'>pluralize</span><span class='rparen'>)</span>
@@ -737,7 +737,69 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="admins-instance_method">
+  <h3 class="signature first" id="accepts_new_comments?-instance_method">
+  
+    #<strong>accepts_new_comments?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Public: Overrides the ‘accepts_new_comments?` Commentable concern method. add visible? add published? add component.users_action_end_date&amp;.past?</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+185
+186
+187
+188
+189
+190
+191</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 185</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_accepts_new_comments?'>accepts_new_comments?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_visible?'>visible?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_published?'>published?</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_users_action_end_date'>users_action_end_date</span><span class='op'>&amp;.</span><span class='id identifier rubyid_past?'>past?</span>
+
+  <span class='id identifier rubyid_commentable?'>commentable?</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_current_settings'>current_settings</span><span class='period'>.</span><span class='id identifier rubyid_comments_blocked'>comments_blocked</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="admins-instance_method">
   
     #<strong>admins</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -762,12 +824,12 @@
       <pre class="lines">
 
 
-162
-163
-164</pre>
+157
+158
+159</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 162</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 157</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_admins'>admins</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
@@ -900,12 +962,12 @@
       <pre class="lines">
 
 
-131
-132
-133</pre>
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 126</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_age'>author_age</span>
   <span class='id identifier rubyid_author_age_range'>author_age_range</span>
@@ -941,16 +1003,16 @@
       <pre class="lines">
 
 
+205
 206
 207
 208
 209
 210
-211
-212</pre>
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 205</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_age_range'>author_age_range</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
@@ -979,16 +1041,16 @@
       <pre class="lines">
 
 
+130
+131
+132
+133
+134
 135
-136
-137
-138
-139
-140
-141</pre>
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 130</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_district'>author_district</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
@@ -1017,16 +1079,16 @@
       <pre class="lines">
 
 
+138
+139
+140
+141
+142
 143
-144
-145
-146
-147
-148
-149</pre>
+144</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 138</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_email'>author_email</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
@@ -1055,16 +1117,16 @@
       <pre class="lines">
 
 
+146
+147
+148
+149
+150
 151
-152
-153
-154
-155
-156
-157</pre>
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 151</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 146</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_gender'>author_gender</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended.html" title="Decidim::CoreExtended (module)">CoreExtended</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../CoreExtended/UnregisteredAuthor.html" title="Decidim::CoreExtended::UnregisteredAuthor (class)">UnregisteredAuthor</a></span></span><span class='rparen'>)</span>
@@ -1169,6 +1231,64 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="can_participate?-instance_method">
+  
+    #<strong>can_participate?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>warning! this method applies to only comment question by AD user not to ask an expert with question only AD users can comment a question</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+197
+198
+199
+200
+201</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 197</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_can_participate?'>can_participate?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_accepts_new_comments?'>accepts_new_comments?</span>
+
+  <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_role?'>ad_role?</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="comments_have_votes?-instance_method">
   
     #<strong>comments_have_votes?</strong>  &#x21d2; <tt>Boolean</tt> 
@@ -1207,12 +1327,12 @@
       <pre class="lines">
 
 
-182
-183
-184</pre>
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 182</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 177</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comments_have_votes?'>comments_have_votes?</span>
   <span class='kw'>true</span>
@@ -1300,12 +1420,12 @@
       <pre class="lines">
 
 
-169
-170
-171</pre>
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 164</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_moderators'>moderators</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='period'>.</span><span class='id identifier rubyid_none'>none</span>
@@ -1464,12 +1584,12 @@
       <pre class="lines">
 
 
-177
-178
-179</pre>
+172
+173
+174</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 177</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 172</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_published?'>published?</span>
   <span class='op'>!</span><span class='id identifier rubyid_hidden?'>hidden?</span>
@@ -1513,48 +1633,7 @@
       <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_reported_attributes'>reported_attributes</span>
-  <span class='lbracket'>[</span><span class='symbol'>:body</span><span class='comma'>,</span> <span class='symbol'>:signature</span><span class='rbracket'>]</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="reported_searchable_content_extras-instance_method">
-  
-    #<strong>reported_searchable_content_extras</strong>  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Public: Overrides the ‘reported_searchable_content_extras` Reportable concern method.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-123
-124
-125</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 123</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_reported_searchable_content_extras'>reported_searchable_content_extras</span>
-  <span class='lbracket'>[</span><span class='id identifier rubyid_normalized_author'>normalized_author</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbracket'>]</span>
+  <span class='lbracket'>[</span><span class='symbol'>:body</span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1644,85 +1723,6 @@
 </div>
     
       <div class="method_details ">
-  <h3 class="signature " id="user_allowed_to_comment?-instance_method">
-  
-    #<strong>user_allowed_to_comment?</strong>(user)  &#x21d2; <tt>Boolean</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Overwritten method. User questions can’t be commented if:</p>
-<ul><li>
-<p>it’s not visible or not published</p>
-</li><li>
-<p>it has already been answered</p>
-</li><li>
-<p>the users_action_end_date has passed</p>
-</li></ul>
-
-<p>Only AD users are allowed to comment.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Boolean</tt>)</span>
-      
-      
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-192
-193
-194
-195
-196
-197
-198
-199
-200
-201
-202</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 192</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_user_allowed_to_comment?'>user_allowed_to_comment?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_visible?'>visible?</span>
-  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_published?'>published?</span>
-  <span class='comment'># scenario in which the expert has already answered the user&#39;s question
-</span>  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_answered?'>answered?</span>
-  <span class='comment'># scenario when component is closed
-</span>  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_users_action_end_date'>users_action_end_date</span><span class='op'>&amp;.</span><span class='id identifier rubyid_past?'>past?</span>
-
-  <span class='comment'># scenario when AD user is present
-</span>  <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_ad_role?'>ad_role?</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
   <h3 class="signature " id="visible?-instance_method">
   
     #<strong>visible?</strong>  &#x21d2; <tt>Boolean</tt> 
@@ -1759,12 +1759,12 @@
       <pre class="lines">
 
 
-173
-174
-175</pre>
+168
+169
+170</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'decidim-expert_questions/app/models/decidim/expert_questions/user_question.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_visible?'>visible?</span>
   <span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:visible?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_try'>try</span><span class='lparen'>(</span><span class='symbol'>:published?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_published?'>published?</span>
@@ -1779,7 +1779,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:37 2025 by
+  Generated on Mon May 18 15:09:13 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

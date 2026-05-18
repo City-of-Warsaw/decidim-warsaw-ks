@@ -4,13 +4,10 @@ module Decidim
   module StudyNotes
     class StudyNotesSerializer < Decidim::Exporters::Serializer
       include Decidim::StudyNotes::StudyNotesHelper
+      include Decidim::CoreExtended::SerializerExportHelper
 
       def initialize(resource = nil)
         super(resource)
-      end
-
-      def headers
-        columns_order.map { |column| columns_definition[column][:name] }
       end
 
       # Public: Get the order of columns for serializing a study note.
@@ -100,7 +97,7 @@ module Decidim
           detailed_notes_area_parameters_max_percent_area: { name: column_name_translation("detailed_notes_area_parameters_max_percent_area"), size: :auto },
           detailed_notes_area_parameters_min_percent_bio: { name: column_name_translation("detailed_notes_area_parameters_min_percent_bio"), size: :auto },
           detailed_notes_infill_development: { name: column_name_translation("detailed_notes_infill_development"), size: :auto },
-          detailed_notes_inner_city_development: { name: column_name_translation("detailed_notes_infill_development"), size: :auto },
+          detailed_notes_inner_city_development: { name: column_name_translation("detailed_notes_inner_city_development"), size: :auto },
           detailed_notes_social_infrastructure_accessibility_body: { name: column_name_translation("detailed_notes_social_infrastructure_accessibility_body"), size: :auto },
 
           # attrs for section 7b - request body
@@ -146,22 +143,6 @@ module Decidim
             hyperlink: true
           }
         }
-      end
-
-      def columns_widths
-        columns_order.map { |column| column_width(columns_definition[column][:size]) }
-      end
-
-      def wrap_text_columns
-        columns_order.map { |column| columns_definition[column][:wrap_text] ? true : false }
-      end
-
-      def url_columns
-        @url_columns ||= columns_order.select { |column| columns_definition[column][:hyperlink] == true }
-      end
-
-      def column_alignment(column)
-        columns_definition[column][:alignment]
       end
 
       # Public: Serializes a collection of study notes into a flat array of hashes suitable for export.
@@ -213,15 +194,27 @@ module Decidim
           study_note_attrs(note, sequence).merge(
             detailed_notes_parcel_ids: json["parcel_ids"],
             detailed_notes_is_record_area_included: boolean_translation(json["is_record_area_included"]),
-            detailed_note_functional_profile_area: json["functional_profile_area_id"],
-            detailed_note_functional_profile_area_class: json["functional_profile_area_class"],
-            detailed_notes_area_parameters_max_height_intensity: json["max_height_intensity"],
+            detailed_note_functional_profile_area: (
+              json["functional_profile_area_id"] if detailed_notes_functional_profile?(json)
+            ),
+            detailed_note_functional_profile_area_class: (
+              json["functional_profile_area_classes"]&.join(", ") if detailed_notes_functional_profile?(json)
+            ),
+            detailed_notes_area_parameters_max_height_intensity: (
+              json["max_height_intensity"] if detailed_notes_area_parameters?(json)
+            ),
             detailed_notes_area_parameters_max_height_building: json["max_height_building"],
             detailed_notes_area_parameters_max_percent_area: json["max_percent_area"],
             detailed_notes_area_parameters_min_percent_bio: json["min_percent_bio"],
-            detailed_notes_infill_development: detailed_notes_development_boolean_translation(json["infill_development_include"]),
-            detailed_notes_inner_city_development: detailed_notes_development_boolean_translation(json["inner_city_development_include"]),
-            detailed_notes_social_infrastructure_accessibility_body: json["social_infrastructure_accessibility_body"],
+            detailed_notes_infill_development: (
+              detailed_notes_development_boolean_translation(json["infill_development_include"]) if detailed_notes_infill_development?(json)
+            ),
+            detailed_notes_inner_city_development: (
+              detailed_notes_development_boolean_translation(json["inner_city_development_include"]) if detailed_notes_inner_city_development?(json)
+            ),
+            detailed_notes_social_infrastructure_accessibility_body: (
+              json["social_infrastructure_accessibility_body"] if detailed_notes_social_infrastructure?(json)
+            ),
             detailed_notes_parcel_site_boundary_attachment: detailed_notes_parcel_site_boundary_url(note, attachments, sequence)
           )
         end
@@ -293,14 +286,6 @@ module Decidim
         }
       end
 
-      # Builds an array of attribute values ordered according to columns_order.
-      #
-      # @param attrs [Hash] The hash containing study note attributes.
-      # @return [Array] An array of values aligned with the columns_order.
-      def ordered_values(attrs)
-        columns_order.map { |column| attrs[column] }
-      end
-
       private
 
       def column_name_translation(column)
@@ -334,10 +319,12 @@ module Decidim
       end
 
       def detailed_notes_development_boolean_translation(value)
-        if value
+        if value == "true"
           I18n.t("decidim.study_notes.export.study_note.detailed_notes_development.boolean_yes")
-        else
+        elsif value == "false"
           I18n.t("decidim.study_notes.export.study_note.detailed_notes_development.boolean_no")
+        else
+          ""
         end
       end
 
@@ -382,6 +369,27 @@ module Decidim
       def attachment_urls_for_export(study_note)
         urls = study_note.files.first(2).map { |file| file_url(file, study_note) }
         urls.fill(nil, urls.size...2) # ensure exactly 2 elements
+      end
+
+      def detailed_notes_functional_profile?(json)
+        json["functional_profile"].to_s == "true"
+      end
+
+      def detailed_notes_area_parameters?(json)
+        json["area_parameters"].to_s == "true"
+      end
+
+      def detailed_notes_infill_development?(json)
+        json["infill_development"].to_s == "true"
+      end
+
+      def detailed_notes_inner_city_development?(json)
+        json["inner_city_development"].to_s == "true"
+      end
+
+      def detailed_notes_social_infrastructure?(json)
+        json["detailed_notes_social_infrastructure_accessibility"].to_s == "true" &&
+          json["social_infrastructure_accessibility_body"].present?
       end
     end
   end

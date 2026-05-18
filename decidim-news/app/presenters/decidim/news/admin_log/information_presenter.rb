@@ -19,8 +19,11 @@ module Decidim
           {
             title: :string,
             body: :text,
+            gallery_id: :integer,
+            users_action_allowed_for_unregister_users: :boolean,
             weight: :integer,
-            added_on: :date
+            added_on: :date,
+            comments_enabled: :boolean
           }
         end
 

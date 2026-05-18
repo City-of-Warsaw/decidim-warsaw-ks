@@ -1,11 +1,10 @@
 # Decidim::StudyNotes
 
-The new participatory process component that allows users to comment a planning documents, including maps
+Component for submitting resident comments on the general plan.
 
 ## Usage
 
-StudyNotes will be available as a Component for a Participatory
-Space.
+StudyNotes will be available as a Component for a Participatory Space.
 
 ## Installation
 
@@ -23,8 +22,8 @@ bundle
 
 ## Contributing
 
-See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
+See [Decidim](https://github.com/decidim/decidim).
 
 ## License
 
-See [Decidim](https://github.com/City-of-Warsaw/decidim-warsaw-ks).
+This engine is distributed under the GNU AFFERO GENERAL PUBLIC LICENSE.

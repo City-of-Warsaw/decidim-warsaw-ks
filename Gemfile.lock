@@ -40,6 +40,12 @@ PATH
       decidim-participatory_processes (= 0.29.3)
 
 PATH
+  remote: decidim-module-custom_ai
+  specs:
+    decidim-custom_ai (0.29.3)
+      decidim-core (= 0.29.3)
+
+PATH
   remote: decidim-module-custom_proposals
   specs:
     decidim-custom_proposals (0.1.0)
@@ -872,6 +878,9 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.4.1)
+    roo (2.10.1)
+      nokogiri (~> 1)
+      rubyzip (>= 1.3.0, < 3.0.0)
     rouge (4.5.2)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -1087,6 +1096,7 @@ DEPENDENCIES
   decidim-consultation_map!
   decidim-consultation_requests!
   decidim-core_extended!
+  decidim-custom_ai!
   decidim-custom_proposals!
   decidim-design
   decidim-dev (= 0.29.3)
@@ -1119,6 +1129,7 @@ DEPENDENCIES
   pry-rails
   puma (>= 6.3.1)
   rack_password
+  roo (~> 2.10.0)
   savon (= 2.15.1)
   secure_headers
   sentry-rails

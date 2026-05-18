@@ -637,7 +637,7 @@ h2.section-heading small {
 
 .card__link {
   font-weight: bold;
-  color: var(--primary);
+  color: #1b7c96;
   text-decoration: none;
   display: inline-block;
 
@@ -810,7 +810,7 @@ h2.section-heading small {
   a,
   a:hover,
   a:active {
-    color: var(--primary);
+    color: #1b7c96;
   }
 
   .external-link-indicator {
@@ -1274,7 +1274,7 @@ select {
 }
 
 .callout {
-  border-left-width: 10px !important;
+  border-left-width: 10px;
   border-left-style: solid;
 
   .heading2 {
@@ -1291,7 +1291,7 @@ select {
   }
 
   &:not(.alert, .warning-important) {
-    background-color: #eaf4f5 !important;
+    background-color: #eaf4f5;
     border-left-color: var(--primary) !important;
   }
 }

@@ -16,7 +16,8 @@ module Decidim::ExpertQuestions
                   :user_question_token,
                   :created_user_question,
                   :first_followable_user_question,
-                  :user_allowed_to_add_user_question?
+                  :user_allowed_to_add_user_question?,
+                  :user_questions_with_comments_count
 
     def index
       enforce_permission_to :read, :user_question
@@ -236,5 +237,15 @@ module Decidim::ExpertQuestions
       # scenario when unregistered author is present
       current_component.participatory_space.users_action_allowed_for_unregister_users?
     end
+
+    # Returns total count of not hidden user questions and all their not hidden comments (including nested)
+    def user_questions_with_comments_count
+      return 0 if user_questions.none?
+
+      count = user_questions.not_hidden.count
+      count += user_questions.map { |question| question.comments.not_hidden.count }.sum
+      count
+    end
+
   end
 end

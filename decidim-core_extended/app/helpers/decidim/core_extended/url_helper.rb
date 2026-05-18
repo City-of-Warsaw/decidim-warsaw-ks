@@ -4,9 +4,13 @@ module Decidim
   module CoreExtended
     # Custom helper helps to work with URLs
     module UrlHelper
-      def links_to_files_array(file_or_files)
+      def links_to_files_array(file_or_files, organization: nil)
+        org = organization || try(:current_organization)
+
+        raise "Organization context missing" unless org
+
         Array.wrap(file_or_files).map do |file|
-          Rails.application.routes.url_helpers.rails_blob_url(file, host: current_organization.host)
+          Rails.application.routes.url_helpers.rails_blob_url(file, host: org.host)
         end
       end
 

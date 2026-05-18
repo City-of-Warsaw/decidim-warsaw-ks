@@ -19,7 +19,7 @@
     <h2 class="show-for-sr">Opinie</h2>
 
     <span id="remarks-count" class="title-action__title" aria-live="polite" aria-atomic="true">
-      <%= t(".remarks_count", count: remarks.count).html_safe %>
+      <%= t(".remarks_count", count: remarks_with_comments_count).html_safe %>
     </span> 
     
     <div id="remarks" class="remarks__list">

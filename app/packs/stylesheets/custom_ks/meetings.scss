@@ -44,6 +44,12 @@
       font-size: 18px;
       line-height: 23px;
     }
+
+    &__text.editor-content {
+      p:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
   }
 
   &--past {

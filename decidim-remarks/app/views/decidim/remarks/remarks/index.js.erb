@@ -51,7 +51,7 @@ function initReplyPanels(context = document) {
 
 $remarks.html('<%= j(render partial: "remarks").strip.html_safe %>');
 initReplyPanels();
-$remarksCount.html('<%= t(".remarks_count", count: remarks.count).html_safe %>');
+$remarksCount.html('<%= t(".remarks_count", count: remarks_with_comments_count).html_safe %>');
 
 $("[data-decidim-comments]").each(function (_i, el) {
     var $el = $(el);

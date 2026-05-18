@@ -7,9 +7,8 @@
   <% end %>
   <% if model.is_a?(Decidim::Pages::Page) %>
     <%= content_tag :div, class: "card__search-process-name" do %>
-      <%= participatory_space_class_name %>
-      &nbsp;
-      <%= content_tag :span, class: "text-[var(--primary)]" do %>
+      <%= participatory_space_class_name %>:
+      <%= content_tag :span do %>
         <%= participatory_space_title %>
       <% end %>
     <% end %>

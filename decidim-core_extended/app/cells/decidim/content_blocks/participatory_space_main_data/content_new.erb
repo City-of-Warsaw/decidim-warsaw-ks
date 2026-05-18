@@ -29,12 +29,16 @@
           <h2 class="show-for-sr">Linia czasu</h2>
           <span class="timeline-line"></span>
           <div class="card--list__text card--list__text--top custom-card--list__text--top custom-card--list__text">
-            <% if step.position < current_participatory_space.active_step.position %>
-              <%= image_pack_tag 'media/images/circle-checked-icon.png', alt: '' %>
-            <% elsif step.position == current_participatory_space.active_step.position %>
-              <%= image_pack_tag 'media/images/circle-active-icon.png', alt: '' %>
+            <% if current_participatory_space.active_step %>
+              <% if step.position < current_participatory_space.active_step.position %>
+                <%= image_pack_tag 'media/images/circle-checked-icon.png', alt: '' %>
+              <% elsif step.position == current_participatory_space.active_step.position %>
+                <%= image_pack_tag 'media/images/circle-active-icon.png', alt: '' %>
+              <% else %>
+                <%= image_pack_tag 'media/images/circle-empty-icon.png', alt: '' %>
+              <% end %>
             <% else %>
-              <%= image_pack_tag 'media/images/circle-empty-icon.png', alt: '' %>
+              <%= image_pack_tag 'media/images/circle-checked-icon.png', alt: '' %>
             <% end %>
             <div>
               <h3 class="card--list__heading heading-small custom-heading"><%= translated_attribute(step.title) %></h3>

@@ -1,14 +1,14 @@
 <div id="new-remark-box" class="remark-box">
   <div class="card add-comment">
     <div class="card__header"> 
-      <h2 id="new-remark-header" class="remark-box__title"><%= t(".title") %></h2>
+      <h2 id="new-remark-header" class="h3"><%= t(".title") %></h2>
     </div>
 
     <% if !current_participatory_space.users_action_allowed_for_unregister_users && !current_user %>
       <div class="card__content">
-        <strong class="mb-xs">
+        <span>
           <%= t(".anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
-        </strong>
+        </span>
       </div>
     <% else %>
       <div class="card__content">

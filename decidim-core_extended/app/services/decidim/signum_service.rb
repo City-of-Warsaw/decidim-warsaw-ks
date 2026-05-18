@@ -3,6 +3,7 @@
 require 'ostruct'
 
 module Decidim
+  class SignumError < StandardError; end
   class SignumMissingConfigurationError < StandardError; end
 
   class SignumService
@@ -12,9 +13,10 @@ module Decidim
       @client = Savon.client(
         wsdl: ENV.fetch('WS_SIGNUM_WSDL'),
         adapter: :net_http,
+        ssl_verify_mode: :none,
         # Lower timeouts so these specs don't take forever when the service is not available.
         open_timeout: 10,
-        read_timeout: 10,
+        read_timeout: 60,
         log: true
       )
       @client
@@ -54,7 +56,7 @@ module Decidim
         signum_user[:id]
       end
     rescue Net::ReadTimeout
-      logger.debug "Brak polaczenia"
+      Rails.logger.debug "Przekroczono czas oczekiwania na odpowiedź z Signum"
       nil
     end
 
@@ -116,9 +118,10 @@ module Decidim
         haslo: @password
       }
       response = @client.call(:pismo_do_signum2, message: message)
-      # response.body[:pismo_do_signum2_response][:signum_ws_out][:error]
-      # response.body[:pismo_do_signum2_response][:signum_ws_out][:lista_pism][:pismo_do_signum_out]
       response.body[:pismo_do_signum2_response][:signum_ws_out]
+    rescue Net::ReadTimeout => error
+      Sentry.capture_message("SIGNUM Net::ReadTimeout w add_document_to_signum, error: #{error.message}")
+      raise StandardError, "Net::ReadTimeout w add_document_to_signum: #{error.message}"
     end
 
     # Tworzy sprawe do wprowadzonego juz pisma
@@ -205,88 +208,58 @@ module Decidim
       )
     end
 
+    # Metoda rejestruje Uwage do studium w systemie Signum i aktualizuje dane w Decidim
+    # Nie rejestruje sprawy do pisma, zeby nie bylo znaku sprawy,
+    # urzednicy sami beda rejestrowac wszystkie uwagi do tego samej sprawy
+    # 
+    # @param study_note [StudyNote] study_note registered to Signum
+    # @param user [User] user who register study_note to Signum, only ad_user
+    #
+    # Zwracany error moze byc w innej strukturze:
+    # <?xml version="1.0" encoding="utf-8"?>
+    # <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    #   <soap:Body>
+    #     <PismoDoSignum2Response xmlns="http://signum.um.warszawa/">
+    #       <signumWSOut>
+    #         <error />
+    #         <ListaPism>
+    #           <pismoDoSignumOut error="ERR #WrzucPismoDoSignum:  String or binary data would be truncated.&#xD;&#xA;The statement has been terminated. TRACE: T#1a 2 3 5a 5f 5f #TRACE: T#1a 2 3 5a 5f 5fjest" />
+    #         </ListaPism>
+    #       </signumWSOut>
+    #     </PismoDoSignum2Response>
+    #   </soap:Body>
+    # </soap:Envelope>
     def register_study_note_to_signum(study_note:, user:)
       urz_id = ENV.fetch('WS_SIGNUM_STUDY_NOTE_URZ_ID')
 
-      author = OpenStruct.new(
-        first_name: study_note.submitter_data_first_name,
-        last_name: study_note.submitter_data_last_name,
-        organization_name: study_note.submitter_data_org_name,
-        city: study_note.submitter_data_city,
-        zip_code: study_note.submitter_data_zip_code,
-        street: study_note.submitter_data_street,
-        street_number: study_note.submitter_data_street_number,
-        flat_number: study_note.submitter_data_flat_number
-      )
+      all_attachments = collect_study_note_attachments(study_note)
 
-      #
-      # has_one_attached :attorney_power_represent_applicant_or_for_service
-      # has_one_attached :attorney_power_payment_stamp_duty_confirm
-      # has_many_attached :parcel_site_boundary
-      #
-      # has_many_attached :files
-      all_attachments = []
-      study_note.files.each { |file| all_attachments << file }
-      if study_note.attorney_power_represent_applicant_or_for_service.attached?
-        all_attachments << study_note.attorney_power_represent_applicant_or_for_service
+      begin
+        response = add_document_to_signum(
+          urz_id: urz_id,
+          temat: "Uwaga do planu ogólnego Decidim – #{study_note.id}",
+          author: study_note.author_data,
+          historia: "Złożenie nowej uwagi do planu ogólnego",
+          rodzaj_przesylki: '66', # systemy dziedzinowe
+          informacja_dodatkowa: "Nr identyfikacyjny DECIDIM: #{study_note.id}",
+          files: all_attachments
+        )
+      rescue StandardError => error
+        Sentry.capture_message("SIGNUM study_note_id=#{study_note.id}, user_id=#{user&.id}, msg: #{error.to_s}")
+        return false
       end
-      if study_note.attorney_power_payment_stamp_duty_confirm.attached?
-        all_attachments << study_note.attorney_power_payment_stamp_duty_confirm
+
+      error_msg = response[:error].presence || response[:lista_pism][:pismo_do_signum_out][:@error] rescue nil
+      if error_msg.present? # => nil to ok, nie przetwazamy dalej jesli jest error
+        Sentry.capture_message("SIGNUM study_note_id=#{study_note.id}, user_id=#{user&.id}, msg: #{error_msg.to_s}")
+        return false
       end
-      study_note.parcel_site_boundary.each { |file| all_attachments << file }
 
-      # all_attachments << Decidim::PdfGeneratorService.new.save_to_pdf(study_note)
-
-      response = add_document_to_signum(
-        urz_id: urz_id,
-        temat: "Uwaga do planu ogólnego Decidim – #{study_note.id}",
-        author: author,
-        historia: "Złożenie nowej uwagi do planu ogólnego",
-        rodzaj_przesylki: '66', # systemy dziedzinowe
-        informacja_dodatkowa: "Nr identyfikacyjny DECIDIM: #{study_note.id}",
-        files: study_note.files + [Decidim::PdfGeneratorService.new.save_to_pdf(study_note)]
-      )
-      return if response[:error] # => nil to ok, nie przetwazamy dalej jesli jes terror
-
-      data = response[:lista_pism][:pismo_do_signum_out]
-      spr_id = data[:@spr_id]
-      pis_id = data[:@pis_id]
-      nr_kancelaryjny = data[:@nr_kancelaryjny]
-      kor_id = data[:@kor_id]
-      barcode = "#{pis_id}0" # w Signum barcode jest tworzone automatycznie o ile nie bylo przekazane w parametrach
-
-      # nie rejestrujemy sprawy do pisma, zeby nie bylo znaku sprawy,
-      # urzednicy sami beda rejestrowac wszystkie uwagi do tego samej sprawy
-      # response = create_case(urz_id: urz_id, spr_id: spr_id, kor_id: kor_id, jrwa: '0632')
-      # # response[:error] => nil
-      # data = response[:lista_pism][:pismo_do_signum_out]
-      # znak_sprawy = data[:@znak_sprawy]
-
-      study_note.update(
-        signum_barcode: barcode,
-        signum_spr_id: spr_id,
-        signum_kor_id: kor_id,
-        signum_nr_kancelaryjny: nr_kancelaryjny,
-        signum_znak_sprawy: nil,
-        signum_registered_at: DateTime.current,
-        signum_registered_by_user_id: user&.id
-      )
+      update_study_note_from_signum(study_note, response[:lista_pism][:pismo_do_signum_out], user)
     end
 
     def register_general_plan_request_to_signum(general_plan_request:, user:)
       urz_id = ENV.fetch('WS_GENERAL_PLAN_REQUEST_URZ_ID')
-
-      author = OpenStruct.new(
-        first_name: general_plan_request.submitter_data_first_name,
-        last_name: general_plan_request.submitter_data_last_name,
-        organization_name: general_plan_request.submitter_data_org_name,
-        country: general_plan_request.submitter_data_country, # tego nie ma w Signum
-        street: general_plan_request.submitter_data_street,
-        street_number: general_plan_request.submitter_data_street_number,
-        flat_number: general_plan_request.submitter_data_flat_number,
-        city: general_plan_request.submitter_data_city,
-        zip_code: general_plan_request.submitter_data_zip_code
-      )
 
       all_attachments = []
       general_plan_request.files.each { |file| all_attachments << file }
@@ -304,7 +277,7 @@ module Decidim
       response = add_document_to_signum(
         urz_id: urz_id,
         temat: "Wniosek do planu ogólnego Decidim – #{general_plan_request.id}",
-        author: author,
+        author: general_plan_request.author_data,
         historia: 'Złożenie nowego wniosku do planu ogólnego',
         rodzaj_przesylki: '66', # systemy dziedzinowe
         informacja_dodatkowa: "Nr identyfikacyjny DECIDIM: #{general_plan_request.id}",
@@ -336,6 +309,32 @@ module Decidim
         signum_registered_at: DateTime.current,
         signum_registered_by_user_id: user&.id
       )
+    end
+
+    def collect_study_note_attachments(study_note)
+      [
+        study_note.files,
+        study_note.attorney_power_represent_applicant_or_for_service.attached? ? study_note.attorney_power_represent_applicant_or_for_service : nil,
+        study_note.attorney_power_payment_stamp_duty_confirm.attached? ? study_note.attorney_power_payment_stamp_duty_confirm : nil,
+        study_note.parcel_site_boundary,
+        Decidim::PdfGeneratorService.new.save_to_pdf(study_note)
+      ].flatten.compact
+    end
+
+    def update_study_note_from_signum(study_note, data, user)
+      pis_id = data[:@pis_id]
+
+      study_note.assign_attributes(
+        signum_barcode: "#{pis_id}0",
+        signum_spr_id: data[:@spr_id],
+        signum_kor_id: data[:@kor_id],
+        signum_nr_kancelaryjny: data[:@nr_kancelaryjny],
+        signum_znak_sprawy: nil,
+        signum_registered_at: DateTime.current,
+        signum_registered_by_user_id: user&.id
+      )
+      # niezaleznie czy model i walidacje sa poprawne - numery spraw powinny sie zapisywac do study_notes = wylaczona walidacja
+      study_note.save(validate: false)
     end
   end
 end

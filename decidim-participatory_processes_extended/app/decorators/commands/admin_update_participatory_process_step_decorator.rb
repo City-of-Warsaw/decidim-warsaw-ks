@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
-# OVERWRITTEN DECIDIM COMMAND
-# Class Decorator - Extending Decidim::ParticipatoryProcesses::Admin::UpdateParticipatoryProcessStep
-#
-# Command has been expanded with:
-# additional attribute
 Decidim::ParticipatoryProcesses::Admin::UpdateParticipatoryProcessStep.class_eval do
   private
 
+  # overwritten method
+  # add custom attrs
   def attributes
     {
       cta_path: form.cta_path,
@@ -16,7 +13,7 @@ Decidim::ParticipatoryProcesses::Admin::UpdateParticipatoryProcessStep.class_eva
       start_date: form.start_date,
       end_date: form.end_date,
       description: form.description,
-      # custom
+      # custom attrs
       date: form.date,
       send_notifications_on_activation: form.send_notifications_on_activation
     }
@@ -27,4 +24,8 @@ Decidim::ParticipatoryProcesses::Admin::UpdateParticipatoryProcessStep.class_eva
 
     Decidim::CoreExtended::TemplatedMailerJob.perform_later('process_step_changed', { resource: step })
   end
+
+  # overwritten method
+  # do not produce event decidim.events.participatory_process.step_changed due to our email notification
+  def run_after_hooks; end
 end

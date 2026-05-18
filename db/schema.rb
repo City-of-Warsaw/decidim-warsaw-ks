@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
+ActiveRecord::Schema[7.0].define(version: 2026_04_10_090525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "cube"
   enable_extension "earthdistance"
@@ -628,6 +628,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.datetime "users_action_end_date", precision: nil
     t.string "end_date_message"
     t.text "help_button_info"
+    t.boolean "ai_enabled", default: false
     t.index ["participatory_space_id", "participatory_space_type"], name: "index_decidim_components_on_decidim_participatory_space"
   end
 
@@ -747,6 +748,45 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.string "code", limit: 6, null: false
     t.decimal "lat", precision: 12, scale: 9
     t.decimal "lng", precision: 12, scale: 9
+  end
+
+  create_table "decidim_custom_ai_answer_tags", force: :cascade do |t|
+    t.bigint "decidim_custom_ai_tags_id"
+    t.bigint "decidim_forms_answers_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_custom_ai_tags_id"], name: "decidim_custom_ai_answer_tags_tags_ids"
+    t.index ["decidim_forms_answers_id"], name: "decidim_custom_ai_answer_tags_answers_ids"
+  end
+
+  create_table "decidim_custom_ai_answer_versions", force: :cascade do |t|
+    t.bigint "decidim_user_id"
+    t.bigint "answer_id", null: false
+    t.text "ai_decision_body"
+    t.integer "ai_decision_status"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_decidim_custom_ai_answer_versions_on_answer_id"
+    t.index ["decidim_user_id"], name: "index_decidim_custom_ai_answer_versions_on_decidim_user_id"
+  end
+
+  create_table "decidim_custom_ai_files", force: :cascade do |t|
+    t.bigint "decidim_component_id"
+    t.string "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "ai_s3_key"
+    t.index ["decidim_component_id"], name: "index_decidim_custom_ai_files_on_decidim_component_id"
+  end
+
+  create_table "decidim_custom_ai_tags", force: :cascade do |t|
+    t.bigint "decidim_component_id"
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_component_id", "name"], name: "index_decidim_custom_ai_tags_on_decidim_component_id_and_name", unique: true
+    t.index ["decidim_component_id"], name: "index_decidim_custom_ai_tags_on_decidim_component_id"
   end
 
   create_table "decidim_custom_proposals_custom_proposals", force: :cascade do |t|
@@ -901,6 +941,16 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "session_token", default: "", null: false
     t.string "ip_hash"
+    t.integer "ai_decision_status"
+    t.integer "status", default: 0
+    t.string "ai_decision_body"
+    t.string "ai_suggestion_body"
+    t.boolean "ai_is_complicated", default: false, null: false
+    t.integer "incorrect_group_id"
+    t.integer "similar_group_id"
+    t.boolean "ai_is_illogical", default: false, null: false
+    t.boolean "ai_is_incomplete", default: false, null: false
+    t.boolean "ai_is_vulgar", default: false, null: false
     t.index ["decidim_question_id"], name: "index_decidim_forms_answers_question_id"
     t.index ["decidim_questionnaire_id"], name: "index_decidim_forms_answers_on_decidim_questionnaire_id"
     t.index ["decidim_user_id"], name: "index_decidim_forms_answers_on_decidim_user_id"
@@ -1345,6 +1395,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.boolean "published", default: false
     t.integer "weight", default: 0
     t.date "added_on"
+    t.boolean "comments_enabled", default: false, null: false
     t.index ["decidim_organization_id"], name: "index_decidim_news_informations_on_decidim_organization_id"
   end
 
@@ -1562,6 +1613,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.boolean "users_action_allowed_for_unregister_users", default: true
     t.jsonb "area_map_coordinates"
     t.bigint "decidim_participatory_process_type_id"
+    t.boolean "report_published", default: false, null: false
     t.index ["decidim_area_id"], name: "index_decidim_participatory_processes_on_decidim_area_id"
     t.index ["decidim_department_id"], name: "index_decidim_participatory_processes_on_decidim_department_id"
     t.index ["decidim_organization_id", "slug"], name: "index_unique_process_slug_and_organization", unique: true
@@ -2079,6 +2131,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.float "y_latitude"
     t.float "y_longitude"
     t.integer "position", default: 0
+    t.boolean "visible_on_load", default: false, null: false
+    t.integer "min_zoom_level", default: 0
     t.index ["decidim_component_id"], name: "index_dec_study_notes_map_backgrounds_on_dec_component_id"
   end
 
@@ -2161,6 +2215,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.integer "letter_type"
     t.jsonb "detailed_notes"
     t.integer "sequential_number"
+    t.boolean "submitter_confirmation_send", default: false
     t.index ["decidim_component_id"], name: "index_decidim_study_notes_study_notes_on_decidim_component_id"
   end
 
@@ -2291,7 +2346,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
     t.integer "main_scope_id"
     t.string "zip_code"
     t.boolean "follow_ngo"
-    t.boolean "notifications_from_neighbourhood", default: false
     t.string "editorial"
     t.string "first_name"
     t.string "last_name"
@@ -2460,6 +2514,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_10_10_143454) do
   add_foreign_key "decidim_consultation_map_remarks", "decidim_components"
   add_foreign_key "decidim_consultation_map_remarks", "decidim_scopes", column: "district_id", on_delete: :nullify
   add_foreign_key "decidim_consultation_requests", "decidim_organizations"
+  add_foreign_key "decidim_custom_ai_answer_versions", "decidim_forms_answers", column: "answer_id"
+  add_foreign_key "decidim_custom_ai_answer_versions", "decidim_users"
   add_foreign_key "decidim_custom_proposals_custom_proposals", "decidim_components"
   add_foreign_key "decidim_debates_debates", "decidim_scopes"
   add_foreign_key "decidim_editor_images", "decidim_organizations"

@@ -18,11 +18,6 @@ module Decidim
                         decidim_core_extended.faqs_path,
                         position: 7,
                         active: :inclusive
-          menu.add_item :page_contacts,
-                        "Kontakty",
-                        "/kontakt",
-                        position: 11,
-                        active: :inclusive
         end
       end
 
@@ -31,6 +26,12 @@ module Decidim
           get "account/my_follow", controller: "account", action: "my_follow"
           get "account/my_comments", controller: "account", action: "my_comments"
         end
+      end
+
+      initializer "decidim_core_extended.register_icons" do
+        Decidim.icons.register(name: "ai-generate", icon: "ai-generate", category: "system", description: "", engine: :admin)
+        Decidim.icons.register(name: "overline", icon: "overline", category: "system", description: "", engine: :admin)
+        Decidim.icons.register(name: "download-2-line", icon: "download-2-line", category: "system", description: "", engine: :core)
       end
 
       initializer "decidim_surveys.prepend_routes", after: :load_config_initializers do |_app|
@@ -80,6 +81,12 @@ module Decidim
       initializer "decidim_core_extended.append_routes", after: :load_config_initializers do |_app|
         Rails.application.routes.append do
           mount Decidim::CoreExtended::Engine => "/"
+        end
+      end
+
+      initializer "decidim_comments.append_routes", after: :load_config_initializers do |_app|
+        Decidim::Comments::Engine.routes.append do
+          patch "comments/:id/second_step_update", to: "comments#second_step_update", as: :second_step_update_comment
         end
       end
 

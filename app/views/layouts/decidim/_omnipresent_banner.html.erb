@@ -1,0 +1,11 @@
+<% if current_organization.enable_omnipresent_banner %>
+  <div class="omnipresent-banner">
+    <% if current_organization.omnipresent_banner_url.present? %>
+      <%= link_to current_organization.omnipresent_banner_url, class: "omnipresent-banner" do %>
+        <%= render partial: "layouts/decidim/omnipresent_banner_content" %>
+      <% end %>
+    <% else %>
+      <%= render partial: "layouts/decidim/omnipresent_banner_content" %>
+    <% end %>
+  </div>
+<% end %>

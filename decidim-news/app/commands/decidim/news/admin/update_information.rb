@@ -52,7 +52,8 @@ module Decidim
             gallery_id: form.gallery_id,
             users_action_allowed_for_unregister_users: form.users_action_allowed_for_unregister_users,
             weight: form.weight,
-            added_on: form.added_on
+            added_on: form.added_on,
+            comments_enabled: form.comments_enabled
           }
         end
 

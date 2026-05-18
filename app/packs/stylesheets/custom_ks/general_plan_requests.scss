@@ -742,14 +742,22 @@
 
         .pdf-link {
           text-decoration: none;
+          align-items: center;
 
           &:hover {
             text-decoration: underline;
           }
 
-          img {
+          img,
+          svg {
             height: 18px;
             margin-left: 8px;
+            vertical-align: middle;
+          }
+
+          svg {
+            color: black;
+            fill: currentColor;
           }
 
           .external-link-indicator {

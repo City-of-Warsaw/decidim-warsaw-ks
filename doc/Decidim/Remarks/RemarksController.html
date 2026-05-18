@@ -417,6 +417,30 @@
 </li>
 
       
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#remarks_with_comments_count-instance_method" title="#remarks_with_comments_count (instance method)">#<strong>remarks_with_comments_count</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns total count of not hidden remarks and all their not hidden comments (including nested).</p>
+</div></span>
+  
+</li>
+
+      
         <li class="public ">
   <span class="summary_signature">
     
@@ -580,7 +604,6 @@
       <pre class="lines">
 
 
-50
 51
 52
 53
@@ -601,10 +624,11 @@
 68
 69
 70
-71</pre>
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:create</span><span class='comma'>,</span> <span class='symbol'>:remark</span>
@@ -659,16 +683,16 @@
       <pre class="lines">
 
 
-211
 212
 213
 214
 215
 216
-217</pre>
+217
+218</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 212</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_created_remark'>created_remark</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_current_user'>current_user</span>
@@ -697,14 +721,14 @@
       <pre class="lines">
 
 
-232
 233
 234
 235
-236</pre>
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 232</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 233</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_default_filter_params'>default_filter_params</span>
   <span class='lbrace'>{</span>
@@ -742,7 +766,6 @@
       <pre class="lines">
 
 
-74
 75
 76
 77
@@ -762,10 +785,11 @@
 91
 92
 93
-94</pre>
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit'>edit</span>
   <span class='ivar'>@remark</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_current_user'>current_user</span>
@@ -808,14 +832,14 @@
       <pre class="lines">
 
 
-226
 227
 228
 229
-230</pre>
+230
+231</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 227</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filtered_params'>filtered_params</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:filter</span><span class='rbracket'>]</span>
@@ -842,7 +866,6 @@
       <pre class="lines">
 
 
-191
 192
 193
 194
@@ -851,10 +874,11 @@
 197
 198
 199
-200</pre>
+200
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 191</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 192</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_filtered_remarks_list'>filtered_remarks_list</span>
   <span class='id identifier rubyid_query'>query</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Remark.html" title="Decidim::Remarks::Remark (class)">Remark</a></span></span><span class='period'>.</span><span class='id identifier rubyid_where'>where</span><span class='lparen'>(</span><span class='label'>component:</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='rparen'>)</span>
@@ -897,16 +921,16 @@
       <pre class="lines">
 
 
-242
 243
 244
 245
 246
 247
-248</pre>
+248
+249</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 242</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first_followable_remark'>first_followable_remark</span>
   <span class='kw'>return</span> <span class='kw'>nil</span> <span class='kw'>unless</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='op'>&amp;.</span><span class='id identifier rubyid_published?'>published?</span>
@@ -935,14 +959,14 @@
       <pre class="lines">
 
 
-21
 22
 23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:remark</span>
@@ -969,12 +993,12 @@
       <pre class="lines">
 
 
-206
 207
-208</pre>
+208
+209</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 206</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_new_remark_form'>new_remark_form</span>
   <span class='id identifier rubyid_form'>form</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="RemarkForm.html" title="Decidim::Remarks::RemarkForm (class)">RemarkForm</a></span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_from_model'>from_model</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="Remark.html" title="Decidim::Remarks::Remark (class)">Remark</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='rparen'>)</span>
@@ -999,12 +1023,12 @@
       <pre class="lines">
 
 
-202
 203
-204</pre>
+204
+205</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 202</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 203</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_paginated_remarks'>paginated_remarks</span>
   <span class='ivar'>@paginated_remarks</span> <span class='op'>||=</span> <span class='id identifier rubyid_paginate'>paginate</span><span class='lparen'>(</span><span class='id identifier rubyid_remarks'>remarks</span><span class='rparen'>)</span>
@@ -1029,12 +1053,12 @@
       <pre class="lines">
 
 
-187
 188
-189</pre>
+189
+190</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 188</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remark'>remark</span>
   <span class='ivar'>@remark</span> <span class='op'>||=</span> <span class='id identifier rubyid_remarks'>remarks</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1072,12 +1096,12 @@
       <pre class="lines">
 
 
-222
 223
-224</pre>
+224
+225</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 222</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 223</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remark_token'>remark_token</span>
   <span class='ivar'>@remark_token</span> <span class='op'>||=</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:remark_token</span><span class='rbracket'>]</span>
@@ -1102,15 +1126,64 @@
       <pre class="lines">
 
 
-183
 184
-185</pre>
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 184</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remarks'>remarks</span>
   <span class='ivar'>@remarks</span> <span class='op'>||=</span> <span class='id identifier rubyid_filtered_remarks_list'>filtered_remarks_list</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remarks_with_comments_count-instance_method">
+  
+    #<strong>remarks_with_comments_count</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns total count of not hidden remarks and all their not hidden comments (including nested)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+267
+268
+269
+270
+271
+272
+273</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 267</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remarks_with_comments_count'>remarks_with_comments_count</span>
+  <span class='kw'>return</span> <span class='int'>0</span> <span class='kw'>if</span> <span class='id identifier rubyid_remarks'>remarks</span><span class='period'>.</span><span class='id identifier rubyid_none?'>none?</span>
+
+  <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='id identifier rubyid_remarks'>remarks</span><span class='period'>.</span><span class='id identifier rubyid_not_hidden'>not_hidden</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+  <span class='id identifier rubyid_count'>count</span> <span class='op'>+=</span> <span class='id identifier rubyid_remarks'>remarks</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_remark'>remark</span><span class='op'>|</span> <span class='id identifier rubyid_remark'>remark</span><span class='period'>.</span><span class='id identifier rubyid_comments'>comments</span><span class='period'>.</span><span class='id identifier rubyid_not_hidden'>not_hidden</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_sum'>sum</span>
+  <span class='id identifier rubyid_count'>count</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1143,7 +1216,6 @@
       <pre class="lines">
 
 
-117
 118
 119
 120
@@ -1172,10 +1244,11 @@
 143
 144
 145
-146</pre>
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_second_step_update'>second_step_update</span>
   <span class='ivar'>@remark</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Remark.html" title="Decidim::Remarks::Remark (class)">Remark</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span><span class='label'>token:</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:remark_token</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='op'>!</span><span class='id identifier rubyid_current_user'>current_user</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_session'>session</span><span class='lbracket'>[</span><span class='symbol'>:remark_token</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
@@ -1249,7 +1322,6 @@
       <pre class="lines">
 
 
-27
 28
 29
 30
@@ -1270,10 +1342,11 @@
 45
 46
 47
-48</pre>
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_show'>show</span>
   <span class='id identifier rubyid_enforce_permission_to'>enforce_permission_to</span> <span class='symbol'>:read</span><span class='comma'>,</span> <span class='symbol'>:remark</span>
@@ -1328,7 +1401,6 @@
       <pre class="lines">
 
 
-149
 150
 151
 152
@@ -1358,10 +1430,11 @@
 176
 177
 178
-179</pre>
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 149</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span>
   <span class='ivar'>@remark</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='id identifier rubyid_current_user'>current_user</span>
@@ -1443,7 +1516,6 @@
       <pre class="lines">
 
 
-253
 254
 255
 256
@@ -1451,20 +1523,25 @@
 258
 259
 260
-261</pre>
+261
+262
+263
+264</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 253</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_user_allowed_to_add_remark?'>user_allowed_to_add_remark?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
   <span class='comment'># scenario when component is closed
 </span>  <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_users_action_end_date'>users_action_end_date</span><span class='op'>&amp;.</span><span class='id identifier rubyid_past?'>past?</span>
-  <span class='comment'># scenario when registered user is present
-</span>  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_user'>user</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
 
+  <span class='comment'># scenario when registered user is present
+</span>  <span class='comment'># return true if user.present?
+</span>  <span class='kw'>true</span>
   <span class='comment'># scenario when unregistered author is present
-</span>  <span class='id identifier rubyid_current_component'>current_component</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_users_action_allowed_for_unregister_users?'>users_action_allowed_for_unregister_users?</span>
-<span class='kw'>end</span></pre>
+</span>  <span class='comment'># this is checked in _new.html.erb partial
+</span>  <span class='comment'># current_component.participatory_space.users_action_allowed_for_unregister_users?
+</span><span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1507,7 +1584,6 @@
       <pre class="lines">
 
 
-96
 97
 98
 99
@@ -1524,10 +1600,11 @@
 110
 111
 112
-113</pre>
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/controllers/decidim/remarks/remarks_controller.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_vote'>vote</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ActionController</span><span class='op'>::</span><span class='const'>RoutingError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Not Found</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_remark'>remark</span>
@@ -1557,7 +1634,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:38 2025 by
+  Generated on Mon May 18 15:09:15 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

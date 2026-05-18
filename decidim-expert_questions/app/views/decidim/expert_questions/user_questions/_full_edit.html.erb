@@ -29,7 +29,7 @@
               Usuń
             </button>
             
-            <%= check_box_tag 'user_question[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %> 
+            <%= check_box_tag 'user_question[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden", aria: { label: "Usuń #{file.filename}" } %> 
           </li>
         <% end %>
       </ul>

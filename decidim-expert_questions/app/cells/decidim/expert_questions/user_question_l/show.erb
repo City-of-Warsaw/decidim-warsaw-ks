@@ -45,7 +45,7 @@
               </div>
               <div class="single-file__data">
                 <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-                  <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+                  <%= icon "download-2-line" %>
                 <% end %>
               </div>
             </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="single-file__data">
                       <%= link_to Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true), target: "_blank", rel: "noopener", class: "card--list__data__icon", data: { "external-link": "false" }, title: t("decidim.components.component.download_file") do %>
-                        <%= image_pack_tag "media/images/download-icon.png", alt: '' %>
+                        <%= icon "download-2-line" %>
                       <% end %>
                     </div>
                   </div>
@@ -113,6 +113,10 @@
 
 <% if current_user.present? %>
   <%= cell("decidim/report_button", model, modal_id: "flagModalUserQuestion#{model.id}").flag_modal %>
+<% end %>
+
+<% if frontend_administrable? %>
+  <%= cell("decidim/hide_button", model, modal_id: "flagHideModalComment#{model.id}").flag_modal %>
 <% end %>
 
 <%= append_javascript_pack_tag "comments" %>

@@ -1,0 +1,51 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t(".title") %>
+      <%= render partial: "decidim/custom_ai/admin/custom_ai/ai_functions_dropdown" %>
+      <button class="button button__sm button__secondary" data-toggle="bulk-actions-dropdown">
+        Akcje zbiorcze
+        <%= icon "arrow-down-s-line", class: "dropdown-filter-icon" %>
+      </button>
+      <div class="dropdown-pane" id="bulk-actions-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
+        <ul class="vertical menu  font-normal">
+          <li>
+            <a href="#" class="js-update-ai-decision-selected">Edycja rozstrzygnięć</a>
+          </li>
+          <li>
+            <a href="#" class="js-accept-selected">Akceptacja rozstrzygnięć</a>
+          </li>
+        </ul>
+      </div>
+      <%= link_to 'Import rozstrzygnięć',
+                  decidim_custom_ai_admin.init_import_ai_decisions_form_answers_path,
+                  class: "button button__sm button__secondary" %>
+      <%= link_to 'Eksport XLSX',
+                  decidim_custom_ai_admin.export_answers_answers_path,
+                  class: "button button__sm button__secondary" %>
+      <button class="button button__sm button__secondary" data-toggle="ai-second-functions-dropdown">
+        Dodatkowe akcje <%= icon "arrow-down-s-line", class: "dropdown-filter-icon" %>
+      </button>
+      <div class="dropdown-pane" id="ai-second-functions-dropdown" data-dropdown data-auto-focus="true" data-close-on-click="true">
+        <ul class="vertical menu font-normal">
+          <li>
+            <%= link_to t("actions.regenerate", scope: "decidim.custom_ai"), decidim_custom_ai_admin.regenerate_tags_from_ai_tags_path, data: { confirm: t("actions.confirm_regenerate", scope: "decidim.custom_ai") } %>
+          </li>
+          <li>
+            <%= link_to t("actions.reassign_groups", scope: "decidim.custom_ai"), decidim_custom_ai_admin.update_grouping_answers_path, data: { confirm: t("actions.confirm_reassign_groups", scope: "decidim.custom_ai") } %>
+          </li>
+          <li>
+            <%= link_to t("actions.reassign_answers", scope: "decidim.custom_ai"), decidim_custom_ai_admin.regenerate_pending_answers_from_ai_answers_path, data: { confirm: t("actions.confirm_reassign_answers", scope: "decidim.custom_ai") } %>
+          </li>
+        </ul>
+      </div>
+    </h1>
+  </div>
+
+  <%= render partial: "filters" %>
+  <%= render partial: 'table' %>
+</div>
+
+<%= decidim_paginate @answers %>
+<%= prepend_javascript_pack_tag "admin_answers", defer: true %>

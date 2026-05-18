@@ -48,7 +48,7 @@ $(document).ready(function () {
 
         $(".custom-card-timeline-box .hideable").toggleClass("hide");
         $(".custom-card-timeline-box .sep-js").toggleClass("sep");
-      }
+      },
     );
   }
 
@@ -214,10 +214,11 @@ $(document).ready(function () {
 
   $(".attachment-button-js")
     .not(".AttachmentButton-applied")
+    .each(function () {
+      $(this).addClass("AttachmentButton-applied");
+    })
     .click(function (e) {
       e.preventDefault();
-
-      $(this).addClass("AttachmentButton-applied");
 
       var target_id = $(this).data("target");
       $(this)
@@ -265,11 +266,11 @@ $(document).ready(function () {
       () =>
         targetEl
           .find(
-            'button, a, input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])'
+            'button, a, input:not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])',
           )
           .eq(0)
           .focus(),
-      100
+      100,
     );
   });
 
@@ -335,4 +336,29 @@ $(document).ready(function () {
       }
     }, 500);
   });
+
+  $("input[data-maxlength], textarea[data-maxlength]").each((_i, elem) => {
+    const $input = $(elem);
+
+    $input.data(
+      "remaining-characters-counter",
+      new window.Decidim.InputCharacterCounter($input),
+    );
+  });
+});
+
+// Fix broken ARIA role on dropdowns.
+// The a11y-dropdown-component library incorrectly assigns role="menu" to the
+// dropdown target, but these elements contain navigation links or action items
+// without the required role="menuitem" children, causing a broken ARIA menu.
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    const dropdowns = document.querySelectorAll(
+      "[id^='dropdown-menu-'], [id^='secondary-dropdown-menu']",
+    );
+    dropdowns.forEach((el) => {
+      el.removeAttribute("role");
+      el.removeAttribute("aria-labelledby");
+    });
+  }, 300);
 });

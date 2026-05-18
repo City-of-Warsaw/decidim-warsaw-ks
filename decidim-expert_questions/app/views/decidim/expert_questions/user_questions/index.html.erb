@@ -16,7 +16,7 @@
 
   <section>
     <h2 aria-atomic="true" aria-live="polite" id="user_questions-count" class="title-action__title user_questions uppercase custom-section-counter mb-4">
-      <%= t(".user_questions_count", count: user_questions.count ).html_safe %>
+      <%= t(".user_questions_count", count: user_questions_with_comments_count).html_safe %>
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-8 max-md:gap-y-8">

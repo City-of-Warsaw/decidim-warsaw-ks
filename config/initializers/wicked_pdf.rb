@@ -14,7 +14,9 @@ require "wicked_pdf"
 
 WickedPdf.configure do |config|
   # wkhtmltopdf must be installed on SUSE from packages and linked to this directory
-  config.exe_path = "/usr/bin/wkhtmltopdf" unless Rails.env.development?
+   unless Rails.env.development?
+     config.exe_path =  ENV.fetch("WKHTML_EXE_PATH") { "/usr/bin/wkhtmltopdf" }
+   end
 
   # Needed for wkhtmltopdf 0.12.6+ to use many wicked_pdf asset helpers
   config.enable_local_file_access = true

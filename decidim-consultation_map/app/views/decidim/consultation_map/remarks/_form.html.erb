@@ -3,7 +3,7 @@
   <%= form.hidden_field :locations %>
 </div>
 
-<% if @form.categories_select.any? %>
+<% if @form.categories_select.any? && @form.categories_select.length > 1 %>
   <div class="field remark-field--category">
     <%= form.select :decidim_category_id,
           @form.categories.map{ |cat| ["<span style='background-color: #{cat.color};'>#{raw(cat.inline_svg(cat.file))}</span>#{translated_attribute(cat.name)}", cat.id]},
@@ -13,7 +13,7 @@
 <% end %>
 
 <div class="field remark-field--body">
-  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'show-for-sr' %>
+  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'sr-only' %>
   <%= form.text_area(
         :body,
         id: 'add-remark',
@@ -32,6 +32,7 @@
   <%= form.file_field :files,
                       label: false,
                       class: "multifile hidden",
+                      aria: { label: 'Dodaj załącznik' },
                       accept: FileFormValidator.accept_string_for(form.object.class, :files),
                       multiple: true %>
 
@@ -40,7 +41,7 @@
 
 <% unless current_user %>
   <div class="field remark-field--signature">
-    <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+    <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'sr-only' %>
     <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
   </div>
 <% end %>

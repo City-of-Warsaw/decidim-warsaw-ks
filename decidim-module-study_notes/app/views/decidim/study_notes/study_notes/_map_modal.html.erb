@@ -54,25 +54,27 @@
               <span id="obr-dz-error" class="obr-dz-wrapper__error"></span>
             </div>
           </div>
-        </section>
+        </section> 
 
         <% content_for(:js_content) do %>
           <%= nonced_javascript_tag do %>
-            let rasters = [];
-            let vectors = [];
+            let mapBackgrounds = [];
 
-            <% backgrounds.each do |map_bg| %>
-              <% if map_bg.raster_file_type? %>
-                rasters[`<%= map_bg.id %>,<%= map_bg.name %>`] = L.imageOverlay("<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>", [
-                      [<%= map_bg.x_latitude || 0 %>, <%= map_bg.x_longitude || 0 %>],
-                      [<%= map_bg.y_latitude || 0  %>, <%= map_bg.y_longitude || 0 %>],
-                    ]);
-              <% end %>
-
-              <% if map_bg.vector_file_type? %>
-                  vectors[`<%= map_bg.id %>,<%= map_bg.name %>`] = "<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>";
-              <% end %>
-            <% end %>
+            <% backgrounds.each_with_index do |map_bg, index| %>
+              mapBackgrounds.push({
+                id: `<%= map_bg.id %>`,
+                name: `<%= map_bg.name %>`,
+                fileType: `<%= map_bg.file_type %>`,
+                filePath: `<%= decidim_repository.blob_path(map_bg.file.signed_id, filename: map_bg.file.filename) %>`,
+                xLatitude: <%= map_bg.x_latitude || 0 %>,
+                xLongitude: <%= map_bg.x_longitude || 0 %>,
+                yLatitude: <%= map_bg.y_latitude || 0 %>,
+                yLongitude: <%= map_bg.y_longitude || 0 %>,
+                visibleOnLoad: <%= map_bg.visible_on_load %>,
+                minZoomLevel: <%= map_bg.min_zoom_level || 0 %>,
+                position: <%= index %>
+              });
+            <% end %>  
           <% end %>
         <% end %>
 
@@ -121,6 +123,9 @@
             </div>
           <% end %>
         </section>
+
+        <%= image_pack_tag "media/images/ozs-fill-pattern.svg", alt: "", id: "ozs", class: "hidden" %>
+        <%= image_pack_tag "media/images/ouz-fill-pattern.svg", alt: "", id: "ouz", class: "hidden" %>
     
         <%= append_javascript_pack_tag "geojson_map" %>
       </div>

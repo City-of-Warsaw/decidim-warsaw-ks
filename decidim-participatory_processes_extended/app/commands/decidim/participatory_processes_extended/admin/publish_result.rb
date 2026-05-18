@@ -3,12 +3,12 @@
 module Decidim
   module ParticipatoryProcessesExtended
     module Admin
-      # A command with all the business logic to update result
+      # A command with all the business logic to publish result
       class PublishResult < Decidim::Command
         # Public: Initializes the command.
         #
         # participatory_space - The participatory space that will hold the result
-        # result - the Result to update
+        # result - the Result to be published
         # author - The user that initiates updating that Result
         def initialize(result, current_user, participatory_space)
           @result = result
@@ -19,13 +19,10 @@ module Decidim
         # Executes the command. Broadcasts these events:
         #
         # - :ok when everything is valid.
-        # - :invalid if the form wasn't valid and we couldn't proceed.
         #
         # Returns nothing.
         def call
           publish_result!
-          participatory_space.update(consultation_status: "effects")
-
           broadcast(:ok)
         end
 
@@ -41,7 +38,7 @@ module Decidim
             visibility: "admin-only"
           ) do
             result.update(published: true)
-            result
+            participatory_space.set_consultation_status
           end
         end
       end

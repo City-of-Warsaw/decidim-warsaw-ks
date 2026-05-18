@@ -9,5 +9,6 @@ module Decidim
   # This namespace holds the logic of the `ConsultationMap` component. This component
   # allows users to create consultation_map in a participatory space.
   module ConsultationMap
+    autoload :RemarksSerializer, "decidim/consultation_map/remarks_serializer"
   end
 end

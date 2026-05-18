@@ -1,10 +1,6 @@
-import { mergeAttributes } from "@tiptap/core";
 import Image from "@tiptap/extension-image";
-import { Plugin } from "prosemirror-state";
 
-import { getDictionary } from "src/decidim/i18n";
 import { fileNameToTitle } from "src/decidim/editor/utilities/file";
-import createNodeView from "src/decidim/editor/extensions/image_repository/node_view";
 import IframeDialog from "src/decidim/editor/common/iframe_dialog";
 
 /**
@@ -36,7 +32,7 @@ export default Image.extend({
               return;
             }
 
-            const { type, url, alt, mimetype } = event.data;
+            const { type, url, alt, description, mimetype } = event.data;
 
             if (type === "image") {
               this.editor
@@ -45,6 +41,7 @@ export default Image.extend({
                 .setImage({
                   src: url,
                   alt: alt || fileNameToTitle(url),
+                  "data-description": description || "",
                   width: null,
                 })
                 .run();
@@ -80,21 +77,5 @@ export default Image.extend({
         return true;
       },
     };
-  },
-
-  addNodeView() {
-    return createNodeView(this);
-  },
-
-  parseHTML() {
-    return [{ tag: "div[data-image-repository] img[src]:not([src^='data:'])" }];
-  },
-
-  renderHTML({ HTMLAttributes }) {
-    return [
-      "div",
-      { class: "editor-content-image-repository", "data-image-repository": "" },
-      ["img", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)],
-    ];
   },
 });

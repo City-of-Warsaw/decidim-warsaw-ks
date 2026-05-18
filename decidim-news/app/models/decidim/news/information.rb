@@ -91,9 +91,27 @@ module Decidim
         true
       end
 
-      # overwritten method
-      # information be set in admin panel, to disallow/allow to comment by unregistered author
+      # Public: Overrides the `user_allowed_to_comment?` Commentable concern method.
+      # add comments_enabled
+      # add can_participate?
       def user_allowed_to_comment?(user)
+        return false unless comments_enabled
+        return false unless can_participate?(user)
+
+        true
+      end
+
+      # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+      # add published?
+      # add commentable?
+      def accepts_new_comments?
+        return false unless published?
+
+        commentable?
+      end
+
+      # allow to scenario where unregister users can comment
+      def can_participate?(user)
         # scenario when registered user is present
         return true if user.present?
 

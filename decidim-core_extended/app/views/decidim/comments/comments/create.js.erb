@@ -25,4 +25,12 @@
 
     // Update the comments count
     $(".comments-count", $comments).text(<%== t("decidim.components.comments.title", count: @comments_count).to_json %>);
+
+    // render second-step form for unregistered user
+    <% if !current_user && @comment.persisted? %>
+        <% form_id = "new_comment_for_#{@comment.commentable.commentable_type.demodulize}_#{@comment.commentable.id}" %>
+        $('#second-step-form-container-<%= form_id %>').html(
+            "<%== j(cell("decidim/comments/comment_second_step_form", @comment, edit_token: @comment.token).call) %>"
+        );
+    <% end %>
 }());

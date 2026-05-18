@@ -2,78 +2,31 @@
 
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Lista") do |sheet|
-  # Defined a text wrapping style for columns:
-  # - 'Treść',
-  # - 'URL załącznika'
   wrap_text = wb.styles.add_style(alignment: { wrap_text: true })
+  right_align = wb.styles.add_style(alignment: { horizontal: :right })
 
-  # specified width for columns:
-  # - 'Treść',
-  # - 'URL załącznika'
-  col_widths = [nil, 40, nil, nil, nil, nil, nil, nil, nil, 70, nil, nil]
+  sheet.add_row @xml_serializer.headers
 
-  sheet.add_row [
-    'Lp.',
-    'Treść',
-    'Liczba komentarzy',
-    'Podpis',
-    'E-mail',
-    'Dzielnica',
-    'Wiek',
-    'Płeć',
-    'Data utworzenia',
-    'URL załącznika',
-    'Link do uwagi',
-    'Lokalizacja pinezki'
-  ]
+  @xml_serializer.serialize_all(@remarks).each.with_index(1) do |row_hash, lp|
+    sheet.add_row @xml_serializer.ordered_values(row_hash)
 
-  @remarks.each_with_index do |remark, index|
-    files_urls = links_to_files_array(remark.files)
+    @xml_serializer.columns_order.each_with_index do |column, col_index|
+      cell_ref = "#{col_index_to_column_letter(col_index)}#{lp + 1}"
 
-    if files_urls.empty?
+      if @xml_serializer.columns_definition[column][:wrap_text]
+        sheet[cell_ref].style = wrap_text
+      end
 
-      sheet.add_row [
-        index + 1,
-        remark.body,
-        remark.comments_count,
-        remark.signature,
-        remark.author_email,
-        translated_attribute(remark.author_district),
-        remark.author_age_range,
-        remark.author_gender,
-        l(remark.created_at, format: :short),
-        '',
-        resource_locator(remark).url,
-        remark.address
-      ], style: [nil, wrap_text, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil]
+      if @xml_serializer.url_columns.include?(column)
+        hyperlink_value = row_hash[column]
+        sheet.add_hyperlink location: hyperlink_value, ref: cell_ref if hyperlink_value.present?
+      end
 
-      sheet.add_hyperlink location: resource_locator(remark).url, ref: "K#{sheet.rows.size}"
-
-    else
-
-        files_urls.each_with_index do |file_url, file_url_index|
-
-        sheet.add_row [
-          "#{index + 1}.#{file_url_index + 1}",
-          remark.body,
-          remark.comments_count,
-          remark.signature,
-          remark.author_email,
-          translated_attribute(remark.author_district),
-          remark.author_age_range,
-          remark.author_gender,
-          l(remark.created_at, format: :short),
-          file_url,
-          resource_locator(remark).url,
-          remark.address
-        ], style: [nil, wrap_text, nil, nil, nil, nil, nil, nil, nil, wrap_text, nil, nil]
-
-        sheet.add_hyperlink location: file_url, ref: "J#{sheet.rows.size}"
-        sheet.add_hyperlink location: resource_locator(remark).url, ref: "K#{sheet.rows.size}"
+      if @xml_serializer.column_alignment(column) == :right
+        sheet[cell_ref].style = right_align
       end
     end
   end
 
-  # set defined width columns:
-  sheet.column_widths *col_widths
+  sheet.column_widths *@xml_serializer.columns_widths
 end

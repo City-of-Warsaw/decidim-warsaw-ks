@@ -1,5 +1,5 @@
 <div class="field remark-field--body">
-  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'show-for-sr' %>
+  <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'sr-only' %>
   <%= form.text_area(
         :body, 
         rows: 4,
@@ -17,7 +17,8 @@
 <div class="field file-field remark-field--files position-relative">
   <%= form.file_field :files,
                       label: false,
-                      class: 'multifile hidden', 
+                      class: 'multifile hidden',
+                      aria: { label: 'Dodaj załącznik' },
                       accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
                       multiple: true %>
 
@@ -27,7 +28,7 @@
 <% unless current_user %>
   <div class="flex justify-between items-center mb-4 max-md:flex-wrap max-md:gap-4">
     <div class="field remark-field--signature">
-      <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+      <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'sr-only' %>
       <%= form.text_field :signature,
                           label: false,
                           required: true,

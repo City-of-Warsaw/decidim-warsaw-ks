@@ -1,0 +1,90 @@
+<div class="card" data-component="accordion" id="accordion-results-title">
+  <div class="card-divider">
+    <button class="card-divider-button" data-open="true" data-controls="panel-results-title" type="button">
+      <%= icon "arrow-right-s-line" %>
+      <h2 class="card-title">
+        Rozstrzygnięcie
+      </h2>
+    </button>
+  </div>
+
+  <div id="panel-results-title" class="card-section">
+    <div class="row column">
+      <%= form.text_area :ai_decision_body, rows: 6 %>
+
+      <div class="mt-2 flex items-center gap-2">
+        <button type="button" class="button button__sm button__transparent-secondary correct-with-ai-js">
+          <%= icon "sparkling-2-fill", class: "icon-idle-js" %>
+          <%= icon "loader-4-line", class: "animate-spin hidden icon-loading-js" %>
+
+          Wykonaj korektę językową
+        </button>
+      </div>
+
+      <div class="mt-3 border border-gray rounded p-2 hidden" data-ai-suggestion-for="ai_decision_body">
+        <h5 class="mb-2">Poprawiona odpowiedź AI:</h5>
+
+        <textarea rows="6" class="w-full" data-ai-suggestion-value disabled></textarea>
+
+        <div class="mt-2 flex items-center gap-2">
+          <button type="button" class="button button__sm button__primary" data-action="apply-suggestion">
+            Zastąp 
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row column">
+      <%= form.select :ai_decision_status,
+                      @form.available_ai_decision_statuses,
+                      { include_blank: true },
+                      { selected: @form.ai_decision_status } %>
+
+      <div class="mt-3 border border-gray rounded p-2 hidden" data-ai-suggestion-for="ai_decision_status">
+        <h5 class="mb-2">Poprawiona odpowiedź AI:</h5>
+
+        <input type="text" class="w-full" data-ai-suggestion-value disabled />
+
+        <div class="mt-2 flex items-center gap-2">
+          <button type="button" class="button button__sm button__primary" data-action="apply-suggestion">
+            Zastąp 
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row column">
+      <%= form.select :status,
+                      @form.available_statuses,
+                      {},
+                      { selected: @form.status } %>
+    </div>
+
+    <div class="row column">
+      <%= form.check_box :ai_is_complicated%>
+    </div>
+  
+    <div class="row column flex items-center gap-2">
+      <button type="button" class="button button__sm button__transparent-secondary regenerate-with-ai-js">
+        <%= icon "sparkling-2-fill", class: "icon-idle-js" %>
+        <%= icon "loader-4-line", class: "animate-spin hidden icon-loading-js" %>
+
+        Wygeneruj ponownie rostrzygnięcie
+      </button>
+    </div>
+  </div>
+</div>
+
+<%
+  js_configs = {
+    processAiEndpoint: "/admin/participatory_processes/#{current_participatory_space.slug}/components/#{current_component.id}/ai_api",
+    answerId: @form.id,
+    componentId: current_component.id
+  }
+%>
+
+<%= nonced_javascript_tag do %>
+  window.Decidim.config.set(<%== js_configs.to_json %>);
+<% end %>
+
+<%= append_javascript_pack_tag "ai_answer_actions" %>

@@ -27,8 +27,13 @@
     padding-left: 16px;
   }
 
-  .shadowed img { 
+  .darken img { 
     filter: brightness(70%);
+  }
+
+  .consultation-decor {
+    position: relative;
+    z-index: 2;
   }
 </style>
 <% end %> 
@@ -55,24 +60,14 @@
           <tr>
             <th class="small-12 first columns relative">
               <div class="relative z-1">
-                <div class="shadowed"><%= main_image %></div>
+                <div class="shadowed <%= "darken" if title.present? %>"><%= main_image %></div>
                 <div class="header-box">
                   <h1>
                     <%= title %>
                   </h1>
                 </div>
                 <div class="consultation-decor">
-                  <div class="left">
-                    <div class="colored-box">
-                      <div class="colored-box-before"></div>
-                    </div>
-                    <div class="left-before"></div>
-                    <div class="left-after"></div>
-                  </div>
-                  <div class="right">
-                    <div class="right-before"></div>
-                    <div class="right-after"></div>
-                  </div>
+                  <%= image_pack_tag "media/images/mail-header-bottom-transparent.png", alt: "", style: "width: 100%;" %>
                 </div>
               </div>
               

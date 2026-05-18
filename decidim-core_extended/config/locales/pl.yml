@@ -35,9 +35,19 @@ pl:
       image_dimension_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}px)"
       image_size_too_big: "Obraz jest zbyt duży (Maksymalnie: %{max}MB)"
   decidim:
+    newsletter_mailer:
+      newsletter:
+        see_on_website: Nie widzisz tego e-maila poprawnie? Wyświetl go w <a href="%{link}" target="_blank">przeglądarce</a>.
+    user_update_mailer:
+      notify:
+        body_1: Twoje konto zostało zaktualizowane.
+        body_2: Jeśli to nie Twoje działanie, zaloguj się na swoje konto i zmień hasło.<br>Jeśli nie możesz się zalogować, napisz na konsultacje@um.warszawa.pl<br/>
+        greetings: ---<br>Z pozdrowieniami<br/>Urząd Miasta Stołecznego Warszawy
+        hello: Dzień dobry,
     shared:
       flag_modal:
         does_not_belong: Zawiera nielegalną aktywność, groźby samobójstwa, dane o charakterze prywatnym lub inne treści, które według Ciebie nie powinny pojawić się w Konsultacje społeczne w Warszawie.
+        hidden_by_admin: Zawartość została ukryta przez admina
       flag_user_modal:
         does_not_belong: Zawiera nielegalną aktywność, groźby samobójstwa, dane o charakterze prywatnym lub inne treści, które według Ciebie nie powinny pojawić się w Konsultacje społeczne w Warszawie.
     follows:
@@ -72,7 +82,6 @@ pl:
           newsletter_title: Mamy wysyłać e-maile?
     components:
       add_comment_form:
-        account_message: <a href="/users/sign_in">Zaloguj się / </a><a href="/users/sign_up">Zarejestruj się</a>
         form:
           signature:
             placeholder: Podpis
@@ -88,9 +97,9 @@ pl:
       internal_server_error:
         title: Wystąpił problem z serwisem
         try_later: |
-          <p>Nie posiadasz odpowiednich uprawnień lub pojawił się inny problem systemowy.</p>
-          <p>Spróbuj ponownie później.</p>
-          <p>Skontaktuj się z nami: <a href="mailto:konsultacje@um.warszawa.pl" title="Skontaktuj się z nami">konsultacje@um.warszawa.pl</a>.</p>
+          <p class="text-lg text-gray-2 text-center">Nie posiadasz odpowiednich uprawnień lub pojawił się inny problem systemowy.</p>
+          <p class="text-lg text-gray-2 text-center">Spróbuj ponownie później.</p>
+          <p class="text-lg text-gray-2 text-center font-semibold mt-4">Skontaktuj się z nami: <a href="mailto:konsultacje@um.warszawa.pl" title="Skontaktuj się z nami" class="link">konsultacje@um.warszawa.pl</a></p>
     events:
       components:
         component_published:
@@ -100,6 +109,11 @@ pl:
           notification_title: Dodaliśmy <a href="%{resource_path}">Nowy dokument</a> w konsultacjach <a href="%{attached_to_url}">%{resource_title}</a>
     search_results_section:
       till: "Konsultacje trwają do&nbsp;<strong>%{ending_date}</strong>"
+    comments_extended:
+      models:
+        comment:
+          fields:
+            unregistered_author: Użytkownik niezarejestrowany
   devise:
     failure:
       already_authenticated: Masz już konto – nie musisz się rejestrować

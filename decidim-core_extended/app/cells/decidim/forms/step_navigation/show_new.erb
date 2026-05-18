@@ -20,10 +20,20 @@
   <% end %>
 
   <% if last_step? %>
+    <% if show_ai_verification? %> 
+      <%= form.submit(
+        t("decidim.forms.step_navigation.show.submit"),
+        role: "button",
+        type: "button",
+        class: "button button--sc primary-action validate-with-ai-js",
+        disabled: button_disabled?
+      ) %>
+    <% end %>
+
     <%= form.submit(
       t("decidim.forms.step_navigation.show.submit"),
       role: "button",
-      class: "button button__primary button__lg min-w-[150px]",
+      class: "button button__primary button__lg min-w-[150px] #{' hidden' if show_ai_verification?}",
       disabled: button_disabled?,
       data: {
         confirm: t("decidim.forms.step_navigation.show.are_you_sure"),

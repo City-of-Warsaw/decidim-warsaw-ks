@@ -65,8 +65,7 @@
 .step-1,
 .form__wrapper-block {
   .new_user {
-    .show-for-sr,
-    .help-text {
+    .show-for-sr {
       display: none !important;
     }
 
@@ -83,7 +82,7 @@
         font-size: 14px;
 
         a {
-          color: var(--primary);
+          color: #1b7c96;
         }
       }
     }
@@ -108,7 +107,7 @@
       .link {
         line-height: 52px;
         height: 52px;
-        color: var(--primary);
+        color: #1b7c96;
         text-decoration: none;
 
         &:hover {
@@ -474,5 +473,33 @@
   @media only screen and (min-width: 640px) {
     width: 100%;
     transform: translateX(0);
+  }
+
+  @media only screen and (max-width: 767px) {
+    &--tiles {
+      .ms-options-wrap.pretty-multiselect .ms-options.hide-checkbox {
+        ul {
+          column-count: initial !important;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 9px !important;
+
+          li {
+            border: 1px solid #717171;
+            border-radius: 5px;
+            padding: 0;
+
+            &.selected {
+              border-color: var(--primary);
+            }
+
+            label {
+              font-weight: 400;
+              padding: 5px 15px;
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -2,19 +2,19 @@
   <%= decidim_form_for(form_object, url: decidim_participatory_process_consultation_map.second_step_update_remark_path(remark), method: :patch, remote: true) do |form| %>
     <fieldset>
       <legend><%= t('.statistics_legend') %></legend>
-      <div class="field remark-field--selects"> 
+      <div class="field remark-field--selects flex flex-col gap-4 items-center justify-center"> 
         <%= form.select :gender,
                         form_object.gender_options_for_public_post,
                         { include_blank: t("select_gender", scope: 'decidim.consultation_map.remarks.form'), label: false },
-                        { multiple: false } %>  
+                        { multiple: false, class: "w-full" } %>
         <%= form.select :age,
                         form_object.user_age_for_select,
                         { include_blank: t("select_age", scope: 'decidim.consultation_map.remarks.form'), label: false },
-                        { multiple: false } %>   
+                        { multiple: false, class: "w-full" } %>
         <%= form.select :district_id,
                         form_object.user_districts_for_select,
                         { include_blank: t("select_district", scope: 'decidim.consultation_map.remarks.form'), label: false },
-                        { multiple: false } %>
+                        { multiple: false, class: "w-full" } %>
       </div>
     </fieldset>
  

@@ -2,7 +2,13 @@
   <h2 class="h4">Powiedz nam coś o swoich zainteresowaniach</h2>
   <p>Powiadomimy Cię, kiedy rozpoczną się związane z nimi konsultacje</p>
 
-  <div class="form__select-wrapper">
+  <div class="flash mb-4" data-announcement>
+    <div class="flash__message editor-content">
+      <p>Listy nie są ze sobą powiązane, a więc powiadomimy Cię o wszystkich konsultacjach dla wybranych dzielnic i o wszystkich konsultacjach dla wybranych tematów.</p>
+    </div>
+  </div>
+
+  <div class="form__select-wrapper form__select-wrapper--tiles">
     <%= f.select :scopes_ids,
                  @form.available_scopes,
                  { label: "Które dzielnice Cię interesują?", include_blank: false, legend_title: "Wybierz dzielnice" },
@@ -10,6 +16,7 @@
                    class: 'multiple scopes-ids-select-js',
                    multiple: true,
                    "data-placeholder": "Wybierz jedną lub kilka dzielnic",
+                   "data-dropdown-label": "<span>Dzielnice dla</span><span>wszystkich konsultacji</span>",
                    "aria-controls": "processes",
                    "data-class": "caret-primary pretty-multiselect",
                  } %>
@@ -21,7 +28,7 @@
                label_text: "Powiadamiaj mnie o wszystkich konsultacjach ogólnomiejskich" %>
   </div>
 
-  <div class="form__select-wrapper mt-4">
+  <div class="form__select-wrapper form__select-wrapper--tiles mt-4">
     <%= f.select :tags_ids,
                  @form.available_tags,
                  { label: "Które tematy Cię interesują?", include_blank: false, legend_title: "Wybierz tematy" },
@@ -29,6 +36,7 @@
                    class: 'multiple tags-ids-select-js',
                    multiple: true,
                    "data-placeholder": "Wybierz jeden lub kilka tematów",
+                   "data-dropdown-label": "<span>Tematy dzielnicowe</span><span>i ogólnomiejskie</span>",
                    "aria-controls": "processes",
                    "data-class": "caret-primary pretty-multiselect",
                  } %>

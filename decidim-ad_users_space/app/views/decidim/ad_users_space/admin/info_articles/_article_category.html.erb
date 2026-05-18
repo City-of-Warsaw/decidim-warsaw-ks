@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-divider">
+    <% if allowed_to?(:update, :organization, organization: current_organization) %>
+      <h2 class="card-title">
+        <% if article_category %>
+          <%= article_category.name %>
+        <% else %>
+          <%= t(".without_category") %>
+        <% end %>
+      </h2>
+    <% end %>
+  </div>
+  <div class="card-section">
+    <div class="table-scroll">
+      <% if articles.any? %>
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th><%= t("activemodel.attributes.info_article.title") %></th>
+              <th><%= t("activemodel.attributes.info_article.body") %></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% articles.each do |article| %>
+              <tr>
+                <td>
+                  <%= link_to article.title, [:edit, :admin, article] %><br>
+                </td>
+                <td>
+                  <%= decidim_sanitize html_truncate(article.body, length: 50, separator: "..."), strip_tags: %w[img video] %>
+                </td>
+                <td class="table-list__actions">
+                  <% if allowed_to? :update, :organization, organization: current_organization %>
+                    <%= icon_link_to "pencil-line",
+                                     [:edit, :admin, article],
+                                     t("actions.edit", scope: "decidim.admin"),
+                                     class: "action-icon--edit",
+                                     method: :get,
+                                     data: {} %>
+                    <%= icon_link_to "eye-line",
+                                     " /zaplanuj-konsultacje##{article.id}",
+                                     t("actions.preview", scope: "decidim.admin"),
+                                     class: "action-icon--preview" %>
+                    <%= icon_link_to "delete-bin-line",
+                                     [:admin, article],
+                                     t("actions.destroy", scope: "decidim.admin"),
+                                     class: "action-icon--remove",
+                                     method: :delete,
+                                     data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><em><%= t(".empty") %></em></p>
+      <% end %>
+    </div>
+  </div>
+</div>

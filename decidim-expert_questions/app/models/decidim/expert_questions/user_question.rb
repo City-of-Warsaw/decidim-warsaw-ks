@@ -116,12 +116,7 @@ module Decidim
 
       # Public: Overrides the `reported_attributes` Reportable concern method.
       def reported_attributes
-        [:body, :signature]
-      end
-
-      # Public: Overrides the `reported_searchable_content_extras` Reportable concern method.
-      def reported_searchable_content_extras
-        [normalized_author.name]
+        [:body]
       end
 
       def self.participatory_space_manifest
@@ -183,21 +178,25 @@ module Decidim
         true
       end
 
-      # Overwritten method.
-      # User questions can’t be commented if:
-      # - it's not visible or not published
-      # - it has already been answered
-      # - the users_action_end_date has passed
-      # Only AD users are allowed to comment.
-      def user_allowed_to_comment?(user)
+      # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+      # add visible?
+      # add published?
+      # add component.users_action_end_date&.past?
+      def accepts_new_comments?
         return false unless visible?
         return false unless published?
-        # scenario in which the expert has already answered the user's question
-        return false if answered?
-        # scenario when component is closed
         return false if component.users_action_end_date&.past?
 
-        # scenario when AD user is present
+        commentable? && !component.current_settings.comments_blocked
+      end
+
+      # warning!
+      # this method applies to only comment question by AD user
+      # not to ask an expert with question
+      # only AD users can comment a question
+      def can_participate?(user)
+        return false unless accepts_new_comments?
+
         user.present? && user.ad_role?
       end
 

@@ -1,7 +1,7 @@
 <%# file overwritten to apply comment cards styles in search results list %>
 
 <%= link_to resource_path, class: "card__search", id: dom_id(resource) do %>
-  <%= content_tag title_tag, class: "h4 card__search-title" do %>
+  <%= content_tag title_tag, class: "card__search-description" do %>
     <%= title %>
   <% end %>
   <% if metadata_cell.present? %>

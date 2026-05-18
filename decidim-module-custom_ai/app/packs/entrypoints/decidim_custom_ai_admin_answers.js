@@ -1,0 +1,1 @@
+import "src/decidim/custom_ai/admin/answers.js";

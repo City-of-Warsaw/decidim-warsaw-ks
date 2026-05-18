@@ -1,7 +1,7 @@
 import { getDictionary } from "src/decidim/i18n";
 import html from "src/decidim/editor/utilities/html";
 
-import iconsUrl from "images/decidim/remixicon.symbol.svg";
+import iconsUrl from "images/decidim/remixicon.symbol.modCS.svg";
 
 const createIcon = (iconName) => {
   return `<svg class="editor-toolbar-icon" role="img" aria-hidden="true">

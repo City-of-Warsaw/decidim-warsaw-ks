@@ -18,9 +18,9 @@ Decidim::Surveys::Admin::Permissions.class_eval do
       when :preview
         toggle_allow(user.ad_admin? || user.ad_coordinator?)
       when :update
-        toggle_allow(user.ad_admin? || can_manage_space?(role: :admin) && !current_participatory_space.published?)
+        toggle_allow(user.ad_admin? || can_manage_space?(role: :admin))
       when :export
-        toggle_allow(user.ad_admin? || user.ad_coordinator? && can_manage_space?(role: :admin))
+        toggle_allow(user.ad_admin? || can_manage_space?(role: :admin))
       when :export_answers
         toggle_allow(
           user.ad_admin? ||

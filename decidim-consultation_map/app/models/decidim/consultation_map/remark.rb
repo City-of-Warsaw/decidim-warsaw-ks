@@ -116,21 +116,6 @@ module Decidim
         true
       end
 
-      # Overwritten method.
-      # Map Remarks can’t be commented if:
-      # - it's not visible or not published
-      # - the users_action_end_date has passed
-      # Only AD users are allowed to comment.
-      def user_allowed_to_comment?(user)
-        return false unless visible?
-        return false unless published?
-        # scenario when component is closed
-        return false if component.users_action_end_date&.past?
-
-        # scenario when AD user is present
-        user.present? && user.ad_role?
-      end
-
       def visible?
         participatory_space.try(:visible?) && component.try(:published?) && published?
       end
@@ -145,12 +130,7 @@ module Decidim
 
       # Public: Overrides the `reported_attributes` Reportable concern method.
       def reported_attributes
-        [:body, :signature]
-      end
-
-      # Public: Overrides the `reported_searchable_content_extras` Reportable concern method.
-      def reported_searchable_content_extras
-        [normalized_author.name]
+        [:body]
       end
 
       def mounted_params
@@ -224,6 +204,28 @@ module Decidim
       # only admin administers information
       def moderators
         Decidim::User.none
+      end
+
+      # Public: Overrides the `accepts_new_comments?` Commentable concern method.
+      # add visible?
+      # add published?
+      # add component.users_action_end_date&.past?
+      def accepts_new_comments?
+        return false unless visible?
+        return false unless published?
+        return false if component.users_action_end_date&.past?
+
+        commentable? && !component.current_settings.comments_blocked
+      end
+
+      # warning!
+      # this method applies to only comment particular remark by AD user
+      # not to submit a remark
+      # only AD users can comment a remark
+      def can_participate?(user)
+        return false unless accepts_new_comments?
+
+        user.present? && user.ad_role?
       end
 
       private

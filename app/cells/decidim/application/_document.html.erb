@@ -26,7 +26,7 @@
                 title: t("decidim.application.document.download"),
                 data: { "external-link": false } do %>
       <%= t("decidim.application.document.download") %>
-      <%= icon "download-line" %>
+      <%= icon "download-2-line" %>
     <% end %>
   <% else %>
     <%= link_to document&.url.presence || '',
@@ -36,6 +36,7 @@
                 title: t("decidim.application.document.visit_link"),
                 data: { "external-link": true } do %>
       <%= t("decidim.application.document.visit_link") %>
+      <%= icon "download-2-line" %>
     <% end %>
 
   <% end %>

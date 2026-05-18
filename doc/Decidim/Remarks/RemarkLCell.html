@@ -326,6 +326,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#frontend_administrable%3F-instance_method" title="#frontend_administrable? (instance method)">#<strong>frontend_administrable?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#node_id-instance_method" title="#node_id (instance method)">#<strong>node_id</strong>  &#x21d2; Object </a>
     
 
@@ -417,6 +439,28 @@
   <span class="summary_signature">
     
       <a href="#up_votes_count-instance_method" title="#up_votes_count (instance method)">#<strong>up_votes_count</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  <span class="note title private">private</span>
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="private ">
+  <span class="summary_signature">
+    
+      <a href="#user_entity%3F-instance_method" title="#user_entity? (instance method)">#<strong>user_entity?</strong>  &#x21d2; Boolean </a>
     
 
     
@@ -599,13 +643,13 @@
       <pre class="lines">
 
 
-65
-66
-67
-68</pre>
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_admin_response_class'>admin_response_class</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -653,13 +697,13 @@
       <pre class="lines">
 
 
-41
-42
-43
-44</pre>
+47
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_allow_edit?'>allow_edit?</span><span class='lparen'>(</span><span class='id identifier rubyid_remark'>remark</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_remark'>remark</span><span class='period'>.</span><span class='id identifier rubyid_authored_by?'>authored_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_user'>user</span><span class='rparen'>)</span> <span class='op'>||</span>
@@ -707,12 +751,12 @@
       <pre class="lines">
 
 
-31
-32
-33</pre>
+37
+38
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_author_is_admin?'>author_is_admin?</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'>User</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_has_ad_role?'>has_ad_role?</span>
@@ -737,12 +781,12 @@
       <pre class="lines">
 
 
-60
-61
-62</pre>
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_card_classes'>card_classes</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>card--</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_dom_class'>dom_class</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> commentable-root</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> 
@@ -767,12 +811,12 @@
       <pre class="lines">
 
 
-56
-57
-58</pre>
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_comments'>comments</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_comments'>comments</span>
@@ -797,12 +841,12 @@
       <pre class="lines">
 
 
-48
-49
-50</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_creation_date'>creation_date</span>
   <span class='id identifier rubyid_l'>l</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_created_at'>created_at</span><span class='period'>.</span><span class='id identifier rubyid_to_date'>to_date</span><span class='comma'>,</span> <span class='label'>format:</span> <span class='symbol'>:decidim_short_cut_zero</span><span class='rparen'>)</span>
@@ -827,12 +871,12 @@
       <pre class="lines">
 
 
-52
-53
-54</pre>
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span>
   <span class='id identifier rubyid_decidim_sanitize'>decidim_sanitize</span> <span class='id identifier rubyid_simple_format'>simple_format</span><span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='comma'>,</span> <span class='label'>sanitize:</span> <span class='kw'>true</span><span class='rparen'>)</span>
@@ -857,12 +901,12 @@
       <pre class="lines">
 
 
-97
-98
-99</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 103</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_down_votes_count'>down_votes_count</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_down_votes'>down_votes</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
@@ -898,15 +942,71 @@
       <pre class="lines">
 
 
-37
-38
-39</pre>
+43
+44
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 43</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_edit_link'>edit_link</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/processes/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_participatory_space'>participatory_space</span><span class='period'>.</span><span class='id identifier rubyid_slug'>slug</span><span class='embexpr_end'>}</span><span class='tstring_content'>/f/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_component'>component</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/remarks/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/edit</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="frontend_administrable?-instance_method">
+  
+    #<strong>frontend_administrable?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_frontend_administrable?'>frontend_administrable?</span>
+  <span class='id identifier rubyid_user_entity?'>user_entity?</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_can_be_administered_by?'>can_be_administered_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:official?</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_official?'>official?</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -939,12 +1039,12 @@
       <pre class="lines">
 
 
-19
-20
-21</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 25</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_node_id'>node_id</span>
   <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>comments-for-Remark-</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>-response</span><span class='tstring_end'>&quot;</span></span>
@@ -969,12 +1069,12 @@
       <pre class="lines">
 
 
-27
-28
-29</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_presenter'>presenter</span>
   <span class='const'><span class='object_link'><a href="../../Decidim.html" title="Decidim (module)">Decidim</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="../Remarks.html" title="Decidim::Remarks (module)">Remarks</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="RemarkPresenter.html" title="Decidim::Remarks::RemarkPresenter (class)">RemarkPresenter</a></span></span>
@@ -999,12 +1099,12 @@
       <pre class="lines">
 
 
-23
-24
-25</pre>
+29
+30
+31</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remark_token'>remark_token</span>
   <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:remark_token</span><span class='rbracket'>]</span>
@@ -1059,15 +1159,69 @@
       <pre class="lines">
 
 
-93
-94
-95</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_up_votes_count'>up_votes_count</span>
   <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_up_votes'>up_votes</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="user_entity?-instance_method">
+  
+    #<strong>user_entity?</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(private)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117
+118</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 115</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user_entity?'>user_entity?</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:creator_author</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_creator_author'>creator_author</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:nickname</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>||</span>
+    <span class='lparen'>(</span><span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:author</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_author'>author</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:nickname</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1089,16 +1243,16 @@
       <pre class="lines">
 
 
-101
-102
-103
-104
-105
-106
-107</pre>
+107
+108
+109
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_vote_button_to'>vote_button_to</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_params'>params</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='rparen'>)</span>
   <span class='comment'># actions are linked to objects belonging to a component
@@ -1149,12 +1303,12 @@
       <pre class="lines">
 
 
-89
-90
-91</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 95</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_voted_down?'>voted_down?</span>
   <span class='ivar'>@down_voted</span> <span class='op'>||=</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_down_voted_by?'>down_voted_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
@@ -1201,12 +1355,12 @@
       <pre class="lines">
 
 
-85
-86
-87</pre>
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_voted_up?'>voted_up?</span>
   <span class='ivar'>@up_voted</span> <span class='op'>||=</span> <span class='id identifier rubyid_model'>model</span><span class='period'>.</span><span class='id identifier rubyid_up_voted_by?'>up_voted_by?</span><span class='lparen'>(</span><span class='id identifier rubyid_current_user'>current_user</span><span class='rparen'>)</span>
@@ -1231,15 +1385,15 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83</pre>
+84
+85
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_votes_down_classes'>votes_down_classes</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>button button__sm button__text-secondary js-remark__votes--down</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1278,15 +1432,15 @@
       <pre class="lines">
 
 
-71
-72
-73
-74
-75
-76</pre>
+77
+78
+79
+80
+81
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'decidim-remarks/app/cells/decidim/remarks/remark_l_cell.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_votes_up_classes'>votes_up_classes</span>
   <span class='id identifier rubyid_classes'>classes</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>button button__sm button__text-secondary js-remark__votes--up</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
@@ -1304,7 +1458,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:38 2025 by
+  Generated on Mon May 18 15:09:14 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

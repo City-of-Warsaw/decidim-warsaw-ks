@@ -5,10 +5,11 @@ module Decidim
     module Admin
       class ParticipatoryProcessReportFilesController < Admin::ApplicationController
         include Decidim::FormFactory
-        layout 'decidim/admin/participatory_process'
         include Decidim::Admin::ParticipatorySpaceAdminContext
 
         helper_method :current_participatory_space, :report_file
+
+        layout "decidim/admin/participatory_process"
 
         before_action :set_reports_breadcrumb_item
 
@@ -23,12 +24,12 @@ module Decidim
 
           Decidim::ParticipatoryProcessesExtended::Admin::CreateParticipatoryProcessReportFile.call(@form, current_user, current_participatory_space) do
             on(:ok) do
-              flash[:notice] = I18n.t('participatory_process_report_files.create.success', scope: 'decidim.participatory_processes_extended.admin')
+              flash[:notice] = I18n.t("participatory_process_report_files.create.success", scope: "decidim.participatory_processes_extended.admin")
               redirect_to decidim_participatory_processes_extended.participatory_processes_reports_list_path(current_participatory_space)
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t('participatory_process_report_files.create.error', scope: 'decidim.participatory_processes_extended.admin')
+              flash.now[:alert] = I18n.t("participatory_process_report_files.create.error", scope: "decidim.participatory_processes_extended.admin")
               render :new
             end
           end
@@ -45,12 +46,12 @@ module Decidim
 
           Decidim::ParticipatoryProcessesExtended::Admin::UpdateParticipatoryProcessReportFile.call(@form, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t('participatory_process_report_files.update.success', scope: 'decidim.participatory_processes_extended.admin')
+              flash[:notice] = I18n.t("participatory_process_report_files.update.success", scope: "decidim.participatory_processes_extended.admin")
               redirect_to decidim_participatory_processes_extended.participatory_processes_reports_list_path(current_participatory_space)
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t('participatory_process_report_files.update.error', scope: 'decidim.participatory_processes_extended.admin')
+              flash.now[:alert] = I18n.t("participatory_process_report_files.update.error", scope: "decidim.participatory_processes_extended.admin")
               render :edit
             end
           end
@@ -60,7 +61,7 @@ module Decidim
           enforce_permission_to :delete_file, :participatory_process_reports
           Decidim::ParticipatoryProcessesExtended::Admin::DestroyParticipatoryProcessReportFile.call(report_file, current_user) do
             on(:ok) do
-              flash[:notice] = I18n.t('participatory_process_report_files.delete_file.success', scope: 'decidim.participatory_processes_extended.admin')
+              flash[:notice] = I18n.t("participatory_process_report_files.delete_file.success", scope: "decidim.participatory_processes_extended.admin")
               redirect_to decidim_participatory_processes_extended.participatory_processes_reports_list_path(current_participatory_space)
             end
           end
@@ -69,7 +70,8 @@ module Decidim
         private
 
         def organization_participatory_processes
-          @organization_participatory_processes ||= Decidim::ParticipatoryProcesses::OrganizationParticipatoryProcesses.new(current_organization).query
+          @organization_participatory_processes ||= Decidim::ParticipatoryProcesses::OrganizationParticipatoryProcesses.new(current_organization)
+                                                                                                                       .query
         end
 
         def permission_class_chain
@@ -81,10 +83,10 @@ module Decidim
         end
 
         def current_participatory_space
-          return unless params['participatory_process_slug']
+          return unless params["participatory_process_slug"]
 
-          @current_participatory_space ||= organization_participatory_processes.where(slug: params['participatory_process_slug']).or(
-            organization_participatory_processes.where(id: params['participatory_process_slug'])
+          @current_participatory_space ||= organization_participatory_processes.where(slug: params["participatory_process_slug"]).or(
+            organization_participatory_processes.where(id: params["participatory_process_slug"])
           ).first!
         end
 

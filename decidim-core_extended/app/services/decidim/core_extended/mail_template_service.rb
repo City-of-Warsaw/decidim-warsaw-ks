@@ -33,7 +33,7 @@ module Decidim
         return nil if @mail_template.footer.blank?
 
         footer_string = @mail_template.footer
-        footer_string = footer_string.gsub("%{notifications_settings_link}", decidim.notifications_settings_url(host: @organization.host))
+        footer_string = footer_string.gsub("%{notifications_settings_link}", decidim.user_interests_url(host: @organization.host))
         footer_string = footer_string.gsub("%{unsubscribe_link}", unsubscribe_link) if unsubscribe_link
         footer_string
       end
@@ -47,7 +47,7 @@ module Decidim
 
       def parse_body
         body = mail_template.body
-        body = body.gsub("%{notifications_settings_link}", decidim.notifications_settings_url(host: @organization.host))
+        body = body.gsub("%{notifications_settings_link}", decidim.user_interests_url(host: @organization.host))
         body = substitute_receiver_data_on(body)
         body = substitute_consultation_data_on(body) if @consultation
         body = substitute_step_data_on(body)
@@ -58,8 +58,15 @@ module Decidim
         body = substitute_report_reasons(body)
         body = substitute_reported_content(body)
         body = substitute_remark_body(body)
+        body = substitute_remark_or_its_comment_body(body)
+        body = substitute_remark_or_its_comment_link(body)
+        body = substitute_map_remark_body(body)
+        body = substitute_map_remark_link(body)
+        body = substitute_user_question_body(body)
+        body = substitute_user_question_link(body)
         body = manage_moderations_link(body) if @consultation
         body = substitute_resource_content(body)
+        body = substitute_report_details(body)
         body = substitute_comment_on(body)
         body = substitute_attached_to(body)
         body = substitute_info_articles_link(body)
@@ -67,6 +74,8 @@ module Decidim
         body = substitute_consultation_first_result_body(body)
         body = substitute_questionnaires_user_data_body(body)
         body = substitute_study_note_zip_body(body)
+        body = substitute_answers_export_link_body(body)
+        body = substitute_answers_import_summary_body(body)
         substitute_experts_answer_to_user_question(body)
       end
 
@@ -116,10 +125,54 @@ module Decidim
         text.gsub("%{consultation_title}", get_element_title(@consultation))
             .gsub("%{consultation_link}", get_element_url(@consultation))
       end
+
+      # for notification: new_remark
       def substitute_remark_body(text)
         return text unless params[:remark_body]
 
         text.gsub('%{remark_body}', params[:remark_body])
+      end
+
+      # for notification: new_comment_or_remark_for_process_admin
+      def substitute_remark_or_its_comment_body(text)
+        return text unless params[:remark_or_its_comment_body]
+
+        text.gsub("%{remark_or_its_comment_body}", params[:remark_or_its_comment_body])
+      end
+
+      # for notification: new_comment_or_remark_for_process_admin
+      def substitute_remark_or_its_comment_link(text)
+        return text unless params[:remark_or_its_comment_link]
+
+        text.gsub("%{remark_or_its_comment_link}", params[:remark_or_its_comment_link])
+      end
+
+      # for notification: new_map_remark_for_process_admin
+      def substitute_map_remark_body(text)
+        return text unless params[:map_remark_body]
+
+        text.gsub("%{map_remark_body}", params[:map_remark_body])
+      end
+
+      # for notification: new_map_remark_for_process_admin
+      def substitute_map_remark_link(text)
+        return text unless params[:map_remark_link]
+
+        text.gsub("%{map_remark_link}", params[:map_remark_link])
+      end
+
+      # for notification: new_user_question_for_process_admin
+      def substitute_user_question_body(text)
+        return text unless params[:user_question_body]
+
+        text.gsub("%{user_question_body}", params[:user_question_body])
+      end
+
+      # for notification: new_user_question_for_process_admin
+      def substitute_user_question_link(text)
+        return text unless params[:user_question_link]
+
+        text.gsub("%{user_question_link}", params[:user_question_link])
       end
 
       def substitute_step_data_on(text)
@@ -150,10 +203,9 @@ module Decidim
         return text unless params[:report_reasons]
 
         report_reasons = params[:report_reasons].map do |reason|
-          # I18n.t("decidim.admin.moderations.report.reasons.#{reason}").downcase
           I18n.t("decidim.shared.flag_modal.#{reason}").downcase
         end.join(", ")
-        text.gsub("%{report_reasons}", "#{report_reasons}")
+        text.gsub("%{report_reasons}", report_reasons.to_s)
       end
 
       def substitute_reported_content(text)
@@ -169,7 +221,16 @@ module Decidim
       def substitute_resource_content(text)
         return text unless params[:resource_content]
 
-        text.gsub("%{resource_content}", "#{params[:resource_content]}")
+        text.gsub("%{resource_content}", params[:resource_content].gsub("\n", "<br>"))
+      end
+
+      def substitute_report_details(text)
+        return text unless params[:report_details]
+
+        report_details = params[:report_details].map { |detail| detail }
+                                                .compact_blank
+                                                .join(", ")
+        text.gsub("%{report_details}", report_details)
       end
 
       def substitute_attached_to(text)
@@ -223,6 +284,18 @@ module Decidim
         return text unless params[:study_note_zip_link]
 
         text.gsub("%{study_note_zip_link}", params[:study_note_zip_link])
+      end
+
+      def substitute_answers_export_link_body(text)
+        return text unless params[:answers_export_link]
+
+        text.gsub("%{answers_export_link}", params[:answers_export_link])
+      end
+
+      def substitute_answers_import_summary_body(text)
+        return text unless params[:answers_import_summary]
+
+        text.gsub("%{answers_import_summary}", params[:answers_import_summary])
       end
 
       private

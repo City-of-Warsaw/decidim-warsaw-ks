@@ -20,14 +20,14 @@ Decidim::ContentBlocks::ParticipatorySpaceHeroCell.class_eval do
 
     if container&.attached_uploader(:background_image)&.attached?
       return image_tag(model.images_container.attached_uploader(:background_image).url,
-                       alt: image_alt,
+                       alt: image_alt.presence || translated_attribute(current_participatory_space.title),
                        class: "process-main-image")
     end
 
     if (hero_image = current_participatory_space.hero_image)&.attached?
       return image_tag(Rails.application.routes.url_helpers.rails_representation_path(
                          hero_image.variant(resize: "5000x>").processed, only_path: true
-                       ), alt: current_participatory_space.hero_image_alt,
+                       ), alt: current_participatory_space.hero_image_alt.presence || translated_attribute(current_participatory_space.title),
                           class: "process-main-image")
     end
 

@@ -12,9 +12,9 @@
 
       <div class="card__content flex flex-col">
         <% unless user_allowed_to_add_user_question?(current_user) %> 
-          <strong>
+          <span>
             <%= t(".anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %>
-          </strong> 
+          </span> 
         <% end %>
 
         <% if user_allowed_to_add_user_question?(current_user) %> 

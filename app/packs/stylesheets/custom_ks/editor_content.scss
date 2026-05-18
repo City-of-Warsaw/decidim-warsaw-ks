@@ -3,14 +3,148 @@
     margin-bottom: 0;
   }
 
-  &--remark,
-  &--map-remark,
-  &--user-question,
-  &--expert-answer,
-  &--comment {
-    font-size: 16px;
-    line-height: 25px !important;
-    color: #020203;
+  > :not(:is(h2, h3, h4, p)) {
+    margin-bottom: 1rem !important;
+  }
+
+  :is(h2, h3, h4):first-child {
+    margin-top: 0 !important;
+  }
+
+  :is(h2, h3, h4):last-child,
+  p:has(+ h2, + h3, + h4) {
+    margin-bottom: 0 !important;
+  }
+
+  :is(h2, h3, h4) {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      height: 3px;
+      width: 61px;
+      left: 0;
+      background-color: rgb(var(--tertiary-rgb));
+      border-radius: 2px;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+  }
+
+  &:not(.remarks__list) :is(h2) {
+    &::after {
+      bottom: -5.25pt;
+    }
+  }
+
+  &:not(.remarks__list) :is(h3) {
+    &::after {
+      bottom: 0;
+    }
+  }
+
+  &:not(.remarks__list) :is(h4) {
+    &::after {
+      bottom: -1px;
+    }
+  }
+
+  &:not(.remarks__list) {
+    h2 {
+      font-size: 32px;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+
+    h4 {
+      font-size: 20px;
+    }
+  }
+
+  h2 {
+    margin: 24pt 0 17.25pt !important;
+  }
+
+  h3 {
+    font-size: 24px;
+    margin: 24pt 0 12pt !important;
+  }
+
+  h4 {
+    font-size: 20px;
+    margin: 12pt 0 8pt !important;
+  }
+
+  // hide empty ::after pseudo-element for images without description
+  // swipebox creates ::after even with empty data-description attribute, which creates unwanted spacing
+  .editor-content-image:has(.swipebox:not([data-description])),
+  .editor-content-image:has(.swipebox[data-description=""]) {
+    .swipebox {
+      &::after {
+        display: none !important;
+      }
+
+      img {
+        margin: 0 !important;
+      }
+    }
+  }
+
+  // reset top margin for all swipebox images
+  .editor-content-image {
+    .swipebox {
+      img {
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  p:not(li p) {
+    margin: 8pt 0 8pt !important;
+    word-break: break-word;
+  }
+
+  // increase bottom margin when followed by an image to compensate for image rendering spacing
+  p:has(+ .editor-content-image) {
+    margin-bottom: calc(8pt + 6px) !important;
+  }
+
+  h2:has(+ .editor-content-image) {
+    margin-bottom: calc(12pt + 8px) !important;
+  }
+
+  h3:has(+ .editor-content-image) {
+    margin-bottom: calc(12pt + 8px) !important;
+  }
+
+  h4:has(+ .editor-content-image) {
+    margin-bottom: calc(8pt + 6px) !important;
+  }
+
+  // increase top margin by 2px when preceded by an image to compensate for image rendering spacing
+  .editor-content-image + p {
+    margin-top: calc(8pt + 2px) !important;
+  }
+
+  .editor-content-image + h2 {
+    margin-top: calc(24pt + 2px) !important;
+  }
+
+  .editor-content-image + h3 {
+    margin-top: calc(24pt + 2px) !important;
+  }
+
+  .editor-content-image + h4 {
+    margin-top: calc(12pt + 2px) !important;
+  }
+
+  p:has(> .custom-button) {
+    @media only screen and (max-width: 767px) {
+      text-align: center !important;
+    }
   }
 
   .table-scroll-wrapper {
@@ -95,7 +229,7 @@
   }
 
   a {
-    color: var(--primary);
+    color: #1b7c96;
   }
 
   .custom-legal-basis {
@@ -151,6 +285,10 @@
       background-color: unset;
       color: black !important;
     }
+
+    @media only screen and (max-width: 767px) {
+      margin-left: 0;
+    }
   }
 
   th > p > .custom-button,
@@ -168,17 +306,43 @@
     }
   }
 
-  ul {
-    list-style-type: disc !important;
+  ul,
+  ol {
+    margin-top: 0;
+  }
 
-    > li::before {
-      content: "" !important;
+  ul {
+    // manually set list markers because default list markers were displaying incorrectly on iOS 18.6.2 Safari
+    list-style: none;
+    padding-left: 1.625rem;
+
+    li {
+      position: relative;
+      list-style-type: none;
+    }
+
+    li::before {
+      position: absolute;
+      top: 8px;
+      left: -16px;
+      content: "";
+      flex-shrink: 0;
+      background-color: var(--tw-prose-bullets);
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
     }
 
     &.ul-reset {
       > li::before {
         content: unset !important;
       }
+    }
+  }
+
+  .editor-content-videoEmbed {
+    iframe {
+      margin: 0 !important;
     }
   }
 }

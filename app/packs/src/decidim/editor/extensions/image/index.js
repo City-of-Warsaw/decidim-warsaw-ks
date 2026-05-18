@@ -89,6 +89,7 @@ export default Image.extend({
     return {
       ...this.parent?.(),
       width: { default: null },
+      "data-description": { default: null },
     };
   },
 
@@ -102,13 +103,19 @@ export default Image.extend({
         () =>
         async ({ dispatch }) => {
           if (dispatch) {
-            let { src, alt, width } = this.editor.getAttributes("image");
+            let {
+              src,
+              alt,
+              "data-description": description,
+              width,
+            } = this.editor.getAttributes("image");
 
             this.editor.commands.toggleDialog(true);
             const dialogState = await uploadDialog.toggle(
-              { src, alt },
+              { src, alt, description },
               {
                 inputLabel: i18n.altLabel,
+                descriptionLabel: "Podpis pod zdjęciem",
                 uploadHandler: async (file) =>
                   uploadImage(file, this.options.uploadImagesPath),
               }
@@ -127,10 +134,11 @@ export default Image.extend({
 
             src = uploadDialog.getValue("src");
             alt = uploadDialog.getValue("alt");
+            description = uploadDialog.getValue("description");
 
             return this.editor
               .chain()
-              .setImage({ src, alt, width })
+              .setImage({ src, alt, width, "data-description": description })
               .focus(null, { scrollIntoView: false })
               .run();
           }

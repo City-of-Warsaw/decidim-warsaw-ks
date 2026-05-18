@@ -9,11 +9,7 @@ module Decidim
     helper_method :file_present?
 
     def save_to_pdf(record)
-      locals_key = if record.class == Decidim::GeneralPlanRequests::GeneralPlanRequest
-                     'general_plan_request'.to_sym
-                   else
-                     'study_note'.to_sym
-                   end
+      locals_key = record.is_a?(Decidim::GeneralPlanRequests::GeneralPlanRequest) ? :general_plan_request : :study_note
 
       pdf_html = render_to_string(
         template: record.pdf_template,

@@ -7,3 +7,9 @@ local:
   service: SecureProtocolDisk
   root: <%= Rails.root.join("storage") %>
 
+amazon:
+  service: S3
+  access_key_id: <%=ENV['AWS_STORAGE_ACCESS_ID']%>
+  secret_access_key: <%=ENV['AWS_STORAGE_ACCESS_KEY']%>
+  region: eu-central-1
+  bucket: <%=ENV['AWS_STORAGE_ACCESS_BUCKET_NAME']%>

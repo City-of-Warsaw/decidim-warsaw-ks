@@ -27,6 +27,7 @@ Decidim.register_component(:study_notes) do |component|
     settings.attribute :help_section_title, type: :string
     settings.attribute :help_section_subtitle, type: :string
     settings.attribute :help_section_description, type: :text, editor: true
+    settings.attribute :map_guide, type: :text, editor: true
   end
 
   # component.settings(:step) do |settings|

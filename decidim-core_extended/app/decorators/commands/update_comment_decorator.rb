@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Decidim::Comments::UpdateComment.class_eval do
+  include Decidim::CoreExtended::AuthorParamsBuilder
+
   private
 
   # overwritten method
@@ -55,11 +57,5 @@ Decidim::Comments::UpdateComment.class_eval do
     new_files = Array(form.files)
 
     existing_blobs + new_files
-  end
-
-  # Private method
-  # returns special object that serves as Author for comments created by unregistered users
-  def unregistered_author
-    @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
   end
 end

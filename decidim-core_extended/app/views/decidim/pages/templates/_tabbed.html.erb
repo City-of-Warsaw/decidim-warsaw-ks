@@ -11,5 +11,9 @@
     <%= decidim_sanitize_editor_admin translated_attribute page.content %>
   </div>
 
+  <div class="mt-[72px]">
+    <%= render 'decidim/shared/gallery_attachments', model: page %>
+  </div>
+
   <%= cell "decidim/tos_page", :form %>
 </section> 

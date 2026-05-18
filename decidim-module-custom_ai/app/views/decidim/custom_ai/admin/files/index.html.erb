@@ -1,0 +1,30 @@
+<% add_decidim_page_title(t("files.title", scope: "decidim.admin")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("files.title", scope: "decidim.admin") %>
+
+      <%= link_to t("actions.add", scope: "decidim.admin"), decidim_custom_ai_admin.new_file_path, class: "button button__sm button__secondary" %>
+      <%= link_to t("actions.send_xlsx", scope: "decidim.admin"), decidim_custom_ai_admin.new_xlsx_file_files_path, class: "button button__sm button__secondary" %>
+      <%= render partial: "decidim/custom_ai/admin/custom_ai/ai_functions_dropdown" %>
+
+    </h1>
+  </div>
+
+  <div class="table-scroll">
+    <table class="table-list">
+      <thead>
+      <tr>
+        <th><%= t(".headers.file") %></th>
+        <th><%= t(".headers.description") %></th>
+        <th><%= t(".headers.created_at") %></th>
+        <th></th>
+      </tr>
+      </thead>
+
+      <tbody>
+        <%= render partial: "file", collection: files %>
+      </tbody>
+    </table>
+  </div>
+</div>

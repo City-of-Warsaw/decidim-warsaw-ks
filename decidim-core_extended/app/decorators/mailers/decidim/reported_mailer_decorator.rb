@@ -18,13 +18,15 @@ Decidim::ReportedMailer.class_eval do
                             end
       reported_content = report.moderation.reported_content
       report_reasons = reportable.moderation.reports.pluck(:reason).uniq
+      report_details = reportable.moderation.reports.pluck(:details).uniq
       service = Decidim::CoreExtended::MailTemplateService.new(action_name,
                                                                user,
                                                                {
                                                                  resource: reportable,
                                                                  consultation: participatory_space,
                                                                  report_reasons:,
-                                                                 reported_content:
+                                                                 reported_content:,
+                                                                 report_details:
                                                                })
       return unless service.active?
 
@@ -63,12 +65,14 @@ Decidim::ReportedMailer.class_eval do
                               report.moderation.participatory_space
                             end
       reported_content = report.moderation.reported_content
+      report_details = reportable.moderation.reports.pluck(:details).uniq
       service = Decidim::CoreExtended::MailTemplateService.new(action_name,
                                                                user,
                                                                {
                                                                  resource: reportable,
                                                                  consultation: participatory_space,
-                                                                 reported_content:
+                                                                 reported_content:,
+                                                                 report_details:
                                                                })
       return unless service.active?
 

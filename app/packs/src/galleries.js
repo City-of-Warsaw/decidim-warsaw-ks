@@ -3,23 +3,26 @@ import "src/jquery.swipebox.js";
 // Insert images from .fix-swipebox into <a> element for swipebox,
 // this is fix images-base64 (from ql-editor) and for normal img elements
 function fixSwipeboxGallery() {
-  $('.fix-swipebox').each(function(gI) {
-    $(this).find("img").each(function(i) {
+  $(".fix-swipebox").each(function (gI) {
+    $(this)
+      .find("img")
+      .each(function (i) {
         var outerLink = $("<a />", {
-        id : "image-id-" + i,
-        name : "link",
-        class : "swipebox",
-        rel : "gallery-id-" + gI,
-        href : this.src,
-        html : this.outerHTML
+          id: "image-id-" + i,
+          name: "link",
+          class: "swipebox",
+          rel: "gallery-id-" + gI,
+          href: this.src,
+          title: this.dataset.description || "",
+          "data-description": this.dataset.description || "",
+          html: this.outerHTML,
         });
         $(this).replaceWith(outerLink);
       });
   });
 }
 
-$(document).ready(function() {
-
+$(document).ready(function () {
   fixSwipeboxGallery();
 
   $(".swipebox").swipebox({

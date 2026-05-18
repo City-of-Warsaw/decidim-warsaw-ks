@@ -1,0 +1,202 @@
+pl:
+  activemodel:
+    attributes:
+      file:
+        description: Podpis pod zdjęciem
+        file: Plik
+      answer:
+        status: Status
+        ai_decision_body: Uzasadnienie
+        ai_suggestion_body: Sugestia AI
+        ai_is_complicated: Uwaga jest skomplikowana
+        ai_is_vulgar: Uwaga jest wulgarna
+        ai_is_incomplete: Uwaga jest niekompletna
+        ai_is_illogical: Uwaga jest nielogiczna
+        ai_decision_status: Rozstrzygnięcie
+      batch_ai_decision:
+        ai_decision_body: Uzasadnienie
+        ai_decision_status: Rozstrzygnięcie
+      import_ai_decisions:
+        xlsx_file: Plik
+  enums:
+    decidim:
+      forms:
+        answer:
+          ai_decision_status:
+            included_in_strategy: Istniejące zapisy strategii uwzględniają treść uwagi
+            considered: Uwzględniliśmy
+            partially_considered: Uwzględniliśmy częściowo
+            for_further_analysis: Do dalszych analiz
+            not_considered: Nie uwzględniliśmy
+            not_applicable: Nie dotyczy
+          status:
+            pending: Do ustalenia
+            draft: Wersja robocza
+            for_review: Do weryfikacji
+            accepted: Zaakceptowane
+  decidim:
+    admin_log:
+      custom_ai_file:
+        send_xlsx_file_to_ai_module: "%{user_name} wysłał nowy plik z rozstrzygnięciami do bazy AI dla ankiety %{component_name} w przestrzeni %{space_name}"
+        create: "%{user_name} dodał nowy plik do bazy AI %{resource_name} aktywowanej dla ankiety w przestrzeni %{space_name}"
+        delete: "%{user_name} usunął plik z bazy AI %{resource_name} aktywowanej dla ankiety w przestrzeni %{space_name}"
+      custom_ai_tag:
+        create: "%{user_name} utworzył(a) tag '%{resource_name}' w ankiecie przestrzeni %{space_name}"
+        delete: "%{user_name} usunął/ęła tag '%{resource_name}' w ankiecie przestrzeni %{space_name}"
+        update: "%{user_name} zaktualizował(a) tag '%{resource_name}' w ankiecie przestrzeni %{space_name}"
+        generate_tags_from_ai: "%{user_name} wygenerował(a) tagi z pomoca AI w ankiecie przestrzeni %{space_name}"
+        destroy_all_of_that_component: "%{user_name} usunął wszystkie tagi w ankiecie przestrzeni %{space_name}"
+      custom_ai_answer:
+        update: "%{user_name} zaktualizował(a) odpowiedź '%{resource_name}' na pytania w przestrzeni %{component_name}"
+        answers_ai_decision_regenerate: "%{user_name} zaktualizował(a) odpowiedzi AI na pytania w %{component_name} przestrzeni %{space_name}"
+        decidim_forms_answers_export: "Użytkownik %{user_name} wyeksportował(a) listę odpowiedzi na pytania w %{component_name} przestrzeni %{space_name}"
+        decidim_forms_answers_import: "Użytkownik %{user_name} importował(a) odpowiedzi na pytania w %{component_name} przestrzeni %{space_name}"
+    admin:
+      actions:
+        send_xlsx: Importuj rozstrzygnięcia
+        return: Powrót
+      filters:
+        custom_ai:
+          ai_is_vulgar_eq:
+            label: Zawiera wulgaryzmy
+            values:
+              'false': Nie
+              'true': Tak
+          ai_is_incomplete_eq:
+            label: Ma urwaną treść
+            values:
+              'false': Nie
+              'true': Tak
+          ai_is_illogical_eq:
+            label: Jest nielogiczna
+            values:
+              'false': Nie
+              'true': Tak
+          other_grouping_eq:
+            label: Grupowanie
+            values:
+              1: Takie same, podobne
+              2: Wykluczające się, nieuzupelnione, niekompletne
+          is_complicated_eq:
+            label: Jest skomplikowana
+            values:
+              'false': Nie
+              'true': Tak
+          tag_eq:
+            label: Tagi
+      answer:
+        update_ai_grouping:
+          success: Grupowanie odpowiedzi zostało rozpoczęte. Przetwarzanie przez mechanizm AI trwa ok 30min.
+        export:
+          success: Przygotowanie eksportu zostało rozpoczęte. Otrzymasz powiadomienie na swój adres email o zakończeniu procesu. Czas wykonania eksportu jest zależny od liczby uwag, lecz nie powinien być dłuższy niż 60 minut.
+          errors: Brak uwag do eksportu
+        mark_as_accepted:
+          success: Akceptacja rozstrzygnięć została rozpoczęta. Otrzymasz powiadomienie na swój adres email o zakończeniu procesu. Czas wykonania tej aktualizacji jest zależny od liczby uwag, lecz nie dłuższy niż 60 minut.
+          errors: Brak uwag do aktualizacji
+        update_ai_decision:
+          success: Edycja rozstrzygnięć została rozpoczęta. Otrzymasz powiadomienie na swój adres email o zakończeniu procesu. Czas wykonania tej aktualizacji jest zależny od liczby uwag, lecz nie dłuższy niż 60 minut.
+          error: Brak uwag do aktualizacji
+        import_ai_decision:
+          success: Import rozstrzygnięć został rozpoczęty. Otrzymasz powiadomienie na swój adres email o zakończeniu procesu. Czas wykonania tej aktualizacji jest zależny od liczby uwag, lecz nie dłuższy niż 60 minut.
+          error: Brak uwag do aktualizacji przy użyciu importu
+        update:
+          success: Uwaga została zaktualizowana
+          errors: Nie udało się zaktualizować Uwagi
+      files:
+        title: Pliki dla modułu AI
+    custom_ai:
+      files:
+        send_xlsx:
+          success: Plik został przesłany do modułu AI i będzie uwzględniany w komponencie od następnego dnia.
+        check:
+          error: "Aby skorzystać z tej funkcji należy posiadać wgrany przynajmniej jeden plik do bazy. Dodaj go klikając <a href='%{link_to_add_file}' class='specific_link'>tutaj</a>"
+        create:
+          error: Wystąpił błąd przy dodawaniu pliku
+          success: Plik został dodany do bazy - przetwarzanie pliku przez mechanizm AI będzie wykonane w nocy.
+        destroy:
+          success: Plik został usunięty
+      actions:
+        confirm_reassign_groups: Czy jesteś pewien, że chcesz ponownie przypisać wszystkie grupy ?
+        confirm_reassign_answers: Czy jesteś pewien, że chcesz ponownie wygenerować rozstrzygnięcia dla uwag o statusie 'Do ustalenia' ?
+        reassign_groups: Przypisz ponownie grupy
+        reassign_answers: Wygeneruj ponownie rozstrzygnięcia
+        confirm_regenerate: Czy jesteś pewien, że chcesz przypisać wszystkie tagi do uwag ponownie ?
+        regenerate: Przypisz ponownie tagi do uwag
+        generate: Wygeneruj tagi za pomocą AI
+        destroy_all_of_that_component: Usuń wszystkie tagi
+      tags:
+        regenerate:
+          success: Aktualizacja tagów została rozpoczęta. Potrwa ok. 15-20 min.
+        generate:
+          error: Wystąpił błąd przy generowaniu tagów
+          success: Tagi zostały wygenerowane
+        create:
+          error: Wystąpił błąd przy tworzeniu tagu
+          success: Tag został utworzony
+        destroy:
+          success: Tag został usunięty
+        destroy_all_of_that_component:
+          success: Wszystkie tagi zostały usunięte
+        update:
+          success: "Tag został zaktualizowany"
+          error: "Wystąpił błąd przy aktualizacji"
+      admin:
+        files:
+          new_xlsx_file:
+            create: Dodaj
+            title: Importuj rozstrzygnięcia
+          new:
+            create: Dodaj
+            title: Dodaj plik do bazy AI
+          index:
+            headers:
+              file: Nazwa pliku
+              description: Opis
+              created_at: Data dodania
+        answers:
+          filters:
+            select_tag: Wybierz tag
+          init_import_ai_decisions_form:
+            title: Import rozstrzygnięć
+          init_ai_decision_form:
+            title: Edycja rozstrzygnięć
+          index:
+            title: Uwagi
+          show:
+            title: Uwaga
+          edit:
+            title: Rozstrzygnięcie przygotowane przez AI    
+        tags:
+          edit:
+            update: Zapisz
+            title: Edytuj tag
+          new:
+            create: Utwórz tag
+            title: Tagi
+          index:
+            headers:
+              name: Nazwa
+              actions: Akcje
+        summaries:
+          generate_summary:
+            title: Wygeneruj podsumowanie
+    forms:
+      answers:
+        export:
+          answer:
+            id: ID uwagi
+            id_answer_author: ID uczestnika ankiety
+            ip_hash: IP uwagi
+            session_token: Session_token uwagi
+            question_body: Treść pytania uwagi
+            body: Treść uwagi
+            created_at: Data odpowiedzi
+            ai_suggestion_body_presence: Błędy na etapie składania
+            ai_decision_status: Rozstrzygnięcie
+            ai_decision_body: Uzasadnienie
+            status: Status
+            ai_is_complicated: Jest skomplikowana
+            ai_is_vulgar: Jest wulgarna
+            ai_is_incomplete: Jest niekompletna
+            ai_is_illogical: Jest nielogiczna
+            answer_tags: Lista tagów

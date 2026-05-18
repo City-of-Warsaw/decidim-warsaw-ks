@@ -154,7 +154,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>WsNotificationService.new.test_connection   client.operations: =&gt; [:hello_world, :utworz_wiadomosci, :get_dzeilnice, :get_tematy_wiadomosci]   =&gt; World”, :@xmlns=&gt;“<a href="https://komunikaty.um.warszawa.pl">komunikaty.um.warszawa.pl</a>/”}.</p>
+<p>WsNotificationService.new.test_connection.</p>
 </div></span>
   
 </li>
@@ -200,7 +200,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Zwraca liste tematow [:tem_nazwa=&gt;“Kultura”, :tem_typ_id=&gt;“1”, :tem_opis=&gt;“Imprezy plenerowe i wydarzenia kulturalne.”].</p>
+<p>Zwraca liste tematow.</p>
 </div></span>
   
 </li>
@@ -248,7 +248,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Zwraca liste dzielnic [:dzi_nazwa=&gt;“Bemowo”, :dzi_symbol=&gt;“I”].</p>
+<p>Zwraca liste dzielnic.</p>
 </div></span>
   
 </li>
@@ -392,10 +392,10 @@
       <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client'>client</span>
-  <span class='kw'>return</span> <span class='kw'>unless</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WS_NOTIFICATION_WSDL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WS_NOTIFICATION_WSDL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_blank?'>blank?</span>
 
   <span class='ivar'>@client</span> <span class='op'>||=</span> <span class='const'>Savon</span><span class='period'>.</span><span class='id identifier rubyid_client'>client</span><span class='lparen'>(</span>
-    <span class='label'>wsdl:</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WS_NOTIFICATION_WSDL</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>nil</span><span class='rparen'>)</span><span class='comma'>,</span>
+    <span class='label'>wsdl:</span> <span class='const'>ENV</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>WS_NOTIFICATION_WSDL</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='comma'>,</span>
     <span class='label'>adapter:</span> <span class='symbol'>:net_http</span><span class='comma'>,</span>
     <span class='comment'># Lower timeouts so these specs don&#39;t take forever when the service is not available.
 </span>    <span class='label'>open_timeout:</span> <span class='int'>10</span><span class='comma'>,</span>
@@ -422,10 +422,6 @@
     
 <p>WsNotificationService.new.test_connection</p>
 
-<pre class="code ruby"><code class="ruby">client.operations: =&gt; [:hello_world, :utworz_wiadomosci, :get_dzeilnice, :get_tematy_wiadomosci]
-=&gt; {:hello_world_response=&gt;{:hello_world_result=&gt;&quot;Hello World&quot;, :@xmlns=&gt;&quot;https://komunikaty.um.warszawa.pl/&quot;}}
-</code></pre>
-
 
   </div>
 </div>
@@ -451,6 +447,11 @@
       <pre class="lines">
 
 
+92
+93
+94
+95
+96
 97
 98
 99
@@ -458,15 +459,10 @@
 101
 102
 103
-104
-105
-106
-107
-108
-109</pre>
+104</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_client_connected?'>client_connected?</span>
   <span class='kw'>return</span> <span class='kw'>false</span> <span class='kw'>unless</span> <span class='id identifier rubyid_client'>client</span>
@@ -501,6 +497,9 @@
       <pre class="lines">
 
 
+68
+69
+70
 71
 72
 73
@@ -519,13 +518,10 @@
 86
 87
 88
-89
-90
-91
-92</pre>
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 71</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 68</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_message'>create_message</span><span class='lparen'>(</span><span class='id identifier rubyid_ws_message'>ws_message</span><span class='rparen'>)</span>
   <span class='kw'>return</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>OK</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_client_connected?'>client_connected?</span>
@@ -567,8 +563,6 @@
   <div class="discussion">
     
 <p>Zwraca liste tematow</p>
-<dl class="rdoc-list label-list"><dt>:tem_nazwa=&gt;“Kultura”, :tem_typ_id=&gt;“1”, :tem_opis=&gt;“Imprezy plenerowe i wydarzenia kulturalne.”
-<dd></dd></dl>
 
 
   </div>
@@ -582,6 +576,7 @@
       <pre class="lines">
 
 
+29
 30
 31
 32
@@ -591,11 +586,10 @@
 36
 37
 38
-39
-40</pre>
+39</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 30</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 29</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_categories'>get_categories</span>
   <span class='ivar'>@_categories</span> <span class='op'>||=</span> <span class='kw'>begin</span>
@@ -657,14 +651,14 @@
       <pre class="lines">
 
 
+62
+63
+64
 65
-66
-67
-68
-69</pre>
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 62</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_categories_collection'>get_categories_collection</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Kategoria 1 (brak polaczenia)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Kategoria 2 (brak polaczenia)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_client_connected?'>client_connected?</span>
@@ -689,8 +683,6 @@
   <div class="discussion">
     
 <p>Zwraca liste dzielnic</p>
-<dl class="rdoc-list label-list"><dt>:dzi_nazwa=&gt;“Bemowo”, :dzi_symbol=&gt;“I”
-<dd></dd></dl>
 
 
   </div>
@@ -704,6 +696,8 @@
       <pre class="lines">
 
 
+42
+43
 44
 45
 46
@@ -712,20 +706,16 @@
 49
 50
 51
-52
-53
-54
-55</pre>
+52</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 44</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 42</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_districts'>get_districts</span>
   <span class='ivar'>@_districts</span> <span class='op'>||=</span> <span class='kw'>begin</span>
     <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>login:</span> <span class='ivar'>@login</span><span class='comma'>,</span> <span class='label'>haslo:</span> <span class='ivar'>@password</span> <span class='rbrace'>}</span>
                     <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='symbol'>:get_dzeilnice</span><span class='comma'>,</span> <span class='label'>message:</span> <span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
-                    <span class='comment'># TODO: naprawić literówkę
-</span>                    <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:get_dzeilnice_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:get_dzeilnice_result</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:lista</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:dzielnica</span><span class='rbracket'>]</span>
+                    <span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='lbracket'>[</span><span class='symbol'>:get_dzeilnice_response</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:get_dzeilnice_result</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:lista</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:dzielnica</span><span class='rbracket'>]</span>
   <span class='kw'>end</span>
 <span class='kw'>rescue</span> <span class='const'>Net</span><span class='op'>::</span><span class='const'>OpenTimeout</span>
   <span class='lbracket'>[</span><span class='rbracket'>]</span>
@@ -781,14 +771,14 @@
       <pre class="lines">
 
 
+55
+56
+57
 58
-59
-60
-61
-62</pre>
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'decidim-module-ws_notification/app/services/ws_notification_service.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_districts_collection'>get_districts_collection</span>
   <span class='kw'>return</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dzielnica 1 (brak polaczenia)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Dzielnica 2 (brak polaczenia)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='int'>1</span><span class='rbracket'>]</span><span class='rbracket'>]</span> <span class='kw'>unless</span> <span class='id identifier rubyid_client_connected?'>client_connected?</span>
@@ -805,7 +795,7 @@
 </div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:38 2025 by
+  Generated on Mon May 18 15:09:15 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

@@ -43,7 +43,9 @@ module Decidim
             x_latitude: form.x_latitude,
             x_longitude: form.x_longitude,
             y_latitude: form.y_latitude,
-            y_longitude: form.y_longitude
+            y_longitude: form.y_longitude,
+            visible_on_load: form.visible_on_load,
+            min_zoom_level: form.min_zoom_level
           }.tap do |attrs|
             attrs[:file] = form.file if form.file.present?
           end

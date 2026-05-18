@@ -57,13 +57,13 @@
         <div class="clear"></div>
       </div>
 
-      <div id="content"><div id='filecontents'><h1 id="decidim-consultation-platform">Decidim – consultation platform</h1>
+      <div id="content"><div id='filecontents'><h1 id="decidim-ks-public-consultation-platform">Decidim KS – public consultation platform</h1>
 
-<p>The main objective of the Project is to launch a new digital service by the City of Warsaw in the form of an online Platform, integrated with other selected urban digital solutions, ready to support consultative processes carried out by the City of Warsaw.</p>
+<p>The project&#39;s main objective is to launch a new digital service for the City of Warsaw: an online platform integrated with selected urban digital solutions to support the city&#39;s consultative processes.</p>
 
-<p>Decidim KS is a platform designed to facilitate public participation and engagement in decision-making processes. Through this system, citizens can actively contribute their opinions, feedback, and ideas on various issues and projects. They can participate in surveys and discussions, providing valuable input to inform policies, plans and initiatives.</p>
+<p>Decidim KS is a platform that facilitates public participation in decision-making. Citizens can submit opinions, feedback, and ideas on projects and issues, take part in surveys and discussions, and provide input to inform policies, plans, and initiatives.</p>
 
-<p>This is the open-source repository for decidim-warsaw-ks, based on <a href="https://github.com/decidim/decidim">Decidim</a>.</p>
+<p>This is the open-source repository for decidim-warsaw-ks, built on <a href="https://github.com/decidim/decidim">Decidim</a>.</p>
 
 <h2 id="modules">Modules</h2>
 
@@ -119,109 +119,103 @@
 <td>1</td>
 <td>AD Users</td>
 <td>decidim-ad_users_space</td>
-<td>Adds Active Directory integration and authentication</td>
+<td>Active Directory integration adds the ability authentication internal users and control their activity in the system</td>
 </tr>
 <tr>
 <td>2</td>
 <td>Admin extended</td>
 <td>decidim-admin_extended</td>
-<td>Extended to develop custom features</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Comments extended</td>
-<td>decidim-comments_extended</td>
-<td>Extended to develop custom features</td>
+<td>Expanded with custom features such as managing the main menu, notifications, and a dictionary of vulgar words.</td>
 </tr>
 <tr>
 <td>4</td>
 <td>Consultation map</td>
 <td>decidim-consultation_map</td>
-<td>Adds new participatory process component that allows users to create remarks marked on a map</td>
+<td>The consultation map is an element of the participatory process that allows users to create comments marked on the map in various categories defined by the administrator</td>
 </tr>
 <tr>
 <td>5</td>
 <td>Consultation requests</td>
 <td>decidim-consultation_requests</td>
-<td>Adds new type of content: Consultation request</td>
+<td>Consultation request is new type of content to submit requests for public consultations by residents</td>
 </tr>
 <tr>
 <td>6</td>
 <td>Core extended</td>
 <td>decidim-core_extended</td>
-<td>Extended to develop custom features</td>
+<td>Extended core system to custom features such as main system settings, unsubscribing from notifications and newsletters, new templates.</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Custom proposals</td>
+<td>decidim-module-custom_proposals</td>
+<td>The custom proposals is a simplified version of the Proposals - Participatory texts functionality. The administrator manually adds paragrafs of document commented by users.</td>
+</tr>
+<tr>
+<td>8</td>
+<td>General plan request</td>
+<td>decidim-module-general_plan_requests</td>
+<td>General plan request component is a form for collecting comments on the General Plan document (a document in Polish law that is consulted with residents)</td>
 </tr>
 <tr>
 <td>7</td>
 <td>Expert questions</td>
 <td>decidim-expert_questions</td>
-<td>Adds new participatory process component that allows users to ask designated experts questions</td>
+<td>The expert question is a participatory process component that allows users to ask designated experts questions</td>
 </tr>
 <tr>
 <td>8</td>
-<td>Custom proposals</td>
-<td>decidim-module-custom_proposals</td>
-<td>Adds new custom proposals component</td>
+<td>Repository</td>
+<td>decidim-module-repository</td>
+<td>Repository adds the ability media and files management by administarators.</td>
 </tr>
 <tr>
 <td>9</td>
-<td>General plan request</td>
-<td>decidim-module-general_plan_requests</td>
-<td>Adds new general plan request component</td>
-</tr>
-<tr>
-<td>10</td>
-<td>Repository</td>
-<td>decidim-module-repository</td>
-<td>Adds media and files management</td>
-</tr>
-<tr>
-<td>11</td>
 <td>REST API</td>
 <td>decidim-module-rest_api</td>
 <td>Adds API allowing integrations with other systems</td>
 </tr>
 <tr>
-<td>12</td>
+<td>10</td>
 <td>Study notes</td>
 <td>decidim-module-study_notes</td>
-<td>Adds new participatory process component that allows users to send comments on planning documents, including maps</td>
+<td>The new participatory process component that allows users to comment a planning documents, including maps</td>
+</tr>
+<tr>
+<td>11</td>
+<td>WS notification</td>
+<td>decidim-module-ws_notification</td>
+<td>Notification management integrated with the city notification system.</td>
+</tr>
+<tr>
+<td>12</td>
+<td>News</td>
+<td>decidim-news</td>
+<td>This is a special model with new types of content, such as current news and information. Accessible from the home page or main menu.</td>
 </tr>
 <tr>
 <td>13</td>
-<td>WS notification</td>
-<td>decidim-module-ws_notification</td>
-<td>Adds custom notifications system integration</td>
+<td>Pages extended</td>
+<td>decidim-pages_extended</td>
+<td>Extended to custom features such as special form for contacts, faq, adding attachments and galleries.</td>
 </tr>
 <tr>
 <td>14</td>
-<td>News</td>
-<td>decidim-news</td>
-<td>Adds new type of content: News</td>
+<td>Participatory processes</td>
+<td>decidim-participatory_processes_extended</td>
+<td>Extended process space to custom features such as additional fields in the process description, file attachments, marking the consultation area on the map.</td>
 </tr>
 <tr>
 <td>15</td>
-<td>Pages extended</td>
-<td>decidim-pages_extended</td>
-<td>Extended to develop custom features</td>
+<td>Remarks</td>
+<td>decidim-remarks</td>
+<td>The remarks is a participatory process component that allows users to comment and discuss the topic of the consultation</td>
 </tr>
 <tr>
 <td>16</td>
-<td>Participatory processes</td>
-<td>decidim-participatory_processes_extended</td>
-<td>Extended to develop custom features</td>
-</tr>
-<tr>
-<td>17</td>
-<td>Remarks</td>
-<td>decidim-remarks</td>
-<td>Adds new participatory process component that allows users to send remarks</td>
-</tr>
-<tr>
-<td>18</td>
 <td>Users extended</td>
 <td>decidim-users_extended</td>
-<td>Extended to develop custom features</td>
+<td>Extended user aaccount setup and registration such as interests and notifications.</td>
 </tr>
 </tbody></table>
 
@@ -254,16 +248,12 @@ bundle install
 <p>You will need to do some steps before having the app working properly once you&#39;ve deployed it:</p>
 
 <ol>
-<li>Open a Rails console in the server: <code>bundle exec rails console</code></li>
-<li>Create a System Admin user:
-<code>ruby
-user = Decidim::System::Admin.new(email: &lt;email&gt;, password: &lt;password&gt;, password_confirmation: &lt;password&gt;)
-user.save!
-</code></li>
+<li>Create system admin user with <code>rails decidim_system:create_admin</code></li>
 <li>Visit <code>&lt;your app url&gt;/system</code> and login with your system admin credentials</li>
 <li>Create a new organization. Check the locales you want to use for that organization, and select a default locale.</li>
 <li>Set the correct default host for the organization, otherwise the app will not work properly. Note that you need to include any subdomain you might be using.</li>
 <li>Fill the rest of the form and submit it.</li>
+<li>Use /letter_opener to confirm admin user account and login.</li>
 </ol>
 
 <p>You&#39;re good to go!</p>
@@ -282,7 +272,7 @@ next in the root directory of app run the command:
 </div></div>
 
       <div id="footer">
-  Generated on Wed Oct 29 14:41:34 2025 by
+  Generated on Mon May 18 15:09:10 2026 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.2.6).
 </div>

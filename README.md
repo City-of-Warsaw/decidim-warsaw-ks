@@ -26,22 +26,22 @@ The software is based on the Decidim 0.29.3 solution. It is a system that includ
 |----| ----------------------- |------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1  | AD Users                | decidim-ad_users_space                   | Active Directory integration adds the ability authentication internal users and control their activity in the system                                                               |
 | 2  | Admin extended          | decidim-admin_extended                   | Expanded with custom features such as managing the main menu, notifications, and a dictionary of vulgar words.                                                                     |
-| 3  | Comments extended       | decidim-comments_extended                | Extended to custom features such as adding attachments, enabling commenting for non-logged-in users.                                                                               |
-| 4  | Consultation map        | decidim-consultation_map                 | The consultation map is an element of the participatory process that allows users to create comments marked on the map in various categories defined by the administrator          |
-| 5  | Consultation requests   | decidim-consultation_requests            | Consultation request is new type of content to submit requests for public consultations by residents                                                                               |
-| 6  | Core extended           | decidim-core_extended                    | Extended core system to custom features such as main system settings, unsubscribing from notifications and newsletters, new templates.                                             |
-| 7  | Custom proposals        | decidim-module-custom_proposals          | The custom proposals is a simplified version of the Proposals - Participatory texts functionality. The administrator manually adds paragrafs of document commented by users.       |
-| 8  | General plan request    | decidim-module-general_plan_requests     | General plan request component is a form for collecting comments on the General Plan document (a document in Polish law that is consulted with residents)                          |
-| 7  | Expert questions        | decidim-expert_questions                 | The expert question is a participatory process component that allows users to ask designated experts questions                                                                     |
-| 8  | Repository              | decidim-module-repository                | Repository adds the ability media and files management by administarators.                                                                                                         |
-| 9  | REST API                | decidim-module-rest_api                  | Adds API allowing integrations with other systems                                                                                                                                  |
-| 10 | Study notes             | decidim-module-study_notes               | The new participatory process component that allows users to comment a planning documents, including maps                                                                          |
-| 11 | WS notification         | decidim-module-ws_notification           | Notification management integrated with the city notification system.                                                                                                              |
-| 12 | News                    | decidim-news                             | This is a special model with new types of content, such as current news and information. Accessible from the home page or main menu.                                               |
-| 13 | Pages extended          | decidim-pages_extended                   | Extended to custom features such as special form for contacts, faq, adding attachments and galleries.                                                                              |
-| 14 | Participatory processes | decidim-participatory_processes_extended | Extended process space to custom features such as additional fields in the process description, file attachments, marking the consultation area on the map.                        |
-| 15 | Remarks                 | decidim-remarks                          | The remarks is a participatory process component that allows users to comment and discuss the topic of the consultation                                                            |
-| 16 | Users extended          | decidim-users_extended                   | Extended user aaccount setup and registration such as interests and notifications.                                                                                                 |
+| 3  | Consultation map        | decidim-consultation_map                 | The consultation map is an element of the participatory process that allows users to create comments marked on the map in various categories defined by the administrator          |
+| 4  | Consultation requests   | decidim-consultation_requests            | Consultation request is new type of content to submit requests for public consultations by residents                                                                               |
+| 5  | Core extended           | decidim-core_extended                    | Extended core system to custom features such as main system settings, unsubscribing from notifications and newsletters, new templates.                                             |
+| 6  | Custom proposals        | decidim-module-custom_proposals          | The custom proposals is a simplified version of the Proposals - Participatory texts functionality. The administrator manually adds paragrafs of document commented by users.       |
+| 7  | General plan request    | decidim-module-general_plan_requests     | General plan request component is a form for collecting comments on the General Plan document (a document in Polish law that is consulted with residents)                          |
+| 8  | Expert questions        | decidim-expert_questions                 | The expert question is a participatory process component that allows users to ask designated experts questions                                                                     |
+| 9  | Repository              | decidim-module-repository                | Repository adds the ability media and files management by administarators.                                                                                                         |
+| 10  | REST API                | decidim-module-rest_api                  | Adds API allowing integrations with other systems                                                                                                                                  |
+| 11 | Study notes             | decidim-module-study_notes               | The new participatory process component that allows users to submitting resident comments on the general plan.                                                                          |
+| 12 | WS notification         | decidim-module-ws_notification           | Notification management integrated with the city notification system.                                                                                                              |
+| 13 | News                    | decidim-news                             | This is a special model with new types of content, such as current news and information. Accessible from the home page or main menu.                                               |
+| 14 | Pages extended          | decidim-pages_extended                   | Extended to custom features such as special form for contacts, faq, adding attachments and galleries.                                                                              |
+| 15 | Participatory processes | decidim-participatory_processes_extended | Extended process space to custom features such as additional fields in the process description, file attachments, marking the consultation area on the map.                        |
+| 16 | Remarks                 | decidim-remarks                          | The remarks is a participatory process component that allows users to comment and discuss the topic of the consultation                                                            |
+| 17 | Users extended          | decidim-users_extended                   | Extended user aaccount setup and registration such as interests and notifications.                                                                                                 |
+| 18 | Custom AI          | decidim-module-custom_ai                   | The AI module for handling high volumes of resident feedback submitted via survey, along with administrative tools.                                                                                                 |
 
 ## License
 
@@ -59,6 +59,8 @@ These translations are NOT legally binding.
 The City of Warsaw does not guarantee the proper functioning of the shared source code of the software and does not provide any support for it.
 
 ## Installation
+
+The official guide on how to install, set up and upgrade Decidim. See the [Getting started guide](https://docs.decidim.org/en/install/). Linux and the required system libraries are necessary for the installation.
 
 ```
 git clone https://github.com/City-of-Warsaw/decidim-warsaw-ks.git
@@ -78,8 +80,6 @@ You will need to do some steps before having the app working properly once you'v
 6. Use /letter_opener to confirm admin user account and login.
 
 You're good to go!
-
-The official guide on how to install, set up and upgrade Decidim. See the [Getting started guide](https://docs.decidim.org/en/install/).
 
 ## Source code documentation
 

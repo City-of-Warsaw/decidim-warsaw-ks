@@ -4,6 +4,8 @@
 import "leaflet-lasso";
 import * as turf from "@turf/turf";
 
+import "./leaflet-canvas-pattern";
+
 var osmUrl = Decidim.config.get("osmUrl") + "/tile/{z}/{x}/{y}.png";
 const nominatimUrl = Decidim.config.get("nominatimUrl");
 
@@ -15,7 +17,8 @@ const MapState = {
 const fieldTranslations = {
   nazwa: "Strefa planistyczna",
   oznaczenie: "Oznaczenie",
-  profilPodstawowy: "Profil funkcjonalny",
+  profilPodstawowy: "Profil funkcjonalny podstawowy",
+  profilDodatkowy: "Profil funkcjonalny dodatkowy",
   maksNadziemnaIntensywnoscZabudowy:
     "Maksymalna nadziemna intensywność zabudowy",
   maksUdzialPowierzchniZabudowy: "Maksymalny udział powierzchni zabudowy [%]",
@@ -27,14 +30,27 @@ const fieldTranslations = {
 };
 
 const modal = {
-  open: function () {
+  opener: null,
+  open: function (opener) {
     const $modal = $("[data-map-dialog]");
 
     $modal.attr("aria-hidden", "false");
 
     $("[data-note-id]").text(String(window.Decidim.currentDetailedNoteId + 1));
 
+    const focusableElements = $modal.find(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+    );
+
+    const firstElement = focusableElements[0];
+    firstElement.focus();
+
     if (!window.Decidim.studyNoteMap) {
+      if (window.Decidim.currentDialogs.mapGuideModal) {
+        window.Decidim.currentDialogs.mapGuideModal.open();
+        window.Decidim.currentDialogs.mapGuideModal.firstFocusableElement.focus();
+      }
+
       window.Decidim.initStudyNotesMap();
     } else {
       window.Decidim.studyNoteMap.invalidateSize();
@@ -42,11 +58,17 @@ const modal = {
         window.Decidim.studyNoteMap
       );
     }
+
+    this.opener = opener;
   },
   close: function () {
     const $modal = $("[data-map-dialog]");
 
     $modal.attr("aria-hidden", "true");
+
+    if (this.opener) {
+      this.opener.focus();
+    }
   },
 };
 
@@ -58,6 +80,34 @@ $modal
     modal.close();
   });
 
+$modal.on("keydown", function (event) {
+  if (event.key === "Escape") {
+    modal.close();
+
+    if (modal.opener) {
+      modal.opener.focus();
+    }
+  } else if (event.key === "Tab") {
+    const focusableElements = $modal.find(
+      'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+    );
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+    if (event.shiftKey) {
+      if (document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }
+});
+
 window.Decidim.currentDialogs = {
   ...window.Decidim.currentDialogs,
   mapModal: modal,
@@ -67,7 +117,7 @@ window.Decidim.initStudyNotesMap = function () {
   // set map
   var map = L.map("study-note-map__map", {
     minZoom: 10,
-    maxZoom: 18,
+    maxZoom: 19,
     preferCanvas: true,
   }).setView([52.22977, 21.01178], 10);
 
@@ -76,6 +126,7 @@ window.Decidim.initStudyNotesMap = function () {
   $("#study-note-map__map").removeAttr("tabIndex");
 
   const OSM = L.tileLayer(osmUrl, {
+    maxZoom: 19,
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
@@ -87,18 +138,82 @@ window.Decidim.initStudyNotesMap = function () {
     }
   );
 
+  const rasters = mapBackgrounds.filter((bg) => bg.fileType === "raster");
+  const vectors = mapBackgrounds.filter((bg) => bg.fileType === "vector");
+
   const overlayLayers = {};
+
+  const parcelsNumbersLayer = L.tileLayer.wms(
+    "https://wms2.um.warszawa.pl/geoserver/WMS/wms?",
+    {
+      layers: "numery_dzialek",
+      transparent: true,
+      format: "image/png",
+      maxZoom: 19,
+      minZoom: 17,
+      minNativeZoom: 19,
+    }
+  );
+
+  parcelsNumbersLayer.addTo(map);
 
   $("#study-note-map__map").attr("data-map-state", MapState.SelectParcels);
 
   const layerControl = L.control
-    .layers({ OSM, Ortofotomapa }, overlayLayers)
+    .layers({ OSM, Ortofotomapa }, overlayLayers, {
+      autoZIndex: false,
+      sortLayers: true,
+      sortFunction: function (layerA, layerB, layerNameA, layerNameB) {
+        const mapBackgroundA = mapBackgrounds.find(
+          (bg) => bg.name === layerNameA
+        );
+        const mapBackgroundB = mapBackgrounds.find(
+          (bg) => bg.name === layerNameB
+        );
+
+        const positionA = mapBackgroundA ? mapBackgroundA.position : 0;
+        const positionB = mapBackgroundB ? mapBackgroundB.position : 0;
+
+        return positionA > positionB ? 1 : -1;
+      },
+    })
     .addTo(map);
 
-  for (const [concatenatedId, layer] of Object.entries(rasters)) {
-    const [id, name] = concatenatedId.split(",");
+  const rasterLayers = [];
+
+  for (const background of rasters) {
+    const {
+      id,
+      name,
+      url,
+      filePath,
+      xLatitude,
+      xLongitude,
+      yLatitude,
+      yLongitude,
+      position,
+      visibleOnLoad,
+      minZoomLevel,
+    } = background;
+
+    const layer = L.imageOverlay(
+      filePath,
+      [
+        [xLatitude, xLongitude],
+        [yLatitude, yLongitude],
+      ],
+      {
+        zIndex: position * 1000,
+        minZoom: minZoomLevel || 0,
+      }
+    );
 
     layerControl.addOverlay(layer, name);
+    rasterLayers.push({ id, layer });
+
+    if (visibleOnLoad && minZoomLevel <= map.getZoom()) {
+      layer.addTo(map);
+    }
   }
 
   const vectorLayers = [];
@@ -130,39 +245,58 @@ window.Decidim.initStudyNotesMap = function () {
     label: "Ładowanie działek",
   });
 
-  if (Object.entries(vectors).length > 0) {
+  if (vectors.length > 0) {
     loadingIndicatorLayers.addTo(map);
   }
 
-  for (const [concatenatedId, url] of Object.entries(vectors)) {
-    const [id, name] = concatenatedId.split(",");
+  for (const background of vectors) {
+    const { id, name, filePath, position, visibleOnLoad, minZoomLevel } =
+      background;
 
-    if (url.length) {
+    if (filePath.length) {
       $(loadingIndicatorLayers._container)
         .find("[data-number]")
         .html(
-          ` (${layerControl._layers.length - Object.keys(rasters).length - 1}/${
-            Object.entries(vectors).length
+          ` (${layerControl._layers.length - rasters.length - 2}/${
+            vectors.length
           })`
         );
 
-      fetch(url)
+      fetch(filePath)
         .then((response) => response.json())
         .then((data) => {
+          const { decidimMapPattern } = data;
+
           const layer = L.geoJSON(data, {
             style: function (feature) {
               return {
-                color: "#000000",
-                weight: 1,
-                fillOpacity: 0.75,
+                color: decidimMapPattern ? "#888888" : "#000000",
+                weight: decidimMapPattern ? 4 : 1,
+                fillOpacity: decidimMapPattern ? 0 : 0.75,
                 fillColor:
                   feature.properties && feature.properties.fill
                     ? feature.properties.fill
                     : "#cccccc",
                 interactive: true,
+                ...(decidimMapPattern && { dashArray: "30 10" }),
               };
             },
+            pointToLayer: function (feature, latlng) {
+              return L.marker(latlng, {
+                icon: L.divIcon({
+                  className: "my-div-icon",
+                  html:
+                    feature.properties && feature.properties.symbol
+                      ? feature.properties.symbol
+                      : "",
+                }),
+              });
+            },
             onEachFeature: function (feature, layer) {
+              if (decidimMapPattern) {
+                layer.options.patternId = decidimMapPattern.toLowerCase();
+              }
+
               if (feature.properties.POPUP) {
                 layer.bindTooltip(feature.properties.POPUP, {
                   permanent: false,
@@ -181,24 +315,29 @@ window.Decidim.initStudyNotesMap = function () {
                 });
               }
             },
+            minZoom: minZoomLevel || 0,
           });
 
           setTimeout(() => {
             $(loadingIndicatorLayers._container)
               .find("[data-number]")
               .html(
-                ` (${
-                  layerControl._layers.length - Object.keys(rasters).length - 1
-                }/${Object.entries(vectors).length})`
+                ` (${layerControl._layers.length - rasters.length - 2}/${
+                  vectors.length
+                })`
               );
           }, 50);
 
           layerControl.addOverlay(layer, name);
-          vectorLayers.push(layer);
+          vectorLayers.push({ id, layer });
+
+          if (visibleOnLoad && minZoomLevel <= map.getZoom()) {
+            layer.addTo(map);
+          }
 
           if (
-            Object.entries(vectors).length ===
-            layerControl._layers.length - Object.keys(rasters).length - 1
+            vectors.length ===
+            layerControl._layers.length - rasters.length - 2
           ) {
             setTimeout(() => {
               loadingIndicatorLayers.remove(map);
@@ -215,7 +354,28 @@ window.Decidim.initStudyNotesMap = function () {
   map.on("zoom", function () {
     var z = map.getZoom();
 
-    if (z > 15) {
+    const rastersToHide = rasters.filter(
+      (bg) => bg.minZoomLevel && bg.minZoomLevel > z
+    );
+
+    const vectorsToHide = vectors.filter(
+      (bg) => bg.minZoomLevel && bg.minZoomLevel > z
+    );
+
+    [...rastersToHide, ...vectorsToHide].forEach((bg) => {
+      const rasterLayer = rasterLayers.find((rl) => rl.id === bg.id);
+      const vectorLayer = vectorLayers.find((vl) => vl.id === bg.id);
+
+      if (rasterLayer) {
+        rasterLayer.layer.removeFrom(map);
+      }
+
+      if (vectorLayer) {
+        vectorLayer.layer.removeFrom(map);
+      }
+    });
+
+    if (z > 16) {
       return parcelsLayerGroup.addTo(map);
     }
 
@@ -294,7 +454,8 @@ window.Decidim.initStudyNotesMap = function () {
       onEachFeature: function (feature, layer) {
         if (
           $("#study-note-map__map").attr("data-map-state") ===
-          MapState.SelectParcels
+            MapState.SelectParcels &&
+          !lassoControl.enabled()
         ) {
           layer.on({
             click: function (e) {
@@ -374,6 +535,8 @@ window.Decidim.initStudyNotesMap = function () {
     });
 
     newLayer.addTo(parcelsLayerGroup);
+    newLayer.bringToFront();
+    parcelsNumbersLayer.bringToFront();
   }
 
   async function refreshParcelsLayer(map) {
@@ -418,8 +581,8 @@ window.Decidim.initStudyNotesMap = function () {
 
         const currentZoom = map.getZoom();
 
-        if (currentZoom < 16) {
-          map.setZoom(16);
+        if (currentZoom < 17) {
+          map.setZoom(17);
         }
       });
 
@@ -509,21 +672,59 @@ window.Decidim.initStudyNotesMap = function () {
     }
   }
 
+  L.Control.GuideModal = L.Control.extend({
+    onAdd: function (map) {
+      var button = L.DomUtil.create("a");
+
+      button.className = "leaflet-control-guide-modal";
+      button.href = "#";
+      button.title = "Pokaż instrukcję korzystania z mapy";
+      button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="19px" height="19px"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM13 13.3551V14H11V12.5C11 11.9477 11.4477 11.5 12 11.5C12.8284 11.5 13.5 10.8284 13.5 10C13.5 9.17157 12.8284 8.5 12 8.5C11.2723 8.5 10.6656 9.01823 10.5288 9.70577L8.56731 9.31346C8.88637 7.70919 10.302 6.5 12 6.5C13.933 6.5 15.5 8.067 15.5 10C15.5 11.5855 14.4457 12.9248 13 13.3551Z"></path></svg>`;
+
+      L.DomEvent.on(button, "click", function (e) {
+        L.DomEvent.stopPropagation(e);
+        L.DomEvent.preventDefault(e);
+
+        window.Decidim.currentDialogs.mapGuideModal.open();
+        window.Decidim.currentDialogs.mapGuideModal.firstFocusableElement.focus();
+      });
+
+      var div = L.DomUtil.create("div");
+      div.className = "leaflet-bar leaflet-control";
+      div.appendChild(button);
+
+      return div;
+    },
+  });
+
+  L.control.guideModal = function (opts) {
+    return new L.Control.GuideModal(opts);
+  };
+
+  if (window.Decidim.currentDialogs.mapGuideModal) {
+    L.control.guideModal({ position: "topleft" }).addTo(map);
+  }
+
   map.on("lasso.enabled", (event) => {
     $("#study-note-map__map").attr("data-map-state", MapState.SelectParcels);
+    window.Decidim.currentParcelId = null;
     refreshParcelsLayer(map);
 
     const currentZoom = map.getZoom();
 
-    if (currentZoom < 16) {
-      map.setZoom(16);
+    if (currentZoom < 17) {
+      map.setZoom(17);
     }
   });
 
   map.on("lasso.finished", (event) => {
     if (event.layers.length === 0) return;
 
-    setSelectedLayers(event.layers);
+    const parcelLayers = event.layers.filter((layer) => {
+      return "NAZWA_SERWIS" in layer.feature.properties;
+    });
+
+    setSelectedLayers(parcelLayers);
   });
 
   map.on("movestart", async function () {
@@ -547,8 +748,8 @@ window.Decidim.initStudyNotesMap = function () {
   map.on("overlayadd", function (e) {
     const layerName = e.name;
 
-    for (const [concatenatedId, layer] of Object.entries(rasters)) {
-      const [id, name] = concatenatedId.split(",");
+    for (const background of rasterLayers) {
+      const { id, layer } = background;
 
       if (layer === e.layer) {
         $(`.study-note-map__legend[data-map-background-id='${id}']`).addClass(
@@ -558,8 +759,8 @@ window.Decidim.initStudyNotesMap = function () {
       }
     }
 
-    for (const [concatenatedId, url] of Object.entries(vectors)) {
-      const [id, name] = concatenatedId.split(",");
+    for (const background of vectors) {
+      const { id, name } = background;
 
       if (layerName === name) {
         $(`.study-note-map__legend[data-map-background-id='${id}']`).addClass(
@@ -568,13 +769,29 @@ window.Decidim.initStudyNotesMap = function () {
         break;
       }
     }
+
+    const layers = [...rasterLayers, ...vectorLayers]
+      .sort((a, b) => {
+        const mapBackgroundA = mapBackgrounds.find((bg) => bg.id === a.id);
+        const mapBackgroundB = mapBackgrounds.find((bg) => bg.id === b.id);
+
+        const positionA = mapBackgroundA ? mapBackgroundA.position : 0;
+        const positionB = mapBackgroundB ? mapBackgroundB.position : 0;
+
+        return positionA > positionB ? 1 : -1;
+      })
+      .map(({ layer }) => {
+        layer.bringToFront();
+      });
+
+    refreshParcelsLayer(map);
   });
 
   map.on("overlayremove", function (e) {
     const layerName = e.name;
 
-    for (const [concatenatedId, layer] of Object.entries(rasters)) {
-      const [id, name] = concatenatedId.split(",");
+    for (const background of rasterLayers) {
+      const { id, layer } = background;
 
       if (layer === e.layer) {
         $(
@@ -584,8 +801,8 @@ window.Decidim.initStudyNotesMap = function () {
       }
     }
 
-    for (const [concatenatedId, url] of Object.entries(vectors)) {
-      const [id, name] = concatenatedId.split(",");
+    for (const background of vectors) {
+      const { id, name } = background;
 
       if (layerName === name) {
         $(
@@ -606,7 +823,7 @@ window.Decidim.initStudyNotesMap = function () {
       popupContent += `<table class="w-full">`;
       let combinedProps = {};
 
-      vectorLayers.forEach(function (layer) {
+      vectorLayers.forEach(function ({ layer }) {
         layer.eachLayer(function (featureLayer) {
           if (
             featureLayer.feature &&
@@ -631,15 +848,10 @@ window.Decidim.initStudyNotesMap = function () {
               combinedProps[key] !== null &&
               combinedProps[key] !== undefined &&
               combinedProps[key] !== ""
-                ? key === "profilPodstawowy"
-                  ? `${combinedProps["profilPodstawowy"]}${
-                      combinedProps["profilDodatkowy"] &&
-                      `,${combinedProps["profilDodatkowy"]}`
-                    }`
-                  : combinedProps[key]
+                ? combinedProps[key]
                 : ["OZS", "OUZ"].includes(key)
                 ? "NIE"
-                : ""
+                : "nie określono"
             }
           </td>
         </tr>`;
@@ -890,7 +1102,7 @@ window.Decidim.initStudyNotesMap = function () {
   });
 
   $(
-    "[data-action='cancel-parcel-selection'], , #parcelSelectionModal [data-dialog-closable]"
+    "[data-action='cancel-parcel-selection'], #parcelSelectionModal [data-dialog-closable]"
   ).click(function () {
     refreshParcelsLayer(map);
 
@@ -926,4 +1138,35 @@ window.Decidim.initStudyNotesMap = function () {
 
     window.Decidim.currentParcelId = null;
   });
+
+  window.Decidim.currentDialogs.parcelSelectionModal.config.onClose =
+    function () {
+      refreshParcelsLayer(map);
+      $("#mapModal-content > [data-dialog-closable]").focus();
+    };
+
+  window.Decidim.currentDialogs.parcelDeletionModal.config.onClose =
+    function () {
+      $("#mapModal-content > [data-dialog-closable]").focus();
+    };
+
+  window.Decidim.currentDialogs.parcelSelectionModal.config.onOpen =
+    function () {
+      $("#parcelSelectionModal-content > [data-dialog-closable]").focus();
+    };
+
+  window.Decidim.currentDialogs.parcelDeletionModal.config.onOpen =
+    function () {
+      $("#parcelDeletionModal-content > [data-dialog-closable]").focus();
+    };
+
+  if (window.Decidim.currentDialogs.mapGuideModal) {
+    window.Decidim.currentDialogs.mapGuideModal.config.onClose = function () {
+      $("#mapModal-content > [data-dialog-closable]").focus();
+    };
+
+    window.Decidim.currentDialogs.mapGuideModal.config.onOpen = function () {
+      $("#mapGuideModal-content > [data-dialog-closable]").focus();
+    };
+  }
 };

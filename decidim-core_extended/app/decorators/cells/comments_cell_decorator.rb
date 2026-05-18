@@ -2,8 +2,8 @@
 
 Decidim::Comments::CommentsCell.class_eval do
   # overwritten method
-  # use our view:
-  # - allow unregistered user to add comment
+  # use our view
+  # in view swap user_signed_in? with model.can_participate?(current_user)
   def add_comment
     return if single_comment?
     return if comments_blocked?
@@ -23,13 +23,6 @@ Decidim::Comments::CommentsCell.class_eval do
   end
 
   private
-
-  # overwritten method
-  # fix inconsistent design in Decidim
-  # remove: return false unless user_signed_in?
-  def user_comments_blocked?
-    !model.user_allowed_to_comment?(current_user)
-  end
 
   def component_is_remarks_or_exp_questions?
     %w(remarks expert_questions consultation_map).include?(current_component&.manifest_name)

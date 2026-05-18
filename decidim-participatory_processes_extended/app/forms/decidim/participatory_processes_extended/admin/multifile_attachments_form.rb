@@ -13,6 +13,7 @@ module Decidim
         attribute :attachment_collection_id, Integer
         mimic :attachments
 
+        # TODO: to refactor; atrybut :file służy do wyświetlenia wymagań dot. plików
         validates :file, passthru: { to: Decidim::Attachment }
 
         validates :attachment_collection, presence: true, if: ->(form) { form.attachment_collection_id.present? }

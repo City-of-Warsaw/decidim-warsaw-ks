@@ -1,0 +1,40 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t ".title" %>
+  </h1>
+</div>
+<div class="item__edit-form">
+  <div class="card">
+    <% url = decidim_custom_ai_admin.update_ai_decision_answers_path %>
+    <%= decidim_form_for(@form, url:, method: :patch, html: { autocomplete: 'off', class: 'form-defaults form' }) do |f| %>
+      <% @form.answer_ids.each do |id| %>
+        <%= f.hidden_field :answer_ids, multiple: true, value: id %>
+      <% end %>
+
+      <div class="card-section">
+        <div class="form__wrapper">
+          <div class="card pt-4">
+            <div class="row column">
+              <%= f.text_area :ai_decision_body, rows: 6 %>
+            </div>
+
+            <div class="row column">
+              <%= f.select :ai_decision_status, @form.available_ai_decision_statuses, { include_blank: true } %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item__edit-sticky">
+        <div class="item__edit-sticky-container">
+          <%= link_to t("actions.cancel", scope: "decidim.admin"),
+                      decidim_custom_ai_admin.answers_path,
+                      class: 'button button__sm button__secondary' %>
+          <%= f.submit "Zapisz rozstrzygnięcia",
+                       class: "button button__sm button__secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

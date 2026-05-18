@@ -24,15 +24,16 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  config.action_controller.asset_host = ENV.fetch("ASSET_HOST") { 'https://konsultacje.um.warszawa.pl' }
+  # config.action_controller.asset_host = ENV.fetch("ASSET_HOST") { 'https://konsultacje.um.warszawa.pl' } # NIE dziala na AWS PROD
+  # config.action_controller.asset_host = 'https://ks.cloudprod.cdsh.dev' # to dziala na AWS PROD
+  config.action_controller.asset_host = ENV['ASSET_HOST'].presence || 'https://konsultacje.um.warszawa.pl'
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options)
-  config.active_storage.service = :local
-  # config.active_storage.service = :amazon
+  config.active_storage.service = ENV.fetch("STORAGE_PROVIDER") { 'local' }
 
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil

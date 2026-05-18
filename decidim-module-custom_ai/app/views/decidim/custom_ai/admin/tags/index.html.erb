@@ -1,0 +1,27 @@
+<% add_decidim_page_title(t("tags.title", scope: "decidim.admin")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
+      <%= t("tags.title", scope: "decidim.admin") %>
+      <%= render partial: "decidim/custom_ai/admin/custom_ai/ai_functions_dropdown" %>
+      <%= link_to t("actions.add", scope: "decidim.admin"), decidim_custom_ai_admin.new_tag_path, class: "button button__sm button__secondary" %>
+      <%= link_to t("actions.destroy_all_of_that_component", scope: "decidim.custom_ai"), decidim_custom_ai_admin.destroy_all_of_that_component_tags_path, class: "button button__sm button__secondary",  method: :delete, data: { confirm: t("actions.confirm_destroy", scope: "decidim.admin") } %>
+      <%= link_to t("actions.generate", scope: "decidim.custom_ai"), decidim_custom_ai_admin.generate_tags_from_ai_tags_path, class: "button button__sm button__secondary" %>
+    </h1>
+  </div>
+
+  <div class="table-scroll">
+    <table class="table-list">
+      <thead>
+      <tr>
+        <th><%= t(".headers.name") %></th>
+        <th><%= t(".headers.actions") %></th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <%= render partial: "tag", collection: tags.order('name ASC') %>
+      </tbody>
+    </table>
+  </div>
+</div>

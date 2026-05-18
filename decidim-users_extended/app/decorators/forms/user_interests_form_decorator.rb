@@ -4,7 +4,6 @@ Decidim::UserInterestsForm.class_eval do
   attribute :scopes_ids, [Integer]
   attribute :tags_ids, [Integer]
   attribute :follow_ngo, Decidim::AttributeObject::TypeMap::Boolean
-  attribute :notifications_from_neighbourhood, Decidim::AttributeObject::TypeMap::Boolean
   attribute :zip_code
   attribute :organization
   attribute :scope_citywide, Decidim::AttributeObject::TypeMap::Boolean

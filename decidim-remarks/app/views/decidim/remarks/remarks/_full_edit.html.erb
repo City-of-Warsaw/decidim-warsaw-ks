@@ -2,6 +2,7 @@
   <%= decidim_form_for(form_object, method: :patch, remote: true) do |form| %>
 
     <div class="field remark-field--body">
+      <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'sr-only' %>
       <%= form.text_area(
             :body, 
             rows: 4,
@@ -29,7 +30,7 @@
               Usuń
             </button>
             
-            <%= check_box_tag 'remark[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %>
+            <%= check_box_tag 'remark[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden", aria: { label: "Usuń #{file.filename}" } %>
           </li>
         <% end %>
       </ul>
@@ -38,8 +39,9 @@
     <div class="field file-field remark-field--files position-relative">
       <%= form.file_field :files,
                           label: false,
-                          class: 'multifile hidden', 
+                          class: 'multifile hidden',
                           id: "remark_files_#{remark.id}",
+                          aria: { label: 'Dodaj załącznik' },
                           accept: ".jpg,.jpeg,.gif,.png,.bmp,.pdf,.doc,.docx",
                           multiple: true %> 
       <button type="button" class="remark-file-button attachment-button-js" data-target="#remark_files_<%= remark.id %>">Dodaj załącznik</button>
@@ -47,7 +49,7 @@
 
     <% unless current_user %>
       <div class="field remark-field--signature">
-        <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+        <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'sr-only' %>
         <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature'), aria: { label: "Twój e-mail" } %>
       </div>
     <% end %>

@@ -100,6 +100,20 @@ module Decidim
           ]
       }
 
+      def author_data
+        OpenStruct.new(
+          first_name: submitter_data_first_name,
+          last_name: submitter_data_last_name,
+          organization_name: submitter_data_org_name,
+          country: submitter_data_country, # tego nie ma w Signum
+          street: submitter_data_street,
+          street_number: submitter_data_street_number,
+          flat_number: submitter_data_flat_number,
+          city: submitter_data_city,
+          zip_code: submitter_data_zip_code
+        )
+      end
+
       # Presenter class for AdminLogs
       def self.log_presenter_class_for(_log)
         Decidim::GeneralPlanRequests::AdminLog::GeneralPlanRequestPresenter

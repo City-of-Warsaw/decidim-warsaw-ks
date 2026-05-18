@@ -3,17 +3,26 @@
 module Decidim
   module ExpertQuestions
     # This class holds logic to full update of User Question
-    # After initially added, User Question data can be edited by the author which is unregistered user:
+    # After initially added, User Question data can be edited by the author
+    # Attributes updated by registered user:
+    # - body
+    # Attributes updated by unregistered user:
     # - signature
     # - district_id
     # - age
     # - gender
     # In both cases Boolean field 'edited' is marked as true
     class UpdateUserQuestion < Decidim::Command
-      # Initializes an Update User Question Command.
+      include Decidim::CoreExtended::AuthorParamsBuilder
+      include Decidim::CoreExtended::GenerateTokenHelper
+
+      # Initializes a UpdateUserQuestion Command.
       #
-      # form - The form from which to get the data.
-      # current_user - The current instance of the user question to be updated.
+      # form - A form object with the params.
+      # user_question - A user question object with the params.
+      # current_organization - A current organization object
+      # component - A current component object
+      # author - registered user or not registered
       def initialize(form, user_question, author)
         @form = form
         @user_question = user_question
@@ -37,25 +46,17 @@ module Decidim
       attr_reader :form, :user_question, :author
 
       def update_user_question
-        user_question.update(base_attributes)
+        user_question.update(attributes)
+        user_question.update(author_second_step_params)
       end
 
-      def base_attributes
-        attrs = {
+      def attributes
+        {
           body: form.body,
           expert:,
-          files: merged_files
+          files: merged_files,
+          signature: signature_or_editorial
         }
-        unless author.is_a?(Decidim::User)
-          # for unregistered author
-          attrs.merge!(
-            signature: form.signature,
-            district_id: form.district_id,
-            age: form.age,
-            gender: form.gender
-          )
-        end
-        attrs
       end
 
       def expert
@@ -69,12 +70,6 @@ module Decidim
         existing_blobs = user_question.files.reject { |f| to_remove_ids.include?(f.id) }.map(&:blob)
         new_files = Array(form.files)
         existing_blobs + new_files
-      end
-
-      # Private method
-      # returns special object that serves as Author for remarks created by unregistered users
-      def unregistered_author
-        @unregistered_author ||= Decidim::CoreExtended::UnregisteredAuthor.first
       end
     end
   end

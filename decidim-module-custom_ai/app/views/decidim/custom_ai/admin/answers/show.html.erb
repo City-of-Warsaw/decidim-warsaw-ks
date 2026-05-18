@@ -1,0 +1,160 @@
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t(".title") %> (ID: <%= answer.id %>)
+    <%= link_to t("actions.edit", scope: "decidim.admin"),
+                decidim_custom_ai_admin.edit_answer_path(id: answer.id, component_id: current_component.id),
+                class: "button button__sm button__secondary back" %>
+  </h1>
+</div> 
+
+<div class="item__edit item__edit-1col">
+  <div class="item__edit-form form__wrapper">
+    <%= render partial: 'answer_question_data' %>
+
+    <div class="card" data-component="accordion" id="accordion-answer-title">
+      <div class="card-divider">
+        <button class="card-divider-button" data-open="true" data-controls="panel-answer-title" type="button">
+          <%= icon "arrow-right-s-line" %>
+          <h2 class="card-title">
+            Odpowiedź
+          </h2>
+        </button>
+      </div>
+
+      <div id="panel-answer-title" class="card-section">
+        <div class="row column">
+          <p>
+            <strong class="font-semibold">Odpowiedź: </strong><br />
+            <%= decidim_sanitize answer.body %>
+          </p>
+
+          <p>
+            <strong class="font-semibold">Data odpowiedzi: </strong>
+            <%= l answer.created_at, format: "%d/%m/%Y - %H:%M" %>
+          </p>
+        </div>
+      </div>
+    </div>  
+
+   <div class="card" data-component="accordion" id="accordion-results-title">
+      <div class="card-divider">
+        <button class="card-divider-button" data-open="true" data-controls="panel-results-title" type="button">
+          <%= icon "arrow-right-s-line" %>
+          <h2 class="card-title">
+            Rozstrzygnięcie
+          </h2>
+        </button>
+      </div>
+
+      <div id="panel-results-title" class="card-section">
+        <div class="row column">
+          <p>
+            <strong class="font-semibold">Błędy na etapie składania:</strong>
+            <%= if answer.ai_suggestion_body.present?
+                  decidim_sanitize(answer.ai_suggestion_body)
+                else
+                  t("booleans.false")
+                end %>
+          </p>
+
+          <p>
+            <strong class="font-semibold">Rozstrzygnięcie: </strong>
+            <% if answer.ai_decision_status.present? %>
+              <%= t("enums.decidim.forms.answer.ai_decision_status.#{answer.ai_decision_status}") %>
+            <% else %>
+              brak
+            <% end %>
+          </p>
+
+          <p>
+            <strong class="font-semibold">Uzasadnienie: </strong>
+            <% if answer.ai_decision_body.present? %>
+              <%= decidim_sanitize answer.ai_decision_body %>
+            <% else %>
+              brak
+            <% end %>
+          </p>
+
+          <p>
+            <strong class="font-semibold">Status: </strong>
+            <% if answer.status.present? %>
+              <%= t("enums.decidim.forms.answer.status.#{answer.status}") %>
+            <% end %>
+          </p>
+
+          <p>
+            <strong class="font-semibold">Jest skomplikowana: </strong>
+            <%= t("booleans.#{answer.ai_is_complicated?}") %>
+          </p>
+          <p>
+            <strong class="font-semibold">Jest nielogiczna: </strong>
+            <%= t("booleans.#{answer.ai_is_illogical?}") %>
+          </p>
+          <p>
+            <strong class="font-semibold">Ma urwaną treść: </strong>
+            <%= t("booleans.#{answer.ai_is_incomplete?}") %>
+          </p>
+          <p>
+            <strong class="font-semibold">Zawiera wulgaryzmy: </strong>
+            <%= t("booleans.#{answer.ai_is_vulgar?}") %>
+          </p>
+          <p>
+            <strong class="font-semibold">Tagi przypisane do uwagi: </strong>
+            <%= answer.tags.map(&:name).join(", ") %>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-component="accordion" id="accordion-history-title">
+      <div class="card-divider">
+        <button class="card-divider-button" data-open="true" data-controls="panel-history-title" type="button">
+          <%= icon "arrow-right-s-line" %>
+          <h2 class="card-title">
+            Historia zmian uwagi
+          </h2>
+        </button>
+      </div>
+
+      <div id="panel-results-title" class="card-section">
+        <div class="row column">
+          <div class="table-scroll">
+            <table class="table-list">
+              <thead>
+              <th>Autor zmiany</th>
+              <th>Kiedy wykonana zmiana</th>
+              <th>Status uzasadnienia</th>
+              <th>Rozstrzygnięcie</th>
+              <th>Uzasadnienie</th>
+              </thead>
+              <tbody>
+              <% answer.answer_versions.each do |version| %>
+                <tr data-id="<%= version.id %>">
+                  <td>
+                    <% if version.user.present? %>
+                      <%= "#{version.user.first_name} #{version.user.last_name}" %>
+                    <% else %>
+                      Publiczna inicjalizacja odpowiedzi
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= l version.created_at, format: "%d/%m/%Y - %H:%M" %>
+                  </td>
+                  <td>
+                    <%= t("enums.decidim.forms.answer.status.#{version.status}") if version.status.present? %>
+                  </td>
+                  <td>
+                    <%= t("enums.decidim.forms.answer.ai_decision_status.#{version.ai_decision_status}") if version.ai_decision_status.present? %>
+                  </td>
+                  <td>
+                    <%= decidim_sanitize html_truncate(version.ai_decision_body, length: 50, separator: "..."), strip_tags: %w[img video] %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

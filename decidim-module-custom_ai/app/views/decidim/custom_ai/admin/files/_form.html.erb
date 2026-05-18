@@ -1,0 +1,15 @@
+<div class="form__wrapper">
+  <div class="card pt-4"> 
+    <div class="row column">
+      <%= form.text_area :description, rows: 4, data: { "disable-character-counter": "true" } %>
+      <div class="hint help-text flex flex-col gap-2">
+        <p>Załaduj plik, a następnie opisz jego zawartość w 2-3 zdaniach, wskazując kluczowe informacje, które mogą pomóc w jego dalszym przetwarzaniu przez AI. Opis powinien zawierać szczegóły dotyczące struktury pliku, typu danych oraz ewentualnych kategorii lub tematów, które mogą być przydatne do wygenerowania metadanych.</p>
+        <p>Przykład opisu:</p>
+        <p>"Plik zawiera dane na temat rynku mieszkaniowego w Polsce za ostatnie 5 lat. Zawiera informacje o cenach nieruchomości, liczbie nowych inwestycji mieszkaniowych, dostępnych mieszkaniach na sprzedaż oraz średnich dochodach gospodarstw domowych w różnych regionach kraju. Struktura pliku to tabelka z kolumnami: 'Rok', 'Region', 'Cena średnia (zł/m²)', 'Liczba inwestycji', 'Średni dochód (zł)'."</p>
+      </div>
+    </div>
+    <div class="row column">
+      <%= form.file_field :file, accept: FileFormValidator.accept_string_for(form.object.class, :file) %>
+    </div>
+  </div>
+</div>

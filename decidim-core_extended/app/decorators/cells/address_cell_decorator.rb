@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 Decidim::AddressCell.class_eval do
+  # overwritten method-view
+  # use online_new to add location_hints if any
+  def show
+    return render :online_new if options[:online]
+
+    render
+  end
+
   private
 
   # overwritten method

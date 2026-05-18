@@ -1,6 +1,6 @@
 <div class="card__content update-remark" id="editable-remark-<%= remark.id %>">
   <%= decidim_form_for(form_object, method: :patch, remote: true) do |form| %>
-    <% if form_object.categories_select.any? %>
+    <% if form_object.categories_select.any? && @form.categories_select.length > 1 %>
       <div class="field remark-field--category">
         <%= form.select :decidim_category_id,
               form_object.categories.map{ |cat| ["<span style='background-color: #{cat.color};'>#{raw(cat.inline_svg(cat.file))}</span>#{translated_attribute(cat.name)}", cat.id]},
@@ -10,7 +10,7 @@
     <% end %>
 
     <div class="field remark-field--body">
-      <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'show-for-sr' %>
+      <%= form.label :body, t('activemodel.attributes.remark.body'), class: 'sr-only' %>
       <%= form.text_area(
             :body,
             id: 'add-remark',
@@ -38,7 +38,7 @@
               Usuń
             </button>
 
-            <%= check_box_tag 'remark[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden" %>
+            <%= check_box_tag 'remark[remove_files][]', file.id, false, class: "remove-file-checkbox !hidden", aria: { label: "Usuń #{file.filename}" } %>
           </li>
         <% end %>
       </ul>
@@ -49,6 +49,7 @@
                           label: false,
                           class: 'multifile hidden',
                           id: "remark_files_#{remark.id}",
+                          aria: { label: 'Dodaj załącznik' },
                           accept: FileFormValidator.accept_string_for(form.object.class, :files),
                           multiple: true %>
       <button type="button" class="remark-file-button attachment-button-js" data-target="#remark_files_<%= remark.id %>">Dodaj załącznik</button>
@@ -56,7 +57,7 @@
 
     <% unless current_user %>
       <div class="field remark-field--signature">
-        <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'show-for-sr' %>
+        <%= form.label :signature, t('activemodel.attributes.remark.signature'), class: 'sr-only' %>
         <%= form.text_field :signature, label: false, required: true, placeholder: t('activemodel.attributes.remark.signature') %>
       </div>
     <% end %>

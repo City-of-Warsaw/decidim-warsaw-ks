@@ -46,9 +46,11 @@
   text-decoration-line: underline;
 }
 
-.comment__content .editor-content {
-  font-size: 16px;
-  color: #020203;
+.comment {
+  &__content p {
+    font-size: 18px;
+    line-height: 23px;
+  }
 }
 
 .remaining-character-count {
@@ -59,14 +61,8 @@
 .signature-wrapper {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 48px;
   gap: 12px;
-
-  @media only screen and (min-width: 1024px) {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
 
   p strong {
     font-weight: 600;

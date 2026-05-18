@@ -2,8 +2,10 @@
 
 module Decidim::ConsultationMap::Admin
   class RemarksController < Decidim::ConsultationMap::Admin::ApplicationController
+    include Decidim::CoreExtended::SerializerExportHelper
+
     helper Decidim::ApplicationHelper
-    helper_method :remark
+    helper_method :remark, :col_index_to_column_letter
 
     def index
       enforce_permission_to :read, :map_remark
@@ -14,7 +16,9 @@ module Decidim::ConsultationMap::Admin
     def export
       enforce_permission_to :read, :map_remark
 
-      @remarks = collection
+      @xml_serializer = Decidim::ConsultationMap::RemarksSerializer.new
+      @remarks = collection.without_system_hidden.not_hidden
+      # TODO: create_log(current_user, 'remarks_export')
       respond_to do |format|
         format.xlsx
       end

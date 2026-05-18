@@ -117,6 +117,7 @@ module Decidim::ExpertQuestions
       @expert ||= experts.find(params[:id]) if params[:id]
     end
 
+    # TODO: czy wszyscy moga eksportowac wszystkie pytania do ekspeta?
     def user_questions
       @user_questions ||= Decidim::ExpertQuestions::UserQuestion.joins(:expert).where('decidim_expert_questions_experts.decidim_component_id': current_component.id)
     end

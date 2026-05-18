@@ -7,10 +7,10 @@ module Decidim
     class StudyNoteZip < ApplicationRecord
       include Decidim::HasComponent
 
-      before_create :generate_uuid
+      belongs_to :user, foreign_key: "decidim_user_id", class_name: "Decidim::User"
       has_one_attached :file
 
-      belongs_to :user, foreign_key: "decidim_user_id", class_name: "Decidim::User"
+      before_create :generate_uuid
 
       def generate_uuid
         self.uuid = SecureRandom.hex(36)

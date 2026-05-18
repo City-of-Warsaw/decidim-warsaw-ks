@@ -196,12 +196,12 @@ pl:
         main_image: Obraz
         title: Treść wyświetlana na obrazie
       ks_multi_process_settings_form:
-        body: Treść
+        body: Treść nad stopką
         footer: Treść stopki
         interpolations_hint: '<p>Dostępne zmienne:<ul class="interpolations_hint">
                             <li>„%{name}” w dowolnym miejscu tekstu głównego lub tematu, a zostanie zastąpiony nazwą odbiorcy.</li>
                             <li>„%{unsubscribe_link}” w stopce aby wyświetlić url linku do wypisywania sie z newslettera</li></ul></p>'
-        introduction: Treść pod leadem
+        introduction: Treść
         lead: Lead
         main_image: Obraz
     admin:
@@ -214,6 +214,9 @@ pl:
             active: Aktywny
             inactive: Nieaktywny
       actions:
+        confirm_deactivate_ai: Czy jesteś pewien ze chcesz wyłączyć funkcje AI?
+        disable_ai: Dezaktywuj funkcje AI
+        enable_ai: Aktywuj funkcje AI
         hide: Dezaktywuj
         activate: Aktywuj
         back: Wróć
@@ -253,6 +256,10 @@ pl:
       faq_groups:
         title: Grupy
       components:
+        ai_disabled:
+          success: Funkcje AI zostały wyłączone
+        ai_enabled:
+          success: Funkcje AI zostały włączone
         form:
           users_action_end_help: Po tej dacie użytkownicy zewnętrzni już nie będą mogli dodawać uwag, pytań i komentarzy
           users_action_end_date: Data zamknięcia tego komponentu (o godzinie 23:59:59) *
@@ -314,6 +321,9 @@ pl:
         update:
           success: Redakcja użytkownika została zaktulizowana
     admin_log:
+      component:
+        disable_ai: "Użytkownik %{user_name} wyłączył funkcje AI dla komponentu %{resource_name} "
+        enable_ai: "Użytkownik %{user_name} włączył funkcje AI dla komponentu %{resource_name} "
       additional_translation:
         update: "%{user_name} zaktualizował(a) tłumaczenie dla klucza: %{key}"
       user:
@@ -393,6 +403,16 @@ pl:
           report_description: Opis raportu
           result_body: Treść efektu
           answer_questionnaire_public_user_link: Link do treści przekazanych w ankiecie uwag
+          answers_export_link: Link do eksportu uwag ankiety
+          answers_import_summary: Podsumowanie importu
+          remark_or_its_comment_body: Treść uwagi lub jej komentarza
+          remark_or_its_comment_link: Link do uwagi lub jej komentarza
+          map_remark_body: Treść uwagi na mapie
+          map_remark_link: Link do uwagi na mapie
+          user_question_body: Treść pytania do eksperta
+          user_question_link: Link do pytania do eksperta
+          manage_moderations_link: Link do zarządzania moderacjami
+          report_details: Dodatkowe uwagi lub inny powód zgłoszenia do moderacji
         edit:
           title: Edycja szablonu
           update: Zapisz

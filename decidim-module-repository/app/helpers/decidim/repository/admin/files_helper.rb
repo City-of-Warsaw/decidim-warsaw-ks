@@ -49,7 +49,8 @@ module Decidim
             {
               type: "image",
               url: decidim_repository.blob_url(file.file.signed_id, filename: file.file.filename, disposition: "attachment", protocol: protocol),
-              alt: file.alt.presence || ""
+              alt: file.alt.presence || "",
+              description: file.description.presence || ""
             }
           elsif file.video?
             {

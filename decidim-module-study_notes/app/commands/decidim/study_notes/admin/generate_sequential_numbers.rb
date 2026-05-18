@@ -14,10 +14,9 @@ module Decidim
         #
         # Broadcasts :ok if successful, :invalid otherwise.
         def call
-          return broadcast(:invalid) if form.invalid?
+          return broadcast(:invalid) if form.invalid? && !form.force_override
 
           generate_sequential_numbers
-
           broadcast(:ok)
         end
 
@@ -26,7 +25,13 @@ module Decidim
         attr_reader :form, :current_component
 
         def generate_sequential_numbers
-          Decidim::StudyNote::GenerateSequentialNumbersForStudyNotesJob.perform_later(form.sequential_number, current_component, current_user)
+          Decidim::StudyNote::GenerateSequentialNumbersForStudyNotesJob.perform_later(
+            form.sequential_number,
+            form.id_from,
+            form.id_to,
+            current_component,
+            current_user
+          )
         end
       end
     end

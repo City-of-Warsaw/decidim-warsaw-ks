@@ -14,6 +14,7 @@ module Decidim
 
       scope :latest_first, -> { order(updated_at: :desc) }
 
+      # TODO: needs fix for adding comments
       def participatory_space
         self
       end

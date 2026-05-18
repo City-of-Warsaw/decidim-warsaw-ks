@@ -70,3 +70,42 @@ $(document).on("click", ".remove-file-btn", function (e) {
 
   $li.hide();
 });
+
+function updateSingleRemarkFlashTexts(context = document) {
+  $(context)
+    .find('[id^="comments-for-Remark-"] > #comments')
+    .each(function () {
+      const $commentsRoot = $(this);
+
+      const $flash = $commentsRoot.find(".flash").first();
+      if ($flash.length) {
+        $flash.css("background-color", "#F3F8FA");
+      }
+
+      const $title = $commentsRoot.find(".flash .flash__title").first();
+      if ($title.length) {
+        $title.text("Wyświetlasz teraz pojedynczy komentarz do uwagi");
+      }
+
+      const $message = $commentsRoot
+        .find(".flash .flash__message.editor-content")
+        .first();
+      if ($message.length) {
+        const $link = $message.find("a").first();
+        if ($link.length) {
+          $link.text("Zobacz wszystkie komentarze do tej uwagi");
+          $link.css("color", "#020203");
+        } else {
+          $message.text("Zobacz wszystkie komentarze do tej uwagi");
+        }
+      }
+    });
+}
+
+$(document).ready(function () {
+  updateSingleRemarkFlashTexts();
+});
+
+document.addEventListener("ajax:loaded", ({ detail }) =>
+  updateSingleRemarkFlashTexts(detail)
+);

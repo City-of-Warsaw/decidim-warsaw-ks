@@ -28,4 +28,14 @@ Decidim::Component.class_eval do
       description: settings[:help_section_description]
     )
   end
+
+  def map_guide
+    content = settings[:map_guide]
+    return nil if content.blank?
+
+    sanitized = ActionView::Base.full_sanitizer.sanitize(content).strip
+    return nil if sanitized.blank?
+
+    content.html_safe
+  end
 end

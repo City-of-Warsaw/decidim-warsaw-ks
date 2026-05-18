@@ -6,21 +6,15 @@ module Decidim
       include Decidim::EmailChecker
       include Decidim::GeneralPlanRequests::PdfAnonymisation
 
-      # Actions:
-      # - two_days_till_consultations_end
       def notify_about_consultation(action_name, resource, receiver)
-        passed_data = { resource: resource, consultation: resource }
-
-        # Add result body only if there is published effect
-        first_published_result = resource.results.published.sorted_by_weight.first
-        passed_data[:result_body] = first_published_result.body if first_published_result&.body.present?
-
-        # Add report_description only if there are published effects or report
-        # Effects are always after the report - therefore report will be present if there will be effects
-        if %w[report effects].include?(resource.consultation_status)
+        passed_data = { resource:, consultation: resource }
+        if %w(report effects).include?(resource.consultation_status) && resource.report_published?
           passed_data[:report_description] = resource.report_description
         end
-        
+        if %w(effects).include?(resource.consultation_status) && resource.published_first_result?
+          passed_data[:result_body] = resource.results.published.sorted_by_weight.first
+        end
+
         service = Decidim::CoreExtended::MailTemplateService.new(action_name, receiver, passed_data)
         return unless service.active?
 

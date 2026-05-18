@@ -59,6 +59,7 @@ module Decidim::ExpertQuestions
       end
 
       xit 'returns proper users_to_notify_on_comment_created' do
+        # TODO: when followable will acknowlede unregistered users
         users = user_question.users_to_notify_on_comment_created
         expect(users.include?(user)).to be true
       end
@@ -66,6 +67,7 @@ module Decidim::ExpertQuestions
       context 'for unregistered author' do
         let(:user) { default_author }
         xit 'returns proper users_to_notify_on_comment_created' do
+          # TODO: when followable will acknowlede unregistered users
           users = user_question.users_to_notify_on_comment_created
           expect(users.include?(user)).to be true
         end

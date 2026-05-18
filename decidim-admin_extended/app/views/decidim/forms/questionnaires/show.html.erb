@@ -53,11 +53,29 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= render partial: "decidim/forms/questionnaires/questionnaire_readonly" %>
+       <span class="md:!col-start-1 lg:!col-start-2"> <%= t(".answer_questionnaire.anonymous_user_message", sign_in_link: decidim.new_user_session_path, sign_up_link: decidim.new_user_registration_path).html_safe %></span>
     <% end %>
   <% else %>
     <%= cell("decidim/announcement", { title: t("decidim.forms.questionnaires.show.questionnaire_closed.title"), body: t("decidim.forms.questionnaires.show.questionnaire_closed.body") }, callout_class: "warning") %>
   <% end %>
   <% end %>
 <% end %>
+<% end %> 
+
+<% if current_component.ai_enabled? %>
+  <%= render partial: "decidim/forms/questionnaires/ai_processing_modal" %>
+
+  <%
+    js_configs = {
+      processAiEndpoint: "/processes/#{current_participatory_space.slug}/f/#{current_component.id}/ai_api"
+    }
+  %>
+
+  <% content_for(:js_content) do %>
+    <%= nonced_javascript_tag do %> 
+      window.Decidim.config.set(<%== js_configs.to_json %>); 
+    <% end %>
+  <% end %>
+
+  <%= append_javascript_pack_tag "ai_questionnaire" %>
 <% end %>

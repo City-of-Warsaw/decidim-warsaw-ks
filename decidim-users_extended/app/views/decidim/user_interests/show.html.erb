@@ -11,12 +11,13 @@
       Powiadomimy Cię, kiedy rozpoczną się związane z nimi konsultacje
     </p>
 
-    <div class="form__select-wrapper mt-8">
+    <div class="form__select-wrapper form__select-wrapper--tiles mt-8">
       <%= f.select :scopes_ids, @user_interests.available_scopes,
                    { label: "Które dzielnice Cię interesują?", include_blank: false, legend_title: "Wybierz dzielnice" },
                    { class: 'multiple scopes-ids-select-js',
                      multiple: true,
                      "data-placeholder": "Wybierz dzielnice",
+                     "data-dropdown-label": "<span>Dzielnice dla</span><span>wszystkich konsultacji</span>",
                      "aria-controls": "processes",
                      "data-class": "pretty-multiselect",
                      "data-style": "--prompt: 'Wybierz jedną lub kilka dzielnic:'" } %>
@@ -29,12 +30,13 @@
       </div>
     </div>
 
-    <div class="form__select-wrapper mt-8">
+    <div class="form__select-wrapper form__select-wrapper--tiles mt-8">
       <%= f.select :tags_ids, @user_interests.available_tags,
                    { label: "Które tematy Cię interesują?", include_blank: false, legend_title: "Wybierz tematy" },
                    { class: 'multiple tags-ids-select-js',
                      multiple: true,
                      "data-placeholder": "Wybierz tematy",
+                     "data-dropdown-label": "<span>Tematy dzielnicowe</span><span>i ogólnomiejskie</span>",
                      "aria-controls": "processes",
                      "data-class": "pretty-multiselect",
                      "data-style": "--prompt: 'Wybierz jeden lub kilka tematów:'" } %>

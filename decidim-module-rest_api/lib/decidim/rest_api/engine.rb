@@ -49,6 +49,10 @@ module Decidim
         end
       end
 
+      # TODO: For Version 0.25.2
+      # initializer "RestApi.webpacker.assets_path" do
+      #   Decidim.register_assets_path File.expand_path("app/packs", root)
+      # end
 
       initializer 'decidim_rest_api.append_routes', after: :load_config_initializers do |_app|
         # config for apipie gem

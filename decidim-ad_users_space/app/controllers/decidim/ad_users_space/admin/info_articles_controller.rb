@@ -6,13 +6,13 @@ module Decidim
       # This controller is responsible for managing Info Articles in Admin Panel
       class InfoArticlesController < Decidim::Admin::ApplicationController
         include Decidim::Admin::Concerns::HasTabbedMenu
-        include Decidim::Admin::Officializations::Filterable
 
         helper Decidim::ApplicationHelper
 
         def index
           enforce_permission_to :update, :organization
-          @info_articles = filtered_collection
+          @article_categories = Decidim::AdUsersSpace::ArticleCategory.sorted_by_weight
+          @orphan_articles = collection.where(article_category_id: nil).sorted_by_weight
         end
 
         def new

@@ -24,7 +24,7 @@ pl:
     surveys:
       surveys:
         answer:
-          invalid: Możliwe, że niektóre wymagane odpowiedzi nie są uzupełnione. Wróć do nich i wyślij ankietę.
+          invalid: Możliwe, że niektóre wymagane odpowiedzi nie są uzupełnione lub limit znaków jest przekroczony. Wróć do oznaczonych pól i wyślij ankietę raz jeszcze.
     comments:
       comment_form:
         clear: Wyczyść
@@ -147,3 +147,14 @@ pl:
           tos_agreement: "Publikując treść, akceptujesz <strong>%{link}</strong>."
           anonymous_user_message: Jeśli chcesz dodać uwagę, <a href="%{sign_in_link}">zaloguj się</a> lub <a href="%{sign_up_link}">zarejestruj</a>.
       remarks_title: Uwagi
+      export:
+        remark:
+          lp: Lp
+          body: Treść uwagi lub komentarza
+          signature: Podpis uwagi lub komentarza
+          email: E-mail
+          district: Dzielnica
+          age: Wiek
+          gender: Płeć
+          url: URL załącznika uwagi lub komentarza
+          created_at: Data dodania komentarza

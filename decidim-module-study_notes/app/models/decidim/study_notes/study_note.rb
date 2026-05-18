@@ -48,10 +48,16 @@ module Decidim::StudyNotes
     ATTORNEY_FOR_SERVICE = 1
 
     has_one_attached :attorney_power_represent_applicant_or_for_service
+    has_many_attached :attorney_power_represent_applicant_or_for_service_img
+
     has_one_attached :attorney_power_payment_stamp_duty_confirm
+    has_many_attached :attorney_power_payment_stamp_duty_confirm_img
+
     has_many_attached :parcel_site_boundary
+    has_many_attached :parcel_site_boundary_img
 
     has_many_attached :files
+    has_many_attached :files_img
 
     validates :attorney_power_represent_applicant_or_for_service, file_form: {
       max_size: 5.megabytes,
@@ -111,18 +117,49 @@ module Decidim::StudyNotes
       "#{submitter_data_street} #{submitter_data_flat_number}#{flat_number.present? ? '/' : nil}#{submitter_data_flat_number}, #{submitter_data_zip_code} #{submitter_data_city}"
     end
 
+    def author_data
+      OpenStruct.new(
+        first_name: submitter_data_first_name,
+        last_name: submitter_data_last_name,
+        organization_name: submitter_data_org_name,
+        city: submitter_data_city,
+        zip_code: submitter_data_zip_code,
+        street: submitter_data_street,
+        street_number: submitter_data_street_number,
+        flat_number: submitter_data_flat_number
+      )
+    end
+
     def pdf_name
-      "#{id}_potwierdzenie"
+      file_name = [sequential_number.to_s,
+                   id.to_s,
+                   created_at.strftime("%F").to_s,
+                   "potwierdzenie"].compact_blank.join("_")
+      file_name
     end
     def anonymized_pdf_name
-      "#{pdf_name}-zanonimizowany"
+      "#{pdf_name}_zanonimizowany"
     end
+
     def pdf_template
       'decidim/study_notes/shared/show'
     end
 
+    def pdf_footer 
+      {
+        font_name: "Arial",
+        font_size: 9,
+        left: "#{sequential_number.present? ? "#{sequential_number}_#{id}" : "#{id}"}",
+        right: "[page]"
+      }
+    end
+
     def registered_to_signum?
       signum_nr_kancelaryjny.present?
+    end
+
+    def mark_submitter_confirmation_send
+      update_column(:submitter_confirmation_send, true)
     end
 
     def self.ransackable_attributes(auth_object = nil)

@@ -1,0 +1,32 @@
+<% add_decidim_page_title(t(".title")) %>
+<div class="item_show__header">
+  <h1 class="item_show__header-title">
+    <%= t ".title" %>
+  </h1>
+</div>
+<div class="item__edit-form">
+  <div class="card">
+    <% url = decidim_custom_ai_admin.import_ai_decisions_answers_path %>
+    <%= decidim_form_for(@form, url:, method: :patch, html: { autocomplete: 'off', class: 'form-defaults form' }) do |f| %>
+      <div class="card-section">
+        <div class="form__wrapper">
+          <div class="card pt-4">
+            <div class="row column">
+              <%= f.file_field :xlsx_file, accept: FileFormValidator.accept_string_for(f.object.class, :xlsx_file) %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item__edit-sticky">
+        <div class="item__edit-sticky-container">
+          <%= link_to t("actions.cancel", scope: "decidim.admin"),
+                      decidim_custom_ai_admin.answers_path,
+                      class: 'button button__sm button__secondary' %>
+          <%= f.submit "Importuj rozstrzygnięcia",
+                       class: "button button__sm button__secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

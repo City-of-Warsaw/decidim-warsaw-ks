@@ -14,11 +14,13 @@ pl:
         x_longitude: "Długość geograficzna (w formacie: 21.000695)"
         y_latitude: "Szerokość geograficzna (w formacie: 52.256425)"
         y_longitude: "Długość geograficzna (w formacie: 21.200775)"
+        visible_on_load: Włączona na start
+        min_zoom_level: "Wyświetlanie od skali/powiększenia mapy"
       study_note:
         authority_name_which_letter_is_addressed: "Nazwa:"
         letter_type: "2.2. uwaga do konsultowanego projektu aktu"
         urban_planning_act_type: "3.1. plan ogólny gminy"
-        submitter_data_role: "<strong>Zaznacz, czy składasz wniosek jako osoba fizyczna, czy jako jednostka organizacyjna</strong> (instytucja, przedsiębiorstwo itp.):"
+        submitter_data_role: "<strong>Zaznacz, czy składasz uwagę jako osoba fizyczna, czy jako jednostka organizacyjna</strong> (instytucja, przedsiębiorstwo itp.):"
         submitter_data_first_name: Imię
         submitter_data_last_name: Nazwisko
         submitter_data_org_name: Nazwa
@@ -34,7 +36,7 @@ pl:
         submitter_data_email: E-mail
         submitter_data_phone_number: Nr telefonu
         submitter_data_epuap_delivery_address: Adres skrytki ePUAP lub adres do doręczeń elektronicznych
-        perpetual_owner_of_the_property: Czy jesteś (lub osoba, w imieniu której składasz wniosek) właścicielem lub użytkownikiem wieczystym nieruchomości objętej wnioskiem?
+        perpetual_owner_of_the_property: Czy jesteś (lub osoba, w imieniu której składasz uwagę) właścicielem lub użytkownikiem wieczystym nieruchomości objętej uwagą?
         mailing_address_data_country: Kraj
         mailing_address_data_voivodeship: Województwo
         mailing_address_data_county: Powiat
@@ -81,27 +83,71 @@ pl:
         detailed_notes_social_infrastructure_accessibility_body: Wpisz, jaki jest Twój postulat dotyczący standardów dostępności infrastruktury społecznej dla podanego terenu
         detailed_notes_parcel_id: Identyfikator działki lub działek ewidencyjnych
         request_body: 7b. Uwagi ogólne/inne
-        attorney_power_represent_applicant_or_for_service: Jeśli jesteś pełnomocnikiem - załącz pełnomocnictwo do reprezentowania składającego pismo lub pełnomocnictwo do doręczeń (zgodnie z ustawą z dnia 16 listopada 2006 r. o opłacie skarbowej (Dz. U. z 2023 r. poz. 2111))
-        attorney_power_payment_stamp_duty_confirm: Jeśli załączasz pełnomocnictwo - załącz potwierdzenie uiszczenia opłaty skarbowej od pełnomocnictwa (jeżeli obowiązek uiszczenia takiej opłaty wynika z ustawy z dnia 16 listopada 2006 r. o opłacie skarbowej)
+        attorney_power_represent_applicant_or_for_service: "Jeśli jesteś pełnomocnikiem – załącz pełnomocnictwo do reprezentowania składającego pismo lub pełnomocnictwo do doręczeń (zgodnie z ustawą z dnia 16 listopada 2006 r. o opłacie skarbowej (Dz. U. z 2023 r. poz. 2111))."
+        attorney_power_payment_stamp_duty_confirm: "Jeśli załączasz pełnomocnictwo – załącz potwierdzenie uiszczenia opłaty skarbowej od pełnomocnictwa (jeżeli obowiązek uiszczenia takiej opłaty wynika z ustawy z dnia 16 listopada 2006 r. o opłacie skarbowej)."
         parcel_site_boundary: Określenie granic terenu w formie graficznej w przypadku wskazania terenu objętego pismem jako części działki ewidencyjnej lub działek ewidencyjnych.
         files: Inne załączniki
         files_filename_one: Nazwa załącznika
         files_filename_two: Nazwa załącznika
-        optional_confirmation_request: Czy chcesz otrzymać potwierdzenie złożenia wniosku na adres e-mail?
+        optional_confirmation_request: Czy chcesz otrzymać potwierdzenie złożenia uwagi na adres e-mail?
         email_confirmation_request: Adres e-mail
         confirm_process_personal_data: |-
-          Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia wniosku oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
+          Wyrażam zgodę na przetwarzanie przez Prezydenta m.st. Warszawy moich danych osobowych w zakresie adresu e-mail. Udzielam zgody w celu przesłania na mój adres e-mail potwierdzenia złożenia uwagi oraz w celu ułatwienia kontaktu ze mną w przypadku konieczności uzyskania dodatkowych wyjaśnień. Zgody udzielam na podstawie art. 6 ust. 1 lit a RODO, który dotyczy przetwarzania danych osobowych na podstawie dobrowolnej zgody.
         confirm_read_process_description: |-
-          Zapoznałam/em się z zamieszczonym na górze strony opisem składania wniosku przez formularz.*
+          Zapoznałam/em się z zamieszczonym na górze strony opisem składania uwagi przez formularz.*
         full_name: Imię i nazwisko
+        functional_profile_areas:
+          SW: strefa wielofunkcyjna z zabudową mieszkaniową wielorodzinną
+          SJ: strefa wielofunkcyjna z zabudową mieszkaniową jednorodzinną
+          SZ: strefa wielofunkcyjna z zabudową zagrodową
+          SU: strefa usługowa
+          SH: strefa handlu wielkopowierzchniowego
+          SP: strefa gospodarcza
+          SR: strefa produkcji rolniczej
+          SI: strefa infrastrukturalna
+          SN: strefa zieleni
+          SC: strefa cmentarzy
+          SG: strefa górnictwa
+          SO: strefa otwarta
+          SK: strefa komunikacyjna
+        functional_profile_areas_main_profile:
+          SW: teren zabudowy mieszkaniowej wielorodzinnej, teren usług, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SJ: teren zabudowy mieszkaniowej jednorodzinnej, teren usług, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SZ: teren zabudowy zagrodowej, teren produkcji w gospodarstwach rolnych, teren akwakultury i obsługi rybactwa, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SU: teren usług, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SH: teren handlu wielkopowierzchniowego, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SP: teren produkcji, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SR: teren produkcji w gospodarstwach rolnych, teren wielkotowarowej produkcji rolnej, teren akwakultury i obsługi rybactwa, teren komunikacji, teren ogrodów działkowych, teren infrastruktury technicznej
+          SI: teren infrastruktury technicznej, teren komunikacji, teren ogrodów działkowych
+          SN: teren zieleni urządzonej, teren plaży, teren wód, teren komunikacji, teren ogrodów działkowych, teren infrastruktury technicznej
+          SC: teren cmentarza, teren komunikacji, teren zieleni urządzonej, teren ogrodów działkowych, teren infrastruktury technicznej
+          SG: teren górnictwa i wydobycia, teren komunikacji, teren ogrodów działkowych, teren infrastruktury technicznej
+          SO: teren rolnictwa z zakazem zabudowy, teren lasu, teren zieleni naturalnej, teren wód, teren komunikacji, teren ogrodów działkowych, teren infrastruktury technicznej
+          SK: teren autostrady, teren drogi ekspresowej, teren drogi głównej ruchu przyspieszonego, teren drogi głównej, teren komunikacji kolejowej i szynowej, teren komunikacji kolei linowej, teren komunikacji wodnej, teren komunikacji lotniczej, teren obsługi komunikacji, teren ogrodów działkowych, teren infrastruktury technicznej
+        functional_profile_area_classes:
+          SW: teren zabudowy mieszkaniowej jednorodzinnej,teren handlu wielkopowierzchniowego,teren zieleni naturalnej,teren lasu,teren wód
+          SJ: teren zabudowy letniskowej lub rekreacji indywidualnej,teren zieleni naturalnej,teren lasu,teren wód
+          SZ: teren wielkotowarowej produkcji rolnej,teren rolnictwa z zakazem zabudowy,teren biogazowni,teren usług,teren zieleni naturalnej,teren lasu,teren wód
+          SU: teren składów i magazynów,teren elektrowni słonecznej,teren zieleni naturalnej,teren lasu,teren wód
+          SH: teren usług,teren składów i magazynów,teren elektrowni słonecznej,teren zieleni naturalnej,teren lasu,teren wód
+          SP: teren usług,teren zieleni naturalnej,teren lasu,teren wód
+          SR: teren rolnictwa z zakazem zabudowy,teren biogazowni,teren elektrowni słonecznej,teren elektrowni wiatrowej,teren elektrowni wodnej,teren zieleni urządzonej,teren zieleni naturalnej,teren lasu,teren wód
+          SI: teren usług,teren produkcji,teren zieleni urządzonej,teren zieleni naturalnej,teren lasu,teren wód
+          SN: teren usług sportu i rekreacji,teren usług kultury i rozrywki,teren usług handlu detalicznego,teren usług gastronomii i rekreacji,teren usług turystyki,teren usług nauki,teren usług edukacji,teren usług zdrowia i pomocy społecznej,teren zieleni naturalnej,teren lasu,teren wód
+          SC: teren usług kultu religijnego,teren usług handlu detalicznego,teren zieleni naturalnej,teren lasu,teren wód
+          SG: teren produkcji,teren usług handlu,teren usług rzemieślniczych,teren usług gastronomii,teren usług biurowych i administracji,teren usług nauki,teren zieleni urządzonej,teren zieleni naturalnej,teren lasu,teren wód
+          SO: teren elektrowni wiatrowej,teren elektrowni słonecznej,teren elektrowni geotermalnej,teren elektrowni wodnej,teren biogazowni,teren zieleni urządzonej
+          SK: teren drogi zbiorczej,teren usług handlu detalicznego,teren usług gastronomii,teren usług turystyki,teren zieleni urządzonej,teren lasu,teren zieleni naturalna,teren wód
+        id_from: od
+        id_to: do
+        sequential_number: Podaj liczbę, od której ma zacząć się nadawanie numeracji
+        force_override: Ignoruj błędy i wymuś nadanie numerów wewnętrznych
       legend_item:
         name: Nazwa
         weight: Kolejność na stronie
         file: Plik
         legend_item_img_alt: Opis alternatywny (ALT) dla pliku
         map_background_id: Podkład mapowy
-      sequential_number:
-        sequential_number: Podaj liczbę, od której ma zacząć się nadawanie numeracji
   activerecord:
     attributes:
       decidim/study_notes/study_note:
@@ -114,14 +160,14 @@ pl:
     admin:
       filters:
         search_placeholder:
-           id_string_or_sequential_number_string_or_submitter_data_first_name_or_submitter_data_last_name_or_submitter_data_org_name_or_signum_nr_kancelaryjny_cont: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
-           text: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
+          id_string_or_sequential_number_string_or_submitter_data_first_name_or_submitter_data_last_name_or_submitter_data_org_name_or_signum_nr_kancelaryjny_cont: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
+          text: ID Decidim, Nr wewn. imię, nazwisko, nazwa jednostki organizacyjnej, nr kancelaryjny
         notes:
           submitter_data_role_eq:
             label: "Typ zgłaszającego"
             values:
               0: "Osoba fizyczna"
-              1: "Jednostka organizacyjna"      
+              1: "Jednostka organizacyjna"
     consultation_map:
       admin:
         categories:
@@ -196,19 +242,19 @@ pl:
           section_4: 4. Dane składającego pismo
           section_4_description: |
             <ul>
-              <li>Jeśli składasz wniosek we własnym imieniu – wypełnij tę część własnymi danymi.</li>
-              <li>Jeśli składasz wniosek w imieniu innej osoby lub w imieniu instytucji – wypełnij tę część danymi tej osoby lub instytucji. </li>
-              <li>Jeśli składasz wniosek w imieniu swoim i innych osób – wypełnij tę część swoimi danymi, a dane pozostałych osób załącz w osobnym pliku (załącznik dodasz w ostatniej części formularza).</li>
+              <li>Jeśli składasz uwagę we własnym imieniu – wypełnij tę część własnymi danymi.</li>
+              <li>Jeśli składasz uwagę w imieniu innej osoby lub w imieniu instytucji – wypełnij tę część danymi tej osoby lub instytucji. </li>
+              <li>Jeśli składasz uwagę w imieniu swoim i innych osób – wypełnij tę część swoimi danymi, a dane pozostałych osób załącz w osobnym pliku (załącznik dodasz w ostatniej części formularza).</li>
             </ul>
           submitter_role_person: Osoba fizyczna
           submitter_role_organization: Jednostka organizacyjna
-          epuap_delivery_address_description: Wpisz taki adres, jeśli go posiadasz i chcesz, żeby korespondencję w sprawie wniosku doręczać Ci za pomocą środków komunikacji elektronicznej.
+          epuap_delivery_address_description: Wpisz taki adres, jeśli go posiadasz i chcesz, żeby korespondencję w sprawie uwagi doręczać Ci za pomocą środków komunikacji elektronicznej.
           option_yes: Tak
           option_no: Nie
           section_5: 5. Adres do korespondencji składającego pismo
-          section_5_description: Wypełnij tę część, jeśli Twój adres do korespondencji (lub adres do korespondencji osoby, w imieniu której składasz wniosek) jest inny, niż adres zamieszkania lub siedziby.
+          section_5_description: Wypełnij tę część, jeśli Twój adres do korespondencji (lub adres do korespondencji osoby, w imieniu której składasz uwagę) jest inny, niż adres zamieszkania lub siedziby.
           section_6: 6. Dane pełnomocnika
-          section_6_description: Wypełnij tę część, jeśli chcesz ustanowić pełnomocnika lub jeśli jesteś pełnomocnikiem i składasz wniosek w imieniu innej osoby.
+          section_6_description: Wypełnij tę część, jeśli chcesz ustanowić pełnomocnika lub jeśli jesteś pełnomocnikiem i składasz uwagę w imieniu innej osoby.
           attorney_role_all: Pełnomocnik
           attorney_role_delivery: Pełnomocnik do doręczeń
           section_7: 7. Treść pisma
@@ -245,6 +291,7 @@ pl:
           terms: Klauzulą o przetwarzaniu danych osobowych
           clear: Wyczyść
           preview: Podgląd
+          continue: Dalej
           create: Wyślij
           prefilled: (uzupełnione)
           expand: (rozwiń)
@@ -259,7 +306,14 @@ pl:
           category: Kategoria
           select_category: Wybierz kategorię
         create:
-          invalid: "Nie udało się dodać uwagi do planu ogólnego"
+          invalid: |-
+            <p>
+            Nieoczekiwany błąd! Uwaga nie została przesłana. Spróbuj ponownie. <br>
+            Jeżeli błąd będzie się powtarzał, skorzystaj z innych form przesłania uwagi. Przeczytasz o nich na portalu informacyjnym <a class="display: inline-flex;" href="https://warszawa19115.pl/-/skladanie-uwag-do-sporzadzanego-planu-ogolnego-m-st-warszawy">Warszawa 19115</a>
+            </p>
+        map_guide_modal:
+          title: Instrukcja mapy
+          ok: OK
         parcel_deletion_modal:
           title: Usuń działkę z terenu
           cancel: Anuluj
@@ -269,9 +323,13 @@ pl:
           label: Wybierz teren
           cancel: Anuluj
           add: Dodaj
+        preview_before_submit_modal:
+          title: Podgląd formularza
+          back: Wróć do edycji
+          submit: Wyślij
         show:
           heading: Uwaga do planu ogólnego została wysłana
-          thank_you: Dziękujemy za zgłoszenie.
+          thank_you_html: <strong>Dziękujemy za przesłanie uwagi!</strong> <br/> Zarejestrujemy ją w systemie kancelaryjnym.
           back: Powrót
           email_sent: System automatycznie wysłał potwierdzenie na podany adres e-mail.
           download_pdf: Pobierz potwierdzenie PDF
@@ -322,6 +380,8 @@ pl:
             </ul>
             <strong>UWAGA! Dodanie poligonu jest wymagane</strong>
         study_notes:
+          export:
+            success: Przygotowanie eksportu zostało rozpoczęte. Powiadomimy Cię e-mailem, gdy proces się zakończy.
           sequential_numbers:
             save: Nadaj numery wewnętrzne
             title: Nadawanie numerów wewnętrznych
@@ -338,6 +398,7 @@ pl:
             zip_normalized: Znormalizowane uwagi (ZIP)
             zip_normalized_anonymized: Znormalizowane zanonimizowane uwagi (ZIP)
             zip_normalized_anonymized_with_attachments: Znormalizowane zanonimizowane uwagi z załącznikami (ZIP)
+            zip_normalized_with_attachments: Znormalizowane uwagi  z załącznikami (ZIP)
           map:
             title: Uwagi do planu ogólnego
           show:
@@ -406,19 +467,19 @@ pl:
             section_7: 7. Treść pisma
             section_7b: 7b. Uwagi ogólne/inne
             section_7a: 7a. Szczegółowe uwagi
-            request_body_content_details: 7.2. Szczegółowe informacje dotyczące treści wniosku w odniesieniu do działek ewidencyjnych
+            request_body_content_details: 7.2. Szczegółowe informacje dotyczące treści uwagi w odniesieniu do działek ewidencyjnych
             request_body_content_details_name: Nazwa aktu planowania przestrzennego
             request_body_content_details_name_value: Plan ogólny gminy
             request_body_content_details_parcel_id: Identyfikator działki lub działek ewidencyjnych
-            request_body_content_details_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            request_body_content_details_is_record_area_included: Czy teren objęty uwagą obejmuje całość działki lub działek ewidencyjnych?
             request_body_content_details_body: Treść
-            no_request_body_content_details: Brak informacji dot. treści wniosku w odniesieniu do działek ewidencyjnych
+            no_request_body_content_details: Brak informacji dot. treści uwagi w odniesieniu do działek ewidencyjnych
             details_land_parcels_with_parameters: 7.3. Szczegółowe informacje dotyczące działek ewidencyjnych oraz niektórych parametrów
             no_details_land_parcels_with_parameters: Brak informacji dot. działek ewidencyjnych oraz niektórych parametrów
             details_land_parcels_with_parameters_name: Nazwa planu ogólnego gminy lub miejscowego planu zagospodarowania przestrzennego
             details_land_parcels_with_parameters_name_value: Plan ogólny m.st. Warszawy
             details_land_parcels_with_parameters_parcel_id: Identyfikator działki lub działek ewidencyjnych
-            details_land_parcels_with_parameters_is_record_area_included: Czy teren objęty wnioskiem obejmuje całość działki lub działek ewidencyjnych?
+            details_land_parcels_with_parameters_is_record_area_included: Czy teren objęty uwagą obejmuje całość działki lub działek ewidencyjnych?
             details_land_parcels_with_parameters_area_class_name: Nazwa lub nazwy klasy przeznaczenia terenu (albo symbol lub symbole klasy przeznaczenia terenu)
             details_land_parcels_with_parameters_max_percent_area: Maksymalny udział powierzchni zabudowy (%)
             details_land_parcels_with_parameters_max_height_building: Maksymalna wysokość zabudowy (w metrach)
@@ -427,13 +488,17 @@ pl:
             declaration_remote_correspondence: Zgoda na doręczanie korespondencji za pomocą środków komunikacji elektronicznej
             section_9: 9. Inne załączniki
             download_file: Pobierz plik
-            attorney_power_represent_applicant_or_for_service: Pełnomocnictwo
-            attorney_power_payment_stamp_duty_confirm: Potwierdzenie
+            attorney_power_represent_applicant_or_for_service:
+              name: Pełnomocnictwo
+              download_file: Pobierz pełnomocnictwo
+            attorney_power_payment_stamp_duty_confirm:
+              name: Potwierdzenie uiszczenia opłaty skarbowej
+              download_file: Pobierz potwierdzenie
             parcel_site_boundary: Granice terenu w formie graficznej
             file: Inny plik
             file_filename: Nazwa pliku
             additional_section: Sekcja dodatkowa
-            optional_confirmation_request: Potwierdzenie złożenia wniosku na adres e-mail
+            optional_confirmation_request: Potwierdzenie złożenia uwagi na adres e-mail
             email_confirmation_request: Potwierdzenie na e-mail
             last_confirmations: Ostatnie potwierdzenia
             confirm_read_process_description: Zapoznanie z opisem konsultacji
@@ -454,3 +519,29 @@ pl:
             help_section_subtitle: Podtytuł
             help_section_description: Opis
             block_comments: Aktywność (testowe)
+            map_guide: Instrukcje do mapy
+    forms:
+      errors:
+        study_note:
+          mailing_address_data_city: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_zip_code: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_street: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_street_number: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_flat_number: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_country: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_voivodeship: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_county: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          mailing_address_data_community: To pole jest wymagane, jeśli choć jedno z pól w sekcji 5. jest uzupełnione.
+          attorney_data_city: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_zip_code: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_street: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_street_number: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_flat_number: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_country: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_voivodeship: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_county: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+          attorney_data_community: To pole jest wymagane, jeśli choć jedno z pól w sekcji 6. jest uzupełnione.
+        messages:
+          required_if_no_detailed_notes: To pole jest wymagane, jeśli nie uzupełniono żadnych szczegółowych uwag do działek ewidencyjnych w sekcji 7a.
+          required_if_no_detailed_notes_and_request_body: To pole jest wymagane, jeśli nie uzupełniono żadnych uwag ogólnych/innych w sekcji 7b.
+          value_below_limit: Tekst jest zbyt długi. Maksymalna liczba znaków to %{count}.

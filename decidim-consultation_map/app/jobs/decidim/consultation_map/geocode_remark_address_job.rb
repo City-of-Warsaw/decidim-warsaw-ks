@@ -24,7 +24,7 @@ module Decidim
 
         remark.update(address:)
       rescue StandardError => e
-        Rails.logger.error("[GeocodeRemarkAddressJob] Failed for remark #{remark_id}: #{e.message}")
+        Rails.logger.error("[GeocodeRemarkAddressJob] Failed for remark #{remark.id}: #{e.message}")
       end
 
       private

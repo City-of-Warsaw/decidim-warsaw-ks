@@ -71,18 +71,15 @@
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_2") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".letter_type_2") %></label>
               </div> 
               
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_3") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".letter_type_3") %></label>
               </div> 
               
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".letter_type_4") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".letter_type_4") %></label>
               </div>
             </div>
           </div>
@@ -113,23 +110,19 @@
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled /> 
-                <label class="styled-label"><%= t(".urban_planning_act_type_2") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".urban_planning_act_type_2") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />               
-                <label class="styled-label"><%= t(".urban_planning_act_type_3") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".urban_planning_act_type_3") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />
-                <label class="styled-label"><%= t(".urban_planning_act_type_4") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".urban_planning_act_type_4") %></label>
               </div>
 
               <div class="checkboxed">
-                <input type="checkbox" disabled />
-                <label class="styled-label"><%= t(".urban_planning_act_type_5") %></label>
+                <label class="styled-label"><input type="checkbox" disabled /> <%= t(".urban_planning_act_type_5") %></label>
               </div>
             </div>
 
@@ -557,8 +550,8 @@
                     rows: 8,
                     maxlength: 1000,
                     required: true, 
-                    data: { remaining_characters: "#request_body-remaining-characters" },
-                    aria: { describedby: "request_body-remaining-characters" }
+                    data: { remaining_characters: "#general_plan_request_request_body_characters" },
+                    aria: { describedby: "general_plan_request_request_body_characters_sr" }
                   ) %>
               <span class="form-error"><%= t("errors.messages.required") %></span>
             </div>
@@ -729,7 +722,8 @@
                                   label: false,
                                   class: 'multifile hidden multifile--general-plan-request-form',
                                   accept: ".jpg,.jpeg,.pdf,.doc,.docx,.odt,.rtf",
-                                  multiple: true
+                                  multiple: true,
+                                  include_hidden: false
               %>
 
               <button type="button" class="general-plan-request-file-button attachment-button-js" data-target="#general_plan_request_files"><%= t(".add_attachment") %></button>
@@ -884,9 +878,9 @@
                     item.index
                   }" rows="8" data-remaining-characters="#request_body_content_details_body_item_${
             item.index
-          }-characters" aria-describedby="request_body_content_details_body_item_${
+          }_characters" aria-describedby="request_body_content_details_body_item_${
             item.index
-          }-characters" data-index="${item.index}" data-key="body">${
+          }_characters_sr" data-index="${item.index}" data-key="body">${
             item.body || ""
           }</textarea>
                   <span class="form-error"><%= t("errors.messages.required") %></span>

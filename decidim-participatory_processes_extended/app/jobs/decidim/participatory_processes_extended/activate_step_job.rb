@@ -31,7 +31,7 @@ module Decidim
           next_step.update(active: true)
           Rails.logger.debug { "Nastepny aktywowany, wysyłam maile #{process.title}" }
 
-          Decidim::CoreExtended::TemplatedMailerJob.perform_later("process_step_changed", { resource: next_step })
+          Decidim::CoreExtended::TemplatedMailerJob.perform_later("process_step_activation", { resource: next_step })
         end
       end
     end
